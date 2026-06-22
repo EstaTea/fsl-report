@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>项目章程 | 佛山照明 SAP S/4HANA 升级项目</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Microsoft YaHei",Arial,sans-serif;background:#EBF4FF;display:flex;flex-direction:column;height:100vh}
+.topbar{background:linear-gradient(90deg,#1B3A6B,#005EB8);color:#fff;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;flex-shrink:0}
+.topbar .left{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.topbar .title{font-size:14px;font-weight:700}
+.topbar .badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);padding:3px 10px;border-radius:12px;font-size:11px}
+.topbar a.back{color:rgba(255,255,255,.85);text-decoration:none;font-size:12px;padding:4px 10px;border:1px solid rgba(255,255,255,.3);border-radius:6px}
+.topbar a.back:hover{background:rgba(255,255,255,.15)}
+.toolbar{background:#fff;border-bottom:1px solid #D0E4F7;padding:8px 20px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex-shrink:0}
+.toolbar a.dl{background:#005EB8;color:#fff;text-decoration:none;padding:6px 16px;border-radius:6px;font-size:12px}
+.toolbar a.dl:hover{background:#003087}
+.toolbar .meta{font-size:12px;color:#6B8CB8;margin-left:6px}
+.pdf-wrap{flex:1;min-height:0;background:#525659}
+.pdf-wrap embed{width:100%;height:100%;border:none;display:block}
+.fallback{display:none;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:20px;text-align:center;padding:40px}
+.fallback h3{color:#1B3A6B;font-size:18px}
+.fallback p{color:#6B8CB8;font-size:14px;max-width:400px}
+.fallback a{background:#005EB8;color:#fff;padding:12px 28px;border-radius:8px;text-decoration:none;font-size:14px}
+@media(max-width:600px){.topbar{padding:10px 14px}.toolbar{padding:6px 14px}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="left">
+    <span class="title">📄 项目章程</span>
+    <span class="badge">SAP 准备阶段</span>
+    <span class="badge">2026-06-22</span>
+    <span class="badge">14 页</span>
+    <span class="badge">v1.0</span>
+  </div>
+  <a class="back" href="../">← 返回准备阶段</a>
+</div>
+<div class="toolbar">
+  <a class="dl" href="charter.pdf" download="佛照_项目章程_v1_20260622.pdf">⬇ 下载 PDF</a>
+  <span class="meta">佛山照明 SAP S/4HANA 升级项目章程 · 艾维登（Eviden）· 2026年6月22日 · 14页</span>
+</div>
+<div class="pdf-wrap">
+  <embed id="pdfEmbed" src="charter.pdf#toolbar=1&navpanes=1&scrollbar=1&view=Fit" type="application/pdf" width="100%" height="100%">
+  <div class="fallback" id="fallback">
+    <h3>PDF 无法直接预览</h3>
+    <p>请点击下方按钮下载后查看。</p>
+    <a href="charter.pdf" download="佛照_项目章程_v1_20260622.pdf">⬇ 下载 PDF 文件</a>
+  </div>
+</div>
+<script>
+if (/Android|iPhone|iPad/i.test(navigator.userAgent)) {
+  document.getElementById('pdfEmbed').style.display = 'none';
+  document.getElementById('fallback').style.display = 'flex';
+}
+</script>
+</body>
+</html>
