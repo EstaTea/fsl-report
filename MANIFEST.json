@@ -212,19 +212,19 @@
       "id": "sap",
       "icon": "⚙️",
       "title": "SAP 实施交付物",
-      "desc": "SAP S/4HANA PCE Greenfield · 8个月（240天）· SAP Activate方法论",
+      "desc": "SAP S/4HANA PCE Greenfield · 8个月（240天）· SAP Activate方法论 · 19个交付物",
       "url": "sap/",
       "subsections": [
         {
           "id": "prepare",
-          "title": "项目准备阶段",
+          "title": "系统实施准备阶段",
           "icon": "🚀",
-          "desc": "建立项目组织、制定计划、环境搭建 — D1-D30",
+          "desc": "建立项目组织、制定计划、环境搭建 — 交付物1-6",
           "url": "sap/prepare/",
           "docs": [
             {
               "id": "sap-p1",
-              "title": "启动会PPT",
+              "title": "项目启动会",
               "status": "done",
               "tags": [
                 "准备阶段"
@@ -254,23 +254,33 @@
             },
             {
               "id": "sap-p4",
-              "title": "调研计划与问卷",
-              "status": "done",
-              "tags": [
-                "调研"
-              ],
-              "url": "sap/prepare/survey.html",
-              "desc": "两周调研执行计划"
-            },
-            {
-              "id": "sap-p5",
-              "title": "组织架构与通讯录",
+              "title": "组织架构",
               "status": "done",
               "tags": [
                 "项目管理"
               ],
               "url": "sap/prepare/org.html",
               "desc": "项目组团队、人员分工"
+            },
+            {
+              "id": "sap-p5",
+              "title": "项目组通讯录",
+              "status": "done",
+              "tags": [
+                "项目管理"
+              ],
+              "url": "sap/prepare/org.html",
+              "desc": "项目成员联系方式"
+            },
+            {
+              "id": "sap-p6",
+              "title": "调研计划",
+              "status": "done",
+              "tags": [
+                "调研"
+              ],
+              "url": "sap/prepare/survey.html",
+              "desc": "调研计划、调研问卷、会议纪要"
             }
           ]
         },
@@ -278,7 +288,7 @@
           "id": "blueprint",
           "title": "蓝图方案设计阶段",
           "icon": "📐",
-          "desc": "业务调研、差距分析、系统蓝图设计 — D30-D90",
+          "desc": "业务调研、差距分析、系统蓝图设计 — 交付物7-8",
           "url": "sap/blueprint/",
           "docs": [
             {
@@ -293,55 +303,13 @@
             },
             {
               "id": "sap-b2",
-              "title": "解决方案文档",
+              "title": "解决方案",
               "status": "todo",
               "tags": [
                 "蓝图"
               ],
               "url": "sap/blueprint/solution.html",
-              "desc": "核心流程与信息化方案"
-            },
-            {
-              "id": "sap-b3",
-              "title": "业务蓝图确认",
-              "status": "todo",
-              "tags": [
-                "蓝图",
-                "里程碑"
-              ],
-              "url": "sap/blueprint/bbp.html",
-              "desc": "蓝图评审签字确认文件"
-            },
-            {
-              "id": "sap-b4",
-              "title": "系统开发清单",
-              "status": "todo",
-              "tags": [
-                "开发"
-              ],
-              "url": "sap/blueprint/dev-list.html",
-              "desc": "二次开发需求清单"
-            },
-            {
-              "id": "sap-b5",
-              "title": "数据迁移方案",
-              "status": "todo",
-              "tags": [
-                "数据迁移"
-              ],
-              "url": "sap/blueprint/data-migration.html",
-              "desc": "主数据清洗、迁移策略"
-            },
-            {
-              "id": "sap-b6",
-              "title": "集成方案",
-              "status": "todo",
-              "tags": [
-                "CPI",
-                "集成"
-              ],
-              "url": "sap/blueprint/integration.html",
-              "desc": "12个外围系统CPI集成架构"
+              "desc": "实施业务范围内的业务信息化方案，描述核心流程和信息化手段"
             }
           ]
         },
@@ -349,132 +317,149 @@
           "id": "realize",
           "title": "系统实现阶段",
           "icon": "🔧",
-          "desc": "系统配置、开发、SIT/UAT测试 — D90-D180",
+          "desc": "系统配置、开发、用户测试 — 交付物9-11",
           "url": "sap/realize/",
           "docs": [
             {
               "id": "sap-r1",
-              "title": "系统配置文档",
+              "title": "配置文档",
               "status": "todo",
               "tags": [
                 "配置"
               ],
               "url": "sap/realize/config.html",
-              "desc": "含配置截图的模块配置手册"
+              "desc": "实施模块范围内的模块配置步骤和内容（含配置截图）"
             },
             {
               "id": "sap-r2",
-              "title": "二次开发说明书",
+              "title": "开发文档",
               "status": "todo",
               "tags": [
                 "开发"
               ],
               "url": "sap/realize/dev-spec.html",
-              "desc": "需求设计方案、代码、测试用例"
+              "desc": "二开需求调研及设计方案、代码、测试用例"
             },
             {
               "id": "sap-r3",
-              "title": "SIT集成测试报告",
-              "status": "todo",
-              "tags": [
-                "测试",
-                "里程碑"
-              ],
-              "url": "sap/realize/sit.html",
-              "desc": "蓝图场景100%覆盖验证"
-            },
-            {
-              "id": "sap-r4",
-              "title": "UAT用户验收测试报告",
+              "title": "用户测试完成报告",
               "status": "todo",
               "tags": [
                 "测试",
                 "里程碑"
               ],
               "url": "sap/realize/uat.html",
-              "desc": "用户验收测试结果"
-            },
-            {
-              "id": "sap-r5",
-              "title": "权限角色矩阵",
-              "status": "todo",
-              "tags": [
-                "权限"
-              ],
-              "url": "sap/realize/auth.html",
-              "desc": "岗位权限设计与分配方案"
+              "desc": "用户对系统进行测试的结果，说明方案约定内功能的合用情况"
             }
           ]
         },
         {
           "id": "deploy",
-          "title": "上线切换阶段",
+          "title": "上线准备&切换阶段",
           "icon": "🚢",
-          "desc": "数据准备、用户培训、系统切换、上线支持 — D180-D240",
+          "desc": "数据准备、用户培训、系统切换 — 交付物12-16",
           "url": "sap/deploy/",
           "docs": [
             {
               "id": "sap-d1",
-              "title": "上线策略文档",
+              "title": "上线策略",
               "status": "todo",
               "tags": [
                 "切换",
                 "里程碑"
               ],
               "url": "sap/deploy/cutover.html",
-              "desc": "切换时点、回滚策略"
+              "desc": "上线的具体时点、要求和计划，业务数据切换方法和策略、回滚策略"
             },
             {
               "id": "sap-d2",
-              "title": "最终数据迁移报告",
+              "title": "正式系统安装设置完成报告",
               "status": "todo",
               "tags": [
-                "数据迁移",
-                "里程碑"
+                "环境"
               ],
-              "url": "sap/deploy/data-migration-final.html",
-              "desc": "静态数据迁移准确率100%验证"
+              "url": "sap/deploy/setup-report.html",
+              "desc": "交付佛山照明正式环境安装手册及完成报告"
             },
             {
               "id": "sap-d3",
+              "title": "培训文档",
+              "status": "todo",
+              "tags": [
+                "培训"
+              ],
+              "url": "sap/deploy/training.html",
+              "desc": "培训计划、培训签到表、培训考核试卷"
+            },
+            {
+              "id": "sap-d4",
               "title": "系统操作手册",
               "status": "todo",
               "tags": [
                 "培训"
               ],
               "url": "sap/deploy/manual.html",
-              "desc": "按岗位的系统操作说明"
-            },
-            {
-              "id": "sap-d4",
-              "title": "培训计划与签到表",
-              "status": "todo",
-              "tags": [
-                "培训"
-              ],
-              "url": "sap/deploy/training.html",
-              "desc": "最终用户培训记录"
+              "desc": "按佛山照明业务描述SAP系统中的操作使用说明及截图"
             },
             {
               "id": "sap-d5",
-              "title": "上线问题及解决清单",
+              "title": "上线支持安排计划",
               "status": "todo",
               "tags": [
                 "上线支持"
               ],
-              "url": "sap/deploy/issues.html",
-              "desc": "上线后问题追踪与解决方案"
+              "url": "sap/deploy/support-plan.html",
+              "desc": "上线以后应对上线问题的支持计划，确保系统能够顺利使用"
+            }
+          ]
+        },
+        {
+          "id": "runsupport",
+          "title": "上线运行支持阶段",
+          "icon": "🛟",
+          "desc": "解决上线问题、完成首月月结 — 交付物17-18",
+          "url": "sap/runsupport/",
+          "docs": [
+            {
+              "id": "sap-rs1",
+              "title": "上线后问题及解决清单",
+              "status": "todo",
+              "tags": [
+                "上线支持"
+              ],
+              "url": "sap/runsupport/issues.html",
+              "desc": "上线过程中所产生的问题，以及解决状态和方案"
             },
             {
-              "id": "sap-d6",
+              "id": "sap-rs2",
+              "title": "上线首月月结完成报告",
+              "status": "todo",
+              "tags": [
+                "上线支持",
+                "里程碑"
+              ],
+              "url": "sap/runsupport/monthend.html",
+              "desc": "上线首月的月结情况、问题和解决方案"
+            }
+          ]
+        },
+        {
+          "id": "acceptance",
+          "title": "系统总体验收阶段",
+          "icon": "✅",
+          "desc": "项目成果验收 — 交付物19",
+          "url": "sap/acceptance/",
+          "docs": [
+            {
+              "id": "sap-a1",
               "title": "项目验收报告",
               "status": "todo",
               "tags": [
                 "验收",
                 "里程碑"
               ],
-              "url": "sap/deploy/acceptance.html",
-              "desc": "SAP ERP项目成果与交付物验收"
+              "url": "sap/acceptance/acceptance.html",
+              "desc": "SAP ERP项目成果、交付物的验收报告"
             }
           ]
         }
