@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>佛山照明（000541.SZ）深度分析报告 · 交互版</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --primary:#1a5276; --secondary:#2980b9; --accent:#e74c3c;
+  --success:#27ae60; --warning:#f39c12; --light:#85c1e9;
+  --bg:#f4f6f8; --card:#fff; --text:#2c3e50; --muted:#7f8c8d;
+  --border:#e3e8ed; --fsl:#2980b9; --opp:#e74c3c; --yg:#27ae60;
+  --sidebar-w:240px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:80px}
+body{
+  font-family:"Noto Sans CJK SC","PingFang SC","Microsoft YaHei",sans-serif;
+  background:var(--bg); color:var(--text); font-size:14px; line-height:1.75;
+}
+/* 顶部栏 */
+.topbar{
+  position:fixed; top:0; left:0; right:0; height:56px; z-index:100;
+  background:linear-gradient(90deg,var(--primary),var(--secondary));
+  display:flex; align-items:center; padding:0 24px; color:#fff;
+  box-shadow:0 2px 10px rgba(0,0,0,.15);
+}
+.topbar .logo{font-size:17px; font-weight:bold; letter-spacing:1px}
+.topbar .badge{margin-left:12px; background:rgba(255,255,255,.2); padding:2px 10px; border-radius:12px; font-size:11px}
+.topbar .right{margin-left:auto; font-size:12px; opacity:.85}
+.topbar .menu-btn{display:none; background:none; border:none; color:#fff; font-size:22px; cursor:pointer; margin-right:10px}
+/* 侧边导航 */
+.sidebar{
+  position:fixed; top:56px; left:0; bottom:0; width:var(--sidebar-w);
+  background:#fff; border-right:1px solid var(--border);
+  overflow-y:auto; padding:18px 0; z-index:50; transition:transform .3s;
+}
+.sidebar .nav-section{font-size:11px; color:var(--muted); padding:14px 22px 6px; font-weight:bold; letter-spacing:1px; text-transform:uppercase}
+.sidebar a{
+  display:block; padding:9px 22px; color:var(--text); text-decoration:none;
+  font-size:13px; border-left:3px solid transparent; transition:all .2s;
+}
+.sidebar a:hover{background:#f8f9fa; color:var(--secondary); border-left-color:var(--light)}
+.sidebar a.active{background:#ebf5fb; color:var(--secondary); border-left-color:var(--secondary); font-weight:600}
+.sidebar a.sub{padding-left:38px; font-size:12px; color:var(--muted)}
+.sidebar a.sub.active{color:var(--secondary)}
+/* 主内容 */
+.main{margin-left:var(--sidebar-w); margin-top:56px; padding:30px 40px 60px; max-width:1100px}
+.section{margin-bottom:42px; scroll-margin-top:70px}
+.section h2{
+  font-size:22px; color:var(--primary); margin-bottom:16px; padding-bottom:10px;
+  border-bottom:2px solid var(--secondary); display:flex; align-items:center; gap:10px;
+}
+.section h2 .num{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:32px; height:32px; background:var(--secondary); color:#fff;
+  border-radius:50%; font-size:15px;
+}
+.section h3{font-size:17px; color:#2471a3; margin:22px 0 10px; border-left:4px solid var(--light); padding-left:10px}
+.section h4{font-size:15px; color:var(--secondary); margin:16px 0 8px}
+.section p{margin:8px 0; text-align:justify}
+/* 封面 */
+.cover{
+  background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);
+  color:#fff; border-radius:14px; padding:50px 40px; text-align:center; margin-bottom:30px;
+  position:relative; overflow:hidden;
+}
+.cover::after{content:""; position:absolute; right:-40px; bottom:-40px; width:220px; height:220px; border:30px solid rgba(255,255,255,.07); border-radius:50%}
+.cover h1{font-size:34px; margin-bottom:10px; position:relative; z-index:1}
+.cover .desc{font-size:15px; opacity:.92; margin-top:8px; position:relative; z-index:1}
+.cover .meta{display:flex; justify-content:center; gap:30px; margin-top:25px; flex-wrap:wrap; position:relative; z-index:1}
+.cover .meta-item{background:rgba(255,255,255,.13); padding:8px 18px; border-radius:20px; font-size:12px; backdrop-filter:blur(4px)}
+.cover .meta-item b{font-size:13px}
+/* 摘要卡 */
+.summary-hero{
+  background:linear-gradient(135deg,#1a5276,#2980b9); color:#fff;
+  border-radius:12px; padding:24px 28px; margin-bottom:20px; position:relative;
+}
+.summary-hero h3{color:#fff; border:none; padding:0; margin:0 0 8px}
+.summary-hero p{color:#ebf5fb; font-size:14px}
+.summary-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin:18px 0}
+.summary-card{
+  background:#fff; border-radius:10px; padding:16px; text-align:center;
+  border-top:3px solid var(--secondary); box-shadow:0 2px 8px rgba(0,0,0,.05);
+  transition:transform .2s, box-shadow .2s;
+}
+.summary-card:hover{transform:translateY(-3px); box-shadow:0 6px 18px rgba(0,0,0,.1)}
+.summary-card .label{font-size:12px; color:var(--muted); margin-bottom:6px}
+.summary-card .value{font-size:22px; font-weight:bold; color:var(--primary)}
+.summary-card .tag{display:inline-block; margin-top:6px; padding:1px 10px; border-radius:10px; font-size:11px; font-weight:bold; color:#fff}
+.tag-red{background:var(--accent)} .tag-orange{background:var(--warning)}
+.tag-blue{background:var(--secondary)} .tag-green{background:var(--success)}
+/* 图表卡 */
+.chart-card{
+  background:#fff; border-radius:12px; padding:20px; margin:18px 0;
+  box-shadow:0 2px 10px rgba(0,0,0,.05); border:1px solid var(--border);
+}
+.chart-card .chart-title{font-size:15px; font-weight:bold; color:var(--primary); margin-bottom:6px}
+.chart-card .chart-sub{font-size:12px; color:var(--muted); margin-bottom:14px}
+.chart-wrap{position:relative; height:320px}
+.chart-wrap.tall{height:380px}
+.chart-controls{display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap}
+.chart-btn{
+  padding:5px 14px; border:1px solid var(--border); background:#fff; border-radius:16px;
+  font-size:12px; cursor:pointer; transition:all .2s; color:var(--text);
+}
+.chart-btn:hover{border-color:var(--secondary); color:var(--secondary)}
+.chart-btn.active{background:var(--secondary); color:#fff; border-color:var(--secondary)}
+/* 表格 */
+.tbl-wrap{overflow-x:auto; margin:14px 0; border-radius:10px; border:1px solid var(--border)}
+table{width:100%; border-collapse:collapse; font-size:13px; background:#fff}
+th{background:var(--secondary); color:#fff; padding:10px 8px; text-align:center; font-weight:600; white-space:nowrap}
+td{padding:9px 8px; border-bottom:1px solid var(--border); text-align:center}
+tr:nth-child(even){background:#f8fafb}
+tr:hover{background:#ebf5fb}
+.row-fsl{background:#eaf4fb !important; font-weight:600}
+.row-fsl:hover{background:#d6eaf8 !important}
+.bad{color:var(--accent); font-weight:bold}
+.good{color:var(--success); font-weight:bold}
+/* 提示框 */
+.callout{border-radius:10px; padding:14px 18px; margin:14px 0; font-size:13px}
+.callout.warn{background:#fdf2e9; border-left:4px solid var(--accent)}
+.callout.info{background:#ebf5fb; border-left:4px solid var(--secondary)}
+.callout.success{background:#eafaf1; border-left:4px solid var(--success)}
+.callout .ct{font-weight:bold; margin-bottom:4px; display:flex; align-items:center; gap:6px}
+/* 可折叠 */
+.collapse{margin:14px 0; border:1px solid var(--border); border-radius:10px; overflow:hidden; background:#fff}
+.collapse-head{padding:14px 18px; cursor:pointer; display:flex; align-items:center; justify-content:space-between; font-weight:bold; color:var(--primary); user-select:none; transition:background .2s}
+.collapse-head:hover{background:#f8f9fa}
+.collapse-head .arrow{transition:transform .3s; color:var(--secondary)}
+.collapse.open .collapse-head .arrow{transform:rotate(90deg)}
+.collapse-body{max-height:0; overflow:hidden; transition:max-height .4s ease; padding:0 18px}
+.collapse.open .collapse-body{max-height:2000px; padding:0 18px 16px}
+/* SWOT */
+.swot{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:18px 0}
+.swot-box{border-radius:12px; padding:18px; color:#fff}
+.swot-box h4{color:#fff; margin:0 0 10px; font-size:16px; border:none; padding:0}
+.swot-box ul{list-style:none; padding:0}
+.swot-box li{padding:4px 0 4px 18px; position:relative; font-size:13px}
+.swot-box li::before{content:"▸"; position:absolute; left:0}
+.swot-s{background:linear-gradient(135deg,#27ae60,#1e8449)}
+.swot-w{background:linear-gradient(135deg,#e74c3c,#c0392b)}
+.swot-o{background:linear-gradient(135deg,#2980b9,#1f618d)}
+.swot-t{background:linear-gradient(135deg,#f39c12,#d68910)}
+/* 时间线 */
+.timeline{position:relative; padding-left:28px; margin:18px 0}
+.timeline::before{content:""; position:absolute; left:8px; top:0; bottom:0; width:2px; background:var(--light)}
+.tl-item{position:relative; margin-bottom:18px}
+.tl-item::before{content:""; position:absolute; left:-24px; top:6px; width:12px; height:12px; border-radius:50%; background:var(--secondary); border:2px solid #fff; box-shadow:0 0 0 2px var(--secondary)}
+.tl-year{font-weight:bold; color:var(--secondary); font-size:13px}
+.tl-text{font-size:13px; color:var(--text); margin-top:2px}
+/* 指标条 */
+.metric-bar{margin:10px 0}
+.metric-bar .mb-label{display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px}
+.metric-bar .mb-track{height:22px; background:#ecf0f1; border-radius:11px; overflow:hidden; position:relative}
+.metric-bar .mb-fill{height:100%; border-radius:11px; display:flex; align-items:center; justify-content:flex-end; padding-right:8px; color:#fff; font-size:11px; font-weight:bold; transition:width 1s ease}
+/* 返回顶部 */
+.back-top{
+  position:fixed; right:28px; bottom:28px; width:44px; height:44px; border-radius:50%;
+  background:var(--secondary); color:#fff; border:none; font-size:20px; cursor:pointer;
+  box-shadow:0 4px 14px rgba(0,0,0,.2); opacity:0; pointer-events:none; transition:all .3s; z-index:90;
+}
+.back-top.show{opacity:1; pointer-events:auto}
+.back-top:hover{background:var(--primary); transform:translateY(-2px)}
+/* 公司筛选 */
+.company-filter{display:flex; gap:10px; margin-bottom:14px; flex-wrap:wrap}
+.company-chip{
+  display:flex; align-items:center; gap:6px; padding:6px 14px; border-radius:20px;
+  border:2px solid; background:#fff; cursor:pointer; font-size:13px; font-weight:600; transition:all .2s;
+}
+.company-chip .dot{width:10px; height:10px; border-radius:50%}
+.company-chip.fsl{border-color:var(--fsl); color:var(--fsl)} .company-chip.fsl .dot{background:var(--fsl)}
+.company-chip.opp{border-color:var(--opp); color:var(--opp)} .company-chip.opp .dot{background:var(--opp)}
+.company-chip.yg{border-color:var(--yg); color:var(--yg)} .company-chip.yg .dot{background:var(--yg)}
+.company-chip.active{background:var(--c); color:#fff}
+.company-chip.fsl.active{background:var(--fsl); color:#fff}
+.company-chip.opp.active{background:var(--opp); color:#fff}
+.company-chip.yg.active{background:var(--yg); color:#fff}
+.company-chip.inactive{opacity:.4}
+/* 雷达图卡 */
+.radar-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:16px 0}
+@media(max-width:760px){.radar-grid{grid-template-columns:1fr}}
+/* 响应式 */
+@media(max-width:900px){
+  :root{--sidebar-w:0px}
+  .sidebar{transform:translateX(-100%); width:260px}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0; padding:20px 16px 50px}
+  .topbar .menu-btn{display:block}
+  .swot{grid-template-columns:1fr}
+  .cover h1{font-size:24px}
+  .cover{padding:32px 20px}
+}
+/* 页脚 */
+.footer{margin-top:40px; padding:20px; text-align:center; font-size:12px; color:var(--muted); border-top:1px solid var(--border)}
+.footer .disclaimer{max-width:700px; margin:0 auto; line-height:1.6}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <button class="menu-btn" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰</button>
+  <span class="logo">💡 佛山照明深度分析</span>
+  <span class="badge">交互版</span>
+  <span class="right">基于2025年报 · 同业对比研究</span>
+</div>
+
+<nav class="sidebar" id="sidebar">
+  <div class="nav-section">报告导航</div>
+  <a href="#sec0" class="active">首页概览</a>
+  <a href="#sec1">一、核心结论</a>
+  <a href="#sec2">二、公司概况</a>
+  <a href="#sec2-1" class="sub">2.1 发展历程</a>
+  <a href="#sec2-2" class="sub">2.2 业务版图</a>
+  <a href="#sec3">三、行业环境</a>
+  <a href="#sec4">四、财务深度分析</a>
+  <a href="#sec4-1" class="sub">4.1 盈利能力</a>
+  <a href="#sec4-2" class="sub">4.2 营收结构</a>
+  <a href="#sec4-3" class="sub">4.3 偿债能力</a>
+  <a href="#sec4-4" class="sub">4.4 现金流</a>
+  <a href="#sec4-5" class="sub">4.5 成长性</a>
+  <a href="#sec5">五、同业对比</a>
+  <a href="#sec6">六、战略与并购</a>
+  <a href="#sec7">七、SWOT分析</a>
+  <a href="#sec8">八、风险因素</a>
+  <a href="#sec9">九、投资展望</a>
+</nav>
+
+<div class="main">
+
+<!-- ========== 首页 ========== -->
+<div class="section" id="sec0">
+  <div class="cover">
+    <h1>佛山照明（000541.SZ）</h1>
+    <div style="font-size:22px; margin:6px 0;">深度分析报告</div>
+    <div class="desc">基于2025年年度报告及同业对比的财务与战略研究</div>
+    <div class="meta">
+      <div class="meta-item"><b>分析对象</b><br>佛山电器照明股份有限公司</div>
+      <div class="meta-item"><b>对标公司</b><br>欧普照明 · 阳光照明</div>
+      <div class="meta-item"><b>数据期间</b><br>2023—2025年</div>
+      <div class="meta-item"><b>报告日期</b><br>2026年6月</div>
+    </div>
+  </div>
+
+  <h3>核心指标速览</h3>
+  <div class="summary-grid">
+    <div class="summary-card"><div class="label">营业收入</div><div class="value">87.97亿</div><div class="tag tag-orange">同比 -2.78%</div></div>
+    <div class="summary-card"><div class="label">归母净利润</div><div class="value">2.15亿</div><div class="tag tag-red">同比 -51.85%</div></div>
+    <div class="summary-card"><div class="label">扣非净利润</div><div class="value">0.84亿</div><div class="tag tag-red">同比 -14.17%</div></div>
+    <div class="summary-card"><div class="label">销售毛利率</div><div class="value">17.69%</div><div class="tag tag-red">不足欧普一半</div></div>
+    <div class="summary-card"><div class="label">经营现金流</div><div class="value">2.97亿</div><div class="tag tag-red">同比 -50.32%</div></div>
+    <div class="summary-card"><div class="label">加权ROE</div><div class="value">3.21%</div><div class="tag tag-orange">远低于同业</div></div>
+  </div>
+
+  <div class="callout warn">
+    <div class="ct">⚠️ 一句话结论</div>
+    佛山照明作为60年历史的"中国灯王"，营收规模行业领先，但"大而不强"问题突出——盈利能力远逊同业，利润高度依赖非经常性损益，并购后遗症持续发酵，正处于战略转型阵痛期。
+  </div>
+</div>
+
+<!-- ========== 一、核心结论 ========== -->
+<div class="section" id="sec1">
+  <h2><span class="num">1</span>核心结论摘要</h2>
+  <div class="summary-hero">
+    <h3>核心观点</h3>
+    <p>佛山照明通过密集并购构建了"通用照明+车灯+LED封装"多元化业务版图，虽在规模上跻身行业前列，但<strong>盈利质量远逊于同业</strong>——毛利率仅17.69%，不足欧普照明（39.34%）的一半；扣非净利润仅0.84亿元，连续两年下滑。并购带来的商誉减值、整合低效等问题正在持续发酵。</p>
+  </div>
+
+  <table>
+    <tr><th style="width:18%">维度</th><th>核心发现</th><th style="width:12%">评级</th></tr>
+    <tr><td><b>盈利能力</b></td><td>毛利率17.69%、扣非净利率0.95%，均大幅低于同业；利润高度依赖非经常性损益（土地收储补偿等）</td><td><span class="tag tag-red">弱</span></td></tr>
+    <tr><td><b>营收规模</b></td><td>87.97亿元为三家中最大，但连续两年下滑，传统照明增长乏力</td><td><span class="tag tag-orange">中</span></td></tr>
+    <tr><td><b>偿债安全</b></td><td>资产负债率39.24%，无短期偿债危机，但少数股东权益占比高达34.5%</td><td><span class="tag tag-blue">尚可</span></td></tr>
+    <tr><td><b>现金流</b></td><td>经营现金流2.97亿元，同比暴跌50.32%，造血能力显著弱化</td><td><span class="tag tag-red">差</span></td></tr>
+    <tr><td><b>战略转型</b></td><td>车灯、海洋照明等新赛道有亮点，但并购整合效果不佳，商誉减值风险高悬</td><td><span class="tag tag-orange">待观察</span></td></tr>
+    <tr><td><b>研发投入</b></td><td>研发费用5.39亿元（占比6.13%），绝对额和占比均领先同业，但转化效率不足</td><td><span class="tag tag-blue">较好</span></td></tr>
+  </table>
+</div>
+
+<!-- ========== 二、公司概况 ========== -->
+<div class="section" id="sec2">
+  <h2><span class="num">2</span>公司概况：从"中国灯王"到多元化科技集团</h2>
+
+  <h3 id="sec2-1">2.1 发展历程与股权结构</h3>
+  <p>佛山电器照明股份有限公司（证券代码：000541/200541）创立于1958年，1993年在深交所上市，是佛山最早一批上市公司之一，被誉为"<strong>中国灯王</strong>"。公司连续十几年坚持现金分红，上市以来累计分红超59亿元，素有"现金奶牛"之称。</p>
+
+  <div class="collapse open">
+    <div class="collapse-head" onclick="this.parentElement.classList.toggle('open')"><span>📜 战略转型时间线（点击展开/收起）</span><span class="arrow">▶</span></div>
+    <div class="collapse-body">
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-year">2012年</div><div class="tl-text">由传统照明向LED照明转型</div></div>
+        <div class="tl-item"><div class="tl-year">2016年</div><div class="tl-text">加入电工业务</div></div>
+        <div class="tl-item"><div class="tl-year">2017年</div><div class="tl-text">启动汽车照明业务</div></div>
+        <div class="tl-item"><div class="tl-year">2021年</div><div class="tl-text">以4.88亿元收购南宁燎旺车灯53.79%股权，强化汽车照明</div></div>
+        <div class="tl-item"><div class="tl-year">2022年</div><div class="tl-text">控股国星光电（21.48%股权），切入LED封装，打造垂直一体化产业链</div></div>
+        <div class="tl-item"><div class="tl-year">2024年</div><div class="tl-text">并购北京航信、沪乐电气，布局航空照明与海洋照明</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout info">
+    <div class="ct">ℹ️ 股权结构</div>
+    控股股东为广东省广晟控股集团及其一致行动人，截至2025年末合计持股<strong>32.31%</strong>，实际控制人为广东省国资委。前三大股东：香港华晟控股（12.74%）、佑昌灯光器材（9.49%）、广东省电子信息产业集团（8.54%），形成国资控股、多元股东结构。
+  </div>
+
+  <h3 id="sec2-2">2.2 业务版图与子公司矩阵</h3>
+  <p>经过系列并购，公司构建了"双轮驱动、两翼支撑"的业务格局，四大业务板块如下：</p>
+  <div class="chart-card">
+    <div class="chart-title">佛山照明2025年营业收入结构（分产品）</div>
+    <div class="chart-sub">悬停查看详情 · 点击图例可切换显示</div>
+    <div class="chart-wrap"><canvas id="chartPie"></canvas></div>
+  </div>
+
+  <h4>主要子公司2025年经营表现</h4>
+  <table>
+    <tr><th>子公司</th><th>总资产(亿)</th><th>净资产(亿)</th><th>营业收入(亿)</th><th>净利润(万)</th><th>评价</th></tr>
+    <tr><td>国星光电</td><td>61.05</td><td>37.89</td><td>32.81</td><td>1,301</td><td class="bad">大幅下滑</td></tr>
+    <tr><td>燎旺车灯</td><td>31.25</td><td>10.65</td><td>20.32</td><td>2,809</td><td>稳健增长</td></tr>
+    <tr><td>禅昌光电</td><td>13.38</td><td>4.83</td><td>14.68</td><td>10,575</td><td class="good">利润支柱</td></tr>
+    <tr><td>南京佛照</td><td>1.96</td><td>1.59</td><td>0.01</td><td>9,121</td><td>土地补偿所致</td></tr>
+  </table>
+
+  <div class="callout warn">
+    <div class="ct">⚠️ 关键发现</div>
+    禅昌光电（通用照明制造）以1.06亿元净利润成为最大利润贡献来源；而国星光电作为LED封装核心平台，2025年净利润仅1,301万元，同比大幅下滑。南京佛照的9,121万净利润主要来自土地征收补偿，属非经常性损益。
+  </div>
+</div>
+
+<!-- ========== 三、行业环境 ========== -->
+<div class="section" id="sec3">
+  <h2><span class="num">3</span>行业环境：LED红海竞争与出口承压</h2>
+  <p>2025年，中国LED照明行业面临"<strong>内需疲软+出口受挫+竞争加剧</strong>"的三重压力，步入深度调整与结构性重构的关键阶段。</p>
+
+  <div class="collapse">
+    <div class="collapse-head" onclick="this.parentElement.classList.toggle('open')"><span>🌐 3.1 全球市场规模微降，智能照明逆势增长</span><span class="arrow">▶</span></div>
+    <div class="collapse-body"><p>据TrendForce预估，2025年全球LED照明市场规模约535.73亿美元，同比下滑4.4%，主要受欧美新建项目停滞拖累。但智能照明市场逆势增长19.2%，规模达115.73亿美元，健康照明、低空照明成为核心增量赛道。中国半导体照明产业总体产值约6,093亿元，呈现微降态势。</p></div>
+  </div>
+
+  <div class="collapse">
+    <div class="collapse-head" onclick="this.parentElement.classList.toggle('open')"><span>🚢 3.2 中美贸易战冲击出口</span><span class="arrow">▶</span></div>
+    <div class="collapse-body"><p>2025年全年中国对美照明产品出口额约97亿美元，同比下降23%；输美灯具产品出口额约70亿美元，同比下降约26%。8月单月对美出口同比暴跌29.6%。这一趋势对以出口为导向的照明企业影响显著，阳光照明北美市场营收下滑19.18%，佛山照明的境外业务收入也同比下降7.54%。</p></div>
+  </div>
+
+  <div class="collapse">
+    <div class="collapse-head" onclick="this.parentElement.classList.toggle('open')"><span>⚔️ 3.3 行业"红海竞争"加剧</span><span class="arrow">▶</span></div>
+    <div class="collapse-body"><p>随着LED技术普及，行业门槛大幅降低，照明企业数量从传统照明时代的3,000余家激增至3万多家。行业竞争格局高度分散，即便是国内LED照明龙头欧普照明，市场份额也仅约3%。木林森、三安光电等企业营收突破百亿元，价格战愈演愈烈。佛山照明传统业务以中低端照明产品为主，毛利率仅18%-19%，面临极大竞争压力。</p></div>
+  </div>
+</div>
+
+<!-- ========== 四、财务深度分析 ========== -->
+<div class="section" id="sec4">
+  <h2><span class="num">4</span>财务深度分析</h2>
+
+  <h3 id="sec4-1">4.1 盈利能力：增收不增利的困局</h3>
+  <div class="chart-card">
+    <div class="chart-title">2025年盈利能力核心指标对比</div>
+    <div class="chart-sub">悬停柱状图查看精确数值 · 点击图例可切换公司</div>
+    <div class="chart-wrap tall"><canvas id="chartProfit"></canvas></div>
+  </div>
+
+  <table>
+    <tr><th>盈利指标</th><th>佛山照明</th><th>欧普照明</th><th>阳光照明</th><th>行业评价</th></tr>
+    <tr class="row-fsl"><td>销售毛利率</td><td>17.69%</td><td>39.34%</td><td>33.25%</td><td>不足欧普一半</td></tr>
+    <tr class="row-fsl"><td>归母净利率</td><td>2.44%</td><td>13.20%</td><td>7.08%</td><td>仅为欧普的1/5</td></tr>
+    <tr class="row-fsl"><td>扣非净利率</td><td>0.95%</td><td>11.18%</td><td>2.40%</td><td>极低，主业近乎微利</td></tr>
+    <tr class="row-fsl"><td>加权ROE</td><td>3.21%</td><td>13.62%</td><td>5.34%</td><td>资本回报率偏低</td></tr>
+  </table>
+
+  <h4>利润高度依赖非经常性损益</h4>
+  <p>2025年佛山照明归母净利润2.15亿元中，非经常性损益高达1.31亿元，占比<strong>61%</strong>。主要构成：资产处置收益1.39亿元（南京佛照土地征收补偿）、政府补助0.51亿元、投资收益0.62亿元。剔除后扣非净利润仅0.84亿元，连续两年下滑（2023年2.75亿→2024年0.98亿→2025年0.84亿）。</p>
+
+  <div class="callout warn">
+    <div class="ct">⚠️ 关键发现：利润含金量严重不足</div>
+    对比欧普照明扣非净利润7.79亿元（占归母净利85%），佛山照明的利润质量明显偏低。公司近两年归母净利润中相当部分来自土地收储补偿等一次性收益，这种盈利模式不可持续。随着可处置土地资源减少，未来利润面临进一步下行压力。
+  </div>
+
+  <h3 id="sec4-2">4.2 营收结构与业务分析</h3>
+  <div class="chart-card">
+    <div class="chart-title">佛山照明分产品毛利率变动（2024 vs 2025）</div>
+    <div class="chart-sub">悬停查看各产品毛利率及变动情况</div>
+    <div class="chart-wrap"><canvas id="chartMargin"></canvas></div>
+  </div>
+
+  <table>
+    <tr><th>分产品</th><th>2025营收(亿)</th><th>占比</th><th>同比</th><th>毛利率</th><th>毛利率变动</th></tr>
+    <tr class="row-fsl"><td>通用照明产品</td><td>30.30</td><td>34.45%</td><td class="bad">-6.09%</td><td>25.58%</td><td>-0.18pct</td></tr>
+    <tr><td>LED封装及组件</td><td>22.62</td><td>25.71%</td><td class="bad">-8.35%</td><td>15.66%</td><td>-1.00pct</td></tr>
+    <tr><td>车灯产品</td><td>22.26</td><td>25.30%</td><td class="good">+5.63%</td><td>13.26%</td><td class="bad">-3.73pct</td></tr>
+    <tr><td>贸易及其他</td><td>12.79</td><td>14.54%</td><td>+2.60%</td><td>10.24%</td><td>+3.78pct</td></tr>
+  </table>
+
+  <div class="callout info">
+    <div class="ct">📊 结构分析关键发现</div>
+    <ul style="margin:6px 0 0 18px">
+      <li><b>通用照明</b>作为营收基石（34.45%），收入下滑6.09%，核心基本盘增长乏力</li>
+      <li><b>LED封装</b>收入下滑8.35%，毛利率仅15.66%，是拉低整体毛利率的主要因素</li>
+      <li><b>车灯业务</b>是唯一实现增长的主要板块（+5.63%），但毛利率大幅下降3.73pct，呈"增收降利"</li>
+      <li><b>贸易业务</b>毛利率仅10.24%，进一步拉低整体盈利水平</li>
+    </ul>
+  </div>
+
+  <h3 id="sec4-3">4.3 偿债能力与资本结构</h3>
+  <table>
+    <tr><th>偿债指标</th><th>佛山照明</th><th>欧普照明</th><th>阳光照明</th></tr>
+    <tr class="row-fsl"><td>总资产(亿)</td><td>171.67</td><td>96.19</td><td>51.49</td></tr>
+    <tr class="row-fsl"><td>负债合计(亿)</td><td>67.36</td><td>26.04</td><td>15.77</td></tr>
+    <tr><td>资产负债率</td><td>39.24%</td><td>27.07%</td><td>30.63%</td></tr>
+    <tr><td>归母净资产(亿)</td><td>68.35</td><td>70.12</td><td>35.39</td></tr>
+    <tr class="row-fsl"><td>少数股东权益(亿)</td><td>35.97</td><td>0.02</td><td>0.34</td></tr>
+    <tr><td>少数股东权益占比</td><td>34.49%</td><td>0.03%</td><td>0.95%</td></tr>
+    <tr><td>短期借款(亿)</td><td>6.35</td><td>—</td><td>—</td></tr>
+    <tr><td>货币资金(亿)</td><td>34.56</td><td>—</td><td>—</td></tr>
+  </table>
+
+  <div class="callout success">
+    <div class="ct">💡 少数股东权益的影响</div>
+    佛山照明虽合并营收达87.97亿元，但由于国星光电（持股21.48%）、燎旺车灯（持股53.79%）等核心子公司并非全资控股，少数股东权益高达35.97亿元（占34.49%）。这意味着即便子公司盈利改善，也有相当部分利润被少数股东分享，<strong>归母净利润的弹性受限</strong>。
+  </div>
+
+  <h3 id="sec4-4">4.4 现金流分析</h3>
+  <div class="chart-card">
+    <div class="chart-title">佛山照明近三年经营业绩趋势</div>
+    <div class="chart-sub">柱状为营收，折线为净利润 · 悬停查看详细数据</div>
+    <div class="chart-wrap tall"><canvas id="chartTrend"></canvas></div>
+  </div>
+
+  <table>
+    <tr><th>现金流指标(亿)</th><th>佛山照明</th><th>同比</th><th>欧普照明</th><th>阳光照明</th></tr>
+    <tr class="row-fsl"><td>经营活动现金流净额</td><td>2.97</td><td class="bad">-50.32%</td><td>6.90</td><td>2.30</td></tr>
+    <tr><td>投资活动现金流净额</td><td>3.16</td><td class="good">+144.21%</td><td>1.94</td><td>0.13</td></tr>
+    <tr><td>筹资活动现金流净额</td><td>-4.73</td><td>-46.22%</td><td>-7.44</td><td>-1.82</td></tr>
+  </table>
+
+  <p>经营现金流与净利润的比值仅1.38（2.97/2.15），考虑到净利润中包含大量非现金性的资产处置收益，<strong>实际经营造血能力更为疲弱</strong>。2025年前三季度公司经营现金流一度跌至仅0.41亿元（同比-92.80%），第四季度虽有回升，但全年表现仍不理想。</p>
+
+  <h3 id="sec4-5">4.5 成长性分析</h3>
+  <table>
+    <tr><th>成长性指标</th><th>2023年</th><th>2024年</th><th>2025年</th><th>趋势</th></tr>
+    <tr><td>营业收入(亿)</td><td>90.57</td><td>90.48</td><td>87.97</td><td class="bad">持续下滑</td></tr>
+    <tr><td>营收增速</td><td>—</td><td>-0.10%</td><td>-2.78%</td><td class="bad">降幅扩大</td></tr>
+    <tr><td>归母净利润(亿)</td><td>2.90</td><td>4.46</td><td>2.15</td><td class="bad">大幅波动</td></tr>
+    <tr><td>扣非净利润(亿)</td><td>2.75</td><td>0.98</td><td>0.84</td><td class="bad">持续下滑</td></tr>
+    <tr><td>经营现金流(亿)</td><td>11.74</td><td>5.98</td><td>2.97</td><td class="bad">腰斩再腰斩</td></tr>
+  </table>
+  <p>扣非净利润从2.75亿元断崖式下跌至0.84亿元，降幅达<strong>69.5%</strong>；经营现金流从11.74亿元缩水至2.97亿元，仅为2023年的四分之一。核心经营能力正在持续弱化。</p>
+</div>
+
+<!-- ========== 五、同业对比 ========== -->
+<div class="section" id="sec5">
+  <h2><span class="num">5</span>同业对比：佛山 vs 欧普 vs 阳光</h2>
+
+  <div class="chart-card">
+    <div class="chart-title">2025年营业收入与归母净利润对比</div>
+    <div class="chart-sub">悬停查看精确数值</div>
+    <div class="chart-wrap"><canvas id="chartRevProfit"></canvas></div>
+  </div>
+
+  <h3>5.1 综合财务对比</h3>
+  <div class="chart-card">
+    <div class="chart-title">三家公司综合实力雷达图</div>
+    <div class="chart-sub">六维度对比 · 点击图例切换公司</div>
+    <div class="chart-wrap tall"><canvas id="chartRadar"></canvas></div>
+  </div>
+
+  <table>
+    <tr><th>指标</th><th>佛山照明</th><th>欧普照明</th><th>阳光照明</th></tr>
+    <tr><td colspan="4" style="background:#5dade2;color:#fff;font-weight:bold">规模指标</td></tr>
+    <tr class="row-fsl"><td>营业收入(亿)</td><td>87.97</td><td>69.70</td><td>26.68</td></tr>
+    <tr class="row-fsl"><td>归母净利润(亿)</td><td>2.15</td><td>9.20</td><td>1.89</td></tr>
+    <tr><td colspan="4" style="background:#5dade2;color:#fff;font-weight:bold">盈利能力</td></tr>
+    <tr class="row-fsl"><td>销售毛利率</td><td>17.69%</td><td>39.34%</td><td>33.25%</td></tr>
+    <tr class="row-fsl"><td>归母净利率</td><td>2.44%</td><td>13.20%</td><td>7.08%</td></tr>
+    <tr class="row-fsl"><td>扣非净利率</td><td>0.95%</td><td>11.18%</td><td>2.40%</td></tr>
+    <tr class="row-fsl"><td>加权ROE</td><td>3.21%</td><td>13.62%</td><td>5.34%</td></tr>
+    <tr><td colspan="4" style="background:#5dade2;color:#fff;font-weight:bold">运营效率</td></tr>
+    <tr><td>销售费用率</td><td>4.07%</td><td>17.42%</td><td>15.29%</td></tr>
+    <tr><td>管理费用率</td><td>5.47%</td><td>3.87%</td><td>10.73%</td></tr>
+    <tr class="row-fsl"><td>研发费用率</td><td>6.13%</td><td>4.26%</td><td>3.08%</td></tr>
+    <tr><td colspan="4" style="background:#5dade2;color:#fff;font-weight:bold">偿债与现金流</td></tr>
+    <tr><td>资产负债率</td><td>39.24%</td><td>27.07%</td><td>30.63%</td></tr>
+    <tr><td>经营现金流(亿)</td><td>2.97</td><td>6.90</td><td>2.30</td></tr>
+    <tr><td>基本EPS(元)</td><td>0.14</td><td>1.26</td><td>0.14</td></tr>
+  </table>
+
+  <h3>5.2 商业模式差异分析</h3>
+  <table>
+    <tr><th>维度</th><th>佛山照明</th><th>欧普照明</th><th>阳光照明</th></tr>
+    <tr><td><b>战略定位</b></td><td>多元化产业集团（照明+车灯+封装）</td><td>绿色节能智慧照明企业</td><td>全球化照明ODM/OEM</td></tr>
+    <tr><td><b>核心优势</b></td><td>规模大、产业链全、国资背景</td><td>品牌力强、渠道深厚、盈利优</td><td>海外渠道、成本控制</td></tr>
+    <tr><td><b>市场重心</b></td><td>境内79% + 境外21%</td><td>境内90% + 境外10%</td><td>海外为主（北美27%）</td></tr>
+    <tr><td><b>毛利率水平</b></td><td>17.69%（偏低）</td><td>39.34%（最高）</td><td>33.25%（中高）</td></tr>
+    <tr><td><b>盈利驱动</b></td><td>土地补偿+投资收益（非经常）</td><td>品牌溢价+渠道效率（经常性）</td><td>海外代工+规模效应</td></tr>
+  </table>
+
+  <h3>5.3 期间费用率对比</h3>
+  <div class="chart-card">
+    <div class="chart-title">2025年三家公司期间费用率对比</div>
+    <div class="chart-sub">悬停查看各费用率</div>
+    <div class="chart-wrap"><canvas id="chartExp"></canvas></div>
+  </div>
+
+  <div class="callout info">
+    <div class="ct">📊 关键差异解读</div>
+    <p><b>（1）盈利能力鸿沟：</b>欧普以自主品牌、C端渠道为核心，产品溢价能力强；佛山照明业务组合中包含大量低毛利的LED封装、车灯和贸易业务，B端制造业务盈利属性天然弱于品牌消费品。</p>
+    <p><b>（2）费用结构分化：</b>佛山研发费用率6.13%为三家最高，体现向技术型企业转型决心，但高研发投入未能有效转化为产品溢价，<strong>研发成果商业化转化不足</strong>。欧普销售费用率高达17.42%，但凭借高毛利覆盖，仍实现了13.20%的净利率。</p>
+    <p><b>（3）抗风险能力：</b>2025年下行周期中，欧普归母净利润逆势增长1.94%，扣非净利润增长4.41%，抗风险能力最强；佛山照明营收利润双降，扣非净利润连续下滑，<strong>抗周期能力最弱</strong>。</p>
+  </div>
+</div>
+
+<!-- ========== 六、战略与并购 ========== -->
+<div class="section" id="sec6">
+  <h2><span class="num">6</span>战略转型与并购后遗症分析</h2>
+
+  <h3>6.1 并购扩张路径</h3>
+  <table>
+    <tr><th>时间</th><th>并购标的</th><th>业务领域</th><th>战略意图</th><th>成效评价</th></tr>
+    <tr><td>2021年</td><td>燎旺车灯(4.88亿)</td><td>汽车照明</td><td>切入车灯总成赛道</td><td>营收增长但毛利率下滑</td></tr>
+    <tr><td>2022年</td><td>国星光电(21.48%)</td><td>LED封装</td><td>构建垂直一体化产业链</td><td class="bad">商誉减值，利润大幅下滑</td></tr>
+    <tr><td>2024年</td><td>北京航信</td><td>航空照明</td><td>布局航空赛道</td><td>对整体业绩影响有限</td></tr>
+    <tr><td>2024年</td><td>沪乐电气</td><td>海洋照明</td><td>加码海洋照明</td><td>营收高增长但基数小</td></tr>
+    <tr><td>2024年</td><td>易来智能(意向)</td><td>智能照明</td><td>控股智能照明龙头</td><td class="bad">2025年8月终止</td></tr>
+  </table>
+
+  <h3>6.2 并购后遗症的三大体现</h3>
+  <div class="collapse open">
+    <div class="collapse-head" onclick="this.parentElement.classList.toggle('open')"><span>⚠️ （1）商誉减值风险高悬</span><span class="arrow">▶</span></div>
+    <div class="collapse-body"><p>截至2025年末，因收购国星光电形成的商誉原值4.06亿元，已累计计提减值1.77亿元，账面净值约2.29亿元。国星光电2024年已计提商誉减值1.42亿元，2025年净利润仅1,301万元。若国星光电业绩持续不振，<strong>商誉存在进一步减值的可能</strong>。公司商誉账面净值2.8亿元，位列照明设备行业首位。</p></div>
+  </div>
+  <div class="collapse">
+    <div class="collapse-head" onclick="this.parentElement.classList.toggle('open')"><span>💸 （2）现金流被严重消耗</span><span class="arrow">▶</span></div>
+    <div class="collapse-body"><p>激进扩张消耗大量资金。2025年前三季度经营现金流一度暴跌至仅0.41亿元（同比-92.80%）。筹资活动现金流持续为负（-4.73亿元），融资渠道收缩与偿债压力并存。资金紧张导致公司终止"智慧路灯建设项目"和"海南产业园一期项目"。</p></div>
+  </div>
+  <div class="collapse">
+    <div class="collapse-head" onclick="this.parentElement.classList.toggle('open')"><span>🔧 （3）整合效果不及预期</span><span class="arrow">▶</span></div>
+    <div class="collapse-body"><p>公司缺乏汽车照明、LED封装等新兴领域运营经验，并购后整合难度大。国星光电2025年净利润仅1,301万元，远未达预期。燎旺车灯营收增长5.63%但毛利率下滑3.73pct，呈"增收降利"。<strong>并购带来的规模扩张未能转化为盈利能力的提升</strong>。</p></div>
+  </div>
+
+  <h3>6.3 新赛道的亮点</h3>
+  <div class="summary-grid">
+    <div class="summary-card" style="border-top-color:var(--success)"><div class="label">车灯业务</div><div class="value" style="font-size:18px">+5.63%</div><div class="tag tag-green">中高端突破</div></div>
+    <div class="summary-card" style="border-top-color:var(--success)"><div class="label">海洋照明</div><div class="value" style="font-size:18px">+129%</div><div class="tag tag-green">前三季度</div></div>
+    <div class="summary-card" style="border-top-color:var(--success)"><div class="label">商用照明</div><div class="value" style="font-size:18px">+8%</div><div class="tag tag-green">稳步增长</div></div>
+    <div class="summary-card" style="border-top-color:var(--success)"><div class="label">电商渠道</div><div class="value" style="font-size:18px">+20%</div><div class="tag tag-green">国补拉动</div></div>
+    <div class="summary-card" style="border-top-color:var(--success)"><div class="label">欧洲市场</div><div class="value" style="font-size:18px">+9%</div><div class="tag tag-green">出海拓展</div></div>
+    <div class="summary-card" style="border-top-color:var(--success)"><div class="label">东南亚市场</div><div class="value" style="font-size:18px">+19%</div><div class="tag tag-green">一带一路</div></div>
+  </div>
+</div>
+
+<!-- ========== 七、SWOT ========== -->
+<div class="section" id="sec7">
+  <h2><span class="num">7</span>SWOT分析</h2>
+  <div class="swot">
+    <div class="swot-box swot-s">
+      <h4>✅ 优势 Strengths</h4>
+      <ul>
+        <li>60余年品牌积淀，"中国灯王"认知度高</li>
+        <li>营收规模87.97亿元，行业领先</li>
+        <li>产业链布局完整：从LED封装到终端应用</li>
+        <li>研发投入5.39亿元，占比6.13%，行业最高</li>
+        <li>国资控股（32.31%），资源支撑稳定</li>
+        <li>多元化业务分散单一市场风险</li>
+        <li>货币资金34.56亿元，短期流动性充足</li>
+      </ul>
+    </div>
+    <div class="swot-box swot-w">
+      <h4>❌ 劣势 Weaknesses</h4>
+      <ul>
+        <li>毛利率17.69%，不足欧普一半，盈利能力弱</li>
+        <li>扣非净利润仅0.84亿元，主业近乎微利</li>
+        <li>利润高度依赖土地补偿等非经常性损益</li>
+        <li>经营现金流同比暴跌50.32%</li>
+        <li>少数股东权益占比34.5%，归母利润受限</li>
+        <li>商誉减值风险高悬（净值2.29亿元）</li>
+        <li>研发投入转化效率低，未形成技术壁垒</li>
+      </ul>
+    </div>
+    <div class="swot-box swot-o">
+      <h4>🚀 机会 Opportunities</h4>
+      <ul>
+        <li>智能照明市场逆势增长19.2%</li>
+        <li>新能源汽车车灯价值量提升（ADB/DLP）</li>
+        <li>海洋经济国家战略，海洋照明蓝海市场</li>
+        <li>"一带一路"新兴市场拓展空间</li>
+        <li>适老照明、体育照明等细分赛道崛起</li>
+        <li>国企改革深化，治理结构优化</li>
+        <li>海南封关带来国际化跳板</li>
+      </ul>
+    </div>
+    <div class="swot-box swot-t">
+      <h4>⚡ 威胁 Threats</h4>
+      <ul>
+        <li>中美贸易战冲击出口（对美-23%）</li>
+        <li>行业"红海竞争"，企业数超3万家</li>
+        <li>房地产下行拖累通用照明需求</li>
+        <li>原材料价格波动</li>
+        <li>欧普、木林森等竞品快速崛起</li>
+        <li>LED封装产能过剩，价格战加剧</li>
+        <li>地缘政治不确定性增加</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 八、风险因素 ========== -->
+<div class="section" id="sec8">
+  <h2><span class="num">8</span>风险因素</h2>
+  <div class="collapse open">
+    <div class="collapse-head" onclick="this.parentElement.classList.toggle('open')"><span>📉 8.1 主营业务持续承压风险</span><span class="arrow">▶</span></div>
+    <div class="collapse-body"><p>通用照明和LED封装两大核心业务（合计占营收60%）均处于下行通道。在房地产持续调整、行业竞争加剧背景下，若核心业务继续萎缩，营收和利润面临进一步下行压力。2026年一季度，公司营收同比再降2.27%，净利润同比暴跌59.63%，经营颓势尚未扭转。</p></div>
+  </div>
+  <div class="collapse">
+    <div class="collapse-head" onclick="this.parentElement.classList.toggle('open')"><span>⚔️ 8.2 商誉减值风险</span><span class="arrow">▶</span></div>
+    <div class="collapse-body"><p>因并购国星光电形成的商誉账面净值约2.29亿元。国星光电2025年净利润仅1,301万元，若业绩持续不振，商誉可能面临进一步减值，将直接冲击当期利润。这是悬在公司业绩头上的"达摩克利斯之剑"。</p></div>
+  </div>
+  <div class="collapse">
+    <div class="collapse-head" onclick="this.parentElement.classList.toggle('open')"><span>💧 8.3 现金流恶化风险</span><span class="arrow">▶</span></div>
+    <div class="collapse-body"><p>经营现金流从2023年的11.74亿元骤降至2025年的2.97亿元，造血能力急剧弱化。若回款状况持续恶化，叠加融资渠道收缩，可能影响公司日常运营资金周转和战略投入能力。</p></div>
+  </div>
+  <div class="collapse">
+    <div class="collapse-head" onclick="this.parentElement.classList.toggle('open')"><span>🔧 8.4 并购整合不达预期风险</span><span class="arrow">▶</span></div>
+    <div class="collapse-body"><p>已完成的系列并购在整合效果上参差不齐，易来智能收购终止也反映出决策预判不足。未来若继续推进并购扩张而忽视整合效率，可能进一步加剧资源分散和管理承压。</p></div>
+  </div>
+  <div class="collapse">
+    <div class="collapse-head" onclick="this.parentElement.classList.toggle('open')"><span>🌍 8.5 宏观与行业风险</span><span class="arrow">▶</span></div>
+    <div class="collapse-body"><p>中美贸易摩擦持续升级、国内房地产深度调整、LED行业产能过剩与价格战等因素，均对公司经营环境构成系统性压力。</p></div>
+  </div>
+</div>
+
+<!-- ========== 九、投资展望 ========== -->
+<div class="section" id="sec9">
+  <h2><span class="num">9</span>投资价值评估与展望</h2>
+
+  <h3>9.1 估值分析</h3>
+  <table>
+    <tr><th>估值指标</th><th>佛山照明</th><th>说明</th></tr>
+    <tr><td>市盈率TTM</td><td>约43.8倍</td><td>偏高，因2025年净利润大幅下滑</td></tr>
+    <tr><td>市净率</td><td>约1.12倍</td><td>接近净资产，安全边际尚可</td></tr>
+    <tr><td>股息率(税前)</td><td>约1.82%</td><td>分红吸引力下降</td></tr>
+    <tr><td>股利支付率</td><td>41.31%</td><td>保持分红传统</td></tr>
+    <tr><td>2025年分红方案</td><td>10派0.5元</td><td>较2024年(10派1.2元)下调</td></tr>
+    <tr><td>累计分红</td><td>超59亿元</td><td>上市以来连续分红</td></tr>
+  </table>
+
+  <div class="callout info">
+    <div class="ct">📈 券商评级</div>
+    截至2026年5月，覆盖佛山照明的分析师中，约66.7%给予"强力推荐"、33.3%给予"买入"评级。部分券商认为公司正处于战略转型投入期，新赛道布局成效显著。但也有券商提示照明主业承压风险。
+  </div>
+
+  <h3>9.2 综合评估与展望</h3>
+  <div class="callout success">
+    <div class="ct">🎯 总体判断</div>
+    佛山照明是一家正处于<strong>战略转型阵痛期</strong>的老牌照明企业。公司通过密集并购构建了多元化业务版图，营收规模行业领先，但"大而不强"问题突出——盈利能力远逊同业，利润质量堪忧，现金流急剧恶化，并购后遗症持续发酵。
+  </div>
+
+  <h4>短期看（1-2年）</h4>
+  <p>核心挑战是止住主营业务下滑趋势、改善现金流、化解商誉减值风险。在行业下行周期中，通用照明和LED封装两大板块大概率继续承压。车灯、海洋照明等新赛道虽增长亮眼，但体量尚小，短期内难以扭转整体局面。</p>
+
+  <h4>中期看（3-5年）转型成效取决于：</h4>
+  <ul style="margin:6px 0 6px 20px">
+    <li><b>研发成果转化效率</b>：能否将5.39亿元高研发投入转化为高毛利产品和技术壁垒</li>
+    <li><b>并购整合深度</b>：能否提升国星光电、燎旺车灯等子公司的盈利能力而非仅追求规模</li>
+    <li><b>新赛道规模化</b>：海洋照明、车灯中高端化等新业务能否从"亮点"成长为"支柱"</li>
+    <li><b>品牌与渠道升级</b>：能否提升通用照明的品牌溢价，缩小与欧普的毛利率差距</li>
+  </ul>
+
+  <div class="callout warn">
+    <div class="ct">💡 投资建议</div>
+    佛山照明适合作为<strong>长期转型观察标的</strong>而非短期价值投资。公司的国资背景、研发投入和新赛道布局提供了转型基础，但盈利能力的实质性改善尚需时日。投资者应重点关注：①扣非净利润能否企稳回升；②经营现金流能否恢复至正常水平；③国星光电业绩是否触底；④车灯与海洋照明业务的规模化进展。在主营业务出现明确的盈利拐点之前，建议保持谨慎。
+  </div>
+</div>
+
+<div class="footer">
+  <p class="disclaimer">本报告基于佛山照明、欧普照明、阳光照明2025年年度报告及公开信息编写，仅供研究参考，不构成投资建议。报告中的财务数据均来源于上市公司公开披露的年度报告，分析观点基于公开信息独立判断。投资有风险，决策需谨慎。</p>
+  <p style="margin-top:8px">© 2026 佛山照明深度分析报告 · 交互版</p>
+</div>
+
+</div>
+
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ============ 导航高亮 & 返回顶部 ============
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('.sidebar a');
+const backTop = document.getElementById('backTop');
+window.addEventListener('scroll', ()=>{
+  let cur = '';
+  sections.forEach(s=>{ if(window.scrollY >= s.offsetTop-100) cur = s.id; });
+  navLinks.forEach(a=>{
+    a.classList.remove('active');
+    if(a.getAttribute('href') === '#'+cur) a.classList.add('active');
+  });
+  backTop.classList.toggle('show', window.scrollY > 400);
+});
+// 点击导航关闭移动端菜单
+navLinks.forEach(a=>a.addEventListener('click',()=>{
+  if(window.innerWidth<=900) document.querySelector('.sidebar').classList.remove('open');
+}));
+
+// ============ Chart.js 全局配置 ============
+Chart.defaults.font.family = '"Noto Sans CJK SC","PingFang SC","Microsoft YaHei",sans-serif';
+Chart.defaults.color = '#2c3e50';
+Chart.defaults.font.size = 12;
+const FSL='#2980b9', OPP='#e74c3c', YG='#27ae60';
+const tooltipStyle = {
+  backgroundColor:'rgba(26,82,118,.92)', titleColor:'#fff', bodyColor:'#fff',
+  borderColor:'rgba(255,255,255,.2)', borderWidth:1, padding:10, cornerRadius:8,
+  titleFont:{weight:'bold',size:13}, bodyFont:{size:12}, displayColors:true, boxPadding:4
+};
+
+// ============ 图1: 业务结构饼图 ============
+new Chart(document.getElementById('chartPie'),{
+  type:'doughnut',
+  data:{
+    labels:['通用照明产品','LED封装及组件','车灯产品','贸易及其他'],
+    datasets:[{
+      data:[30.30,22.62,22.26,12.79],
+      backgroundColor:[FSL,'#85c1e9',OPP,'#f39c12'],
+      borderWidth:2, borderColor:'#fff'
+    }]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'right', labels:{font:{size:12}, padding:12, usePointStyle:true}},
+      tooltip:{...tooltipStyle, callbacks:{
+        label:c=>` ${c.label}: ${c.parsed}亿元 (${(c.parsed/87.97*100).toFixed(1)}%)`
+      }}
+    },
+    cutout:'55%'
+  }
+});
+
+// ============ 图2: 盈利能力对比 ============
+new Chart(document.getElementById('chartProfit'),{
+  type:'bar',
+  data:{
+    labels:['销售毛利率','归母净利率','扣非净利率','加权ROE'],
+    datasets:[
+      {label:'佛山照明', data:[17.69,2.44,0.95,3.21], backgroundColor:FSL, borderRadius:5},
+      {label:'欧普照明', data:[39.34,13.20,11.18,13.62], backgroundColor:OPP, borderRadius:5},
+      {label:'阳光照明', data:[33.25,7.08,2.40,5.34], backgroundColor:YG, borderRadius:5}
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'top', labels:{usePointStyle:true, padding:15}},
+      tooltip:{...tooltipStyle, callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.y}%`}}
+    },
+    scales:{
+      y:{beginAtZero:true, ticks:{callback:v=>v+'%'}, grid:{color:'#ecf0f1'}},
+      x:{grid:{display:false}}
+    }
+  }
+});
+
+// ============ 图3: 分产品毛利率变动 ============
+new Chart(document.getElementById('chartMargin'),{
+  type:'bar',
+  data:{
+    labels:['通用照明产品','LED封装及组件','车灯产品','贸易及其他'],
+    datasets:[
+      {label:'2024年', data:[25.76,16.66,17.00,6.46], backgroundColor:'#85c1e9', borderRadius:5},
+      {label:'2025年', data:[25.58,15.66,13.26,10.24], backgroundColor:FSL, borderRadius:5}
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'top', labels:{usePointStyle:true, padding:15}},
+      tooltip:{...tooltipStyle, callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.y}%`}}
+    },
+    scales:{
+      y:{beginAtZero:true, ticks:{callback:v=>v+'%'}, grid:{color:'#ecf0f1'}},
+      x:{grid:{display:false}}
+    }
+  }
+});
+
+// ============ 图4: 业绩趋势 (柱+折线) ============
+new Chart(document.getElementById('chartTrend'),{
+  data:{
+    labels:['2023年','2024年','2025年'],
+    datasets:[
+      {type:'bar', label:'营业收入(亿)', data:[90.57,90.48,87.97], backgroundColor:FSL, borderRadius:5, yAxisID:'y', order:2},
+      {type:'line', label:'归母净利润(亿)', data:[2.90,4.46,2.15], borderColor:OPP, backgroundColor:OPP, tension:.3, borderWidth:3, pointRadius:6, pointHoverRadius:8, yAxisID:'y1', order:1},
+      {type:'line', label:'扣非净利润(亿)', data:[2.75,0.98,0.84], borderColor:YG, backgroundColor:YG, tension:.3, borderWidth:3, pointRadius:6, pointHoverRadius:8, yAxisID:'y1', order:1}
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'top', labels:{usePointStyle:true, padding:15}},
+      tooltip:{...tooltipStyle, mode:'index', intersect:false}
+    },
+    scales:{
+      y:{beginAtZero:true, position:'left', title:{display:true,text:'营业收入(亿)'}, grid:{color:'#ecf0f1'}},
+      y1:{beginAtZero:true, position:'right', title:{display:true,text:'净利润(亿)'}, grid:{display:false}},
+      x:{grid:{display:false}}
+    },
+    interaction:{mode:'index', intersect:false}
+  }
+});
+
+// ============ 图5: 营收与净利润对比 ============
+new Chart(document.getElementById('chartRevProfit'),{
+  type:'bar',
+  data:{
+    labels:['佛山照明','欧普照明','阳光照明'],
+    datasets:[
+      {label:'营业收入(亿)', data:[87.97,69.70,26.68], backgroundColor:[FSL,OPP,YG], borderRadius:5, yAxisID:'y'},
+      {label:'归母净利润(亿)', data:[2.15,9.20,1.89], backgroundColor:['#5dade2','#ec7063','#58d68d'], borderRadius:5, yAxisID:'y1'}
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'top', labels:{usePointStyle:true, padding:15}},
+      tooltip:{...tooltipStyle, mode:'index', intersect:false}
+    },
+    scales:{
+      y:{beginAtZero:true, position:'left', title:{display:true,text:'营业收入(亿)'}, grid:{color:'#ecf0f1'}},
+      y1:{beginAtZero:true, position:'right', title:{display:true,text:'归母净利润(亿)'}, grid:{display:false}},
+      x:{grid:{display:false}}
+    },
+    interaction:{mode:'index', intersect:false}
+  }
+});
+
+// ============ 图6: 雷达图 ============
+new Chart(document.getElementById('chartRadar'),{
+  type:'radar',
+  data:{
+    labels:['毛利率','净利率','ROE','营收规模','现金流','研发投入'],
+    datasets:[
+      {label:'佛山照明', data:[17.69,2.44,3.21,87.97,2.97,6.13], borderColor:FSL, backgroundColor:'rgba(41,128,185,.18)', borderWidth:2, pointRadius:5, pointBackgroundColor:FSL},
+      {label:'欧普照明', data:[39.34,13.20,13.62,69.70,6.90,4.26], borderColor:OPP, backgroundColor:'rgba(231,76,60,.18)', borderWidth:2, pointRadius:5, pointBackgroundColor:OPP},
+      {label:'阳光照明', data:[33.25,7.08,5.34,26.68,2.30,3.08], borderColor:YG, backgroundColor:'rgba(39,174,96,.18)', borderWidth:2, pointRadius:5, pointBackgroundColor:YG}
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'top', labels:{usePointStyle:true, padding:15}},
+      tooltip:{...tooltipStyle}
+    },
+    scales:{
+      r:{beginAtZero:true, grid:{color:'#d5dbdb'}, angleLines:{color:'#d5dbdb'}, pointLabels:{font:{size:12}}, ticks:{backdropColor:'transparent', font:{size:10}}}
+    }
+  }
+});
+
+// ============ 图7: 费用率对比 ============
+new Chart(document.getElementById('chartExp'),{
+  type:'bar',
+  data:{
+    labels:['销售费用率','管理费用率','研发费用率'],
+    datasets:[
+      {label:'佛山照明', data:[4.07,5.47,6.13], backgroundColor:FSL, borderRadius:5},
+      {label:'欧普照明', data:[17.42,3.87,4.26], backgroundColor:OPP, borderRadius:5},
+      {label:'阳光照明', data:[15.29,10.73,3.08], backgroundColor:YG, borderRadius:5}
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'top', labels:{usePointStyle:true, padding:15}},
+      tooltip:{...tooltipStyle, callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.y}%`}}
+    },
+    scales:{
+      y:{beginAtZero:true, ticks:{callback:v=>v+'%'}, grid:{color:'#ecf0f1'}},
+      x:{grid:{display:false}}
+    }
+  }
+});
+</script>
+</body>
+</html>
