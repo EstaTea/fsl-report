@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>照明行业数字化转型深度对标研究报告 2025</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<style>
+  :root {
+    --dark-blue: #1F3864;
+    --mid-blue:  #2E75B6;
+    --light-blue:#D6E4F0;
+    --orange:    #F4B942;
+    --green:     #70AD47;
+    --red:       #C00000;
+    --gray:      #595959;
+    --light-gray:#F2F2F2;
+    --white:     #FFFFFF;
+    --signify:   #0070C0;
+    --yang:      #ED7D31;
+    --opple:     #70AD47;
+    --fsl:       #FFC000;
+    --card-shadow: 0 2px 12px rgba(31,56,100,.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+         background: #F4F7FB; color: #1F1F1F; font-size: 14px; }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--dark-blue);
+    display: flex; align-items: center;
+    padding: 0 24px; height: 52px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.3);
+    overflow-x: auto; white-space: nowrap;
+  }
+  nav .logo { color: #fff; font-weight: 700; font-size: 15px;
+              margin-right: 32px; flex-shrink: 0; }
+  nav a { color: rgba(255,255,255,.75); text-decoration: none;
+          margin: 0 12px; font-size: 13px; padding: 4px 0;
+          border-bottom: 2px solid transparent; transition: all .2s; }
+  nav a:hover, nav a.active { color: #fff; border-bottom-color: var(--orange); }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, var(--dark-blue) 0%, #2c5282 60%, #1a6b9e 100%);
+    color: #fff; padding: 56px 40px 48px; text-align: center;
+  }
+  .hero h1 { font-size: 28px; font-weight: 800; line-height: 1.4;
+             text-shadow: 0 2px 8px rgba(0,0,0,.3); }
+  .hero p  { margin-top: 12px; opacity: .85; font-size: 14px; }
+  .hero .tags { margin-top: 18px; display: flex; flex-wrap: wrap;
+                gap: 8px; justify-content: center; }
+  .hero .tag { background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3);
+               padding: 4px 14px; border-radius: 20px; font-size: 12px; }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 1280px; margin: 0 auto; padding: 32px 20px; }
+  section { margin-bottom: 48px; scroll-margin-top: 60px; }
+  h2 { font-size: 20px; font-weight: 700; color: var(--dark-blue);
+       padding-bottom: 10px; border-bottom: 3px solid var(--mid-blue);
+       margin-bottom: 20px; }
+  h3 { font-size: 15px; font-weight: 700; color: var(--mid-blue);
+       margin: 20px 0 10px; }
+
+  /* ── CARDS ── */
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+              gap: 16px; margin-bottom: 24px; }
+  .kpi-card { background: #fff; border-radius: 10px; padding: 18px 20px;
+              box-shadow: var(--card-shadow); border-top: 4px solid var(--mid-blue); }
+  .kpi-card .label { font-size: 12px; color: var(--gray); }
+  .kpi-card .value { font-size: 24px; font-weight: 800; color: var(--dark-blue);
+                     margin: 4px 0; }
+  .kpi-card .sub   { font-size: 11px; color: var(--gray); }
+  .kpi-card.sig  { border-top-color: var(--signify); }
+  .kpi-card.yang { border-top-color: var(--yang); }
+  .kpi-card.opp  { border-top-color: var(--opple); }
+  .kpi-card.fsl  { border-top-color: var(--fsl); }
+
+  /* ── CHART GRID ── */
+  .chart-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+                gap: 20px; }
+  .chart-card { background: #fff; border-radius: 10px; padding: 20px;
+                box-shadow: var(--card-shadow); }
+  .chart-card h4 { font-size: 13px; font-weight: 700; color: var(--dark-blue);
+                   margin-bottom: 14px; display: flex; align-items: center; gap: 6px; }
+  .chart-card h4::before { content: ''; display: inline-block;
+                            width: 4px; height: 16px; background: var(--mid-blue);
+                            border-radius: 2px; }
+  .chart-wrap { position: relative; height: 280px; }
+
+  /* ── TABLE ── */
+  .tbl-wrap { overflow-x: auto; border-radius: 10px;
+              box-shadow: var(--card-shadow); margin-bottom: 20px; }
+  table { width: 100%; border-collapse: collapse; background: #fff; }
+  thead th { background: var(--dark-blue); color: #fff; padding: 10px 12px;
+             font-size: 12px; text-align: left; white-space: nowrap; }
+  tbody tr:nth-child(even) { background: var(--light-gray); }
+  tbody td { padding: 9px 12px; font-size: 12px; border-bottom: 1px solid #E8EDF2;
+             vertical-align: top; line-height: 1.5; }
+  tbody tr:hover { background: var(--light-blue); }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 10px;
+           font-size: 11px; font-weight: 600; white-space: nowrap; }
+  .badge-high   { background: #d4edda; color: #155724; }
+  .badge-med    { background: #fff3cd; color: #856404; }
+  .badge-low    { background: #f8d7da; color: #721c24; }
+  .badge-blue   { background: var(--light-blue); color: var(--dark-blue); }
+
+  /* ── COMPANY LEGEND ── */
+  .legend { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+
+  /* ── RADAR ── */
+  .radar-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+                   gap: 20px; }
+
+  /* ── RECOMMEND ── */
+  .rec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+              gap: 16px; }
+  .rec-card { background: #fff; border-radius: 10px; padding: 18px 20px;
+              box-shadow: var(--card-shadow); border-left: 4px solid var(--mid-blue); }
+  .rec-card .rec-num { font-size: 11px; font-weight: 700; color: var(--mid-blue);
+                       text-transform: uppercase; letter-spacing: 1px; }
+  .rec-card .rec-title { font-size: 14px; font-weight: 700; margin: 6px 0 8px; color: var(--dark-blue); }
+  .rec-card .rec-basis  { font-size: 12px; color: var(--gray); margin-bottom: 8px; }
+  .rec-card .rec-apply  { font-size: 12px; color: #1F1F1F; background: #FFF9EC;
+                           border-left: 3px solid var(--orange); padding: 6px 10px;
+                           border-radius: 4px; }
+
+  /* ── IT SYSTEM TABLE ── */
+  .sys-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+              gap: 16px; }
+  .sys-card { background: #fff; border-radius: 10px; padding: 16px 18px;
+              box-shadow: var(--card-shadow); }
+  .sys-card .company-name { font-weight: 700; font-size: 14px; margin-bottom: 12px;
+                            display: flex; align-items: center; gap: 8px; }
+  .sys-row { display: flex; justify-content: space-between; align-items: center;
+             padding: 5px 0; border-bottom: 1px solid #F0F0F0; font-size: 12px; }
+  .sys-row:last-child { border-bottom: none; }
+  .sys-row .sys-name { color: var(--gray); }
+
+  /* ── KPI FRAMEWORK ── */
+  .kpi-framework { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                   gap: 20px; }
+  .kpi-category { background: #fff; border-radius: 10px; padding: 18px 20px;
+                  box-shadow: var(--card-shadow); }
+  .kpi-category h4 { font-size: 13px; font-weight: 700; color: var(--dark-blue);
+                     margin-bottom: 12px; padding-bottom: 8px;
+                     border-bottom: 2px solid var(--light-blue); }
+  .kpi-item { padding: 6px 0; border-bottom: 1px solid #F5F5F5;
+              font-size: 12px; display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+  .kpi-item:last-child { border-bottom: none; }
+  .kpi-item .kpi-name { font-weight: 600; color: #1F1F1F; flex-shrink: 0; max-width: 55%; }
+  .kpi-item .kpi-desc { color: var(--gray); text-align: right; font-size: 11px; }
+
+  /* ── GAP MATRIX ── */
+  .gap-matrix { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 16px; }
+  .gap-card { background: #fff; border-radius: 10px; padding: 16px 18px;
+              box-shadow: var(--card-shadow); }
+  .gap-card h4 { font-size: 13px; font-weight: 700; color: var(--dark-blue);
+                 margin-bottom: 10px; }
+  .gap-bar-row { margin-bottom: 8px; }
+  .gap-bar-label { display: flex; justify-content: space-between;
+                   font-size: 11px; margin-bottom: 3px; }
+  .gap-bar-track { background: #F0F0F0; border-radius: 4px; height: 8px; }
+  .gap-bar-fill  { height: 8px; border-radius: 4px; transition: width .6s ease; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--dark-blue); color: rgba(255,255,255,.7);
+           text-align: center; padding: 20px; font-size: 12px; }
+
+  /* ── TOOLTIP ── */
+  .tooltip-container { position: relative; display: inline-block; }
+  .tooltip-text { visibility: hidden; background: #333; color: #fff;
+                  font-size: 11px; border-radius: 6px; padding: 6px 10px;
+                  position: absolute; z-index: 1; bottom: 125%; left: 50%;
+                  transform: translateX(-50%); white-space: nowrap;
+                  box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+  .tooltip-container:hover .tooltip-text { visibility: visible; }
+
+  /* ── KPI TABS ── */
+  .kpi-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .kpi-tab { padding: 8px 18px; border-radius: 20px; border: 1.5px solid var(--mid-blue);
+             background: #fff; color: var(--mid-blue); cursor: pointer;
+             font-size: 13px; font-weight: 600; transition: all .2s; }
+  .kpi-tab:hover { background: var(--light-blue); }
+  .kpi-tab.active { background: var(--mid-blue); color: #fff; }
+  .kpi-dim { display: none; }
+  .kpi-dim.active { display: block; }
+  .chart-note { margin-top: 8px; font-size: 11px; color: var(--gray);
+                line-height: 1.5; padding: 6px 8px;
+                border-left: 3px solid var(--light-blue); background: #FAFCFF; }
+
+  @media (max-width: 768px) {
+    .kpi-tabs { gap: 6px; }
+    .kpi-tab { padding: 6px 12px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="logo">💡 照明行业对标报告 2025</span>
+  <a href="#overview">总览</a>
+  <a href="#financials">财务对比</a>
+  <a href="#itsystems">信息化系统</a>
+  <a href="#digital">数字化成熟度</a>
+  <a href="#kpi">KPI框架</a>
+  <a href="#gap">差距分析</a>
+  <a href="#recommendations">转型建议</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>照明行业数字化转型深度对标研究报告</h1>
+  <p>Signify（昕诺飞）· 浙江阳光照明 · 欧普照明 · 佛山照明 — 四家2025年年报综合分析</p>
+  <div class="tags">
+    <span class="tag">📊 服务：佛山照明 SAP S/4HANA升级+数字化转型咨询</span>
+    <span class="tag">📅 报告日期：2026年6月</span>
+    <span class="tag">📑 数据来源：各公司2025年年度报告原文</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ── SECTION 1: OVERVIEW KPIs ── -->
+<section id="overview">
+  <h2>总览：四家公司概况</h2>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--signify)"></div>Signify（昕诺飞）</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--yang)"></div>浙江阳光照明</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--opple)"></div>欧普照明</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--fsl)"></div>佛山照明</div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi-card sig">
+      <div class="label">Signify 营业收入（2025）</div>
+      <div class="value">€57.65亿</div>
+      <div class="sub">约人民币455亿 ▼-6.2%（名义）</div>
+    </div>
+    <div class="kpi-card yang">
+      <div class="label">阳光照明 营业收入（2025）</div>
+      <div class="value">26.68亿</div>
+      <div class="sub">人民币元 ▼-15.98%</div>
+    </div>
+    <div class="kpi-card opp">
+      <div class="label">欧普照明 营业收入（2025）</div>
+      <div class="value">69.70亿</div>
+      <div class="sub">人民币元 ▼-1.78%</div>
+    </div>
+    <div class="kpi-card fsl">
+      <div class="label">佛山照明 营业收入（2025）</div>
+      <div class="value">87.97亿</div>
+      <div class="sub">人民币元（含国星光电/车灯）▼-2.78%</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 2: FINANCIALS ── -->
+<section id="financials">
+  <h2>财务对比</h2>
+  <div class="chart-grid">
+    <div class="chart-card">
+      <h4>毛利率对比（%）</h4>
+      <div class="chart-wrap"><canvas id="grossMarginChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h4>扣非净利率对比（%）</h4>
+      <div class="chart-wrap"><canvas id="netMarginChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h4>研发费用占收入比（%）</h4>
+      <div class="chart-wrap"><canvas id="rdChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h4>海外收入占比（%）</h4>
+      <div class="chart-wrap"><canvas id="overseasChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h4>营业收入规模对比（亿元人民币）</h4>
+      <div class="chart-wrap"><canvas id="revenueChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h4>净资产收益率 ROE（%）</h4>
+      <div class="chart-wrap"><canvas id="roeChart"></canvas></div>
+    </div>
+  </div>
+
+  <h3>关键财务指标汇总表</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>指标</th>
+          <th>Signify（昕诺飞）</th>
+          <th>阳光照明（600261）</th>
+          <th>欧普照明（603515）</th>
+          <th>佛山照明（600541）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><b>营业收入</b></td><td>EUR 57.65亿（约455亿元）</td><td>26.68亿元</td><td>69.70亿元</td><td>87.97亿元（含国星光电/车灯）</td></tr>
+        <tr><td><b>收入增速</b></td><td>-6.2%（名义）/ -3.4%（可比）</td><td>-15.98%</td><td>-1.78%</td><td>-2.78%</td></tr>
+        <tr><td><b>海外收入</b></td><td>Americas 27% / Europe 28% / Asia 43%</td><td>约56%（北美7.25亿/欧洲5.93亿）</td><td>境外6.72亿，占9.7%</td><td>境外18.30亿，占20.8%</td></tr>
+        <tr><td><b>毛利率</b></td><td>40.1%（调整后）</td><td>32.70%（照明主业）</td><td>39.10%</td><td>综合约17.6%（照明20.5%/LED封装14.3%）</td></tr>
+        <tr><td><b>扣非净利率</b></td><td>约4.5%</td><td>约7.09%</td><td>约13.2%</td><td><b style="color:var(--red)">0.95%</b>（扣非净利仅0.84亿）</td></tr>
+        <tr><td><b>研发费用/占比</b></td><td>EUR 2.65亿 / 4.6%</td><td>0.82亿元 / 3.09%</td><td>2.97亿元 / 4.26%</td><td>5.60亿元 / 6.37%（集团口径）</td></tr>
+        <tr><td><b>员工总数</b></td><td>26,581名 / 全球73国</td><td>4,008人</td><td>5,976人</td><td>11,971人</td></tr>
+        <tr><td><b>ROE</b></td><td>约9.5%</td><td>—</td><td>13.62%</td><td>3.21%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ── SECTION 3: IT SYSTEMS ── -->
+<section id="itsystems">
+  <h2>信息化系统建设现状（含SAP详情）</h2>
+  <p style="color:var(--gray);font-size:12px;margin-bottom:16px;">
+    以下信息均来自各公司2025年年报原文直接披露内容，未披露项标注"财报未披露"。
+  </p>
+
+  <div class="sys-grid">
+    <!-- Signify -->
+    <div class="sys-card">
+      <div class="company-name">
+        <div class="legend-dot" style="background:var(--signify);width:14px;height:14px;border-radius:50%"></div>
+        Signify（昕诺飞）
+      </div>
+      <div class="sys-row"><span class="sys-name">SAP系统</span><span class="badge badge-low">财报仅1次提及，未详述</span></div>
+      <div class="sys-row"><span class="sys-name">ERP体系</span><span class="badge badge-high">全球统一ERP，技术栈现代化中</span></div>
+      <div class="sys-row"><span class="sys-name">IoT平台</span><span class="badge badge-high">Interact（专业端）+ Hue/WiZ（消费端）</span></div>
+      <div class="sys-row"><span class="sys-name">连接节点</span><span class="badge badge-high">1.6亿个全球Connected Lighting Points</span></div>
+      <div class="sys-row"><span class="sys-name">AI平台</span><span class="badge badge-high">全价值链AI（研发/销售/供应链/财务）</span></div>
+      <div class="sys-row"><span class="sys-name">ESG数字化</span><span class="badge badge-high">CSRD/ESRS合规，ESEF(XBRL)格式年报</span></div>
+      <div class="sys-row"><span class="sys-name">数字化治理</span><span class="badge badge-high">CDIO+CInO+Board级Digital Committee</span></div>
+      <div class="sys-row"><span class="sys-name">全球税务</span><span class="badge badge-high">Tax Control Framework + Country-by-Country</span></div>
+    </div>
+
+    <!-- 阳光照明 -->
+    <div class="sys-card">
+      <div class="company-name">
+        <div class="legend-dot" style="background:var(--yang);width:14px;height:14px;border-radius:50%"></div>
+        浙江阳光照明（600261）
+      </div>
+      <div class="sys-row"><span class="sys-name">SAP系统</span><span class="badge badge-high">✅ 已上线（财报原文明确披露）</span></div>
+      <div class="sys-row"><span class="sys-name">SAP用途</span><span class="badge badge-blue">采购管理中心：订单/合同/询竞价/送货</span></div>
+      <div class="sys-row"><span class="sys-name">SRM系统</span><span class="badge badge-high">✅ 已上线，与SAP协同运作</span></div>
+      <div class="sys-row"><span class="sys-name">MES系统</span><span class="badge badge-high">✅ 制造中心全面推行，生产全流程数字化</span></div>
+      <div class="sys-row"><span class="sys-name">OA系统</span><span class="badge badge-med">应收账款管理预警（有限使用）</span></div>
+      <div class="sys-row"><span class="sys-name">ERP范围</span><span class="badge badge-low">财报未披露完整ERP覆盖模块</span></div>
+      <div class="sys-row"><span class="sys-name">CRM/财务</span><span class="badge badge-low">财报未披露</span></div>
+      <div class="sys-row"><span class="sys-name">数字化治理</span><span class="badge badge-low">财报未设置专职数字化岗位披露</span></div>
+    </div>
+
+    <!-- 欧普照明 -->
+    <div class="sys-card">
+      <div class="company-name">
+        <div class="legend-dot" style="background:var(--opple);width:14px;height:14px;border-radius:50%"></div>
+        欧普照明（603515）
+      </div>
+      <div class="sys-row"><span class="sys-name">SAP系统</span><span class="badge badge-high">✅ 已上线（财报原文：通过SAP系统加强子公司内部管理控制与协同）</span></div>
+      <div class="sys-row"><span class="sys-name">SAP用途</span><span class="badge badge-blue">集团管控：子公司协同/内部管理控制</span></div>
+      <div class="sys-row"><span class="sys-name">CRM系统</span><span class="badge badge-high">✅ 2025年上线，深化商用照明标准化管理</span></div>
+      <div class="sys-row"><span class="sys-name">欧普设计家平台</span><span class="badge badge-high">✅ 2025年上线，前端营销AI解决方案生成</span></div>
+      <div class="sys-row"><span class="sys-name">精准成本管理平台</span><span class="badge badge-high">✅ 2025年上线，数据驱动成本管控</span></div>
+      <div class="sys-row"><span class="sys-name">采购管理平台</span><span class="badge badge-high">✅ 2025年上线，降低采购成本</span></div>
+      <div class="sys-row"><span class="sys-name">数字化HR平台</span><span class="badge badge-high">✅ 2025年上线，绩效精细化管理</span></div>
+      <div class="sys-row"><span class="sys-name">AI客服/数字人</span><span class="badge badge-high">✅ 基于大模型，已上线AI在线客服/电话数字人/直播数字人</span></div>
+      <div class="sys-row"><span class="sys-name">欧普智能照明综合管理平台</span><span class="badge badge-high">✅ IoT照明控制平台</span></div>
+      <div class="sys-row"><span class="sys-name">数据治理</span><span class="badge badge-med">夯实数据平台，提升数据治理与运营能力（建设中）</span></div>
+      <div class="sys-row"><span class="sys-name">企业AI大脑</span><span class="badge badge-med">构建欧普AI大脑+企业级AI能力平台（规划中）</span></div>
+    </div>
+
+    <!-- 佛山照明 -->
+    <div class="sys-card">
+      <div class="company-name">
+        <div class="legend-dot" style="background:var(--fsl);width:14px;height:14px;border-radius:50%"></div>
+        佛山照明（600541）
+      </div>
+      <div class="sys-row"><span class="sys-name">SAP ECC 6.0</span><span class="badge badge-med">✅ 现有系统（项目背景已知）：FICO/SD/MM/PP/QM/WM</span></div>
+      <div class="sys-row"><span class="sys-name">SAP升级目标</span><span class="badge badge-high">🚀 S/4HANA PCE（Greenfield，2026年5月29日已启动）</span></div>
+      <div class="sys-row"><span class="sys-name">PLM系统</span><span class="badge badge-med">⏰ 2025年刚上线（财报原文明确披露）</span></div>
+      <div class="sys-row"><span class="sys-name">财务共享系统</span><span class="badge badge-med">⏰ 2025年刚上线（财报原文明确披露）</span></div>
+      <div class="sys-row"><span class="sys-name">AICG项目</span><span class="badge badge-low">🔧 2025年启动建设（起步阶段，含智能客服场景）</span></div>
+      <div class="sys-row"><span class="sys-name">自动化改造</span><span class="badge badge-med">120多项自动化改造（设备自动化为主）</span></div>
+      <div class="sys-row"><span class="sys-name">CRM系统</span><span class="badge badge-low">财报未披露</span></div>
+      <div class="sys-row"><span class="sys-name">MES系统</span><span class="badge badge-low">财报未披露（S/4HANA集成范围内）</span></div>
+      <div class="sys-row"><span class="sys-name">WMS/EWM</span><span class="badge badge-low">ECC WM现运行中，S/4HANA升级为EWM</span></div>
+      <div class="sys-row"><span class="sys-name">募投数字化项目</span><span class="badge badge-low">⚠ 因宏观经济/关税影响，投资进度未达预期，已延期</span></div>
+      <div class="sys-row"><span class="sys-name">数字化治理</span><span class="badge badge-low">无专职CDO，以培训为主要抓手</span></div>
+    </div>
+  </div>
+
+  <h3>信息化系统覆盖对比矩阵</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>信息化模块/系统</th>
+          <th>Signify</th>
+          <th>阳光照明</th>
+          <th>欧普照明</th>
+          <th>佛山照明</th>
+          <th>说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><b>SAP / ERP核心系统</b></td><td><span class="badge badge-high">全球统一ERP</span></td><td><span class="badge badge-high">SAP（采购/供应链）</span></td><td><span class="badge badge-high">SAP（集团管控）</span></td><td><span class="badge badge-med">SAP ECC 6.0→升级中</span></td><td>佛照是最全面使用SAP的中国公司，但版本最老</td></tr>
+        <tr><td><b>MES 制造执行</b></td><td><span class="badge badge-high">全球工厂覆盖</span></td><td><span class="badge badge-high">全面推行</span></td><td><span class="badge badge-low">财报未披露</span></td><td><span class="badge badge-low">财报未披露（升级范围内）</span></td><td>阳光照明MES最成熟</td></tr>
+        <tr><td><b>CRM 客户管理</b></td><td><span class="badge badge-high">全球CRM体系</span></td><td><span class="badge badge-low">财报未披露</span></td><td><span class="badge badge-high">2025年上线</span></td><td><span class="badge badge-low">财报未披露</span></td><td>欧普2025年才上线</td></tr>
+        <tr><td><b>PLM 产品生命周期</b></td><td><span class="badge badge-high">全球产品研发平台</span></td><td><span class="badge badge-low">财报未披露</span></td><td><span class="badge badge-low">财报未披露</span></td><td><span class="badge badge-med">2025年刚上线</span></td><td>佛照PLM刚上线，需与S/4HANA集成</td></tr>
+        <tr><td><b>SRM 供应商管理</b></td><td><span class="badge badge-high">全球供应商平台</span></td><td><span class="badge badge-high">SAP+SRM协同</span></td><td><span class="badge badge-med">采购管理平台2025年上线</span></td><td><span class="badge badge-low">财报未披露（升级范围内）</span></td><td>阳光照明SRM最成熟</td></tr>
+        <tr><td><b>财务共享 / 集团管控</b></td><td><span class="badge badge-high">全球统一财务体系</span></td><td><span class="badge badge-low">财报未披露</span></td><td><span class="badge badge-high">SAP集团管控已上线</span></td><td><span class="badge badge-med">财务共享2025年刚上线</span></td><td>佛照19家法人合并是核心挑战</td></tr>
+        <tr><td><b>IoT / 智能照明平台</b></td><td><span class="badge badge-high">Interact+Hue+WiZ（1.6亿节点）</span></td><td><span class="badge badge-low">财报未披露</span></td><td><span class="badge badge-high">欧普智能综合管理平台</span></td><td><span class="badge badge-low">少量智能产品，无平台披露</span></td><td>Signify遥遥领先</td></tr>
+        <tr><td><b>AI / 大模型应用</b></td><td><span class="badge badge-high">全链条AI，专设AI路线图</span></td><td><span class="badge badge-low">财报未披露</span></td><td><span class="badge badge-high">AI客服/数字人/数据分析已上线</span></td><td><span class="badge badge-low">AICG项目2025年启动（起步）</span></td><td>欧普AI落地最务实</td></tr>
+        <tr><td><b>ESG 数字化合规</b></td><td><span class="badge badge-high">CSRD/ESRS/ESEF全口径</span></td><td><span class="badge badge-low">财报未披露系统</span></td><td><span class="badge badge-med">EcoVadis铜牌，零碳园区建设中</span></td><td><span class="badge badge-low">5家子公司强制披露，系统基础薄弱</span></td><td>Signify领先2-3个代际</td></tr>
+        <tr><td><b>数字化HR平台</b></td><td><span class="badge badge-high">全球HR体系</span></td><td><span class="badge badge-low">财报未披露</span></td><td><span class="badge badge-high">2025年上线数字化HR平台</span></td><td><span class="badge badge-low">财报未披露</span></td><td>欧普数字化HR最新</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ── SECTION 4: DIGITAL MATURITY RADAR ── -->
+<section id="digital">
+  <h2>数字化成熟度评估</h2>
+  <div class="radar-section">
+    <div class="chart-card">
+      <h4>四家公司数字化成熟度雷达图（5分制）</h4>
+      <div class="chart-wrap" style="height:340px;"><canvas id="radarChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h4>数字化成熟度得分汇总</h4>
+      <div class="tbl-wrap" style="box-shadow:none;margin:0;">
+        <table>
+          <thead>
+            <tr><th>评估维度</th><th>Signify</th><th>阳光照明</th><th>欧普照明</th><th>佛山照明</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>研产供销服数字化贯通</td><td><span class="badge badge-high">5 高</span></td><td><span class="badge badge-low">2 中低</span></td><td><span class="badge badge-high">4 中高</span></td><td><span class="badge badge-low">1 低</span></td></tr>
+            <tr><td>主数据治理水平</td><td><span class="badge badge-high">5 高</span></td><td><span class="badge badge-low">1 低</span></td><td><span class="badge badge-med">3 中</span></td><td><span class="badge badge-low">1 低</span></td></tr>
+            <tr><td>数字化组织建设</td><td><span class="badge badge-high">5 高</span></td><td><span class="badge badge-low">1 低</span></td><td><span class="badge badge-high">4 中高</span></td><td><span class="badge badge-low">1 低</span></td></tr>
+            <tr><td>全球化数字化协同</td><td><span class="badge badge-high">5 高</span></td><td><span class="badge badge-low">1 低</span></td><td><span class="badge badge-low">2 低中</span></td><td><span class="badge badge-low">1 低</span></td></tr>
+            <tr><td>AI应用深度</td><td><span class="badge badge-high">5 高</span></td><td><span class="badge badge-low">1 低</span></td><td><span class="badge badge-high">4 中高</span></td><td><span class="badge badge-low">1 低</span></td></tr>
+            <tr><td>产品数字化/IoT</td><td><span class="badge badge-high">5 高</span></td><td><span class="badge badge-low">1 低</span></td><td><span class="badge badge-med">3 中</span></td><td><span class="badge badge-low">1 低</span></td></tr>
+            <tr><td>ESG数字化合规</td><td><span class="badge badge-high">5 高</span></td><td><span class="badge badge-low">1 低</span></td><td><span class="badge badge-med">3 中</span></td><td><span class="badge badge-low">2 低</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 5: KPI FRAMEWORK ── -->
+<section id="kpi">
+  <h2>关键指标体系（KPI Framework）— 量化评估结果</h2>
+  <p style="color:var(--gray);font-size:12px;margin-bottom:20px;">
+    以下数据均来自各公司2025年年度报告原文，已按统一口径计算。点击维度卡片可展开/收起详细图表。部分指标财报未披露，标注说明。
+  </p>
+
+  <!-- ── TABS ── -->
+  <div class="kpi-tabs">
+    <button class="kpi-tab active" onclick="switchDim(0)">📊 盈利能力</button>
+    <button class="kpi-tab" onclick="switchDim(1)">🌍 成长与国际化</button>
+    <button class="kpi-tab" onclick="switchDim(2)">🏭 运营效率</button>
+    <button class="kpi-tab" onclick="switchDim(3)">🔬 创新与研发</button>
+    <button class="kpi-tab" onclick="switchDim(4)">🌱 ESG可持续</button>
+  </div>
+
+  <!-- DIM 0: 盈利能力 -->
+  <div class="kpi-dim active" id="dim0">
+    <div class="chart-grid">
+      <div class="chart-card">
+        <h4>毛利率（%）</h4>
+        <div class="chart-wrap"><canvas id="kpiGross"></canvas></div>
+        <p class="chart-note">佛照综合毛利率17.6%，远低于欧普（39.1%）和Signify（40.1%）。低毛利LED封装（14.3%）和车灯业务是主要拖累。</p>
+      </div>
+      <div class="chart-card">
+        <h4>扣非净利率（%）</h4>
+        <div class="chart-wrap"><canvas id="kpiNetMargin"></canvas></div>
+        <p class="chart-note">佛照扣非净利率仅0.95%，处于行业底部。欧普13.2%为行业最优，净利润结构健康。</p>
+      </div>
+      <div class="chart-card">
+        <h4>Adjusted EBITA/EBIT利润率（%）</h4>
+        <div class="chart-wrap"><canvas id="kpiEbita"></canvas></div>
+        <p class="chart-note">Signify调整后EBITA利润率8.9%（EUR 511M）；中国三家公司按EBIT口径计算（财报未统一披露EBITDA）。</p>
+      </div>
+      <div class="chart-card">
+        <h4>ROE净资产收益率（%）</h4>
+        <div class="chart-wrap"><canvas id="kpiRoe"></canvas></div>
+        <p class="chart-note">阳光照明ROE财报未单独披露。欧普13.62%资本回报效率最优；佛照3.21%与同行差距明显。</p>
+      </div>
+      <div class="chart-card">
+        <h4>期间费用率（销售+管理+财务费用/营收，%）</h4>
+        <div class="chart-wrap"><canvas id="kpiPeriodExp"></canvas></div>
+        <p class="chart-note">欧普期间费用率20.8%，其中销售费用12.14亿元（占收入17.4%）为行业最高，反映家居渠道的高渠道投入。佛照9.4%最低，但收入结构中B2B出口贸易占比较高。</p>
+      </div>
+      <div class="chart-card">
+        <h4>人均收入（万元/人）</h4>
+        <div class="chart-wrap"><canvas id="kpiPerCapita"></canvas></div>
+        <p class="chart-note">Signify人均收入最高（约171万元/人，折算人民币）；欧普人均约116.6万元/人；佛照73.5万元/人，员工效率提升空间大。</p>
+      </div>
+    </div>
+
+    <h3>盈利能力KPI汇总表（2025年）</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>KPI指标</th><th>计算公式</th><th>Signify</th><th>阳光照明</th><th>欧普照明</th><th>佛山照明</th><th>数据来源</th></tr></thead>
+        <tbody>
+          <tr><td><b>毛利率</b></td><td>(收入-营业成本)/收入</td><td>39.4%（调整后40.1%）</td><td>32.7%（照明主业）</td><td>39.1%</td><td>17.6%（综合）/照明20.5%</td><td>各公司利润表</td></tr>
+          <tr><td><b>扣非净利率</b></td><td>扣非净利润/营业收入</td><td>4.5%（EUR 259M/5765M）</td><td>7.1%（1.89亿/26.68亿）</td><td>13.2%（9.2亿/69.7亿）</td><td><b style="color:var(--red)">0.95%（0.84亿/87.97亿）</b></td><td>各公司利润表</td></tr>
+          <tr><td><b>EBITA/EBIT利润率</b></td><td>EBITA或EBIT/营业收入</td><td>8.9%（调整后EBITA）</td><td>约7.5%（估算）</td><td>约15.5%（利润总额/收入）</td><td>约2.4%（估算）</td><td>Signify官方指标；中国公司利润总额口径</td></tr>
+          <tr><td><b>ROE净资产收益率</b></td><td>净利润/平均净资产</td><td>约9.5%</td><td>财报未披露</td><td>13.62%</td><td>3.21%</td><td>各公司财报直接披露</td></tr>
+          <tr><td><b>期间费用率</b></td><td>(销售+管理+财务费用)/收入</td><td>约25.0%（估算）</td><td>25.9%（25.9/26.68+含研发调整）</td><td>20.8%（销12.14+管2.70-财0.31）</td><td>9.4%（销3.58+管4.81-财0.13）</td><td>各公司费用科目合计</td></tr>
+          <tr><td><b>人均收入</b></td><td>营业收入/员工总数</td><td>约171.2万元/人（折RMB）</td><td>约66.6万元/人</td><td>约116.6万元/人</td><td>约73.5万元/人</td><td>收入/员工人数计算</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- DIM 1: 成长与国际化 -->
+  <div class="kpi-dim" id="dim1">
+    <div class="chart-grid">
+      <div class="chart-card">
+        <h4>营业收入规模（亿元人民币）</h4>
+        <div class="chart-wrap"><canvas id="kpiRevenue2"></canvas></div>
+        <p class="chart-note">佛照账面收入最大（87.97亿），但含国星光电LED封装（25.7%）和燎旺车灯（25.3%），照明主业实际仅约30.3亿，为欧普的43%。</p>
+      </div>
+      <div class="chart-card">
+        <h4>海外收入占比（%）</h4>
+        <div class="chart-wrap"><canvas id="kpiOverseas2"></canvas></div>
+        <p class="chart-note">阳光照明海外化程度最高（约56%），但主要为OEM代工出口。佛照20.8%中以代工出口为主，无海外工厂，关税风险完全无法规避。</p>
+      </div>
+      <div class="chart-card">
+        <h4>收入增速YoY（%）</h4>
+        <div class="chart-wrap"><canvas id="kpiGrowth"></canvas></div>
+        <p class="chart-note">四家公司2025年均出现不同程度下滑，反映行业景气度压力。阳光照明下滑最大（-15.98%），主因北美关税冲击。欧普降幅最小（-1.78%），盈利韧性最强。</p>
+      </div>
+      <div class="chart-card">
+        <h4>LED/非传统照明占比（%）</h4>
+        <div class="chart-wrap"><canvas id="kpiLed"></canvas></div>
+        <p class="chart-note">Signify LED销售占比91%，为四家最高，且Connected Lighting持续提升产品溢价。中国三家公司LED化程度均较高，差距主要在智能化/IoT化程度。</p>
+      </div>
+    </div>
+    <h3>成长与国际化KPI汇总表</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>KPI指标</th><th>Signify</th><th>阳光照明</th><th>欧普照明</th><th>佛山照明</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td><b>营收规模</b></td><td>EUR 57.65亿（约455亿RMB）</td><td>26.68亿元</td><td>69.70亿元</td><td>87.97亿元（含多元业务）</td><td>佛照照明主业约30.3亿</td></tr>
+          <tr><td><b>收入增速（YoY）</b></td><td>-6.2%（名义）/-3.4%（可比）</td><td>-15.98%</td><td>-1.78%</td><td>-2.78%</td><td>均为下滑，关税+竞争双重压力</td></tr>
+          <tr><td><b>海外收入占比</b></td><td>~100%（全球运营）</td><td>约56%（北美+欧洲为主）</td><td>9.7%（6.72亿元）</td><td>20.8%（18.30亿元）</td><td>阳光照明最国际化，欧普主攻国内</td></tr>
+          <tr><td><b>海外生产布局</b></td><td>全球73国</td><td>泰国工厂（2024年建成，年产500万套）+越南合作</td><td>无海外工厂</td><td><b style="color:var(--red)">无海外工厂</b></td><td>佛照关税冲击完全无法规避</td></tr>
+          <tr><td><b>LED占比</b></td><td>91%（Connected趋势）</td><td>80.6%（灯具类LED占主业）</td><td>接近100%</td><td>LED转型完成，智能化程度低</td><td>差距在Connected/智能化</td></tr>
+          <tr><td><b>智能照明收入占比</b></td><td>Consumer 22%（Hue/WiZ为核心）</td><td>财报未单独披露</td><td>翻倍增长（财报未披露绝对值）</td><td>财报未单独披露</td><td>Signify、欧普最具竞争力</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- DIM 2: 运营效率 -->
+  <div class="kpi-dim" id="dim2">
+    <div class="chart-grid">
+      <div class="chart-card">
+        <h4>存货周转天数（天，越少越好）</h4>
+        <div class="chart-wrap"><canvas id="kpiInvDays"></canvas></div>
+        <p class="chart-note">欧普存货周转最快（71天），库存管理最优。佛照109天，阳光照明154天较长，反映供应链效率有待提升。Signify 97天（EUR口径）。</p>
+      </div>
+      <div class="chart-card">
+        <h4>应收账款周转天数（天，越少越好）</h4>
+        <div class="chart-wrap"><canvas id="kpiArDays"></canvas></div>
+        <p class="chart-note">Signify应收款周转最快（51天），得益于全球多元化客户和先进的应收管理系统。中国三家公司均在90天左右，差异不大，但佛照应收绝对规模21.7亿元较大。</p>
+      </div>
+      <div class="chart-card">
+        <h4>应付账款周转天数（天，越多说明账期越长）</h4>
+        <div class="chart-wrap"><canvas id="kpiApDays"></canvas></div>
+        <p class="chart-note">阳光照明应付账款周转天数异常高（271天），需结合其供应链金融安排综合判断。Signify应付账期142天，体现对供应商的谈判优势。</p>
+      </div>
+      <div class="chart-card">
+        <h4>经营活动现金流净额（亿元RMB）</h4>
+        <div class="chart-wrap"><canvas id="kpiOcf"></canvas></div>
+        <p class="chart-note">Signify经营现金流最强（531M EUR≈42亿RMB）。欧普6.9亿元现金质量最好（OCF/净利润比率健康）。佛照2.97亿元经营现金流偏低，应收账款占用较多。</p>
+      </div>
+    </div>
+    <h3>运营效率KPI汇总表</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>KPI指标</th><th>计算公式</th><th>Signify</th><th>阳光照明</th><th>欧普照明</th><th>佛山照明</th><th>数据质量</th></tr></thead>
+        <tbody>
+          <tr><td><b>存货周转天数</b></td><td>存货/营业成本×365</td><td>97天（EUR: 929/3494×365）</td><td>154天（7.50亿/17.81亿×365）</td><td>71天（8.24亿/42.28亿×365）</td><td>109天（21.64亿/72.49亿×365）</td><td>⚠ 中国公司存货额为期末单点值，准确性中等</td></tr>
+          <tr><td><b>应收账款周转天数</b></td><td>应收账款/营收×365</td><td>51天（805M/5765M×365）</td><td>94天（6.86亿/26.68亿×365）</td><td>90天（17.17亿/69.70亿×365）</td><td>90天（21.73亿/87.97亿×365）</td><td>⚠ 中国公司AR为期末单点值，准确性中等</td></tr>
+          <tr><td><b>应付账款周转天数</b></td><td>应付账款/营业成本×365</td><td>142天（1363M/3494M×365）</td><td>271天（13.24亿/17.81亿×365）⚠</td><td>86天（10.00亿/42.28亿×365）</td><td>123天（24.44亿/72.49亿×365）</td><td>⚠ 阳光照明应付账款数值含供应链金融，需进一步核实</td></tr>
+          <tr><td><b>现金转换周期(CCC)</b></td><td>存货天数+应收天数-应付天数</td><td>5.6天（97+51-142）</td><td>-22.5天（154+94-271）</td><td>74.7天（71+90-86）</td><td>76天（109+90-123）</td><td>CCC越低说明营运资金需求越少</td></tr>
+          <tr><td><b>经营现金流</b></td><td>经营活动现金流量净额</td><td>531M EUR（约42亿RMB）</td><td>2.30亿元</td><td>6.90亿元</td><td>2.97亿元</td><td>直接来自现金流量表</td></tr>
+          <tr><td><b>人均收入</b></td><td>收入/员工总数</td><td>约171.2万元/人（RMB折算）</td><td>约66.6万元/人</td><td>约116.6万元/人</td><td>约73.5万元/人</td><td>收入/员工总数直接计算</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- DIM 3: 创新与研发 -->
+  <div class="kpi-dim" id="dim3">
+    <div class="chart-grid">
+      <div class="chart-card">
+        <h4>研发费用占营收比（%）</h4>
+        <div class="chart-wrap"><canvas id="kpiRdRatio2"></canvas></div>
+        <p class="chart-note">佛照6.13%（集团口径）研发投入强度最高，但研发投入主要集中在国星光电（LED封装器件）和燎旺车灯（汽车照明），并非纯照明软件/数字化研发。</p>
+      </div>
+      <div class="chart-card">
+        <h4>研发人员占员工总数比（%）</h4>
+        <div class="chart-wrap"><canvas id="kpiRdStaff2"></canvas></div>
+        <p class="chart-note">Signify研发人员14%（Innovation/R&D部门），阳光照明同为14%。欧普7.7%较低，但其AI应用落地最务实。佛照13.05%比例不低，但人才结构集中在硬件方向。</p>
+      </div>
+      <div class="chart-card">
+        <h4>累计授权专利数量（项）</h4>
+        <div class="chart-wrap"><canvas id="kpiPatents"></canvas></div>
+        <p class="chart-note">佛照累计有效专利超2900项（含国星光电/燎旺车灯等子公司），2025年新增455件。阳光照明累计1361项，其中发明专利225项（比例约16.5%）。欧普和Signify年报未披露具体数字。</p>
+      </div>
+      <div class="chart-card">
+        <h4>研发绝对投入（亿元人民币）</h4>
+        <div class="chart-wrap"><canvas id="kpiRdAbs"></canvas></div>
+        <p class="chart-note">Signify研发投入约212亿RMB（EUR 265M×8），遥遥领先。佛照5.39亿元（集团口径）/5.60亿元，高于欧普（2.97亿）和阳光照明（0.82亿）。</p>
+      </div>
+    </div>
+    <h3>创新与研发KPI汇总表</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>KPI指标</th><th>Signify</th><th>阳光照明</th><th>欧普照明</th><th>佛山照明</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td><b>研发费用</b></td><td>EUR 265M（约212亿RMB）</td><td>0.82亿元</td><td>2.97亿元</td><td>5.39亿元（佛照本部）/ 5.60亿（集团）</td><td>佛照研发主要在国星光电LED器件领域</td></tr>
+          <tr><td><b>研发/营收占比</b></td><td>4.6%</td><td>3.09%</td><td>4.26%</td><td>6.13%（本部）</td><td>佛照集团口径占比最高</td></tr>
+          <tr><td><b>研发人员数</b></td><td>约3721人（占14%）</td><td>561人（占14%）</td><td>459人（占7.7%）</td><td>1562人（占13.05%，2025年同比-23.6%）</td><td>佛照研发人员同比大幅减少19.81%</td></tr>
+          <tr><td><b>研发人员学历</b></td><td>财报未详细拆分</td><td>博士5/硕士45/本科421/专科75</td><td>博士8/硕士92/本科288/专科79</td><td>硕士157/本科943/博士13/大专449</td><td>欧普硕士占比（92/459=20%）最高</td></tr>
+          <tr><td><b>累计授权专利</b></td><td>财报未单独披露数量</td><td>1361项（发明225+实用新型824+境外47）</td><td>财报未披露总量</td><td>超2900项（有效专利，含子公司）</td><td>佛照专利数量最多但含多业务线</td></tr>
+          <tr><td><b>年度新增专利</b></td><td>财报未披露</td><td>财报未披露</td><td>财报未披露</td><td>455件（2025年新增授权）</td><td>佛照为唯一披露新增数量的公司</td></tr>
+          <tr><td><b>数字化/IT投入</b></td><td>财报未单独披露（技术栈现代化为战略优先）</td><td>财报未单独披露</td><td>财报未单独披露（多系统2025年同步上线）</td><td>募投数字化项目延期，具体金额未披露</td><td>四家公司均未单独披露IT投入，是信息化成熟度的盲区</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- DIM 4: ESG可持续 -->
+  <div class="kpi-dim" id="dim4">
+    <div class="chart-grid">
+      <div class="chart-card">
+        <h4>可再生能源使用比例（%）</h4>
+        <div class="chart-wrap"><canvas id="kpiRenewable"></canvas></div>
+        <p class="chart-note">Signify已实现100%可再生电力目标。欧普积极推进零碳园区，比例尚未披露。阳光照明和佛照财报均未单独披露可再生能源比例。</p>
+      </div>
+      <div class="chart-card">
+        <h4>供应商ESG评估覆盖率（%）</h4>
+        <div class="chart-wrap"><canvas id="kpiSupplierEsg"></canvas></div>
+        <p class="chart-note">Signify 97%供应商完成可持续绩效评估，领先全行业。中国三家公司均未披露量化数字，但欧普已开始推进供应商绿色评级。</p>
+      </div>
+      <div class="chart-card">
+        <h4>CO2减排贡献量（百万吨，仅Signify）</h4>
+        <div class="chart-wrap"><canvas id="kpiCo2"></canvas></div>
+        <p class="chart-note">Signify 2025年通过高效照明产品贡献避免CO2排放148百万吨，作为产品碳效益的核心KPI。中国公司目前无此类量化披露。</p>
+      </div>
+      <div class="chart-card">
+        <h4>ESG信息披露等级对比（综合评估）</h4>
+        <div class="chart-wrap"><canvas id="kpiEsg"></canvas></div>
+        <p class="chart-note">基于财报披露完整度的综合评估：Signify（CSRD/ESRS全口径，5分）；欧普（EcoVadis铜牌+较完整ESG披露，3分）；阳光照明（基础ESG信息，1.5分）；佛照（5家子公司纳入强制披露，系统基础薄弱，1分）。</p>
+      </div>
+    </div>
+    <h3>ESG可持续KPI汇总表</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>KPI指标</th><th>Signify</th><th>阳光照明</th><th>欧普照明</th><th>佛山照明</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td><b>可再生能源使用比例</b></td><td><b style="color:green">100%</b>（政策目标已实现）</td><td>财报未单独披露</td><td>推进零碳园区（比例未披露）</td><td>财报未单独披露</td><td>中国公司是CBAM合规的重点改善项</td></tr>
+          <tr><td><b>供应商ESG评估覆盖率</b></td><td><b style="color:green">97%</b>（2025年，上年96%）</td><td>财报未披露量化数字</td><td>财报未披露量化数字</td><td>财报未披露量化数字</td><td>Signify是行业标杆，中国公司差距极大</td></tr>
+          <tr><td><b>CO2避免减排量</b></td><td><b style="color:green">148百万吨</b>（通过节能照明产品）</td><td>财报未披露</td><td>财报未披露（主推节能产品）</td><td>财报未披露</td><td>Signify将此作为核心价值主张量化指标</td></tr>
+          <tr><td><b>ESG合规框架</b></td><td>CSRD/ESRS全口径，ESEF格式年报，TCFD，EU Taxonomy</td><td>基础ESG信息，无系统合规框架</td><td>EcoVadis铜牌认证（2025年）</td><td>环境信息强制披露（5家子公司），无系统框架</td><td>中国公司须为欧盟市场准备CBAM和供应链ESG审计</td></tr>
+          <tr><td><b>CBAM风险暴露</b></td><td>低（欧盟本土企业）</td><td>高（欧洲收入5.93亿元，约22%）</td><td>低（欧洲占比较小）</td><td>中（有欧洲出口，但比例未单独披露）</td><td>2026年CBAM正式生效，欧洲出口企业优先布局</td></tr>
+          <tr><td><b>ESG信息披露等级</b></td><td>5/5（最高）</td><td>1.5/5</td><td>3/5</td><td>1/5</td><td>基于财报披露完整度综合评估</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 6: GAP ANALYSIS ── -->
+<section id="gap">
+  <h2>佛山照明对标差距分析</h2>
+  <div class="gap-matrix">
+    <div class="gap-card">
+      <h4 style="color:var(--signify)">vs Signify（全球标杆）</h4>
+      <div class="gap-bar-row"><div class="gap-bar-label"><span>毛利率</span><span>佛照17.6% vs Signify 40.1%</span></div><div class="gap-bar-track"><div class="gap-bar-fill" style="width:44%;background:var(--signify)"></div></div></div>
+      <div class="gap-bar-row"><div class="gap-bar-label"><span>扣非净利率</span><span>佛照0.95% vs Signify 4.5%</span></div><div class="gap-bar-track"><div class="gap-bar-fill" style="width:21%;background:var(--signify)"></div></div></div>
+      <div class="gap-bar-row"><div class="gap-bar-label"><span>研发投入占比</span><span>佛照6.37% vs Signify 4.6%</span></div><div class="gap-bar-track"><div class="gap-bar-fill" style="width:100%;background:var(--green)"></div></div></div>
+      <div class="gap-bar-row"><div class="gap-bar-label"><span>数字化成熟度</span><span>佛照1.3/5 vs Signify 5/5</span></div><div class="gap-bar-track"><div class="gap-bar-fill" style="width:26%;background:var(--red)"></div></div></div>
+      <div class="gap-bar-row"><div class="gap-bar-label"><span>海外收入占比</span><span>佛照20.8% vs Signify ~100%</span></div><div class="gap-bar-track"><div class="gap-bar-fill" style="width:21%;background:var(--signify)"></div></div></div>
+    </div>
+    <div class="gap-card">
+      <h4 style="color:var(--opple)">vs 欧普照明（国内最佳实践）</h4>
+      <div class="gap-bar-row"><div class="gap-bar-label"><span>毛利率</span><span>佛照17.6% vs 欧普39.1%</span></div><div class="gap-bar-track"><div class="gap-bar-fill" style="width:45%;background:var(--opple)"></div></div></div>
+      <div class="gap-bar-row"><div class="gap-bar-label"><span>扣非净利率</span><span>佛照0.95% vs 欧普13.2%</span></div><div class="gap-bar-track"><div class="gap-bar-fill" style="width:7%;background:var(--opple)"></div></div></div>
+      <div class="gap-bar-row"><div class="gap-bar-label"><span>ROE</span><span>佛照3.21% vs 欧普13.62%</span></div><div class="gap-bar-track"><div class="gap-bar-fill" style="width:24%;background:var(--opple)"></div></div></div>
+      <div class="gap-bar-row"><div class="gap-bar-label"><span>数字化成熟度</span><span>佛照1.3/5 vs 欧普3.4/5</span></div><div class="gap-bar-track"><div class="gap-bar-fill" style="width:38%;background:var(--opple)"></div></div></div>
+      <div class="gap-bar-row"><div class="gap-bar-label"><span>照明主业营收</span><span>佛照30.3亿 vs 欧普69.7亿</span></div><div class="gap-bar-track"><div class="gap-bar-fill" style="width:43%;background:var(--opple)"></div></div></div>
+    </div>
+    <div class="gap-card">
+      <h4 style="color:var(--yang)">vs 阳光照明（海外化参照）</h4>
+      <div class="gap-bar-row"><div class="gap-bar-label"><span>毛利率</span><span>佛照17.6% vs 阳光32.7%</span></div><div class="gap-bar-track"><div class="gap-bar-fill" style="width:54%;background:var(--yang)"></div></div></div>
+      <div class="gap-bar-row"><div class="gap-bar-label"><span>海外收入占比</span><span>佛照20.8% vs 阳光~56%</span></div><div class="gap-bar-track"><div class="gap-bar-fill" style="width:37%;background:var(--yang)"></div></div></div>
+      <div class="gap-bar-row"><div class="gap-bar-label"><span>海外制造布局</span><span>佛照0基地 vs 阳光泰国+越南</span></div><div class="gap-bar-track"><div class="gap-bar-fill" style="width:0%;background:var(--red)"></div></div></div>
+      <div class="gap-bar-row"><div class="gap-bar-label"><span>制造数字化（MES）</span><span>佛照未披露 vs 阳光全面推行</span></div><div class="gap-bar-track"><div class="gap-bar-fill" style="width:15%;background:var(--yang)"></div></div></div>
+      <div class="gap-bar-row"><div class="gap-bar-label"><span>供应链数字化</span><span>佛照起步 vs 阳光SAP+SRM成熟</span></div><div class="gap-bar-track"><div class="gap-bar-fill" style="width:25%;background:var(--yang)"></div></div></div>
+    </div>
+  </div>
+
+  <h3>数字化差距详细对比</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>数字化维度</th><th>Signify（对标）</th><th>欧普（国内参照）</th><th>佛山照明（现状）</th><th>差距等级</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><b>数字化治理架构</b></td><td>Board级Digital Committee + CDIO + CInO</td><td>专项数字化运营团队</td><td>无专职CDO，以培训为主要抓手</td><td><span class="badge badge-low">极大 ⚠⚠⚠</span></td></tr>
+        <tr><td><b>核心ERP/系统</b></td><td>全球统一，技术栈现代化进行中</td><td>SAP+CRM+采购+HR多系统协同</td><td>SAP ECC 6.0（2000年代），PLM/财务共享2025年刚上线</td><td><span class="badge badge-low">很大 ⚠⚠</span></td></tr>
+        <tr><td><b>AI应用深度</b></td><td>全链条AI，专设AI路线图</td><td>AI客服/数字人/数据分析已上线</td><td>AICG项目2025年启动（起步）</td><td><span class="badge badge-low">极大 ⚠⚠⚠</span></td></tr>
+        <tr><td><b>产品数字化/IoT</b></td><td>1.6亿连接节点，三大平台</td><td>欧普智能综合管理平台，SDL体系</td><td>少量智能产品，无IoT平台披露</td><td><span class="badge badge-low">极大 ⚠⚠⚠</span></td></tr>
+        <tr><td><b>供应链数字化</b></td><td>AI优化，快速应对关税冲击</td><td>采购管理平台（2025年上线）</td><td>采购数字化无详细披露</td><td><span class="badge badge-low">很大 ⚠⚠</span></td></tr>
+        <tr><td><b>财务数字化</b></td><td>ESEF/多国税务合规/多货币统一</td><td>SAP集团管控已成熟</td><td>财务共享刚上线，合并工具不完善</td><td><span class="badge badge-low">很大 ⚠⚠</span></td></tr>
+        <tr><td><b>ESG数字化</b></td><td>CSRD/ESRS全口径合规，碳足迹追踪</td><td>EcoVadis铜牌，零碳园区建设中</td><td>5家子公司纳入强制披露，系统基础薄弱</td><td><span class="badge badge-med">大 ⚠</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ── SECTION 7: RECOMMENDATIONS ── -->
+<section id="recommendations">
+  <h2>对佛照数字化转型咨询的八大建议方向</h2>
+  <div class="rec-grid">
+    <div class="rec-card" style="border-left-color:var(--dark-blue)">
+      <div class="rec-num">建议一</div>
+      <div class="rec-title">建立数字化转型治理架构，设置专职 CDO</div>
+      <div class="rec-basis">【对标依据】Signify设CDIO+CInO双高管，Digital Committee直接汇报董事会；欧普建立专项数字化运营团队</div>
+      <div class="rec-apply">佛照2025年财报提出数字化目标但组织架构无专职负责人，以培训为主要抓手。建议S/4HANA项目启动后同步推进，设立数字化推进办公室（DPO），主管直接向CEO汇报。</div>
+    </div>
+    <div class="rec-card" style="border-left-color:var(--mid-blue)">
+      <div class="rec-num">建议二</div>
+      <div class="rec-title">以 S/4HANA 升级为核心，优先打通主数据治理与财务合并</div>
+      <div class="rec-basis">【对标依据】Signify统一全球ERP实现71市场财务合并；阳光照明SAP+SRM已实现采购数字化</div>
+      <div class="rec-apply">佛照19家法人子公司数据孤岛风险极高。S/4HANA升级是整合多元子公司主数据的最佳窗口期。财务共享已上线，需在S/4HANA新架构下重新设计接口，避免二次重建。</div>
+    </div>
+    <div class="rec-card" style="border-left-color:var(--yang)">
+      <div class="rec-num">建议三</div>
+      <div class="rec-title">整合 SRM 与 MM 模块，建立端到端供应链采购数字化管理</div>
+      <div class="rec-basis">【对标依据】阳光照明财报原文："通过SAP+SRM对供应商订单/合同管理/询竞价/送货进行规范管理，实现全程实时跟踪和追溯"</div>
+      <div class="rec-apply">佛照前五大供应商集中度仅11%，供应商分散。S/4HANA升级应优先打通MM/SRM，与已上线PLM贯通，实现从研发BOM到采购订单的数字化拉通。</div>
+    </div>
+    <div class="rec-card" style="border-left-color:var(--yang)">
+      <div class="rec-num">建议四</div>
+      <div class="rec-title">建立 MES 与 S/4HANA 集成的制造数字化体系</div>
+      <div class="rec-basis">【对标依据】阳光照明已全面推行MES，计划延伸至智能排产/质量预测/设备预防性维护；欧普AI+灯塔工厂实践</div>
+      <div class="rec-apply">佛照2025年实施120多项自动化改造，但系统化MES-ERP集成尚未完成。燎旺/国星/沪乐等制造基地分散（南宁/柳州/重庆/青岛/苏州），统一制造执行平台是提升效率关键。</div>
+    </div>
+    <div class="rec-card" style="border-left-color:var(--signify)">
+      <div class="rec-num">建议五</div>
+      <div class="rec-title">布局智能照明产品 IoT 数据平台，推动产品即服务转型</div>
+      <div class="rec-basis">【对标依据】Signify的Interact平台拥有1.6亿连接节点，是专业市场差异化的核心壁垒；欧普智能解决方案2025年销售翻倍增长</div>
+      <div class="rec-apply">佛照已布局适老/动植物/海洋/航空照明等专业细分，这些场景对IoT控制有天然需求。建立通用照明IoT管理平台，将专业场景串联，可直接提升高附加值产品占比，改善毛利率结构。</div>
+    </div>
+    <div class="rec-card" style="border-left-color:var(--mid-blue)">
+      <div class="rec-num">建议六</div>
+      <div class="rec-title">建立多子公司财务合并与集团管控数字化体系</div>
+      <div class="rec-basis">【对标依据】Signify在71市场实现IFRS合规合并报表，多货币管理，Country-by-Country税务申报；欧普SAP集团管控成熟</div>
+      <div class="rec-apply">佛照旗下国星光电（A股上市）/燎旺车灯/沪乐电气等各有独立财务体系；关联交易管控是治理难点。S/4HANA升级应重点设计集团财务共享中心，支持多法人/多币种/多账套合并。</div>
+    </div>
+    <div class="rec-card" style="border-left-color:var(--opple)">
+      <div class="rec-num">建议七</div>
+      <div class="rec-title">推进数字化人才体系建设，将数字化能力嵌入人才战略</div>
+      <div class="rec-basis">【对标依据】Signify 14%员工在Innovation/R&D；欧普建立绩效精细化管理体系，人才数据驱动决策</div>
+      <div class="rec-apply">佛照2025年财报以数字化培训为主要能力建设抓手，缺乏数字化人才数量/结构/路径的系统性规划。S/4HANA升级中HR模块数字化（SuccessFactors方向）是支撑组织转型的基础设施。</div>
+    </div>
+    <div class="rec-card" style="border-left-color:var(--green)">
+      <div class="rec-num">建议八</div>
+      <div class="rec-title">建立 ESG 数据管理基础，为国际市场合规做准备</div>
+      <div class="rec-basis">【对标依据】Signify按CSRD/ESRS标准披露，碳排放追踪（累计避免148百万吨CO2），97%供应商通过评估；欧普EcoVadis铜牌</div>
+      <div class="rec-apply">佛照产品销往欧洲市场，EU的CSRD/CBAM等监管要求将逐步落地。5家主要子公司已纳入环境信息强制披露名单，ESG数字化基础建设紧迫性较高。SAP S/4HANA已有成熟Sustainability模块，应在升级项目中同步规划。</div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /container -->
+
+<footer>
+  <p>照明行业数字化转型深度对标研究报告 2025 | 数据来源：各公司2025年年度报告原文 | 供佛山照明 SAP S/4HANA升级+数字化转型咨询项目使用</p>
+  <p style="margin-top:6px;opacity:.6">报告生成日期：2026年6月 | 所有数据均基于公开年报，财报未披露项明确注明</p>
+</footer>
+
+<script>
+Chart.register(ChartDataLabels);
+
+const COLORS = {
+  signify: '#0070C0',
+  yang:    '#ED7D31',
+  opple:   '#70AD47',
+  fsl:     '#FFC000',
+};
+const COMPANIES = ['Signify', '阳光照明', '欧普照明', '佛山照明'];
+
+function makeChart(id, type, labels, datasets, opts={}) {
+  const ctx = document.getElementById(id);
+  if (!ctx) return;
+  new Chart(ctx, {
+    type,
+    data: { labels, datasets },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 12 } },
+        datalabels: opts.datalabels !== false ? {
+          anchor: 'end', align: 'top', font: { size: 10, weight: '600' },
+          formatter: v => v != null ? v : '',
+          color: '#1F3864',
+        } : false,
+        tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label || ctx.label}: ${ctx.raw}` } },
+      },
+      scales: type !== 'radar' && !opts.extra?.scales ? {
+        y: {
+          beginAtZero: true,
+          ticks: { font: { size: 10 } },
+          grid: { color: 'rgba(0,0,0,.06)' },
+        },
+        x: { ticks: { font: { size: 10 } }, grid: { display: false } }
+      } : (type !== 'radar' ? undefined : undefined),
+      layout: { padding: { top: 24 } },
+      ...opts.extra,
+    }
+  });
+}
+
+// ── Gross Margin ──
+makeChart('grossMarginChart', 'bar', COMPANIES,
+  [{ label: '毛利率 %', data: [40.1, 32.7, 39.1, 17.6],
+     backgroundColor: Object.values(COLORS), borderRadius: 6 }]);
+
+// ── Net Margin ──
+makeChart('netMarginChart', 'bar', COMPANIES,
+  [{ label: '扣非净利率 %', data: [4.5, 7.1, 13.2, 0.95],
+     backgroundColor: Object.values(COLORS), borderRadius: 6 }]);
+
+// ── R&D ──
+makeChart('rdChart', 'bar', COMPANIES,
+  [{ label: '研发费用占比 %', data: [4.6, 3.1, 4.3, 6.4],
+     backgroundColor: Object.values(COLORS), borderRadius: 6 }]);
+
+// ── Overseas ──
+makeChart('overseasChart', 'bar', COMPANIES,
+  [{ label: '海外收入占比 %', data: [100, 56, 9.7, 20.8],
+     backgroundColor: Object.values(COLORS), borderRadius: 6 }]);
+
+// ── Revenue (all in RMB equiv) ──
+makeChart('revenueChart', 'bar', COMPANIES,
+  [{ label: '营收（亿元人民币，Signify按汇率8换算）', data: [455, 26.7, 69.7, 87.97],
+     backgroundColor: Object.values(COLORS), borderRadius: 6 }],
+  { datalabels: false });
+
+// ── ROE ──
+makeChart('roeChart', 'bar', COMPANIES,
+  [{ label: 'ROE %', data: [9.5, null, 13.62, 3.21],
+     backgroundColor: Object.values(COLORS), borderRadius: 6,
+     spanGaps: true }]);
+
+// ── Radar ──
+{
+  const ctx = document.getElementById('radarChart');
+  if (ctx) {
+    new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: ['研产供销服贯通', '主数据治理', '数字化组织', '全球化协同', 'AI应用深度', '产品IoT化', 'ESG数字化'],
+        datasets: [
+          { label: 'Signify', data: [5,5,5,5,5,5,5], borderColor: COLORS.signify,
+            backgroundColor: COLORS.signify+'22', pointBackgroundColor: COLORS.signify, borderWidth: 2 },
+          { label: '阳光照明', data: [2,1,1,1,1,1,1], borderColor: COLORS.yang,
+            backgroundColor: COLORS.yang+'22', pointBackgroundColor: COLORS.yang, borderWidth: 2 },
+          { label: '欧普照明', data: [4,3,4,2,4,3,3], borderColor: COLORS.opple,
+            backgroundColor: COLORS.opple+'22', pointBackgroundColor: COLORS.opple, borderWidth: 2 },
+          { label: '佛山照明', data: [1,1,1,1,1,1,2], borderColor: COLORS.fsl,
+            backgroundColor: COLORS.fsl+'33', pointBackgroundColor: COLORS.fsl, borderWidth: 2 },
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 12 } },
+          datalabels: false,
+        },
+        scales: {
+          r: {
+            min: 0, max: 5, ticks: { stepSize: 1, font: { size: 10 } },
+            pointLabels: { font: { size: 11 } },
+            grid: { color: 'rgba(0,0,0,.1)' },
+          }
+        }
+      }
+    });
+  }
+}
+
+// ── KPI Tab switching ──
+function switchDim(idx) {
+  document.querySelectorAll('.kpi-dim').forEach((d,i) => d.classList.toggle('active', i===idx));
+  document.querySelectorAll('.kpi-tab').forEach((t,i) => t.classList.toggle('active', i===idx));
+}
+
+// ── Shared helpers ──
+const CO = COMPANIES;
+const BAR_OPTS = () => ({
+  responsive: true, maintainAspectRatio: false,
+  layout: { padding: { top: 24 } },
+  plugins: {
+    legend: { display: false },
+    datalabels: { anchor:'end', align:'top', font:{size:10,weight:'600'}, color:'#1F3864',
+                  clamp: true,
+                  formatter: v => v == null ? '未披露' : v },
+    tooltip: { callbacks: { label: c => ` ${c.label}: ${c.raw ?? '未披露'}` } }
+  },
+  scales: { y:{ beginAtZero:true, ticks:{font:{size:10}}, grid:{color:'rgba(0,0,0,.06)'}},
+            x:{ ticks:{font:{size:10}}, grid:{display:false} } }
+});
+const HBAR_OPTS = () => ({
+  responsive: true, maintainAspectRatio: false,
+  indexAxis: 'y',
+  layout: { padding: { right: 52 } },
+  plugins: {
+    legend: { display: false },
+    datalabels: { anchor:'end', align:'right', font:{size:10,weight:'600'}, color:'#1F3864',
+                  clamp: true,
+                  formatter: v => v == null ? '未披露' : v },
+    tooltip: { callbacks: { label: c => ` ${c.label}: ${c.raw ?? '未披露'}` } }
+  },
+  scales: { x:{ beginAtZero:true, ticks:{font:{size:10}}, grid:{color:'rgba(0,0,0,.06)'}},
+            y:{ ticks:{font:{size:10}}, grid:{display:false} } }
+});
+function bar(id, data, note='') {
+  const ctx = document.getElementById(id); if (!ctx) return;
+  new Chart(ctx, { type:'bar',
+    data:{ labels:CO, datasets:[{ data, backgroundColor:Object.values(COLORS), borderRadius:6 }]},
+    options: BAR_OPTS(note) });
+}
+function hbar(id, data) {
+  const ctx = document.getElementById(id); if (!ctx) return;
+  new Chart(ctx, { type:'bar',
+    data:{ labels:CO, datasets:[{ data, backgroundColor:Object.values(COLORS), borderRadius:6 }]},
+    options: HBAR_OPTS() });
+}
+
+// ── DIM 0: 盈利能力 ──
+bar('kpiGross',      [39.4, 32.7, 39.1, 17.6]);
+bar('kpiNetMargin',  [4.5,  7.09, 13.2, 0.95]);
+bar('kpiEbita',      [8.9,  7.5,  15.5, 2.4]);
+bar('kpiRoe',        [9.5,  null, 13.62, 3.21]);
+bar('kpiPeriodExp',  [25.0, 25.9, 20.8, 9.4]);
+hbar('kpiPerCapita', [171.2, 66.6, 116.6, 73.5]);
+
+// ── DIM 1: 成长与国际化 ──
+bar('kpiRevenue2', [455, 26.68, 69.70, 87.97]);
+bar('kpiOverseas2',[100, 56,   9.7,  20.8]);
+bar('kpiGrowth',   [-6.2, -15.98, -1.78, -2.78]);
+bar('kpiLed',      [91, 80.6, null, null]);
+
+// ── DIM 2: 运营效率 ──
+bar('kpiInvDays', [97,  153.7, 71.1, 109.0]);
+bar('kpiArDays',  [51,  93.8,  89.9, 90.2]);
+bar('kpiApDays',  [142.4, 271.3, 86.3, 123.1]);
+bar('kpiOcf',     [42,  2.30,  6.90, 2.97]);   // Signify OCF in RMB: 531M EUR * 8 / 10 ≈ 42.5亿
+
+// ── DIM 3: 创新与研发 ──
+bar('kpiRdRatio2', [4.6, 3.09, 4.26, 6.13]);
+hbar('kpiRdStaff2',[14,  14.0, 7.7,  13.05]);
+bar('kpiPatents',  [null, 1361, null, 2900]);
+bar('kpiRdAbs',    [212,  0.82, 2.97, 5.39]);   // Signify: EUR 265M * 8 / 10 = 212亿RMB
+
+// ── DIM 4: ESG ──
+bar('kpiRenewable',  [100, null, null, null]);
+bar('kpiSupplierEsg',[97,  null, null, null]);
+bar('kpiCo2',        [148, null, null, null]);
+bar('kpiEsg',        [5,   1.5,  3,    1]);
+
+// ── Active nav on scroll ──
+const sections = document.querySelectorAll('section[id]');
+const navLinks  = document.querySelectorAll('nav a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#'+cur);
+  });
+});
+</script>
+</body>
+</html>
