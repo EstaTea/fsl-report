@@ -311,7 +311,35 @@ nav{background:var(--dark);height:48px;display:flex;align-items:center;padding:0
 
 <!-- ═══ GANTT PANEL ═══ -->
 <div class="mod-panel" id="panel-gantt">
-  <div class="gantt-panel-body"><div class="gantt-wrap" id="ganttWrap"></div></div>
+  <div style="background:var(--white);border-bottom:1px solid var(--pale);padding:7px 18px;display:flex;align-items:center;gap:10px;flex-shrink:0;font-size:12px;flex-wrap:wrap">
+    <button onclick="ganttToday()" style="padding:4px 10px;border:1px solid var(--pale);border-radius:5px;font-size:11.5px;cursor:pointer;background:var(--bg);color:var(--steel);font-family:inherit">📅 今天</button>
+    <span style="color:var(--muted);font-size:11px">缩放：</span>
+    <button id="gZoomW" onclick="ganttZoom('week')" style="padding:3px 9px;border:none;border-radius:4px;font-size:11px;cursor:pointer;background:var(--primary);color:#fff;font-family:inherit">按周</button>
+    <button id="gZoomM" onclick="ganttZoom('month')" style="padding:3px 9px;border:1px solid var(--pale);border-radius:4px;font-size:11px;cursor:pointer;background:var(--bg);color:var(--steel);font-family:inherit">按月</button>
+    <button onclick="ganttExpandAll()" style="padding:3px 9px;border:1px solid var(--pale);border-radius:4px;font-size:11px;cursor:pointer;background:var(--bg);color:var(--steel);font-family:inherit">展开全部</button>
+    <button onclick="ganttCollapseAll()" style="padding:3px 9px;border:1px solid var(--pale);border-radius:4px;font-size:11px;cursor:pointer;background:var(--bg);color:var(--steel);font-family:inherit">折叠全部</button>
+    <span style="margin-left:auto;font-size:11px;color:var(--muted)">
+      <span style="display:inline-block;width:10px;height:10px;background:var(--navy);border-radius:2px;margin-right:3px"></span>准备
+      <span style="display:inline-block;width:10px;height:10px;background:var(--primary);border-radius:2px;margin-left:8px;margin-right:3px"></span>探索
+      <span style="display:inline-block;width:10px;height:10px;background:var(--mid);border-radius:2px;margin-left:8px;margin-right:3px"></span>实现
+      <span style="display:inline-block;width:10px;height:10px;background:var(--steel);border-radius:2px;margin-left:8px;margin-right:3px"></span>部署
+      &nbsp;│&nbsp;<span style="color:var(--navy);font-weight:700">│ 今日</span>
+    </span>
+  </div>
+  <div style="flex:1;display:flex;overflow:hidden" id="ganttOuter">
+    <div style="width:460px;min-width:460px;flex-shrink:0;overflow-y:auto;overflow-x:hidden;border-right:2px solid var(--pale)" id="ganttLeft">
+      <div style="background:var(--dark);color:#fff;display:grid;grid-template-columns:1fr 76px 64px;padding:8px 10px;font-size:11px;font-weight:700;position:sticky;top:0;z-index:2">
+        <span>名称</span><span style="text-align:center">负责人</span><span style="text-align:center">完成度</span>
+      </div>
+      <div id="ganttTreeBody"></div>
+    </div>
+    <div style="flex:1;overflow:auto" id="ganttRight">
+      <div id="ganttTimelineWrap" style="position:relative;min-width:1200px">
+        <div id="ganttTimelineHeader" style="position:sticky;top:0;z-index:2;background:var(--white);border-bottom:1px solid var(--pale)"></div>
+        <div id="ganttBars"></div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ═══ RISK PANEL ═══ -->
@@ -613,54 +641,305 @@ function renderTaskList(issues){
   document.getElementById('taskListBody').innerHTML=html||'<tr><td colspan="7" style="padding:20px;text-align:center;color:var(--muted)">暂无任务</td></tr>';
 }
 
-// ── GANTT ─────────────────────────────────────────────────────────
-function renderGantt(){
-  var PHASES=[
-    {id:'prepare', label:'系统实施准备阶段', start:'2026-06-15', end:'2026-08-09', color:'var(--navy)',
-     tasks:[{label:'项目启动会',start:'2026-06-15',end:'2026-06-15'},{label:'Readiness Check',start:'2026-06-16',end:'2026-07-15'},{label:'主数据清洗',start:'2026-06-20',end:'2026-08-09'},{label:'接口台账建立',start:'2026-07-01',end:'2026-08-09'}]},
-    {id:'blueprint', label:'蓝图方案设计阶段', start:'2026-08-10', end:'2026-09-21', color:'var(--primary)',
-     tasks:[{label:'Fit-to-Standard研讨',start:'2026-08-10',end:'2026-09-06'},{label:'方案蓝图签署',start:'2026-09-07',end:'2026-09-21'}]},
-    {id:'realize', label:'系统实现阶段', start:'2026-09-22', end:'2026-12-05', color:'var(--mid)',
-     tasks:[{label:'Sprint 1 配置',start:'2026-09-22',end:'2026-10-19'},{label:'Sprint 2 配置',start:'2026-10-20',end:'2026-11-16'},{label:'Sprint 3 硬化',start:'2026-11-17',end:'2026-12-05'}]},
-    {id:'deploy', label:'上线准备&切换阶段', start:'2026-12-06', end:'2027-01-01', color:'var(--steel)',
-     tasks:[{label:'UAT测试',start:'2026-12-06',end:'2026-12-16'},{label:'切换演练',start:'2026-12-12',end:'2026-12-20'},{label:'终端用户培训',start:'2026-12-06',end:'2026-12-24'},{label:'正式切换上线',start:'2026-12-31',end:'2027-01-01'}]},
-  ];
-  var PSTART=new Date('2026-06-15'), PEND=new Date('2027-01-01');
-  var TOTAL=(PEND-PSTART)/86400000+1;
-  var now=new Date();
-  // Build months header
-  var months=[], d=new Date(PSTART);
-  while(d<=PEND){
-    var key=d.getFullYear()+'-'+(d.getMonth()+1);
-    if(!months.length||months[months.length-1].key!==key) months.push({key:key,label:(d.getMonth()+1)+'月',days:0});
-    months[months.length-1].days++;
-    d.setDate(d.getDate()+1);
+// ── GANTT (new two-panel design) ─────────────────────────────────
+var GANTT_ZOOM = 'week'; // 'week' | 'month'
+var GANTT_COLLAPSED = {}; // phaseId -> bool
+
+var GANTT_PHASES = [
+  { id:'prepare', label:'准备阶段', color:'var(--navy)', owner:'陈宇峰', pct:20,
+    start:'2026-06-15', end:'2026-08-09',
+    tasks:[
+      {label:'项目启动会 & 宣贯',          owner:'李泽华',  pct:100, start:'2026-06-15',end:'2026-06-15'},
+      {label:'准备调研问卷 & 调研计划',     owner:'艾维登PM',pct:80,  start:'2026-06-16',end:'2026-06-30'},
+      {label:'佛照历史蓝图分析及定制代码盘点',owner:'技术专家',pct:30, start:'2026-06-20',end:'2026-07-31'},
+      {label:'接口台账梳理',                owner:'集成负责人',pct:20,start:'2026-07-01',end:'2026-08-09'},
+      {label:'项目团队及入场时间确定',      owner:'艾维登PM', pct:60, start:'2026-06-15',end:'2026-06-22'},
+    ]
+  },
+  { id:'explore', label:'探索阶段', color:'var(--primary)', owner:'应用架构师', pct:0,
+    start:'2026-08-10', end:'2026-09-21',
+    tasks:[
+      {label:'业务调研',                   owner:'业务专家A/B',pct:0,start:'2026-08-10',end:'2026-08-31'},
+      {label:'方案蓝图',                   owner:'应用架构师', pct:0,start:'2026-08-25',end:'2026-09-21',
+       children:[
+        {label:'《数字化转型路线图》',             owner:'规划师',   pct:0,start:'2026-08-25',end:'2026-09-10'},
+        {label:'《4A架构设计方案/数字化蓝图规划》', owner:'规划师',   pct:0,start:'2026-08-25',end:'2026-09-15'},
+        {label:'《主数据标准方案》+《数据规划及管理办法》+《数据治理总结》',owner:'数据专家',pct:0,start:'2026-09-01',end:'2026-09-21'},
+        {label:'《业务&数字化转型现状调研分析》',   owner:'规划师',   pct:0,start:'2026-08-10',end:'2026-09-05'},
+        {label:'《4级业务流程现状图》+《4级流程优化&专项方案》',owner:'业务专家A',pct:0,start:'2026-08-15',end:'2026-09-15',
+         children:[
+          {label:'专项方案7——跨公司转移定价和成本还原', owner:'业务专家A',pct:0,start:'2026-08-20',end:'2026-09-10'},
+          {label:'专项方案6——标准成本估算及发布',      owner:'业务专家A',pct:0,start:'2026-08-20',end:'2026-09-10'},
+          {label:'专项方案5——自动化运行MRP资源计划',   owner:'业务专家B',pct:0,start:'2026-08-20',end:'2026-09-10'},
+          {label:'专项方案4——泰国外币及本地化监管需求', owner:'业务专家A',pct:0,start:'2026-08-20',end:'2026-09-10'},
+          {label:'专项方案3——管理报表与财务报告的统驭', owner:'业务专家A',pct:0,start:'2026-08-20',end:'2026-09-10'},
+          {label:'专项方案2——预入库/预出库优化',       owner:'业务专家B',pct:0,start:'2026-08-20',end:'2026-09-10'},
+          {label:'专项方案1——主数据治理',              owner:'数据专家', pct:0,start:'2026-08-20',end:'2026-09-10'},
+         ]},
+        {label:'《业务需求与痛点清单》',            owner:'业务专家A/B',pct:0,start:'2026-08-10',end:'2026-08-25'},
+       ]},
+      {label:'接口与集成设计',             owner:'集成负责人',pct:0,start:'2026-08-15',end:'2026-09-21'},
+      {label:'蓝图汇报',                   owner:'艾维登PM',  pct:0,start:'2026-09-15',end:'2026-09-21'},
+    ]
+  },
+  { id:'realize', label:'实现阶段', color:'var(--mid)', owner:'开发负责人', pct:0,
+    start:'2026-09-22', end:'2026-12-05',
+    tasks:[
+      {label:'文档编制：产品手册、用户指南等相关文档', owner:'顾问团队',pct:0,start:'2026-09-22',end:'2026-11-22'},
+      {label:'制作产品原型，进行内部测试',              owner:'开发负责人',pct:0,start:'2026-09-22',end:'2026-11-22'},
+      {label:'完成产品的详细设计工作',                  owner:'应用架构师',pct:0,start:'2026-09-22',end:'2026-11-22'},
+      {label:'测试验证产品的功能性和可靠性',             owner:'测试经理', pct:0,start:'2026-10-01',end:'2026-12-05'},
+      {label:'Sprint 1 配置与开发',                     owner:'开发负责人',pct:0,start:'2026-09-22',end:'2026-10-19'},
+      {label:'Sprint 2 配置与开发',                     owner:'开发负责人',pct:0,start:'2026-10-20',end:'2026-11-16'},
+      {label:'Sprint 3 硬化',                           owner:'开发负责人',pct:0,start:'2026-11-17',end:'2026-12-05'},
+    ]
+  },
+  { id:'deploy', label:'部署阶段', color:'var(--steel)', owner:'PM', pct:0,
+    start:'2026-12-06', end:'2027-01-01',
+    tasks:[
+      {label:'系统配置',        owner:'配置负责人',pct:0,start:'2026-12-06',end:'2026-12-20'},
+      {label:'增强开发',        owner:'开发负责人',pct:0,start:'2026-12-06',end:'2026-12-20'},
+      {label:'Unit Test单元测试',owner:'测试经理', pct:0,start:'2026-12-10',end:'2026-12-20'},
+      {label:'SIT集成测试',     owner:'测试经理', pct:0,start:'2026-12-15',end:'2026-12-26'},
+      {label:'UAT用户验收测试', owner:'关键用户',  pct:0,start:'2026-12-20',end:'2026-12-30'},
+      {label:'正式切换上线',    owner:'艾维登PM',  pct:0,start:'2026-12-31',end:'2027-01-01'},
+    ]
+  },
+];
+
+var PSTART = new Date('2026-06-15');
+var PEND   = new Date('2027-01-01');
+var TOTAL_DAYS = (PEND - PSTART) / 86400000 + 1;
+
+function dayOffset(dateStr){ return (new Date(dateStr) - PSTART) / 86400000; }
+
+// Build week or month slots
+function buildSlots(zoom){
+  var slots=[], d=new Date(PSTART);
+  if(zoom==='week'){
+    // weekly slots starting Monday-aligned
+    while(d <= PEND){
+      var end=new Date(d); end.setDate(end.getDate()+6);
+      if(end>PEND) end=new Date(PEND);
+      slots.push({
+        label: (d.getMonth()+1)+'/'+(d.getDate())+' - '+(end.getMonth()+1)+'/'+end.getDate(),
+        year: d.getFullYear(), month: d.getMonth()+1,
+        start:new Date(d), end:new Date(end),
+        days: (end-d)/86400000+1
+      });
+      d.setDate(d.getDate()+7);
+    }
+  } else {
+    while(d <= PEND){
+      var y=d.getFullYear(), m=d.getMonth();
+      var ms=new Date(y,m,1), me=new Date(y,m+1,0);
+      if(ms<PSTART) ms=new Date(PSTART);
+      if(me>PEND) me=new Date(PEND);
+      slots.push({label:y+'年'+(m+1)+'月', year:y, month:m+1, start:ms, end:me, days:(me-ms)/86400000+1});
+      d=new Date(y,m+1,1);
+    }
   }
-  var todayOff=Math.max(0,(now-PSTART)/86400000/TOTAL*100);
+  return slots;
+}
 
-  var html='<div class="g-header"><div class="g-label">任务 / 月份</div><div class="g-months">';
-  months.forEach(function(m){ html+='<div class="g-month" style="width:'+(m.days/TOTAL*100).toFixed(2)+'%">'+(m.key.split('-')[0]==='2026'?'':m.key.split('-')[0]+'年')+m.label+'</div>'; });
-  html+='</div></div>';
-
-  function bar(startStr,endStr,color,label){
-    var s=new Date(startStr), e=new Date(endStr);
-    var left=(s-PSTART)/86400000/TOTAL*100;
-    var w=((e-s)/86400000+1)/TOTAL*100;
-    return '<div class="g-bar" style="left:'+left.toFixed(2)+'%;width:'+Math.max(0.3,w).toFixed(2)+'%;background:'+color+'" title="'+label+'">'+label+'</div>';
-  }
-
-  PHASES.forEach(function(ph){
-    // Phase row
-    html+='<div class="g-row phase-row"><div class="g-label-cell phase">'+ph.label+'</div><div class="g-timeline">'+
-      (todayOff>0&&todayOff<100?'<div class="g-today" style="left:'+todayOff.toFixed(2)+'%"><div class="g-today-label">今</div></div>':'')+
-      bar(ph.start,ph.end,ph.color+'CC',ph.label)+'</div></div>';
-    ph.tasks.forEach(function(t){
-      html+='<div class="g-row"><div class="g-label-cell child">'+esc(t.label)+'</div><div class="g-timeline">'+
-        (todayOff>0&&todayOff<100?'<div class="g-today" style="left:'+todayOff.toFixed(2)+'%"></div>':'')+
-        bar(t.start,t.end,ph.color,t.label)+'</div></div>';
-    });
+// Flatten tree to rows (respecting collapse)
+function flattenTree(){
+  var rows=[];
+  GANTT_PHASES.forEach(function(ph){
+    rows.push({type:'phase', ph:ph, depth:0});
+    if(!GANTT_COLLAPSED[ph.id]){
+      ph.tasks.forEach(function(t){
+        rows.push({type:'task', task:t, ph:ph, depth:1});
+        if(t.children && !GANTT_COLLAPSED[ph.id+'_'+t.label]){
+          t.children.forEach(function(c){
+            rows.push({type:'task', task:c, ph:ph, depth:2, parent:t});
+            if(c.children && !GANTT_COLLAPSED[ph.id+'_'+c.label]){
+              c.children.forEach(function(g){
+                rows.push({type:'task', task:g, ph:ph, depth:3, parent:c});
+              });
+            }
+          });
+        }
+      });
+    }
   });
-  document.getElementById('ganttWrap').innerHTML=html;
+  return rows;
+}
+
+function renderGantt(){
+  var zoom=GANTT_ZOOM;
+  var slots=buildSlots(zoom);
+  var totalDays=TOTAL_DAYS;
+  var rows=flattenTree();
+  var now=new Date();
+  var todayOff=dayOffset(now.toISOString().split('T')[0]);
+  var ROW_H=32; // px
+
+  // ── Left tree ──
+  var leftHtml='';
+  rows.forEach(function(row,ri){
+    var bg=ri%2===0?'var(--white)':'var(--bg)';
+    var pct=0, owner='', label='', hasChildren=false, colId='';
+    if(row.type==='phase'){
+      bg='var(--pale)'; label=row.ph.label; owner=row.ph.owner; pct=row.ph.pct;
+      hasChildren=row.ph.tasks&&row.ph.tasks.length>0; colId=row.ph.id;
+    } else {
+      label=row.task.label; owner=row.task.owner; pct=row.task.pct||0;
+      hasChildren=(row.task.children&&row.task.children.length>0);
+      colId=row.ph.id+'_'+row.task.label;
+    }
+    var collapsed=GANTT_COLLAPSED[colId]||false;
+    var indent=row.depth*14;
+    var toggleBtn=hasChildren?'<span onclick="ganttToggle(\'' + colId + '\')" style="cursor:pointer;margin-right:4px;font-size:10px;color:var(--steel);flex-shrink:0">'+(collapsed?'▶':'▼')+'</span>':'<span style="display:inline-block;width:16px;flex-shrink:0"></span>';
+    var typeIcon=row.type==='phase'?'<span style="color:'+row.ph.color+';margin-right:4px;font-size:11px">●</span>':'<span style="font-size:9px;color:var(--pale);margin-right:4px">☐</span>';
+    var pctColor=pct>60?'var(--primary)':pct>0?'var(--mid)':'var(--pale)';
+    leftHtml+='<div style="display:grid;grid-template-columns:1fr 76px 64px;height:'+ROW_H+'px;background:'+bg+';border-bottom:1px solid var(--pale);align-items:center">'+
+      '<div style="padding:0 8px 0 '+(8+indent)+'px;display:flex;align-items:center;gap:2px;min-width:0;overflow:hidden">'+
+        toggleBtn+typeIcon+
+        '<span style="font-size:11.5px;'+(row.type==='phase'?'font-weight:700;color:var(--dark)':'color:var(--text2)')+';white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="'+label+'">'+label+'</span>'+
+      '</div>'+
+      '<div style="text-align:center;font-size:11px;color:var(--muted);padding:0 4px">'+
+        '<span style="display:inline-block;width:22px;height:22px;border-radius:50%;background:var(--primary);color:#fff;font-size:9px;font-weight:700;line-height:22px;text-align:center">Y</span>'+
+        '<span style="font-size:10px;color:var(--muted);display:block;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:76px" title="'+owner+'"></span>'+
+      '</div>'+
+      '<div style="text-align:center;font-size:11px;padding:0 6px">'+
+        '<div style="font-weight:700;color:'+(pct>0?'var(--primary)':'var(--muted)')+';font-size:12px">'+pct+'%</div>'+
+        '<div style="height:3px;background:var(--pale);border-radius:2px;margin-top:2px"><div style="height:100%;background:'+pctColor+';border-radius:2px;width:'+pct+'%"></div></div>'+
+      '</div>'+
+    '</div>';
+  });
+  document.getElementById('ganttTreeBody').innerHTML=leftHtml;
+
+  // ── Month/year super-header + week header ──
+  // Group slots by month
+  var monthGroups=[];
+  slots.forEach(function(sl){
+    var key=sl.year+'-'+sl.month;
+    if(!monthGroups.length||monthGroups[monthGroups.length-1].key!==key)
+      monthGroups.push({key:key,label:sl.year+'年'+sl.month+'月',days:0,slots:[]});
+    monthGroups[monthGroups.length-1].days+=sl.days;
+    monthGroups[monthGroups.length-1].slots.push(sl);
+  });
+  var COL_W = zoom==='week' ? 80 : 120; // px per slot
+  var totalW = slots.length * COL_W;
+
+  var hdrHtml='<div style="min-width:'+totalW+'px">';
+  // Month row
+  hdrHtml+='<div style="display:flex;border-bottom:1px solid var(--pale);background:var(--dark)">';
+  monthGroups.forEach(function(mg){
+    hdrHtml+='<div style="min-width:'+(mg.slots.length*COL_W)+'px;padding:4px 8px;font-size:11px;font-weight:700;color:#fff;border-right:1px solid rgba(255,255,255,.15);white-space:nowrap">'+mg.label+'</div>';
+  });
+  hdrHtml+='</div>';
+  // Slot row
+  hdrHtml+='<div style="display:flex;border-bottom:2px solid var(--pale);background:var(--pale)">';
+  var nowStr=now.toISOString().split('T')[0];
+  slots.forEach(function(sl){
+    var isNow=now>=sl.start&&now<=sl.end;
+    hdrHtml+='<div style="min-width:'+COL_W+'px;width:'+COL_W+'px;padding:3px 5px;font-size:10px;font-weight:'+(isNow?'700':'600')+';color:'+(isNow?'var(--primary)':'var(--dark)')+';border-right:1px solid rgba(0,0,0,.07);text-align:center;background:'+(isNow?'var(--pale)':'')+'">'+sl.label+'</div>';
+  });
+  hdrHtml+='</div></div>';
+  document.getElementById('ganttTimelineHeader').innerHTML=hdrHtml;
+
+  // ── Bars ──
+  var barsHtml='<div style="position:relative;min-width:'+totalW+'px">';
+  // Today line
+  if(todayOff>=0&&todayOff<=TOTAL_DAYS){
+    // calculate px position
+    var todayPx=0;
+    var acc=0;
+    slots.forEach(function(sl){
+      var slStart=dayOffset(sl.start.toISOString().split('T')[0]);
+      var slEnd=dayOffset(sl.end.toISOString().split('T')[0]);
+      if(todayOff>=slStart&&todayOff<=slEnd){
+        var frac=(todayOff-slStart)/(slEnd-slStart+1);
+        todayPx=acc+frac*COL_W;
+      } else if(todayOff>slEnd) acc+=COL_W;
+    });
+    barsHtml+='<div style="position:absolute;left:'+todayPx+'px;top:0;bottom:0;width:2px;background:rgba(0,48,135,.6);z-index:10"><div style="position:absolute;top:0;left:-18px;font-size:9px;font-weight:700;color:var(--navy);background:var(--pale);padding:0 3px;border-radius:2px;white-space:nowrap">今日</div></div>';
+  }
+
+  rows.forEach(function(row,ri){
+    var bg=ri%2===0?'rgba(255,255,255,0)':'rgba(235,244,255,0.4)';
+    var rowHtml='<div style="display:flex;height:'+ROW_H+'px;background:'+bg+';border-bottom:1px solid rgba(0,0,0,.03);position:relative;align-items:center">';
+    // Grid lines per slot
+    slots.forEach(function(sl,si){
+      rowHtml+='<div style="min-width:'+COL_W+'px;width:'+COL_W+'px;height:100%;border-right:1px solid rgba(0,0,0,.04);flex-shrink:0"></div>';
+    });
+    // Bar
+    var start=null, end=null, color='var(--steel)', label='', pct=0;
+    if(row.type==='phase'){ start=row.ph.start; end=row.ph.end; color=row.ph.color; label=row.ph.label; pct=row.ph.pct; }
+    else { start=row.task.start; end=row.task.end; color=row.ph.color; label=row.task.label; pct=row.task.pct||0; }
+    if(start&&end){
+      // compute left/width in px relative to slots
+      var sOff=dayOffset(start), eOff=dayOffset(end);
+      var leftPx=0, widthPx=0, acc2=0;
+      slots.forEach(function(sl,si){
+        var slS=dayOffset(sl.start.toISOString().split('T')[0]);
+        var slE=dayOffset(sl.end.toISOString().split('T')[0]);
+        var slDays=slE-slS+1;
+        var barStartInSlot=Math.max(0,sOff-slS), barEndInSlot=Math.min(slDays-1,eOff-slS);
+        if(sOff<=slE && eOff>=slS){
+          var lPx=acc2+(barStartInSlot/slDays)*COL_W;
+          var wPx=((barEndInSlot-barStartInSlot+1)/slDays)*COL_W;
+          if(leftPx===0&&widthPx===0){ leftPx=lPx; widthPx=wPx; }
+          else widthPx=acc2+wPx+(barStartInSlot/slDays)*COL_W-leftPx;
+        }
+        acc2+=COL_W;
+      });
+      var h=row.type==='phase'?14:12;
+      var top=(ROW_H-h)/2;
+      // Label inside bar only if wide enough
+      var barLabel=widthPx>60?label:'';
+      var owner=row.type==='phase'?row.ph.owner:(row.task.owner||'');
+      rowHtml+='<div style="position:absolute;left:'+(leftPx+2)+'px;width:'+(Math.max(widthPx-4,6))+'px;height:'+h+'px;top:'+top+'px;border-radius:3px;background:'+color+';display:flex;align-items:center;overflow:hidden;z-index:1" title="'+label+' ('+start+' ~ '+end+')">';
+      if(pct>0&&pct<100){
+        rowHtml+='<div style="height:100%;width:'+pct+'%;background:rgba(0,0,0,.2);border-radius:3px 0 0 3px"></div>';
+      }
+      if(barLabel){ rowHtml+='<span style="position:absolute;left:5px;font-size:9px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:'+(widthPx-10)+'px">'+barLabel+'</span>'; }
+      if(owner){ rowHtml+='<span style="position:absolute;right:3px;font-size:8px;color:rgba(255,255,255,.8);white-space:nowrap">'+owner+'</span>'; }
+      rowHtml+='</div>';
+    }
+    rowHtml+='</div>';
+    barsHtml+=rowHtml;
+  });
+  barsHtml+='</div>';
+  document.getElementById('ganttBars').innerHTML=barsHtml;
+
+  // Sync scroll between left and right
+  var gl=document.getElementById('ganttLeft');
+  var gr=document.getElementById('ganttRight');
+  if(gl&&gr){
+    gl.onscroll=function(){ gr.scrollTop=gl.scrollTop; };
+    gr.onscroll=function(){ gl.scrollTop=gr.scrollTop; };
+  }
+}
+
+function ganttToggle(id){
+  GANTT_COLLAPSED[id]=!GANTT_COLLAPSED[id];
+  renderGantt();
+}
+function ganttExpandAll(){ GANTT_COLLAPSED={}; renderGantt(); }
+function ganttCollapseAll(){
+  GANTT_PHASES.forEach(function(ph){
+    GANTT_COLLAPSED[ph.id]=true;
+    ph.tasks.forEach(function(t){ if(t.children) GANTT_COLLAPSED[ph.id+'_'+t.label]=true; });
+  });
+  renderGantt();
+}
+function ganttZoom(z){
+  GANTT_ZOOM=z;
+  document.getElementById('gZoomW').style.background=z==='week'?'var(--primary)':'var(--bg)';
+  document.getElementById('gZoomW').style.color=z==='week'?'#fff':'var(--steel)';
+  document.getElementById('gZoomW').style.border=z==='week'?'none':'1px solid var(--pale)';
+  document.getElementById('gZoomM').style.background=z==='month'?'var(--primary)':'var(--bg)';
+  document.getElementById('gZoomM').style.color=z==='month'?'#fff':'var(--steel)';
+  document.getElementById('gZoomM').style.border=z==='month'?'none':'1px solid var(--pale)';
+  renderGantt();
+}
+function ganttToday(){
+  var gr=document.getElementById('ganttRight');
+  if(gr){ var slots=buildSlots(GANTT_ZOOM); var COL_W=GANTT_ZOOM==='week'?80:120; var now=new Date(); var acc=0; var found=false;
+    slots.forEach(function(sl,si){ if(!found&&now>=sl.start&&now<=sl.end){ gr.scrollLeft=Math.max(0,acc-200); found=true; } acc+=COL_W; }); }
 }
 
 // ── RISK ──────────────────────────────────────────────────────────
