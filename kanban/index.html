@@ -3,584 +3,865 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>任务看板 | 佛山照明数字化转型工作台</title>
+<title>项目管理 | 佛照SAP升级项目</title>
 <style>
 :root{
   --navy:#003087;--dark:#1B3A6B;--primary:#005EB8;--mid:#1F70C1;
   --steel:#4A6FA5;--muted:#6B8CB8;--light:#A8C4E0;--pale:#D0E4F7;
   --bg:#EBF4FF;--white:#fff;--text:#0D1B2A;--text2:#2C3E50;
-  --col-todo:#F0F7FF;--col-doing:#EBF4FF;--col-review:#E0EEFF;--col-done:#D0E4F7;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:"Microsoft YaHei",Arial,sans-serif;background:var(--bg);color:var(--text);height:100vh;display:flex;flex-direction:column;overflow:hidden}
 
-/* NAV */
-nav{background:var(--dark);height:50px;display:flex;align-items:center;padding:0 20px;gap:16px;flex-shrink:0;z-index:100}
-.nav-brand{display:flex;align-items:center;gap:8px}
-.nav-brand svg{flex-shrink:0}
-.nav-brand span{color:rgba(255,255,255,.7);font-size:12px}
-.nav-divider{width:1px;height:20px;background:rgba(255,255,255,.15)}
+/* TOP NAV */
+nav{background:var(--dark);height:48px;display:flex;align-items:center;padding:0 18px;gap:14px;flex-shrink:0;z-index:200}
+.nav-brand{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.nav-brand span{color:rgba(255,255,255,.65);font-size:12px;white-space:nowrap}
+.nav-divider{width:1px;height:18px;background:rgba(255,255,255,.15);flex-shrink:0}
 .nav-links{display:flex;flex:1;overflow-x:auto;gap:0}
-.nav-links a{color:rgba(255,255,255,.6);text-decoration:none;font-size:12.5px;padding:0 12px;height:50px;display:flex;align-items:center;border-bottom:2px solid transparent;white-space:nowrap}
+.nav-links a{color:rgba(255,255,255,.55);text-decoration:none;font-size:12px;padding:0 11px;height:48px;display:flex;align-items:center;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s}
 .nav-links a:hover{color:#fff}
 .nav-links a.active{color:#fff;border-bottom-color:var(--light)}
 .nav-right{display:flex;align-items:center;gap:8px;margin-left:auto}
-.btn{padding:6px 14px;border-radius:6px;font-size:12px;cursor:pointer;border:none;font-family:inherit;display:flex;align-items:center;gap:5px;text-decoration:none}
-.btn-primary{background:var(--primary);color:#fff}
-.btn-primary:hover{background:var(--navy)}
-.btn-ghost{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2)}
-.btn-ghost:hover{background:rgba(255,255,255,.2)}
+.btn{padding:5px 12px;border-radius:5px;font-size:11.5px;cursor:pointer;border:none;font-family:inherit;display:inline-flex;align-items:center;gap:4px;text-decoration:none;white-space:nowrap}
+.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--navy)}
+.btn-ghost{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2)}.btn-ghost:hover{background:rgba(255,255,255,.2)}
 
-/* TOOLBAR */
-.toolbar{background:var(--white);border-bottom:1px solid var(--pale);padding:10px 20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex-shrink:0}
-.toolbar-title{font-size:15px;font-weight:700;color:var(--dark);margin-right:8px}
-.filter-group{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-select.filter{padding:5px 10px;border:1px solid var(--pale);border-radius:6px;font-size:12px;color:var(--text2);background:var(--white);cursor:pointer;font-family:inherit}
-select.filter:focus{outline:none;border-color:var(--primary)}
-.search-box{padding:5px 10px;border:1px solid var(--pale);border-radius:6px;font-size:12px;width:180px;font-family:inherit}
-.search-box:focus{outline:none;border-color:var(--primary)}
-.stats-chips{display:flex;gap:6px;margin-left:auto}
-.stat-chip{background:var(--bg);border:1px solid var(--pale);border-radius:12px;padding:3px 10px;font-size:11px;color:var(--dark);font-weight:600}
-.stat-chip span{color:var(--primary)}
+/* PROJECT HEADER */
+.proj-header{background:var(--white);border-bottom:1px solid var(--pale);padding:0 20px;display:flex;flex-direction:column;flex-shrink:0}
+.proj-title-row{display:flex;align-items:center;gap:10px;padding:10px 0 0}
+.proj-icon{font-size:20px}
+.proj-name{font-size:17px;font-weight:800;color:var(--dark)}
+.proj-badge{background:var(--bg);border:1px solid var(--pale);padding:2px 10px;border-radius:10px;font-size:11px;color:var(--steel);margin-left:4px}
 
-/* BOARD */
-.board{flex:1;overflow-x:auto;overflow-y:hidden;padding:16px 20px;display:flex;gap:14px;align-items:flex-start}
-.col{width:280px;min-width:280px;display:flex;flex-direction:column;gap:0;flex-shrink:0}
-.col-header{padding:10px 14px;border-radius:8px 8px 0 0;display:flex;align-items:center;gap:8px;border-bottom:2px solid}
-.col-header .col-title{font-size:13px;font-weight:700;flex:1}
-.col-header .col-count{font-size:11px;font-weight:700;background:rgba(0,0,0,.1);padding:1px 7px;border-radius:10px}
-.col-todo .col-header{background:#E8F2FB;border-color:var(--light);color:var(--dark)}
-.col-doing .col-header{background:#CCE0F5;border-color:var(--primary);color:var(--primary)}
-.col-review .col-header{background:#B8D4EE;border-color:var(--mid);color:var(--mid)}
-.col-done .col-header{background:#A8C4E0;border-color:var(--steel);color:var(--dark)}
-.col-body{background:rgba(255,255,255,.5);border:1px solid var(--pale);border-top:none;border-radius:0 0 8px 8px;padding:8px;min-height:200px;display:flex;flex-direction:column;gap:8px;overflow-y:auto;max-height:calc(100vh - 170px)}
+/* MODULE TABS (like the screenshot) */
+.mod-tabs{display:flex;gap:0;overflow-x:auto;margin-top:6px}
+.mod-tabs::-webkit-scrollbar{height:3px}
+.mod-tab{padding:8px 14px;font-size:12.5px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:5px;transition:color .15s}
+.mod-tab:hover{color:var(--primary)}
+.mod-tab.active{color:var(--primary);border-bottom-color:var(--primary);font-weight:700}
+.mod-tab .new-badge{font-size:9px;background:var(--primary);color:#fff;padding:1px 4px;border-radius:3px;font-weight:700}
+
+/* SUB TOOLBAR */
+.sub-toolbar{background:var(--white);border-bottom:1px solid var(--pale);padding:7px 20px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex-shrink:0;min-height:42px}
+.sub-toolbar select,.sub-toolbar input{padding:4px 9px;border:1px solid var(--pale);border-radius:5px;font-size:12px;color:var(--text2);background:var(--white);font-family:inherit}
+.sub-toolbar select:focus,.sub-toolbar input:focus{outline:none;border-color:var(--primary)}
+.search-box{width:160px}
+.toolbar-right{margin-left:auto;display:flex;gap:6px;align-items:center}
+.stat-pill{background:var(--bg);border:1px solid var(--pale);padding:3px 10px;border-radius:10px;font-size:11px;color:var(--dark);font-weight:600}
+.stat-pill span{color:var(--primary)}
+
+/* MODULE PANELS */
+.mod-panel{display:none;flex:1;overflow:hidden;flex-direction:column}
+.mod-panel.active{display:flex}
+
+/* ── KANBAN ── */
+.board{flex:1;overflow-x:auto;overflow-y:hidden;padding:14px 18px;display:flex;gap:12px;align-items:flex-start}
+.col{width:272px;min-width:272px;display:flex;flex-direction:column;flex-shrink:0}
+.col-header{padding:9px 12px;border-radius:7px 7px 0 0;display:flex;align-items:center;gap:7px;border-bottom:2px solid}
+.col-header .ch-title{font-size:12.5px;font-weight:700;flex:1}
+.col-header .ch-count{font-size:10px;font-weight:700;background:rgba(0,0,0,.1);padding:1px 7px;border-radius:8px}
+.col-add-btn{font-size:11px;color:var(--muted);cursor:pointer;padding:1px 5px;border-radius:3px}
+.col-add-btn:hover{background:var(--pale);color:var(--primary)}
+.col-todo .col-header{background:#E3EEF9;border-color:var(--light);color:var(--dark)}
+.col-doing .col-header{background:#C9DFF2;border-color:var(--primary);color:var(--primary)}
+.col-review .col-header{background:#B5D0EC;border-color:var(--mid);color:var(--mid)}
+.col-done .col-header{background:#A1C2E5;border-color:var(--steel);color:var(--dark)}
+.col-body{background:rgba(255,255,255,.55);border:1px solid var(--pale);border-top:none;border-radius:0 0 7px 7px;padding:7px;min-height:160px;display:flex;flex-direction:column;gap:7px;overflow-y:auto;max-height:calc(100vh - 230px);transition:background .15s}
 .col-body::-webkit-scrollbar{width:3px}
-.col-body::-webkit-scrollbar-thumb{background:var(--pale);border-radius:2px}
+.col-body::-webkit-scrollbar-thumb{background:var(--pale)}
+.col-body.drag-over{background:rgba(0,94,184,.08);border-color:var(--primary)}
 
 /* CARD */
-.card{background:var(--white);border:1px solid var(--pale);border-radius:8px;padding:12px;cursor:pointer;transition:box-shadow .15s,transform .15s;border-left:3px solid var(--pale)}
-.card:hover{box-shadow:0 3px 12px rgba(0,48,135,.12);transform:translateY(-1px)}
+.card{background:var(--white);border:1px solid var(--pale);border-radius:7px;padding:11px;cursor:grab;transition:box-shadow .15s,transform .15s;border-left:3px solid var(--pale);user-select:none}
+.card:active{cursor:grabbing}
+.card.dragging{opacity:.5;transform:scale(.97)}
+.card:hover{box-shadow:0 3px 10px rgba(0,48,135,.1);transform:translateY(-1px)}
 .card.priority-high{border-left-color:var(--navy)}
 .card.priority-med{border-left-color:var(--primary)}
 .card.priority-low{border-left-color:var(--light)}
-.card-type{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.5px;margin-bottom:4px;text-transform:uppercase}
-.card-title{font-size:12.5px;font-weight:700;color:var(--text);line-height:1.4;margin-bottom:8px}
-.card-labels{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
-.lbl{font-size:10px;padding:1px 6px;border-radius:3px;font-weight:600}
+.card-type{font-size:9.5px;font-weight:700;color:var(--muted);letter-spacing:.4px;text-transform:uppercase;margin-bottom:3px}
+.card-title{font-size:12px;font-weight:700;color:var(--text);line-height:1.4;margin-bottom:7px}
+.card-labels{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:7px}
+.lbl{font-size:9.5px;padding:1px 5px;border-radius:3px;font-weight:600}
 .lbl-mod{background:var(--pale);color:var(--dark)}
 .lbl-phase{background:var(--bg);color:var(--steel)}
 .lbl-risk{background:var(--navy);color:#fff}
+.lbl-done{background:#003087;color:#fff}
 .card-footer{display:flex;align-items:center;justify-content:space-between}
-.card-num{font-size:10px;color:var(--muted)}
-.card-ms{font-size:10px;color:var(--steel);font-weight:600}
-.card-avatar{width:20px;height:20px;border-radius:50%;background:var(--primary);color:#fff;font-size:9px;display:flex;align-items:center;justify-content:center;font-weight:700}
+.card-num{font-size:9.5px;color:var(--muted)}
+.card-ms{font-size:9.5px;color:var(--steel);font-weight:600;text-align:right;max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.empty-col{text-align:center;padding:20px 10px;color:var(--muted);font-size:11.5px;opacity:.6}
 
-/* EMPTY */
-.empty{text-align:center;padding:24px 12px;color:var(--muted);font-size:12px}
-.empty svg{opacity:.3;margin-bottom:8px}
+/* ── MILESTONE ── */
+.ms-panel-body{flex:1;overflow-y:auto;padding:16px 20px}
+.ms-timeline{display:flex;flex-direction:column;gap:16px}
+.ms-item{display:flex;gap:16px;align-items:flex-start}
+.ms-spine{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:20px}
+.ms-dot{width:16px;height:16px;border-radius:50%;border:2px solid;flex-shrink:0}
+.ms-dot.todo{border-color:var(--pale);background:var(--white)}
+.ms-dot.active{border-color:var(--primary);background:var(--primary)}
+.ms-dot.done{border-color:var(--steel);background:var(--steel)}
+.ms-dot.overdue{border-color:var(--navy);background:var(--navy)}
+.ms-line{flex:1;width:2px;background:var(--pale);margin-top:2px}
+.ms-card{flex:1;background:var(--white);border:1px solid var(--pale);border-radius:8px;padding:14px 16px;border-left:4px solid var(--pale)}
+.ms-card.active{border-left-color:var(--primary)}
+.ms-card.done{border-left-color:var(--steel)}
+.ms-card.overdue{border-left-color:var(--navy)}
+.ms-title{font-size:13.5px;font-weight:700;color:var(--dark);margin-bottom:4px}
+.ms-due{font-size:11px;color:var(--muted);margin-bottom:8px}
+.ms-desc{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:10px}
+.ms-progress{height:5px;background:var(--pale);border-radius:3px;overflow:hidden;margin-bottom:6px}
+.ms-progress-fill{height:100%;background:var(--primary);border-radius:3px;transition:width .3s}
+.ms-meta{display:flex;gap:8px;flex-wrap:wrap}
+.ms-tag{font-size:10px;padding:2px 7px;border-radius:3px;background:var(--bg);color:var(--steel);font-weight:600}
+.ms-tag.payment{background:var(--dark);color:#fff}
 
-/* MODAL */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto}
+/* ── GANTT ── */
+.gantt-panel-body{flex:1;overflow:auto;padding:14px 18px}
+.gantt-wrap{min-width:900px}
+.g-header{display:flex;align-items:center;border-bottom:2px solid var(--pale);padding-bottom:4px;margin-bottom:2px}
+.g-label{width:220px;flex-shrink:0;font-size:11px;font-weight:700;color:var(--muted);padding-left:8px;border-right:1px solid var(--pale)}
+.g-months{flex:1;display:flex}
+.g-month{font-size:10px;font-weight:700;color:var(--muted);text-align:center;border-right:1px solid var(--bg);padding:3px 0;flex-shrink:0}
+.g-row{display:flex;align-items:center;border-bottom:1px solid var(--bg);min-height:32px}
+.g-row:nth-child(even){background:var(--bg)}
+.g-row:hover{background:rgba(0,94,184,.04)}
+.g-row.phase-row .g-label{font-weight:700;color:var(--dark);background:var(--pale)}
+.g-label-cell{width:220px;flex-shrink:0;font-size:11.5px;padding:5px 8px;border-right:1px solid var(--pale);color:var(--text2);display:flex;align-items:center;gap:5px}
+.g-label-cell.phase{font-weight:700;color:var(--dark)}
+.g-label-cell.child{padding-left:22px;font-size:11px}
+.g-timeline{flex:1;position:relative;height:32px}
+.g-bar{position:absolute;height:18px;border-radius:4px;top:7px;display:flex;align-items:center;padding:0 6px;font-size:9px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden}
+.g-today{position:absolute;top:0;bottom:0;width:1.5px;background:rgba(0,48,135,.35);z-index:1}
+.g-today-label{position:absolute;top:0;font-size:8px;color:var(--navy);font-weight:700;transform:translateX(-50%);background:rgba(235,244,255,.9);padding:0 3px;border-radius:2px}
+
+/* ── RISK ── */
+.risk-panel-body{flex:1;overflow-y:auto;padding:14px 20px}
+.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.risk-card{background:var(--white);border:1px solid var(--pale);border-radius:8px;padding:14px;border-left:4px solid var(--pale)}
+.risk-card.r-high{border-left-color:var(--navy)}
+.risk-card.r-med{border-left-color:var(--primary)}
+.risk-card.r-low{border-left-color:var(--steel)}
+.risk-title{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:4px}
+.risk-meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.risk-tag{font-size:10px;padding:2px 7px;border-radius:3px;background:var(--bg);color:var(--steel);font-weight:600}
+.risk-tag.high{background:var(--navy);color:#fff}
+.risk-tag.med{background:var(--primary);color:#fff}
+.risk-desc{font-size:11.5px;color:var(--text2);line-height:1.6}
+.risk-mitigation{font-size:11px;color:var(--muted);margin-top:6px;padding:6px 8px;background:var(--bg);border-radius:4px}
+
+/* ── STATS ── */
+.stats-panel-body{flex:1;overflow-y:auto;padding:16px 20px}
+.stats-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:20px}
+.stat-card{background:var(--white);border:1px solid var(--pale);border-radius:8px;padding:16px;border-top:3px solid var(--primary)}
+.stat-card .sv{font-size:28px;font-weight:800;color:var(--dark)}
+.stat-card .sl{font-size:11px;color:var(--muted);margin-top:4px}
+.stat-card .st{font-size:11px;font-weight:600;margin-top:6px}
+.st-up{color:var(--primary)}.st-down{color:var(--steel)}
+.progress-full{height:6px;background:var(--pale);border-radius:3px;overflow:hidden;margin:4px 0}
+.pf-fill{height:100%;border-radius:3px;background:var(--primary)}
+
+/* ── DELIVERABLE ── */
+.deliv-panel-body{flex:1;overflow-y:auto;padding:14px 20px}
+.deliv-section{margin-bottom:20px}
+.deliv-section-title{font-size:13px;font-weight:700;color:var(--dark);border-left:3px solid var(--primary);padding-left:8px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between}
+.deliv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px}
+.deliv-card{background:var(--white);border:1px solid var(--pale);border-radius:7px;padding:12px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:box-shadow .15s}
+.deliv-card:hover{box-shadow:0 2px 8px rgba(0,48,135,.1)}
+.deliv-icon{font-size:20px;flex-shrink:0}
+.deliv-info{flex:1;min-width:0}
+.deliv-name{font-size:12px;font-weight:700;color:var(--dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.deliv-desc{font-size:10.5px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.deliv-status{flex-shrink:0;font-size:10px;padding:2px 7px;border-radius:8px;font-weight:700}
+.ds-done{background:var(--pale);color:var(--dark)}
+.ds-wip{background:var(--primary);color:#fff}
+.ds-todo{background:var(--bg);color:var(--muted)}
+
+/* ── MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:500;align-items:flex-start;justify-content:center;padding:36px 20px;overflow-y:auto}
 .modal-overlay.open{display:flex}
-.modal{background:var(--white);border-radius:12px;width:100%;max-width:680px;box-shadow:0 20px 60px rgba(0,0,0,.2)}
-.modal-header{background:linear-gradient(90deg,var(--dark),var(--primary));color:#fff;padding:16px 20px;border-radius:12px 12px 0 0;display:flex;align-items:center;gap:10px}
-.modal-header h3{flex:1;font-size:15px;font-weight:700}
-.modal-header button{background:rgba(255,255,255,.15);border:none;color:#fff;width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:14px}
-.modal-header button:hover{background:rgba(255,255,255,.3)}
-.modal-body{padding:20px}
-.form-row{margin-bottom:14px}
-.form-row label{display:block;font-size:12px;font-weight:700;color:var(--dark);margin-bottom:5px}
-.form-row input,.form-row textarea,.form-row select{width:100%;padding:8px 10px;border:1px solid var(--pale);border-radius:6px;font-size:13px;font-family:inherit;color:var(--text)}
-.form-row textarea{resize:vertical;min-height:80px}
+.modal{background:var(--white);border-radius:10px;width:100%;max-width:640px;box-shadow:0 20px 50px rgba(0,0,0,.2)}
+.modal-header{background:linear-gradient(90deg,var(--dark),var(--primary));color:#fff;padding:14px 18px;border-radius:10px 10px 0 0;display:flex;align-items:center;gap:8px}
+.modal-header h3{flex:1;font-size:14px;font-weight:700}
+.modal-header button{background:rgba(255,255,255,.15);border:none;color:#fff;width:26px;height:26px;border-radius:5px;cursor:pointer;font-size:13px}
+.modal-body{padding:18px}
+.form-row{margin-bottom:12px}
+.form-row label{display:block;font-size:11.5px;font-weight:700;color:var(--dark);margin-bottom:4px}
+.form-row input,.form-row textarea,.form-row select{width:100%;padding:7px 9px;border:1px solid var(--pale);border-radius:5px;font-size:12.5px;font-family:inherit;color:var(--text)}
+.form-row textarea{resize:vertical;min-height:70px}
 .form-row input:focus,.form-row textarea:focus,.form-row select:focus{outline:none;border-color:var(--primary)}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.form-checkboxes{display:flex;flex-wrap:wrap;gap:6px}
-.form-cb{display:flex;align-items:center;gap:4px;font-size:12px;padding:3px 8px;border:1px solid var(--pale);border-radius:4px;cursor:pointer}
-.form-cb input{margin:0}
-.modal-footer{padding:14px 20px;border-top:1px solid var(--pale);display:flex;justify-content:flex-end;gap:8px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.modal-footer{padding:12px 18px;border-top:1px solid var(--pale);display:flex;justify-content:flex-end;gap:8px}
 
-/* MILESTONE STRIP */
-.ms-strip{background:var(--white);border-bottom:1px solid var(--pale);padding:8px 20px;display:flex;gap:8px;overflow-x:auto;flex-shrink:0}
-.ms-strip::-webkit-scrollbar{height:3px}
-.ms-strip::-webkit-scrollbar-thumb{background:var(--pale)}
-.ms-item{display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:600;white-space:nowrap;border:1px solid;cursor:default;flex-shrink:0}
-.ms-item.active{background:var(--primary);color:#fff;border-color:var(--primary)}
-.ms-item.pending{background:var(--bg);color:var(--steel);border-color:var(--pale)}
-.ms-item.overdue{background:var(--dark);color:#fff;border-color:var(--dark)}
-.ms-dot{width:7px;height:7px;border-radius:50%;background:currentColor}
-
-/* LOADING */
-#loading{position:fixed;inset:0;background:rgba(235,244,255,.9);display:flex;align-items:center;justify-content:center;z-index:999;flex-direction:column;gap:12px}
-.spinner{width:36px;height:36px;border:3px solid var(--pale);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-#loading p{font-size:13px;color:var(--muted)}
-
-/* Token prompt */
-#token-prompt{display:none;position:fixed;inset:0;background:rgba(235,244,255,.97);z-index:998;align-items:center;justify-content:center;flex-direction:column;gap:16px;padding:20px;text-align:center}
+/* TOKEN PROMPT */
+#token-prompt{display:none;position:fixed;inset:0;background:rgba(235,244,255,.97);z-index:998;align-items:center;justify-content:center;flex-direction:column;gap:14px;padding:20px;text-align:center}
 #token-prompt.show{display:flex}
-#token-prompt h2{font-size:18px;color:var(--dark)}
-#token-prompt p{font-size:13px;color:var(--muted);max-width:480px}
-#token-input{padding:10px 14px;border:1.5px solid var(--pale);border-radius:8px;font-size:13px;width:100%;max-width:400px;font-family:inherit}
+#token-prompt h2{font-size:17px;color:var(--dark)}
+#token-prompt p{font-size:12.5px;color:var(--muted);max-width:460px}
+#token-input{padding:9px 12px;border:1.5px solid var(--pale);border-radius:7px;font-size:13px;width:100%;max-width:380px;font-family:inherit}
 #token-input:focus{outline:none;border-color:var(--primary)}
-.token-note{font-size:11px;color:var(--muted);max-width:400px}
+
+#loading{position:fixed;inset:0;background:rgba(235,244,255,.9);display:flex;align-items:center;justify-content:center;z-index:999;flex-direction:column;gap:10px}
+.spinner{width:32px;height:32px;border:3px solid var(--pale);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#loading p{font-size:12px;color:var(--muted)}
 
 @media(max-width:768px){
-  .board{padding:10px 12px;gap:10px}
-  .col{width:250px;min-width:250px}
-  .stats-chips{display:none}
-  .nav-brand span{display:none}
+  .nav-brand span,.nav-divider{display:none}
+  .risk-grid{grid-template-columns:1fr}
+  .col{width:240px;min-width:240px}
+  .mod-tab span.label-text{display:none}
 }
 </style>
 </head>
 <body>
 
-<div id="loading"><div class="spinner"></div><p>正在加载任务看板...</p></div>
+<div id="loading"><div class="spinner"></div><p>加载中...</p></div>
 
 <div id="token-prompt">
-  <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="#EBF4FF"/><path d="M24 12c-6.6 0-12 5.4-12 12s5.4 12 12 12 12-5.4 12-12-5.4-12-12-12zm0 4c2.2 0 4 1.8 4 4s-1.8 4-4 4-4-1.8-4-4 1.8-4 4-4zm0 17c-3 0-5.7-1.5-7.3-3.8.1-2.4 4.9-3.8 7.3-3.8s7.2 1.4 7.3 3.8C29.7 31.5 27 33 24 33z" fill="#005EB8"/></svg>
-  <h2>需要 GitHub Token 才能读取任务数据</h2>
-  <p>看板通过 GitHub API 读取 Issues 数据。请输入一个具有 <code>public_repo</code> 权限的 Personal Access Token。Token 仅存储在浏览器本地，不会上传到服务器。</p>
-  <input id="token-input" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
-  <button class="btn btn-primary" onclick="saveToken()" style="padding:10px 28px;font-size:13px">确认并加载看板</button>
-  <p class="token-note">生成方式：GitHub Settings → Developer Settings → Personal Access Tokens → Tokens (classic) → New Token → 勾选 repo → Generate</p>
-  <button class="btn btn-ghost" onclick="loadWithoutToken()" style="background:var(--bg);color:var(--steel);border-color:var(--pale)">演示模式（不需要Token，使用示例数据）</button>
+  <h2>需要 GitHub Token</h2>
+  <p>看板通过 GitHub API 读取 Issues。请输入具有 <code>public_repo</code> 权限的 Personal Access Token，仅存储在浏览器本地。</p>
+  <input id="token-input" type="password" placeholder="ghp_xxxxxxxxxxxx">
+  <button class="btn btn-primary" onclick="saveToken()" style="padding:9px 24px">确认并加载</button>
+  <button onclick="loadDemo()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:12px;margin-top:-6px">演示模式（示例数据）</button>
 </div>
 
 <nav>
   <div class="nav-brand">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 28" height="22">
-      <rect x="0" y="2" width="3" height="24" fill="#F06000"/>
-      <rect x="0" y="2" width="12" height="3" fill="#F06000"/>
-      <rect x="0" y="11" width="9" height="3" fill="#F06000"/>
-      <path d="M16 2h10v3h-7v5h6v3h-6v5h7v3h-10z" fill="#F06000"/>
-      <rect x="30" y="2" width="3" height="24" fill="#F06000"/>
-      <rect x="30" y="22" width="11" height="3" fill="#F06000"/>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 26" height="20">
+      <rect x="0" y="2" width="3" height="22" fill="#F06000"/>
+      <rect x="0" y="2" width="11" height="3" fill="#F06000"/>
+      <rect x="0" y="10" width="8" height="3" fill="#F06000"/>
+      <path d="M14 2h9v3h-6v4h5v3h-5v5h6v3h-9z" fill="#F06000"/>
+      <rect x="27" y="2" width="3" height="22" fill="#F06000"/>
+      <rect x="27" y="20" width="10" height="3" fill="#F06000"/>
     </svg>
-    <span>佛山照明数字化转型工作台</span>
+    <span>佛山照明 · 数字化转型</span>
   </div>
   <div class="nav-divider"></div>
   <div class="nav-links">
     <a href="/fsl-report/">工作台首页</a>
     <a href="/fsl-report/consulting/">管理咨询</a>
     <a href="/fsl-report/sap/">SAP实施</a>
-    <a href="/fsl-report/kanban/" class="active">任务看板</a>
+    <a href="/fsl-report/kanban/" class="active">项目管理</a>
     <a href="/fsl-report/research/">行业研究</a>
   </div>
   <div class="nav-right">
-    <button class="btn btn-ghost" onclick="openNewIssue()" title="新建任务">＋ 新建任务</button>
-    <button class="btn btn-ghost" onclick="refreshBoard()" title="刷新">↻</button>
+    <button class="btn btn-ghost" onclick="openNewIssue()">＋ 新建任务</button>
+    <button class="btn btn-ghost" onclick="refreshAll()" title="刷新">↻</button>
   </div>
 </nav>
 
-<div class="ms-strip" id="msStrip"><!-- milestones --></div>
-
-<div class="toolbar">
-  <span class="toolbar-title">📋 任务看板</span>
-  <div class="filter-group">
-    <input class="search-box" id="searchBox" placeholder="搜索任务..." oninput="applyFilters()">
-    <select class="filter" id="filterPhase" onchange="applyFilters()">
-      <option value="">所有阶段</option>
-      <option>阶段:咨询-诊断</option><option>阶段:咨询-蓝图</option><option>阶段:咨询-路径</option>
-      <option>阶段:SAP-准备</option><option>阶段:SAP-蓝图</option><option>阶段:SAP-实现</option>
-      <option>阶段:SAP-部署</option><option>阶段:SAP-运行</option><option>阶段:SAP-验收</option>
-    </select>
-    <select class="filter" id="filterMod" onchange="applyFilters()">
-      <option value="">所有模块</option>
-      <option>模块:FI/CO</option><option>模块:SD</option><option>模块:MM/EWM</option>
-      <option>模块:PP/QM</option><option>模块:MDG</option><option>模块:CPI</option><option>模块:Group Rpt</option>
-    </select>
-    <select class="filter" id="filterPri" onchange="applyFilters()">
-      <option value="">所有优先级</option>
-      <option>优先级:高</option><option>优先级:中</option><option>优先级:低</option>
-    </select>
-    <select class="filter" id="filterType" onchange="applyFilters()">
-      <option value="">所有类型</option>
-      <option>类型:交付物</option><option>类型:任务</option><option>类型:风险</option>
-      <option>类型:会议</option><option>类型:问题</option>
-    </select>
+<div class="proj-header">
+  <div class="proj-title-row">
+    <span class="proj-icon">📋</span>
+    <span class="proj-name">佛照 SAP S/4HANA 升级项目</span>
+    <span class="proj-badge" id="progressBadge">加载中...</span>
   </div>
-  <div class="stats-chips">
-    <div class="stat-chip">总计 <span id="statTotal">-</span></div>
-    <div class="stat-chip">进行中 <span id="statDoing">-</span></div>
-    <div class="stat-chip">本周到期 <span id="statDue">-</span></div>
+  <div class="mod-tabs" id="modTabs">
+    <div class="mod-tab active" data-panel="kanban" onclick="switchTab(this,'kanban')">📋 <span class="label-text">看板</span></div>
+    <div class="mod-tab" data-panel="milestone" onclick="switchTab(this,'milestone')">🎯 <span class="label-text">里程碑</span></div>
+    <div class="mod-tab" data-panel="tasklist" onclick="switchTab(this,'tasklist')">☑ <span class="label-text">任务</span></div>
+    <div class="mod-tab" data-panel="gantt" onclick="switchTab(this,'gantt')">📅 <span class="label-text">甘特图</span></div>
+    <div class="mod-tab" data-panel="risk" onclick="switchTab(this,'risk')">⚠️ <span class="label-text">风险</span></div>
+    <div class="mod-tab" data-panel="deliverable" onclick="switchTab(this,'deliverable')">📦 <span class="label-text">交付物</span></div>
+    <div class="mod-tab" data-panel="stats" onclick="switchTab(this,'stats')">📊 <span class="label-text">统计</span></div>
   </div>
 </div>
 
-<div class="board" id="board">
-  <div class="col col-todo"><div class="col-header"><span>📋</span><span class="col-title">待办</span><span class="col-count" id="cnt-todo">0</span></div><div class="col-body" id="col-todo"></div></div>
-  <div class="col col-doing"><div class="col-header"><span>⚡</span><span class="col-title">进行中</span><span class="col-count" id="cnt-doing">0</span></div><div class="col-body" id="col-doing"></div></div>
-  <div class="col col-review"><div class="col-header"><span>👀</span><span class="col-title">待评审</span><span class="col-count" id="cnt-review">0</span></div><div class="col-body" id="col-review"></div></div>
-  <div class="col col-done"><div class="col-header"><span>✅</span><span class="col-title">已完成</span><span class="col-count" id="cnt-done">0</span></div><div class="col-body" id="col-done"></div></div>
+<!-- Sub toolbar (shared, dynamically updated) -->
+<div class="sub-toolbar" id="subToolbar">
+  <select id="filterPhase" onchange="applyFilters()"><option value="">所有阶段</option><option>阶段:咨询-诊断</option><option>阶段:咨询-蓝图</option><option>阶段:咨询-路径</option><option>阶段:SAP-准备</option><option>阶段:SAP-蓝图</option><option>阶段:SAP-实现</option><option>阶段:SAP-部署</option><option>阶段:SAP-运行</option><option>阶段:SAP-验收</option></select>
+  <select id="filterMod" onchange="applyFilters()"><option value="">所有模块</option><option>模块:FI/CO</option><option>模块:SD</option><option>模块:MM/EWM</option><option>模块:PP/QM</option><option>模块:MDG</option><option>模块:CPI</option><option>模块:Group Rpt</option></select>
+  <select id="filterPri" onchange="applyFilters()"><option value="">所有优先级</option><option>优先级:高</option><option>优先级:中</option><option>优先级:低</option></select>
+  <select id="filterType" onchange="applyFilters()"><option value="">所有类型</option><option>类型:交付物</option><option>类型:任务</option><option>类型:风险</option><option>类型:会议</option><option>类型:问题</option></select>
+  <input class="search-box" id="searchBox" placeholder="🔍 搜索任务..." oninput="applyFilters()">
+  <div class="toolbar-right">
+    <span class="stat-pill">总计 <span id="stTotal">-</span></span>
+    <span class="stat-pill">进行中 <span id="stDoing">-</span></span>
+    <span class="stat-pill">高优 <span id="stHigh">-</span></span>
+  </div>
 </div>
 
-<!-- Issue Detail Modal -->
+<!-- ═══ KANBAN PANEL ═══ -->
+<div class="mod-panel active" id="panel-kanban">
+  <div class="board" id="board">
+    <div class="col col-todo"><div class="col-header"><span>📋</span><span class="ch-title">待办</span><span class="ch-count" id="cnt-todo">0</span><span class="col-add-btn" onclick="openNewIssue()">＋</span></div><div class="col-body" id="col-todo" data-status="status:待办"></div></div>
+    <div class="col col-doing"><div class="col-header"><span>⚡</span><span class="ch-title">进行中</span><span class="ch-count" id="cnt-doing">0</span><span class="col-add-btn" onclick="openNewIssue()">＋</span></div><div class="col-body" id="col-doing" data-status="status:进行中"></div></div>
+    <div class="col col-review"><div class="col-header"><span>👀</span><span class="ch-title">待评审</span><span class="ch-count" id="cnt-review">0</span><span class="col-add-btn" onclick="openNewIssue()">＋</span></div><div class="col-body" id="col-review" data-status="status:待评审"></div></div>
+    <div class="col col-done"><div class="col-header"><span>✅</span><span class="ch-title">已完成</span><span class="ch-count" id="cnt-done">0</span></div><div class="col-body" id="col-done" data-status="status:已完成"></div></div>
+  </div>
+</div>
+
+<!-- ═══ MILESTONE PANEL ═══ -->
+<div class="mod-panel" id="panel-milestone">
+  <div class="ms-panel-body"><div class="ms-timeline" id="msTimeline"></div></div>
+</div>
+
+<!-- ═══ TASK LIST PANEL ═══ -->
+<div class="mod-panel" id="panel-tasklist">
+  <div style="flex:1;overflow-y:auto;padding:14px 20px">
+    <table style="width:100%;border-collapse:collapse;font-size:12.5px;background:var(--white);border-radius:8px;overflow:hidden;border:1px solid var(--pale)">
+      <thead><tr style="background:var(--dark);color:#fff"><th style="padding:9px 12px;text-align:left;font-weight:600">#</th><th style="padding:9px 12px;text-align:left">任务标题</th><th style="padding:9px 12px;text-align:left">状态</th><th style="padding:9px 12px;text-align:left">优先级</th><th style="padding:9px 12px;text-align:left">类型</th><th style="padding:9px 12px;text-align:left">里程碑</th><th style="padding:9px 12px;text-align:left">模块</th></tr></thead>
+      <tbody id="taskListBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ GANTT PANEL ═══ -->
+<div class="mod-panel" id="panel-gantt">
+  <div class="gantt-panel-body"><div class="gantt-wrap" id="ganttWrap"></div></div>
+</div>
+
+<!-- ═══ RISK PANEL ═══ -->
+<div class="mod-panel" id="panel-risk">
+  <div class="risk-panel-body"><div class="risk-grid" id="riskGrid"></div></div>
+</div>
+
+<!-- ═══ DELIVERABLE PANEL ═══ -->
+<div class="mod-panel" id="panel-deliverable">
+  <div class="deliv-panel-body" id="delivBody"></div>
+</div>
+
+<!-- ═══ STATS PANEL ═══ -->
+<div class="mod-panel" id="panel-stats">
+  <div class="stats-panel-body" id="statsBody"></div>
+</div>
+
+<!-- DETAIL MODAL -->
 <div class="modal-overlay" id="detailModal">
   <div class="modal">
-    <div class="modal-header">
-      <h3 id="modalTitle">任务详情</h3>
-      <button onclick="closeModal('detailModal')">✕</button>
-    </div>
-    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-header"><h3 id="dTitle">任务详情</h3><button onclick="closeModal('detailModal')">✕</button></div>
+    <div class="modal-body" id="dBody"></div>
     <div class="modal-footer">
-      <a id="modalGhLink" href="#" target="_blank" class="btn btn-ghost" style="background:var(--bg);color:var(--steel);border-color:var(--pale)">在 GitHub 中打开 ↗</a>
-      <button class="btn btn-primary" onclick="closeModal('detailModal')">关闭</button>
+      <a id="dGhLink" href="#" target="_blank" class="btn" style="background:var(--bg);color:var(--steel);border:1px solid var(--pale)">在 GitHub 打开 ↗</a>
+      <select id="dStatusSel" style="padding:5px 9px;border:1px solid var(--pale);border-radius:5px;font-size:12px;font-family:inherit">
+        <option value="status:待办">待办</option><option value="status:进行中">进行中</option><option value="status:待评审">待评审</option><option value="status:已完成">已完成</option>
+      </select>
+      <button class="btn btn-primary" id="dSaveBtn" onclick="saveStatusFromModal()">保存状态</button>
+      <button class="btn" onclick="closeModal('detailModal')" style="background:var(--bg);color:var(--steel);border:1px solid var(--pale)">关闭</button>
     </div>
   </div>
 </div>
 
-<!-- New Issue Modal -->
+<!-- NEW ISSUE MODAL -->
 <div class="modal-overlay" id="newModal">
   <div class="modal">
-    <div class="modal-header">
-      <h3>＋ 新建任务</h3>
-      <button onclick="closeModal('newModal')">✕</button>
-    </div>
+    <div class="modal-header"><h3>＋ 新建任务</h3><button onclick="closeModal('newModal')">✕</button></div>
     <div class="modal-body">
-      <div class="form-row"><label>任务标题 *</label><input id="newTitle" placeholder="简洁描述任务内容"></div>
-      <div class="form-row"><label>任务描述</label><textarea id="newBody" placeholder="详细描述、验收标准、关联交付物等..."></textarea></div>
+      <div class="form-row"><label>任务标题 *</label><input id="nTitle" placeholder="简洁描述任务内容"></div>
+      <div class="form-row"><label>描述</label><textarea id="nBody" placeholder="详细描述、验收标准、关联交付物..."></textarea></div>
       <div class="form-grid">
-        <div class="form-row"><label>优先级</label>
-          <select id="newPri"><option value="优先级:中">中</option><option value="优先级:高">高</option><option value="优先级:低">低</option></select>
-        </div>
-        <div class="form-row"><label>任务类型</label>
-          <select id="newType"><option value="类型:任务">任务</option><option value="类型:交付物">交付物</option><option value="类型:风险">风险</option><option value="类型:会议">会议</option><option value="类型:问题">问题</option></select>
-        </div>
-        <div class="form-row"><label>里程碑</label>
-          <select id="newMs"><option value="">不关联</option></select>
-        </div>
-        <div class="form-row"><label>SAP模块</label>
-          <select id="newMod"><option value="">不关联</option><option value="模块:FI/CO">FI/CO</option><option value="模块:SD">SD</option><option value="模块:MM/EWM">MM/EWM</option><option value="模块:PP/QM">PP/QM</option><option value="模块:MDG">MDG</option><option value="模块:CPI">CPI</option><option value="模块:Group Rpt">Group Rpt</option></select>
-        </div>
+        <div class="form-row"><label>优先级</label><select id="nPri"><option value="优先级:中">中</option><option value="优先级:高">高</option><option value="优先级:低">低</option></select></div>
+        <div class="form-row"><label>类型</label><select id="nType"><option value="类型:任务">任务</option><option value="类型:交付物">交付物</option><option value="类型:风险">风险</option><option value="类型:会议">会议</option><option value="类型:问题">问题</option></select></div>
+        <div class="form-row"><label>里程碑</label><select id="nMs"><option value="">不关联</option></select></div>
+        <div class="form-row"><label>SAP模块</label><select id="nMod"><option value="">不关联</option><option value="模块:FI/CO">FI/CO</option><option value="模块:SD">SD</option><option value="模块:MM/EWM">MM/EWM</option><option value="模块:PP/QM">PP/QM</option><option value="模块:MDG">MDG</option><option value="模块:CPI">CPI</option><option value="模块:Group Rpt">Group Rpt</option></select></div>
       </div>
-      <div class="form-row"><label>所属阶段</label>
-        <select id="newPhase"><option value="">不关联</option>
-          <option value="阶段:咨询-诊断">咨询-诊断</option><option value="阶段:咨询-蓝图">咨询-蓝图</option><option value="阶段:咨询-路径">咨询-路径</option>
-          <option value="阶段:SAP-准备">SAP-准备</option><option value="阶段:SAP-蓝图">SAP-蓝图</option><option value="阶段:SAP-实现">SAP-实现</option>
-          <option value="阶段:SAP-部署">SAP-部署</option><option value="阶段:SAP-运行">SAP-运行</option><option value="阶段:SAP-验收">SAP-验收</option>
-        </select>
-      </div>
-      <div id="newError" style="color:var(--navy);font-size:12px;display:none;padding:8px;background:var(--bg);border-radius:6px;border-left:3px solid var(--primary)"></div>
+      <div class="form-row"><label>阶段</label><select id="nPhase"><option value="">不关联</option><option value="阶段:咨询-诊断">咨询-诊断</option><option value="阶段:咨询-蓝图">咨询-蓝图</option><option value="阶段:咨询-路径">咨询-路径</option><option value="阶段:SAP-准备">SAP-准备</option><option value="阶段:SAP-蓝图">SAP-蓝图</option><option value="阶段:SAP-实现">SAP-实现</option><option value="阶段:SAP-部署">SAP-部署</option><option value="阶段:SAP-运行">SAP-运行</option><option value="阶段:SAP-验收">SAP-验收</option></select></div>
+      <div id="nErr" style="display:none;padding:7px 10px;background:var(--bg);border-radius:5px;font-size:12px;color:var(--navy);border-left:3px solid var(--primary)"></div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('newModal')" style="background:var(--bg);color:var(--steel);border-color:var(--pale)">取消</button>
-      <button class="btn btn-primary" id="submitBtn" onclick="submitNewIssue()">创建任务</button>
+      <button onclick="closeModal('newModal')" class="btn" style="background:var(--bg);color:var(--steel);border:1px solid var(--pale)">取消</button>
+      <button class="btn btn-primary" id="nSubmit" onclick="submitNewIssue()">创建任务</button>
     </div>
   </div>
 </div>
 
 <script>
-var REPO = 'EstaTea/fsl-report';
-var API  = 'https://api.github.com/repos/' + REPO;
-var TOKEN = localStorage.getItem('gh_token_fsl') || '';
-var allIssues = [], allMilestones = [];
+var REPO='EstaTea/fsl-report', API='https://api.github.com/repos/'+REPO;
+var TOKEN=localStorage.getItem('gh_token_fsl')||'';
+var allIssues=[], allMilestones=[], currentDetailNum=null;
 
-// ── helpers ──────────────────────────────────────────────────────
-function headers() {
-  var h = { 'Accept': 'application/vnd.github+json' };
-  if (TOKEN) h['Authorization'] = 'Bearer ' + TOKEN;
-  return h;
-}
-async function ghFetch(url, opts) {
-  var res = await fetch(url, Object.assign({ headers: headers() }, opts||{}));
-  if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
-  return res.json();
-}
-function saveToken() {
-  var t = document.getElementById('token-input').value.trim();
-  if (!t) return;
-  TOKEN = t;
-  localStorage.setItem('gh_token_fsl', t);
-  document.getElementById('token-prompt').classList.remove('show');
-  init();
-}
-function loadWithoutToken() {
-  document.getElementById('token-prompt').classList.remove('show');
-  loadDemoData();
-}
+function hdrs(){ var h={'Accept':'application/vnd.github+json'}; if(TOKEN) h['Authorization']='Bearer '+TOKEN; return h; }
+async function gf(url,opts){ var r=await fetch(url,Object.assign({headers:hdrs()},opts||{})); if(!r.ok) throw new Error(r.status); return r.json(); }
 
-// ── init ─────────────────────────────────────────────────────────
-async function init() {
-  document.getElementById('loading').style.display = 'flex';
-  try {
-    // fetch all open issues (paginated up to 100)
-    var [issues, milestones] = await Promise.all([
-      ghFetch(API + '/issues?state=open&per_page=100&sort=created&direction=desc'),
-      ghFetch(API + '/milestones?state=open&per_page=50&sort=due_on')
+function saveToken(){ var t=document.getElementById('token-input').value.trim(); if(!t)return; TOKEN=t; localStorage.setItem('gh_token_fsl',t); document.getElementById('token-prompt').classList.remove('show'); init(); }
+function loadDemo(){ document.getElementById('token-prompt').classList.remove('show'); useDemoData(); }
+
+// ── init ──────────────────────────────────────────────────────────
+async function init(){
+  document.getElementById('loading').style.display='flex';
+  try{
+    var [open,closed,ms]=await Promise.all([
+      gf(API+'/issues?state=open&per_page=100&sort=created&direction=desc'),
+      gf(API+'/issues?state=closed&per_page=30&sort=updated'),
+      gf(API+'/milestones?state=open&per_page=50&sort=due_on')
     ]);
-    // also get recently closed
-    var closed = await ghFetch(API + '/issues?state=closed&per_page=30&sort=updated');
-    allIssues = issues.concat(closed).filter(function(i){ return !i.pull_request; });
-    allMilestones = milestones;
-    renderMilestones();
-    renderBoard(allIssues);
-    populateMsSelect();
-  } catch(e) {
-    console.error(e);
-    if (e.message.startsWith('401') || e.message.startsWith('403')) {
-      TOKEN = '';
-      localStorage.removeItem('gh_token_fsl');
-      document.getElementById('loading').style.display = 'none';
-      document.getElementById('token-prompt').classList.add('show');
-      return;
+    allIssues=open.concat(closed).filter(function(i){return !i.pull_request;});
+    allMilestones=ms;
+    render();
+  }catch(e){
+    if(e.message.startsWith('401')||e.message.startsWith('403')){
+      TOKEN=''; localStorage.removeItem('gh_token_fsl');
+      document.getElementById('loading').style.display='none';
+      document.getElementById('token-prompt').classList.add('show'); return;
     }
-    // fallback to demo
-    loadDemoData();
+    useDemoData();
   }
-  document.getElementById('loading').style.display = 'none';
+  document.getElementById('loading').style.display='none';
 }
 
-// ── demo data ────────────────────────────────────────────────────
-function loadDemoData() {
-  allMilestones = [
-    {number:1,title:'M0 数据清洗启动',due_on:'2026-07-15T00:00:00Z',open_issues:2,closed_issues:0},
-    {number:2,title:'M1 架构蓝图评审通过',due_on:'2026-09-30T00:00:00Z',open_issues:4,closed_issues:0},
-    {number:3,title:'M2 系统配置完成',due_on:'2026-11-30T00:00:00Z',open_issues:2,closed_issues:0},
-    {number:4,title:'M3 SIT/UAT测试通过',due_on:'2026-12-31T00:00:00Z',open_issues:1,closed_issues:0},
-    {number:5,title:'M4 正式上线',due_on:'2027-01-01T00:00:00Z',open_issues:0,closed_issues:0},
-    {number:6,title:'M5 稳定运行6个月',due_on:'2027-07-01T00:00:00Z',open_issues:0,closed_issues:0},
+// ── demo data ─────────────────────────────────────────────────────
+function useDemoData(){
+  allMilestones=[
+    {number:1,title:'M0 数据清洗启动',due_on:'2026-07-15T00:00:00Z',open_issues:2,closed_issues:0,description:'主数据清洗项目启动，物料主数据分析报告输出，数据治理委员会成立'},
+    {number:2,title:'M1 架构蓝图评审通过',due_on:'2026-09-30T00:00:00Z',open_issues:4,closed_issues:0,description:'L1-L3企业架构蓝图经甲方审核确认签字，8条接口设计方案锁定（付款触发：第2笔20%）'},
+    {number:3,title:'M2 系统配置完成',due_on:'2026-11-30T00:00:00Z',open_issues:2,closed_issues:0,description:'S/4HANA核心模块配置完成，CPI 8条接口开发完成，主数据首次试迁移'},
+    {number:4,title:'M3 SIT/UAT测试通过',due_on:'2026-12-31T00:00:00Z',open_issues:1,closed_issues:0,description:'三大端到端流程100%场景验证，致命/严重缺陷0个，关键用户培训完成'},
+    {number:5,title:'M4 正式上线',due_on:'2027-01-01T00:00:00Z',open_issues:0,closed_issues:0,description:'S/4HANA PCE正式切换，19家法人同步上线（付款触发：第3笔45%）'},
+    {number:6,title:'M5 稳定运行6个月',due_on:'2027-07-01T00:00:00Z',open_issues:0,closed_issues:0,description:'首月月结完成（目标≤2天），系统稳定运行（付款触发：第4笔15%）'},
   ];
-  allIssues = [
-    {number:1,title:'[数据] 物料主数据质量分析报告（Custom Code扫描）',state:'open',labels:[{name:'status:进行中'},{name:'优先级:高'},{name:'类型:任务'},{name:'模块:MDG'},{name:'阶段:SAP-准备'}],milestone:{number:1,title:'M0 数据清洗启动'},body:'运行SAP Custom Code扫描工具，导出6.2万条物料主数据，识别重复物料、缺失视图、编码不规范项目。',html_url:'https://github.com/'+REPO+'/issues/1'},
-    {number:2,title:'[组织] 成立数据治理委员会（DGC）',state:'open',labels:[{name:'status:进行中'},{name:'优先级:高'},{name:'类型:任务'},{name:'阶段:SAP-准备'}],milestone:{number:1,title:'M0 数据清洗启动'},body:'组建DGC、DMO，明确各主数据域Data Owner，制定数据治理章程。',html_url:'https://github.com/'+REPO+'/issues/2'},
-    {number:3,title:'[咨询] 完成企业架构设计报告评审确认',state:'open',labels:[{name:'status:待办'},{name:'优先级:高'},{name:'类型:交付物'},{name:'阶段:咨询-蓝图'}],milestone:{number:2,title:'M1 架构蓝图评审通过'},body:'企业架构设计报告（交付物02）经佛照甲方审核，完成L1-L3架构蓝图签字确认。',html_url:'https://github.com/'+REPO+'/issues/3'},
+  allIssues=[
+    {number:1,title:'[数据] 物料主数据质量分析报告',state:'open',labels:[{name:'status:进行中'},{name:'优先级:高'},{name:'类型:任务'},{name:'模块:MDG'},{name:'阶段:SAP-准备'}],milestone:{number:1,title:'M0 数据清洗启动'},body:'运行SAP Custom Code扫描工具，导出6.2万条物料主数据，识别重复物料、缺失视图、编码不规范项目。\n\n## 验收标准\n- [ ] Z程序清单Excel输出\n- [ ] 物料重复率统计完成\n- [ ] 缺失视图清单整理完成',html_url:'https://github.com/'+REPO+'/issues/1'},
+    {number:2,title:'[组织] 成立数据治理委员会（DGC）',state:'open',labels:[{name:'status:进行中'},{name:'优先级:高'},{name:'类型:任务'},{name:'阶段:SAP-准备'}],milestone:{number:1,title:'M0 数据清洗启动'},body:'组建DGC、DMO，明确各主数据域Data Owner，制定数据治理章程和主数据创建审批规则。',html_url:'https://github.com/'+REPO+'/issues/2'},
+    {number:3,title:'[咨询] 企业架构设计报告评审确认',state:'open',labels:[{name:'status:待评审'},{name:'优先级:高'},{name:'类型:交付物'},{name:'阶段:咨询-蓝图'}],milestone:{number:2,title:'M1 架构蓝图评审通过'},body:'企业架构设计报告（交付物02）经佛照甲方审核，完成L1-L3架构蓝图签字确认。\n\n⚡ 此任务完成触发**第2笔付款（合同总价20%）**',html_url:'https://github.com/'+REPO+'/issues/3'},
     {number:4,title:'[接口] 锁定8条CPI接口改造设计方案',state:'open',labels:[{name:'status:待办'},{name:'优先级:高'},{name:'类型:任务'},{name:'模块:CPI'},{name:'阶段:SAP-准备'}],milestone:{number:2,title:'M1 架构蓝图评审通过'},body:'完成8条核心接口（IF-001至IF-008）的详细设计方案，各外围系统供应商签署配合承诺。',html_url:'https://github.com/'+REPO+'/issues/4'},
-    {number:5,title:'[数据] 明确广晟集团与佛照S/4HANA系统边界',state:'open',labels:[{name:'status:待办'},{name:'优先级:高'},{name:'类型:风险'},{name:'模块:FI/CO'},{name:'阶段:SAP-准备'}],milestone:{number:2,title:'M1 架构蓝图评审通过'},body:'明确广晟集团推行的共享/司库/合并系统与佛照S/4HANA的边界协议，签字确认。',html_url:'https://github.com/'+REPO+'/issues/5'},
+    {number:5,title:'[数据] 明确广晟集团与佛照S/4HANA系统边界',state:'open',labels:[{name:'status:待办'},{name:'优先级:高'},{name:'类型:风险'},{name:'模块:FI/CO'},{name:'阶段:SAP-准备'}],milestone:{number:2,title:'M1 架构蓝图评审通过'},body:'明确广晟集团推行的共享/司库/合并系统与佛照S/4HANA的边界协议，防止范围蔓延。',html_url:'https://github.com/'+REPO+'/issues/5'},
     {number:6,title:'[咨询] 完成专项方案设计报告（8个高价值场景）',state:'open',labels:[{name:'status:待办'},{name:'优先级:高'},{name:'类型:交付物'},{name:'阶段:咨询-蓝图'}],milestone:{number:2,title:'M1 架构蓝图评审通过'},body:'完成★2交付物《佛山照明专项方案设计报告》，覆盖8个高价值专项场景（L4-L5）。',html_url:'https://github.com/'+REPO+'/issues/6'},
     {number:7,title:'[SAP] 完成FI/CO模块Greenfield配置',state:'open',labels:[{name:'status:待办'},{name:'优先级:高'},{name:'类型:任务'},{name:'模块:FI/CO'},{name:'阶段:SAP-实现'}],milestone:{number:3,title:'M2 系统配置完成'},body:'在S/4HANA PCE中完成财务与管控模块的全新配置，覆盖19家法人统一科目表。',html_url:'https://github.com/'+REPO+'/issues/7'},
     {number:8,title:'[SAP] 完成MDG主数据治理平台配置',state:'open',labels:[{name:'status:待办'},{name:'优先级:高'},{name:'类型:任务'},{name:'模块:MDG'},{name:'阶段:SAP-实现'}],milestone:{number:3,title:'M2 系统配置完成'},body:'部署SAP MDG-M/BP/GL，配置物料/客户/供应商/财务主数据的统一编码规则、审批工作流。',html_url:'https://github.com/'+REPO+'/issues/8'},
     {number:9,title:'[测试] 制定SIT/UAT测试计划',state:'open',labels:[{name:'status:待办'},{name:'优先级:高'},{name:'类型:任务'},{name:'阶段:SAP-实现'}],milestone:{number:4,title:'M3 SIT/UAT测试通过'},body:'制定集成测试（SIT）和用户验收测试（UAT）计划，确保招标文件要求的100%场景覆盖。',html_url:'https://github.com/'+REPO+'/issues/9'},
     {number:10,title:'[风险] MES/WMS供应商接口配合风险',state:'open',labels:[{name:'status:待办'},{name:'优先级:高'},{name:'类型:风险'},{name:'模块:CPI'},{name:'阶段:SAP-蓝图'}],milestone:{number:2,title:'M1 架构蓝图评审通过'},body:'IF-005和IF-006需要MES/WMS供应商配合改造，供应商可能响应慢或配合不足。',html_url:'https://github.com/'+REPO+'/issues/10'},
   ];
+  render();
+  document.getElementById('loading').style.display='none';
+}
+
+// ── render all ────────────────────────────────────────────────────
+function render(){
+  var issues=filteredIssues();
+  renderKanban(issues);
   renderMilestones();
-  renderBoard(allIssues);
+  renderTaskList(issues);
+  renderGantt();
+  renderRisk(issues);
+  renderDeliverables();
+  renderStats(issues);
+  updateStats(issues);
   populateMsSelect();
-  document.getElementById('loading').style.display = 'none';
+  var done=allIssues.filter(function(i){return i.state==='closed';}).length;
+  var total=allIssues.length;
+  var pct=total?Math.round(done/total*100):0;
+  document.getElementById('progressBadge').textContent=pct+'% 完成（'+done+'/'+total+'）';
 }
 
-// ── milestones strip ──────────────────────────────────────────────
-function renderMilestones() {
-  var strip = document.getElementById('msStrip');
-  var now = new Date();
-  strip.innerHTML = allMilestones.map(function(ms) {
-    var due = ms.due_on ? new Date(ms.due_on) : null;
-    var cls = !due ? 'pending' : due < now ? 'overdue' : 'pending';
-    var total = (ms.open_issues||0) + (ms.closed_issues||0);
-    var pct = total ? Math.round(ms.closed_issues/total*100) : 0;
-    return '<div class="ms-item '+cls+'" title="'+ms.title+(due?' | 截止 '+due.toLocaleDateString('zh'):'')+'">'+
-      '<div class="ms-dot"></div>'+
-      ms.title +
-      (due ? ' · ' + due.toLocaleDateString('zh-CN',{month:'numeric',day:'numeric'}) : '') +
-      ' <span style="opacity:.7">('+pct+'%)</span>'+
-      '</div>';
-  }).join('');
+function filteredIssues(){
+  var q=(document.getElementById('searchBox')||{}).value||'';
+  var ph=(document.getElementById('filterPhase')||{}).value||'';
+  var mod=(document.getElementById('filterMod')||{}).value||'';
+  var pri=(document.getElementById('filterPri')||{}).value||'';
+  var typ=(document.getElementById('filterType')||{}).value||'';
+  q=q.toLowerCase();
+  return allIssues.filter(function(i){
+    var labels=i.labels.map(function(l){return l.name;});
+    if(q&&i.title.toLowerCase().indexOf(q)===-1) return false;
+    if(ph&&labels.indexOf(ph)===-1) return false;
+    if(mod&&labels.indexOf(mod)===-1) return false;
+    if(pri&&labels.indexOf(pri)===-1) return false;
+    if(typ&&labels.indexOf(typ)===-1) return false;
+    return true;
+  });
+}
+function applyFilters(){ render(); }
+function updateStats(issues){
+  var open=issues.filter(function(i){return i.state!=='closed';});
+  document.getElementById('stTotal').textContent=open.length;
+  document.getElementById('stDoing').textContent=open.filter(function(i){return i.labels.some(function(l){return l.name==='status:进行中';});}).length;
+  document.getElementById('stHigh').textContent=open.filter(function(i){return i.labels.some(function(l){return l.name==='优先级:高';});}).length;
 }
 
-// ── board render ─────────────────────────────────────────────────
-var STATUS_MAP = {
-  'status:待办':     'todo',
-  'status:进行中':   'doing',
-  'status:待评审':   'review',
-  'status:已完成':   'done'
-};
+// ── helpers ───────────────────────────────────────────────────────
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function getStatus(i){ if(i.state==='closed')return 'status:已完成'; var found=i.labels.find(function(l){return l.name.startsWith('status:');}); return found?found.name:'status:待办'; }
+function getPri(i){ var f=i.labels.find(function(l){return l.name.startsWith('优先级:');}); return f?f.name.replace('优先级:',''):'中'; }
+function getType(i){ var f=i.labels.find(function(l){return l.name.startsWith('类型:');}); return f?f.name.replace('类型:',''):''; }
+function getMods(i){ return i.labels.filter(function(l){return l.name.startsWith('模块:');}).map(function(l){return l.name.replace('模块:','');}); }
+function getPhases(i){ return i.labels.filter(function(l){return l.name.startsWith('阶段:');}).map(function(l){return l.name.replace('阶段:','');}); }
+function isRisk(i){ return i.labels.some(function(l){return l.name==='类型:风险';}); }
 
-function getStatus(issue) {
-  if (issue.state === 'closed') return 'done';
-  var labels = issue.labels.map(function(l){ return l.name; });
-  for (var key in STATUS_MAP) {
-    if (labels.indexOf(key) !== -1) return STATUS_MAP[key];
-  }
-  return 'todo';
-}
-function getPriority(issue) {
-  var labels = issue.labels.map(function(l){ return l.name; });
-  if (labels.indexOf('优先级:高') !== -1) return 'high';
-  if (labels.indexOf('优先级:低') !== -1) return 'low';
-  return 'med';
-}
-function getType(issue) {
-  var labels = issue.labels.map(function(l){ return l.name; });
-  var types = labels.filter(function(l){ return l.startsWith('类型:'); });
-  return types.length ? types[0].replace('类型:','') : '';
-}
-function getLabelsByPrefix(issue, prefix) {
-  return issue.labels.filter(function(l){ return l.name.startsWith(prefix); }).map(function(l){ return l.name.replace(prefix,''); });
+function statusColId(st){ var m={'status:待办':'col-todo','status:进行中':'col-doing','status:待评审':'col-review','status:已完成':'col-done'}; return m[st]||'col-todo'; }
+
+// ── KANBAN ────────────────────────────────────────────────────────
+function renderKanban(issues){
+  var cols={todo:[],doing:[],review:[],done:[]};
+  var map={'status:待办':'todo','status:进行中':'doing','status:待评审':'review','status:已完成':'done'};
+  issues.forEach(function(i){ var k=map[getStatus(i)]||'todo'; cols[k].push(i); });
+  ['todo','doing','review','done'].forEach(function(k){
+    var el=document.getElementById('col-'+k);
+    el.innerHTML=cols[k].length?cols[k].map(buildCard).join(''):'<div class="empty-col">拖拽任务到此处，或点击＋新建</div>';
+    document.getElementById('cnt-'+k).textContent=cols[k].length;
+  });
+  initDragDrop();
 }
 
-function buildCard(issue) {
-  var status = getStatus(issue);
-  var pri = getPriority(issue);
-  var type = getType(issue);
-  var mods = getLabelsByPrefix(issue, '模块:');
-  var phase = getLabelsByPrefix(issue, '阶段:');
-  var isRisk = issue.labels.some(function(l){ return l.name === '类型:风险'; });
-
-  var labelsHtml = mods.map(function(m){ return '<span class="lbl lbl-mod">'+m+'</span>'; }).join('') +
-    phase.map(function(p){ return '<span class="lbl lbl-phase">'+p+'</span>'; }).join('') +
-    (isRisk ? '<span class="lbl lbl-risk">⚠ 风险</span>' : '');
-
-  var msHtml = issue.milestone ? '<span class="card-ms">'+issue.milestone.title.split(' ').slice(0,2).join(' ')+'</span>' : '';
-  var typeIcon = {'交付物':'📄','任务':'✅','风险':'⚠️','会议':'📅','问题':'🔴'}[type] || '•';
-
-  return '<div class="card priority-'+pri+'" onclick="showDetail('+issue.number+')" data-status="'+status+'" data-priority="'+pri+'">'+
-    '<div class="card-type">'+typeIcon+' '+type+'</div>'+
-    '<div class="card-title">'+escHtml(issue.title)+'</div>'+
-    (labelsHtml ? '<div class="card-labels">'+labelsHtml+'</div>' : '')+
-    '<div class="card-footer">'+
-      '<span class="card-num">#'+issue.number+'</span>'+
-      msHtml+
-    '</div>'+
+function buildCard(issue){
+  var pri=getPri(issue); var type=getType(issue);
+  var mods=getMods(issue); var phases=getPhases(issue);
+  var icon={'交付物':'📄','任务':'✅','风险':'⚠️','会议':'📅','问题':'🔴'}[type]||'•';
+  var lbls=mods.map(function(m){return '<span class="lbl lbl-mod">'+esc(m)+'</span>';}).join('')+
+    phases.map(function(p){return '<span class="lbl lbl-phase">'+esc(p)+'</span>';}).join('')+
+    (isRisk(issue)?'<span class="lbl lbl-risk">⚠ 风险</span>':'');
+  var ms=issue.milestone?'<span class="card-ms">'+esc(issue.milestone.title.split(' ').slice(0,2).join(' '))+'</span>':'';
+  return '<div class="card priority-'+pri.toLowerCase()+'" draggable="true" data-num="'+issue.number+'" onclick="showDetail('+issue.number+')">'+
+    '<div class="card-type">'+icon+' '+esc(type)+'</div>'+
+    '<div class="card-title">'+esc(issue.title)+'</div>'+
+    (lbls?'<div class="card-labels">'+lbls+'</div>':'')+
+    '<div class="card-footer"><span class="card-num">#'+issue.number+'</span>'+ms+'</div>'+
   '</div>';
 }
 
-function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
-function renderBoard(issues) {
-  var cols = {todo:[],doing:[],review:[],done:[]};
-  issues.forEach(function(iss) {
-    var s = getStatus(iss);
-    if (cols[s]) cols[s].push(iss);
+// ── DRAG & DROP ───────────────────────────────────────────────────
+var dragNum=null;
+function initDragDrop(){
+  document.querySelectorAll('#board .card').forEach(function(card){
+    card.addEventListener('dragstart',function(e){
+      dragNum=parseInt(card.dataset.num);
+      card.classList.add('dragging');
+      e.dataTransfer.effectAllowed='move';
+    });
+    card.addEventListener('dragend',function(){
+      card.classList.remove('dragging');
+    });
   });
-
-  Object.keys(cols).forEach(function(col) {
-    var el = document.getElementById('col-'+col);
-    var cnt = document.getElementById('cnt-'+col);
-    if (!el) return;
-    if (!cols[col].length) {
-      el.innerHTML = '<div class="empty"><svg width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="#A8C4E0" stroke-width="2"/><path d="M10 16h12M16 10v12" stroke="#A8C4E0" stroke-width="2" stroke-linecap="round"/></svg><br>暂无任务</div>';
-    } else {
-      el.innerHTML = cols[col].map(buildCard).join('');
-    }
-    cnt.textContent = cols[col].length;
+  document.querySelectorAll('.col-body').forEach(function(col){
+    col.addEventListener('dragover',function(e){
+      e.preventDefault(); e.dataTransfer.dropEffect='move';
+      col.classList.add('drag-over');
+    });
+    col.addEventListener('dragleave',function(){
+      col.classList.remove('drag-over');
+    });
+    col.addEventListener('drop',function(e){
+      e.preventDefault(); col.classList.remove('drag-over');
+      if(!dragNum) return;
+      var newStatus=col.dataset.status;
+      moveIssue(dragNum, newStatus);
+      dragNum=null;
+    });
   });
-
-  // stats
-  document.getElementById('statTotal').textContent = issues.filter(function(i){ return i.state!=='closed'; }).length;
-  document.getElementById('statDoing').textContent = cols.doing.length;
-  var now = new Date(); var week = new Date(now.getTime()+7*86400000);
-  document.getElementById('statDue').textContent = issues.filter(function(i){
-    return i.milestone && i.milestone.due_on && new Date(i.milestone.due_on) <= week && i.state!=='closed';
-  }).length;
 }
 
-// ── filters ───────────────────────────────────────────────────────
-function applyFilters() {
-  var q = document.getElementById('searchBox').value.toLowerCase();
-  var phase = document.getElementById('filterPhase').value;
-  var mod   = document.getElementById('filterMod').value;
-  var pri   = document.getElementById('filterPri').value;
-  var type  = document.getElementById('filterType').value;
-
-  var filtered = allIssues.filter(function(iss) {
-    var labels = iss.labels.map(function(l){ return l.name; });
-    if (q && iss.title.toLowerCase().indexOf(q)===-1) return false;
-    if (phase && labels.indexOf(phase)===-1) return false;
-    if (mod   && labels.indexOf(mod)===-1) return false;
-    if (pri   && labels.indexOf(pri)===-1) return false;
-    if (type  && labels.indexOf(type)===-1) return false;
-    return true;
-  });
-  renderBoard(filtered);
+async function moveIssue(num, newStatus){
+  var iss=allIssues.find(function(i){return i.number===num;});
+  if(!iss) return;
+  // Optimistic update
+  var oldLabels=iss.labels.map(function(l){return l.name;});
+  var newLabels=oldLabels.filter(function(l){return !l.startsWith('status:');}).concat([newStatus]);
+  iss.labels=newLabels.map(function(n){return {name:n};});
+  if(newStatus==='status:已完成') iss.state='closed'; else iss.state='open';
+  renderKanban(filteredIssues());
+  // API call
+  if(!TOKEN){ return; }
+  try{
+    await fetch(API+'/issues/'+num,{
+      method:'PATCH',
+      headers:Object.assign({'Content-Type':'application/json'},hdrs()),
+      body:JSON.stringify({labels:newLabels, state: newStatus==='status:已完成'?'closed':'open'})
+    });
+  }catch(e){ console.warn('GitHub update failed (no-op in demo):', e); }
 }
 
-// ── detail modal ──────────────────────────────────────────────────
-function showDetail(num) {
-  var iss = allIssues.find(function(i){ return i.number === num; });
-  if (!iss) return;
-  document.getElementById('modalTitle').textContent = '#'+iss.number + ' ' + iss.title;
-  document.getElementById('modalGhLink').href = iss.html_url;
-
-  var labels = iss.labels.map(function(l){
-    return '<span class="lbl lbl-mod" style="margin:2px">'+l.name+'</span>';
-  }).join('');
-  var ms = iss.milestone ? '<p><strong>里程碑：</strong>'+iss.milestone.title+'</p>' : '';
-  var body = (iss.body||'').replace(/\n/g,'<br>').replace(/- \[ \]/g,'☐').replace(/- \[x\]/gi,'☑');
-
-  document.getElementById('modalBody').innerHTML =
-    '<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px">'+labels+'</div>'+
-    ms +
-    '<div style="background:var(--bg);border-radius:6px;padding:14px;font-size:13px;line-height:1.7;color:var(--text2);margin-top:10px">'+
-    (body || '<em style="color:var(--muted)">暂无描述</em>')+
+// ── MILESTONE ─────────────────────────────────────────────────────
+function renderMilestones(){
+  var now=new Date();
+  var html=allMilestones.map(function(ms){
+    var due=ms.due_on?new Date(ms.due_on):null;
+    var total=(ms.open_issues||0)+(ms.closed_issues||0);
+    var pct=total?Math.round(ms.closed_issues/total*100):0;
+    var cls=!due?'todo':due<now?'overdue':'todo';
+    if(pct===100) cls='done';
+    var dotCls=cls;
+    var payment={'M0 数据清洗启动':'','M1 架构蓝图评审通过':'付款触发：第2笔 20%','M2 系统配置完成':'','M3 SIT/UAT测试通过':'','M4 正式上线':'付款触发：第3笔 45%','M5 稳定运行6个月':'付款触发：第4笔 15%'};
+    var ptag=payment[ms.title.replace(/^M\d+ /,'').trim()]||payment[ms.title]||'';
+    return '<div class="ms-item">'+
+      '<div class="ms-spine"><div class="ms-dot '+dotCls+'"></div><div class="ms-line"></div></div>'+
+      '<div class="ms-card '+cls+'">'+
+        '<div class="ms-title">'+esc(ms.title)+'</div>'+
+        '<div class="ms-due">📅 截止：'+(due?due.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric'}):'未设定')+'</div>'+
+        '<div class="ms-desc">'+(ms.description?esc(ms.description):'暂无描述')+'</div>'+
+        '<div class="ms-progress"><div class="ms-progress-fill" style="width:'+pct+'%"></div></div>'+
+        '<div class="ms-meta">'+
+          '<span class="ms-tag">'+pct+'% 完成</span>'+
+          '<span class="ms-tag">未完成 '+ms.open_issues+'</span>'+
+          (ptag?'<span class="ms-tag payment">💰 '+ptag+'</span>':'')+
+        '</div>'+
+      '</div>'+
     '</div>';
+  }).join('');
+  document.getElementById('msTimeline').innerHTML=html||'<p style="color:var(--muted);padding:20px">暂无里程碑数据</p>';
+}
 
+// ── TASK LIST ─────────────────────────────────────────────────────
+function renderTaskList(issues){
+  var statusColor={'status:待办':'var(--muted)','status:进行中':'var(--primary)','status:待评审':'var(--mid)','status:已完成':'var(--steel)'};
+  var statusLabel={'status:待办':'待办','status:进行中':'进行中','status:待评审':'待评审','status:已完成':'已完成'};
+  var priColor={'高':'var(--navy)','中':'var(--primary)','低':'var(--light)'};
+  var html=issues.map(function(i,idx){
+    var st=getStatus(i); var pri=getPri(i);
+    var mod=getMods(i).join(','); var phase=getPhases(i).join(',');
+    return '<tr style="'+(idx%2===0?'':'background:var(--bg)')+'" onclick="showDetail('+i.number+')" style="cursor:pointer">'+
+      '<td style="padding:8px 12px;color:var(--muted)">#'+i.number+'</td>'+
+      '<td style="padding:8px 12px;font-weight:600;color:var(--dark)">'+esc(i.title)+'</td>'+
+      '<td style="padding:8px 12px"><span style="font-size:10px;padding:2px 8px;border-radius:8px;background:var(--bg);border:1px solid var(--pale);color:'+statusColor[st]+';font-weight:700">'+statusLabel[st]+'</span></td>'+
+      '<td style="padding:8px 12px"><span style="font-size:10px;padding:2px 8px;border-radius:8px;background:var(--bg);color:'+priColor[pri]+';font-weight:700">'+pri+'</span></td>'+
+      '<td style="padding:8px 12px;font-size:11px;color:var(--text2)">'+esc(getType(i))+'</td>'+
+      '<td style="padding:8px 12px;font-size:11px;color:var(--steel)">'+(i.milestone?esc(i.milestone.title.split(' ').slice(0,2).join(' ')):'—')+'</td>'+
+      '<td style="padding:8px 12px;font-size:11px;color:var(--muted)">'+esc(mod)+'</td>'+
+    '</tr>';
+  }).join('');
+  document.getElementById('taskListBody').innerHTML=html||'<tr><td colspan="7" style="padding:20px;text-align:center;color:var(--muted)">暂无任务</td></tr>';
+}
+
+// ── GANTT ─────────────────────────────────────────────────────────
+function renderGantt(){
+  var PHASES=[
+    {id:'prepare', label:'系统实施准备阶段', start:'2026-06-15', end:'2026-08-09', color:'var(--navy)',
+     tasks:[{label:'项目启动会',start:'2026-06-15',end:'2026-06-15'},{label:'Readiness Check',start:'2026-06-16',end:'2026-07-15'},{label:'主数据清洗',start:'2026-06-20',end:'2026-08-09'},{label:'接口台账建立',start:'2026-07-01',end:'2026-08-09'}]},
+    {id:'blueprint', label:'蓝图方案设计阶段', start:'2026-08-10', end:'2026-09-21', color:'var(--primary)',
+     tasks:[{label:'Fit-to-Standard研讨',start:'2026-08-10',end:'2026-09-06'},{label:'方案蓝图签署',start:'2026-09-07',end:'2026-09-21'}]},
+    {id:'realize', label:'系统实现阶段', start:'2026-09-22', end:'2026-12-05', color:'var(--mid)',
+     tasks:[{label:'Sprint 1 配置',start:'2026-09-22',end:'2026-10-19'},{label:'Sprint 2 配置',start:'2026-10-20',end:'2026-11-16'},{label:'Sprint 3 硬化',start:'2026-11-17',end:'2026-12-05'}]},
+    {id:'deploy', label:'上线准备&切换阶段', start:'2026-12-06', end:'2027-01-01', color:'var(--steel)',
+     tasks:[{label:'UAT测试',start:'2026-12-06',end:'2026-12-16'},{label:'切换演练',start:'2026-12-12',end:'2026-12-20'},{label:'终端用户培训',start:'2026-12-06',end:'2026-12-24'},{label:'正式切换上线',start:'2026-12-31',end:'2027-01-01'}]},
+  ];
+  var PSTART=new Date('2026-06-15'), PEND=new Date('2027-01-01');
+  var TOTAL=(PEND-PSTART)/86400000+1;
+  var now=new Date();
+  // Build months header
+  var months=[], d=new Date(PSTART);
+  while(d<=PEND){
+    var key=d.getFullYear()+'-'+(d.getMonth()+1);
+    if(!months.length||months[months.length-1].key!==key) months.push({key:key,label:(d.getMonth()+1)+'月',days:0});
+    months[months.length-1].days++;
+    d.setDate(d.getDate()+1);
+  }
+  var todayOff=Math.max(0,(now-PSTART)/86400000/TOTAL*100);
+
+  var html='<div class="g-header"><div class="g-label">任务 / 月份</div><div class="g-months">';
+  months.forEach(function(m){ html+='<div class="g-month" style="width:'+(m.days/TOTAL*100).toFixed(2)+'%">'+(m.key.split('-')[0]==='2026'?'':m.key.split('-')[0]+'年')+m.label+'</div>'; });
+  html+='</div></div>';
+
+  function bar(startStr,endStr,color,label){
+    var s=new Date(startStr), e=new Date(endStr);
+    var left=(s-PSTART)/86400000/TOTAL*100;
+    var w=((e-s)/86400000+1)/TOTAL*100;
+    return '<div class="g-bar" style="left:'+left.toFixed(2)+'%;width:'+Math.max(0.3,w).toFixed(2)+'%;background:'+color+'" title="'+label+'">'+label+'</div>';
+  }
+
+  PHASES.forEach(function(ph){
+    // Phase row
+    html+='<div class="g-row phase-row"><div class="g-label-cell phase">'+ph.label+'</div><div class="g-timeline">'+
+      (todayOff>0&&todayOff<100?'<div class="g-today" style="left:'+todayOff.toFixed(2)+'%"><div class="g-today-label">今</div></div>':'')+
+      bar(ph.start,ph.end,ph.color+'CC',ph.label)+'</div></div>';
+    ph.tasks.forEach(function(t){
+      html+='<div class="g-row"><div class="g-label-cell child">'+esc(t.label)+'</div><div class="g-timeline">'+
+        (todayOff>0&&todayOff<100?'<div class="g-today" style="left:'+todayOff.toFixed(2)+'%"></div>':'')+
+        bar(t.start,t.end,ph.color,t.label)+'</div></div>';
+    });
+  });
+  document.getElementById('ganttWrap').innerHTML=html;
+}
+
+// ── RISK ──────────────────────────────────────────────────────────
+function renderRisk(issues){
+  var risks=issues.filter(function(i){return isRisk(i);});
+  var staticRisks=[
+    {title:'主数据清洗周期超预期',level:'high',tags:['高概率','高影响'],desc:'6.2万物料数据质量比预期差，清洗工作量超出，数据迁移100%准确率无法按时达到',mitigation:'2026年6月立即启动数据清洗（先于系统配置）；三轮模拟迁移'},
+    {title:'广晟集团系统边界未明确',level:'high',tags:['中概率','高影响'],desc:'广晟推行的共享/司库/合并系统与佛照S/4HANA的边界未定义，可能导致范围蔓延或接口冲突',mitigation:'2026年7月31日前明确边界协议，超出边界的需求纳入变更请求管理'},
+    {title:'关键用户参与度不足',level:'med',tags:['中概率','中影响'],desc:'业务部门关键用户无法投入足够时间参与蓝图确认和UAT测试',mitigation:'李泽华副总经理签字的关键用户承诺书；每周项目例会机制'},
+    {title:'PCE季度升级兼容性',level:'med',tags:['低概率','低影响'],desc:'SAP强制季度升级可能影响已配置的Z程序或CPI接口',mitigation:'严格遵守Clean Core原则；每次升级前在QAS回归测试'},
+    {title:'上市合规风险',level:'high',tags:['低概率','高影响'],desc:'S/4HANA上线初期可能存在财务数据过渡期不稳定，影响A股信息披露合规',mitigation:'上线时间避开半年报/年报披露窗口；ECC保持只读3个月'},
+    {title:'变革阻力',level:'med',tags:['中概率','中影响'],desc:'部分业务部门对新系统操作方式改变产生抵触，系统上线后使用率不高',mitigation:'高层公开表态支持；Fiori界面提升用户体验；超级用户制度'},
+  ];
+  var issueRisks=risks.map(function(i){ return {title:i.title,level:'high',tags:getMods(i).concat(getPhases(i)),desc:i.body?i.body.split('\n')[0].replace(/^#+\s*/,''):'',mitigation:'',num:i.number}; });
+  var all=issueRisks.concat(staticRisks);
+  var html=all.map(function(r){
+    return '<div class="risk-card r-'+r.level+'">'+
+      '<div class="risk-title">'+(r.num?'#'+r.num+' ':'')+esc(r.title)+'</div>'+
+      '<div class="risk-meta">'+r.tags.map(function(t){return '<span class="risk-tag">'+esc(t)+'</span>';}).join('')+'</div>'+
+      '<div class="risk-desc">'+esc(r.desc)+'</div>'+
+      (r.mitigation?'<div class="risk-mitigation">🛡 应对：'+esc(r.mitigation)+'</div>':'')+
+    '</div>';
+  }).join('');
+  document.getElementById('riskGrid').innerHTML=html||'<p style="color:var(--muted)">暂无风险数据</p>';
+}
+
+// ── DELIVERABLES ──────────────────────────────────────────────────
+function renderDeliverables(){
+  var sections=[
+    {title:'管理咨询交付物 — 现状分析与诊断阶段',docs:[
+      {name:'佛山照明企业现状诊断报告',status:'done',icon:'📊',url:'/fsl-report/consulting/diagnosis/report-01.html'},
+      {name:'照明行业数字化转型对标研究报告',status:'done',icon:'📈',url:'/fsl-report/research/industry-benchmark.html'},
+    ]},
+    {title:'管理咨询交付物 — 蓝图及架构设计阶段',docs:[
+      {name:'佛山照明企业架构设计报告',status:'done',icon:'🏛',url:'/fsl-report/consulting/blueprint/ea-report.html'},
+      {name:'佛山照明专项方案设计报告',status:'todo',icon:'🎯',url:'#'},
+      {name:'佛山照明数据调研分析报告',status:'todo',icon:'📋',url:'#'},
+      {name:'佛山照明数据规划及管理办法',status:'todo',icon:'📋',url:'#'},
+      {name:'佛山照明数据治理总结报告',status:'todo',icon:'📋',url:'#'},
+      {name:'数字化保障组织设计报告（可选）',status:'todo',icon:'🏢',url:'#'},
+    ]},
+    {title:'管理咨询交付物 — 实施路径规划阶段',docs:[
+      {name:'佛山照明企业数字化转型路径规划',status:'done',icon:'🗺',url:'/fsl-report/consulting/roadmap/roadmap-report.html'},
+    ]},
+    {title:'SAP实施交付物 — 系统实施准备阶段',docs:[
+      {name:'项目启动会',status:'done',icon:'🚀',url:'/fsl-report/sap/prepare/kickoff.html'},
+      {name:'项目总体计划',status:'done',icon:'📅',url:'/fsl-report/sap/prepare/project-plan.html'},
+      {name:'项目章程',status:'done',icon:'📄',url:'/fsl-report/sap/prepare/charter.html'},
+      {name:'调研计划',status:'done',icon:'📝',url:'/fsl-report/sap/prepare/survey.html'},
+    ]},
+    {title:'SAP实施交付物 — 蓝图至验收阶段',docs:[
+      {name:'调研报告',status:'wip',icon:'🔍',url:'#'},
+      {name:'解决方案文档',status:'todo',icon:'💡',url:'#'},
+      {name:'配置文档',status:'todo',icon:'⚙️',url:'#'},
+      {name:'开发文档',status:'todo',icon:'💻',url:'#'},
+      {name:'用户测试完成报告',status:'todo',icon:'✅',url:'#'},
+      {name:'上线策略',status:'todo',icon:'🚢',url:'#'},
+      {name:'系统操作手册',status:'todo',icon:'📖',url:'#'},
+      {name:'培训文档',status:'todo',icon:'🎓',url:'#'},
+      {name:'项目验收报告',status:'todo',icon:'🏆',url:'#'},
+    ]},
+  ];
+  var html=sections.map(function(sec){
+    var ds=sec.docs.map(function(d){
+      var link=d.url!=='#'?'href="'+d.url+'" target="_blank"':'onclick="return false"';
+      var scls=d.status==='done'?'ds-done':d.status==='wip'?'ds-wip':'ds-todo';
+      var slbl=d.status==='done'?'已完成':d.status==='wip'?'进行中':'待开始';
+      return '<a '+link+' class="deliv-card" style="text-decoration:none">'+
+        '<div class="deliv-icon">'+d.icon+'</div>'+
+        '<div class="deliv-info"><div class="deliv-name">'+esc(d.name)+'</div></div>'+
+        '<span class="deliv-status '+scls+'">'+slbl+'</span>'+
+      '</a>';
+    }).join('');
+    var done=sec.docs.filter(function(d){return d.status==='done';}).length;
+    return '<div class="deliv-section">'+
+      '<div class="deliv-section-title"><span>'+esc(sec.title)+'</span><span style="font-size:11px;color:var(--muted)">'+done+'/'+sec.docs.length+'</span></div>'+
+      '<div class="deliv-grid">'+ds+'</div>'+
+    '</div>';
+  }).join('');
+  document.getElementById('delivBody').innerHTML=html;
+}
+
+// ── STATS ─────────────────────────────────────────────────────────
+function renderStats(issues){
+  var open=issues.filter(function(i){return i.state!=='closed';});
+  var done=issues.filter(function(i){return i.state==='closed';});
+  var total=issues.length;
+  var byPhase={};
+  issues.forEach(function(i){
+    var phases=getPhases(i);
+    if(!phases.length) phases=['未分类'];
+    phases.forEach(function(p){ byPhase[p]=(byPhase[p]||0)+1; });
+  });
+  var byMs={};
+  issues.forEach(function(i){ if(i.milestone){ byMs[i.milestone.title]=(byMs[i.milestone.title]||0)+1; } });
+
+  var html='<div class="stats-cards">'+
+    '<div class="stat-card"><div class="sv">'+total+'</div><div class="sl">任务总数</div></div>'+
+    '<div class="stat-card"><div class="sv" style="color:var(--primary)">'+open.length+'</div><div class="sl">进行中</div><div class="st st-up">开放任务</div></div>'+
+    '<div class="stat-card"><div class="sv" style="color:var(--steel)">'+done.length+'</div><div class="sl">已完成</div><div class="st">完成率 '+(total?Math.round(done.length/total*100):0)+'%</div></div>'+
+    '<div class="stat-card"><div class="sv" style="color:var(--navy)">'+open.filter(function(i){return i.labels.some(function(l){return l.name==='优先级:高';});}).length+'</div><div class="sl">高优任务</div></div>'+
+    '<div class="stat-card"><div class="sv" style="color:var(--mid)">'+issues.filter(function(i){return isRisk(i);}).length+'</div><div class="sl">风险项</div></div>'+
+    '<div class="stat-card"><div class="sv">'+allMilestones.length+'</div><div class="sl">里程碑总数</div></div>'+
+  '</div>'+
+  '<h4 style="font-size:13px;font-weight:700;color:var(--dark);margin:16px 0 8px">按阶段分布</h4>'+
+  '<div style="background:var(--white);border:1px solid var(--pale);border-radius:8px;padding:14px">'+
+    Object.keys(byPhase).map(function(k){
+      var pct=total?Math.round(byPhase[k]/total*100):0;
+      return '<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px"><span style="color:var(--dark)">'+esc(k)+'</span><span style="color:var(--muted)">'+byPhase[k]+'项 ('+pct+'%)</span></div><div class="progress-full"><div class="pf-fill" style="width:'+pct+'%"></div></div></div>';
+    }).join('')+
+  '</div>'+
+  '<h4 style="font-size:13px;font-weight:700;color:var(--dark);margin:16px 0 8px">按里程碑分布</h4>'+
+  '<div style="background:var(--white);border:1px solid var(--pale);border-radius:8px;padding:14px">'+
+    Object.keys(byMs).map(function(k){
+      var pct=total?Math.round(byMs[k]/total*100):0;
+      return '<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px"><span style="color:var(--dark)">'+esc(k)+'</span><span style="color:var(--muted)">'+byMs[k]+'项</span></div><div class="progress-full"><div class="pf-fill" style="width:'+pct+'%"></div></div></div>';
+    }).join('')+
+  '</div>';
+  document.getElementById('statsBody').innerHTML=html;
+}
+
+// ── TABS ──────────────────────────────────────────────────────────
+function switchTab(el, panel){
+  document.querySelectorAll('.mod-tab').forEach(function(t){t.classList.remove('active');});
+  document.querySelectorAll('.mod-panel').forEach(function(p){p.classList.remove('active');});
+  el.classList.add('active');
+  document.getElementById('panel-'+panel).classList.add('active');
+  // Show/hide sub-toolbar filters (only relevant for kanban/tasklist)
+  var showFilters=['kanban','tasklist'].indexOf(panel)!==-1;
+  document.getElementById('subToolbar').style.opacity=showFilters?'1':'0.5';
+}
+
+// ── DETAIL MODAL ──────────────────────────────────────────────────
+function showDetail(num){
+  var iss=allIssues.find(function(i){return i.number===num;}); if(!iss)return;
+  currentDetailNum=num;
+  document.getElementById('dTitle').textContent='#'+iss.number+' '+iss.title;
+  document.getElementById('dGhLink').href=iss.html_url;
+  var st=getStatus(iss);
+  var sel=document.getElementById('dStatusSel');
+  sel.value=st;
+  var lblsHtml=iss.labels.map(function(l){return '<span class="lbl lbl-mod" style="margin:2px">'+esc(l.name)+'</span>';}).join('');
+  var ms=iss.milestone?'<p style="margin-bottom:8px;font-size:12px"><strong>里程碑：</strong>'+esc(iss.milestone.title)+'</p>':'';
+  var body=(iss.body||'').replace(/\n/g,'<br>').replace(/- \[ \]/g,'☐ ').replace(/- \[x\]/gi,'☑ ');
+  document.getElementById('dBody').innerHTML=
+    '<div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:10px">'+lblsHtml+'</div>'+ms+
+    '<div style="background:var(--bg);border-radius:6px;padding:12px;font-size:12.5px;line-height:1.8;color:var(--text2)">'+
+    (body||'<em style="color:var(--muted)">暂无描述</em>')+'</div>';
   document.getElementById('detailModal').classList.add('open');
 }
-
-// ── new issue modal ───────────────────────────────────────────────
-function populateMsSelect() {
-  var sel = document.getElementById('newMs');
-  sel.innerHTML = '<option value="">不关联</option>' +
-    allMilestones.map(function(ms){
-      return '<option value="'+ms.number+'">'+ms.title+'</option>';
-    }).join('');
+function saveStatusFromModal(){
+  if(!currentDetailNum) return;
+  var sel=document.getElementById('dStatusSel');
+  moveIssue(currentDetailNum, sel.value);
+  closeModal('detailModal');
 }
 
-function openNewIssue() { document.getElementById('newModal').classList.add('open'); }
-
-async function submitNewIssue() {
-  var title = document.getElementById('newTitle').value.trim();
-  if (!title) { alert('请填写任务标题'); return; }
-  if (!TOKEN) {
-    document.getElementById('newError').style.display='block';
-    document.getElementById('newError').textContent='⚠️ 演示模式下无法创建任务，请配置 GitHub Token 后重试。';
+// ── NEW ISSUE ─────────────────────────────────────────────────────
+function populateMsSelect(){
+  var sel=document.getElementById('nMs');
+  sel.innerHTML='<option value="">不关联</option>'+allMilestones.map(function(ms){return '<option value="'+ms.number+'">'+esc(ms.title)+'</option>';}).join('');
+}
+function openNewIssue(){ document.getElementById('newModal').classList.add('open'); }
+async function submitNewIssue(){
+  var title=document.getElementById('nTitle').value.trim();
+  if(!title){alert('请填写任务标题');return;}
+  if(!TOKEN){
+    document.getElementById('nErr').style.display='block';
+    document.getElementById('nErr').textContent='演示模式下无法创建任务。请配置 GitHub Token。';
     return;
   }
-  var labels = ['status:待办'];
-  var pri = document.getElementById('newPri').value;
-  var type = document.getElementById('newType').value;
-  var mod  = document.getElementById('newMod').value;
-  var ph   = document.getElementById('newPhase').value;
-  if (pri)  labels.push(pri);
-  if (type) labels.push(type);
-  if (mod)  labels.push(mod);
-  if (ph)   labels.push(ph);
-
-  var ms = document.getElementById('newMs').value;
-  var body = document.getElementById('newBody').value;
-
-  var btn = document.getElementById('submitBtn');
-  btn.textContent = '提交中...'; btn.disabled = true;
-
-  try {
-    var payload = { title: title, body: body, labels: labels };
-    if (ms) payload.milestone = parseInt(ms);
-    var res = await fetch('https://api.github.com/repos/'+REPO+'/issues', {
-      method:'POST',
-      headers: Object.assign({'Content-Type':'application/json'}, headers()),
-      body: JSON.stringify(payload)
-    });
-    if (!res.ok) throw new Error(res.status);
-    var iss = await res.json();
+  var labels=['status:待办'];
+  ['nPri','nType','nMod','nPhase'].forEach(function(id){ var v=document.getElementById(id).value; if(v) labels.push(v); });
+  var ms=document.getElementById('nMs').value;
+  var body=document.getElementById('nBody').value;
+  var btn=document.getElementById('nSubmit');
+  btn.textContent='提交中...'; btn.disabled=true;
+  try{
+    var payload={title:title,body:body,labels:labels};
+    if(ms) payload.milestone=parseInt(ms);
+    var r=await fetch(API+'/issues',{method:'POST',headers:Object.assign({'Content-Type':'application/json'},hdrs()),body:JSON.stringify(payload)});
+    if(!r.ok) throw new Error(r.status);
+    var iss=await r.json();
     allIssues.unshift(iss);
-    renderBoard(allIssues);
+    render();
     closeModal('newModal');
-    document.getElementById('newTitle').value='';
-    document.getElementById('newBody').value='';
-  } catch(e) {
-    document.getElementById('newError').style.display='block';
-    document.getElementById('newError').textContent='创建失败：' + e.message + '。请检查 Token 权限（需要 repo 权限）。';
+    document.getElementById('nTitle').value='';
+    document.getElementById('nBody').value='';
+  }catch(e){
+    document.getElementById('nErr').style.display='block';
+    document.getElementById('nErr').textContent='创建失败：'+e.message+'。请检查Token权限（需 repo 权限）。';
   }
   btn.textContent='创建任务'; btn.disabled=false;
 }
 
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function closeModal(id){ document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(function(el){ el.addEventListener('click',function(e){if(e.target===el)el.classList.remove('open');}); });
+async function refreshAll(){ allIssues=[]; await init(); }
 
-// click outside to close
-document.querySelectorAll('.modal-overlay').forEach(function(el){
-  el.addEventListener('click', function(e){ if(e.target===el) el.classList.remove('open'); });
-});
-
-async function refreshBoard() {
-  allIssues = [];
-  await init();
-}
-
-// ── start ────────────────────────────────────────────────────────
-if (TOKEN) {
-  init();
-} else {
-  document.getElementById('loading').style.display = 'none';
-  document.getElementById('token-prompt').classList.add('show');
-}
+// ── START ─────────────────────────────────────────────────────────
+if(TOKEN){ init(); } else { document.getElementById('loading').style.display='none'; document.getElementById('token-prompt').classList.add('show'); }
 </script>
 </body>
 </html>
