@@ -7,103 +7,30 @@
 <style>
 :root{--b900:#0B2D47;--b700:#1A4F73;--b500:#2374A3;--b300:#5EA4CE;
       --b100:#C7E2F2;--b050:#EBF5FB;--bg:#F2F7FB;--text:#0F2233;
-      --muted:#5B7A91;--rule:#D6E8F2;--r:6px;}
+      --muted:#5B7A91;--rule:#D6E8F2;--r:6px;
+      --navy:#0B2D47;--dark:#1A4F73;--primary:#2374A3;--mid:#3D8FC4;
+      --steel:#5B7A91;--pale:#D6E8F2;--white:#fff;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;
-     background:var(--bg);color:var(--text);font-size:14px;line-height:1.8;}
+     background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;
+     display:flex;flex-direction:column;height:100vh;overflow:hidden;}
 a{color:inherit;text-decoration:none;}
 
+/* ── NAV ── */
 nav{background:var(--b900);padding:0 32px;display:flex;align-items:center;gap:20px;
-    height:54px;position:sticky;top:0;z-index:100;
+    height:54px;flex-shrink:0;z-index:300;
     box-shadow:0 2px 10px rgba(11,45,71,.5);}
 .nav-logo-link{display:flex;align-items:center;gap:10px;flex-shrink:0;}
 .nav-divider{width:1px;height:24px;background:rgba(255,255,255,.15);flex-shrink:0;}
 .nav-project{color:rgba(255,255,255,.55);font-size:12px;letter-spacing:.2px;white-space:nowrap;}
-.nav-links{display:flex;flex:1;overflow-x:auto;}
+.nav-links{display:flex;flex:1;overflow:visible;position:relative;}
 .nav-links a{padding:0 14px;color:rgba(255,255,255,.6);font-size:12.5px;
              height:54px;display:flex;align-items:center;white-space:nowrap;
              transition:color .15s;border-bottom:2px solid transparent;}
 .nav-links a:hover{color:rgba(255,255,255,.9);}
 .nav-links a.active{color:#fff;border-bottom-color:#5EA4CE;}
 
-.hero{background:linear-gradient(155deg,var(--b900) 0%,var(--b700) 100%);
-      color:#fff;padding:48px 48px 42px;border-bottom:3px solid var(--b500);}
-.hero-logo{margin-bottom:18px;}
-.hero h1{font-size:26px;font-weight:800;margin-bottom:8px;letter-spacing:-.2px;}
-.hero p{font-size:13.5px;opacity:.75;max-width:760px;line-height:1.85;}
-.hero-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;}
-.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);
-      border-radius:3px;padding:3px 12px;font-size:11px;letter-spacing:.4px;text-transform:uppercase;}
-
-.container{max-width:1280px;margin:0 auto;padding:36px 32px;}
-
-.bc{display:flex;align-items:center;gap:6px;font-size:12.5px;
-    color:var(--muted);margin-bottom:28px;flex-wrap:wrap;}
-.bc a{color:var(--b500);}
-.bc a:hover{color:var(--b700);}
-.bc .sep{color:var(--b100);}
-
-.section-hd{display:flex;align-items:center;gap:12px;margin:36px 0 16px;}
-.section-hd:first-child{margin-top:0;}
-.sec-icon{width:38px;height:38px;background:var(--b700);border-radius:var(--r);
-          display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;}
-.sec-title{font-size:17px;font-weight:800;color:var(--b900);}
-.sec-desc{font-size:12.5px;color:var(--muted);margin-top:2px;}
-
-.progress-bar{height:4px;background:var(--rule);border-radius:2px;margin-top:6px;max-width:200px;}
-.progress-fill{height:100%;border-radius:2px;background:var(--b500);}
-
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(252px,1fr));gap:14px;margin-bottom:8px;}
-.grid-3{grid-template-columns:repeat(auto-fill,minmax(320px,1fr));}
-
-.folder-card{background:#fff;border:1px solid var(--rule);border-radius:var(--r);
-             padding:18px 20px;display:flex;align-items:center;gap:14px;
-             box-shadow:0 1px 3px rgba(35,116,163,.05);
-             transition:box-shadow .15s,transform .15s;}
-.folder-card:hover{box-shadow:0 4px 14px rgba(35,116,163,.13);transform:translateY(-2px);}
-.fc-icon{font-size:24px;flex-shrink:0;}
-.fc-name{font-size:13.5px;font-weight:700;color:var(--b900);}
-.fc-meta{font-size:11.5px;color:var(--muted);margin-top:3px;}
-
-.doc-card{background:#fff;border:1px solid var(--rule);border-radius:var(--r);
-          padding:18px 20px;display:flex;flex-direction:column;gap:6px;
-          box-shadow:0 1px 3px rgba(35,116,163,.05);
-          transition:box-shadow .15s,transform .15s;}
-.doc-card:hover{box-shadow:0 4px 14px rgba(35,116,163,.13);transform:translateY(-2px);}
-.doc-card .dc-badge{font-size:10px;font-weight:800;letter-spacing:.5px;
-                    text-transform:uppercase;color:var(--b500);}
-.doc-card .dc-title{font-size:13.5px;font-weight:700;color:var(--b900);line-height:1.4;}
-.doc-card .dc-desc{font-size:12px;color:var(--muted);line-height:1.55;}
-.dc-footer{display:flex;align-items:center;justify-content:space-between;margin-top:4px;}
-.dc-tags{display:flex;gap:5px;flex-wrap:wrap;}
-.dc-tag{background:var(--b050);color:var(--b700);font-size:10.5px;font-weight:600;
-        padding:2px 7px;border-radius:3px;}
-.dc-arrow{font-size:13px;font-weight:700;color:var(--b300);margin-left:auto;flex-shrink:0;}
-
-.status{font-size:10.5px;font-weight:700;padding:2px 9px;border-radius:3px;letter-spacing:.3px;}
-.s-done{background:var(--b100);color:var(--b700);}
-.s-wip {background:var(--b050);color:var(--b500);border:1px solid var(--b100);}
-.s-todo{background:#EEF2F6;color:var(--muted);}
-
-.stats-row{display:flex;gap:1px;background:var(--rule);border-radius:var(--r);
-           overflow:hidden;border:1px solid var(--rule);margin-bottom:32px;}
-.stat{flex:1;background:#fff;padding:14px 18px;text-align:center;}
-.stat .sv{font-size:22px;font-weight:800;color:var(--b700);}
-.stat .sl{font-size:11px;color:var(--muted);margin-top:2px;}
-
-.divider{border:none;border-top:1px solid var(--rule);margin:28px 0;}
-
-footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
-       padding:18px;font-size:11px;margin-top:48px;letter-spacing:.2px;}
-
-@media(max-width:768px){
-  .hero{padding:28px 20px;}.container{padding:20px 16px;}
-  nav{padding:0 16px;}.nav-project{display:none;}
-  .stats-row{flex-wrap:wrap;}
-}
-
 /* ── Dropdown Nav ── */
-.nav-links{position:relative;}
 .nav-dropdown{position:relative;display:inline-flex;align-items:center;}
 .nav-dropdown>a{padding:0 14px;color:rgba(255,255,255,.6);font-size:12.5px;
   height:54px;display:flex;align-items:center;white-space:nowrap;
@@ -112,7 +39,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
 .nav-dropdown>a.active{color:#fff;border-bottom-color:#5EA4CE;}
 .nav-arrow{font-size:10px;margin-left:3px;opacity:.7;}
 .nav-dropdown-panel{
-  display:none;position:absolute;top:54px;left:0;z-index:200;
+  display:none;position:absolute;top:54px;left:0;z-index:400;
   background:var(--b900);border:1px solid rgba(255,255,255,.1);
   border-top:2px solid #5EA4CE;border-radius:0 0 6px 6px;
   padding:16px 20px;min-width:540px;
@@ -135,24 +62,54 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
 .nav-dd-research-links a{color:rgba(255,255,255,.65);font-size:12.5px;
   padding:3px 0;transition:color .12s;}
 .nav-dd-research-links a:hover{color:#fff;}
-
-/* dropdown overflow fix */
 nav{overflow:visible !important;}
 .nav-links{overflow:visible !important;position:relative;}
+
+/* ── HERO strip ── */
+.hero-strip{background:linear-gradient(135deg,var(--b900) 0%,var(--b700) 100%);
+  color:#fff;padding:14px 32px;display:flex;align-items:center;gap:20px;
+  flex-shrink:0;border-bottom:3px solid var(--b500);}
+.hero-strip h1{font-size:16px;font-weight:800;letter-spacing:-.2px;}
+.hero-strip p{font-size:12px;opacity:.65;margin-top:1px;}
+.hero-chips{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap;}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);
+      border-radius:3px;padding:2px 10px;font-size:11px;letter-spacing:.3px;}
+
+/* ── Gantt toolbar ── */
+.gantt-toolbar{background:var(--white);border-bottom:1px solid var(--pale);
+  padding:6px 18px;display:flex;align-items:center;gap:8px;flex-shrink:0;flex-wrap:wrap;}
+.g-btn{padding:4px 10px;border:1px solid var(--pale);border-radius:5px;font-size:11.5px;
+  cursor:pointer;background:var(--bg);color:var(--steel);font-family:inherit;transition:all .15s;}
+.g-btn:hover{background:var(--pale);}
+.g-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+.g-legend{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:10.5px;color:var(--muted);flex-wrap:wrap;}
+.g-leg-dot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:3px;vertical-align:middle;}
+
+/* ── Gantt body ── */
+.gantt-outer{flex:1;display:flex;overflow:hidden;}
+#ganttLeft{width:380px;min-width:380px;flex-shrink:0;overflow-y:auto;overflow-x:hidden;
+  border-right:2px solid var(--pale);}
+#ganttRight{flex:1;overflow:auto;}
+.gantt-col-hd{background:var(--dark);color:#fff;display:grid;
+  grid-template-columns:1fr 56px 52px;padding:8px 10px;font-size:11px;font-weight:700;
+  position:sticky;top:0;z-index:2;}
 </style>
 </head>
 <body>
+
 <nav>
-  <a href="/fsl-report/" class="nav-logo-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 36" height="26" aria-label="FSL 佛山照明">
-  <rect x="0" y="3" width="4" height="30" fill="#F06000"/>
-  <rect x="0" y="3" width="18" height="4" fill="#F06000"/>
-  <rect x="0" y="16" width="13" height="4" fill="#F06000"/>
-  <path d="M22 3 h14 v4 h-9 v6 h9 v4 h-9 v7 h10 v4 h-15 v-9 h9 v-3 h-9 z" fill="#F06000"/>
-  <rect x="42" y="3" width="4" height="30" fill="#F06000"/>
-  <rect x="42" y="29" width="16" height="4" fill="#F06000"/>
-  <text x="66" y="26" font-family="Microsoft YaHei,PingFang SC,sans-serif"
-        font-size="14" font-weight="700" fill="rgba(255,255,255,0.92)" letter-spacing="1">佛山照明</text>
-</svg></a>
+  <a href="/fsl-report/" class="nav-logo-link">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 36" height="26" aria-label="FSL 佛山照明">
+      <rect x="0" y="3" width="4" height="30" fill="#F06000"/>
+      <rect x="0" y="3" width="18" height="4" fill="#F06000"/>
+      <rect x="0" y="16" width="13" height="4" fill="#F06000"/>
+      <path d="M22 3 h14 v4 h-9 v6 h9 v4 h-9 v7 h10 v4 h-15 v-9 h9 v-3 h-9 z" fill="#F06000"/>
+      <rect x="42" y="3" width="4" height="30" fill="#F06000"/>
+      <rect x="42" y="29" width="16" height="4" fill="#F06000"/>
+      <text x="66" y="26" font-family="Microsoft YaHei,PingFang SC,sans-serif"
+            font-size="14" font-weight="700" fill="rgba(255,255,255,0.92)" letter-spacing="1">佛山照明</text>
+    </svg>
+  </a>
   <div class="nav-divider"></div>
   <span class="nav-project">数字化转型项目工作台</span>
   <div class="nav-links">
@@ -176,9 +133,9 @@ nav{overflow:visible !important;}
             <a href="/fsl-report/sap/deploy/">上线切换阶段</a>
           </div>
         </div>
-        <div class="nav-dd-row">
-          <div class="nav-dd-col full nav-dd-panel">
-            <div class="nav-dd-group-title">行业研究</div>
+        <div class="nav-dd-research">
+          <div class="nav-dd-group-title">行业研究</div>
+          <div class="nav-dd-research-links">
             <a href="/fsl-report/research/">照明行业对标研究</a>
           </div>
         </div>
@@ -188,9 +145,12 @@ nav{overflow:visible !important;}
     <a href="/fsl-report/kanban/">任务看板</a>
   </div>
 </nav>
-<div class="hero">
-  <h1>数字化转型项目工作台</h1>
-  <p>SAP S/4HANA 升级 + 业务诊断咨询 · 实施伙伴：艾维登 Eviden</p>
+
+<div class="hero-strip">
+  <div>
+    <h1>项目总体计划 — 甘特图</h1>
+    <p>SAP S/4HANA 升级 + 业务诊断咨询 · 实施伙伴：艾维登 Eviden</p>
+  </div>
   <div class="hero-chips">
     <span class="chip">2026-05-29 启动</span>
     <span class="chip">预计 2027.01.01 上线</span>
@@ -198,129 +158,506 @@ nav{overflow:visible !important;}
     <span class="chip">Green Field</span>
   </div>
 </div>
-<div class="container"><div class="stats-row">
-  <div class="stat"><div class="sv">40</div><div class="sl">交付物总数</div></div>
-  <div class="stat"><div class="sv" style="color:var(--b500);">10</div><div class="sl">已完成</div></div>
-  <div class="stat"><div class="sv" style="color:var(--b700);">1</div><div class="sl">进行中</div></div>
-  <div class="stat"><div class="sv" style="color:var(--muted);">29</div><div class="sl">待开始</div></div>
-  <div class="stat"><div class="sv" style="color:var(--b700);">25%</div><div class="sl">整体完成率</div></div>
-</div>
-<div class="section-hd">
-  <div class="sec-icon">📋</div>
-  <div>
-    <div class="sec-title">管理咨询交付物</div>
-    <div class="sec-desc">数字化转型规划咨询第一期 · 18周（135天）· EA（TOGAF）方法论</div>
+
+<div class="gantt-toolbar">
+  <button class="g-btn" onclick="ganttToday()">📅 今天</button>
+  <span style="color:var(--muted);font-size:11px;">缩放：</span>
+  <button class="g-btn active" id="gZoomW" onclick="ganttZoom('week')">按周</button>
+  <button class="g-btn" id="gZoomM" onclick="ganttZoom('month')">按月</button>
+  <button class="g-btn" onclick="ganttExpandAll()">展开全部</button>
+  <button class="g-btn" onclick="ganttCollapseAll()">折叠全部</button>
+  <div class="g-legend">
+    <span><span class="g-leg-dot" style="background:var(--navy)"></span>咨询</span>
+    <span><span class="g-leg-dot" style="background:var(--primary)"></span>SAP准备/蓝图</span>
+    <span><span class="g-leg-dot" style="background:var(--mid)"></span>实现</span>
+    <span><span class="g-leg-dot" style="background:var(--steel)"></span>部署</span>
+    <span style="color:var(--navy);font-weight:700">│今日</span>
   </div>
 </div>
-<div class="grid"><a href="/fsl-report/consulting/diagnosis/" class="folder-card">
-  <div class="fc-icon">🔍</div>
-  <div style="flex:1;">
-    <div class="fc-name">现状分析与诊断阶段</div>
-    <div class="fc-meta">2/2 份完成</div>
-    <div class="progress-bar" style="margin-top:6px;">
-      <div class="progress-fill" style="width:100%"></div>
+
+<div class="gantt-outer">
+  <div id="ganttLeft">
+    <div class="gantt-col-hd">
+      <span>名称</span><span style="text-align:center">负责人</span><span style="text-align:center">完成度</span>
     </div>
+    <div id="ganttTreeBody"></div>
   </div>
-  <div style="color:var(--b300);font-size:16px;margin-left:8px;">›</div>
-</a><a href="/fsl-report/consulting/blueprint/" class="folder-card">
-  <div class="fc-icon">🏛</div>
-  <div style="flex:1;">
-    <div class="fc-name">蓝图及架构设计阶段</div>
-    <div class="fc-meta">1/6 份完成</div>
-    <div class="progress-bar" style="margin-top:6px;">
-      <div class="progress-fill" style="width:16%"></div>
+  <div id="ganttRight">
+    <div id="ganttTimelineWrap" style="position:relative;min-width:900px">
+      <div id="ganttTimelineHeader" style="position:sticky;top:0;z-index:2;background:var(--white);border-bottom:1px solid var(--pale)"></div>
+      <div id="ganttBars"></div>
     </div>
-  </div>
-  <div style="color:var(--b300);font-size:16px;margin-left:8px;">›</div>
-</a><a href="/fsl-report/consulting/solutions/" class="folder-card">
-  <div class="fc-icon">🎯</div>
-  <div style="flex:1;">
-    <div class="fc-name">专项方案设计阶段（8个高价值场景）</div>
-    <div class="fc-meta">0/8 份完成</div>
-    <div class="progress-bar" style="margin-top:6px;">
-      <div class="progress-fill" style="width:0%"></div>
-    </div>
-  </div>
-  <div style="color:var(--b300);font-size:16px;margin-left:8px;">›</div>
-</a><a href="/fsl-report/consulting/roadmap/" class="folder-card">
-  <div class="fc-icon">🗺</div>
-  <div style="flex:1;">
-    <div class="fc-name">实施路径规划阶段</div>
-    <div class="fc-meta">1/1 份完成</div>
-    <div class="progress-bar" style="margin-top:6px;">
-      <div class="progress-fill" style="width:100%"></div>
-    </div>
-  </div>
-  <div style="color:var(--b300);font-size:16px;margin-left:8px;">›</div>
-</a></div>
-<hr class="divider">
-<div class="section-hd">
-  <div class="sec-icon">⚙️</div>
-  <div>
-    <div class="sec-title">SAP 实施交付物</div>
-    <div class="sec-desc">SAP S/4HANA PCE Greenfield · 8个月（240天）· SAP Activate方法论</div>
   </div>
 </div>
-<div class="grid"><a href="/fsl-report/sap/prepare/" class="folder-card">
-  <div class="fc-icon">🚀</div>
-  <div style="flex:1;">
-    <div class="fc-name">项目准备阶段</div>
-    <div class="fc-meta">5/5 份完成</div>
-    <div class="progress-bar" style="margin-top:6px;">
-      <div class="progress-fill" style="width:100%"></div>
-    </div>
-  </div>
-  <div style="color:var(--b300);font-size:16px;margin-left:8px;">›</div>
-</a><a href="/fsl-report/sap/blueprint/" class="folder-card">
-  <div class="fc-icon">📐</div>
-  <div style="flex:1;">
-    <div class="fc-name">蓝图方案设计阶段</div>
-    <div class="fc-meta">0/6 份完成</div>
-    <div class="progress-bar" style="margin-top:6px;">
-      <div class="progress-fill" style="width:0%"></div>
-    </div>
-  </div>
-  <div style="color:var(--b300);font-size:16px;margin-left:8px;">›</div>
-</a><a href="/fsl-report/sap/realize/" class="folder-card">
-  <div class="fc-icon">🔧</div>
-  <div style="flex:1;">
-    <div class="fc-name">系统实现阶段</div>
-    <div class="fc-meta">0/5 份完成</div>
-    <div class="progress-bar" style="margin-top:6px;">
-      <div class="progress-fill" style="width:0%"></div>
-    </div>
-  </div>
-  <div style="color:var(--b300);font-size:16px;margin-left:8px;">›</div>
-</a><a href="/fsl-report/sap/deploy/" class="folder-card">
-  <div class="fc-icon">🚢</div>
-  <div style="flex:1;">
-    <div class="fc-name">上线切换阶段</div>
-    <div class="fc-meta">0/6 份完成</div>
-    <div class="progress-bar" style="margin-top:6px;">
-      <div class="progress-fill" style="width:0%"></div>
-    </div>
-  </div>
-  <div style="color:var(--b300);font-size:16px;margin-left:8px;">›</div>
-</a></div>
-<hr class="divider">
-<div class="section-hd">
-  <div class="sec-icon">📊</div>
-  <div>
-    <div class="sec-title">行业研究与参考资料</div>
-    <div class="sec-desc">照明行业竞争格局分析、数字化转型对标</div>
-  </div>
-</div>
-<div class="grid"><a href="/fsl-report/research/" class="folder-card">
-  <div class="fc-icon">📊</div>
-  <div style="flex:1;">
-    <div class="fc-name">行业研究</div>
-    <div class="fc-meta">1/1 份完成</div>
-    <div class="progress-bar" style="margin-top:6px;">
-      <div class="progress-fill" style="width:100%"></div>
-    </div>
-  </div>
-  <div style="color:var(--b300);font-size:16px;margin-left:8px;">›</div>
-</a></div>
-<hr class="divider"></div>
-<footer>佛山照明 SAP S/4HANA 升级项目工作台 · 机密文件 · 仅供项目组内部使用 · 2026</footer>
-</body></html>
+
+<script>
+// ── GANTT ─────────────────────────────────────────────────────────
+var GANTT_ZOOM = 'week';
+var GANTT_COLLAPSED = {};
+var SELECTED_TASK_ID = null;  // "phaseId__taskLabel"
+var GANTT_DIRTY = false;      // unsaved changes flag
+
+// Full task data with start/end dates (editable)
+var GANTT_PHASES = [
+  { id:'consulting', label:'咨询阶段', color:'var(--navy)', owner:'艾维登PM', pct:60, start:'2026-06-15', end:'2026-09-30',
+    tasks:[
+      {id:'c1', label:'现状分析与诊断报告',       owner:'规划师+业务专家',  pct:100, start:'2026-06-15',end:'2026-06-30', milestone:false, desc:'涵盖业务、数字化调研分析；梳理核心痛点与问题清单；数字化成熟度评估', deliverable:'rpt-01'},
+      {id:'c2', label:'照明行业数字化对标研究报告',owner:'规划师',          pct:100, start:'2026-06-15',end:'2026-06-22', milestone:false, desc:'Signify/欧普/阳光照明/佛照四家2025年年报深度对标分析', deliverable:'rpt-01b'},
+      {id:'c3', label:'企业架构设计报告（L1-L3）', owner:'规划师+应用专家',  pct:80,  start:'2026-06-22',end:'2026-08-15', milestone:false, desc:'企业架构蓝图（L1-L3）：BA/DA/AA/TA TO-BE 设计', deliverable:'rpt-02'},
+      {id:'c4', label:'专项方案设计报告（8场景）', owner:'业务专家A/B',      pct:0,   start:'2026-07-15',end:'2026-09-15', milestone:false, desc:'覆盖8个高价值专项场景（L4-L5）；含痛点分析、流程设计', deliverable:'rpt-03'},
+      {id:'c5', label:'数据调研分析报告',          owner:'数据专家',         pct:0,   start:'2026-07-01',end:'2026-08-31', milestone:false, desc:'产品主数据（物料、BOM）、客商主数据、财务主数据的现状调研分析', deliverable:'rpt-04a'},
+      {id:'c6', label:'数据规划及管理办法',        owner:'数据专家',         pct:0,   start:'2026-08-01',end:'2026-09-15', milestone:false, desc:'主数据规划及管理办法，包含主数据清洗、编码标准化与系统导入等内容', deliverable:'rpt-04b'},
+      {id:'c7', label:'数据治理总结报告',          owner:'数据专家',         pct:0,   start:'2026-09-01',end:'2026-09-30', milestone:false, desc:'佛山照明数据治理工作总结（数据清洗结果、治理成效、持续运营建议）', deliverable:'rpt-04c'},
+      {id:'c8', label:'数字化保障组织设计报告',    owner:'规划师',           pct:0,   start:'2026-09-01',end:'2026-09-25', milestone:false, desc:'提出数字化组织及运作机制建议（可选交付物）', deliverable:'rpt-05'},
+      {id:'c9', label:'数字化转型路径规划',        owner:'艾维登PM',         pct:100, start:'2026-06-15',end:'2026-06-22', milestone:false, desc:'包含项目清单、优先级排序结果、项目卡片、未来三年实施路线图', deliverable:'rpt-06'},
+      {id:'cm1', label:'★ M1 架构蓝图评审通过',   owner:'李泽华',           pct:0,   start:'2026-09-30',end:'2026-09-30', milestone:true,  desc:'L1-L3企业架构蓝图经甲方审核确认签字，8条接口设计方案锁定\n💰 付款触发：合同第2笔 20%'},
+    ]
+  },
+  { id:'prepare', label:'系统实施准备阶段', color:'var(--primary)', owner:'艾维登PM', pct:20, start:'2026-06-15', end:'2026-08-09',
+    tasks:[
+      {id:'p1', label:'项目启动会 & 宣贯',          owner:'李泽华',     pct:100, start:'2026-06-15',end:'2026-06-15', milestone:true, desc:'项目正式启动，宣贯调研目标与交付物说明，签署保密协议'},
+      {id:'p2', label:'准备调研问卷 & 调研计划',    owner:'艾维登PM',   pct:80,  start:'2026-06-16',end:'2026-06-30', milestone:false, desc:'制定两周调研执行计划，发放调研问卷，确认参与人员'},
+      {id:'p3', label:'佛照历史蓝图分析及定制代码盘点',owner:'技术专家', pct:30,  start:'2026-06-20',end:'2026-07-31', milestone:false, desc:'运行SAP Custom Code扫描工具，分析ECC Z程序清单，评估迁移工作量'},
+      {id:'p4', label:'接口台账梳理',               owner:'集成负责人', pct:20,  start:'2026-07-01',end:'2026-08-09', milestone:false, desc:'梳理8条核心接口（IF-001至IF-008）的详细设计方案'},
+      {id:'p5', label:'项目团队及入场时间确定',     owner:'艾维登PM',   pct:60,  start:'2026-06-15',end:'2026-06-22', milestone:false, desc:'确认顾问团队配置，签署项目章程，明确关键用户时间承诺'},
+      {id:'p6', label:'Readiness Check',            owner:'技术专家',   pct:0,   start:'2026-06-16',end:'2026-07-15', milestone:false, desc:'系统就绪评估：PCE环境搭建、网络连通、授权确认'},
+    ]
+  },
+  { id:'explore', label:'探索阶段（蓝图）', color:'var(--mid)', owner:'应用架构师', pct:0, start:'2026-08-10', end:'2026-09-21',
+    tasks:[
+      {id:'e1', label:'业务调研',              owner:'业务专家A/B', pct:0,  start:'2026-08-10',end:'2026-08-31', milestone:false, desc:'深度业务调研，覆盖8大业务域，输出调研报告'},
+      {id:'e2', label:'方案蓝图',              owner:'应用架构师',  pct:0,  start:'2026-08-25',end:'2026-09-21', milestone:false, desc:'基于调研结果设计系统蓝图方案',
+       children:[
+        {id:'e2a', label:'《数字化转型路线图》',                     owner:'规划师',    pct:0, start:'2026-08-25',end:'2026-09-10', milestone:false, desc:'2026-2028年分阶段计划，项目清单及优先级'},
+        {id:'e2b', label:'《4A架构设计方案/数字化蓝图规划》',        owner:'规划师',    pct:0, start:'2026-08-25',end:'2026-09-15', milestone:false, desc:'BA/AA/DA/TA四层架构现状与目标设计'},
+        {id:'e2c', label:'《主数据标准方案》+《数据规划及管理办法》', owner:'数据专家',  pct:0, start:'2026-09-01',end:'2026-09-21', milestone:false, desc:'产品/客商/财务三类主数据的编码规范、属性定义、维护流程'},
+        {id:'e2d', label:'《业务&数字化转型现状调研分析》',          owner:'规划师',    pct:0, start:'2026-08-10',end:'2026-09-05', milestone:false, desc:'业务/数字化现状分析、流程IT/数据治理现状分析'},
+        {id:'e2e', label:'《4级业务流程现状图》+《4级流程优化&专项方案》', owner:'业务专家A', pct:0, start:'2026-08-15',end:'2026-09-15', milestone:false, desc:'覆盖OTC/PTP/MTC三大端到端流程',
+         children:[
+          {id:'e2e7', label:'专项方案7——跨公司转移定价和成本还原', owner:'业务专家A', pct:0, start:'2026-08-20',end:'2026-09-10', milestone:false, desc:'集团内部交易定价策略，跨法人成本还原方案'},
+          {id:'e2e6', label:'专项方案6——标准成本估算及发布',      owner:'业务专家A', pct:0, start:'2026-08-20',end:'2026-09-10', milestone:false, desc:'S/4HANA标准成本估算（CK11N）规范化'},
+          {id:'e2e5', label:'专项方案5——自动化运行MRP资源计划',   owner:'业务专家B', pct:0, start:'2026-08-20',end:'2026-09-10', milestone:false, desc:'MRP Live配置，产销协同机制设计'},
+          {id:'e2e4', label:'专项方案4——泰国外币及本地化监管需求', owner:'业务专家A', pct:0, start:'2026-08-20',end:'2026-09-10', milestone:false, desc:'泰国增值税（7%）/预提税，泰国e-Tax Invoice'},
+          {id:'e2e3', label:'专项方案3——管理报表与财务报告的统驭', owner:'业务专家A', pct:0, start:'2026-08-20',end:'2026-09-10', milestone:false, desc:'Group Reporting合并报表，多准则并行'},
+          {id:'e2e2', label:'专项方案2——预入库/预出库优化',       owner:'业务专家B', pct:0, start:'2026-08-20',end:'2026-09-10', milestone:false, desc:'EWM高级仓储管理，收发货流程标准化'},
+          {id:'e2e1', label:'专项方案1——主数据治理',              owner:'数据专家',  pct:0, start:'2026-08-20',end:'2026-09-10', milestone:false, desc:'MDG-M/BP/GL配置，统一编码规则，审批工作流'},
+        ]},
+        {id:'e2f', label:'《业务需求与痛点清单》',                  owner:'业务专家A/B', pct:0, start:'2026-08-10',end:'2026-08-25', milestone:false, desc:'覆盖财务/供应链/生产等部门，问题分类不少于4类'},
+      ]},
+      {id:'e3', label:'接口与集成设计',         owner:'集成负责人', pct:0,  start:'2026-08-15',end:'2026-09-21', milestone:false, desc:'8条核心接口（CPI中枢）设计方案确认，各系统供应商签署配合承诺'},
+      {id:'e4', label:'蓝图汇报',               owner:'艾维登PM',   pct:0,  start:'2026-09-15',end:'2026-09-21', milestone:true,  desc:'蓝图方案向佛照管理层汇报，确认签字'},
+    ]
+  },
+  { id:'realize', label:'系统实现阶段', color:'#2D6BA8', owner:'开发负责人', pct:0, start:'2026-09-22', end:'2026-12-05',
+    tasks:[
+      {id:'r1', label:'系统配置（FICO/SD/MM/PP/QM/EWM）', owner:'顾问团队',   pct:0, start:'2026-09-22',end:'2026-11-22', milestone:false, desc:'19家法人统一科目表、SD定价条件、MDG主数据治理平台全量配置'},
+      {id:'r2', label:'开发文档（Z程序/接口/增强）',       owner:'开发负责人', pct:0, start:'2026-09-22',end:'2026-11-16', milestone:false, desc:'8条CPI接口开发，ABAP增强，BTP侧扩展'},
+      {id:'r3', label:'用户测试完成报告（UAT）',          owner:'测试经理',   pct:0, start:'2026-11-01',end:'2026-12-05', milestone:false, desc:'招标文件硬性门槛：UAT蓝图定义业务场景100%覆盖；严重缺陷修复率100%'},
+      {id:'r4', label:'Sprint 1 配置与开发',              owner:'开发负责人', pct:0, start:'2026-09-22',end:'2026-10-19', milestone:false, desc:'核心流程（OTC/PTP/MTC）配置，MDG基础配置，CPI接口第1批'},
+      {id:'r5', label:'Sprint 2 配置与开发',              owner:'开发负责人', pct:0, start:'2026-10-20',end:'2026-11-16', milestone:false, desc:'集团报表、EWM仓储、DRC电子发票、CPI接口第2批'},
+      {id:'r6', label:'Sprint 3 硬化',                   owner:'开发负责人', pct:0, start:'2026-11-17',end:'2026-12-05', milestone:false, desc:'系统性能调优，权限SoD设计，Cloud ALM质量门控'},
+      {id:'rm2', label:'★ M2 系统配置完成',              owner:'艾维登PM',   pct:0, start:'2026-11-30',end:'2026-11-30', milestone:true,  desc:'S/4HANA核心模块配置完成，CPI 8条接口开发完成，数据首次试迁移'},
+    ]
+  },
+  { id:'deploy', label:'上线准备&切换阶段', color:'var(--steel)', owner:'PM', pct:0, start:'2026-12-06', end:'2027-01-01',
+    tasks:[
+      {id:'d1', label:'上线策略文档',            owner:'艾维登PM',   pct:0, start:'2026-12-06',end:'2026-12-15', milestone:false, desc:'切换时点、数据切换策略、回滚计划，Big Bang上线方案'},
+      {id:'d2', label:'正式系统安装设置完成报告', owner:'技术专家',   pct:0, start:'2026-12-06',end:'2026-12-20', milestone:false, desc:'PCE生产环境搭建完成，安装手册及完成报告'},
+      {id:'d3', label:'培训文档',                owner:'业务专家A',  pct:0, start:'2026-12-06',end:'2026-12-24', milestone:false, desc:'培训计划、培训签到表、培训考核试卷'},
+      {id:'d4', label:'系统操作手册',            owner:'顾问团队',   pct:0, start:'2026-12-06',end:'2026-12-24', milestone:false, desc:'按佛山照明业务描述SAP系统中的操作使用说明及截图'},
+      {id:'d5', label:'上线支持安排计划',        owner:'艾维登PM',   pct:0, start:'2026-12-20',end:'2026-12-30', milestone:false, desc:'上线后应对上线问题的支持计划，确保系统能够顺利使用'},
+      {id:'dm4', label:'★ M4 正式切换上线',     owner:'艾维登PM',   pct:0, start:'2027-01-01',end:'2027-01-01', milestone:true,  desc:'S/4HANA PCE正式切换，19家法人同步上线，ECC进入只读模式\n💰 付款触发：合同第3笔 45%'},
+    ]
+  },
+];
+
+var PSTART = new Date('2026-06-15');
+var PEND   = new Date('2027-01-31');
+var TOTAL_DAYS = (PEND - PSTART) / 86400000 + 1;
+
+function dayOffset(dateStr){ return (new Date(dateStr) - PSTART) / 86400000; }
+
+function buildSlots(zoom){
+  var slots=[], d=new Date(PSTART);
+  if(zoom==='week'){
+    while(d <= PEND){
+      var end=new Date(d); end.setDate(end.getDate()+6);
+      if(end>PEND) end=new Date(PEND);
+      slots.push({label:(d.getMonth()+1)+'/'+(d.getDate()),year:d.getFullYear(),month:d.getMonth()+1,start:new Date(d),end:new Date(end),days:(end-d)/86400000+1});
+      d.setDate(d.getDate()+7);
+    }
+  } else {
+    while(d <= PEND){
+      var y=d.getFullYear(), m=d.getMonth();
+      var ms=new Date(y,m,1), me=new Date(y,m+1,0);
+      if(ms<PSTART) ms=new Date(PSTART);
+      if(me>PEND) me=new Date(PEND);
+      slots.push({label:(m+1)+'月',year:y,month:m+1,start:ms,end:me,days:(me-ms)/86400000+1});
+      d=new Date(y,m+1,1);
+    }
+  }
+  return slots;
+}
+
+function flattenTree(){
+  var rows=[];
+  GANTT_PHASES.forEach(function(ph){
+    rows.push({type:'phase', ph:ph, depth:0, id:ph.id});
+    if(!GANTT_COLLAPSED[ph.id]){
+      ph.tasks.forEach(function(t){
+        rows.push({type:'task', task:t, ph:ph, depth:1, id:ph.id+'__'+t.id});
+        if(t.children && !GANTT_COLLAPSED[ph.id+'__'+t.id]){
+          t.children.forEach(function(c){
+            rows.push({type:'task', task:c, ph:ph, depth:2, id:ph.id+'__'+c.id, parent:t});
+            if(c.children && !GANTT_COLLAPSED[ph.id+'__'+c.id]){
+              c.children.forEach(function(g){
+                rows.push({type:'task', task:g, ph:ph, depth:3, id:ph.id+'__'+g.id, parent:c});
+              });
+            }
+          });
+        }
+      });
+    }
+  });
+  return rows;
+}
+
+// Find task by rowId
+function findTaskByRowId(rowId){
+  for(var pi=0;pi<GANTT_PHASES.length;pi++){
+    var ph=GANTT_PHASES[pi];
+    if(rowId===ph.id) return {type:'phase',ph:ph};
+    for(var ti=0;ti<ph.tasks.length;ti++){
+      var t=ph.tasks[ti];
+      if(rowId===ph.id+'__'+t.id) return {type:'task',task:t,ph:ph};
+      if(t.children){
+        for(var ci=0;ci<t.children.length;ci++){
+          var c=t.children[ci];
+          if(rowId===ph.id+'__'+c.id) return {type:'task',task:c,ph:ph,parent:t};
+          if(c.children){
+            for(var gi=0;gi<c.children.length;gi++){
+              var g=c.children[gi];
+              if(rowId===ph.id+'__'+g.id) return {type:'task',task:g,ph:ph,parent:c};
+            }
+          }
+        }
+      }
+    }
+  }
+  return null;
+}
+
+function renderGantt(){
+  var zoom=GANTT_ZOOM;
+  var slots=buildSlots(zoom);
+  var rows=flattenTree();
+  var now=new Date();
+  var ROW_H=32;
+  var COL_W=zoom==='week'?78:110;
+  var totalW=slots.length*COL_W;
+
+  // ── Left tree ──────────────────────────────────────
+  var leftHtml='';
+  rows.forEach(function(row,ri){
+    var bg=ri%2===0?'var(--white)':'var(--bg)';
+    var label,pct,owner,hasChildren,colId,isMilestone=false;
+    if(row.type==='phase'){
+      bg='var(--pale)'; label=row.ph.label; pct=row.ph.pct; owner=row.ph.owner;
+      hasChildren=row.ph.tasks&&row.ph.tasks.length; colId=row.ph.id;
+    } else {
+      label=row.task.label; pct=row.task.pct||0; owner=row.task.owner||'';
+      hasChildren=row.task.children&&row.task.children.length; colId=row.id;
+      isMilestone=row.task.milestone;
+    }
+    var isSelected=(SELECTED_TASK_ID===row.id);
+    if(isSelected) bg='rgba(0,94,184,.1)';
+    var collapsed=GANTT_COLLAPSED[colId]||false;
+    var indent=row.depth*14;
+    var toggleBtn=hasChildren?
+      '<span onclick="event.stopPropagation();ganttToggle(\''+colId+'\')" style="cursor:pointer;margin-right:3px;font-size:9px;color:var(--steel);flex-shrink:0;user-select:none">'+(collapsed?'▶':'▼')+'</span>':
+      '<span style="display:inline-block;width:14px;flex-shrink:0"></span>';
+    var typeIcon=isMilestone?'<span style="color:#F4B942;font-size:10px;margin-right:3px;flex-shrink:0">◆</span>':
+      row.type==='phase'?'<span style="display:inline-block;width:9px;height:9px;background:'+row.ph.color+';border-radius:2px;margin-right:4px;flex-shrink:0;vertical-align:middle"></span>':
+      '<span style="font-size:9px;color:var(--pale);margin-right:3px;flex-shrink:0">☐</span>';
+    var pctColor=pct>=100?'var(--steel)':pct>0?'var(--primary)':'var(--pale)';
+    leftHtml+='<div onclick="selectGanttRow(\''+row.id+'\')" style="display:grid;grid-template-columns:1fr 60px 56px;height:'+ROW_H+'px;background:'+bg+';border-bottom:1px solid rgba(0,0,0,.04);cursor:pointer;align-items:center'+(isSelected?';outline:2px solid var(--primary);outline-offset:-2px':'')+'" title="'+label+'">'+
+      '<div style="padding:0 6px 0 '+(8+indent)+'px;display:flex;align-items:center;gap:2px;min-width:0;overflow:hidden">'+
+        toggleBtn+typeIcon+
+        '<span style="font-size:11.5px;'+(row.type==='phase'?'font-weight:700;color:var(--dark)':isMilestone?'font-weight:700;color:var(--navy)':'color:var(--text2)')+';white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+label+'</span>'+
+      '</div>'+
+      '<div style="text-align:center;padding:0 4px;display:flex;align-items:center;justify-content:center">'+
+        '<span style="display:inline-flex;width:20px;height:20px;border-radius:50%;background:var(--primary);color:#fff;font-size:8px;font-weight:700;align-items:center;justify-content:center;flex-shrink:0">'+
+        (owner?owner.charAt(0).toUpperCase():'?')+'</span>'+
+      '</div>'+
+      '<div style="text-align:center;font-size:11px;padding:0 4px">'+
+        '<span style="font-weight:700;color:'+(pct>0?'var(--primary)':'var(--muted)')+'">'+(isMilestone?'◆':pct+'%')+'</span>'+
+        (!isMilestone?'<div style="height:2px;background:var(--pale);border-radius:1px;margin-top:2px"><div style="height:100%;background:'+pctColor+';border-radius:1px;width:'+pct+'%"></div></div>':'')
+      +'</div>'+
+    '</div>';
+  });
+  document.getElementById('ganttTreeBody').innerHTML=leftHtml;
+
+  // ── Timeline header ─────────────────────────────────
+  var monthGroups=[];
+  slots.forEach(function(sl){
+    var key=sl.year+'-'+sl.month;
+    if(!monthGroups.length||monthGroups[monthGroups.length-1].key!==key) monthGroups.push({key:key,label:sl.year+'年'+sl.month+'月',cnt:0});
+    monthGroups[monthGroups.length-1].cnt++;
+  });
+  var hdr='<div style="min-width:'+totalW+'px"><div style="display:flex;background:var(--dark)">';
+  monthGroups.forEach(function(mg){ hdr+='<div style="min-width:'+(mg.cnt*COL_W)+'px;padding:4px 8px;font-size:11px;font-weight:700;color:#fff;border-right:1px solid rgba(255,255,255,.1)">'+mg.label+'</div>'; });
+  hdr+='</div><div style="display:flex;background:#EBF0F7;border-bottom:2px solid var(--pale)">';
+  var nowDate=now.toISOString().split('T')[0];
+  slots.forEach(function(sl){
+    var isNow=now>=sl.start&&now<=sl.end;
+    hdr+='<div style="min-width:'+COL_W+'px;width:'+COL_W+'px;padding:3px 4px;font-size:10px;font-weight:'+(isNow?'800':'600')+';color:'+(isNow?'var(--primary)':'var(--dark)')+';border-right:1px solid rgba(0,0,0,.06);text-align:center;white-space:nowrap;overflow:hidden">'+sl.label+'</div>';
+  });
+  hdr+='</div></div>';
+  document.getElementById('ganttTimelineHeader').innerHTML=hdr;
+
+  // ── Bars ─────────────────────────────────────────────
+  // Compute today px
+  var todayOff=dayOffset(now.toISOString().split('T')[0]);
+  var todayPx=0; var acc=0;
+  slots.forEach(function(sl){
+    var slS=dayOffset(sl.start.toISOString().split('T')[0]);
+    var slE=dayOffset(sl.end.toISOString().split('T')[0]);
+    if(todayOff>=slS&&todayOff<=slE){ todayPx=acc+((todayOff-slS)/(slE-slS+1))*COL_W; }
+    else if(todayOff>slE) acc+=COL_W;
+    if(todayPx===0&&todayOff>slE) acc+=COL_W;
+  });
+
+  var barsHtml='<div style="position:relative;min-width:'+totalW+'px">';
+  if(todayOff>=0&&todayOff<=TOTAL_DAYS){
+    barsHtml+='<div style="position:absolute;left:'+todayPx+'px;top:0;bottom:0;width:2px;background:rgba(0,48,135,.5);z-index:5"><div style="position:absolute;top:0;left:-12px;font-size:8.5px;font-weight:800;color:var(--navy);background:#EBF4FF;padding:0 2px;border-radius:2px;white-space:nowrap">今</div></div>';
+  }
+
+  function slotPx(dateStr){
+    var off=dayOffset(dateStr); var px=0; var a=0;
+    slots.forEach(function(sl){
+      var slS=dayOffset(sl.start.toISOString().split('T')[0]);
+      var slE=dayOffset(sl.end.toISOString().split('T')[0]);
+      var slD=slE-slS+1;
+      if(off>=slS&&off<=slE){ px=a+((off-slS)/slD)*COL_W; }
+      else if(off>slE){ a+=COL_W; }
+    });
+    return px;
+  }
+
+  rows.forEach(function(row,ri){
+    var rowBg=ri%2===0?'transparent':'rgba(235,244,255,.35)';
+    var isSelected=(SELECTED_TASK_ID===row.id);
+    if(isSelected) rowBg='rgba(0,94,184,.07)';
+    var start, end, color, pct, isMilestone=false;
+    if(row.type==='phase'){ start=row.ph.start; end=row.ph.end; color=row.ph.color; pct=row.ph.pct; }
+    else { start=row.task.start; end=row.task.end; color=row.ph.color; pct=row.task.pct||0; isMilestone=row.task.milestone||false; }
+
+    var rowHtml='<div onclick="selectGanttRow(\''+row.id+'\')" style="display:flex;height:'+ROW_H+'px;background:'+rowBg+';border-bottom:1px solid rgba(0,0,0,.03);position:relative;align-items:center;cursor:pointer">';
+    slots.forEach(function(sl){ rowHtml+='<div style="min-width:'+COL_W+'px;width:'+COL_W+'px;height:100%;border-right:1px solid rgba(0,0,0,.03);flex-shrink:0"></div>'; });
+
+    if(start&&end){
+      var lPx=slotPx(start), rPx=slotPx(end);
+      var wPx=Math.max(rPx-lPx + (dayOffset(end)-dayOffset(start)+1)/TOTAL_DAYS*totalW/(slots.length)||COL_W*0.5, 8);
+      // compute width more simply
+      var startOff=dayOffset(start), endOff=dayOffset(end);
+      var totalSlotDays=(new Date(PEND)-new Date(PSTART))/86400000+1;
+      lPx=(startOff/totalSlotDays)*totalW;
+      wPx=Math.max(((endOff-startOff+1)/totalSlotDays)*totalW, isMilestone?14:8);
+
+      if(isMilestone){
+        rowHtml+='<div style="position:absolute;left:'+lPx+'px;width:12px;height:12px;top:10px;transform:rotate(45deg);background:#F4B942;z-index:2;border:1px solid rgba(0,0,0,.1)" title="'+row.task.label+'"></div>';
+        rowHtml+='<span style="position:absolute;left:'+(lPx+16)+'px;top:9px;font-size:9.5px;font-weight:700;color:var(--navy);white-space:nowrap">'+row.task.label+'</span>';
+      } else {
+        var barH=row.type==='phase'?14:12;
+        var barTop=(ROW_H-barH)/2;
+        rowHtml+='<div style="position:absolute;left:'+lPx+'px;width:'+wPx+'px;height:'+barH+'px;top:'+barTop+'px;border-radius:3px;background:'+color+';z-index:2;overflow:hidden" title="'+row.task.label+' ('+start+' → '+end+')">';
+        if(pct>0&&pct<100) rowHtml+='<div style="width:'+pct+'%;height:100%;background:rgba(255,255,255,.25);border-right:1px solid rgba(255,255,255,.4)"></div>';
+        if(wPx>50) rowHtml+='<span style="position:absolute;left:5px;top:50%;transform:translateY(-50%);font-size:9px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:'+(wPx-10)+'px">'+row.task.label+'</span>';
+        rowHtml+='</div>';
+      }
+    }
+    rowHtml+='</div>';
+    barsHtml+=rowHtml;
+  });
+  barsHtml+='</div>';
+  document.getElementById('ganttBars').innerHTML=barsHtml;
+
+  // Sync scroll
+  var gl=document.getElementById('ganttLeft'), gr=document.getElementById('ganttRight');
+  if(gl&&gr){ gl.onscroll=function(){gr.scrollTop=gl.scrollTop;}; gr.onscroll=function(){gl.scrollTop=gr.scrollTop;}; }
+}
+
+// ── Task detail panel ─────────────────────────────────────────────
+function selectGanttRow(rowId){
+  SELECTED_TASK_ID = rowId;
+  renderGantt();
+  openTaskDetail(rowId);
+}
+
+function openTaskDetail(rowId){
+  var found = findTaskByRowId(rowId);
+  if(!found){ closeTaskDetail(); return; }
+  var panel = document.getElementById('taskDetailPanel');
+  var isPhase = found.type==='phase';
+  var task = isPhase ? found.ph : found.task;
+  var ph = isPhase ? found.ph : found.ph;
+
+  var statusOpts = ['未开始','进行中','待评审','已完成'].map(function(s){
+    var sel = (task.pct===100&&s==='已完成')||(task.pct>0&&task.pct<100&&s==='进行中')||(task.pct===0&&s==='未开始');
+    return '<option value="'+s+'" '+(sel?'selected':'')+'>'+s+'</option>';
+  }).join('');
+
+  var parentInfo = '';
+  if(!isPhase) parentInfo = '<div class="dp-field-row"><span class="dp-label">所属阶段</span><span style="font-size:12px;color:var(--primary)">'+ph.label+'</span></div>';
+  if(found.parent) parentInfo += '<div class="dp-field-row"><span class="dp-label">上级任务</span><span style="font-size:12px;color:var(--mid)">'+found.parent.label+'</span></div>';
+
+  panel.innerHTML =
+    '<div style="background:linear-gradient(90deg,var(--dark),var(--primary));color:#fff;padding:12px 14px;display:flex;align-items:center;gap:8px;flex-shrink:0">'+
+      '<div style="flex:1;font-size:13px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(task.label)+'</div>'+
+      '<button onclick="closeTaskDetail()" style="background:rgba(255,255,255,.15);border:none;color:#fff;width:24px;height:24px;border-radius:4px;cursor:pointer;font-size:13px;flex-shrink:0">✕</button>'+
+    '</div>'+
+    '<div style="padding:14px;flex:1;overflow-y:auto">'+
+      '<div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap">'+
+        '<span style="font-size:10px;padding:2px 7px;border-radius:8px;background:var(--pale);color:var(--dark);font-weight:600">'+(task.milestone?'◆ 里程碑':isPhase?'阶段':'任务')+'</span>'+
+        '<span style="font-size:10px;padding:2px 7px;border-radius:8px;background:var(--bg);color:var(--steel);font-weight:600">'+ph.label+'</span>'+
+      '</div>'+
+      '<div style="font-size:11.5px;margin-bottom:14px;font-weight:800;color:var(--dark);line-height:1.4">'+esc(task.label)+'</div>'+
+      parentInfo+
+      '<div class="dp-field-row"><span class="dp-label">负责人</span>'+
+        '<div style="display:flex;align-items:center;gap:6px"><div style="width:24px;height:24px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">'+(task.owner?task.owner.charAt(0).toUpperCase():'?')+'</div><input class="dp-input" id="dpOwner" value="'+esc(task.owner||'')+'" placeholder="负责人"></div>'+
+      '</div>'+
+      '<div class="dp-field-row"><span class="dp-label">起止日期</span>'+
+        '<div style="display:flex;align-items:center;gap:4px">'+
+          '<input class="dp-input" id="dpStart" type="date" value="'+task.start+'" style="width:130px">'+
+          '<span style="font-size:11px;color:var(--muted)">—</span>'+
+          '<input class="dp-input" id="dpEnd" type="date" value="'+task.end+'" style="width:130px">'+
+        '</div>'+
+      '</div>'+
+      '<div class="dp-field-row"><span class="dp-label">状态</span>'+
+        '<select class="dp-input" id="dpStatus">'+statusOpts+'</select>'+
+      '</div>'+
+      '<div class="dp-field-row"><span class="dp-label">完成度</span>'+
+        '<div style="display:flex;align-items:center;gap:8px">'+
+          '<input type="range" id="dpPct" min="0" max="100" step="5" value="'+task.pct+'" style="flex:1" oninput="document.getElementById(\'dpPctVal\').textContent=this.value+\'%\'">'+
+          '<span id="dpPctVal" style="font-size:12px;font-weight:700;color:var(--primary);min-width:36px">'+task.pct+'%</span>'+
+        '</div>'+
+      '</div>'+
+      (task.deliverable?'<div class="dp-field-row"><span class="dp-label">交付物</span><span style="font-size:11.5px;color:var(--primary)">'+esc(task.deliverable)+'</span></div>':'')+
+      '<div style="margin-top:10px"><div style="font-size:11px;color:var(--muted);margin-bottom:5px">描述</div>'+
+        '<textarea id="dpDesc" style="width:100%;min-height:80px;padding:7px 9px;border:1px solid var(--pale);border-radius:5px;font-size:12px;font-family:inherit;resize:vertical;outline:none;color:var(--text2)" oninput="this.style.height=\'auto\';this.style.height=this.scrollHeight+\'px\'">'+esc(task.desc||'').replace(/\\n/g,'&#10;')+'</textarea>'+
+      '</div>'+
+    '</div>'+
+    '<div style="padding:10px 14px;border-top:1px solid var(--pale);display:flex;gap:8px;flex-shrink:0">'+
+      '<button onclick="saveTaskDetail(\''+rowId+'\')" style="flex:1;padding:8px;background:var(--primary);color:#fff;border:none;border-radius:6px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit">💾 保存</button>'+
+      '<button onclick="closeTaskDetail()" style="padding:8px 14px;background:var(--bg);color:var(--steel);border:1px solid var(--pale);border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit">取消</button>'+
+    '</div>';
+
+  panel.style.display='flex';
+  document.getElementById('ganttRight').style.marginRight='380px';
+}
+
+function saveTaskDetail(rowId){
+  var found=findTaskByRowId(rowId);
+  if(!found) return;
+  var task=found.type==='phase'?found.ph:found.task;
+  var newStart=document.getElementById('dpStart').value;
+  var newEnd=document.getElementById('dpEnd').value;
+  var newOwner=document.getElementById('dpOwner').value;
+  var newPct=parseInt(document.getElementById('dpPct').value);
+  var newDesc=document.getElementById('dpDesc').value;
+  if(new Date(newEnd)<new Date(newStart)){ alert('结束日期不能早于开始日期'); return; }
+  task.start=newStart; task.end=newEnd; task.owner=newOwner; task.pct=newPct; task.desc=newDesc;
+  // bubble pct up to phase
+  var ph=found.ph;
+  var allTasks=[]; ph.tasks.forEach(function(t){ allTasks.push(t); if(t.children) t.children.forEach(function(c){ allTasks.push(c); if(c.children) c.children.forEach(function(g){ allTasks.push(g); }); }); });
+  var nonMilestone=allTasks.filter(function(t){return !t.milestone;});
+  if(nonMilestone.length) ph.pct=Math.round(nonMilestone.reduce(function(s,t){return s+(t.pct||0);},0)/nonMilestone.length);
+  renderGantt();
+  // flash save indicator
+  var btn=document.querySelector('#taskDetailPanel button');
+  if(btn){ btn.textContent='✅ 已保存'; btn.style.background='var(--steel)'; setTimeout(function(){btn.textContent='💾 保存';btn.style.background='var(--primary)';},1500); }
+}
+
+function closeTaskDetail(){
+  SELECTED_TASK_ID=null;
+  document.getElementById('taskDetailPanel').style.display='none';
+  document.getElementById('ganttRight').style.marginRight='0';
+  renderGantt();
+}
+
+function addNewTask(){
+  // Add to first phase as placeholder
+  var ph=GANTT_PHASES[0];
+  var today=new Date().toISOString().split('T')[0];
+  var end=new Date(); end.setDate(end.getDate()+14);
+  var endStr=end.toISOString().split('T')[0];
+  var newT={id:'new_'+Date.now(),label:'新建任务',owner:'',pct:0,start:today,end:endStr,milestone:false,desc:''};
+  ph.tasks.push(newT);
+  var rowId=ph.id+'__'+newT.id;
+  SELECTED_TASK_ID=rowId;
+  renderGantt();
+  openTaskDetail(rowId);
+}
+
+function ganttToggle(id){ GANTT_COLLAPSED[id]=!GANTT_COLLAPSED[id]; renderGantt(); if(SELECTED_TASK_ID) openTaskDetail(SELECTED_TASK_ID); }
+function ganttExpandAll(){ GANTT_COLLAPSED={}; renderGantt(); }
+function ganttCollapseAll(){
+  GANTT_PHASES.forEach(function(ph){
+    GANTT_COLLAPSED[ph.id]=true;
+    ph.tasks.forEach(function(t){ if(t.children||t.tasks) GANTT_COLLAPSED[ph.id+'__'+t.id]=true; });
+  });
+  renderGantt();
+}
+function ganttZoom(z){
+  GANTT_ZOOM=z;
+  var wBtn=document.getElementById('gZoomW'), mBtn=document.getElementById('gZoomM');
+  if(wBtn){ wBtn.style.background=z==='week'?'var(--primary)':'var(--bg)'; wBtn.style.color=z==='week'?'#fff':'var(--steel)'; wBtn.style.border=z==='week'?'none':'1px solid var(--pale)'; }
+  if(mBtn){ mBtn.style.background=z==='month'?'var(--primary)':'var(--bg)'; mBtn.style.color=z==='month'?'#fff':'var(--steel)'; mBtn.style.border=z==='month'?'none':'1px solid var(--pale)'; }
+  renderGantt();
+}
+function ganttToday(){
+  var gr=document.getElementById('ganttRight');
+  if(!gr) return;
+
+function ganttToggle(id){ GANTT_COLLAPSED[id]=!GANTT_COLLAPSED[id]; renderGantt(); if(SELECTED_TASK_ID) openTaskDetail(SELECTED_TASK_ID); }
+function ganttExpandAll(){ GANTT_COLLAPSED={}; renderGantt(); }
+function ganttCollapseAll(){
+  GANTT_PHASES.forEach(function(ph){
+    GANTT_COLLAPSED[ph.id]=true;
+    ph.tasks.forEach(function(t){ if(t.children||t.tasks) GANTT_COLLAPSED[ph.id+'__'+t.id]=true; });
+  });
+  renderGantt();
+}
+function ganttZoom(z){
+  GANTT_ZOOM=z;
+  var wBtn=document.getElementById('gZoomW'), mBtn=document.getElementById('gZoomM');
+  if(wBtn){ wBtn.style.background=z==='week'?'var(--primary)':'var(--bg)'; wBtn.style.color=z==='week'?'#fff':'var(--steel)'; wBtn.style.border=z==='week'?'none':'1px solid var(--pale)'; }
+  if(mBtn){ mBtn.style.background=z==='month'?'var(--primary)':'var(--bg)'; mBtn.style.color=z==='month'?'#fff':'var(--steel)'; mBtn.style.border=z==='month'?'none':'1px solid var(--pale)'; }
+  renderGantt();
+}
+function ganttToday(){
+  var gr=document.getElementById('ganttRight');
+  if(!gr) return;
+  var slots=buildSlots(GANTT_ZOOM), COL_W=GANTT_ZOOM==='week'?78:110, now=new Date(), acc=0, found=false;
+  slots.forEach(function(sl,si){ if(!found&&now>=sl.start&&now<=sl.end){ gr.scrollLeft=Math.max(0,acc-200); found=true; } acc+=COL_W; });
+}
+
+// ── RISK ──────────────────────────────────────────────────────────
+function renderRisk(issues){
+  var risks=issues.filter(function(i){return isRisk(i);});
+  var staticRisks=[
+    {title:'主数据清洗周期超预期',level:'high',tags:['高概率','高影响'],desc:'6.2万物料数据质量比预期差，清洗工作量超出，数据迁移100%准确率无法按时达到',mitigation:'2026年6月立即启动数据清洗（先于系统配置）；三轮模拟迁移'},
+    {title:'广晟集团系统边界未明确',level:'high',tags:['中概率','高影响'],desc:'广晟推行的共享/司库/合并系统与佛照S/4HANA的边界未定义，可能导致范围蔓延或接口冲突',mitigation:'2026年7月31日前明确边界协议，超出边界的需求纳入变更请求管理'},
+    {title:'关键用户参与度不足',level:'med',tags:['中概率','中影响'],desc:'业务部门关键用户无法投入足够时间参与蓝图确认和UAT测试',mitigation:'李泽华副总经理签字的关键用户承诺书；每周项目例会机制'},
+
+function selectGanttRow(rowId){ SELECTED_TASK_ID=rowId; renderGantt(); }
+
+// Boot
+window.addEventListener('DOMContentLoaded', function(){
+  ganttExpandAll();
+  renderGantt();
+  setTimeout(ganttToday, 100);
+});
+</script>
+</body>
+</html>
