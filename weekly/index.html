@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>项目周报 | FSL 工作台</title>
+<style>
+:root{--b900:#0B2D47;--b700:#1A4F73;--b500:#2374A3;--b300:#5EA4CE;
+      --b100:#C7E2F2;--b050:#EBF5FB;--bg:#F2F7FB;--text:#0F2233;
+      --muted:#5B7A91;--rule:#D6E8F2;--r:6px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;
+     background:var(--bg);color:var(--text);font-size:14px;line-height:1.8;}
+a{color:inherit;text-decoration:none;}
+
+nav{background:var(--b900);padding:0 32px;display:flex;align-items:center;gap:20px;
+    height:54px;position:sticky;top:0;z-index:100;
+    box-shadow:0 2px 10px rgba(11,45,71,.5);}
+.nav-logo-link{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.nav-divider{width:1px;height:24px;background:rgba(255,255,255,.15);flex-shrink:0;}
+.nav-project{color:rgba(255,255,255,.55);font-size:12px;letter-spacing:.2px;white-space:nowrap;}
+.nav-links{display:flex;flex:1;overflow-x:auto;}
+.nav-links a{padding:0 14px;color:rgba(255,255,255,.6);font-size:12.5px;
+             height:54px;display:flex;align-items:center;white-space:nowrap;
+             transition:color .15s;border-bottom:2px solid transparent;}
+.nav-links a:hover{color:rgba(255,255,255,.9);}
+.nav-links a.active{color:#fff;border-bottom-color:#5EA4CE;}
+
+.hero{background:linear-gradient(155deg,var(--b900) 0%,var(--b700) 100%);
+      color:#fff;padding:36px 48px 32px;border-bottom:3px solid var(--b500);}
+.hero h1{font-size:22px;font-weight:800;margin-bottom:6px;}
+.hero p{font-size:13px;opacity:.72;max-width:700px;}
+.hero-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);
+      border-radius:3px;padding:3px 12px;font-size:11px;letter-spacing:.4px;text-transform:uppercase;}
+
+.container{max-width:1280px;margin:0 auto;padding:30px 32px;}
+
+.bc{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted);margin-bottom:24px;}
+.bc a{color:var(--b500);}.bc a:hover{color:var(--b700);}.bc .sep{color:var(--b100);}
+
+/* ── Weekly list ── */
+.week-list{display:flex;flex-direction:column;gap:10px;}
+.week-card{background:#fff;border:1px solid var(--rule);border-radius:var(--r);
+           display:flex;align-items:stretch;overflow:hidden;
+           box-shadow:0 1px 3px rgba(35,116,163,.05);
+           transition:box-shadow .15s,transform .15s;}
+.week-card:hover{box-shadow:0 4px 14px rgba(35,116,163,.13);transform:translateY(-1px);}
+.wc-stripe{width:5px;background:var(--b500);flex-shrink:0;}
+.wc-stripe.current{background:var(--b700);}
+.wc-body{flex:1;padding:16px 20px;display:flex;align-items:center;gap:20px;}
+.wc-week{font-size:13px;font-weight:800;color:var(--b700);min-width:52px;}
+.wc-dates{font-size:11.5px;color:var(--muted);white-space:nowrap;}
+.wc-title{font-size:13.5px;font-weight:700;color:var(--b900);flex:1;}
+.wc-phase{font-size:11px;color:var(--muted);margin-top:2px;}
+.wc-badges{display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:700;
+       padding:3px 9px;border-radius:3px;letter-spacing:.2px;white-space:nowrap;}
+/* 只有状态/风险/问题用红黄绿 */
+.b-green{background:#E8F5E9;color:#2E7D32;}
+.b-yellow{background:#FFF8E1;color:#F57F17;}
+.b-red{background:#FFEBEE;color:#C62828;}
+/* 其余用蓝色系 */
+.b-blue{background:var(--b050);color:var(--b700);}
+.b-muted{background:#EEF2F6;color:var(--muted);}
+.wc-arrow{font-size:15px;font-weight:700;color:var(--b300);padding:0 16px;}
+
+/* ── Report page layout ── */
+.report-grid{display:grid;gap:14px;}
+.rg-top{grid-template-columns:160px 280px 1fr;}
+.rg-cards{grid-template-columns:repeat(4,1fr);}
+@media(max-width:1100px){.rg-top{grid-template-columns:1fr 1fr;}.rg-cards{grid-template-columns:1fr 1fr;}}
+@media(max-width:640px){.rg-top{grid-template-columns:1fr;}.rg-cards{grid-template-columns:1fr;}}
+
+.card{background:#fff;border:1px solid var(--rule);border-radius:var(--r);padding:18px 20px;
+      box-shadow:0 1px 3px rgba(35,116,163,.05);}
+.card-title{font-size:13px;font-weight:800;color:var(--b900);
+            border-bottom:2px solid var(--b050);padding-bottom:8px;margin-bottom:12px;}
+
+/* status box */
+.status-center{text-align:center;padding:8px 0;}
+.status-dot{width:52px;height:52px;border-radius:50%;margin:8px auto;}
+.s-green{background:#43A047;}.s-yellow{background:#FB8C00;}.s-red{background:#E53935;}
+.status-label{font-size:12px;font-weight:700;color:var(--b900);margin-top:6px;}
+.status-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.status-phase{font-size:11.5px;font-weight:700;color:var(--b700);margin-top:4px;}
+
+/* detail rows */
+.det-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.det-text{font-size:13px;font-weight:700;flex:1;}
+.det-dot{width:20px;height:20px;border-radius:50%;flex-shrink:0;}
+.pbar-wrap{background:var(--b050);border-radius:3px;height:7px;flex:1;max-width:80px;}
+.pbar{height:100%;border-radius:3px;background:#43A047;}
+
+/* mini gantt */
+.gantt-wrap{overflow-x:auto;}
+.gantt{width:100%;border-collapse:collapse;font-size:11px;}
+.gantt th{background:var(--b700);color:#fff;padding:4px 6px;text-align:center;
+          white-space:nowrap;border:1px solid var(--b900);}
+.gantt td{border:1px solid var(--rule);padding:3px 5px;white-space:nowrap;}
+.gantt .tn{background:var(--b050);min-width:120px;color:var(--b900);font-weight:600;}
+.bar{border-radius:2px;height:13px;display:inline-block;vertical-align:middle;}
+.b-done{background:var(--b700);}
+.b-now{background:var(--b500);}
+.b-plan{background:var(--b100);}
+.ph-row td{background:var(--b700);color:#fff;font-weight:700;font-size:10px;text-align:center;border-color:var(--b900);}
+.gantt-note{font-size:10.5px;color:var(--b500);margin-top:5px;font-style:italic;}
+
+/* content cards */
+.sec-label{font-size:11.5px;font-weight:800;color:var(--b700);
+           text-transform:uppercase;letter-spacing:.4px;margin:10px 0 5px;}
+.sec-label:first-child{margin-top:0;}
+ul.clist{padding-left:16px;}
+ul.clist li{font-size:12.5px;line-height:1.65;margin-bottom:3px;}
+
+/* risk / issue items */
+.risk-item{display:flex;gap:8px;margin-bottom:9px;align-items:flex-start;}
+.ri-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.ri-green{background:#43A047;}.ri-yellow{background:#FB8C00;}.ri-red{background:#E53935;}
+.ri-text{font-size:12px;line-height:1.5;flex:1;}
+
+/* mini bar chart */
+.mini-chart{display:flex;align-items:flex-end;gap:12px;height:70px;padding:0 4px;margin-bottom:10px;}
+.mc-col{display:flex;flex-direction:column;align-items:center;gap:2px;}
+.mc-b{width:30px;border-radius:2px 2px 0 0;}
+.mc-lbl{font-size:10px;color:var(--muted);}
+.mc-val{font-size:11px;font-weight:800;color:var(--b900);}
+
+/* summary box */
+.sum-box{background:var(--b050);border-left:3px solid var(--b500);
+         border-radius:0 4px 4px 0;padding:8px 12px;margin-top:10px;
+         font-size:12px;line-height:1.5;}
+
+footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
+       padding:18px;font-size:11px;margin-top:48px;letter-spacing:.2px;}
+
+@media(max-width:768px){.hero{padding:22px 20px;}.container{padding:20px 16px;}
+  nav{padding:0 16px;}.nav-project{display:none;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/fsl-report/" class="nav-logo-link">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 36" height="26" aria-label="FSL 佛山照明">
+      <rect x="0" y="3" width="4" height="30" fill="#F06000"/>
+      <rect x="0" y="3" width="18" height="4" fill="#F06000"/>
+      <rect x="0" y="16" width="13" height="4" fill="#F06000"/>
+      <path d="M22 3 h14 v4 h-9 v6 h9 v4 h-9 v7 h10 v4 h-15 v-9 h9 v-3 h-9 z" fill="#F06000"/>
+      <rect x="42" y="3" width="4" height="30" fill="#F06000"/>
+      <rect x="42" y="29" width="16" height="4" fill="#F06000"/>
+      <text x="66" y="26" font-family="Microsoft YaHei,PingFang SC,sans-serif"
+            font-size="14" font-weight="700" fill="rgba(255,255,255,0.92)" letter-spacing="1">佛山照明</text>
+    </svg>
+  </a>
+  <div class="nav-divider"></div>
+  <span class="nav-project">数字化转型项目工作台</span>
+  <div class="nav-links">
+    <a href="/fsl-report/">工作台首页</a>
+    <a href="/fsl-report/consulting/">管理咨询交付</a>
+    <a href="/fsl-report/sap/">SAP 实施</a>
+    <a href="/fsl-report/research/">行业研究与参</a>
+    <a href="/fsl-report/weekly/" class="active">项目周报</a>
+    <a href="/fsl-report/kanban/">任务看板</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>项目周报</h1>
+  <p>每周项目状态汇报 · 进度 · 风险 · 问题 · 下周计划</p>
+  <div class="hero-chips">
+    <span class="chip">探索阶段</span>
+    <span class="chip">W1 当前</span>
+    <span class="chip">2026-06-22 启动</span>
+  </div>
+</div>
+
+<div class="container">
+  <div class="bc">
+    <a href="/fsl-report/">工作台首页</a>
+    <span class="sep">›</span>
+    <span>项目周报</span>
+  </div>
+
+  <!-- ── Week list ── -->
+  <div class="week-list">
+
+    <!-- W1 - current -->
+    <a href="/fsl-report/weekly/w1.html" class="week-card">
+      <div class="wc-stripe current"></div>
+      <div class="wc-body">
+        <div>
+          <div class="wc-week">W1</div>
+          <div class="wc-dates">06-22 ~ 06-27</div>
+        </div>
+        <div style="flex:1;">
+          <div class="wc-title">探索阶段第1周 — D1商用/家用访谈完成，D2管理层进行中</div>
+          <div class="wc-phase">探索阶段（诊断） · D1–D5 · 全项目第1周</div>
+        </div>
+        <div class="wc-badges">
+          <span class="badge b-green">● 整体绿色</span>
+          <span class="badge b-yellow">⚠ 中风险 ×2</span>
+          <span class="badge b-blue">进行中</span>
+        </div>
+        <div class="wc-arrow">›</div>
+      </div>
+    </a>
+
+    <!-- Placeholder weeks -->
+    <div class="week-card" style="opacity:.45;cursor:default;pointer-events:none;">
+      <div class="wc-stripe"></div>
+      <div class="wc-body">
+        <div><div class="wc-week">W2</div><div class="wc-dates">06-29 ~ 07-04</div></div>
+        <div style="flex:1;"><div class="wc-title">探索阶段第2周 — D6–D10 生产/车灯/高明/质量/主数据</div><div class="wc-phase">探索阶段（诊断）</div></div>
+        <div class="wc-badges"><span class="badge b-muted">待发布</span></div>
+      </div>
+    </div>
+
+    <div class="week-card" style="opacity:.45;cursor:default;pointer-events:none;">
+      <div class="wc-stripe"></div>
+      <div class="wc-body">
+        <div><div class="wc-week">W3</div><div class="wc-dates">07-07 ~ 07-11</div></div>
+        <div style="flex:1;"><div class="wc-title">探索阶段收口 — 初步发现报告评审 · ★1交付物准备</div><div class="wc-phase">探索阶段（诊断）</div></div>
+        <div class="wc-badges"><span class="badge b-muted">待发布</span></div>
+      </div>
+    </div>
+
+  </div><!-- /week-list -->
+</div>
+
+<footer>佛山照明 SAP S/4HANA 升级项目工作台 · 机密文件 · 仅供项目组内部使用 · 2026</footer>
+</body>
+</html>
