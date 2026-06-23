@@ -101,6 +101,40 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
   nav{padding:0 16px;}.nav-project{display:none;}
   .stats-row{flex-wrap:wrap;}
 }
+
+/* ── Dropdown Nav ── */
+.nav-links{position:relative;}
+.nav-dropdown{position:relative;display:inline-flex;align-items:center;}
+.nav-dropdown>a{padding:0 14px;color:rgba(255,255,255,.6);font-size:12.5px;
+  height:54px;display:flex;align-items:center;white-space:nowrap;
+  transition:color .15s;border-bottom:2px solid transparent;cursor:pointer;}
+.nav-dropdown>a:hover,.nav-dropdown:hover>a{color:#fff;}
+.nav-dropdown>a.active{color:#fff;border-bottom-color:#5EA4CE;}
+.nav-arrow{font-size:10px;margin-left:3px;opacity:.7;}
+.nav-dropdown-panel{
+  display:none;position:absolute;top:54px;left:0;z-index:200;
+  background:var(--b900);border:1px solid rgba(255,255,255,.1);
+  border-top:2px solid #5EA4CE;border-radius:0 0 6px 6px;
+  padding:16px 20px;min-width:540px;
+  box-shadow:0 8px 24px rgba(11,45,71,.6);}
+.nav-dropdown:hover .nav-dropdown-panel{display:block;}
+.nav-dd-row{display:flex;gap:0;}
+.nav-dd-col{flex:1;padding:0 16px 0 0;}
+.nav-dd-col:last-child{padding-right:0;}
+.nav-dd-col+.nav-dd-col{border-left:1px solid rgba(255,255,255,.08);padding-left:16px;}
+.nav-dd-group-title{font-size:10px;font-weight:800;letter-spacing:.8px;
+  text-transform:uppercase;color:#5EA4CE;margin-bottom:8px;padding-bottom:4px;
+  border-bottom:1px solid rgba(255,255,255,.08);}
+.nav-dd-panel a{display:block;padding:5px 0;color:rgba(255,255,255,.65);
+  font-size:12.5px;transition:color .12s;}
+.nav-dd-panel a:hover{color:#fff;}
+.nav-dd-research{margin-top:14px;padding-top:12px;
+  border-top:1px solid rgba(255,255,255,.08);}
+.nav-dd-research .nav-dd-group-title{margin-bottom:6px;}
+.nav-dd-research-links{display:flex;gap:20px;}
+.nav-dd-research-links a{color:rgba(255,255,255,.65);font-size:12.5px;
+  padding:3px 0;transition:color .12s;}
+.nav-dd-research-links a:hover{color:#fff;}
 </style>
 </head>
 <body>
@@ -117,7 +151,38 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
 </svg></a>
   <div class="nav-divider"></div>
   <span class="nav-project">数字化转型项目工作台</span>
-  <div class="nav-links"><a href="/fsl-report/">工作台首页</a><a href="/fsl-report/consulting/" class="active">管理咨询交付</a><a href="/fsl-report/sap/">SAP 实施</a><a href="/fsl-report/research/">行业研究与参</a><a href="/fsl-report/weekly/">项目周报</a></div>
+  <div class="nav-links">
+    <a href="/fsl-report/">工作台首页</a>
+    <div class="nav-dropdown">
+      <a href="/fsl-report/deliverables/" class="active">交付物 <span class="nav-arrow">▾</span></a>
+      <div class="nav-dropdown-panel">
+        <div class="nav-dd-row">
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">管理咨询交付</div>
+            <a href="/fsl-report/consulting/diagnosis/">现状分析与诊断</a>
+            <a href="/fsl-report/consulting/blueprint/">蓝图及架构设计</a>
+            <a href="/fsl-report/consulting/solutions/">专项方案设计</a>
+            <a href="/fsl-report/consulting/roadmap/">实施路径规划</a>
+          </div>
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">SAP 实施交付</div>
+            <a href="/fsl-report/sap/prepare/">项目准备阶段</a>
+            <a href="/fsl-report/sap/blueprint/">蓝图方案设计</a>
+            <a href="/fsl-report/sap/realize/">系统实现阶段</a>
+            <a href="/fsl-report/sap/deploy/">上线切换阶段</a>
+          </div>
+        </div>
+        <div class="nav-dd-row">
+          <div class="nav-dd-col full nav-dd-panel">
+            <div class="nav-dd-group-title">行业研究</div>
+            <a href="/fsl-report/research/">照明行业对标研究</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="/fsl-report/weekly/">项目周报</a>
+    <a href="/fsl-report/kanban/">任务看板</a>
+  </div>
 </nav>
 <div class="hero">
   <h1>蓝图及架构设计阶段</h1>
