@@ -284,7 +284,7 @@ nav{overflow:visible !important;}
   <div class="nav-links">
     <a href="/fsl-report/">工作台首页</a>
     <div class="nav-dropdown">
-      <a href="/fsl-report/deliverables/">交付物 <span class="nav-arrow">▾</span></a>
+      <a href="#" onclick="return false;">交付物 <span class="nav-arrow">▾</span></a>
       <div class="nav-dropdown-panel">
         <div class="nav-dd-row">
           <div class="nav-dd-col nav-dd-panel">
@@ -493,14 +493,15 @@ async function init(){
     allMilestones=ms;
     render();
   }catch(e){
-    if(e.message.startsWith('401')||e.message.startsWith('403')){
+    if(e.message&&(e.message.startsWith('401')||e.message.startsWith('403'))){
       TOKEN=''; localStorage.removeItem('gh_token_fsl');
-      document.getElementById('loading').style.display='none';
-      document.getElementById('token-prompt').classList.add('show'); return;
+      document.getElementById('token-prompt').classList.add('show');
+    } else {
+      try{ useDemoData(); }catch(e2){ console.error('demo data error',e2); }
     }
-    useDemoData();
+  } finally {
+    document.getElementById('loading').style.display='none';
   }
-  document.getElementById('loading').style.display='none';
 }
 
 // ── demo data ─────────────────────────────────────────────────────
@@ -526,7 +527,7 @@ function useDemoData(){
     {number:10,title:'[风险] MES/WMS供应商接口配合风险',state:'open',labels:[{name:'status:待办'},{name:'优先级:高'},{name:'类型:风险'},{name:'模块:CPI'},{name:'阶段:SAP-蓝图'}],milestone:{number:2,title:'M1 架构蓝图评审通过'},body:'IF-005和IF-006需要MES/WMS供应商配合改造，供应商可能响应慢或配合不足。',html_url:'https://github.com/'+REPO+'/issues/10'},
   ];
   render();
-  document.getElementById('loading').style.display='none';
+  try{ document.getElementById('loading').style.display='none'; }catch(e){}
 }
 
 // ── render all ────────────────────────────────────────────────────
