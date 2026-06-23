@@ -18,19 +18,17 @@ a{color:inherit;text-decoration:none;}
 
 /* ── NAV ── */
 nav{background:var(--b900);padding:0 32px;display:flex;align-items:center;gap:20px;
-    height:54px;flex-shrink:0;z-index:300;
+    height:54px;flex-shrink:0;z-index:300;overflow:visible !important;
     box-shadow:0 2px 10px rgba(11,45,71,.5);}
 .nav-logo-link{display:flex;align-items:center;gap:10px;flex-shrink:0;}
 .nav-divider{width:1px;height:24px;background:rgba(255,255,255,.15);flex-shrink:0;}
 .nav-project{color:rgba(255,255,255,.55);font-size:12px;letter-spacing:.2px;white-space:nowrap;}
-.nav-links{display:flex;flex:1;overflow:visible;position:relative;}
+.nav-links{display:flex;flex:1;overflow:visible !important;position:relative;}
 .nav-links a{padding:0 14px;color:rgba(255,255,255,.6);font-size:12.5px;
              height:54px;display:flex;align-items:center;white-space:nowrap;
              transition:color .15s;border-bottom:2px solid transparent;}
 .nav-links a:hover{color:rgba(255,255,255,.9);}
 .nav-links a.active{color:#fff;border-bottom-color:#5EA4CE;}
-
-/* ── Dropdown Nav ── */
 .nav-dropdown{position:relative;display:inline-flex;align-items:center;}
 .nav-dropdown>a{padding:0 14px;color:rgba(255,255,255,.6);font-size:12.5px;
   height:54px;display:flex;align-items:center;white-space:nowrap;
@@ -38,44 +36,36 @@ nav{background:var(--b900);padding:0 32px;display:flex;align-items:center;gap:20
 .nav-dropdown>a:hover,.nav-dropdown:hover>a{color:#fff;}
 .nav-dropdown>a.active{color:#fff;border-bottom-color:#5EA4CE;}
 .nav-arrow{font-size:10px;margin-left:3px;opacity:.7;}
-.nav-dropdown-panel{
-  display:none;position:absolute;top:54px;left:0;z-index:400;
+.nav-dropdown-panel{display:none;position:absolute;top:54px;left:0;z-index:400;
   background:var(--b900);border:1px solid rgba(255,255,255,.1);
   border-top:2px solid #5EA4CE;border-radius:0 0 6px 6px;
-  padding:16px 20px;min-width:540px;
-  box-shadow:0 8px 24px rgba(11,45,71,.6);}
+  padding:16px 20px;min-width:540px;box-shadow:0 8px 24px rgba(11,45,71,.6);}
 .nav-dropdown:hover .nav-dropdown-panel{display:block;}
 .nav-dd-row{display:flex;gap:0;}
 .nav-dd-col{flex:1;padding:0 16px 0 0;}
 .nav-dd-col:last-child{padding-right:0;}
 .nav-dd-col+.nav-dd-col{border-left:1px solid rgba(255,255,255,.08);padding-left:16px;}
-.nav-dd-group-title{font-size:10px;font-weight:800;letter-spacing:.8px;
-  text-transform:uppercase;color:#5EA4CE;margin-bottom:8px;padding-bottom:4px;
-  border-bottom:1px solid rgba(255,255,255,.08);}
-.nav-dd-panel a{display:block;padding:5px 0;color:rgba(255,255,255,.65);
-  font-size:12.5px;transition:color .12s;}
+.nav-dd-group-title{font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;
+  color:#5EA4CE;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid rgba(255,255,255,.08);}
+.nav-dd-panel a{display:block;padding:5px 0;color:rgba(255,255,255,.65);font-size:12.5px;transition:color .12s;}
 .nav-dd-panel a:hover{color:#fff;}
-.nav-dd-research{margin-top:14px;padding-top:12px;
-  border-top:1px solid rgba(255,255,255,.08);}
+.nav-dd-research{margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);}
 .nav-dd-research .nav-dd-group-title{margin-bottom:6px;}
 .nav-dd-research-links{display:flex;gap:20px;}
-.nav-dd-research-links a{color:rgba(255,255,255,.65);font-size:12.5px;
-  padding:3px 0;transition:color .12s;}
+.nav-dd-research-links a{color:rgba(255,255,255,.65);font-size:12.5px;padding:3px 0;transition:color .12s;}
 .nav-dd-research-links a:hover{color:#fff;}
-nav{overflow:visible !important;}
-.nav-links{overflow:visible !important;position:relative;}
 
-/* ── HERO strip ── */
+/* ── HERO STRIP ── */
 .hero-strip{background:linear-gradient(135deg,var(--b900) 0%,var(--b700) 100%);
-  color:#fff;padding:14px 32px;display:flex;align-items:center;gap:20px;
+  color:#fff;padding:12px 32px;display:flex;align-items:center;gap:20px;
   flex-shrink:0;border-bottom:3px solid var(--b500);}
-.hero-strip h1{font-size:16px;font-weight:800;letter-spacing:-.2px;}
-.hero-strip p{font-size:12px;opacity:.65;margin-top:1px;}
+.hero-strip h1{font-size:15px;font-weight:800;}
+.hero-strip p{font-size:11.5px;opacity:.65;margin-top:1px;}
 .hero-chips{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap;}
 .chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);
-      border-radius:3px;padding:2px 10px;font-size:11px;letter-spacing:.3px;}
+      border-radius:3px;padding:2px 9px;font-size:10.5px;letter-spacing:.3px;}
 
-/* ── Gantt toolbar ── */
+/* ── GANTT TOOLBAR ── */
 .gantt-toolbar{background:var(--white);border-bottom:1px solid var(--pale);
   padding:6px 18px;display:flex;align-items:center;gap:8px;flex-shrink:0;flex-wrap:wrap;}
 .g-btn{padding:4px 10px;border:1px solid var(--pale);border-radius:5px;font-size:11.5px;
@@ -83,9 +73,9 @@ nav{overflow:visible !important;}
 .g-btn:hover{background:var(--pale);}
 .g-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);}
 .g-legend{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:10.5px;color:var(--muted);flex-wrap:wrap;}
-.g-leg-dot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:3px;vertical-align:middle;}
+.g-dot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:3px;vertical-align:middle;}
 
-/* ── Gantt body ── */
+/* ── GANTT BODY ── */
 .gantt-outer{flex:1;display:flex;overflow:hidden;}
 #ganttLeft{width:380px;min-width:380px;flex-shrink:0;overflow-y:auto;overflow-x:hidden;
   border-right:2px solid var(--pale);}
@@ -98,24 +88,22 @@ nav{overflow:visible !important;}
 <body>
 
 <nav>
-  <a href="/fsl-report/" class="nav-logo-link">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 36" height="26" aria-label="FSL 佛山照明">
-      <rect x="0" y="3" width="4" height="30" fill="#F06000"/>
-      <rect x="0" y="3" width="18" height="4" fill="#F06000"/>
-      <rect x="0" y="16" width="13" height="4" fill="#F06000"/>
-      <path d="M22 3 h14 v4 h-9 v6 h9 v4 h-9 v7 h10 v4 h-15 v-9 h9 v-3 h-9 z" fill="#F06000"/>
-      <rect x="42" y="3" width="4" height="30" fill="#F06000"/>
-      <rect x="42" y="29" width="16" height="4" fill="#F06000"/>
-      <text x="66" y="26" font-family="Microsoft YaHei,PingFang SC,sans-serif"
-            font-size="14" font-weight="700" fill="rgba(255,255,255,0.92)" letter-spacing="1">佛山照明</text>
-    </svg>
-  </a>
+  <a href="/fsl-report/" class="nav-logo-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 36" height="26" aria-label="FSL 佛山照明">
+  <rect x="0" y="3" width="4" height="30" fill="#F06000"/>
+  <rect x="0" y="3" width="18" height="4" fill="#F06000"/>
+  <rect x="0" y="16" width="13" height="4" fill="#F06000"/>
+  <path d="M22 3 h14 v4 h-9 v6 h9 v4 h-9 v7 h10 v4 h-15 v-9 h9 v-3 h-9 z" fill="#F06000"/>
+  <rect x="42" y="3" width="4" height="30" fill="#F06000"/>
+  <rect x="42" y="29" width="16" height="4" fill="#F06000"/>
+  <text x="66" y="26" font-family="Microsoft YaHei,PingFang SC,sans-serif"
+        font-size="14" font-weight="700" fill="rgba(255,255,255,0.92)" letter-spacing="1">佛山照明</text>
+</svg></a>
   <div class="nav-divider"></div>
   <span class="nav-project">数字化转型项目工作台</span>
   <div class="nav-links">
     <a href="/fsl-report/" class="active">工作台首页</a>
     <div class="nav-dropdown">
-      <a href="#" onclick="return false;">交付物 <span class="nav-arrow">▾</span></a>
+      <a href="/fsl-report/deliverables/">交付物 <span class="nav-arrow">▾</span></a>
       <div class="nav-dropdown-panel">
         <div class="nav-dd-row">
           <div class="nav-dd-col nav-dd-panel">
@@ -154,31 +142,31 @@ nav{overflow:visible !important;}
   <div class="hero-chips">
     <span class="chip">2026-05-29 启动</span>
     <span class="chip">预计 2027.01.01 上线</span>
-    <span class="chip">19家法人</span>
-    <span class="chip">Green Field</span>
+    <span class="chip">19家法人 · Green Field</span>
   </div>
 </div>
 
 <div class="gantt-toolbar">
-  <button class="g-btn" onclick="ganttToday()">📅 今天</button>
-  <span style="color:var(--muted);font-size:11px;">缩放：</span>
   <button class="g-btn active" id="gZoomW" onclick="ganttZoom('week')">按周</button>
   <button class="g-btn" id="gZoomM" onclick="ganttZoom('month')">按月</button>
   <button class="g-btn" onclick="ganttExpandAll()">展开全部</button>
   <button class="g-btn" onclick="ganttCollapseAll()">折叠全部</button>
+  <button class="g-btn" onclick="ganttToday()">📅 今天</button>
   <div class="g-legend">
-    <span><span class="g-leg-dot" style="background:var(--navy)"></span>咨询</span>
-    <span><span class="g-leg-dot" style="background:var(--primary)"></span>SAP准备/蓝图</span>
-    <span><span class="g-leg-dot" style="background:var(--mid)"></span>实现</span>
-    <span><span class="g-leg-dot" style="background:var(--steel)"></span>部署</span>
-    <span style="color:var(--navy);font-weight:700">│今日</span>
+    <span><span class="g-dot" style="background:#0B2D47"></span>咨询</span>
+    <span><span class="g-dot" style="background:#2374A3"></span>SAP准备/蓝图</span>
+    <span><span class="g-dot" style="background:#3D8FC4"></span>实现</span>
+    <span><span class="g-dot" style="background:#5B7A91"></span>部署</span>
+    <span style="color:#0B2D47;font-weight:700">│今日</span>
   </div>
 </div>
 
 <div class="gantt-outer">
   <div id="ganttLeft">
     <div class="gantt-col-hd">
-      <span>名称</span><span style="text-align:center">负责人</span><span style="text-align:center">完成度</span>
+      <span>名称</span>
+      <span style="text-align:center">负责人</span>
+      <span style="text-align:center">完成度</span>
     </div>
     <div id="ganttTreeBody"></div>
   </div>
@@ -323,29 +311,6 @@ function flattenTree(){
 }
 
 // Find task by rowId
-function findTaskByRowId(rowId){
-  for(var pi=0;pi<GANTT_PHASES.length;pi++){
-    var ph=GANTT_PHASES[pi];
-    if(rowId===ph.id) return {type:'phase',ph:ph};
-    for(var ti=0;ti<ph.tasks.length;ti++){
-      var t=ph.tasks[ti];
-      if(rowId===ph.id+'__'+t.id) return {type:'task',task:t,ph:ph};
-      if(t.children){
-        for(var ci=0;ci<t.children.length;ci++){
-          var c=t.children[ci];
-          if(rowId===ph.id+'__'+c.id) return {type:'task',task:c,ph:ph,parent:t};
-          if(c.children){
-            for(var gi=0;gi<c.children.length;gi++){
-              var g=c.children[gi];
-              if(rowId===ph.id+'__'+g.id) return {type:'task',task:g,ph:ph,parent:c};
-            }
-          }
-        }
-      }
-    }
-  }
-  return null;
-}
 
 function renderGantt(){
   var zoom=GANTT_ZOOM;
@@ -488,119 +453,11 @@ function renderGantt(){
 }
 
 // ── Task detail panel ─────────────────────────────────────────────
-function selectGanttRow(rowId){
-  SELECTED_TASK_ID = rowId;
-  renderGantt();
-  openTaskDetail(rowId);
-}
-
-function openTaskDetail(rowId){
-  var found = findTaskByRowId(rowId);
-  if(!found){ closeTaskDetail(); return; }
-  var panel = document.getElementById('taskDetailPanel');
-  var isPhase = found.type==='phase';
-  var task = isPhase ? found.ph : found.task;
-  var ph = isPhase ? found.ph : found.ph;
-
-  var statusOpts = ['未开始','进行中','待评审','已完成'].map(function(s){
-    var sel = (task.pct===100&&s==='已完成')||(task.pct>0&&task.pct<100&&s==='进行中')||(task.pct===0&&s==='未开始');
-    return '<option value="'+s+'" '+(sel?'selected':'')+'>'+s+'</option>';
-  }).join('');
-
-  var parentInfo = '';
-  if(!isPhase) parentInfo = '<div class="dp-field-row"><span class="dp-label">所属阶段</span><span style="font-size:12px;color:var(--primary)">'+ph.label+'</span></div>';
-  if(found.parent) parentInfo += '<div class="dp-field-row"><span class="dp-label">上级任务</span><span style="font-size:12px;color:var(--mid)">'+found.parent.label+'</span></div>';
-
-  panel.innerHTML =
-    '<div style="background:linear-gradient(90deg,var(--dark),var(--primary));color:#fff;padding:12px 14px;display:flex;align-items:center;gap:8px;flex-shrink:0">'+
-      '<div style="flex:1;font-size:13px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(task.label)+'</div>'+
-      '<button onclick="closeTaskDetail()" style="background:rgba(255,255,255,.15);border:none;color:#fff;width:24px;height:24px;border-radius:4px;cursor:pointer;font-size:13px;flex-shrink:0">✕</button>'+
-    '</div>'+
-    '<div style="padding:14px;flex:1;overflow-y:auto">'+
-      '<div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap">'+
-        '<span style="font-size:10px;padding:2px 7px;border-radius:8px;background:var(--pale);color:var(--dark);font-weight:600">'+(task.milestone?'◆ 里程碑':isPhase?'阶段':'任务')+'</span>'+
-        '<span style="font-size:10px;padding:2px 7px;border-radius:8px;background:var(--bg);color:var(--steel);font-weight:600">'+ph.label+'</span>'+
-      '</div>'+
-      '<div style="font-size:11.5px;margin-bottom:14px;font-weight:800;color:var(--dark);line-height:1.4">'+esc(task.label)+'</div>'+
-      parentInfo+
-      '<div class="dp-field-row"><span class="dp-label">负责人</span>'+
-        '<div style="display:flex;align-items:center;gap:6px"><div style="width:24px;height:24px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">'+(task.owner?task.owner.charAt(0).toUpperCase():'?')+'</div><input class="dp-input" id="dpOwner" value="'+esc(task.owner||'')+'" placeholder="负责人"></div>'+
-      '</div>'+
-      '<div class="dp-field-row"><span class="dp-label">起止日期</span>'+
-        '<div style="display:flex;align-items:center;gap:4px">'+
-          '<input class="dp-input" id="dpStart" type="date" value="'+task.start+'" style="width:130px">'+
-          '<span style="font-size:11px;color:var(--muted)">—</span>'+
-          '<input class="dp-input" id="dpEnd" type="date" value="'+task.end+'" style="width:130px">'+
-        '</div>'+
-      '</div>'+
-      '<div class="dp-field-row"><span class="dp-label">状态</span>'+
-        '<select class="dp-input" id="dpStatus">'+statusOpts+'</select>'+
-      '</div>'+
-      '<div class="dp-field-row"><span class="dp-label">完成度</span>'+
-        '<div style="display:flex;align-items:center;gap:8px">'+
-          '<input type="range" id="dpPct" min="0" max="100" step="5" value="'+task.pct+'" style="flex:1" oninput="document.getElementById(\'dpPctVal\').textContent=this.value+\'%\'">'+
-          '<span id="dpPctVal" style="font-size:12px;font-weight:700;color:var(--primary);min-width:36px">'+task.pct+'%</span>'+
-        '</div>'+
-      '</div>'+
-      (task.deliverable?'<div class="dp-field-row"><span class="dp-label">交付物</span><span style="font-size:11.5px;color:var(--primary)">'+esc(task.deliverable)+'</span></div>':'')+
-      '<div style="margin-top:10px"><div style="font-size:11px;color:var(--muted);margin-bottom:5px">描述</div>'+
-        '<textarea id="dpDesc" style="width:100%;min-height:80px;padding:7px 9px;border:1px solid var(--pale);border-radius:5px;font-size:12px;font-family:inherit;resize:vertical;outline:none;color:var(--text2)" oninput="this.style.height=\'auto\';this.style.height=this.scrollHeight+\'px\'">'+esc(task.desc||'').replace(/\\n/g,'&#10;')+'</textarea>'+
-      '</div>'+
-    '</div>'+
-    '<div style="padding:10px 14px;border-top:1px solid var(--pale);display:flex;gap:8px;flex-shrink:0">'+
-      '<button onclick="saveTaskDetail(\''+rowId+'\')" style="flex:1;padding:8px;background:var(--primary);color:#fff;border:none;border-radius:6px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit">💾 保存</button>'+
-      '<button onclick="closeTaskDetail()" style="padding:8px 14px;background:var(--bg);color:var(--steel);border:1px solid var(--pale);border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit">取消</button>'+
-    '</div>';
-
-  panel.style.display='flex';
-  document.getElementById('ganttRight').style.marginRight='380px';
-}
-
-function saveTaskDetail(rowId){
-  var found=findTaskByRowId(rowId);
-  if(!found) return;
-  var task=found.type==='phase'?found.ph:found.task;
-  var newStart=document.getElementById('dpStart').value;
-  var newEnd=document.getElementById('dpEnd').value;
-  var newOwner=document.getElementById('dpOwner').value;
-  var newPct=parseInt(document.getElementById('dpPct').value);
-  var newDesc=document.getElementById('dpDesc').value;
-  if(new Date(newEnd)<new Date(newStart)){ alert('结束日期不能早于开始日期'); return; }
-  task.start=newStart; task.end=newEnd; task.owner=newOwner; task.pct=newPct; task.desc=newDesc;
-  // bubble pct up to phase
-  var ph=found.ph;
-  var allTasks=[]; ph.tasks.forEach(function(t){ allTasks.push(t); if(t.children) t.children.forEach(function(c){ allTasks.push(c); if(c.children) c.children.forEach(function(g){ allTasks.push(g); }); }); });
-  var nonMilestone=allTasks.filter(function(t){return !t.milestone;});
-  if(nonMilestone.length) ph.pct=Math.round(nonMilestone.reduce(function(s,t){return s+(t.pct||0);},0)/nonMilestone.length);
-  renderGantt();
-  // flash save indicator
-  var btn=document.querySelector('#taskDetailPanel button');
-  if(btn){ btn.textContent='✅ 已保存'; btn.style.background='var(--steel)'; setTimeout(function(){btn.textContent='💾 保存';btn.style.background='var(--primary)';},1500); }
-}
-
-function closeTaskDetail(){
-  SELECTED_TASK_ID=null;
-  document.getElementById('taskDetailPanel').style.display='none';
-  document.getElementById('ganttRight').style.marginRight='0';
-  renderGantt();
-}
-
-function addNewTask(){
-  // Add to first phase as placeholder
-  var ph=GANTT_PHASES[0];
-  var today=new Date().toISOString().split('T')[0];
-  var end=new Date(); end.setDate(end.getDate()+14);
-  var endStr=end.toISOString().split('T')[0];
-  var newT={id:'new_'+Date.now(),label:'新建任务',owner:'',pct:0,start:today,end:endStr,milestone:false,desc:''};
-  ph.tasks.push(newT);
-  var rowId=ph.id+'__'+newT.id;
-  SELECTED_TASK_ID=rowId;
-  renderGantt();
-  openTaskDetail(rowId);
-}
 
 function ganttToggle(id){ GANTT_COLLAPSED[id]=!GANTT_COLLAPSED[id]; renderGantt(); if(SELECTED_TASK_ID) openTaskDetail(SELECTED_TASK_ID); }
+
 function ganttExpandAll(){ GANTT_COLLAPSED={}; renderGantt(); }
+
 function ganttCollapseAll(){
   GANTT_PHASES.forEach(function(ph){
     GANTT_COLLAPSED[ph.id]=true;
@@ -608,26 +465,7 @@ function ganttCollapseAll(){
   });
   renderGantt();
 }
-function ganttZoom(z){
-  GANTT_ZOOM=z;
-  var wBtn=document.getElementById('gZoomW'), mBtn=document.getElementById('gZoomM');
-  if(wBtn){ wBtn.style.background=z==='week'?'var(--primary)':'var(--bg)'; wBtn.style.color=z==='week'?'#fff':'var(--steel)'; wBtn.style.border=z==='week'?'none':'1px solid var(--pale)'; }
-  if(mBtn){ mBtn.style.background=z==='month'?'var(--primary)':'var(--bg)'; mBtn.style.color=z==='month'?'#fff':'var(--steel)'; mBtn.style.border=z==='month'?'none':'1px solid var(--pale)'; }
-  renderGantt();
-}
-function ganttToday(){
-  var gr=document.getElementById('ganttRight');
-  if(!gr) return;
 
-function ganttToggle(id){ GANTT_COLLAPSED[id]=!GANTT_COLLAPSED[id]; renderGantt(); if(SELECTED_TASK_ID) openTaskDetail(SELECTED_TASK_ID); }
-function ganttExpandAll(){ GANTT_COLLAPSED={}; renderGantt(); }
-function ganttCollapseAll(){
-  GANTT_PHASES.forEach(function(ph){
-    GANTT_COLLAPSED[ph.id]=true;
-    ph.tasks.forEach(function(t){ if(t.children||t.tasks) GANTT_COLLAPSED[ph.id+'__'+t.id]=true; });
-  });
-  renderGantt();
-}
 function ganttZoom(z){
   GANTT_ZOOM=z;
   var wBtn=document.getElementById('gZoomW'), mBtn=document.getElementById('gZoomM');
@@ -635,6 +473,7 @@ function ganttZoom(z){
   if(mBtn){ mBtn.style.background=z==='month'?'var(--primary)':'var(--bg)'; mBtn.style.color=z==='month'?'#fff':'var(--steel)'; mBtn.style.border=z==='month'?'none':'1px solid var(--pale)'; }
   renderGantt();
 }
+
 function ganttToday(){
   var gr=document.getElementById('ganttRight');
   if(!gr) return;
@@ -643,20 +482,16 @@ function ganttToday(){
 }
 
 // ── RISK ──────────────────────────────────────────────────────────
-function renderRisk(issues){
-  var risks=issues.filter(function(i){return isRisk(i);});
-  var staticRisks=[
-    {title:'主数据清洗周期超预期',level:'high',tags:['高概率','高影响'],desc:'6.2万物料数据质量比预期差，清洗工作量超出，数据迁移100%准确率无法按时达到',mitigation:'2026年6月立即启动数据清洗（先于系统配置）；三轮模拟迁移'},
-    {title:'广晟集团系统边界未明确',level:'high',tags:['中概率','高影响'],desc:'广晟推行的共享/司库/合并系统与佛照S/4HANA的边界未定义，可能导致范围蔓延或接口冲突',mitigation:'2026年7月31日前明确边界协议，超出边界的需求纳入变更请求管理'},
-    {title:'关键用户参与度不足',level:'med',tags:['中概率','中影响'],desc:'业务部门关键用户无法投入足够时间参与蓝图确认和UAT测试',mitigation:'李泽华副总经理签字的关键用户承诺书；每周项目例会机制'},
 
-function selectGanttRow(rowId){ SELECTED_TASK_ID=rowId; renderGantt(); }
+function selectGanttRow(rowId){
+  SELECTED_TASK_ID = rowId;
+  renderGantt();
+}
 
-// Boot
 window.addEventListener('DOMContentLoaded', function(){
   ganttExpandAll();
   renderGantt();
-  setTimeout(ganttToday, 100);
+  setTimeout(ganttToday, 150);
 });
 </script>
 </body>
