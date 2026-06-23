@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>交付物 | FSL 工作台</title>
+<style>
+:root{--b900:#0B2D47;--b700:#1A4F73;--b500:#2374A3;--b300:#5EA4CE;
+      --b100:#C7E2F2;--b050:#EBF5FB;--bg:#F2F7FB;--text:#0F2233;
+      --muted:#5B7A91;--rule:#D6E8F2;--r:6px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;
+     background:var(--bg);color:var(--text);font-size:14px;line-height:1.8;}
+a{color:inherit;text-decoration:none;}
+
+nav{background:var(--b900);padding:0 32px;display:flex;align-items:center;gap:20px;
+    height:54px;position:sticky;top:0;z-index:300;
+    box-shadow:0 2px 10px rgba(11,45,71,.5);overflow:visible !important;}
+.nav-logo-link{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.nav-divider{width:1px;height:24px;background:rgba(255,255,255,.15);flex-shrink:0;}
+.nav-project{color:rgba(255,255,255,.55);font-size:12px;letter-spacing:.2px;white-space:nowrap;}
+.nav-links{display:flex;flex:1;overflow:visible !important;position:relative;}
+.nav-links a{padding:0 14px;color:rgba(255,255,255,.6);font-size:12.5px;
+             height:54px;display:flex;align-items:center;white-space:nowrap;
+             transition:color .15s;border-bottom:2px solid transparent;}
+.nav-links a:hover{color:rgba(255,255,255,.9);}
+.nav-links a.active{color:#fff;border-bottom-color:#5EA4CE;}
+.nav-dropdown{position:relative;display:inline-flex;align-items:center;}
+.nav-dropdown>a{padding:0 14px;color:rgba(255,255,255,.6);font-size:12.5px;height:54px;display:flex;align-items:center;white-space:nowrap;transition:color .15s;border-bottom:2px solid transparent;cursor:pointer;}
+.nav-dropdown>a:hover,.nav-dropdown:hover>a{color:#fff;}
+.nav-dropdown>a.active{color:#fff;border-bottom-color:#5EA4CE;}
+.nav-arrow{font-size:10px;margin-left:3px;opacity:.7;}
+.nav-dropdown-panel{display:none;position:absolute;top:54px;left:0;z-index:400;background:var(--b900);border:1px solid rgba(255,255,255,.1);border-top:2px solid #5EA4CE;border-radius:0 0 6px 6px;padding:16px 20px;min-width:540px;box-shadow:0 8px 24px rgba(11,45,71,.6);}
+.nav-dropdown:hover .nav-dropdown-panel{display:block;}
+.nav-dd-row{display:flex;gap:0;}
+.nav-dd-col{flex:1;padding:0 16px 0 0;}.nav-dd-col:last-child{padding-right:0;}
+.nav-dd-col+.nav-dd-col{border-left:1px solid rgba(255,255,255,.08);padding-left:16px;}
+.nav-dd-group-title{font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:#5EA4CE;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid rgba(255,255,255,.08);}
+.nav-dd-panel a{display:block;padding:5px 0;color:rgba(255,255,255,.65);font-size:12.5px;transition:color .12s;}
+.nav-dd-panel a:hover{color:#fff;}
+.nav-dd-research{margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);}
+.nav-dd-research .nav-dd-group-title{margin-bottom:6px;}
+.nav-dd-research-links{display:flex;gap:20px;}
+.nav-dd-research-links a{color:rgba(255,255,255,.65);font-size:12.5px;padding:3px 0;transition:color .12s;}
+.nav-dd-research-links a:hover{color:#fff;}
+
+.hero{background:linear-gradient(155deg,var(--b900) 0%,var(--b700) 100%);
+      color:#fff;padding:48px 48px 42px;border-bottom:3px solid var(--b500);}
+.hero h1{font-size:26px;font-weight:800;margin-bottom:8px;letter-spacing:-.2px;}
+.hero p{font-size:13.5px;opacity:.75;max-width:760px;line-height:1.85;}
+.hero-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);
+      border-radius:3px;padding:3px 12px;font-size:11px;letter-spacing:.4px;text-transform:uppercase;}
+
+.container{max-width:1280px;margin:0 auto;padding:36px 32px;}
+
+.stats-row{display:flex;gap:1px;background:var(--rule);border-radius:var(--r);
+           overflow:hidden;border:1px solid var(--rule);margin-bottom:32px;}
+.stat{flex:1;background:#fff;padding:14px 18px;text-align:center;}
+.stat .sv{font-size:22px;font-weight:800;color:var(--b700);}
+.stat .sl{font-size:11px;color:var(--muted);margin-top:2px;}
+
+.section-hd{display:flex;align-items:center;gap:12px;margin:36px 0 16px;}
+.section-hd:first-child{margin-top:0;}
+.sec-icon{width:38px;height:38px;background:var(--b700);border-radius:var(--r);
+          display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;}
+.sec-title{font-size:17px;font-weight:800;color:var(--b900);}
+.sec-desc{font-size:12.5px;color:var(--muted);margin-top:2px;}
+
+.progress-bar{height:4px;background:var(--rule);border-radius:2px;margin-top:6px;max-width:200px;}
+.progress-fill{height:100%;border-radius:2px;background:var(--b500);}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(252px,1fr));gap:14px;margin-bottom:8px;}
+.folder-card{background:#fff;border:1px solid var(--rule);border-radius:var(--r);
+             padding:18px 20px;display:flex;align-items:center;gap:14px;
+             box-shadow:0 1px 3px rgba(35,116,163,.05);
+             transition:box-shadow .15s,transform .15s;}
+.folder-card:hover{box-shadow:0 4px 14px rgba(35,116,163,.13);transform:translateY(-2px);}
+.fc-icon{font-size:24px;flex-shrink:0;}
+.fc-name{font-size:13.5px;font-weight:700;color:var(--b900);}
+.fc-meta{font-size:11.5px;color:var(--muted);margin-top:3px;}
+.fc-arrow{color:var(--b300);font-size:16px;margin-left:8px;}
+
+.divider{border:none;border-top:1px solid var(--rule);margin:28px 0;}
+footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
+       padding:18px;font-size:11px;margin-top:48px;letter-spacing:.2px;}
+@media(max-width:768px){
+  .hero{padding:28px 20px;}.container{padding:20px 16px;}
+  nav{padding:0 16px;}.nav-project{display:none;}
+  .stats-row{flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/fsl-report/" class="nav-logo-link">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 36" height="26" aria-label="FSL 佛山照明">
+      <rect x="0" y="3" width="4" height="30" fill="#F06000"/>
+      <rect x="0" y="3" width="18" height="4" fill="#F06000"/>
+      <rect x="0" y="16" width="13" height="4" fill="#F06000"/>
+      <path d="M22 3 h14 v4 h-9 v6 h9 v4 h-9 v7 h10 v4 h-15 v-9 h9 v-3 h-9 z" fill="#F06000"/>
+      <rect x="42" y="3" width="4" height="30" fill="#F06000"/>
+      <rect x="42" y="29" width="16" height="4" fill="#F06000"/>
+      <text x="66" y="26" font-family="Microsoft YaHei,PingFang SC,sans-serif"
+            font-size="14" font-weight="700" fill="rgba(255,255,255,0.92)" letter-spacing="1">佛山照明</text>
+    </svg>
+  </a>
+  <div class="nav-divider"></div>
+  <span class="nav-project">数字化转型项目工作台</span>
+  <div class="nav-links">
+    <a href="/fsl-report/">工作台首页</a>
+    <div class="nav-dropdown">
+      <a href="#" onclick="return false;" class="active">交付物 <span class="nav-arrow">▾</span></a>
+      <div class="nav-dropdown-panel">
+        <div class="nav-dd-row">
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">管理咨询交付</div>
+            <a href="/fsl-report/consulting/diagnosis/">现状分析与诊断</a>
+            <a href="/fsl-report/consulting/blueprint/">蓝图及架构设计</a>
+            <a href="/fsl-report/consulting/solutions/">专项方案设计</a>
+            <a href="/fsl-report/consulting/roadmap/">实施路径规划</a>
+          </div>
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">SAP 实施交付</div>
+            <a href="/fsl-report/sap/prepare/">项目准备阶段</a>
+            <a href="/fsl-report/sap/blueprint/">蓝图方案设计</a>
+            <a href="/fsl-report/sap/realize/">系统实现阶段</a>
+            <a href="/fsl-report/sap/deploy/">上线切换阶段</a>
+          </div>
+        </div>
+        <div class="nav-dd-research">
+          <div class="nav-dd-group-title">行业研究</div>
+          <div class="nav-dd-research-links">
+            <a href="/fsl-report/research/">照明行业对标研究</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="/fsl-report/weekly/">项目周报</a>
+    <a href="/fsl-report/kanban/">任务看板</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>数字化转型项目工作台</h1>
+  <p>SAP S/4HANA 升级 + 业务诊断咨询 · 实施伙伴：艾维登 Eviden</p>
+  <div class="hero-chips">
+    <span class="chip">2026-05-29 启动</span>
+    <span class="chip">预计 2027.01.01 上线</span>
+    <span class="chip">19家法人</span>
+    <span class="chip">Green Field</span>
+  </div>
+</div>
+
+<div class="container">
+  <div class="stats-row">
+    <div class="stat"><div class="sv">40</div><div class="sl">交付物总数</div></div>
+    <div class="stat"><div class="sv" style="color:var(--b500);">10</div><div class="sl">已完成</div></div>
+    <div class="stat"><div class="sv" style="color:var(--b700);">1</div><div class="sl">进行中</div></div>
+    <div class="stat"><div class="sv" style="color:var(--muted);">29</div><div class="sl">待开始</div></div>
+    <div class="stat"><div class="sv" style="color:var(--b700);">25%</div><div class="sl">整体完成率</div></div>
+  </div>
+
+  <div class="section-hd">
+    <div class="sec-icon">📋</div>
+    <div>
+      <div class="sec-title">管理咨询交付物</div>
+      <div class="sec-desc">数字化转型规划咨询第一期 · 18周（135天）· EA（TOGAF）方法论</div>
+    </div>
+  </div>
+  <div class="grid">
+    <a href="/fsl-report/consulting/diagnosis/" class="folder-card">
+      <div class="fc-icon">🔍</div>
+      <div style="flex:1;">
+        <div class="fc-name">现状分析与诊断阶段</div>
+        <div class="fc-meta">2/2 份完成</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+      </div>
+      <div class="fc-arrow">›</div>
+    </a>
+    <a href="/fsl-report/consulting/blueprint/" class="folder-card">
+      <div class="fc-icon">🏛</div>
+      <div style="flex:1;">
+        <div class="fc-name">蓝图及架构设计阶段</div>
+        <div class="fc-meta">1/6 份完成</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:16%"></div></div>
+      </div>
+      <div class="fc-arrow">›</div>
+    </a>
+    <a href="/fsl-report/consulting/solutions/" class="folder-card">
+      <div class="fc-icon">🎯</div>
+      <div style="flex:1;">
+        <div class="fc-name">专项方案设计阶段（8个高价值场景）</div>
+        <div class="fc-meta">0/8 份完成</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+      </div>
+      <div class="fc-arrow">›</div>
+    </a>
+    <a href="/fsl-report/consulting/roadmap/" class="folder-card">
+      <div class="fc-icon">🗺</div>
+      <div style="flex:1;">
+        <div class="fc-name">实施路径规划阶段</div>
+        <div class="fc-meta">1/1 份完成</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+      </div>
+      <div class="fc-arrow">›</div>
+    </a>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-hd">
+    <div class="sec-icon">⚙️</div>
+    <div>
+      <div class="sec-title">SAP 实施交付物</div>
+      <div class="sec-desc">SAP S/4HANA PCE Greenfield · 8个月（240天）· SAP Activate方法论</div>
+    </div>
+  </div>
+  <div class="grid">
+    <a href="/fsl-report/sap/prepare/" class="folder-card">
+      <div class="fc-icon">🚀</div>
+      <div style="flex:1;">
+        <div class="fc-name">项目准备阶段</div>
+        <div class="fc-meta">5/5 份完成</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+      </div>
+      <div class="fc-arrow">›</div>
+    </a>
+    <a href="/fsl-report/sap/blueprint/" class="folder-card">
+      <div class="fc-icon">📐</div>
+      <div style="flex:1;">
+        <div class="fc-name">蓝图方案设计阶段</div>
+        <div class="fc-meta">0/6 份完成</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+      </div>
+      <div class="fc-arrow">›</div>
+    </a>
+    <a href="/fsl-report/sap/realize/" class="folder-card">
+      <div class="fc-icon">🔧</div>
+      <div style="flex:1;">
+        <div class="fc-name">系统实现阶段</div>
+        <div class="fc-meta">0/5 份完成</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+      </div>
+      <div class="fc-arrow">›</div>
+    </a>
+    <a href="/fsl-report/sap/deploy/" class="folder-card">
+      <div class="fc-icon">🚢</div>
+      <div style="flex:1;">
+        <div class="fc-name">上线切换阶段</div>
+        <div class="fc-meta">0/6 份完成</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+      </div>
+      <div class="fc-arrow">›</div>
+    </a>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-hd">
+    <div class="sec-icon">📊</div>
+    <div>
+      <div class="sec-title">行业研究与参考资料</div>
+      <div class="sec-desc">照明行业竞争格局分析、数字化转型对标</div>
+    </div>
+  </div>
+  <div class="grid">
+    <a href="/fsl-report/research/" class="folder-card">
+      <div class="fc-icon">📊</div>
+      <div style="flex:1;">
+        <div class="fc-name">行业研究</div>
+        <div class="fc-meta">1/1 份完成</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+      </div>
+      <div class="fc-arrow">›</div>
+    </a>
+  </div>
+
+  <hr class="divider">
+</div>
+
+<footer>佛山照明 SAP S/4HANA 升级项目工作台 · 机密文件 · 仅供项目组内部使用 · 2026</footer>
+</body>
+</html>
