@@ -269,20 +269,20 @@ nav{overflow:visible !important;}
 <div id="token-prompt" style="display:none"></div>
 
 <nav>
-  <div class="nav-brand">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 26" height="20">
-      <rect x="0" y="2" width="3" height="22" fill="#F06000"/>
-      <rect x="0" y="2" width="11" height="3" fill="#F06000"/>
-      <rect x="0" y="10" width="8" height="3" fill="#F06000"/>
-      <path d="M14 2h9v3h-6v4h5v3h-5v5h6v3h-9z" fill="#F06000"/>
-      <rect x="27" y="2" width="3" height="22" fill="#F06000"/>
-      <rect x="27" y="20" width="10" height="3" fill="#F06000"/>
-    </svg>
-    <span>佛山照明 · 数字化转型</span>
-  </div>
+  <a href="/fsl-report/" class="nav-logo-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 36" height="26" aria-label="FSL 佛山照明">
+  <rect x="0" y="3" width="4" height="30" fill="#F06000"/>
+  <rect x="0" y="3" width="18" height="4" fill="#F06000"/>
+  <rect x="0" y="16" width="13" height="4" fill="#F06000"/>
+  <path d="M22 3 h14 v4 h-9 v6 h9 v4 h-9 v7 h10 v4 h-15 v-9 h9 v-3 h-9 z" fill="#F06000"/>
+  <rect x="42" y="3" width="4" height="30" fill="#F06000"/>
+  <rect x="42" y="29" width="16" height="4" fill="#F06000"/>
+  <text x="66" y="26" font-family="Microsoft YaHei,PingFang SC,sans-serif"
+        font-size="14" font-weight="700" fill="rgba(255,255,255,0.92)" letter-spacing="1">佛山照明</text>
+</svg></a>
   <div class="nav-divider"></div>
+  <span class="nav-project">数字化转型项目工作台</span>
   <div class="nav-links">
-    <a href="/fsl-report/">工作台首页</a>
+    <a href="/fsl-report/" class="active">工作台首页</a>
     <div class="nav-dropdown">
       <a href="#" onclick="return false;">交付物 <span class="nav-arrow">▾</span></a>
       <div class="nav-dropdown-panel">
@@ -302,25 +302,17 @@ nav{overflow:visible !important;}
             <a href="/fsl-report/sap/deploy/">上线切换阶段</a>
           </div>
         </div>
-        <div class="nav-dd-row">
-          <div class="nav-dd-col full nav-dd-panel">
-            <div class="nav-dd-group-title">行业研究</div>
+        <div class="nav-dd-research">
+          <div class="nav-dd-group-title">行业研究</div>
+          <div class="nav-dd-research-links">
             <a href="/fsl-report/research/">照明行业对标研究</a>
           </div>
         </div>
       </div>
     </div>
     <a href="/fsl-report/weekly/">项目周报</a>
-    <a href="/fsl-report/kanban/" class="active">任务看板</a>
+    <a href="/fsl-report/kanban/">任务看板</a>
   </div>
-<div class="nav-right">
-    <button class="btn btn-ghost" onclick="openNewIssue()" id="newTaskBtn">＋ 新建任务</button>
-    <button class="btn btn-ghost" onclick="refreshAll()" title="刷新">↻</button>
-    <div id="userBadge" style="display:none;align-items:center;gap:8px;padding:0 4px">
-      <img id="userAvatar" src="" alt="" style="width:28px;height:28px;border-radius:50%;border:2px solid rgba(255,255,255,.2)">
-      <span id="userName" style="font-size:12px;color:rgba(255,255,255,.75);max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
-      <button onclick="doLogout()" class="btn btn-ghost" style="font-size:11px;padding:3px 8px">退出</button>
-    </div>
 </nav>
 
 <div class="proj-header">
