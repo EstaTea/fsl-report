@@ -302,6 +302,62 @@ nav{overflow:visible !important;}
 .nav-dd-research-links a{color:rgba(255,255,255,.65);font-size:12.5px;padding:3px 0;transition:color .12s;}
 .nav-dd-research-links a:hover{color:#fff;}
 
+
+/* ── Org Panel ── */
+.org-panel-body{flex:1;overflow-y:auto;padding:16px 24px;}
+.org-section{margin-bottom:24px;}
+.org-section-hd{display:flex;align-items:center;gap:10px;margin-bottom:12px;
+  padding-bottom:8px;border-bottom:2px solid var(--pale);}
+.org-section-title{font-size:13px;font-weight:800;color:var(--dark);}
+.org-section-badge{background:var(--bg);border:1px solid var(--pale);
+  border-radius:10px;font-size:11px;color:var(--steel);padding:1px 8px;}
+.org-add-btn{margin-left:auto;padding:4px 12px;background:var(--primary);color:#fff;
+  border:none;border-radius:5px;font-size:11.5px;cursor:pointer;font-family:inherit;}
+.org-add-btn:hover{background:var(--navy);}
+.org-tree{display:flex;flex-direction:column;gap:6px;}
+.org-node{background:var(--white);border:1px solid var(--pale);border-radius:7px;
+  padding:10px 14px;display:flex;align-items:center;gap:10px;
+  box-shadow:0 1px 3px rgba(35,116,163,.04);}
+.org-node:hover{border-color:var(--primary);box-shadow:0 2px 8px rgba(35,116,163,.1);}
+.org-avatar{width:36px;height:36px;border-radius:50%;background:var(--primary);
+  color:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:800;flex-shrink:0;}
+.org-avatar.client{background:var(--navy);}
+.org-name{font-size:13px;font-weight:700;color:var(--dark);}
+.org-role{font-size:11.5px;color:var(--steel);margin-top:1px;}
+.org-org{font-size:10.5px;color:var(--muted);margin-top:1px;}
+.org-actions{margin-left:auto;display:flex;gap:4px;}
+.org-btn{padding:3px 8px;border:1px solid var(--pale);border-radius:4px;
+  font-size:11px;cursor:pointer;background:var(--bg);color:var(--steel);font-family:inherit;}
+.org-btn:hover{background:var(--pale);}
+.org-btn.del{color:#dc2626;border-color:#fca5a5;background:#fee2e2;}
+.org-btn.del:hover{background:#fecaca;}
+/* member modal */
+.org-modal-overlay{position:fixed;inset:0;background:rgba(11,45,71,.4);z-index:600;
+  display:none;align-items:center;justify-content:center;}
+.org-modal-overlay.open{display:flex;}
+.org-modal{background:#fff;border-radius:10px;padding:24px;width:380px;
+  box-shadow:0 8px 32px rgba(11,45,71,.2);}
+.org-modal h3{font-size:15px;font-weight:800;color:var(--dark);margin-bottom:16px;}
+.org-form-row{margin-bottom:12px;}
+.org-form-label{font-size:11.5px;color:var(--muted);margin-bottom:4px;display:block;}
+.org-form-input{width:100%;padding:7px 10px;border:1px solid var(--pale);
+  border-radius:5px;font-size:13px;font-family:inherit;color:var(--text2);}
+.org-form-input:focus{outline:none;border-color:var(--primary);}
+.org-form-actions{display:flex;gap:8px;margin-top:16px;}
+.org-form-btn{flex:1;padding:8px;border:none;border-radius:6px;font-size:13px;
+  font-weight:700;cursor:pointer;font-family:inherit;}
+.org-form-btn.primary{background:var(--primary);color:#fff;}
+.org-form-btn.primary:hover{background:var(--navy);}
+.org-form-btn.ghost{background:var(--bg);color:var(--steel);border:1px solid var(--pale);}
+/* owner select in task detail */
+.owner-select-wrap{position:relative;display:flex;align-items:center;gap:6px;flex:1;}
+.owner-avatar-preview{width:24px;height:24px;border-radius:50%;background:var(--primary);
+  color:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:700;flex-shrink:0;}
+select.dp-input{appearance:none;-webkit-appearance:none;
+  background:var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%235B7A91'/%3E%3C/svg%3E") no-repeat right 8px center;}
+
 </style>
 </head>
 <body>
@@ -383,6 +439,7 @@ nav{overflow:visible !important;}
     <div class="mod-tab" data-panel="risk" onclick="switchTab(this,'risk')">⚠️ <span class="label-text">风险</span></div>
     <div class="mod-tab" data-panel="deliverable" onclick="switchTab(this,'deliverable')">📦 <span class="label-text">交付物</span></div>
     <div class="mod-tab" data-panel="stats" onclick="switchTab(this,'stats')">📊 <span class="label-text">统计</span></div>
+    <div class="mod-tab" data-panel="org" onclick="switchTab(this,'org')">👥 <span class="label-text">组织架构</span></div>
   </div>
 </div>
 
@@ -474,6 +531,63 @@ nav{overflow:visible !important;}
 <!-- ═══ STATS PANEL ═══ -->
 <div class="mod-panel" id="panel-stats">
   <div class="stats-panel-body" id="statsBody"></div>
+</div>
+
+<!-- ═══ ORG PANEL ═══ -->
+<div class="mod-panel" id="panel-org">
+  <div class="org-panel-body">
+    <div class="org-section" id="orgSectionClient">
+      <div class="org-section-hd">
+        <span style="font-size:18px">🏢</span>
+        <span class="org-section-title">甲方团队 — 佛山照明</span>
+        <span class="org-section-badge" id="orgCountClient">0</span>
+        <button class="org-add-btn" onclick="openOrgModal('client')">＋ 添加成员</button>
+      </div>
+      <div class="org-tree" id="orgTreeClient"></div>
+    </div>
+    <div class="org-section" id="orgSectionConsultant">
+      <div class="org-section-hd">
+        <span style="font-size:18px">💼</span>
+        <span class="org-section-title">乙方团队 — 艾维登咨询</span>
+        <span class="org-section-badge" id="orgCountConsultant">0</span>
+        <button class="org-add-btn" onclick="openOrgModal('consultant')">＋ 添加成员</button>
+      </div>
+      <div class="org-tree" id="orgTreeConsultant"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Member Edit Modal -->
+<div class="org-modal-overlay" id="orgModalOverlay">
+  <div class="org-modal">
+    <h3 id="orgModalTitle">添加成员</h3>
+    <div class="org-form-row">
+      <label class="org-form-label">姓名 *</label>
+      <input class="org-form-input" id="orgFormName" placeholder="例：张学权">
+    </div>
+    <div class="org-form-row">
+      <label class="org-form-label">职位 / 角色</label>
+      <input class="org-form-input" id="orgFormRole" placeholder="例：总经理 / 项目主持人">
+    </div>
+    <div class="org-form-row">
+      <label class="org-form-label">所属部门 / 公司</label>
+      <input class="org-form-input" id="orgFormOrg" placeholder="例：数智化部">
+    </div>
+    <div class="org-form-row">
+      <label class="org-form-label">头像颜色</label>
+      <select class="org-form-input" id="orgFormColor">
+        <option value="#1A4F73">深蓝（默认）</option>
+        <option value="#0B2D47">藏蓝</option>
+        <option value="#2374A3">中蓝</option>
+        <option value="#3D8FC4">浅蓝</option>
+        <option value="#5B7A91">蓝灰</option>
+      </select>
+    </div>
+    <div class="org-form-actions">
+      <button class="org-form-btn primary" onclick="saveOrgMember()">保存</button>
+      <button class="org-form-btn ghost" onclick="closeOrgModal()">取消</button>
+    </div>
+  </div>
 </div>
 
 <!-- DETAIL MODAL -->
@@ -1095,7 +1209,7 @@ function openTaskDetail(rowId){
       '<div style="font-size:11.5px;margin-bottom:14px;font-weight:800;color:var(--dark);line-height:1.4">'+esc(task.label)+'</div>'+
       parentInfo+
       '<div class="dp-field-row"><span class="dp-label">负责人</span>'+
-        '<div style="display:flex;align-items:center;gap:6px"><div style="width:24px;height:24px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">'+(task.owner?task.owner.charAt(0).toUpperCase():'?')+'</div><input class="dp-input" id="dpOwner" value="'+esc(task.owner||'')+'" placeholder="负责人"></div>'+
+        '<div class="owner-select-wrap"><div class="owner-avatar-preview" id="dpOwnerAvatar">'+(task.owner?task.owner.charAt(0).toUpperCase():'?')+'</div>'+buildOwnerSelect(task.owner||'')+'</div>'+
       '</div>'+
       '<div class="dp-field-row"><span class="dp-label">起止日期</span>'+
         '<div style="display:flex;align-items:center;gap:4px">'+
@@ -1133,7 +1247,7 @@ function saveTaskDetail(rowId){
   var task=found.type==='phase'?found.ph:found.task;
   var newStart=document.getElementById('dpStart').value;
   var newEnd=document.getElementById('dpEnd').value;
-  var newOwner=document.getElementById('dpOwner').value;
+  var ownerEl=document.getElementById('dpOwner'); var newOwner=ownerEl?ownerEl.value:'';
   var newPct=parseInt(document.getElementById('dpPct').value);
   var newDesc=document.getElementById('dpDesc').value;
   if(new Date(newEnd)<new Date(newStart)){ alert('结束日期不能早于开始日期'); return; }
@@ -1390,7 +1504,137 @@ function closeModal(id){ document.getElementById(id).classList.remove('open'); }
 document.querySelectorAll('.modal-overlay').forEach(function(el){ el.addEventListener('click',function(e){if(e.target===el)el.classList.remove('open');}); });
 async function refreshAll(){ allIssues=[]; await init(); }
 
+
+// ── PROJECT MEMBERS / ORG CHART ─────────────────────────────────────────────
+var PROJECT_MEMBERS = JSON.parse(localStorage.getItem('fsl_members') || 'null') || {
+  client: [
+    {id:'m1', name:'张学权', role:'总经理',             org:'佛山照明',          color:'#0B2D47'},
+    {id:'m2', name:'李泽华', role:'副总经理（项目主持）',org:'佛山照明',          color:'#1A4F73'},
+    {id:'m3', name:'曾肖静', role:'副总经理',            org:'佛山照明',          color:'#1A4F73'},
+    {id:'m4', name:'苏大明', role:'数智化部负责人',      org:'佛山照明·数智化部', color:'#2374A3'},
+    {id:'m5', name:'李一帜', role:'财务管理部',          org:'佛山照明·财务',     color:'#2374A3'},
+    {id:'m6', name:'钟吟',   role:'企业管理部',          org:'佛山照明·企管',     color:'#2374A3'},
+    {id:'m7', name:'吴梓填', role:'IT/BASIS',           org:'佛山照明·数智化部', color:'#3D8FC4'},
+    {id:'m8', name:'王志宏', role:'供应链总监',          org:'佛山照明·供应链',   color:'#3D8FC4'},
+    {id:'m9', name:'杨程麟', role:'商用事业部',          org:'佛山照明',          color:'#5B7A91'},
+    {id:'m10',name:'赵俊杰', role:'国际事业部',          org:'佛山照明',          color:'#5B7A91'}
+  ],
+  consultant: [
+    {id:'m11',name:'陈宇清', role:'咨询 PM',            org:'艾维登咨询',         color:'#0B2D47'},
+    {id:'m12',name:'刘斌',   role:'业务专家',           org:'艾维登咨询',         color:'#1A4F73'},
+    {id:'m13',name:'贾奋明', role:'业务专家 A (OTC/SD)',org:'艾维登咨询',         color:'#2374A3'},
+    {id:'m14',name:'贾嘉',   role:'业务专家（记录）',   org:'艾维登咨询',         color:'#3D8FC4'}
+  ]
+};
+var ORG_EDITING_ID=null, ORG_EDITING_GROUP=null;
+
+function saveMembers(){ localStorage.setItem('fsl_members',JSON.stringify(PROJECT_MEMBERS)); }
+function getAllMembers(){ return PROJECT_MEMBERS.client.concat(PROJECT_MEMBERS.consultant); }
+function getMemberByName(name){ return getAllMembers().find(function(m){return m.name===name;}); }
+
+function buildOwnerSelect(currentOwner){
+  var groups=[{label:'甲方 — 佛山照明',members:PROJECT_MEMBERS.client},{label:'乙方 — 艾维登咨询',members:PROJECT_MEMBERS.consultant}];
+  var opts='<option value="">— 未分配 —</option>';
+  groups.forEach(function(g){
+    opts+='<optgroup label="'+g.label+'">';
+    g.members.forEach(function(m){
+      var sel=(m.name===currentOwner)?'selected':'';
+      opts+='<option value="'+m.name+'" '+sel+'>'+m.name+' · '+m.role+'</option>';
+    });
+    opts+='</optgroup>';
+  });
+  var all=getAllMembers();
+  if(currentOwner && !all.find(function(m){return m.name===currentOwner;})){
+    opts+='<option value="'+currentOwner+'" selected>'+currentOwner+'</option>';
+  }
+  return '<select class="dp-input" id="dpOwner" onchange="updateOwnerAvatar(this.value)" style="flex:1;">'+opts+'</select>';
+}
+
+function updateOwnerAvatar(name){
+  var av=document.getElementById('dpOwnerAvatar'); if(!av) return;
+  var m=getMemberByName(name);
+  av.textContent=name?name.charAt(0).toUpperCase():'?';
+  av.style.background=m?m.color:'var(--primary)';
+}
+
+function renderOrgPanel(){
+  ['client','consultant'].forEach(function(grp){
+    var capGrp=grp.charAt(0).toUpperCase()+grp.slice(1);
+    var tree=document.getElementById('orgTree'+capGrp);
+    var badge=document.getElementById('orgCount'+capGrp);
+    if(!tree) return;
+    var members=PROJECT_MEMBERS[grp];
+    badge.textContent=members.length;
+    tree.innerHTML=members.map(function(m){
+      return '<div class="org-node">'+
+        '<div class="org-avatar" style="background:'+m.color+'">'+m.name.charAt(0)+'</div>'+
+        '<div style="flex:1;min-width:0;">'+
+          '<div class="org-name">'+m.name+'</div>'+
+          '<div class="org-role">'+m.role+'</div>'+
+          '<div class="org-org">'+m.org+'</div>'+
+        '</div>'+
+        '<div class="org-actions">'+
+          '<button class="org-btn" onclick="openOrgModal(''+grp+'',''+m.id+'')">编辑</button>'+
+          '<button class="org-btn del" onclick="deleteOrgMember(''+grp+'',''+m.id+'')">删除</button>'+
+        '</div>'+
+      '</div>';
+    }).join('');
+  });
+}
+
+function openOrgModal(group, editId){
+  ORG_EDITING_GROUP=group; ORG_EDITING_ID=editId||null;
+  var overlay=document.getElementById('orgModalOverlay'); if(!overlay) return;
+  if(editId){
+    var m=PROJECT_MEMBERS[group].find(function(x){return x.id===editId;});
+    if(m){
+      document.getElementById('orgFormName').value=m.name;
+      document.getElementById('orgFormRole').value=m.role;
+      document.getElementById('orgFormOrg').value=m.org;
+      document.getElementById('orgFormColor').value=m.color;
+      document.getElementById('orgModalTitle').textContent='编辑成员';
+    }
+  } else {
+    document.getElementById('orgFormName').value='';
+    document.getElementById('orgFormRole').value='';
+    document.getElementById('orgFormOrg').value=group==='client'?'佛山照明':'艾维登咨询';
+    document.getElementById('orgFormColor').value='#1A4F73';
+    document.getElementById('orgModalTitle').textContent='添加成员';
+  }
+  overlay.classList.add('open');
+  setTimeout(function(){document.getElementById('orgFormName').focus();},100);
+}
+
+function closeOrgModal(){
+  var o=document.getElementById('orgModalOverlay'); if(o) o.classList.remove('open');
+  ORG_EDITING_ID=null; ORG_EDITING_GROUP=null;
+}
+
+function saveOrgMember(){
+  var name=(document.getElementById('orgFormName').value||'').trim();
+  var role=(document.getElementById('orgFormRole').value||'').trim();
+  var org=(document.getElementById('orgFormOrg').value||'').trim();
+  var color=document.getElementById('orgFormColor').value;
+  if(!name){alert('姓名不能为空');return;}
+  var grp=ORG_EDITING_GROUP;
+  if(ORG_EDITING_ID){
+    var m=PROJECT_MEMBERS[grp].find(function(x){return x.id===ORG_EDITING_ID;});
+    if(m){m.name=name;m.role=role;m.org=org;m.color=color;}
+  } else {
+    PROJECT_MEMBERS[grp].push({id:'m'+Date.now(),name:name,role:role,org:org,color:color});
+  }
+  saveMembers(); renderOrgPanel(); closeOrgModal();
+}
+
+function deleteOrgMember(grp,id){
+  if(!confirm('确认删除该成员？'))return;
+  PROJECT_MEMBERS[grp]=PROJECT_MEMBERS[grp].filter(function(m){return m.id!==id;});
+  saveMembers(); renderOrgPanel();
+}
+
+
 // ── START ─────────────────────────────────────────────────────────
+renderOrgPanel();
 if(TOKEN){ init(); } else { document.getElementById('loading').style.display='none'; document.getElementById('token-prompt').classList.add('show'); }
 </script>
 </body>
