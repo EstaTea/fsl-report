@@ -484,9 +484,10 @@ function renderGantt(){
       } else {
         var barH=row.type==='phase'?14:12;
         var barTop=(ROW_H-barH)/2;
-        rowHtml+='<div style="position:absolute;left:'+lPx+'px;width:'+wPx+'px;height:'+barH+'px;top:'+barTop+'px;border-radius:3px;background:'+color+';z-index:2;overflow:hidden" title="'+row.task.label+' ('+start+' → '+end+')">';
+        var barLabel=row.type==='phase'?row.ph.label:row.task.label;
+        rowHtml+='<div style="position:absolute;left:'+lPx+'px;width:'+wPx+'px;height:'+barH+'px;top:'+barTop+'px;border-radius:3px;background:'+color+';z-index:2;overflow:hidden" title="'+barLabel+' ('+start+' → '+end+')">';
         if(pct>0&&pct<100) rowHtml+='<div style="width:'+pct+'%;height:100%;background:rgba(255,255,255,.25);border-right:1px solid rgba(255,255,255,.4)"></div>';
-        if(wPx>50) rowHtml+='<span style="position:absolute;left:5px;top:50%;transform:translateY(-50%);font-size:9px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:'+(wPx-10)+'px">'+row.task.label+'</span>';
+        if(wPx>50) rowHtml+='<span style="position:absolute;left:5px;top:50%;transform:translateY(-50%);font-size:9px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:'+(wPx-10)+'px">'+barLabel+'</span>';
         rowHtml+='</div>';
       }
     }
