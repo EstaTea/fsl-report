@@ -1982,10 +1982,9 @@ function renderOrgChart(){
   }).join('<div style="width:2px;background:#D6E8F2;margin:0 16px;align-self:stretch;"></div>');
 
   el.innerHTML='<div style="font-size:11px;color:#5B7A91;margin-bottom:16px;text-align:center;">'
-    +'💡 <b>右键节点</b>更改颜色 &nbsp;·&nbsp; <b>拖拽节点到其他节点上</b>调整汇报层级 &nbsp;·&nbsp; <b>拖到空白处松手</b>使其成为顶层节点 &nbsp;·&nbsp; '
-    +'<button onclick="resetOrgTree()" style="font-size:11px;color:#dc2626;background:none;border:none;cursor:pointer;text-decoration:underline;">重置为默认</button>'
+    +'💡 <b>右键节点</b>更改颜色 &nbsp;·&nbsp; <b>拖拽节点到其他节点上</b>调整汇报层级 &nbsp;·&nbsp; <b>拖到空白处松手</b>使其成为顶层节点'
     +'</div>'
-    +'<div style="display:flex;align-items:flex-start;justify-content:center;flex-wrap:wrap;gap:16px;">'
+    +'<div style="display:flex;flex-direction:row;align-items:flex-start;justify-content:center;gap:0;">'
     +sectionsHtml
     +'</div>';
 }
