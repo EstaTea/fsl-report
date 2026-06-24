@@ -1953,11 +1953,13 @@ function renderOrgChart(){
   var hasParent={};
   Object.values(ORG_TREE.nodes).forEach(function(n){n.children.forEach(function(cid){hasParent[cid]=true;});});
   var roots=Object.keys(ORG_TREE.nodes).filter(function(nid){return !hasParent[nid];});
-  // Preserve preferred order: vendor roots first, then client
+  // Sort: client (甲方) first, vendor (乙方) second
   roots.sort(function(a,b){
     var ga=ORG_TREE.nodes[a].group||'', gb=ORG_TREE.nodes[b].group||'';
-    if(ga==='vendor'&&gb!=='vendor') return -1;
-    if(gb==='vendor'&&ga!=='vendor') return 1;
+    var aIsClient=(ga==='client');
+    var bIsClient=(gb==='client');
+    if(aIsClient&&!bIsClient) return -1;
+    if(bIsClient&&!aIsClient) return 1;
     return 0;
   });
   ORG_TREE.roots=roots;
@@ -1967,9 +1969,14 @@ function renderOrgChart(){
   var sectionsHtml=roots.map(function(rid){
     var node=ORG_TREE.nodes[rid];
     var grp=node.group||'';
-    var label=labels[rid]||(grp==='vendor'||grp==='consultant'?'乙方 — 艾维登咨询':'甲方 — 佛山照明');
+    var isClient=(grp==='client');
+    var label=labels[rid]||(isClient?'甲方 — 佛山照明':'乙方 — 艾维登咨询');
+    var badgeBg=isClient?'#EBF5FB':'#FEF9E7';
+    var badgeColor=isClient?'#1A4F73':'#B7860B';
     return '<div style="display:flex;flex-direction:column;align-items:center;padding:0 32px;">'
-      +(label?'<div style="font-size:11px;font-weight:800;color:#5B7A91;letter-spacing:.6px;text-transform:uppercase;margin-bottom:14px;padding:4px 14px;background:#EBF5FB;border-radius:10px;">'+label+'</div>':'')
+      +'<div style="font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;'
+      +'margin-bottom:14px;padding:4px 16px;border-radius:10px;'
+      +'background:'+badgeBg+';color:'+badgeColor+';">'+label+'</div>'
       +renderNode(rid,0,false)
       +'</div>';
   }).join('<div style="width:2px;background:#D6E8F2;margin:0 16px;align-self:stretch;"></div>');
