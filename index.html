@@ -9,7 +9,7 @@
       --b100:#C7E2F2;--b050:#EBF5FB;--bg:#F2F7FB;--text:#0F2233;
       --muted:#5B7A91;--rule:#D6E8F2;--r:6px;
       --navy:#0B2D47;--dark:#1A4F73;--primary:#2374A3;--mid:#3D8FC4;
-      --steel:#5B7A91;--pale:#D6E8F2;--white:#fff;}
+      --steel:#5B7A91;--pale:#D6E8F2;--white:#fff;--text2:#2C4A6A;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;
      background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;
@@ -83,6 +83,55 @@ nav{background:var(--b900);padding:0 32px;display:flex;align-items:center;gap:20
 .gantt-col-hd{background:var(--dark);color:#fff;display:grid;
   grid-template-columns:1fr 56px 52px;padding:8px 10px;font-size:11px;font-weight:700;
   position:sticky;top:0;z-index:2;}
+
+/* ── Issue Panel ── */
+#issuePanel{position:fixed;top:0;right:-480px;width:460px;height:100vh;
+  background:#fff;box-shadow:-4px 0 24px rgba(11,45,71,.18);z-index:500;
+  display:flex;flex-direction:column;transition:right .25s ease;overflow:hidden;}
+#issuePanel.open{right:0;}
+.ip-header{background:var(--b900);color:#fff;padding:14px 18px;display:flex;
+  align-items:center;gap:10px;flex-shrink:0;}
+.ip-header h3{font-size:14px;font-weight:700;flex:1;white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;}
+.ip-close{background:rgba(255,255,255,.15);border:none;color:#fff;
+  width:28px;height:28px;border-radius:4px;cursor:pointer;font-size:16px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ip-close:hover{background:rgba(255,255,255,.25);}
+.ip-body{flex:1;overflow-y:auto;padding:16px 18px;}
+.ip-section{margin-bottom:16px;}
+.ip-label{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;
+  letter-spacing:.5px;margin-bottom:5px;}
+.ip-field{width:100%;padding:7px 10px;border:1px solid var(--rule);border-radius:5px;
+  font-size:13px;font-family:inherit;color:var(--text);background:#fff;
+  transition:border-color .15s;}
+.ip-field:focus{outline:none;border-color:var(--b500);}
+.ip-field:read-only{background:var(--b050);color:var(--muted);}
+textarea.ip-field{resize:vertical;min-height:100px;line-height:1.6;}
+.ip-row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.ip-footer{padding:12px 18px;border-top:1px solid var(--rule);display:flex;
+  gap:8px;flex-shrink:0;background:#fff;}
+.ip-btn{padding:7px 16px;border-radius:5px;font-size:12.5px;font-weight:700;
+  cursor:pointer;border:none;font-family:inherit;transition:all .15s;}
+.ip-btn-primary{background:var(--b500);color:#fff;}
+.ip-btn-primary:hover{background:var(--b700);}
+.ip-btn-ghost{background:var(--b050);color:var(--b700);border:1px solid var(--rule);}
+.ip-btn-ghost:hover{background:var(--rule);}
+.ip-btn-danger{background:#fee2e2;color:#dc2626;border:1px solid #fca5a5;}
+.ip-badge{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;
+  font-weight:700;padding:2px 8px;border-radius:3px;margin-right:4px;}
+.ip-badge-open{background:var(--b050);color:var(--b700);}
+.ip-badge-closed{background:#f0fdf4;color:#15803d;}
+.ip-loading{text-align:center;padding:30px;color:var(--muted);font-size:13px;}
+.ip-meta{font-size:11.5px;color:var(--muted);margin-top:4px;}
+.ip-link{color:var(--b500);font-size:12px;text-decoration:none;}
+.ip-link:hover{text-decoration:underline;}
+#panelOverlay{position:fixed;inset:0;background:rgba(11,45,71,.25);z-index:499;
+  display:none;}
+#panelOverlay.open{display:block;}
+.ip-pct-wrap{display:flex;align-items:center;gap:8px;}
+.ip-pct-wrap input[type=range]{flex:1;accent-color:var(--b500);}
+.ip-pct-num{font-size:13px;font-weight:700;color:var(--b500);min-width:36px;text-align:right;}
+
 </style>
 </head>
 <body>
@@ -191,8 +240,8 @@ var GANTT_PHASES = [
     tasks:[
       {id:'c1', label:'现状分析与诊断报告',       owner:'规划师+业务专家',  pct:100, start:'2026-06-15',end:'2026-06-30', milestone:false, desc:'涵盖业务、数字化调研分析；梳理核心痛点与问题清单；数字化成熟度评估', deliverable:'rpt-01'},
       {id:'c2', label:'照明行业数字化对标研究报告',owner:'规划师',          pct:100, start:'2026-06-15',end:'2026-06-22', milestone:false, desc:'Signify/欧普/阳光照明/佛照四家2025年年报深度对标分析', deliverable:'rpt-01b'},
-      {id:'c3', label:'企业架构设计报告（L1-L3）', owner:'规划师+应用专家',  pct:80,  start:'2026-06-22',end:'2026-08-15', milestone:false, desc:'企业架构蓝图（L1-L3）：BA/DA/AA/TA TO-BE 设计', deliverable:'rpt-02'},
-      {id:'c4', label:'专项方案设计报告（8场景）', owner:'业务专家A/B',      pct:0,   start:'2026-07-15',end:'2026-09-15', milestone:false, desc:'覆盖8个高价值专项场景（L4-L5）；含痛点分析、流程设计', deliverable:'rpt-03'},
+      {id:'c3', label:'企业架构设计报告（L1-L3）', owner:'规划师+应用专家',  pct:80,  start:'2026-06-22',end:'2026-08-15', milestone:false, desc:'企业架构蓝图（L1-L3）：BA/DA/AA/TA TO-BE 设计', deliverable:'rpt-02', issueNum:3},
+      {id:'c4', label:'专项方案设计报告（8场景）', owner:'业务专家A/B',      pct:0,   start:'2026-07-15',end:'2026-09-15', milestone:false, desc:'覆盖8个高价值专项场景（L4-L5）；含痛点分析、流程设计', deliverable:'rpt-03', issueNum:6},
       {id:'c5', label:'数据调研分析报告',          owner:'数据专家',         pct:0,   start:'2026-07-01',end:'2026-08-31', milestone:false, desc:'产品主数据（物料、BOM）、客商主数据、财务主数据的现状调研分析', deliverable:'rpt-04a'},
       {id:'c6', label:'数据规划及管理办法',        owner:'数据专家',         pct:0,   start:'2026-08-01',end:'2026-09-15', milestone:false, desc:'主数据规划及管理办法，包含主数据清洗、编码标准化与系统导入等内容', deliverable:'rpt-04b'},
       {id:'c7', label:'数据治理总结报告',          owner:'数据专家',         pct:0,   start:'2026-09-01',end:'2026-09-30', milestone:false, desc:'佛山照明数据治理工作总结（数据清洗结果、治理成效、持续运营建议）', deliverable:'rpt-04c'},
@@ -205,8 +254,8 @@ var GANTT_PHASES = [
     tasks:[
       {id:'p1', label:'项目启动会 & 宣贯',          owner:'李泽华',     pct:100, start:'2026-06-15',end:'2026-06-15', milestone:true, desc:'项目正式启动，宣贯调研目标与交付物说明，签署保密协议'},
       {id:'p2', label:'准备调研问卷 & 调研计划',    owner:'艾维登PM',   pct:80,  start:'2026-06-16',end:'2026-06-30', milestone:false, desc:'制定两周调研执行计划，发放调研问卷，确认参与人员'},
-      {id:'p3', label:'佛照历史蓝图分析及定制代码盘点',owner:'技术专家', pct:30,  start:'2026-06-20',end:'2026-07-31', milestone:false, desc:'运行SAP Custom Code扫描工具，分析ECC Z程序清单，评估迁移工作量'},
-      {id:'p4', label:'接口台账梳理',               owner:'集成负责人', pct:20,  start:'2026-07-01',end:'2026-08-09', milestone:false, desc:'梳理8条核心接口（IF-001至IF-008）的详细设计方案'},
+      {id:'p3', issueNum:1, label:'佛照历史蓝图分析及定制代码盘点',owner:'技术专家', pct:30,  start:'2026-06-20',end:'2026-07-31', milestone:false, desc:'运行SAP Custom Code扫描工具，分析ECC Z程序清单，评估迁移工作量'},
+      {id:'p4', issueNum:4, label:'接口台账梳理',               owner:'集成负责人', pct:20,  start:'2026-07-01',end:'2026-08-09', milestone:false, desc:'梳理8条核心接口（IF-001至IF-008）的详细设计方案'},
       {id:'p5', label:'项目团队及入场时间确定',     owner:'艾维登PM',   pct:60,  start:'2026-06-15',end:'2026-06-22', milestone:false, desc:'确认顾问团队配置，签署项目章程，明确关键用户时间承诺'},
       {id:'p6', label:'Readiness Check',            owner:'技术专家',   pct:0,   start:'2026-06-16',end:'2026-07-15', milestone:false, desc:'系统就绪评估：PCE环境搭建、网络连通、授权确认'},
     ]
@@ -232,15 +281,15 @@ var GANTT_PHASES = [
         ]},
         {id:'e2f', label:'《业务需求与痛点清单》',                  owner:'业务专家A/B', pct:0, start:'2026-08-10',end:'2026-08-25', milestone:false, desc:'覆盖财务/供应链/生产等部门，问题分类不少于4类'},
       ]},
-      {id:'e3', label:'接口与集成设计',         owner:'集成负责人', pct:0,  start:'2026-08-15',end:'2026-09-21', milestone:false, desc:'8条核心接口（CPI中枢）设计方案确认，各系统供应商签署配合承诺'},
+      {id:'e3', issueNum:10, label:'接口与集成设计',         owner:'集成负责人', pct:0,  start:'2026-08-15',end:'2026-09-21', milestone:false, desc:'8条核心接口（CPI中枢）设计方案确认，各系统供应商签署配合承诺'},
       {id:'e4', label:'蓝图汇报',               owner:'艾维登PM',   pct:0,  start:'2026-09-15',end:'2026-09-21', milestone:true,  desc:'蓝图方案向佛照管理层汇报，确认签字'},
     ]
   },
   { id:'realize', label:'系统实现阶段', color:'#2D6BA8', owner:'开发负责人', pct:0, start:'2026-09-22', end:'2026-12-05',
     tasks:[
-      {id:'r1', label:'系统配置（FICO/SD/MM/PP/QM/EWM）', owner:'顾问团队',   pct:0, start:'2026-09-22',end:'2026-11-22', milestone:false, desc:'19家法人统一科目表、SD定价条件、MDG主数据治理平台全量配置'},
+      {id:'r1', issueNum:7, label:'系统配置（FICO/SD/MM/PP/QM/EWM）', owner:'顾问团队',   pct:0, start:'2026-09-22',end:'2026-11-22', milestone:false, desc:'19家法人统一科目表、SD定价条件、MDG主数据治理平台全量配置'},
       {id:'r2', label:'开发文档（Z程序/接口/增强）',       owner:'开发负责人', pct:0, start:'2026-09-22',end:'2026-11-16', milestone:false, desc:'8条CPI接口开发，ABAP增强，BTP侧扩展'},
-      {id:'r3', label:'用户测试完成报告（UAT）',          owner:'测试经理',   pct:0, start:'2026-11-01',end:'2026-12-05', milestone:false, desc:'招标文件硬性门槛：UAT蓝图定义业务场景100%覆盖；严重缺陷修复率100%'},
+      {id:'r3', issueNum:9, label:'用户测试完成报告（UAT）',          owner:'测试经理',   pct:0, start:'2026-11-01',end:'2026-12-05', milestone:false, desc:'招标文件硬性门槛：UAT蓝图定义业务场景100%覆盖；严重缺陷修复率100%'},
       {id:'r4', label:'Sprint 1 配置与开发',              owner:'开发负责人', pct:0, start:'2026-09-22',end:'2026-10-19', milestone:false, desc:'核心流程（OTC/PTP/MTC）配置，MDG基础配置，CPI接口第1批'},
       {id:'r5', label:'Sprint 2 配置与开发',              owner:'开发负责人', pct:0, start:'2026-10-20',end:'2026-11-16', milestone:false, desc:'集团报表、EWM仓储、DRC电子发票、CPI接口第2批'},
       {id:'r6', label:'Sprint 3 硬化',                   owner:'开发负责人', pct:0, start:'2026-11-17',end:'2026-12-05', milestone:false, desc:'系统性能调优，权限SoD设计，Cloud ALM质量门控'},
@@ -483,16 +532,289 @@ function ganttToday(){
 
 // ── RISK ──────────────────────────────────────────────────────────
 
-function selectGanttRow(rowId){
+function selectGanttRow(rowId){ openIssuePanel(rowId); }
+
+
+// ── GITHUB ISSUE PANEL ──────────────────────────────────────────────
+var REPO = 'EstaTea/fsl-report';
+var GH_TOKEN = localStorage.getItem('gh_token_fsl') || '';
+var CURRENT_ROW_ID = null;
+var CURRENT_ISSUE_NUM = null;
+
+function ghHeaders(){
+  var h = {'Accept':'application/vnd.github+json','Content-Type':'application/json'};
+  if(GH_TOKEN) h['Authorization'] = 'Bearer ' + GH_TOKEN;
+  return h;
+}
+
+function findTaskByRowId(rowId){
+  if(!rowId) return null;
+  var parts = rowId.split('__');
+  var phId = parts[0];
+  var ph = GANTT_PHASES.find(function(p){ return p.id === phId; });
+  if(!ph) return null;
+  if(parts.length === 1) return {type:'phase', ph:ph};
+  // search recursively
+  function findInTasks(tasks){
+    for(var i=0;i<tasks.length;i++){
+      if(ph.id+'__'+tasks[i].id === rowId) return {type:'task', task:tasks[i], ph:ph};
+      if(tasks[i].children){
+        var found = findInTasks(tasks[i].children);
+        if(found) return found;
+      }
+    }
+    return null;
+  }
+  return findInTasks(ph.tasks);
+}
+
+function openIssuePanel(rowId){
+  CURRENT_ROW_ID = rowId;
   SELECTED_TASK_ID = rowId;
   renderGantt();
+
+  var found = findTaskByRowId(rowId);
+  if(!found){ return; }
+
+  var task = found.type==='phase' ? found.ph : found.task;
+  CURRENT_ISSUE_NUM = task.issueNum || null;
+
+  var panel = document.getElementById('issuePanel');
+  var overlay = document.getElementById('panelOverlay');
+  var loading = document.getElementById('ipLoading');
+  var content = document.getElementById('ipContent');
+
+  panel.classList.add('open');
+  overlay.classList.add('open');
+  loading.style.display = 'block';
+  content.style.display = 'none';
+
+  // Pre-fill from static data immediately
+  document.getElementById('ipTitle').textContent = task.label || '任务详情';
+  document.getElementById('ipName').value = task.label || '';
+  document.getElementById('ipStart').value = task.start || '';
+  document.getElementById('ipEnd').value = task.end || '';
+  document.getElementById('ipOwner').value = task.owner || '';
+  var pct = task.pct || 0;
+  document.getElementById('ipPctSlider').value = pct;
+  document.getElementById('ipPctNum').textContent = pct + '%';
+  document.getElementById('ipPct').value = pct;
+  document.getElementById('ipBody').value = task.desc || '';
+  document.getElementById('ipLabelsWrap').style.display = 'none';
+
+  var ghLink = document.getElementById('ipGhLink');
+  var ghBtn = document.getElementById('ipGhBtn');
+  var meta = document.getElementById('ipMeta');
+
+  if(CURRENT_ISSUE_NUM){
+    ghLink.href = 'https://github.com/' + REPO + '/issues/' + CURRENT_ISSUE_NUM;
+    ghBtn.style.display = '';
+    meta.innerHTML = '<span class="ip-badge ip-badge-open">Issue #' + CURRENT_ISSUE_NUM + '</span>';
+    // Load from GitHub API
+    fetch('https://api.github.com/repos/' + REPO + '/issues/' + CURRENT_ISSUE_NUM, {headers: ghHeaders()})
+      .then(function(r){ return r.json(); })
+      .then(function(issue){
+        // Parse gantt metadata from body
+        var body = issue.body || '';
+        var ganttM = body.match(/<!--\s*gantt:\s*start=([\d-]+)\s+end=([\d-]+)\s+pct=(\d+)[^>]*-->/);
+        var cleanBody = body.replace(/
+*<!--\s*gantt:[^>]*-->/g,'').trim();
+
+        document.getElementById('ipName').value = issue.title || task.label;
+        document.getElementById('ipTitle').textContent = issue.title || task.label;
+        document.getElementById('ipBody').value = cleanBody;
+        if(ganttM){
+          document.getElementById('ipStart').value = ganttM[1];
+          document.getElementById('ipEnd').value = ganttM[2];
+          var p = parseInt(ganttM[3]);
+          document.getElementById('ipPctSlider').value = p;
+          document.getElementById('ipPctNum').textContent = p + '%';
+          document.getElementById('ipPct').value = p;
+        }
+        // Labels
+        if(issue.labels && issue.labels.length){
+          document.getElementById('ipLabelsWrap').style.display = '';
+          document.getElementById('ipLabels').innerHTML = issue.labels.map(function(l){
+            return '<span class="ip-badge ip-badge-open">'+l.name+'</span>';
+          }).join('');
+        }
+        var stateClass = issue.state==='closed' ? 'ip-badge-closed' : 'ip-badge-open';
+        var stateLabel = issue.state==='closed' ? '已关闭' : '进行中';
+        meta.innerHTML = '<span class="ip-badge '+stateClass+'">Issue #'+CURRENT_ISSUE_NUM+' · '+stateLabel+'</span>'
+          + '<a href="'+issue.html_url+'" target="_blank" class="ip-link" style="margin-left:8px;">在 GitHub 查看 ↗</a>';
+        loading.style.display = 'none';
+        content.style.display = 'block';
+      })
+      .catch(function(){
+        // API failed (no token etc.) — show static data
+        if(!GH_TOKEN){
+          meta.innerHTML = '<span class="ip-badge ip-badge-open">Issue #'+CURRENT_ISSUE_NUM+'</span>'
+            + ' <span style="font-size:11px;color:var(--muted)">（未登录，无法读取详情）</span>';
+        }
+        loading.style.display = 'none';
+        content.style.display = 'block';
+      });
+  } else {
+    ghLink.href = 'https://github.com/' + REPO + '/issues';
+    ghBtn.style.display = 'none';
+    meta.innerHTML = '<span style="font-size:11.5px;color:var(--muted);">无关联 Issue</span>';
+    loading.style.display = 'none';
+    content.style.display = 'block';
+  }
+}
+
+function closeIssuePanel(){
+  document.getElementById('issuePanel').classList.remove('open');
+  document.getElementById('panelOverlay').classList.remove('open');
+  CURRENT_ROW_ID = null;
+}
+
+function openOnGitHub(){
+  if(CURRENT_ISSUE_NUM){
+    window.open('https://github.com/' + REPO + '/issues/' + CURRENT_ISSUE_NUM, '_blank');
+  }
+}
+
+function saveIssuePanel(){
+  var found = findTaskByRowId(CURRENT_ROW_ID);
+  if(!found) return;
+  var task = found.type==='phase' ? found.ph : found.task;
+
+  // Update in-memory GANTT_PHASES
+  task.label = document.getElementById('ipName').value.trim() || task.label;
+  task.start = document.getElementById('ipStart').value || task.start;
+  task.end   = document.getElementById('ipEnd').value   || task.end;
+  task.owner = document.getElementById('ipOwner').value || task.owner;
+  task.pct   = parseInt(document.getElementById('ipPct').value) || 0;
+  task.desc  = document.getElementById('ipBody').value;
+
+  // Update title display
+  document.getElementById('ipTitle').textContent = task.label;
+
+  // Re-render gantt immediately
+  renderGantt();
+
+  if(!CURRENT_ISSUE_NUM){
+    showSaveToast('已在本地保存（无关联 Issue）');
+    return;
+  }
+
+  if(!GH_TOKEN){
+    showSaveToast('未登录 GitHub，仅本地保存。请在任务看板页登录后再试。', true);
+    return;
+  }
+
+  // Build updated body with gantt metadata
+  var cleanBody = task.desc || '';
+  var ganttComment = '\n\n<!-- gantt: start='+task.start+' end='+task.end+' pct='+task.pct+' -->';
+  var newBody = cleanBody + ganttComment;
+
+  var saveBtn = document.querySelector('.ip-btn-primary');
+  saveBtn.disabled = true;
+  saveBtn.textContent = '保存中…';
+
+  fetch('https://api.github.com/repos/' + REPO + '/issues/' + CURRENT_ISSUE_NUM, {
+    method: 'PATCH',
+    headers: ghHeaders(),
+    body: JSON.stringify({ title: task.label, body: newBody })
+  })
+  .then(function(r){
+    saveBtn.disabled = false;
+    saveBtn.textContent = '💾 保存';
+    if(r.ok){
+      showSaveToast('已保存到 GitHub Issue #' + CURRENT_ISSUE_NUM);
+    } else {
+      r.json().then(function(e){ showSaveToast('保存失败：' + (e.message||r.status), true); });
+    }
+  })
+  .catch(function(e){
+    saveBtn.disabled = false;
+    saveBtn.textContent = '💾 保存';
+    showSaveToast('网络错误，请重试', true);
+  });
+}
+
+function showSaveToast(msg, isError){
+  var t = document.createElement('div');
+  t.textContent = msg;
+  t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);'
+    + 'background:'+(isError?'#dc2626':'var(--b700)')+';color:#fff;'
+    + 'padding:9px 20px;border-radius:6px;font-size:13px;z-index:600;'
+    + 'box-shadow:0 4px 12px rgba(0,0,0,.2);transition:opacity .3s;';
+  document.body.appendChild(t);
+  setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ t.remove(); }, 300); }, 2500);
 }
 
 window.addEventListener('DOMContentLoaded', function(){
   ganttExpandAll();
   renderGantt();
-  setTimeout(ganttToday, 150);
+  // Scroll to project start so bars are immediately visible
+  setTimeout(function(){
+    var gr = document.getElementById('ganttRight');
+    if(gr) gr.scrollLeft = 0;
+  }, 100);
 });
 </script>
+
+<!-- Issue Panel Overlay -->
+<div id="panelOverlay" onclick="closeIssuePanel()"></div>
+
+<!-- Issue Panel -->
+<div id="issuePanel">
+  <div class="ip-header">
+    <h3 id="ipTitle">任务详情</h3>
+    <a id="ipGhLink" href="#" target="_blank" class="ip-close" title="在 GitHub 查看" style="text-decoration:none;font-size:13px;">⎘</a>
+    <button class="ip-close" onclick="closeIssuePanel()">✕</button>
+  </div>
+  <div class="ip-body">
+    <div id="ipLoading" class="ip-loading">加载中…</div>
+    <div id="ipContent" style="display:none;">
+      <div class="ip-section">
+        <div class="ip-label">任务名称</div>
+        <input id="ipName" class="ip-field" type="text" placeholder="任务名称">
+      </div>
+      <div class="ip-section">
+        <div class="ip-meta" id="ipMeta"></div>
+      </div>
+      <div class="ip-section ip-row2">
+        <div>
+          <div class="ip-label">开始日期</div>
+          <input id="ipStart" class="ip-field" type="date">
+        </div>
+        <div>
+          <div class="ip-label">结束日期</div>
+          <input id="ipEnd" class="ip-field" type="date">
+        </div>
+      </div>
+      <div class="ip-section">
+        <div class="ip-label">完成度</div>
+        <div class="ip-pct-wrap">
+          <input id="ipPctSlider" type="range" min="0" max="100" step="5"
+            oninput="document.getElementById('ipPctNum').textContent=this.value+'%';document.getElementById('ipPct').value=this.value">
+          <span id="ipPctNum" class="ip-pct-num">0%</span>
+          <input id="ipPct" type="hidden" value="0">
+        </div>
+      </div>
+      <div class="ip-section">
+        <div class="ip-label">负责人</div>
+        <input id="ipOwner" class="ip-field" type="text" placeholder="负责人">
+      </div>
+      <div class="ip-section">
+        <div class="ip-label">任务描述（同步至 GitHub Issue）</div>
+        <textarea id="ipBody" class="ip-field" placeholder="任务描述、验收标准、关联交付物…"></textarea>
+      </div>
+      <div class="ip-section" id="ipLabelsWrap" style="display:none;">
+        <div class="ip-label">标签</div>
+        <div id="ipLabels"></div>
+      </div>
+    </div>
+  </div>
+  <div class="ip-footer">
+    <button class="ip-btn ip-btn-primary" onclick="saveIssuePanel()">💾 保存</button>
+    <button class="ip-btn ip-btn-ghost" id="ipGhBtn" onclick="openOnGitHub()">⎘ GitHub</button>
+    <button class="ip-btn ip-btn-ghost" onclick="closeIssuePanel()" style="margin-left:auto;">取消</button>
+  </div>
+</div>
+
 </body>
 </html>
