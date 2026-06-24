@@ -601,7 +601,9 @@ select.dp-input{appearance:none;-webkit-appearance:none;
 
     <!-- Tree chart view -->
     <div id="orgChartView">
-      <div class="org-chart-wrap">
+      <div class="org-chart-wrap"
+        ondragover="event.preventDefault()"
+        ondrop="promoteToRoot(event)">
         <div class="org-chart" id="orgChart"></div>
       </div>
     </div>
@@ -1818,13 +1820,33 @@ function onDragStart(e,nodeId){DRAG_NODE_ID=nodeId;e.dataTransfer.effectAllowed=
 function onDragEnd(e){e.currentTarget.style.opacity='1';document.querySelectorAll('.oc-drop-target').forEach(function(el){el.classList.remove('oc-drop-over');});}
 function onDragOver(e,nodeId){e.preventDefault();e.dataTransfer.dropEffect='move';document.querySelectorAll('.oc-drop-target').forEach(function(el){el.classList.remove('oc-drop-over');});var el=document.getElementById('oct_'+nodeId);if(el)el.classList.add('oc-drop-over');}
 function onDrop(e,targetId){
-  e.preventDefault();
+  e.preventDefault();e.stopPropagation();
   var srcId=DRAG_NODE_ID;if(!srcId||srcId===targetId)return;
   if(!ORG_TREE.nodes[srcId]||!ORG_TREE.nodes[targetId])return;
   function isDesc(pid,cid){var n=ORG_TREE.nodes[pid];if(!n)return false;for(var i=0;i<n.children.length;i++){if(n.children[i]===cid||isDesc(n.children[i],cid))return true;}return false;}
   if(isDesc(srcId,targetId))return;
+  // Remove src from all parents
   Object.values(ORG_TREE.nodes).forEach(function(n){var i=n.children.indexOf(srcId);if(i>=0)n.children.splice(i,1);});
+  // Add as child of target
   if(ORG_TREE.nodes[targetId].children.indexOf(srcId)<0)ORG_TREE.nodes[targetId].children.push(srcId);
+  // Recalculate roots
+  var hasParent={};
+  Object.values(ORG_TREE.nodes).forEach(function(n){n.children.forEach(function(cid){hasParent[cid]=true;});});
+  ORG_TREE.roots=Object.keys(ORG_TREE.nodes).filter(function(nid){return !hasParent[nid];});
+  saveOrgTree();renderOrgChart();DRAG_NODE_ID=null;
+}
+
+function promoteToRoot(e){
+  e.preventDefault();
+  var srcId=DRAG_NODE_ID;if(!srcId)return;
+  if(!ORG_TREE.nodes[srcId])return;
+  // Check drop wasn't on a node (those call e.stopPropagation)
+  // Remove from current parent
+  Object.values(ORG_TREE.nodes).forEach(function(n){var i=n.children.indexOf(srcId);if(i>=0)n.children.splice(i,1);});
+  // Recalculate roots — srcId now has no parent → becomes root
+  var hasParent={};
+  Object.values(ORG_TREE.nodes).forEach(function(n){n.children.forEach(function(cid){hasParent[cid]=true;});});
+  ORG_TREE.roots=Object.keys(ORG_TREE.nodes).filter(function(nid){return !hasParent[nid];});
   saveOrgTree();renderOrgChart();DRAG_NODE_ID=null;
 }
 
@@ -1927,23 +1949,36 @@ function renderOrgChart(){
   }
   syncTreeFromMembers();
 
-  var roots=ORG_TREE.roots||[ORG_TREE.rootId];
-  // Labels for root sections
+  // Always derive roots dynamically from the tree structure
+  var hasParent={};
+  Object.values(ORG_TREE.nodes).forEach(function(n){n.children.forEach(function(cid){hasParent[cid]=true;});});
+  var roots=Object.keys(ORG_TREE.nodes).filter(function(nid){return !hasParent[nid];});
+  // Preserve preferred order: vendor roots first, then client
+  roots.sort(function(a,b){
+    var ga=ORG_TREE.nodes[a].group||'', gb=ORG_TREE.nodes[b].group||'';
+    if(ga==='vendor'&&gb!=='vendor') return -1;
+    if(gb==='vendor'&&ga!=='vendor') return 1;
+    return 0;
+  });
+  ORG_TREE.roots=roots;
+
   var labels={'root_vendor':'乙方 — 艾维登咨询','root_client':'甲方 — 佛山照明'};
 
-  var sectionsHtml = roots.map(function(rid){
-    var label=labels[rid]||'';
+  var sectionsHtml=roots.map(function(rid){
+    var node=ORG_TREE.nodes[rid];
+    var grp=node.group||'';
+    var label=labels[rid]||(grp==='vendor'||grp==='consultant'?'乙方 — 艾维登咨询':'甲方 — 佛山照明');
     return '<div style="display:flex;flex-direction:column;align-items:center;padding:0 32px;">'
       +(label?'<div style="font-size:11px;font-weight:800;color:#5B7A91;letter-spacing:.6px;text-transform:uppercase;margin-bottom:14px;padding:4px 14px;background:#EBF5FB;border-radius:10px;">'+label+'</div>':'')
-      +renderNode(rid,0,true)
+      +renderNode(rid,0,false)
       +'</div>';
   }).join('<div style="width:2px;background:#D6E8F2;margin:0 16px;align-self:stretch;"></div>');
 
   el.innerHTML='<div style="font-size:11px;color:#5B7A91;margin-bottom:16px;text-align:center;">'
-    +'💡 <b>右键节点</b>更改颜色 &nbsp;·&nbsp; <b>拖拽</b>调整汇报层级 &nbsp;·&nbsp; '
+    +'💡 <b>右键节点</b>更改颜色 &nbsp;·&nbsp; <b>拖拽节点到其他节点上</b>调整汇报层级 &nbsp;·&nbsp; <b>拖到空白处松手</b>使其成为顶层节点 &nbsp;·&nbsp; '
     +'<button onclick="resetOrgTree()" style="font-size:11px;color:#dc2626;background:none;border:none;cursor:pointer;text-decoration:underline;">重置为默认</button>'
     +'</div>'
-    +'<div style="display:flex;align-items:flex-start;justify-content:center;">'
+    +'<div style="display:flex;align-items:flex-start;justify-content:center;flex-wrap:wrap;gap:16px;">'
     +sectionsHtml
     +'</div>';
 }
