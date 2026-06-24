@@ -1033,16 +1033,17 @@ function renderGantt(){
       var totalSlotDays=(new Date(PEND)-new Date(PSTART))/86400000+1;
       lPx=(startOff/totalSlotDays)*totalW;
       wPx=Math.max(((endOff-startOff+1)/totalSlotDays)*totalW, isMilestone?14:8);
+      var barLabel=row.type==='phase'?row.ph.label:row.task.label;
 
       if(isMilestone){
-        rowHtml+='<div style="position:absolute;left:'+lPx+'px;width:12px;height:12px;top:10px;transform:rotate(45deg);background:#F4B942;z-index:2;border:1px solid rgba(0,0,0,.1)" title="'+row.task.label+'"></div>';
-        rowHtml+='<span style="position:absolute;left:'+(lPx+16)+'px;top:9px;font-size:9.5px;font-weight:700;color:var(--navy);white-space:nowrap">'+row.task.label+'</span>';
+        rowHtml+='<div style="position:absolute;left:'+lPx+'px;width:12px;height:12px;top:10px;transform:rotate(45deg);background:#F4B942;z-index:2;border:1px solid rgba(0,0,0,.1)" title="'+barLabel+'"></div>';
+        rowHtml+='<span style="position:absolute;left:'+(lPx+16)+'px;top:9px;font-size:9.5px;font-weight:700;color:var(--navy);white-space:nowrap">'+barLabel+'</span>';
       } else {
         var barH=row.type==='phase'?14:12;
         var barTop=(ROW_H-barH)/2;
-        rowHtml+='<div style="position:absolute;left:'+lPx+'px;width:'+wPx+'px;height:'+barH+'px;top:'+barTop+'px;border-radius:3px;background:'+color+';z-index:2;overflow:hidden" title="'+row.task.label+' ('+start+' → '+end+')">';
+        rowHtml+='<div style="position:absolute;left:'+lPx+'px;width:'+wPx+'px;height:'+barH+'px;top:'+barTop+'px;border-radius:3px;background:'+color+';z-index:2;overflow:hidden" title="'+barLabel+' ('+start+' → '+end+')">';
         if(pct>0&&pct<100) rowHtml+='<div style="width:'+pct+'%;height:100%;background:rgba(255,255,255,.25);border-right:1px solid rgba(255,255,255,.4)"></div>';
-        if(wPx>50) rowHtml+='<span style="position:absolute;left:5px;top:50%;transform:translateY(-50%);font-size:9px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:'+(wPx-10)+'px">'+row.task.label+'</span>';
+        if(wPx>50) rowHtml+='<span style="position:absolute;left:5px;top:50%;transform:translateY(-50%);font-size:9px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:'+(wPx-10)+'px">'+barLabel+'</span>';
         rowHtml+='</div>';
       }
     }
