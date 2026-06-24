@@ -358,6 +358,58 @@ nav{overflow:visible !important;}
 select.dp-input{appearance:none;-webkit-appearance:none;
   background:var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%235B7A91'/%3E%3C/svg%3E") no-repeat right 8px center;}
 
+
+/* ── Org Tree View ── */
+.org-view-toggle{display:flex;gap:6px;margin-bottom:16px;}
+.org-view-btn{padding:5px 14px;border:1px solid var(--pale);border-radius:5px;
+  font-size:12px;cursor:pointer;background:var(--bg);color:var(--steel);font-family:inherit;transition:all .15s;}
+.org-view-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+
+/* tree chart */
+.org-chart-wrap{overflow:auto;padding:16px 0 24px;}
+.org-chart{display:flex;flex-direction:column;align-items:center;min-width:900px;}
+
+/* node styles */
+.oc-node{display:flex;flex-direction:column;align-items:center;position:relative;}
+.oc-box{padding:8px 18px;border-radius:6px;font-size:12.5px;font-weight:700;
+  text-align:center;white-space:nowrap;min-width:130px;cursor:default;
+  box-shadow:0 2px 6px rgba(11,45,71,.12);}
+.oc-box.steering{background:#8DB48E;color:#fff;font-size:13px;min-width:180px;}
+.oc-box.pm-client{background:var(--primary);color:#fff;}
+.oc-box.pm-vendor{background:#F5C842;color:#1a1a1a;}
+.oc-box.group-hd{background:#F5C842;color:#1a1a1a;font-size:12px;}
+.oc-box.member-client{background:var(--primary);color:#fff;font-size:11.5px;min-width:120px;}
+.oc-box.member-vendor{background:#F5C842;color:#1a1a1a;font-size:11.5px;min-width:120px;}
+.oc-box.group-label{background:transparent;border:none;box-shadow:none;
+  font-size:12px;font-weight:800;color:var(--dark);text-align:center;padding:4px 8px;}
+
+/* connectors */
+.oc-v-line{width:2px;background:var(--pale);flex-shrink:0;}
+.oc-h-bar{height:2px;background:var(--pale);position:absolute;}
+.oc-level{display:flex;align-items:flex-start;gap:0;position:relative;width:100%;}
+.oc-col{display:flex;flex-direction:column;align-items:center;flex:1;position:relative;}
+
+/* vertical connector between levels */
+.oc-connector{display:flex;flex-direction:column;align-items:center;}
+.oc-connector .oc-v-line{height:24px;}
+
+/* horizontal row with connectors */
+.oc-branch-row{display:flex;align-items:flex-start;justify-content:center;
+  position:relative;gap:0;width:100%;}
+.oc-branch-col{display:flex;flex-direction:column;align-items:center;
+  padding:0 12px;position:relative;flex:1;}
+/* top horizontal line */
+.oc-branch-col::before{content:'';position:absolute;top:0;left:0;right:0;
+  height:2px;background:var(--pale);}
+.oc-branch-col:first-child::before{left:50%;}
+.oc-branch-col:last-child::before{right:50%;}
+.oc-branch-col .oc-v-line{height:20px;}
+
+/* member list inside group column */
+.oc-members{display:flex;flex-direction:column;gap:6px;align-items:center;margin-top:6px;}
+.oc-member-label{font-size:10.5px;color:var(--muted);text-align:center;
+  margin-top:2px;max-width:140px;line-height:1.3;}
+
 </style>
 </head>
 <body>
@@ -536,23 +588,39 @@ select.dp-input{appearance:none;-webkit-appearance:none;
 <!-- ═══ ORG PANEL ═══ -->
 <div class="mod-panel" id="panel-org">
   <div class="org-panel-body">
-    <div class="org-section" id="orgSectionClient">
-      <div class="org-section-hd">
-        <span style="font-size:18px">🏢</span>
-        <span class="org-section-title">甲方团队 — 佛山照明</span>
-        <span class="org-section-badge" id="orgCountClient">0</span>
-        <button class="org-add-btn" onclick="openOrgModal('client')">＋ 添加成员</button>
-      </div>
-      <div class="org-tree" id="orgTreeClient"></div>
+    <!-- View toggle -->
+    <div class="org-view-toggle">
+      <button class="org-view-btn active" id="orgViewTree" onclick="switchOrgView('tree')">🌲 树状图</button>
+      <button class="org-view-btn" id="orgViewList" onclick="switchOrgView('list')">📋 成员列表</button>
     </div>
-    <div class="org-section" id="orgSectionConsultant">
-      <div class="org-section-hd">
-        <span style="font-size:18px">💼</span>
-        <span class="org-section-title">乙方团队 — 艾维登咨询</span>
-        <span class="org-section-badge" id="orgCountConsultant">0</span>
-        <button class="org-add-btn" onclick="openOrgModal('consultant')">＋ 添加成员</button>
+
+    <!-- Tree chart view -->
+    <div id="orgChartView">
+      <div class="org-chart-wrap">
+        <div class="org-chart" id="orgChart"></div>
       </div>
-      <div class="org-tree" id="orgTreeConsultant"></div>
+    </div>
+
+    <!-- List view -->
+    <div id="orgListView" style="display:none;">
+      <div class="org-section" id="orgSectionClient">
+        <div class="org-section-hd">
+          <span style="font-size:18px">🏢</span>
+          <span class="org-section-title">甲方团队 — 佛山照明</span>
+          <span class="org-section-badge" id="orgCountClient">0</span>
+          <button class="org-add-btn" onclick="openOrgModal('client')">＋ 添加成员</button>
+        </div>
+        <div class="org-tree" id="orgTreeClient"></div>
+      </div>
+      <div class="org-section" id="orgSectionConsultant">
+        <div class="org-section-hd">
+          <span style="font-size:18px">💼</span>
+          <span class="org-section-title">乙方团队 — 艾维登咨询</span>
+          <span class="org-section-badge" id="orgCountConsultant">0</span>
+          <button class="org-add-btn" onclick="openOrgModal('consultant')">＋ 添加成员</button>
+        </div>
+        <div class="org-tree" id="orgTreeConsultant"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -1633,8 +1701,137 @@ function deleteOrgMember(grp,id){
 }
 
 
+
+// ── ORG CHART TREE VIEW ──────────────────────────────────────────────────────
+var ORG_CURRENT_VIEW = 'tree';
+
+function switchOrgView(view){
+  ORG_CURRENT_VIEW = view;
+  document.getElementById('orgChartView').style.display = view==='tree' ? '' : 'none';
+  document.getElementById('orgListView').style.display  = view==='list' ? '' : 'none';
+  document.getElementById('orgViewTree').className = 'org-view-btn' + (view==='tree'?' active':'');
+  document.getElementById('orgViewList').className = 'org-view-btn' + (view==='list'?' active':'');
+  if(view==='tree') renderOrgChart();
+  else renderOrgPanel();
+}
+
+function oc_box(label, cls, sub){
+  return '<div style="display:flex;flex-direction:column;align-items:center;gap:3px;">'
+    + '<div class="oc-box '+cls+'">'+label+'</div>'
+    + (sub ? '<div class="oc-member-label">'+sub+'</div>' : '')
+    + '</div>';
+}
+
+function renderOrgChart(){
+  var el = document.getElementById('orgChart');
+  if(!el) return;
+  var cl = PROJECT_MEMBERS.client;
+  var co = PROJECT_MEMBERS.consultant;
+
+  // Build groups from consultant members
+  // Group structure fixed (from org chart reference):
+  // Steering → [Vendor PM | Client PM]
+  //   → [咨询组 | 业务功能组 | 技术组 | 佛照业务团队]
+  //      each with members
+
+  var vPM = co.find(function(m){return m.role.indexOf('PM')>=0 || m.role.indexOf('经理')>=0;}) || co[0] || {name:'艾维登PM',role:'项目经理'};
+  var cPM = cl.find(function(m){return m.role.indexOf('副总')>=0 || m.role.indexOf('主持')>=0;}) || cl[0] || {name:'佛照PM',role:'项目主持'};
+
+  // Steering committee members
+  var steering = cl.filter(function(m){return m.role.indexOf('总经理')>=0||m.role.indexOf('副总')>=0;});
+
+  // Consultant sub-groups
+  var grpConsult   = co.filter(function(m){return m.role.indexOf('业务专家')>=0||m.role.indexOf('顾问')>=0;});
+  var grpTech      = co.filter(function(m){return m.role.indexOf('技术')>=0||m.role.indexOf('IT')>=0||m.role.indexOf('BASIS')>=0;});
+  var grpRemaining = co.filter(function(m){
+    return m !== vPM && grpConsult.indexOf(m)<0 && grpTech.indexOf(m)<0;
+  });
+  // All consultant non-PM in one group for cleanliness
+  var grpAll = co.filter(function(m){ return m !== vPM; });
+
+  // Client sub-groups
+  var grpClientBiz  = cl.filter(function(m){return m !== cPM && steering.indexOf(m)<0 && (m.role.indexOf('部')>=0||m.role.indexOf('事业')>=0||m.role.indexOf('销售')>=0||m.role.indexOf('财务')>=0||m.role.indexOf('采购')>=0||m.role.indexOf('供应')>=0);});
+  var grpClientIT   = cl.filter(function(m){return m !== cPM && steering.indexOf(m)<0 && grpClientBiz.indexOf(m)<0;});
+
+  function makeMembers(members, cls){
+    return members.map(function(m){
+      return '<div style="display:flex;flex-direction:column;align-items:center;gap:2px;">'
+        +'<div class="oc-box '+cls+'">'+m.name+'</div>'
+        +'<div class="oc-member-label">'+m.role+'</div>'
+        +'</div>';
+    }).join('');
+  }
+
+  var steeringNames = steering.length
+    ? steering.map(function(m){return m.name+'<span style="font-size:10px;opacity:.8;display:block;font-weight:400">'+m.role+'</span>';}).join('、')
+    : '项目指导委员会';
+
+  var html = ''
+  // Level 0: Steering
+  + '<div class="oc-connector">'
+  +   '<div class="oc-box steering" style="min-width:220px;">项目指导委员会'
+  +     (steering.length ? '<div style="font-size:10px;font-weight:400;margin-top:3px;opacity:.85;">'+steering.map(function(m){return m.name;}).join(' · ')+'</div>' : '')
+  +   '</div>'
+  +   '<div class="oc-v-line" style="height:28px;"></div>'
+  + '</div>'
+
+  // Level 1: PM row — vendor PM (yellow) | client PM (blue)
+  + '<div class="oc-branch-row" style="width:70%;max-width:700px;">'
+  +   '<div class="oc-branch-col">'
+  +     '<div class="oc-v-line" style="height:20px;"></div>'
+  +     oc_box(vPM.name+'<div style="font-size:10px;font-weight:400;margin-top:2px;">'+vPM.role+'</div>', 'pm-vendor')
+  +   '</div>'
+  +   '<div class="oc-branch-col">'
+  +     '<div class="oc-v-line" style="height:20px;"></div>'
+  +     oc_box(cPM.name+'<div style="font-size:10px;font-weight:400;margin-top:2px;">'+cPM.role+'</div>', 'pm-client')
+  +   '</div>'
+  + '</div>'
+
+  // Connector line down
+  + '<div class="oc-v-line" style="height:28px;"></div>'
+
+  // Level 2: 4 group columns
+  + '<div class="oc-branch-row" style="width:100%;align-items:flex-start;">';
+
+  // Col 1: 咨询顾问组 (consultant BA/expert)
+  var cGroup1 = co.filter(function(m){ return m !== vPM; });
+  html += '<div class="oc-branch-col" style="padding:0 10px;">'
+  +   '<div class="oc-v-line" style="height:20px;"></div>'
+  +   '<div class="oc-box group-hd" style="margin-bottom:8px;min-width:150px;">艾维登顾问组</div>'
+  +   '<div class="oc-members">' + makeMembers(cGroup1,'member-vendor') + '</div>'
+  + '</div>';
+
+  // Col 2: 艾维登PM (just the PM as coordinator - skip if same as vPM)
+  // instead put any remaining consultant roles here; or show vPM's full info
+  // Let's put a "项目管理" box
+  html += '<div class="oc-branch-col" style="padding:0 10px;">'
+  +   '<div class="oc-v-line" style="height:20px;"></div>'
+  +   '<div class="oc-box group-hd" style="margin-bottom:8px;min-width:150px;">佛照业务团队</div>'
+  +   '<div class="oc-members">' + makeMembers(grpClientBiz.length ? grpClientBiz : cl.filter(function(m){return m!==cPM&&steering.indexOf(m)<0;}), 'member-client') + '</div>'
+  + '</div>';
+
+  // Col 3: 佛照技术
+  html += '<div class="oc-branch-col" style="padding:0 10px;">'
+  +   '<div class="oc-v-line" style="height:20px;"></div>'
+  +   '<div class="oc-box group-hd" style="background:var(--primary);color:#fff;margin-bottom:8px;min-width:150px;">佛照技术团队</div>'
+  +   '<div class="oc-members">' + makeMembers(grpClientIT.length ? grpClientIT : [{name:'IT专家',role:'BASIS/应用'}], 'member-client') + '</div>'
+  + '</div>';
+
+  // Col 4: Steering / exec layer
+  html += '<div class="oc-branch-col" style="padding:0 10px;">'
+  +   '<div class="oc-v-line" style="height:20px;"></div>'
+  +   '<div class="oc-box group-hd" style="background:#6BA39A;color:#fff;margin-bottom:8px;min-width:150px;">决策层</div>'
+  +   '<div class="oc-members">' + makeMembers(steering.length ? steering : [{name:'待定',role:'高管'}], 'member-client') + '</div>'
+  + '</div>';
+
+  html += '</div>'; // close branch-row
+
+  el.innerHTML = html;
+}
+
 // ── START ─────────────────────────────────────────────────────────
 renderOrgPanel();
+renderOrgChart();
 if(TOKEN){ init(); } else { document.getElementById('loading').style.display='none'; document.getElementById('token-prompt').classList.add('show'); }
 </script>
 </body>
