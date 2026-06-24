@@ -1507,9 +1507,14 @@ function switchTab(el, panel){
   document.querySelectorAll('.mod-panel').forEach(function(p){p.classList.remove('active');});
   el.classList.add('active');
   document.getElementById('panel-'+panel).classList.add('active');
-  // Show/hide sub-toolbar filters (only relevant for kanban/tasklist)
+  // Show/hide sub-toolbar filters
   var showFilters=['kanban','tasklist'].indexOf(panel)!==-1;
   document.getElementById('subToolbar').style.opacity=showFilters?'1':'0.5';
+  // Lazy-render org chart only when tab is activated
+  if(panel==='org'){
+    if(ORG_CURRENT_VIEW==='tree') renderOrgChart();
+    else renderOrgPanel();
+  }
 }
 
 // ── DETAIL MODAL ──────────────────────────────────────────────────
@@ -1704,7 +1709,19 @@ function saveOrgMember(){
 function deleteOrgMember(grp,id){
   if(!confirm('确认删除该成员？'))return;
   PROJECT_MEMBERS[grp]=PROJECT_MEMBERS[grp].filter(function(m){return m.id!==id;});
-  saveMembers(); renderOrgPanel();
+  saveMembers();
+  // Also remove from ORG_TREE
+  if(ORG_TREE){
+    var nid='cm_'+id;
+    Object.values(ORG_TREE.nodes).forEach(function(n){var i=n.children.indexOf(nid);if(i>=0)n.children.splice(i,1);});
+    delete ORG_TREE.nodes[nid];
+    var hasParent={};
+    Object.values(ORG_TREE.nodes).forEach(function(n){n.children.forEach(function(cid){hasParent[cid]=true;});});
+    ORG_TREE.roots=Object.keys(ORG_TREE.nodes).filter(function(k){return !hasParent[k];});
+    saveOrgTree();
+  }
+  renderOrgPanel();
+  if(ORG_CURRENT_VIEW==='tree') renderOrgChart();
 }
 
 
@@ -1996,7 +2013,6 @@ function resetOrgTree(){
 
 // ── START ─────────────────────────────────────────────────────────
 renderOrgPanel();
-renderOrgChart();
 if(TOKEN){ init(); } else { document.getElementById('loading').style.display='none'; document.getElementById('token-prompt').classList.add('show'); }
 </script>
 </body>
