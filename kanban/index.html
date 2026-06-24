@@ -922,17 +922,17 @@ function renderGantt(){
   var slots=buildSlots(zoom);
   var rows=flattenTree();
   var now=new Date();
-  var ROW_H=32;
+  var ROW_H=60;
   var COL_W=zoom==='week'?78:110;
   var totalW=slots.length*COL_W;
 
   // ── Left tree ──────────────────────────────────────
   var leftHtml='';
   rows.forEach(function(row,ri){
-    var bg=ri%2===0?'var(--white)':'var(--bg)';
+    var bg=ri%2===0?'var(--white)':'#EDF5FC';
     var label,pct,owner,hasChildren,colId,isMilestone=false;
     if(row.type==='phase'){
-      bg='var(--pale)'; label=row.ph.label; pct=row.ph.pct; owner=row.ph.owner;
+      bg='#D0E8F5'; label=row.ph.label; pct=row.ph.pct; owner=row.ph.owner;
       hasChildren=row.ph.tasks&&row.ph.tasks.length; colId=row.ph.id;
     } else {
       label=row.task.label; pct=row.task.pct||0; owner=row.task.owner||'';
@@ -950,7 +950,7 @@ function renderGantt(){
       row.type==='phase'?'<span style="display:inline-block;width:9px;height:9px;background:'+row.ph.color+';border-radius:2px;margin-right:4px;flex-shrink:0;vertical-align:middle"></span>':
       '<span style="font-size:9px;color:var(--pale);margin-right:3px;flex-shrink:0">☐</span>';
     var pctColor=pct>=100?'var(--steel)':pct>0?'var(--primary)':'var(--pale)';
-    leftHtml+='<div onclick="selectGanttRow(\''+row.id+'\')" style="display:grid;grid-template-columns:1fr 60px 56px;height:'+ROW_H+'px;background:'+bg+';border-bottom:1px solid rgba(0,0,0,.04);cursor:pointer;align-items:center'+(isSelected?';outline:2px solid var(--primary);outline-offset:-2px':'')+'" title="'+label+'">'+
+    leftHtml+='<div onclick="selectGanttRow(\''+row.id+'\')" style="display:grid;grid-template-columns:1fr 60px 60px;height:'+ROW_H+'px;background:'+bg+';border-bottom:1px solid rgba(0,0,0,.04);cursor:pointer;align-items:center'+(isSelected?';outline:2px solid var(--primary);outline-offset:-2px':'')+'" title="'+label+'">'+
       '<div style="padding:0 6px 0 '+(8+indent)+'px;display:flex;align-items:center;gap:2px;min-width:0;overflow:hidden">'+
         toggleBtn+typeIcon+
         '<span style="font-size:11.5px;'+(row.type==='phase'?'font-weight:700;color:var(--dark)':isMilestone?'font-weight:700;color:var(--navy)':'color:var(--text2)')+';white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+label+'</span>'+
@@ -1039,7 +1039,7 @@ function renderGantt(){
         rowHtml+='<div style="position:absolute;left:'+lPx+'px;width:12px;height:12px;top:10px;transform:rotate(45deg);background:#F4B942;z-index:2;border:1px solid rgba(0,0,0,.1)" title="'+barLabel+'"></div>';
         rowHtml+='<span style="position:absolute;left:'+(lPx+16)+'px;top:9px;font-size:9.5px;font-weight:700;color:var(--navy);white-space:nowrap">'+barLabel+'</span>';
       } else {
-        var barH=row.type==='phase'?14:12;
+        var barH=row.type==='phase'?28:22;
         var barTop=(ROW_H-barH)/2;
         rowHtml+='<div style="position:absolute;left:'+lPx+'px;width:'+wPx+'px;height:'+barH+'px;top:'+barTop+'px;border-radius:3px;background:'+color+';z-index:2;overflow:hidden" title="'+barLabel+' ('+start+' → '+end+')">';
         if(pct>0&&pct<100) rowHtml+='<div style="width:'+pct+'%;height:100%;background:rgba(255,255,255,.25);border-right:1px solid rgba(255,255,255,.4)"></div>';
