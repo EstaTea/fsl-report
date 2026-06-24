@@ -616,9 +616,8 @@ function openIssuePanel(rowId){
       .then(function(issue){
         // Parse gantt metadata from body
         var body = issue.body || '';
-        var ganttM = body.match(/<!--\s*gantt:\s*start=([\d-]+)\s+end=([\d-]+)\s+pct=(\d+)[^>]*-->/);
-        var cleanBody = body.replace(/
-*<!--\s*gantt:[^>]*-->/g,'').trim();
+        var ganttM = body.match(/<!-- gantt: start=([\d-]+) end=([\d-]+) pct=(\d+) -->/);
+        var cleanBody = body.replace(/[\s\S]*<!--[\s\S]*?gantt:[\s\S]*?-->/g,'').trim();
 
         document.getElementById('ipName').value = issue.title || task.label;
         document.getElementById('ipTitle').textContent = issue.title || task.label;
@@ -706,7 +705,7 @@ function saveIssuePanel(){
 
   // Build updated body with gantt metadata
   var cleanBody = task.desc || '';
-  var ganttComment = '\n\n<!-- gantt: start='+task.start+' end='+task.end+' pct='+task.pct+' -->';
+  var ganttComment = '\\n\\n<!-- gantt: start='+task.start+' end='+task.end+' pct='+task.pct+' -->';
   var newBody = cleanBody + ganttComment;
 
   var saveBtn = document.querySelector('.ip-btn-primary');
