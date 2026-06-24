@@ -1821,9 +1821,6 @@ function onDrop(e,targetId){
   e.preventDefault();
   var srcId=DRAG_NODE_ID;if(!srcId||srcId===targetId)return;
   if(!ORG_TREE.nodes[srcId]||!ORG_TREE.nodes[targetId])return;
-  // Prevent root nodes from being moved
-  var roots=ORG_TREE.roots||[ORG_TREE.rootId];
-  if(roots.indexOf(srcId)>=0)return;
   function isDesc(pid,cid){var n=ORG_TREE.nodes[pid];if(!n)return false;for(var i=0;i<n.children.length;i++){if(n.children[i]===cid||isDesc(n.children[i],cid))return true;}return false;}
   if(isDesc(srcId,targetId))return;
   Object.values(ORG_TREE.nodes).forEach(function(n){var i=n.children.indexOf(srcId);if(i>=0)n.children.splice(i,1);});
@@ -1886,20 +1883,18 @@ function renderNode(nodeId,depth,isRoot){
   var tc=isLight(node.color)?'#1a1a1a':'#fff';
   var minW=depth===0?'150px':'130px';
   var fs=depth===0?'13px':'12.5px';
-  var notDraggable=isRoot?'':'draggable="true" ondragstart="onDragStart(event,\''+nodeId+'\')" ondragend="onDragEnd(event)"';
   var box='<div id="oct_'+nodeId+'" class="oc-drop-target"'
-    +' '+notDraggable
+    +' draggable="true" ondragstart="onDragStart(event,\''+nodeId+'\')" ondragend="onDragEnd(event)"'
     +' ondragover="onDragOver(event,\''+nodeId+'\')"'
     +' ondrop="onDrop(event,\''+nodeId+'\')"'
     +' oncontextmenu="event.preventDefault();event.stopPropagation();openColorPicker(\''+nodeId+'\',event.clientX,event.clientY)"'
-    +' style="display:inline-flex;flex-direction:column;align-items:center;'
-    +(isRoot?'cursor:default;':'cursor:grab;')
+    +' style="display:inline-flex;flex-direction:column;align-items:center;cursor:grab;'
     +'padding:8px 18px;border-radius:6px;font-size:'+fs+';font-weight:700;'
     +'min-width:'+minW+';text-align:center;'
     +'background:'+node.color+';color:'+tc+';'
     +'box-shadow:0 2px 8px rgba(11,45,71,.18);border:2px solid transparent;'
     +'transition:box-shadow .15s,border-color .15s;user-select:none;"'
-    +' title="'+node.name+(node.role?' · '+node.role:'')+(isRoot?'':' | 右键改色 · 拖拽移位')+'">'
+    +' title="'+node.name+(node.role?' · '+node.role:'')+' | 右键改色 · 拖拽移位">'
     +'<span>'+node.name+'</span>'
     +(node.role?'<span style="font-size:10px;font-weight:400;opacity:.8;margin-top:2px;">'+node.role+'</span>':'')
     +'</div>';
