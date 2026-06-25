@@ -1798,12 +1798,12 @@ function loadOrgDataFromGitHub(callback){
   ]).then(function(res){
     var mData=res[0], tData=res[1];
     if(mData.content){
-      try{ PROJECT_MEMBERS=JSON.parse(atob(mData.content.split('\n').join(''))); ORG_MEMBERS_SHA=mData.sha; }
+      try{ PROJECT_MEMBERS=JSON.parse(decodeURIComponent(escape(atob(mData.content.split('\n').join(''))))); ORG_MEMBERS_SHA=mData.sha; }
       catch(e){ PROJECT_MEMBERS=JSON.parse(JSON.stringify(DEFAULT_MEMBERS)); }
     } else { PROJECT_MEMBERS=JSON.parse(JSON.stringify(DEFAULT_MEMBERS)); }
     if(tData.content){
       try{
-        var tp=JSON.parse(atob(tData.content.split('\n').join('')));
+        var tp=JSON.parse(decodeURIComponent(escape(atob(tData.content.split('\n').join('')))));
         ORG_TREE_SHA=tData.sha;
         if(tp&&tp.nodes) ORG_TREE=tp;
       }catch(e){}
