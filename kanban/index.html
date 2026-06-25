@@ -421,7 +421,26 @@ select.dp-input{appearance:none;-webkit-appearance:none;
 
 <div id="loading"><div class="spinner"></div><p>加载中...</p></div>
 
-<div id="token-prompt"></div>
+<div id="token-prompt">
+  <div style="background:#fff;border-radius:12px;padding:32px 36px;max-width:420px;width:100%;box-shadow:0 8px 32px rgba(11,45,71,.15);">
+    <div style="font-size:22px;margin-bottom:8px;">🔑</div>
+    <h3 style="font-size:17px;font-weight:800;color:#0B2D47;margin-bottom:8px;">GitHub 登录</h3>
+    <p style="font-size:13px;color:#5B7A91;margin-bottom:20px;line-height:1.6;">
+      请输入 GitHub Personal Access Token 以读取和更新项目任务。<br>
+      需要 <code style="background:#EBF5FB;padding:2px 6px;border-radius:3px;">repo</code> 权限。
+    </p>
+    <input id="token-input" type="password" placeholder="ghp_xxxxxxxxxxxx"
+      style="width:100%;padding:10px 12px;border:1px solid #D6E8F2;border-radius:6px;font-size:13px;font-family:inherit;margin-bottom:12px;outline:none;"
+      onkeydown="if(event.key==='Enter')saveToken()">
+    <div style="display:flex;gap:8px;">
+      <button onclick="saveToken()" style="flex:1;padding:9px;background:#2374A3;color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;">登录</button>
+      <button onclick="loadDemo()" style="flex:1;padding:9px;background:#EBF5FB;color:#2374A3;border:1px solid #C7E2F2;border-radius:6px;font-size:13px;cursor:pointer;">使用演示数据</button>
+    </div>
+    <p style="font-size:11px;color:#5B7A91;margin-top:12px;">
+      Token 仅存储在浏览器本地，不上传至服务器。
+    </p>
+  </div>
+</div>
 
 <nav>
   <a href="/fsl-report/" class="nav-logo-link" style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
