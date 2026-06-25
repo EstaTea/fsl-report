@@ -1684,8 +1684,13 @@ function switchTab(el, panel){
   // Lazy-render org chart only when tab is activated
   if(panel==='gantt'){ syncIssuesToGantt(allIssues); renderGantt(); }
   if(panel==='org'){
-    if(ORG_CURRENT_VIEW==='tree') renderOrgChart();
-    else renderOrgPanel();
+    if(!ORG_DATA_LOADED){
+      loadOrgDataFromGitHub(function(){
+        if(ORG_CURRENT_VIEW==='tree') renderOrgChart(); else renderOrgPanel();
+      });
+    } else {
+      if(ORG_CURRENT_VIEW==='tree') renderOrgChart(); else renderOrgPanel();
+    }
   }
 }
 
@@ -1758,29 +1763,85 @@ async function refreshAll(){ allIssues=[]; await init(); }
 
 
 // ── PROJECT MEMBERS / ORG CHART ─────────────────────────────────────────────
-var PROJECT_MEMBERS = JSON.parse(localStorage.getItem('fsl_members') || 'null') || {
+var PROJECT_MEMBERS = {client:[], consultant:[]};
+var ORG_MEMBERS_SHA = null;
+var ORG_TREE_SHA = null;
+var ORG_DATA_LOADED = false;
+
+var DEFAULT_MEMBERS = {
   client: [
     {id:'m1', name:'张学权', role:'总经理',             org:'佛山照明',          color:'#0B2D47'},
     {id:'m2', name:'李泽华', role:'副总经理（项目主持）',org:'佛山照明',          color:'#1A4F73'},
     {id:'m3', name:'曾肖静', role:'副总经理',            org:'佛山照明',          color:'#1A4F73'},
     {id:'m4', name:'苏大明', role:'数智化部负责人',      org:'佛山照明·数智化部', color:'#2374A3'},
-    {id:'m5', name:'李一帜', role:'财务管理部',          org:'佛山照明·财务',     color:'#2374A3'},
+    {id:'m5', name:'李一帆', role:'财务管理部',          org:'佛山照明·财务',     color:'#2374A3'},
     {id:'m6', name:'钟吟',   role:'企业管理部',          org:'佛山照明·企管',     color:'#2374A3'},
-    {id:'m7', name:'吴梓填', role:'IT/BASIS',           org:'佛山照明·数智化部', color:'#3D8FC4'},
+    {id:'m7', name:'吴棘填', role:'IT/BASIS',           org:'佛山照明·数智化部', color:'#3D8FC4'},
     {id:'m8', name:'王志宏', role:'供应链总监',          org:'佛山照明·供应链',   color:'#3D8FC4'},
     {id:'m9', name:'杨程麟', role:'商用事业部',          org:'佛山照明',          color:'#5B7A91'},
     {id:'m10',name:'赵俊杰', role:'国际事业部',          org:'佛山照明',          color:'#5B7A91'}
   ],
   consultant: [
-    {id:'m11',name:'陈宇清', role:'咨询 PM',            org:'艾维登咨询',         color:'#0B2D47'},
-    {id:'m12',name:'刘斌',   role:'业务专家',           org:'艾维登咨询',         color:'#1A4F73'},
-    {id:'m13',name:'贾奋明', role:'业务专家 A (OTC/SD)',org:'艾维登咨询',         color:'#2374A3'},
-    {id:'m14',name:'贾嘉',   role:'业务专家（记录）',   org:'艾维登咨询',         color:'#3D8FC4'}
+    {id:'m11',name:'陈宇清', role:'咋询 PM',            org:'艾维登咋询',         color:'#0B2D47'},
+    {id:'m12',name:'刘斌',   role:'业务专家',           org:'艾维登咋询',         color:'#1A4F73'},
+    {id:'m13',name:'贾奋明', role:'业务专家 A (OTC/SD)',org:'艾维登咋询',         color:'#2374A3'},
+    {id:'m14',name:'贾害',   role:'业务专家（记录）',   org:'艾维登咋询',         color:'#3D8FC4'}
   ]
 };
+
+function loadOrgDataFromGitHub(callback){
+  var h={'Accept':'application/vnd.github+json'};
+  if(TOKEN) h['Authorization']='Bearer '+TOKEN;
+  Promise.all([
+    fetch('https://api.github.com/repos/EstaTea/fsl-report/contents/org/members.json',{headers:h}).then(function(r){return r.json();}),
+    fetch('https://api.github.com/repos/EstaTea/fsl-report/contents/org/tree.json',{headers:h}).then(function(r){return r.json();})
+  ]).then(function(res){
+    var mData=res[0], tData=res[1];
+    if(mData.content){
+      try{ PROJECT_MEMBERS=JSON.parse(atob(mData.content.split('\n').join(''))); ORG_MEMBERS_SHA=mData.sha; }
+      catch(e){ PROJECT_MEMBERS=JSON.parse(JSON.stringify(DEFAULT_MEMBERS)); }
+    } else { PROJECT_MEMBERS=JSON.parse(JSON.stringify(DEFAULT_MEMBERS)); }
+    if(tData.content){
+      try{
+        var tp=JSON.parse(atob(tData.content.split('\n').join('')));
+        ORG_TREE_SHA=tData.sha;
+        if(tp&&tp.nodes) ORG_TREE=tp;
+      }catch(e){}
+    }
+    ORG_DATA_LOADED=true;
+    if(callback) callback();
+  }).catch(function(){
+    PROJECT_MEMBERS=JSON.parse(JSON.stringify(DEFAULT_MEMBERS));
+    ORG_DATA_LOADED=true;
+    if(callback) callback();
+  });
+}
+
+function saveMembers(){
+  if(!TOKEN){ showOrgToast('请先登录 GitHub 以保存成员数据',true); return; }
+  var body=JSON.stringify({message:'update: org members',content:btoa(unescape(encodeURIComponent(JSON.stringify(PROJECT_MEMBERS,null,2)))),sha:ORG_MEMBERS_SHA});
+  fetch('https://api.github.com/repos/EstaTea/fsl-report/contents/org/members.json',{method:'PUT',headers:{'Accept':'application/vnd.github+json','Authorization':'Bearer '+TOKEN,'Content-Type':'application/json'},body:body})
+    .then(function(r){return r.json();}).then(function(d){if(d.content)ORG_MEMBERS_SHA=d.content.sha;showOrgToast('成员数据已保存到 GitHub');})
+    .catch(function(){showOrgToast('保存失败',true);});
+}
+
+function saveOrgTree(){
+  if(!ORG_TREE||!TOKEN) return;
+  var body=JSON.stringify({message:'update: org tree',content:btoa(unescape(encodeURIComponent(JSON.stringify(ORG_TREE,null,2)))),sha:ORG_TREE_SHA});
+  fetch('https://api.github.com/repos/EstaTea/fsl-report/contents/org/tree.json',{method:'PUT',headers:{'Accept':'application/vnd.github+json','Authorization':'Bearer '+TOKEN,'Content-Type':'application/json'},body:body})
+    .then(function(r){return r.json();}).then(function(d){if(d.content)ORG_TREE_SHA=d.content.sha;})
+    .catch(function(){});
+}
+
+function showOrgToast(msg,isErr){
+  var t=document.createElement('div');t.textContent=msg;
+  t.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:'+(isErr?'#dc2626':'var(--b700)')+';color:#fff;padding:9px 20px;border-radius:6px;font-size:13px;z-index:700;box-shadow:0 4px 12px rgba(0,0,0,.2);';
+  document.body.appendChild(t);
+  setTimeout(function(){t.style.opacity='0';setTimeout(function(){t.remove();},300);},2500);
+}
 var ORG_EDITING_ID=null, ORG_EDITING_GROUP=null;
 
-function saveMembers(){ localStorage.setItem('fsl_members',JSON.stringify(PROJECT_MEMBERS)); }
+// saveMembers: defined above
 function getAllMembers(){ return PROJECT_MEMBERS.client.concat(PROJECT_MEMBERS.consultant); }
 function getMemberByName(name){ return getAllMembers().find(function(m){return m.name===name;}); }
 
@@ -1900,7 +1961,7 @@ function deleteOrgMember(grp,id){
 
 // ── ORG CHART TREE VIEW ──────────────────────────────────────────────────────
 var ORG_CURRENT_VIEW = 'tree';
-var ORG_TREE = JSON.parse(localStorage.getItem('fsl_org_tree') || 'null') || null;
+var ORG_TREE = null; // loaded from GitHub
 
 function getDefaultOrgTree(){
   var cl = PROJECT_MEMBERS.client;
@@ -1944,7 +2005,7 @@ function getDefaultOrgTree(){
   return tree;
 }
 
-function saveOrgTree(){ localStorage.setItem('fsl_org_tree',JSON.stringify(ORG_TREE)); }
+// saveOrgTree: defined above
 
 function syncTreeFromMembers(){
   if(!ORG_TREE) return;
