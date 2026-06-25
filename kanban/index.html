@@ -731,8 +731,8 @@ var allIssues=[], allMilestones=[], currentDetailNum=null;
 function hdrs(){ var h={'Accept':'application/vnd.github+json'}; if(TOKEN) h['Authorization']='Bearer '+TOKEN; return h; }
 async function gf(url,opts){ var r=await fetch(url,Object.assign({headers:hdrs()},opts||{})); if(!r.ok) throw new Error(r.status); return r.json(); }
 
-function saveToken(){ var t=document.getElementById('token-input').value.trim(); if(!t)return; TOKEN=t; localStorage.setItem('gh_token_fsl',t); document.getElementById('token-prompt').classList.remove('show'); init(); }
-function loadDemo(){ document.getElementById('token-prompt').classList.remove('show'); useDemoData(); }
+function saveToken(){ var t=document.getElementById('token-input').value.trim(); if(!t)return; TOKEN=t; localStorage.setItem('gh_token_fsl',t); document.getElementById('token-prompt').style.display='none'; init(); }
+function loadDemo(){ document.getElementById('token-prompt').style.display='none'; useDemoData(); }
 
 // ── init ──────────────────────────────────────────────────────────
 async function init(){
@@ -749,7 +749,7 @@ async function init(){
   }catch(e){
     if(e.message&&(e.message.startsWith('401')||e.message.startsWith('403'))){
       TOKEN=''; localStorage.removeItem('gh_token_fsl');
-      document.getElementById('token-prompt').classList.add('show');
+      document.getElementById('token-prompt').style.display='flex';
     } else {
       try{ useDemoData(); }catch(e2){ console.error('demo data error',e2); }
     }
@@ -2034,7 +2034,7 @@ function resetOrgTree(){
 
 // ── START ─────────────────────────────────────────────────────────
 renderOrgPanel();
-if(TOKEN){ init(); } else { document.getElementById('loading').style.display='none'; document.getElementById('token-prompt').classList.add('show'); }
+if(TOKEN){ init(); } else { document.getElementById('loading').style.display='none'; useDemoData(); document.getElementById('token-prompt').style.display='flex'; }
 </script>
 </body>
 </html>
