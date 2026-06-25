@@ -728,7 +728,19 @@ var allIssues=[], allMilestones=[], currentDetailNum=null;
 function hdrs(){ var h={'Accept':'application/vnd.github+json'}; if(TOKEN) h['Authorization']='Bearer '+TOKEN; return h; }
 async function gf(url,opts){ var r=await fetch(url,Object.assign({headers:hdrs()},opts||{})); if(!r.ok) throw new Error(r.status); return r.json(); }
 
-function saveToken(){ var t=document.getElementById('token-input').value.trim(); if(!t)return; TOKEN=t; localStorage.setItem('gh_token_fsl',t); document.getElementById('token-prompt').style.display='none'; init(); }
+function saveToken(){
+  var t=document.getElementById('token-input').value.trim(); if(!t)return;
+  TOKEN=t; localStorage.setItem('gh_token_fsl',t);
+  document.getElementById('token-prompt').style.display='none';
+  // If there was a pending action before login, run it instead of full init
+  if(window._afterLoginCallback){
+    var cb=window._afterLoginCallback;
+    window._afterLoginCallback=null;
+    cb();
+  } else {
+    init();
+  }
+}
 function loadDemo(){ document.getElementById('token-prompt').style.display='none'; useDemoData(); }
 
 // ── init ──────────────────────────────────────────────────────────
@@ -2036,8 +2048,20 @@ function saveGanttOverrides(callback){
   }).catch(function(){});
 }
 
+function promptLoginThenDo(callback){
+  // Show the token-prompt overlay; after successful login, run callback
+  var prompt = document.getElementById('token-prompt');
+  if(!prompt) return;
+  // Set a one-time post-login callback
+  window._afterLoginCallback = callback;
+  prompt.style.display = 'flex';
+  setTimeout(function(){
+    var inp = document.getElementById('token-input');
+    if(inp) inp.focus();
+  }, 100);
+}
 function saveMembers(){
-  if(!TOKEN){ showOrgToast('请先登录 GitHub 以保存成员数据',true); return; }
+  if(!TOKEN){ promptLoginThenDo(saveMembers); return; }
   var body=JSON.stringify({message:'update: org members',content:btoa(unescape(encodeURIComponent(JSON.stringify(PROJECT_MEMBERS,null,2)))),sha:ORG_MEMBERS_SHA});
   fetch('https://api.github.com/repos/EstaTea/fsl-report/contents/org/members.json',{method:'PUT',headers:{'Accept':'application/vnd.github+json','Authorization':'Bearer '+TOKEN,'Content-Type':'application/json'},body:body})
     .then(function(r){return r.json();}).then(function(d){if(d.content)ORG_MEMBERS_SHA=d.content.sha;showOrgToast('成员数据已保存到 GitHub');})
@@ -2155,11 +2179,13 @@ function saveOrgMember(){
   } else {
     PROJECT_MEMBERS[grp].push({id:'m'+Date.now(),name:name,role:role,org:org,color:color});
   }
+  if(!TOKEN){ promptLoginThenDo(function(){ saveOrgMember(); }); return; }
   saveMembers(); renderOrgPanel(); closeOrgModal();
 }
 
 function deleteOrgMember(grp,id){
   if(!confirm('确认删除该成员？'))return;
+  if(!TOKEN){ promptLoginThenDo(function(){ deleteOrgMember(grp,id); }); return; }
   PROJECT_MEMBERS[grp]=PROJECT_MEMBERS[grp].filter(function(m){return m.id!==id;});
   saveMembers();
   // Also remove from ORG_TREE
