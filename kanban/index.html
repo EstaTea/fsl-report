@@ -898,12 +898,47 @@ function loadGanttData(callback){
     }).catch(function(){ if(callback) callback(); });
 }
 
+function applyGanttStructure(){
+  // Restore drag-drop order/hierarchy from saved structure
+  if(!GANTT_OVERRIDES||!GANTT_OVERRIDES['__structure']) return;
+  var saved=GANTT_OVERRIDES['__structure'];
+  // Reorder GANTT_PHASES to match saved order
+  var reordered=[];
+  saved.forEach(function(sph){
+    var ph=GANTT_PHASES.find(function(p){return p.id===sph.id;});
+    if(!ph) return;
+    // Reorder tasks
+    function reorderTasks(savedTasks, allTasks){
+      var result=[];
+      savedTasks.forEach(function(st){
+        var t=allTasks.find(function(x){return x.id===st.id;});
+        if(!t) return;
+        if(st.children&&t.children) t.children=reorderTasks(st.children,t.children);
+        result.push(t);
+      });
+      // Append any tasks not in saved structure (newly added)
+      allTasks.forEach(function(t){ if(!result.find(function(x){return x.id===t.id;})) result.push(t); });
+      return result;
+    }
+    ph.tasks=reorderTasks(sph.tasks||[], ph.tasks||[]);
+    reordered.push(ph);
+  });
+  // Append any phases not in saved structure
+  GANTT_PHASES.forEach(function(ph){ if(!reordered.find(function(p){return p.id===ph.id;})) reordered.push(ph); });
+  // Replace in-place
+  GANTT_PHASES.splice(0,GANTT_PHASES.length);
+  reordered.forEach(function(ph){ GANTT_PHASES.push(ph); });
+}
+
 function applyGanttOverrides(){
   // Apply stored overrides to GANTT_PHASES in memory
   if(!GANTT_OVERRIDES) return;
+  applyGanttStructure();
   Object.keys(GANTT_OVERRIDES).forEach(function(taskId){
+    if(taskId==='__structure') return;
     var ov=GANTT_OVERRIDES[taskId];
     // Find task by composite id (phId__taskId or just phId)
+    if(taskId==='__structure') return;
     var parts=taskId.split('__'), phId=parts[0];
     var ph=GANTT_PHASES.find(function(p){return p.id===phId;});
     if(!ph) return;
@@ -1316,7 +1351,27 @@ function ganttDrop(e,rid){
   if(!src||src===tgt||!mode)return;
   if(src.indexOf('__')<0&&tgt.indexOf('__')>=0&&mode==='into')return;
   var removed=ganttFAR(src);if(!removed)return;
-  ganttIns(removed.item,tgt,mode);renderGantt();
+  ganttIns(removed.item,tgt,mode);
+  renderGantt();
+  // Persist new structure: store GANTT_PHASES order/hierarchy in overrides
+  saveGanttStructure();
+}
+
+function saveGanttStructure(){
+  if(!TOKEN) return;
+  // Store the full GANTT_PHASES structure (labels, ids, children relationships)
+  // We store minimal structure: just order and parent-child relationships
+  var structure=GANTT_PHASES.map(function(ph){
+    function minTask(t){
+      var r={id:t.id,issueNum:t.issueNum};
+      if(t.children&&t.children.length) r.children=t.children.map(minTask);
+      return r;
+    }
+    return {id:ph.id, tasks:(ph.tasks||[]).map(minTask)};
+  });
+  // Merge into GANTT_OVERRIDES under special key
+  GANTT_OVERRIDES['__structure'] = structure;
+  saveGanttOverrides(null);
 }
 
 function renderGantt(){
@@ -1481,6 +1536,30 @@ function openTaskDetail(rowId){
     loadOrgDataFromGitHub(function(){ openTaskDetail(rowId); });
     return;
   }
+  var found = findTaskByRowId(rowId);
+  if(!found){ closeTaskDetail(); return; }
+  var _task = found.type==='phase' ? found.ph : found.task;
+  // If this task has a linked GitHub issue, fetch latest body from GitHub
+  if(_task.issueNum){
+    var h={'Accept':'application/vnd.github+json'};
+    if(TOKEN) h['Authorization']='Bearer '+TOKEN;
+    fetch('https://api.github.com/repos/EstaTea/fsl-report/issues/'+_task.issueNum,{headers:h})
+      .then(function(r){return r.json();})
+      .then(function(issue){
+        // Sync desc from GitHub body (strip gantt metadata comments)
+        var body=(issue.body||'').replace(/<!--[\s\S]*?-->/g,'').trim();
+        _task.desc = body;
+        // Also sync title if changed
+        // _task.label = issue.title; // optional - uncomment to sync titles too
+        _openTaskDetailPanel(rowId);
+      })
+      .catch(function(){ _openTaskDetailPanel(rowId); });
+    return;
+  }
+  _openTaskDetailPanel(rowId);
+}
+
+function _openTaskDetailPanel(rowId){
   var found = findTaskByRowId(rowId);
   if(!found){ closeTaskDetail(); return; }
   var panel = document.getElementById('taskDetailPanel');
