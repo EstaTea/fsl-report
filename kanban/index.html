@@ -572,6 +572,7 @@ select.dp-input{appearance:none;-webkit-appearance:none;
       <span style="display:inline-block;width:9px;height:9px;background:var(--steel);border-radius:2px;margin-left:7px;margin-right:2px;vertical-align:middle"></span>部署
       &nbsp;<span style="color:var(--navy);font-weight:700">│今日</span>
     </span>
+  <span style="margin-left:auto;font-size:10.5px;color:var(--muted);display:flex;align-items:center;gap:4px;">💡 拖拽行调整层级</span>
   </div>
   <div style="flex:1;display:flex;overflow:hidden;position:relative" id="ganttOuter">
     <div style="width:420px;min-width:420px;flex-shrink:0;overflow-y:auto;overflow-x:hidden;border-right:2px solid var(--pale)" id="ganttLeft">
@@ -1220,6 +1221,180 @@ function findTaskByRowId(rowId){
     }
   }
   return null;
+}
+
+
+// ── GANTT TREE DRAG-DROP ──────────────────────────────────────────────────────
+var GANTT_DRAG_ROW = null;   // rowId being dragged
+var GANTT_DROP_ROW = null;   // rowId being hovered
+var GANTT_DROP_MODE = null;  // 'before' | 'into' | 'after'
+
+// Find and remove a task/phase from its current location in GANTT_PHASES
+// Returns {item, parentArray, index} or null
+function ganttRemoveItem(rowId){
+  var parts = rowId.split('__');
+  var phId  = parts[0];
+  var ph = GANTT_PHASES.find(function(p){ return p.id===phId; });
+  if(!ph) return null;
+
+  if(parts.length===1){
+    // It's a phase — remove from GANTT_PHASES
+    var pi = GANTT_PHASES.indexOf(ph);
+    if(pi<0) return null;
+    GANTT_PHASES.splice(pi,1);
+    return {item:ph, parentArray:GANTT_PHASES, index:pi, isPhase:true};
+  }
+
+  // Task: find in tree recursively
+  function removeFromList(list){
+    for(var i=0;i<list.length;i++){
+      var t=list[i];
+      if(phId+'__'+t.id === rowId){
+        list.splice(i,1);
+        return {item:t, parentArray:list, index:i, isPhase:false};
+      }
+      if(t.children){
+        var r=removeFromList(t.children);
+        if(r) return r;
+      }
+    }
+    return null;
+  }
+  return removeFromList(ph.tasks);
+}
+
+// Find the tasks array that 'owns' a given rowId
+function ganttGetOwnerList(rowId){
+  var parts=rowId.split('__');
+  var ph=GANTT_PHASES.find(function(p){ return p.id===parts[0]; });
+  if(!ph) return null;
+  if(parts.length===1) return {list:GANTT_PHASES, isPhase:true, ph:null};
+  // depth-1 task → ph.tasks; depth-2+ → parent.children
+  function findList(list, depth){
+    for(var i=0;i<list.length;i++){
+      var t=list[i];
+      if(parts[0]+'__'+t.id === rowId) return {list:list, idx:i, isPhase:false, ph:ph};
+      if(t.children){
+        var r=findList(t.children, depth+1);
+        if(r) return r;
+      }
+    }
+    return null;
+  }
+  return findList(ph.tasks,1);
+}
+
+// Insert item into GANTT_PHASES tree relative to target rowId
+function ganttInsertItem(item, targetRowId, mode, isPhase){
+  var tParts=targetRowId.split('__');
+  var tPhId=tParts[0];
+  var tPh=GANTT_PHASES.find(function(p){ return p.id===tPhId; });
+
+  if(mode==='into'){
+    // Make item a child of target
+    if(tParts.length===1){
+      // Target is a phase → add to phase.tasks
+      if(!tPh.tasks) tPh.tasks=[];
+      tPh.tasks.push(item);
+    } else {
+      // Target is a task → add to task.children
+      function addChild(list){
+        for(var i=0;i<list.length;i++){
+          if(tPhId+'__'+list[i].id===targetRowId){
+            if(!list[i].children) list[i].children=[];
+            list[i].children.push(item);
+            return true;
+          }
+          if(list[i].children && addChild(list[i].children)) return true;
+        }
+        return false;
+      }
+      if(tPh) addChild(tPh.tasks);
+    }
+    return;
+  }
+
+  // mode === 'before' or 'after'
+  var offset = mode==='after' ? 1 : 0;
+
+  if(tParts.length===1){
+    // Target is a phase
+    var ti=GANTT_PHASES.indexOf(tPh);
+    GANTT_PHASES.splice(ti+offset, 0, item);
+  } else {
+    function insertNear(list){
+      for(var i=0;i<list.length;i++){
+        if(tPhId+'__'+list[i].id===targetRowId){
+          list.splice(i+offset,0,item);
+          return true;
+        }
+        if(list[i].children && insertNear(list[i].children)) return true;
+      }
+      return false;
+    }
+    if(tPh) insertNear(tPh.tasks);
+  }
+}
+
+function ganttDragStart(e, rowId){
+  GANTT_DRAG_ROW=rowId;
+  e.dataTransfer.effectAllowed='move';
+  e.currentTarget.style.opacity='0.45';
+}
+function ganttDragEnd(e){
+  e.currentTarget.style.opacity='1';
+  GANTT_DRAG_ROW=null;
+  GANTT_DROP_ROW=null;
+  GANTT_DROP_MODE=null;
+  // Clear all drop indicators
+  document.querySelectorAll('[data-gantt-drop]').forEach(function(el){
+    el.style.borderTop='';
+    el.style.borderBottom='';
+    el.style.background='';
+  });
+}
+function ganttDragOver(e, rowId){
+  e.preventDefault();
+  e.dataTransfer.dropEffect='move';
+  if(!GANTT_DRAG_ROW || GANTT_DRAG_ROW===rowId) return;
+  var el=document.getElementById('gtr_'+rowId);
+  if(!el) return;
+  // Clear all
+  document.querySelectorAll('[data-gantt-drop]').forEach(function(x){
+    x.style.borderTop=''; x.style.borderBottom=''; x.style.background='';
+  });
+  var rect=el.getBoundingClientRect();
+  var y=e.clientY-rect.top;
+  var h=rect.height;
+  if(y<h*0.25){
+    GANTT_DROP_MODE='before';
+    el.style.borderTop='2px solid var(--primary)';
+  } else if(y>h*0.75){
+    GANTT_DROP_MODE='after';
+    el.style.borderBottom='2px solid var(--primary)';
+  } else {
+    GANTT_DROP_MODE='into';
+    el.style.background='rgba(35,116,163,.12)';
+  }
+  GANTT_DROP_ROW=rowId;
+}
+function ganttDrop(e, rowId){
+  e.preventDefault();
+  var src=GANTT_DRAG_ROW, tgt=GANTT_DROP_ROW, mode=GANTT_DROP_MODE;
+  // Clear indicators
+  document.querySelectorAll('[data-gantt-drop]').forEach(function(x){
+    x.style.borderTop=''; x.style.borderBottom=''; x.style.background='';
+  });
+  if(!src||!tgt||!mode||src===tgt) return;
+  // Prevent dropping phase into task
+  var srcIsPhase=src.indexOf('__')<0;
+  var tgtIsPhase=tgt.indexOf('__')<0;
+  if(srcIsPhase && !tgtIsPhase && mode==='into') return; // can't put phase inside task
+  var removed=ganttRemoveItem(src);
+  if(!removed) return;
+  ganttInsertItem(removed.item, tgt, mode, srcIsPhase);
+  GANTT_DRAG_ROW=null; GANTT_DROP_ROW=null; GANTT_DROP_MODE=null;
+  renderGantt();
 }
 
 function renderGantt(){
