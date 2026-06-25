@@ -766,17 +766,19 @@ function useDemoData(){
 }
 
 // ── render all ────────────────────────────────────────────────────
+function safeRun(name,fn){try{fn();}catch(e){console.error('[render]',name,'failed:',e.message);}}
+
 function render(){
   var issues=filteredIssues();
-  renderKanban(issues);
-  renderMilestones();
-  renderTaskList(issues);
-  renderGantt();
-  renderRisk(issues);
-  renderDeliverables();
-  renderStats(issues);
-  updateStats(issues);
-  populateMsSelect();
+  safeRun('kanban',    function(){ renderKanban(issues); });
+  safeRun('milestone', function(){ renderMilestones(); });
+  safeRun('tasklist',  function(){ renderTaskList(issues); });
+  safeRun('gantt',     function(){ renderGantt(); });
+  safeRun('risk',      function(){ renderRisk(issues); });
+  safeRun('deliverable',function(){ renderDeliverables(); });
+  safeRun('stats',     function(){ renderStats(issues); });
+  safeRun('updateStats',function(){ updateStats(issues); });
+  safeRun('msSelect',  function(){ populateMsSelect(); });
   var done=allIssues.filter(function(i){return i.state==='closed';}).length;
   var total=allIssues.length;
   var pct=total?Math.round(done/total*100):0;
