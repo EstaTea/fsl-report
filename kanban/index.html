@@ -779,6 +779,107 @@ function useDemoData(){
 }
 
 // ── render all ────────────────────────────────────────────────────
+// ── SYNC ISSUES → GANTT ──────────────────────────────────────────────────────
+// Maps issue label prefix to GANTT_PHASES id
+var PHASE_LABEL_MAP = {
+  '咨询-诊断': 'consulting', '咨询-蓝图': 'consulting', '咨询-路径': 'consulting',
+  'SAP-准备':  'prepare',
+  'SAP-蓝图':  'explore',
+  'SAP-实现':  'realize',
+  'SAP-部署':  'deploy',
+  'SAP-运行':  'deploy', 'SAP-验收': 'deploy'
+};
+
+var STATUS_PCT_MAP = {
+  'status:待办': 0, 'status:进行中': 50, 'status:待评审': 80, 'status:已完成': 100
+};
+
+function getIssuePct(issue){
+  var s = issue.labels.find(function(l){ return l.name.startsWith('status:'); });
+  if(issue.state==='closed') return 100;
+  return s ? (STATUS_PCT_MAP[s.name]||0) : 0;
+}
+
+function getIssuePhaseId(issue){
+  var phases = issue.labels
+    .filter(function(l){ return l.name.startsWith('阶段:'); })
+    .map(function(l){ return l.name.replace('阶段:',''); });
+  for(var i=0;i<phases.length;i++){
+    var pid = PHASE_LABEL_MAP[phases[i]];
+    if(pid) return pid;
+  }
+  return 'consulting'; // default
+}
+
+function parseGanttMeta(body){
+  if(!body) return null;
+  var m = (body||'').match(/<!-- gantt: start=([\d-]+) end=([\d-]+) pct=(\d+)/);
+  return m ? {start:m[1], end:m[2], pct:parseInt(m[3])} : null;
+}
+
+function syncIssuesToGantt(issues){
+  if(!issues||!issues.length) return;
+
+  // Build set of issueNums already mapped in GANTT_PHASES
+  var mapped = {};
+  GANTT_PHASES.forEach(function(ph){
+    function walkTasks(tasks){
+      tasks.forEach(function(t){
+        if(t.issueNum) mapped[t.issueNum] = t;
+        if(t.children) walkTasks(t.children);
+      });
+    }
+    if(ph.issueNum) mapped[ph.issueNum] = ph;
+    walkTasks(ph.tasks||[]);
+  });
+
+  issues.forEach(function(issue){
+    var num = issue.number;
+    var pct = getIssuePct(issue);
+    var meta = parseGanttMeta(issue.body);
+
+    if(mapped[num]){
+      // Sync status/pct from issue
+      mapped[num].pct = pct;
+      if(meta){
+        if(meta.start) mapped[num].start = meta.start;
+        if(meta.end)   mapped[num].end   = meta.end;
+      }
+    } else {
+      // New issue not yet in GANTT_PHASES — add it dynamically
+      var phId = getIssuePhaseId(issue);
+      var ph = GANTT_PHASES.find(function(p){ return p.id===phId; });
+      if(!ph) ph = GANTT_PHASES[0];
+
+      // Check not already added (avoid duplicates on re-render)
+      var alreadyAdded = ph.tasks.some(function(t){ return t.issueNum===num; });
+      if(!alreadyAdded){
+        var start = (meta && meta.start) ? meta.start : ph.start;
+        var end   = (meta && meta.end)   ? meta.end   : ph.end;
+        ph.tasks.push({
+          id:      'gh_'+num,
+          issueNum: num,
+          label:   issue.title.replace(/^[【\[](咨询|SAP|探索|实现|上线|专项|里程碑|数据|接口|测试|风险|组织)[】\]]\s*/,''),
+          owner:   (issue.assignees&&issue.assignees.length) ? issue.assignees[0].login : '',
+          pct:     pct,
+          start:   start,
+          end:     end,
+          milestone: issue.labels.some(function(l){return l.name==='类型:里程碑';}),
+          desc:    (issue.body||'').replace(/<!--[\s\S]*?-->/g,'').trim().slice(0,120)
+        });
+      }
+    }
+  });
+
+  // Recompute phase pct as average of tasks
+  GANTT_PHASES.forEach(function(ph){
+    if(!ph.tasks||!ph.tasks.length) return;
+    var total=0, count=0;
+    ph.tasks.forEach(function(t){ if(!t.milestone){ total+=t.pct||0; count++; } });
+    if(count>0) ph.pct = Math.round(total/count);
+  });
+}
+
 function safeRun(name,fn){try{fn();}catch(e){console.error('[render]',name,'failed:',e.message);}}
 
 function render(){
@@ -786,7 +887,7 @@ function render(){
   safeRun('kanban',    function(){ renderKanban(issues); });
   safeRun('milestone', function(){ renderMilestones(); });
   safeRun('tasklist',  function(){ renderTaskList(issues); });
-  safeRun('gantt',     function(){ renderGantt(); });
+  safeRun('gantt',     function(){ syncIssuesToGantt(allIssues); renderGantt(); });
   safeRun('risk',      function(){ renderRisk(issues); });
   safeRun('deliverable',function(){ renderDeliverables(); });
   safeRun('stats',     function(){ renderStats(issues); });
@@ -1526,6 +1627,7 @@ function switchTab(el, panel){
   var showFilters=['kanban','tasklist'].indexOf(panel)!==-1;
   document.getElementById('subToolbar').style.opacity=showFilters?'1':'0.5';
   // Lazy-render org chart only when tab is activated
+  if(panel==='gantt'){ syncIssuesToGantt(allIssues); renderGantt(); }
   if(panel==='org'){
     if(ORG_CURRENT_VIEW==='tree') renderOrgChart();
     else renderOrgPanel();
