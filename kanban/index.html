@@ -1967,15 +1967,55 @@ function syncTreeFromMembers(){
       delete ORG_TREE.nodes[nid];
     }
   });
-  // Sync existing members
+  // Build set of all current memberIds from PROJECT_MEMBERS
+  var allMemberIds={};
+  ['client','consultant'].forEach(function(grp){
+    PROJECT_MEMBERS[grp].forEach(function(m){ allMemberIds[m.id]=m; });
+  });
+
+  // Remove tree nodes whose member was deleted from PROJECT_MEMBERS
+  Object.keys(ORG_TREE.nodes).forEach(function(nid){
+    var n=ORG_TREE.nodes[nid];
+    if(!n.memberId) return; // keep virtual/group nodes
+    if(roots.indexOf(nid)>=0) return; // keep root nodes
+    if(!allMemberIds[n.memberId]){
+      // Member deleted — remove from tree
+      Object.values(ORG_TREE.nodes).forEach(function(parent){
+        var i=parent.children.indexOf(nid);
+        if(i>=0) parent.children.splice(i,1);
+      });
+      delete ORG_TREE.nodes[nid];
+    }
+  });
+  // Also update root nodes if their member was deleted (replace with first available)
+  roots.forEach(function(rid){
+    var rn=ORG_TREE.nodes[rid];
+    if(rn&&rn.memberId&&!allMemberIds[rn.memberId]){
+      // Root member deleted — find a replacement from same group
+      var grp=rn.group||'consultant';
+      var srcGrp=grp==='client'?PROJECT_MEMBERS.client:PROJECT_MEMBERS.consultant;
+      if(srcGrp.length>0){
+        var replacement=srcGrp[0];
+        rn.memberId=replacement.id; rn.name=replacement.name; rn.role=replacement.role;
+      }
+    }
+  });
+
+  // Sync existing members (name/role/color updates)
   ['client','consultant'].forEach(function(grp){
     PROJECT_MEMBERS[grp].forEach(function(m){
       if(inTree[m.id]){
         var nid='cm_'+m.id;
-        if(ORG_TREE.nodes[nid]){ORG_TREE.nodes[nid].name=m.name;ORG_TREE.nodes[nid].role=m.role;}
+        if(ORG_TREE.nodes[nid]){
+          ORG_TREE.nodes[nid].name=m.name;
+          ORG_TREE.nodes[nid].role=m.role;
+          ORG_TREE.nodes[nid].color=m.color||ORG_TREE.nodes[nid].color;
+        }
         roots.forEach(function(rid){
           if(ORG_TREE.nodes[rid]&&ORG_TREE.nodes[rid].memberId===m.id){
-            ORG_TREE.nodes[rid].name=m.name; ORG_TREE.nodes[rid].role=m.role;
+            ORG_TREE.nodes[rid].name=m.name;
+            ORG_TREE.nodes[rid].role=m.role;
+            ORG_TREE.nodes[rid].color=m.color||ORG_TREE.nodes[rid].color;
           }
         });
         return;
@@ -2145,10 +2185,11 @@ function renderOrgChart(){
   // Sort: client (甲方) first, vendor (乙方) second
   roots.sort(function(a,b){
     var ga=ORG_TREE.nodes[a].group||'', gb=ORG_TREE.nodes[b].group||'';
-    var aIsClient=(ga==='client');
-    var bIsClient=(gb==='client');
-    if(aIsClient&&!bIsClient) return -1;
-    if(bIsClient&&!aIsClient) return 1;
+    // vendor (乙方) first (left), client (甲方) second (right)
+    var aIsVendor=(ga==='vendor'||ga==='consultant');
+    var bIsVendor=(gb==='vendor'||gb==='consultant');
+    if(aIsVendor&&!bIsVendor) return -1;
+    if(bIsVendor&&!aIsVendor) return 1;
     return 0;
   });
   ORG_TREE.roots=roots;
@@ -2159,6 +2200,7 @@ function renderOrgChart(){
     var node=ORG_TREE.nodes[rid];
     var grp=node.group||'';
     var isClient=(grp==='client');
+    var isVendor=(grp==='vendor'||grp==='consultant');
     var label=labels[rid]||(isClient?'甲方 — 佛山照明':'乙方 — 艾维登咨询');
     var badgeBg=isClient?'#EBF5FB':'#FEF9E7';
     var badgeColor=isClient?'#1A4F73':'#B7860B';
