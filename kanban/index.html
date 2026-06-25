@@ -742,7 +742,8 @@ async function init(){
     ]);
     allIssues=open.concat(closed).filter(function(i){return !i.pull_request;});
     allMilestones=ms;
-    render();
+    // Load gantt overrides from GitHub before rendering
+    loadGanttData(function(){ render(); });
   }catch(e){
     // API failed (rate limit, network) — fall back to demo data
     console.warn('API load failed, using demo data:', e.message);
@@ -880,6 +881,56 @@ function syncIssuesToGantt(issues){
   });
 }
 
+function loadGanttData(callback){
+  var h={'Accept':'application/vnd.github+json'};
+  if(TOKEN) h['Authorization']='Bearer '+TOKEN;
+  fetch('https://api.github.com/repos/EstaTea/fsl-report/contents/org/gantt.json',{headers:h})
+    .then(function(r){return r.json();})
+    .then(function(gData){
+      if(gData.content){
+        try{
+          var gp=JSON.parse(decodeGitHubContent ? decodeGitHubContent(gData.content) : decodeURIComponent(escape(atob(gData.content.split('\n').join('')))));
+          GANTT_OVERRIDES_SHA=gData.sha;
+          if(gp&&gp.tasks) GANTT_OVERRIDES=gp.tasks;
+        }catch(e){}
+      }
+      if(callback) callback();
+    }).catch(function(){ if(callback) callback(); });
+}
+
+function applyGanttOverrides(){
+  // Apply stored overrides to GANTT_PHASES in memory
+  if(!GANTT_OVERRIDES) return;
+  Object.keys(GANTT_OVERRIDES).forEach(function(taskId){
+    var ov=GANTT_OVERRIDES[taskId];
+    // Find task by composite id (phId__taskId or just phId)
+    var parts=taskId.split('__'), phId=parts[0];
+    var ph=GANTT_PHASES.find(function(p){return p.id===phId;});
+    if(!ph) return;
+    if(parts.length===1){
+      if(ov.start) ph.start=ov.start;
+      if(ov.end)   ph.end=ov.end;
+      if(ov.pct!=null) ph.pct=ov.pct;
+      if(ov.owner) ph.owner=ov.owner;
+      return;
+    }
+    function applyToTask(tasks){
+      for(var i=0;i<tasks.length;i++){
+        if(phId+'__'+tasks[i].id===taskId){
+          if(ov.start) tasks[i].start=ov.start;
+          if(ov.end)   tasks[i].end=ov.end;
+          if(ov.pct!=null) tasks[i].pct=ov.pct;
+          if(ov.owner) tasks[i].owner=ov.owner;
+          if(ov.desc)  tasks[i].desc=ov.desc;
+          return;
+        }
+        if(tasks[i].children) applyToTask(tasks[i].children);
+      }
+    }
+    applyToTask(ph.tasks||[]);
+  });
+}
+
 function safeRun(name,fn){try{fn();}catch(e){console.error('[render]',name,'failed:',e.message);}}
 
 function render(){
@@ -887,7 +938,7 @@ function render(){
   safeRun('kanban',    function(){ renderKanban(issues); });
   safeRun('milestone', function(){ renderMilestones(); });
   safeRun('tasklist',  function(){ renderTaskList(issues); });
-  safeRun('gantt',     function(){ syncIssuesToGantt(allIssues); renderGantt(); });
+  safeRun('gantt',     function(){ applyGanttOverrides(); syncIssuesToGantt(allIssues); renderGantt(); });
   safeRun('risk',      function(){ renderRisk(issues); });
   safeRun('deliverable',function(){ renderDeliverables(); });
   safeRun('stats',     function(){ renderStats(issues); });
@@ -1425,6 +1476,11 @@ function selectGanttRow(rowId){
 }
 
 function openTaskDetail(rowId){
+  // If org data not loaded yet, load it first then open
+  if(!ORG_DATA_LOADED && (PROJECT_MEMBERS.client.length===0)){
+    loadOrgDataFromGitHub(function(){ openTaskDetail(rowId); });
+    return;
+  }
   var found = findTaskByRowId(rowId);
   if(!found){ closeTaskDetail(); return; }
   var panel = document.getElementById('taskDetailPanel');
@@ -1504,9 +1560,19 @@ function saveTaskDetail(rowId){
   var nonMilestone=allTasks.filter(function(t){return !t.milestone;});
   if(nonMilestone.length) ph.pct=Math.round(nonMilestone.reduce(function(s,t){return s+(t.pct||0);},0)/nonMilestone.length);
   renderGantt();
-  // flash save indicator
+  // Store override
+  GANTT_OVERRIDES[rowId] = {start:task.start, end:task.end, pct:task.pct, owner:task.owner, desc:task.desc};
+  // Save to GitHub (async, show indicator)
   var btn=document.querySelector('#taskDetailPanel button');
-  if(btn){ btn.textContent='✅ 已保存'; btn.style.background='var(--steel)'; setTimeout(function(){btn.textContent='💾 保存';btn.style.background='var(--primary)';},1500); }
+  if(btn){ btn.textContent='保存中…'; btn.disabled=true; }
+  saveGanttOverrides(function(){
+    if(btn){ btn.textContent='✅ 已保存'; btn.style.background='var(--steel)'; btn.disabled=false;
+      setTimeout(function(){btn.textContent='💾 保存';btn.style.background='var(--primary)';},1500); }
+  });
+  if(!TOKEN){
+    if(btn){ btn.textContent='✅ 本地已保存'; btn.style.background='var(--steel)';
+      setTimeout(function(){btn.textContent='💾 保存';btn.style.background='var(--primary)';},1500); }
+  }
 }
 
 function closeTaskDetail(){
@@ -1789,23 +1855,41 @@ var DEFAULT_MEMBERS = {
   ]
 };
 
+var GANTT_OVERRIDES = {};   // task overrides from GitHub {taskId: {start,end,pct,owner}}
+var GANTT_OVERRIDES_SHA = null;
+
+function decodeGitHubContent(content){
+  return decodeURIComponent(escape(atob(content.split('\n').join(''))));
+}
+
 function loadOrgDataFromGitHub(callback){
   var h={'Accept':'application/vnd.github+json'};
   if(TOKEN) h['Authorization']='Bearer '+TOKEN;
   Promise.all([
     fetch('https://api.github.com/repos/EstaTea/fsl-report/contents/org/members.json',{headers:h}).then(function(r){return r.json();}),
-    fetch('https://api.github.com/repos/EstaTea/fsl-report/contents/org/tree.json',{headers:h}).then(function(r){return r.json();})
+    fetch('https://api.github.com/repos/EstaTea/fsl-report/contents/org/tree.json',{headers:h}).then(function(r){return r.json();}),
+    fetch('https://api.github.com/repos/EstaTea/fsl-report/contents/org/gantt.json',{headers:h}).then(function(r){return r.json();})
   ]).then(function(res){
-    var mData=res[0], tData=res[1];
+    var mData=res[0], tData=res[1], gData=res[2];
+    // members
     if(mData.content){
-      try{ PROJECT_MEMBERS=JSON.parse(decodeURIComponent(escape(atob(mData.content.split('\n').join(''))))); ORG_MEMBERS_SHA=mData.sha; }
+      try{ PROJECT_MEMBERS=JSON.parse(decodeGitHubContent(mData.content)); ORG_MEMBERS_SHA=mData.sha; }
       catch(e){ PROJECT_MEMBERS=JSON.parse(JSON.stringify(DEFAULT_MEMBERS)); }
     } else { PROJECT_MEMBERS=JSON.parse(JSON.stringify(DEFAULT_MEMBERS)); }
+    // tree
     if(tData.content){
       try{
-        var tp=JSON.parse(decodeURIComponent(escape(atob(tData.content.split('\n').join('')))));
+        var tp=JSON.parse(decodeGitHubContent(tData.content));
         ORG_TREE_SHA=tData.sha;
         if(tp&&tp.nodes) ORG_TREE=tp;
+      }catch(e){}
+    }
+    // gantt overrides
+    if(gData.content){
+      try{
+        var gp=JSON.parse(decodeGitHubContent(gData.content));
+        GANTT_OVERRIDES_SHA=gData.sha;
+        if(gp&&gp.tasks) GANTT_OVERRIDES=gp.tasks;
       }catch(e){}
     }
     ORG_DATA_LOADED=true;
@@ -1815,6 +1899,23 @@ function loadOrgDataFromGitHub(callback){
     ORG_DATA_LOADED=true;
     if(callback) callback();
   });
+}
+
+function saveGanttOverrides(callback){
+  if(!TOKEN) return;
+  var body=JSON.stringify({
+    message:'update: gantt task data',
+    content:btoa(unescape(encodeURIComponent(JSON.stringify({tasks:GANTT_OVERRIDES},null,2)))),
+    sha:GANTT_OVERRIDES_SHA
+  });
+  fetch('https://api.github.com/repos/EstaTea/fsl-report/contents/org/gantt.json',{
+    method:'PUT',
+    headers:{'Accept':'application/vnd.github+json','Authorization':'Bearer '+TOKEN,'Content-Type':'application/json'},
+    body:body
+  }).then(function(r){return r.json();}).then(function(d){
+    if(d.content) GANTT_OVERRIDES_SHA=d.content.sha;
+    if(callback) callback();
+  }).catch(function(){});
 }
 
 function saveMembers(){
