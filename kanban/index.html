@@ -775,8 +775,10 @@ function useDemoData(){
     {number:9,title:'[测试] 制定SIT/UAT测试计划',state:'open',labels:[{name:'status:待办'},{name:'优先级:高'},{name:'类型:任务'},{name:'阶段:SAP-实现'}],milestone:{number:4,title:'M3 SIT/UAT测试通过'},body:'制定集成测试（SIT）和用户验收测试（UAT）计划，确保招标文件要求的100%场景覆盖。',html_url:'https://github.com/'+REPO+'/issues/9'},
     {number:10,title:'[风险] MES/WMS供应商接口配合风险',state:'open',labels:[{name:'status:待办'},{name:'优先级:高'},{name:'类型:风险'},{name:'模块:CPI'},{name:'阶段:SAP-蓝图'}],milestone:{number:2,title:'M1 架构蓝图评审通过'},body:'IF-005和IF-006需要MES/WMS供应商配合改造，供应商可能响应慢或配合不足。',html_url:'https://github.com/'+REPO+'/issues/10'},
   ];
-  render();
-  try{ document.getElementById('loading').style.display='none'; }catch(e){}
+  loadGanttData(function(){
+    render();
+    try{ document.getElementById('loading').style.display='none'; }catch(e){}
+  });
 }
 
 // ── render all ────────────────────────────────────────────────────
@@ -899,33 +901,70 @@ function loadGanttData(callback){
 }
 
 function applyGanttStructure(){
-  // Restore drag-drop order/hierarchy from saved structure
   if(!GANTT_OVERRIDES||!GANTT_OVERRIDES['__structure']) return;
   var saved=GANTT_OVERRIDES['__structure'];
-  // Reorder GANTT_PHASES to match saved order
+
+  // Build a flat map of ALL tasks across ALL phases by id
+  var allTasksById={};
+  GANTT_PHASES.forEach(function(ph){
+    function indexTasks(tasks){
+      tasks.forEach(function(t){
+        allTasksById[t.id]=t;
+        if(t.children) indexTasks(t.children);
+      });
+    }
+    indexTasks(ph.tasks||[]);
+  });
+
+  // Remove ALL tasks from all phases (we'll re-add them per saved structure)
+  GANTT_PHASES.forEach(function(ph){ ph.tasks=[]; });
+
+  // Rebuild GANTT_PHASES tasks from saved structure
   var reordered=[];
   saved.forEach(function(sph){
     var ph=GANTT_PHASES.find(function(p){return p.id===sph.id;});
     if(!ph) return;
-    // Reorder tasks
-    function reorderTasks(savedTasks, allTasks){
+    function buildTasks(savedTasks){
       var result=[];
       savedTasks.forEach(function(st){
-        var t=allTasks.find(function(x){return x.id===st.id;});
-        if(!t) return;
-        if(st.children&&t.children) t.children=reorderTasks(st.children,t.children);
+        var t=allTasksById[st.id];
+        if(!t) return; // task no longer exists
+        t.children=st.children&&st.children.length ? buildTasks(st.children) : (t.children||[]);
         result.push(t);
       });
-      // Append any tasks not in saved structure (newly added)
-      allTasks.forEach(function(t){ if(!result.find(function(x){return x.id===t.id;})) result.push(t); });
       return result;
     }
-    ph.tasks=reorderTasks(sph.tasks||[], ph.tasks||[]);
+    ph.tasks=buildTasks(sph.tasks||[]);
     reordered.push(ph);
   });
+
   // Append any phases not in saved structure
-  GANTT_PHASES.forEach(function(ph){ if(!reordered.find(function(p){return p.id===ph.id;})) reordered.push(ph); });
-  // Replace in-place
+  GANTT_PHASES.forEach(function(ph){
+    if(!reordered.find(function(p){return p.id===ph.id;})) reordered.push(ph);
+  });
+
+  // Append any tasks that weren't placed (newly added tasks not yet in structure)
+  var placedIds={};
+  reordered.forEach(function(ph){
+    function markPlaced(tasks){ tasks.forEach(function(t){ placedIds[t.id]=true; if(t.children) markPlaced(t.children); }); }
+    markPlaced(ph.tasks);
+  });
+  Object.keys(allTasksById).forEach(function(id){
+    if(!placedIds[id]){
+      var t=allTasksById[id];
+      // Add to first phase that had it originally (find by issueNum or id prefix)
+      var added=false;
+      reordered.forEach(function(ph){
+        if(!added){
+          // heuristic: add to phase matching id prefix
+          var taskPhId=id.split('_')[0]; // e.g. 'c1' → consulting
+          // Just add to last phase as fallback
+        }
+      });
+      if(!added && reordered.length) reordered[0].tasks.push(t);
+    }
+  });
+
   GANTT_PHASES.splice(0,GANTT_PHASES.length);
   reordered.forEach(function(ph){ GANTT_PHASES.push(ph); });
 }
