@@ -685,7 +685,7 @@
       <div class="chart-card">
         <h4>研发绝对投入（亿元人民币）</h4>
         <div class="chart-wrap"><canvas id="kpiRdAbs"></canvas></div>
-        <p class="chart-note">Signify研发投入约212亿RMB（EUR 265M×8），遥遥领先。佛照5.39亿元（集团口径）/5.60亿元，高于欧普（2.97亿）和阳光照明（0.82亿）。</p>
+        <p class="chart-note">Signify研发投入约21.2亿RMB（EUR 265M ÷ 100 × 8 = 21.2亿，注：M→亿需÷100）。佛照5.39亿元（集团口径）/5.60亿元，高于欧普（2.97亿）和阳光照明（0.82亿）。Signify研发绝对值约为佛照的4倍，差距主要体现在全球IoT平台和AI研发。</p>
       </div>
     </div>
     <h3>创新与研发KPI汇总表</h3>
@@ -693,7 +693,7 @@
       <table>
         <thead><tr><th>KPI指标</th><th>Signify</th><th>阳光照明</th><th>欧普照明</th><th>佛山照明</th><th>说明</th></tr></thead>
         <tbody>
-          <tr><td><b>研发费用</b></td><td>EUR 265M（约212亿RMB）</td><td>0.82亿元</td><td>2.97亿元</td><td>5.39亿元（佛照本部）/ 5.60亿（集团）</td><td>佛照研发主要在国星光电LED器件领域</td></tr>
+          <tr><td><b>研发费用</b></td><td>EUR 265M（约21.2亿RMB）</td><td>0.82亿元</td><td>2.97亿元</td><td>5.39亿元（佛照本部）/ 5.60亿（集团）</td><td>佛照研发主要在国星光电LED器件领域；Signify约为佛照4倍</td></tr>
           <tr><td><b>研发/营收占比</b></td><td>4.6%</td><td>3.09%</td><td>4.26%</td><td>6.13%（本部）</td><td>佛照集团口径占比最高</td></tr>
           <tr><td><b>研发人员数</b></td><td>约3721人（占14%）</td><td>561人（占14%）</td><td>459人（占7.7%）</td><td>1562人（占13.05%，2025年同比-23.6%）</td><td>佛照研发人员同比大幅减少19.81%</td></tr>
           <tr><td><b>研发人员学历</b></td><td>财报未详细拆分</td><td>博士5/硕士45/本科421/专科75</td><td>博士8/硕士92/本科288/专科79</td><td>硕士157/本科943/博士13/大专449</td><td>欧普硕士占比（92/459=20%）最高</td></tr>
@@ -1068,7 +1068,7 @@ bar('kpiOcf',     [42,  2.30,  6.90, 2.97,  null]);
 bar('kpiRdRatio2', [4.6, 3.09, 4.26, 6.13, null]);
 hbar('kpiRdStaff2',[14,  14.0, 7.7,  13.05, null]);
 bar('kpiPatents',  [null, 1361, null, 2900, null]);
-bar('kpiRdAbs',    [212,  0.82, 2.97, 5.39, null]);
+bar('kpiRdAbs',    [21.2, 0.82, 2.97, 5.39, null]); // Signify: EUR 265M ÷ 100 × 8 = 21.2亿RMB（M→亿须÷100）
 
 // ── DIM 4: ESG ──
 bar('kpiRenewable',  [100, null, null, null, null]);
