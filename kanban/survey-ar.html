@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>开票与应收全流程调研问卷 | 佛照SAP升级项目</title>
+<style>
+:root{--b900:#0B2D47;--b700:#1A4F73;--b500:#2374A3;--b300:#5EA4CE;--b100:#C7E2F2;--b050:#EBF5FB;--bg:#F2F7FB;--text:#0F2233;--muted:#5B7A91;--rule:#D6E8F2;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:13px;line-height:1.6;display:flex;flex-direction:column;min-height:100vh}
+a{color:inherit;text-decoration:none}
+nav{background:var(--b900);height:54px;display:flex;align-items:center;padding:0 32px;gap:20px;flex-shrink:0;z-index:300;box-shadow:0 2px 10px rgba(11,45,71,.5)}
+.nav-logo-link{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.nav-divider{width:1px;height:18px;background:rgba(255,255,255,.15)}
+.nav-project{color:rgba(255,255,255,.55);font-size:12px;white-space:nowrap}
+.nav-links{display:flex;flex:1;gap:0}
+.nav-links a{color:rgba(255,255,255,.55);font-size:12px;padding:0 12px;height:54px;display:flex;align-items:center;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s}
+.nav-links a:hover{color:#fff}
+.nav-links a.active{color:#fff;border-bottom-color:var(--b300)}
+.page-hero{background:linear-gradient(135deg,var(--b900),var(--b700));color:#fff;padding:22px 40px 16px;border-bottom:3px solid var(--b500)}
+.hero-title{font-size:18px;font-weight:800}
+.hero-meta{margin-top:6px;font-size:11.5px;color:rgba(255,255,255,.6);display:flex;gap:20px;flex-wrap:wrap}
+.hero-bg{margin-top:10px;background:rgba(255,255,255,.08);border-left:3px solid var(--b300);padding:8px 14px;border-radius:0 4px 4px 0;font-size:11.5px;color:rgba(255,255,255,.75);line-height:1.5}
+.q-toolbar{background:#fff;border-bottom:1px solid var(--rule);padding:8px 40px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(11,45,71,.06)}
+.q-progress-row{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--muted);margin-left:auto}
+.pbar-wrap{background:var(--rule);border-radius:4px;height:7px;width:120px}
+.pbar{background:var(--b500);border-radius:4px;height:7px;transition:width .3s}
+.q-btn{padding:5px 14px;border:none;border-radius:5px;font-size:11.5px;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:4px}
+.q-btn-p{background:var(--b500);color:#fff}.q-btn-p:hover{background:var(--b700)}
+.q-btn-o{background:#fff;color:var(--b500);border:1px solid var(--b300)}.q-btn-o:hover{background:var(--b050)}
+.q-btn-d{background:#fff;color:#c62828;border:1px solid #ef9a9a}.q-btn-d:hover{background:#ffebee}
+.tag{display:inline-block;background:var(--b050);color:var(--b700);border-radius:4px;padding:2px 8px;font-size:11px;margin:1px}
+.main{padding:24px 40px 48px;max-width:1100px;margin:0 auto;width:100%}
+.q-section{margin-bottom:20px;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(11,45,71,.07)}
+.q-sec-title{background:var(--b700);color:#fff;padding:9px 18px;font-size:12.5px;font-weight:700;display:flex;align-items:center;gap:8px}
+.q-sec-title .bdg{background:rgba(255,255,255,.18);padding:1px 7px;border-radius:10px;font-size:10.5px;font-weight:400}
+.q-item{background:#fff;border-bottom:1px solid var(--rule);padding:14px 18px 12px}
+.q-item:last-child{border-bottom:none}
+.q-item:nth-child(even){background:#f8fbfd}
+.q-head{display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.q-id{background:var(--b700);color:#fff;border-radius:4px;padding:2px 8px;font-size:10.5px;font-weight:700;flex-shrink:0}
+.q-label{background:var(--b050);color:var(--b700);border-radius:4px;padding:2px 8px;font-size:10.5px}
+.q-p0{background:#fff3e0;color:#e65100;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700}
+.q-text{font-size:12.5px;line-height:1.6;margin-bottom:6px}
+.q-bg{font-size:11px;color:var(--muted);border-left:3px solid var(--b100);padding:5px 10px;border-radius:0 4px 4px 0;background:var(--b050);margin-bottom:8px;line-height:1.5}
+.q-answer{width:100%;min-height:60px;border:1px solid var(--rule);border-radius:5px;padding:7px 10px;font-size:12px;color:var(--text);font-family:inherit;resize:vertical;background:#fafdff;transition:border-color .15s}
+.q-answer:focus{outline:none;border-color:var(--b300);background:#fff}
+.q-sr{display:flex;gap:12px;margin-top:6px;flex-wrap:wrap}
+.q-radio{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--muted);cursor:pointer}
+.q-radio input{accent-color:var(--b500)}
+.sum-card{background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(11,45,71,.07);padding:16px 20px;margin-bottom:20px}
+.sum-card h3{font-size:13px;font-weight:700;color:var(--b700);border-bottom:1px solid var(--rule);padding-bottom:8px;margin-bottom:10px}
+.kv{display:flex;gap:6px;margin-bottom:6px;font-size:12px}
+.kv .k{color:var(--b300);font-weight:700;min-width:80px;flex-shrink:0}
+.hbox{background:var(--b050);border-left:3px solid var(--b300);border-radius:0 5px 5px 0;padding:8px 12px;font-size:11.5px;color:var(--b700);line-height:1.55;margin-top:8px}
+@media print{nav,.q-toolbar{display:none!important}.main{padding:10px}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/fsl-report/" class="nav-logo-link">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 36" height="24">
+      <rect x="0" y="3" width="4" height="30" fill="#F06000"/>
+      <rect x="0" y="3" width="18" height="4" fill="#F06000"/>
+      <rect x="0" y="16" width="13" height="4" fill="#F06000"/>
+      <path d="M22 3h14v4h-9v6h9v4h-9v7h10v4H22v-9h9v-3h-9z" fill="#F06000"/>
+      <rect x="42" y="3" width="4" height="30" fill="#F06000"/>
+      <rect x="42" y="29" width="16" height="4" fill="#F06000"/>
+      <text x="66" y="26" font-family="Microsoft YaHei,PingFang SC,sans-serif" font-size="14" font-weight="700" fill="rgba(255,255,255,0.92)" letter-spacing="1">佛山照明</text>
+    </svg>
+  </a>
+  <div class="nav-divider"></div>
+  <span class="nav-project">数字化转型项目工作台</span>
+  <div class="nav-links">
+    <a href="/fsl-report/">首页</a>
+    <a href="/fsl-report/kanban/" class="active">任务看板</a>
+    <a href="/fsl-report/consulting/">管理咨询</a>
+    <a href="/fsl-report/sap/">SAP实施</a>
+    <a href="/fsl-report/weekly/">项目周报</a>
+    <a href="/fsl-report/org/">团队</a>
+  </div>
+</nav>
+<div class="page-hero">
+  <div class="hero-title">📋 调研问卷 — 开票与应收全流程</div>
+  <div class="hero-meta">
+    <span>💰 财务管理部 · 开票/应收骨干</span>
+    <span>📅 访谈日：D5（2026-06-26）</span>
+    <span>⏱ 建议时长：90分钟</span>
+    <span>🔗 关联：★1 痛点清单 · ★2 OTC流程图</span>
+  </div>
+  <div class="hero-bg"><b>背景：</b>2025年经营现金流2.97亿（同比−50.32%）｜坏账实际核销661.6万元｜坏账准备余额1.77亿｜家用事业部50-60%工时用于手工开单｜DRC电子发票上线范围待确认</div>
+</div>
+<div class="q-toolbar">
+  <span class="tag">李一帜（财务管理部）</span>
+  <span class="tag">开票骨干 1-2人</span>
+  <span class="tag">应收/信用骨干 1-2人</span>
+  <div class="q-progress-row">
+    <span><b id="q-done">0</b>/<b id="q-total">18</b> 题已填写</span>
+    <div class="pbar-wrap"><div class="pbar" id="q-pbar" style="width:0%"></div></div>
+    <button class="q-btn q-btn-p" onclick="exportQA()">📄 导出纪要</button>
+    <button class="q-btn q-btn-o" onclick="window.print()">🖨 打印</button>
+    <button class="q-btn q-btn-d" onclick="clearAll()">🗑 清空</button>
+  </div>
+</div>
+<div class="main">
+<div class="q-section">
+  <div class="q-sec-title">A. 发票类型与开票流程 <span class="bdg">A1–A5</span></div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">A1</span><span class="q-label">发票结构</span></div>
+    <div class="q-text">公司全年开票量大概多少张/月？专票、普票、电子发票各占比例？<br>哪类客户开专票（一般纳税人/工程客户），哪类开普票，哪类开电子发票？</div>
+    <div class="q-bg">★1痛点清单（开票效率）· ★2 OTC流程现状图</div>
+    <textarea class="q-answer" data-qid="A1" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-A1" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-A1" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-A1" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">A2</span><span class="q-label">DRC电子发票</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">DRC（金税直连）目前已上线哪些场景？<br>还有哪些场景仍需手工在金税系统开票？全年手工开票占总开票量的比例大概是多少？</div>
+    <div class="q-bg">招标要求：DRC与S/4HANA集成为12个接口之一；当前ECC金税接口现状需确认</div>
+    <textarea class="q-answer" data-qid="A2" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-A2" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-A2" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-A2" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">A3</span><span class="q-label">手工开单痛点</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">家用事业部反映50-60%工时用于手工开单和折扣维护。<br>手工开单的主要场景是什么？（批量优惠处理、叠加折扣无法自动计算、特殊定价等）<br>一张订单从确认到开票完成平均需要多少时间？</div>
+    <div class="q-bg">D1已确认：阶梯价全人工、叠加优惠系统不支持、ZD06折扣丢失后需手工补录</div>
+    <textarea class="q-answer" data-qid="A3" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-A3" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-A3" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-A3" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">A4</span><span class="q-label">项目型开票</span></div>
+    <div class="q-text">商用工程项目按里程碑开票（合同→设备到货→安装完成→竣工验收）。<br>这类开票在SAP中如何处理？有标准SD开票计划还是每个项目手工开票？<br>平均一个工程项目有几个开票节点？</div>
+    <div class="q-bg">Q03（待确认问题）：工程项目型销售里程碑规则由谁制定，直接影响SD蓝图设计</div>
+    <textarea class="q-answer" data-qid="A4" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-A4" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-A4" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-A4" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">A5</span><span class="q-label">红冲与作废</span></div>
+    <div class="q-text">发票红冲每月大概多少次？主要原因是什么？<br>红冲流程：先在金税系统作废还是先在SAP冲销贷项凭证？两个系统是否联动？</div>
+    <div class="q-bg">红冲流程效率直接影响应收准确性和增值税申报</div>
+    <textarea class="q-answer" data-qid="A5" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-A5" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-A5" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-A5" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+</div>
+<div class="q-section">
+  <div class="q-sec-title">B. 应收账款管理 <span class="bdg">B1–B5</span></div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">B1</span><span class="q-label">DSO现状</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">公司当前DSO（应收账款周转天数）大概多少天？2025年是否明显拉长？<br>哪类客户DSO最长：工程渠道、主机厂、电商平台、还是海外客户？</div>
+    <div class="q-bg">2025年年报：经营现金流2.97亿（−50.32%），营收87.97亿（−2.78%）——现金流恶化速度是营收下滑的18倍</div>
+    <textarea class="q-answer" data-qid="B1" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-B1" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-B1" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-B1" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">B2</span><span class="q-label">应收对账方式</span></div>
+    <div class="q-text">经销商月结对账目前怎么做？SAP自动生成对账单还是财务手工导出Excel？<br>经销商回签确认平均需要几天？对账差异的常见原因是什么？</div>
+    <div class="q-bg">★2 OTC流程OTC-5应收对账节点；影响月结周期</div>
+    <textarea class="q-answer" data-qid="B2" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-B2" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-B2" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-B2" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">B3</span><span class="q-label">账龄分析</span></div>
+    <div class="q-text">当前应收账款账龄分布大概如何？（1年以内/1-2年/2-3年/3年以上各占比）<br>2025年末坏账准备余额1.77亿，主要是哪些账龄段贡献的？账龄报表从SAP直接出还是需要Excel加工？</div>
+    <div class="q-bg">2025年年报：坏账准备余额176,610,990元；实际核销6,615,668元（661.6万）；信用减值损失净转回371万</div>
+    <textarea class="q-answer" data-qid="B3" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-B3" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-B3" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-B3" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">B4</span><span class="q-label">坏账管理</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">坏账准备计提比例是多少？（1年以内0%、2-3年X%、3年以上100%？）<br>2025年实际核销661.6万，主要是哪类客户（工程类/经销商/海外）？<br>坏账核销审批流程是什么？在SAP中是否有系统支持还是线下OA？</div>
+    <div class="q-bg">2025年年报：实际核销6,615,668.09元；坏账准备余额176,610,990.01元；信用减值损失净转回-3,711,120.82元</div>
+    <textarea class="q-answer" data-qid="B4" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-B4" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-B4" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-B4" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">B5</span><span class="q-label">催收机制</span></div>
+    <div class="q-text">逾期应收款催收流程怎样？SAP是否有逾期自动提醒还是靠财务手工检查？<br>催收责任归财务还是销售？财务和销售意见不一致时，决策机制是什么？</div>
+    <div class="q-bg">已知痛点：超信用额度发货冻结/释放靠人工审批，缺乏系统实时控制</div>
+    <textarea class="q-answer" data-qid="B5" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-B5" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-B5" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-B5" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+</div>
+<div class="q-section">
+  <div class="q-sec-title">C. 信用管理 <span class="bdg">C1–C3</span></div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">C1</span><span class="q-label">信用额度体系</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">客户信用额度如何设定？（固定金额？还是基于历史销售额动态计算？）<br>信用额度由谁维护？多久更新一次？19家法人的信用额度是统一管理还是分别维护？<br>同一客户在不同法人下的信用额度是合并控制还是各自独立？</div>
+    <div class="q-bg">已知痛点：业务侧无法直接在SAP查看经销商层级应收，依赖财务手工导出</div>
+    <textarea class="q-answer" data-qid="C1" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-C1" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-C1" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-C1" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">C2</span><span class="q-label">超信用额度处理</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">客户超信用额度下订单时，SAP目前是自动冻结还是只发警告？<br>冻结订单的释放流程是什么（谁来批、多长时间）？有没有销售绕过信用冻结强行发货的情况？<br>每月大概有多少笔订单触发信用冻结？</div>
+    <div class="q-bg">已知痛点：超信用额度发货冻结/释放靠人工审批，无系统实时控制机制</div>
+    <textarea class="q-answer" data-qid="C2" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-C2" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-C2" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-C2" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">C3</span><span class="q-label">信用报告可见性</span></div>
+    <div class="q-text">销售人员能否在SAP中实时查看客户信用状态（额度/已用/剩余/逾期金额）？<br>还是只有财务才能看到？销售出差时能通过移动端查看吗？</div>
+    <div class="q-bg">已知痛点：渠道/经销商层级应收不可见，业务侧无法直接查看，依赖财务手工导出</div>
+    <textarea class="q-answer" data-qid="C3" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-C3" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-C3" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-C3" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+</div>
+<div class="q-section">
+  <div class="q-sec-title">D. 税务与合规 <span class="bdg">D1–D3</span></div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">D1</span><span class="q-label">增值税申报勾稽</span></div>
+    <div class="q-text">每月增值税申报数据与SAP账务数据的勾稽，是系统自动还是手工核对？<br>核对工作需要几个人花几天？是否出现过SAP账务与税务申报不一致，被税务局问询的情况？</div>
+    <div class="q-bg">招标要求：DRC与S/4HANA深度集成，实现金税直连自动化</div>
+    <textarea class="q-answer" data-qid="D1" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-D1" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-D1" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-D1" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">D2</span><span class="q-label">海外发票合规</span></div>
+    <div class="q-text">泰国子公司（FZ40）的销售发票和VAT申报目前用什么系统处理？<br>德国子公司的增值税（19%）申报如何处理？<br>这些海外发票数据是否同步回总部SAP，还是完全独立核算？</div>
+    <div class="q-bg">招标要求：DRC支持德国/泰国本地税务合规；Q04（泰国FZ40是否纳入一期）待管理层确认</div>
+    <textarea class="q-answer" data-qid="D2" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-D2" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-D2" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-D2" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">D3</span><span class="q-label">内部交易开票</span></div>
+    <div class="q-text">19家法人之间的内部销售如何开票？是否也走DRC金税系统开具增值税专票？<br>公司间应收/应付对账和抵消，目前是月底手工平衡还是有系统辅助？内部交易定价有统一政策吗？</div>
+    <div class="q-bg">已知痛点：19家法人关联交易，内部定价和税务处理无统一规则；Group Reporting需实现关联交易自动抵消</div>
+    <textarea class="q-answer" data-qid="D3" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-D3" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-D3" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-D3" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+</div>
+<div class="q-section">
+  <div class="q-sec-title">E. 系统现状与改善期望 <span class="bdg">E1–E3</span></div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">E1</span><span class="q-label">报表性能</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">财务应收相关报表（账龄/DSO/客户余额）在ECC中运行速度如何？<br>是否出现过数据量大时超10分钟甚至报错的情况？月结期间最慢的是哪张报表？</div>
+    <div class="q-bg">已知痛点：ECC报表性能问题，数据量大时超10分钟报错；S/4HANA基于HANA内存数据库可根本性解决</div>
+    <textarea class="q-answer" data-qid="E1" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-E1" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-E1" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-E1" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">E2</span><span class="q-label">财务共享平台集成</span></div>
+    <div class="q-text">2025年刚上线的财务共享（司库）平台，与ECC的账务接口是怎样的？<br>付款指令从共享平台发出后，是否自动在SAP生成付款凭证，还是需要手工录入？</div>
+    <div class="q-bg">招标文件：财务共享是12个外围集成系统之一；2025年刚上线，接口设计需要重新评估</div>
+    <textarea class="q-answer" data-qid="E2" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-E2" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-E2" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-E2" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">E3</span><span class="q-label">最优先改善场景</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">在开票与应收领域，如果升级只能优先解决一个问题，您选哪个？<br>请描述：① 当前状态（AS-IS）：<br>② 期望状态（TO-BE）：<br>③ 量化价值（如：节省X人×Y天/月）：</div>
+    <div class="q-bg">★1痛点清单核心输入；请尽量引导受访者给出具体数字</div>
+    <textarea class="q-answer" data-qid="E3" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-E3" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-E3" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-E3" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+</div>
+  <div class="sum-card">
+    <h3>📎 访谈收尾</h3>
+    <div class="kv"><span class="k">资料收集</span><span class="v">① 近3个月账龄报表（可脱敏）② DRC上线范围说明文档 ③ 信用额度管理制度（如有）④ 月结关账时间统计表</span></div>
+    <div class="kv"><span class="k">待确认问题</span><span class="v">Q03（里程碑开票规则）可在本次访谈中确认；新问题请记录在看板待确认问题页</span></div>
+    <div class="kv"><span class="k">关联交付物</span><span class="v">★1《痛点清单》开票/应收分类 · ★2 OTC流程现状图（OTC-4开票+OTC-5应收） · ★4客户主数据治理</span></div>
+    <div class="hbox">⚡ 访谈纪要须于访谈结束后 <b>T+1日内</b>完成，发送甲方参与人确认签字。</div>
+    <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+      <button class="q-btn q-btn-p" onclick="exportQA()" style="font-size:12.5px;padding:7px 18px">📄 导出访谈纪要</button>
+      <button class="q-btn q-btn-o" onclick="window.print()" style="font-size:12.5px;padding:7px 18px">🖨 打印问卷</button>
+      <button class="q-btn q-btn-d" onclick="clearAll()" style="font-size:12.5px;padding:7px 18px">🗑 清空记录</button>
+    </div>
+  </div>
+</div>
+<script>
+var TOTAL=19;
+document.getElementById("q-total").textContent=TOTAL;
+function updateProgress(){
+  var f=0;
+  document.querySelectorAll(".q-answer").forEach(function(a){if(a.value&&a.value.trim().length>3)f++;});
+  document.getElementById("q-done").textContent=f;
+  document.getElementById("q-pbar").style.width=Math.round(f/TOTAL*100)+"%";
+}
+function exportQA(){
+  var lines=["佛照SAP升级项目 — 开票与应收全流程访谈纪要","导出时间："+new Date().toLocaleString("zh-CN"),"=".repeat(60),""];
+  document.querySelectorAll(".q-answer").forEach(function(a){
+    var qid=a.getAttribute("data-qid");
+    var radio=document.querySelector("input[name='s-"+qid+"']:checked");
+    lines.push("["+qid+"] 状态："+(radio?radio.value:"未标注"));
+    lines.push(a.value.trim()||"（未填写）");
+    lines.push("");
+  });
+  var blob=new Blob([lines.join("\n")],{type:"text/plain;charset=utf-8"});
+  var url=URL.createObjectURL(blob);
+  var link=document.createElement("a");
+  link.href=url;link.download="佛照_开票应收_访谈纪要.txt";link.click();
+  URL.revokeObjectURL(url);
+}
+function clearAll(){
+  if(!confirm("确认清空所有填写内容？"))return;
+  document.querySelectorAll(".q-answer").forEach(function(a){a.value="";});
+  document.querySelectorAll(".q-sr input").forEach(function(r){r.checked=false;});
+  updateProgress();
+}
+document.querySelectorAll(".q-answer").forEach(function(a){
+  var key="fsl-q-"+a.getAttribute("data-qid");
+  if(localStorage.getItem(key))a.value=localStorage.getItem(key);
+  a.addEventListener("input",function(){localStorage.setItem(key,a.value);updateProgress();});
+});
+updateProgress();
+</script>
+</body>
+</html>
