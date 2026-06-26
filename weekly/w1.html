@@ -109,11 +109,11 @@ ul.cl li{font-size:12.5px;line-height:1.65;margin-bottom:3px;}
 .bdg-b{background:var(--b050);color:var(--b700);}
 
 /* mini chart */
-.mini-chart{display:flex;align-items:flex-end;gap:12px;height:68px;padding:0 2px;margin-bottom:10px;}
-.mc-col{display:flex;flex-direction:column;align-items:center;gap:2px;}
-.mc-b{width:28px;border-radius:2px 2px 0 0;}
-.mc-lbl{font-size:10px;color:var(--muted);}
-.mc-val{font-size:11px;font-weight:800;color:var(--b900);}
+.mini-chart{display:flex;align-items:flex-end;gap:10px;height:80px;padding:4px 0 0;margin-bottom:14px;}
+.mc-col{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;}
+.mc-b{width:100%;max-width:36px;border-radius:2px 2px 0 0;}
+.mc-lbl{font-size:10px;color:var(--muted);white-space:nowrap;}
+.mc-val{font-size:12px;font-weight:800;color:var(--b900);}
 
 .sum-box{background:var(--b050);border-left:3px solid var(--b500);
          border-radius:0 4px 4px 0;padding:8px 12px;margin-top:10px;font-size:12px;}
@@ -182,6 +182,23 @@ nav{overflow:visible !important;}
   border-bottom:2px solid var(--b050);padding-bottom:8px;margin-bottom:12px;}
 footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
   padding:18px;font-size:11px;margin-top:48px;letter-spacing:.2px;}
+
+/* ── Inline edit mode ── */
+.edit-btn{position:fixed;bottom:24px;right:24px;z-index:999;
+  background:var(--b700);color:#fff;border:none;border-radius:20px;
+  padding:9px 18px;font-size:12px;font-weight:700;cursor:pointer;
+  box-shadow:0 2px 10px rgba(11,45,71,.4);letter-spacing:.3px;}
+.edit-btn:hover{background:var(--b500);}
+body.editing .edit-btn{background:#2E7D32;}
+[contenteditable]{outline:none;}
+body.editing [contenteditable]:hover{background:rgba(35,116,163,.06);
+  border-radius:3px;cursor:text;}
+body.editing [contenteditable]:focus{background:rgba(35,116,163,.1);
+  border-radius:3px;box-shadow:0 0 0 1.5px var(--b300);}
+.edit-hint{display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  background:var(--b900);color:rgba(255,255,255,.75);font-size:11px;
+  padding:6px 16px;border-radius:12px;z-index:998;pointer-events:none;}
+body.editing .edit-hint{display:block;}
 
 </style>
 </head>
@@ -327,12 +344,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
               <td style="text-align:center"><span class="bar b-done" style="width:52px;"></span></td>
               <td style="text-align:center"><span class="bar b-now"  style="width:52px;"></span></td>
             </tr>
-            <tr>
-              <td class="tn">甲方签字</td>
-              <td style="text-align:center"><span class="bar b-now"  style="width:52px;"></span></td>
-              <td></td><td></td><td></td>
-              <td style="text-align:center;font-size:10px;color:var(--b700);">★W1总结会</td>
-            </tr>
+
           </tbody>
         </table>
       </div>
@@ -516,5 +528,61 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
 </div>
 
 <footer>佛山照明 SAP S/4HANA 升级项目工作台 · 机密文件 · 仅供项目组内部使用 · 2026</footer>
+
+<button class="edit-btn" id="editBtn" onclick="toggleEdit()">✏ 编辑内容</button>
+<div class="edit-hint">点击任意文字区域即可编辑 · 内容自动保存到本地</div>
+
+<script>
+const STORE_KEY = 'fsl-w1-edits';
+
+function toggleEdit() {
+  const body = document.body;
+  const btn = document.getElementById('editBtn');
+  const editing = body.classList.toggle('editing');
+  btn.textContent = editing ? '✓ 完成编辑' : '✏ 编辑内容';
+  document.querySelectorAll('.editable').forEach(el => {
+    el.contentEditable = editing ? 'true' : 'false';
+  });
+  if (!editing) saveEdits();
+}
+
+function saveEdits() {
+  const data = {};
+  document.querySelectorAll('.editable').forEach(el => {
+    if (el.dataset.eid) data[el.dataset.eid] = el.innerHTML;
+  });
+  localStorage.setItem(STORE_KEY, JSON.stringify(data));
+}
+
+function loadEdits() {
+  try {
+    const data = JSON.parse(localStorage.getItem(STORE_KEY) || '{}');
+    document.querySelectorAll('.editable').forEach(el => {
+      if (el.dataset.eid && data[el.dataset.eid]) {
+        el.innerHTML = data[el.dataset.eid];
+      }
+    });
+  } catch(e) {}
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  // 自动给所有 card-hd 后的内容块、hero p、hero-chips 加 editable 标记
+  const targets = document.querySelectorAll(
+    '.hero p, .hero-chips, .hero h1, ' +
+    '.s-label, .s-week, .s-phase, ' +
+    '.det-row, ' +
+    '.card .sec, .card ul.cl, ' +
+    '.card .ri, ' +
+    '.card .sum-box, ' +
+    '.gantt-note'
+  );
+  targets.forEach((el, i) => {
+    el.classList.add('editable');
+    el.dataset.eid = 'e' + i;
+    el.contentEditable = 'false';
+  });
+  loadEdits();
+});
+</script>
 </body>
 </html>
