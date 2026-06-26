@@ -304,7 +304,7 @@ nav{overflow:visible !important;}
 
 
 /* ── Org Panel ── */
-.org-panel-body{flex:1;overflow:auto;padding:16px 24px;}
+.org-panel-body{flex:1;overflow:auto;padding:16px 12px;min-width:0;}
 .org-section{margin-bottom:24px;}
 .org-section-hd{display:flex;align-items:center;gap:10px;margin-bottom:12px;
   padding-bottom:8px;border-bottom:2px solid var(--pale);}
@@ -366,7 +366,7 @@ select.dp-input{appearance:none;-webkit-appearance:none;
 .org-view-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);}
 
 /* tree chart */
-.org-chart-wrap{overflow:auto;padding:24px 32px;}
+.org-chart-wrap{overflow:auto;padding:24px 16px;width:100%;box-sizing:border-box;}
 .org-chart{display:inline-flex;flex-direction:column;align-items:center;}
 
 /* node styles */
@@ -2446,14 +2446,14 @@ function renderNode(nodeId,depth,isRoot){
     +' ondrop="onDrop(event,\''+nodeId+'\')"'
     +' oncontextmenu="event.preventDefault();event.stopPropagation();openColorPicker(\''+nodeId+'\',event.clientX,event.clientY)"'
     +' style="display:inline-flex;flex-direction:column;align-items:center;cursor:grab;'
-    +'padding:8px 18px;border-radius:6px;font-size:'+fs+';font-weight:700;'
-    +'min-width:'+minW+';text-align:center;'
+    +'padding:7px 14px;border-radius:6px;font-size:'+fs+';font-weight:700;'
+    +'min-width:'+minW+';max-width:180px;text-align:center;'
     +'background:'+node.color+';color:'+tc+';'
     +'box-shadow:0 2px 8px rgba(11,45,71,.18);border:2px solid transparent;'
     +'transition:box-shadow .15s,border-color .15s;user-select:none;"'
     +' title="'+node.name+(node.role?' · '+node.role:'')+' | 右键改色 · 拖拽移位">'
-    +'<span>'+node.name+'</span>'
-    +(node.role?'<span style="font-size:10px;font-weight:400;opacity:.8;margin-top:2px;">'+node.role+'</span>':'')
+    +'<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:160px;display:block;">'+node.name+'</span>'
+    +(node.role?'<span style="font-size:9.5px;font-weight:400;opacity:.8;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:160px;display:block;">'+node.role+'</span>':'')
     +'</div>';
 
   var validChildren=(node.children||[]).filter(function(cid){return ORG_TREE.nodes[cid];});
@@ -2510,18 +2510,24 @@ function renderOrgChart(){
     var label=labels[rid]||(isClient?'甲方 — 佛山照明':'乙方 — 艾维登咨询');
     var badgeBg=isClient?'#EBF5FB':'#FEF9E7';
     var badgeColor=isClient?'#1A4F73':'#B7860B';
-    return '<div style="display:flex;flex-direction:column;align-items:center;padding:0 32px;">'
-      +'<div style="font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;'
-      +'margin-bottom:14px;padding:4px 16px;border-radius:10px;'
-      +'background:'+badgeBg+';color:'+badgeColor+';">'+label+'</div>'
+    return '<div style="width:100%;border:1px solid #D6E8F2;border-radius:8px;overflow:hidden;background:#fff;">'
+      // Section header
+      +'<div style="background:'+badgeBg+';padding:8px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #D6E8F2;">'
+      +'<span style="font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:'+badgeColor+';">'+label+'</span>'
+      +'</div>'
+      // Tree scroll area
+      +'<div style="overflow-x:auto;overflow-y:visible;padding:24px 16px 16px;min-height:80px;">'
+      +'<div style="display:inline-flex;flex-direction:column;align-items:center;min-width:max-content;">'
       +renderNode(rid,0,false)
+      +'</div>'
+      +'</div>'
       +'</div>';
-  }).join('<div style="width:2px;background:#D6E8F2;margin:0 16px;align-self:stretch;"></div>');
+  }).join('');
 
-  el.innerHTML='<div style="font-size:11px;color:#5B7A91;margin-bottom:16px;text-align:center;">'
-    +'💡 <b>右键节点</b>更改颜色 &nbsp;·&nbsp; <b>拖拽节点到其他节点上</b>调整汇报层级 &nbsp;·&nbsp; <b>拖到空白处松手</b>使其成为顶层节点'
+  el.innerHTML='<div style="font-size:11px;color:#5B7A91;margin-bottom:12px;text-align:center;padding:0 8px;">'
+    +'💡 <b>右键节点</b>更改颜色 &nbsp;·&nbsp; <b>拖拽</b>调整层级 &nbsp;·&nbsp; <b>拖到空白处</b>升为顶层'
     +'</div>'
-    +'<div style="display:flex;flex-direction:row;align-items:flex-start;justify-content:center;gap:0;">'
+    +'<div style="display:flex;flex-direction:column;gap:32px;width:100%;">'
     +sectionsHtml
     +'</div>';
 }
