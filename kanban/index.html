@@ -2491,11 +2491,11 @@ function renderOrgChart(){
   // Sort: client (甲方) first, vendor (乙方) second
   roots.sort(function(a,b){
     var ga=ORG_TREE.nodes[a].group||'', gb=ORG_TREE.nodes[b].group||'';
-    // vendor (乙方) first (left), client (甲方) second (right)
-    var aIsVendor=(ga==='vendor'||ga==='consultant');
-    var bIsVendor=(gb==='vendor'||gb==='consultant');
-    if(aIsVendor&&!bIsVendor) return -1;
-    if(bIsVendor&&!aIsVendor) return 1;
+    // client (甲方) first (top), vendor (乙方) last (bottom)
+    var aIsClient=(ga==='client');
+    var bIsClient=(gb==='client');
+    if(aIsClient&&!bIsClient) return -1;
+    if(bIsClient&&!aIsClient) return 1;
     return 0;
   });
   ORG_TREE.roots=roots;
