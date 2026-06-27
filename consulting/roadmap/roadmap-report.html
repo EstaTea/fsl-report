@@ -259,7 +259,22 @@ tr:hover td{background:#E0EEFF}
       </div>
     </div>
     <a href="/fsl-report/weekly/">项目周报</a>
-    <a href="/fsl-report/kanban/">任务看板</a>
+    <div class="nav-dropdown">
+      <a href="/fsl-report/kanban/">任务看板 <span class="nav-arrow">▾</span></a>
+      <div class="nav-dropdown-panel">
+        <div class="nav-dd-row">
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">调研问卷</div>
+            <a href="/fsl-report/kanban/survey-ar.html">财务应收全流程问卷</a>
+          </div>
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">项目管理</div>
+            <a href="/fsl-report/kanban/">任务看板</a>
+            <a href="/fsl-report/weekly/">项目周报</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </nav>
 <div id="prog"></div>
@@ -1240,9 +1255,9 @@ tr:hover td{background:#E0EEFF}
 
 <div class="status-switcher" id="statusSwitcher">
   <span class="ss-label">文档状态</span>
-  <button class="ss-btn" id="ss-todo" onclick="setDocStatus('todo')">⏳ 待开始</button>
-  <button class="ss-btn" id="ss-wip"  onclick="setDocStatus('wip')">⟳ 进行中</button>
-  <button class="ss-btn" id="ss-done" onclick="setDocStatus('done')">✅ 已完成</button>
+  <button class="ss-btn" id="ss-todo" onclick="setDocStatus(&quot;todo&quot;)">⏳ 待开始</button>
+  <button class="ss-btn" id="ss-wip"  onclick="setDocStatus(&quot;wip&quot;)">⟳ 进行中</button>
+  <button class="ss-btn" id="ss-done" onclick="setDocStatus(&quot;done&quot;)">✅ 已完成</button>
   <div class="ss-indicator-wrap">
     <div class="ss-indicator-dot" id="ss-dot"></div>
     <span class="ss-indicator-text" id="ss-indicator">—</span>
