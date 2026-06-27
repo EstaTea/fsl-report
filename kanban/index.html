@@ -3042,7 +3042,11 @@ function switchCompanyView(view){
   document.getElementById('compViewList').className='org-view-btn'+(view==='list'?' active':'');
   document.getElementById('companyTreeView').style.display=view==='tree'?'':'none';
   document.getElementById('companyListView').style.display=view==='list'?'':'none';
-  if(view==='list') renderCompanyList();
+  // Always load from GitHub to ensure latest data
+  loadCompanyData(function(){
+    if(view==='tree') renderCompanyTree();
+    else renderCompanyList();
+  });
 }
 
 function renderCompanyList(){
