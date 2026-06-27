@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>佛山照明数据调研分析报告 | TOGAF 4A | FSL工作台</title>
+<style>
+:root{
+  --navy:#003087;--dark:#1B3A6B;--primary:#005EB8;--mid:#1F70C1;
+  --steel:#4A6FA5;--muted:#6B8CB8;--light:#A8C4E0;--pale:#D0E4F7;
+  --bg:#EBF4FF;--white:#FFFFFF;--text:#0D1B2A;--text2:#2C3E50;
+  --nav-w:260px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Microsoft YaHei",Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+#prog{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--navy),var(--primary));width:0;z-index:9999;transition:width .1s}
+#sidebar{position:fixed;top:0;left:0;width:var(--nav-w);height:100vh;background:var(--dark);overflow-y:auto;z-index:100;display:flex;flex-direction:column;padding-bottom:20px}
+#sidebar::-webkit-scrollbar{width:4px}
+#sidebar::-webkit-scrollbar-thumb{background:var(--steel);border-radius:2px}
+.sb-logo{padding:20px 16px 12px;border-bottom:1px solid rgba(255,255,255,.1)}
+.sb-logo .co{font-size:11px;color:var(--pale);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.sb-logo .title{font-size:13px;font-weight:700;color:#fff;line-height:1.4}
+.sb-logo .badge{display:inline-block;margin-top:6px;background:var(--primary);color:#fff;font-size:10px;padding:2px 8px;border-radius:10px}
+.sb-menu{padding:10px 0;flex:1}
+.sb-ch{padding:8px 16px 4px;font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;font-weight:700}
+.sb-menu a{display:block;padding:7px 16px;color:rgba(255,255,255,.75);text-decoration:none;font-size:12px;border-left:3px solid transparent;transition:all .2s;line-height:1.4}
+.sb-menu a:hover{color:#fff;background:rgba(255,255,255,.07);border-left-color:var(--light)}
+.sb-menu a.active{color:#fff;background:rgba(0,94,184,.35);border-left-color:var(--primary);font-weight:600}
+.sb-menu .sub{padding-left:28px;font-size:11px;color:rgba(255,255,255,.55)}
+.sb-menu .sub:hover{color:rgba(255,255,255,.85)}
+#main{margin-left:var(--nav-w);min-height:100vh}
+.cover{background:linear-gradient(135deg,var(--navy) 0%,var(--dark) 50%,var(--primary) 100%);color:#fff;padding:64px 48px 48px;position:relative;overflow:hidden}
+.cover::before{content:"";position:absolute;top:-40px;right:-60px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.04)}
+.cover::after{content:"";position:absolute;bottom:-60px;left:100px;width:200px;height:200px;border-radius:50%;background:rgba(0,94,184,.2)}
+.cover-tag{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);padding:4px 14px;border-radius:20px;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
+.cover h1{font-size:28px;font-weight:700;line-height:1.3;margin-bottom:8px;position:relative}
+.cover .sub{font-size:15px;color:var(--pale);margin-bottom:32px;position:relative}
+.cover-meta{display:flex;gap:32px;flex-wrap:wrap;position:relative}
+.cover-meta-item .lbl{font-size:10px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:1px}
+.cover-meta-item .val{font-size:13px;color:#fff;font-weight:600;margin-top:2px}
+.cover-kpi{display:flex;gap:16px;flex-wrap:wrap;margin-top:28px;position:relative}
+.kpi-box{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:14px 20px;min-width:100px}
+.kpi-box .num{font-size:24px;font-weight:700;color:#fff}
+.kpi-box .desc{font-size:11px;color:var(--pale);margin-top:2px}
+.content{padding:32px 40px 60px}
+.chapter{margin-bottom:48px}
+.ch-header{background:linear-gradient(90deg,var(--dark),var(--primary));color:#fff;padding:14px 24px;border-radius:10px 10px 0 0;display:flex;align-items:center;gap:12px}
+.ch-header .ch-num{background:rgba(255,255,255,.2);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.ch-header h2{font-size:17px;font-weight:700}
+.ch-body{background:var(--white);border-radius:0 0 10px 10px;padding:28px;box-shadow:0 2px 12px rgba(0,48,135,.08)}
+.sec{margin-bottom:28px}
+.sec-title{font-size:15px;font-weight:700;color:var(--dark);border-left:4px solid var(--primary);padding-left:12px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.sec-sub{font-size:13px;font-weight:700;color:var(--mid);margin:16px 0 8px;padding-left:8px;border-left:2px solid var(--pale)}
+p{margin-bottom:10px;color:var(--text2)}
+.box{border-radius:8px;padding:14px 18px;margin:12px 0;border-left:4px solid}
+.box.finding{background:#F0F7FF;border-color:var(--mid)}
+.box.finding::before{content:"🔍 关键发现  ";font-weight:700;color:var(--mid);display:block;margin-bottom:4px;font-size:12px}
+.box.warn{background:#FFF8E1;border-color:#F9A825}
+.box.warn::before{content:"⚠️ 风险提示  ";font-weight:700;color:#F9A825;display:block;margin-bottom:4px;font-size:12px}
+.box.action{background:#E8F5E9;border-color:#388E3C}
+.box.action::before{content:"✅ 行动建议  ";font-weight:700;color:#388E3C;display:block;margin-bottom:4px;font-size:12px}
+.box.gap{background:#EBF4FF;border-color:var(--steel)}
+.box.gap::before{content:"⚡ 差距分析  ";font-weight:700;color:var(--steel);display:block;margin-bottom:4px;font-size:12px}
+.box p{margin-bottom:4px;font-size:13px}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:12.5px}
+th{background:var(--dark);color:#fff;padding:9px 12px;text-align:left;font-weight:600}
+td{padding:8px 12px;border-bottom:1px solid var(--pale);vertical-align:top}
+tr:nth-child(even) td{background:var(--bg)}
+tr:hover td{background:#E0EEFF}
+.badge{display:inline-block;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:600}
+.badge.high{background:#C62828;color:#fff}
+.badge.med{background:#F57F17;color:#fff}
+.badge.low{background:var(--pale);color:var(--dark)}
+.badge.done{background:#2E7D32;color:#fff}
+.badge.p0{background:var(--dark);color:#fff}
+.badge.p1{background:var(--steel);color:#fff}
+.badge.p2{background:var(--pale);color:var(--dark)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:16px 0}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:16px 0}
+.grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;margin:16px 0}
+.metric-card{background:var(--bg);border:1.5px solid var(--pale);border-radius:8px;padding:16px;text-align:center}
+.metric-card .mc-num{font-size:28px;font-weight:700;color:var(--dark)}
+.metric-card .mc-num.red{color:#C62828}
+.metric-card .mc-num.orange{color:#E65100}
+.metric-card .mc-num.green{color:#2E7D32}
+.metric-card .mc-lbl{font-size:11px;color:var(--muted);margin-top:4px}
+.pbar-wrap{background:var(--pale);border-radius:3px;height:6px;margin:8px 0}
+.pbar-fill{height:6px;border-radius:3px;background:var(--primary)}
+.pbar-fill.red{background:#C62828}
+.pbar-fill.orange{background:#E65100}
+ul,ol{padding-left:20px;margin:8px 0}
+li{margin-bottom:4px;color:var(--text2);font-size:13px}
+.case-block{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:16px 20px;margin:14px 0}
+.case-block .cb-title{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.case-block .cb-title .cb-tag{background:var(--primary);color:#fff;font-size:10px;padding:2px 8px;border-radius:3px}
+.route-timeline{display:flex;flex-direction:column;gap:0;margin:12px 0}
+.rt-row{display:flex;gap:12px;align-items:flex-start}
+.rt-dot{width:10px;height:10px;border-radius:50%;background:var(--primary);flex-shrink:0;margin-top:5px}
+.rt-dot.done{background:#2E7D32}
+.rt-dot.warn{background:#E65100}
+.rt-line{width:2px;background:var(--pale);margin-left:4px;height:16px;flex-shrink:0}
+.rt-content{flex:1;padding-bottom:14px}
+.rt-title{font-size:12px;font-weight:700;color:var(--dark)}
+.rt-desc{font-size:11.5px;color:var(--muted);margin-top:2px;line-height:1.5}
+.priority-matrix{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.pm-box{border-radius:8px;padding:14px 16px;border:1.5px solid}
+.pm-box.p0{background:#FFF5F5;border-color:#C62828}
+.pm-box.p1{background:#FFFDE7;border-color:#F57F17}
+.pm-box.p2{background:#F1F8E9;border-color:#558B2F}
+.pm-box .pm-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.pm-box.p0 .pm-label{color:#C62828}
+.pm-box.p1 .pm-label{color:#E65100}
+.pm-box.p2 .pm-label{color:#33691E}
+.pm-box ul li{font-size:12px}
+footer-note{display:block;text-align:center;font-size:11px;color:var(--muted);margin-top:40px;padding:16px;border-top:1px solid var(--pale)}
+@media(max-width:900px){#sidebar{transform:translateX(-100%);transition:transform .3s}#sidebar.open{transform:translateX(0)}#main{margin-left:0}#ham{display:flex;align-items:center;justify-content:center}.content{padding:20px 16px 40px}.cover{padding:40px 20px 32px}.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<button id="ham" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+
+<!-- Sidebar -->
+<div id="sidebar">
+  <div class="sb-logo">
+    <div class="co">FSL S/4HANA 升级项目</div>
+    <div class="title">数据调研分析报告</div>
+    <div class="badge">★4 · TOGAF 4A · v2.0</div>
+  </div>
+  <div class="sb-menu">
+    <div class="sb-ch">导航</div>
+    <a href="#cover">封面 &amp; 执行摘要</a>
+    <a href="#s1">一、报告说明与方法论</a>
+    <a href="#s2">二、业务架构（BA）</a>
+    <a href="#s2-1" class="sub">2.1 战略背景与财务现状</a>
+    <a href="#s2-2" class="sub">2.2 组织架构分析</a>
+    <a href="#s2-3" class="sub">2.3 核心业务流程痛点</a>
+    <a href="#s3">三、应用架构（AA）</a>
+    <a href="#s3-1" class="sub">3.1 系统全景</a>
+    <a href="#s3-2" class="sub">3.2 SAP覆盖缺口</a>
+    <a href="#s3-3" class="sub">3.3 电商五大断点</a>
+    <a href="#s4">四、数据架构（DA）· 案例分析</a>
+    <a href="#s4-1" class="sub">4.1 主数据质量诊断</a>
+    <a href="#s4-2" class="sub">4.2 BOM深度案例</a>
+    <a href="#s4-3" class="sub">4.3 工艺路线分析</a>
+    <a href="#s4-4" class="sub">4.4 根因分析</a>
+    <a href="#s5">五、技术架构（TA）</a>
+    <a href="#s5-1" class="sub">5.1 技术实施规格</a>
+    <a href="#s5-2" class="sub">5.2 信息安全体系</a>
+    <a href="#s6">六、差距分析与优先级</a>
+    <a href="#s7">七、战略建议与路线图</a>
+    <div class="sb-ch">关联交付物</div>
+    <a href="/fsl-report/consulting/blueprint/ea-report.html">★5 企业架构设计报告</a>
+    <a href="/fsl-report/consulting/blueprint/">返回蓝图阶段</a>
+  </div>
+</div>
+
+<!-- Main -->
+<div id="main">
+
+<!-- Cover -->
+<div class="cover" id="cover">
+  <div class="cover-tag">★4 数据调研分析报告 · 保密咨询交付物</div>
+  <h1>佛山照明数字化现状分析报告</h1>
+  <p class="sub">基于 TOGAF ADM 四维架构（BA · AA · DA · TA）· 深度主数据案例分析</p>
+  <div class="cover-meta">
+    <div class="cover-meta-item"><div class="lbl">版本</div><div class="val">v2.0 · 2026-06-27</div></div>
+    <div class="cover-meta-item"><div class="lbl">方法论</div><div class="val">TOGAF ADM · 4A架构</div></div>
+    <div class="cover-meta-item"><div class="lbl">数据来源</div><div class="val">D1–D5 访谈 · 现状材料收集</div></div>
+    <div class="cover-meta-item"><div class="lbl">主责顾问</div><div class="val">艾维登咨询 数据专家</div></div>
+    <div class="cover-meta-item"><div class="lbl">甲方验收</div><div class="val">数智化部 · 李一帜</div></div>
+  </div>
+  <div class="cover-kpi">
+    <div class="kpi-box"><div class="num">3,542</div><div class="desc">物料主数据条数</div></div>
+    <div class="kpi-box"><div class="num">100%</div><div class="desc">成品关键字段缺失率</div></div>
+    <div class="kpi-box"><div class="num">12%</div><div class="desc">BOM问题行比例</div></div>
+    <div class="kpi-box"><div class="num">2/19</div><div class="desc">SAP覆盖法人数</div></div>
+    <div class="kpi-box"><div class="num">1.7/5</div><div class="desc">数据架构成熟度评分</div></div>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- 执行摘要 -->
+<div class="chapter" id="s0">
+  <div class="ch-header"><div class="ch-num">0</div><h2>执行摘要</h2></div>
+  <div class="ch-body">
+    <div class="grid-4">
+      <div class="metric-card">
+        <div class="mc-num orange">2/5</div>
+        <div class="pbar-wrap"><div class="pbar-fill orange" style="width:40%"></div></div>
+        <div class="mc-lbl">业务架构 BA<br>流程不统一，1名专职流程人员</div>
+      </div>
+      <div class="metric-card">
+        <div class="mc-num red">2/5</div>
+        <div class="pbar-wrap"><div class="pbar-fill red" style="width:40%"></div></div>
+        <div class="mc-lbl">应用架构 AA<br>SAP仅覆盖2/19法人</div>
+      </div>
+      <div class="metric-card">
+        <div class="mc-num red">1.7/5</div>
+        <div class="pbar-wrap"><div class="pbar-fill red" style="width:34%"></div></div>
+        <div class="mc-lbl">数据架构 DA<br>主数据质量极差，无MDG</div>
+      </div>
+      <div class="metric-card">
+        <div class="mc-num orange">3/5</div>
+        <div class="pbar-wrap"><div class="pbar-fill" style="width:60%"></div></div>
+        <div class="mc-lbl">技术架构 TA<br>安全制度完善，IT人力缺口4-5倍</div>
+      </div>
+    </div>
+    <div class="sec" style="margin-top:20px;">
+      <div class="sec-title">五大核心发现</div>
+      <table>
+        <thead><tr><th>#</th><th>核心发现</th><th>等级</th><th>直接影响</th></tr></thead>
+        <tbody>
+          <tr><td><b>F-01</b></td><td><b>主数据质量是最大技术风险</b> — 1,159个成品100%缺技术要求/69码/旧物料号；BOM 12%问题行；工艺路线44%工序无描述</td><td><span class="badge high">极高</span></td><td>Greenfield上线延期风险，MRP计算错误，成本核算失真</td></tr>
+          <tr><td><b>F-02</b></td><td><b>SAP覆盖严重不足（2/19法人）</b> — 燎旺车灯1,123人（占营收25.3%）完全无SAP，数据靠手工汇总</td><td><span class="badge high">极高</span></td><td>集团管控盲区，合并报表手工，月结7–12天</td></tr>
+          <tr><td><b>F-03</b></td><td><b>IT人力是最大执行风险</b> — 16–23人支撑8,000+员工，缺口4–5倍；2025年三系统同年上线叠加S/4HANA</td><td><span class="badge high">极高</span></td><td>运维能力不足，系统稳定性风险</td></tr>
+          <tr><td><b>F-04</b></td><td><b>流程成熟度是最大变革风险</b> — 1名专职流程人员，4个历史项目失败（600+万损失）</td><td><span class="badge high">极高</span></td><td>TO-BE确认困难，业务变革抗拒</td></tr>
+          <tr><td><b>F-05</b></td><td><b>电商五大系统断点（年销3-4亿）</b> — SAP/聚水潭/商城/SRM/顺丰WMS接口不通，退货全人工</td><td><span class="badge med">高</span></td><td>月底报表超时，每2天2.5小时人工退货处理</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- 第一章 方法论 -->
+<div class="chapter" id="s1">
+  <div class="ch-header"><div class="ch-num">1</div><h2>报告说明与方法论</h2></div>
+  <div class="ch-body">
+    <div class="sec">
+      <div class="sec-title">TOGAF ADM 四维架构定义</div>
+      <p>本报告采用 <b>TOGAF（The Open Group Architecture Framework）</b> ADM 方法论，从四个维度系统评估佛照数字化现状，为 S/4HANA Greenfield 实施提供架构基础。</p>
+      <table>
+        <thead><tr><th>架构层</th><th>英文</th><th>评估内容</th><th>现状评级</th></tr></thead>
+        <tbody>
+          <tr><td><b>业务架构</b></td><td>Business Architecture</td><td>战略目标、组织结构、业务流程、业务能力</td><td><span class="badge med">2/5 · 中等</span></td></tr>
+          <tr><td><b>应用架构</b></td><td>Application Architecture</td><td>应用系统清单、功能范围、系统集成关系</td><td><span class="badge high">2/5 · 薄弱</span></td></tr>
+          <tr><td><b>数据架构</b></td><td>Data Architecture</td><td>主数据定义、数据质量、数据流、数据治理</td><td><span class="badge high">1.7/5 · 极弱</span></td></tr>
+          <tr><td><b>技术架构</b></td><td>Technology Architecture</td><td>基础设施、平台、安全、运维</td><td><span class="badge med">3/5 · 中等</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sec">
+      <div class="sec-title">数据来源</div>
+      <table>
+        <thead><tr><th>数据来源</th><th>文件名</th><th>数据时效</th><th>用途</th></tr></thead>
+        <tbody>
+          <tr><td>物料主数据</td><td>物料主数据基本视图.xls（<b>3,542条</b>）</td><td>2026年6月导出</td><td>主数据质量分析</td></tr>
+          <tr><td>BOM清单</td><td>BOM清单.xls（<b>83行</b>）</td><td>2026年2月创建</td><td>BOM结构与质量分析</td></tr>
+          <tr><td>工艺路线</td><td>工艺路线.XLSX（<b>18条工序</b>）</td><td>2026年2月最新更新</td><td>工艺路线质量分析</td></tr>
+          <tr><td>物料编码规则</td><td>FSL物料编码规则总表20220801.xlsx（<b>1,571行分类</b>）</td><td>2022年8月版</td><td>编码执行情况对比</td></tr>
+          <tr><td>系统清单</td><td>佛照系统清单及功能模块收集表.xlsx</td><td>探索阶段收集</td><td>应用架构分析</td></tr>
+          <tr><td>组织架构</td><td>佛山照明企业组织架构.xlsx（268节点）</td><td>2026年最新</td><td>组织能力分析</td></tr>
+          <tr><td>精益改善清单</td><td>2026年精益改善项目清单0414-定.xlsx（87项）</td><td>2026年4月</td><td>业务目标关联</td></tr>
+          <tr><td>十五五战略规划</td><td>佛山电器照明股份有限公司"十五五"战略规划</td><td>修订稿</td><td>战略背景分析</td></tr>
+          <tr><td>访谈会议纪要</td><td>D1–D5 共17场访谈（12份会议纪要）</td><td>2026年6月</td><td>业务痛点确认</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- 第二章 业务架构 -->
+<div class="chapter" id="s2">
+  <div class="ch-header"><div class="ch-num">2</div><h2>业务架构（Business Architecture）</h2></div>
+  <div class="ch-body">
+
+    <div class="sec" id="s2-1">
+      <div class="sec-title">2.1 战略背景与财务现状</div>
+      <p>佛山电器照明股份有限公司（A股600541）是中国照明行业第一家上市企业，2025年营收87.97亿元，但盈利能力处于行业底部。</p>
+      <div class="grid-2">
+        <div>
+          <div class="sec-sub">行业对标（2025年）</div>
+          <table>
+            <thead><tr><th>指标</th><th>佛照</th><th>欧普照明</th><th>阳光照明</th></tr></thead>
+            <tbody>
+              <tr><td>营收</td><td><b>87.97亿</b></td><td>69.70亿</td><td>26.68亿</td></tr>
+              <tr><td>综合毛利率</td><td><b style="color:#C62828;">17.6%</b></td><td>39.1%</td><td>32.7%</td></tr>
+              <tr><td>扣非净利率</td><td><b style="color:#C62828;">0.95%</b></td><td>13.2%</td><td>7.1%</td></tr>
+              <tr><td>SAP状态</td><td>ECC→S/4HANA中</td><td>已上线</td><td>已上线</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <div class="sec-sub">十五五战略 · 数字化工程</div>
+          <table>
+            <thead><tr><th>战略方向</th><th>SAP升级关联</th></tr></thead>
+            <tbody>
+              <tr><td>稳住通用照明基本盘</td><td>成本核算精细化</td></tr>
+              <tr><td>做实车灯/海洋/体育新赛道</td><td>多法人统一管控</td></tr>
+              <tr><td>海外战略（降低对美依赖）</td><td>泰国/德国法人 + DRC合规</td></tr>
+              <tr><td><b>数智化升级（核心工程）</b></td><td><b>S/4HANA数字底座</b></td></tr>
+            </tbody>
+          </table>
+          <div class="box finding" style="margin-top:10px;"><p>十五五规划原文明确点名：「各系统碎片化、数据孤岛严重、缺乏统一数据治理、SAP ECC 6.0已无法支撑集团统一管控」</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec" id="s2-2">
+      <div class="sec-title">2.2 组织架构 · IT人力缺口</div>
+      <table>
+        <thead><tr><th>IT对比维度</th><th>佛照现状</th><th>行业参考</th><th>差距</th></tr></thead>
+        <tbody>
+          <tr><td>IT部门人员数</td><td><b style="color:#C62828;">16–23人（数智化部）</b></td><td>约60–90人（同体量企业）</td><td><span class="badge high">缺口3–4倍</span></td></tr>
+          <tr><td>IT人员/总员工比</td><td><b style="color:#C62828;">0.2–0.3%</b></td><td>约1–1.5%</td><td><span class="badge high">差距4–5倍</span></td></tr>
+          <tr><td>专职流程人员</td><td><b style="color:#C62828;">1人（全公司）</b></td><td>建议5–8人</td><td><span class="badge high">缺口4–7人</span></td></tr>
+        </tbody>
+      </table>
+      <div class="box warn"><p>历史数字化失败：4个项目相继失败（APS/数字化车间/财务共享/营销平台），累计损失600+万元，形成「恐惧文化」，是本次S/4HANA TO-BE确认最大的非技术障碍。</p></div>
+    </div>
+
+    <div class="sec" id="s2-3">
+      <div class="sec-title">2.3 核心业务流程痛点（基于D1–D5访谈）</div>
+      <table>
+        <thead><tr><th>痛点</th><th>级别</th><th>具体表现</th><th>SAP模块</th></tr></thead>
+        <tbody>
+          <tr><td><b>ZD06折扣丢失</b></td><td><span class="badge p0">P0</span></td><td>订单变更/重下后折扣需手工补录，家用后台50–60%工时浪费</td><td>SD条件定价</td></tr>
+          <tr><td><b>阶梯价/叠加优惠全人工</b></td><td><span class="badge p0">P0</span></td><td>按季度/年度返利靠人工计算，整单满额/叠加优惠系统不支持</td><td>SD/条件合同</td></tr>
+          <tr><td><b>OTD无统一口径</b></td><td><span class="badge p0">P0</span></td><td>需求日/承诺日/发货日/签收日分散在SAP+OA+车间，无闭环</td><td>SD/PP/ATP</td></tr>
+          <tr><td><b>信用管控手工化</b></td><td><span class="badge p0">P0</span></td><td>超信用额度冻结/释放靠人工审批，坏账率1–2%</td><td>FICO/SD信用</td></tr>
+          <tr><td><b>成本核算颗粒度不足</b></td><td><span class="badge p0">P0</span></td><td>料工费明细不可见，移动平均价掩盖波动，不良品未单独核算</td><td>CO/FICO</td></tr>
+          <tr><td><b>内部交易核算复杂</b></td><td><span class="badge p0">P0</span></td><td>19家法人关联交易，转移定价两套口径，无统一规则</td><td>Group Reporting</td></tr>
+          <tr><td><b>报价→价格主数据断点</b></td><td><span class="badge p1">P1</span></td><td>SRM审批结果无法自动转为SAP价格记录，需人工中转</td><td>MM/SRM集成</td></tr>
+          <tr><td><b>独家供应商高风险</b></td><td><span class="badge p1">P1</span></td><td>二供长期不激活会失效，近期已发生供货中断事件</td><td>MM供应商管理</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- 第三章 应用架构 -->
+<div class="chapter" id="s3">
+  <div class="ch-header"><div class="ch-num">3</div><h2>应用架构（Application Architecture）</h2></div>
+  <div class="ch-body">
+
+    <div class="sec" id="s3-1">
+      <div class="sec-title">3.1 现有应用系统全景（20+ 系统）</div>
+      <table>
+        <thead><tr><th>系统</th><th>产品</th><th>上线时间</th><th>法人覆盖</th><th>SAP集成状态</th></tr></thead>
+        <tbody>
+          <tr style="background:#FFF8E1;"><td><b>ERP（核心）</b></td><td><b>SAP ECC 6.0 (R/3)</b></td><td>2008年</td><td><b style="color:#C62828;">2/19家</b></td><td><span class="badge done">核心系统</span></td></tr>
+          <tr><td>PLM</td><td>Windchill</td><td>2022年</td><td>9/19家</td><td><span class="badge med">单向同步↑</span></td></tr>
+          <tr><td>CRM</td><td>纷享销客</td><td><b style="color:#2E7D32;">2026年新</b></td><td>5/19家</td><td><span class="badge low">集成待建</span></td></tr>
+          <tr><td>SRM</td><td>自建</td><td>—</td><td>1/19家</td><td><span class="badge med">有断点⚠</span></td></tr>
+          <tr><td>WMS</td><td>自建</td><td><b style="color:#2E7D32;">2025年新</b></td><td>2/19家</td><td><span class="badge med">有联动</span></td></tr>
+          <tr><td>防伪防窜</td><td>二码合一</td><td>2023年</td><td>2/19家</td><td><span class="badge done">双向↕</span></td></tr>
+          <tr style="background:#FFF5F5;"><td><b>电商ERP</b></td><td><b>聚水潭</b></td><td>—</td><td>1/19家</td><td><span class="badge high">断点❌</span></td></tr>
+          <tr><td>人力资源</td><td>i人事</td><td>2023年</td><td>~14/19家</td><td><span class="badge low">独立运营</span></td></tr>
+          <tr><td>财务共享</td><td>—</td><td><b style="color:#2E7D32;">2025年新</b></td><td>部分</td><td><span class="badge low">接口待评估</span></td></tr>
+          <tr><td>BI系统</td><td>帆软BI</td><td>—</td><td>集团</td><td><span class="badge med">权限受限</span></td></tr>
+          <tr><td>AI平台</td><td>私有化（3台服务器）</td><td><b style="color:#2E7D32;">2025年新</b></td><td>总部</td><td><span class="badge low">等待数据底座</span></td></tr>
+        </tbody>
+      </table>
+      <div class="box warn"><p>2025年同年上线财务共享、WMS、AI平台三系统，2026年再启动S/4HANA，系统叠加上线风险极高。数智化部16–23人的承载能力面临严峻考验。</p></div>
+    </div>
+
+    <div class="sec" id="s3-2">
+      <div class="sec-title">3.2 SAP法人覆盖缺口</div>
+      <p>19家法人中，SAP ECC 6.0仅覆盖<b>本部和高明公司</b>，其余17家法人（包括燎旺车灯1,123人、国际事业部357人等）均未纳入SAP管控。</p>
+      <table>
+        <thead><tr><th>法人单位</th><th>人员规模</th><th>SAP ECC</th><th>PLM</th><th>主要影响</th></tr></thead>
+        <tbody>
+          <tr style="background:#EBF4FF;"><td><b>佛山照明本部</b></td><td>1,122人</td><td><span class="badge done">✓ 覆盖</span></td><td><span class="badge done">✓</span></td><td>—</td></tr>
+          <tr style="background:#EBF4FF;"><td><b>高明公司</b></td><td>393人</td><td><span class="badge done">✓ 覆盖</span></td><td><span class="badge done">✓</span></td><td>—</td></tr>
+          <tr style="background:#FFF5F5;"><td><b>南宁燎旺车灯</b></td><td><b>1,123人（占营收25.3%）</b></td><td><span class="badge high">✗ 无</span></td><td><span class="badge high">✗</span></td><td>数据完全孤岛，手工汇总</td></tr>
+          <tr><td>国际事业部（佛照光电）</td><td>357人</td><td><span class="badge high">✗ 无</span></td><td><span class="badge done">✓</span></td><td>海外汇率核算手工</td></tr>
+          <tr><td>浙江沪乐电气</td><td>88人</td><td><span class="badge high">✗ 无</span></td><td><span class="badge high">✗</span></td><td>—</td></tr>
+          <tr><td>其余14家法人</td><td>—</td><td><span class="badge high">✗ 无</span></td><td>部分</td><td>集团月结手工合并</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sec" id="s3-3">
+      <div class="sec-title">3.3 电商五大系统断点（年销3–4亿）</div>
+      <div class="case-block">
+        <div class="cb-title"><span class="cb-tag">当前状态 AS-IS</span>电商业务系统集成拓扑</div>
+        <p style="font-family:monospace;font-size:12px;line-height:2;background:#f8f9fa;padding:12px;border-radius:6px;color:var(--text2);">
+          [天猫/京东/抖音] → [聚水潭ERP] → <b style="color:#C62828;">✗ 无自动集成</b> → [SAP ECC]<br>
+          [佛照商城（经销商）] ──────────→ <b style="color:#C62828;">✗ 主数据不一致</b> → [SAP ECC]<br>
+          [SRM供应商系统] ──手工中转───→ <b style="color:#E65100;">⚠ 价格断点</b> → [SAP ECC]<br>
+          [顺丰WMS] ─────────────────→ <b style="color:#C62828;">✗ 无自动集成</b> → [SAP ECC]<br>
+          [防伪防窜系统] ───双向同步────→ <b style="color:#2E7D32;">✓ 联通</b> → [SAP ECC]
+        </p>
+        <ul style="margin-top:10px;">
+          <li>月底月初报表超时中断，MIGO凭证300行限制批量操作</li>
+          <li>退货流程全人工：每2天需1人花2–2.5小时处理（退实物/仅退款/折扣退供应商三类）</li>
+          <li>商城主数据（物料描述/条码）与SAP不一致，影响客户体验</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 第四章 数据架构（核心案例分析） -->
+<div class="chapter" id="s4">
+  <div class="ch-header"><div class="ch-num">4</div><h2>数据架构（Data Architecture）· 深度案例分析</h2></div>
+  <div class="ch-body">
+    <div class="box finding"><p>本章基于从SAP系统导出的真实数据（物料主数据3,542条、BOM清单83行、工艺路线18条），通过具体数字论证生产与计划中的主数据混乱问题。</p></div>
+
+    <div class="sec" id="s4-1">
+      <div class="sec-title">4.1 物料主数据质量诊断（n=3,542）</div>
+      <div class="sec-sub">物料类型分布</div>
+      <table>
+        <thead><tr><th>物料类型</th><th>含义</th><th>数量</th><th>占比</th></tr></thead>
+        <tbody>
+          <tr><td>ZFIN</td><td>成品</td><td><b>1,159</b></td><td>32.7%</td></tr>
+          <tr><td>ZSIM</td><td>半成品/包装组件</td><td>715</td><td>20.2%</td></tr>
+          <tr><td>ZR06</td><td>外购原材料</td><td>689</td><td>19.5%</td></tr>
+          <tr><td>ZSEM</td><td>半品（加工中间品）</td><td>325</td><td>9.2%</td></tr>
+          <tr><td>ZPAR</td><td>包装材料</td><td>263</td><td>7.4%</td></tr>
+          <tr><td>其他</td><td>—</td><td>391</td><td>11.0%</td></tr>
+        </tbody>
+      </table>
+      <div class="sec-sub">成品字段完整性诊断（ZFIN · n=1,159）</div>
+      <table>
+        <thead><tr><th>字段名</th><th>缺失数量</th><th>缺失率</th><th>业务影响</th><th>清洗优先级</th></tr></thead>
+        <tbody>
+          <tr style="background:#FFF5F5;"><td><b>技术要求</b></td><td>1,159</td><td><b style="color:#C62828;">100%</b></td><td>无法追溯产品规格，质量管理无依据</td><td><span class="badge p0">P0 高</span></td></tr>
+          <tr style="background:#FFF5F5;"><td><b>69码（EAN条码）</b></td><td>1,159</td><td><b style="color:#C62828;">100%</b></td><td>无法与电商/防伪系统条码对接</td><td><span class="badge p0">P0 高</span></td></tr>
+          <tr style="background:#FFF5F5;"><td><b>旧物料号</b></td><td>1,159</td><td><b style="color:#C62828;">100%</b></td><td>Greenfield迁移无法追溯历史关联</td><td><span class="badge p1">P1 中</span></td></tr>
+          <tr style="background:#FFF8E1;"><td><b>跨工厂状态</b></td><td>1,158</td><td><b style="color:#C62828;">99.9%</b></td><td>19法人无法判断跨工厂物料可用状态</td><td><span class="badge p0">P0 高</span></td></tr>
+          <tr><td>可售渠道</td><td>184</td><td><b style="color:#E65100;">15.9%</b></td><td>184个成品无法判断销售渠道限制</td><td><span class="badge p1">P1 中</span></td></tr>
+        </tbody>
+      </table>
+      <div class="box warn"><p>三个字段100%缺失是<b>系统性主数据标准缺失</b>，非个别疏忽。编码规则文档（2022年8月版）设计完整，但缺乏系统强制约束，导致「规则存在但不被遵守」。</p></div>
+      <div class="sec-sub">成品计量单位混用（11种）</div>
+      <table>
+        <thead><tr><th>计量单位</th><th>成品数量</th><th>问题</th></tr></thead>
+        <tbody>
+          <tr style="background:#FFF5F5;"><td><b>ZEA</b></td><td>650</td><td><b style="color:#C62828;">自定义"个"，与标准EA重复定义</b></td></tr>
+          <tr style="background:#FFF5F5;"><td><b>EA</b></td><td>291</td><td><b style="color:#C62828;">标准"个"，与ZEA混用</b></td></tr>
+          <tr><td>SET</td><td>95</td><td>部分应为EA</td></tr>
+          <tr><td>PCS</td><td>63</td><td>与EA/ZEA定义重叠</td></tr>
+          <tr><td>M</td><td>31</td><td>灯带类，合理</td></tr>
+          <tr><td>其他6种</td><td>29</td><td>ZHI/ZTA/PAC/WIN/BA/M2</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sec" id="s4-2">
+      <div class="sec-title">4.2 BOM深度案例分析 · 典型产品：FSL直发光面板灯 600×600 220V 60W 超炫六代</div>
+      <div class="case-block">
+        <div class="cb-title">
+          <span class="cb-tag">案例产品</span>
+          物料编码：JMB151A0000524 · 研发BOM：C25MB508-3 · 工厂：FZ05（禅昌光电）
+        </div>
+        <div class="grid-2">
+          <div>
+            <div class="sec-sub">BOM基本信息</div>
+            <table>
+              <tbody>
+                <tr><td>BOM层数</td><td><b>4层</b>（成品→半成品→组件→元器件）</td></tr>
+                <tr><td>总行数</td><td><b>83行</b></td></tr>
+                <tr><td>第1层子件数</td><td><b>20个子件</b></td></tr>
+                <tr><td>第1层计量单位</td><td><b style="color:#C62828;">7种混用</b>（BLK/EA/PCS/KG/WIN/SET/ZHI）</td></tr>
+                <tr><td>问题行数</td><td><b style="color:#C62828;">10行（占比12%）</b></td></tr>
+                <tr><td>BOM创建日期</td><td>2026-02-03</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <div class="sec-sub">问题行分类汇总</div>
+            <table>
+              <thead><tr><th>问题类型</th><th>行数</th><th>影响</th></tr></thead>
+              <tbody>
+                <tr><td>无编码备注行污染</td><td><b style="color:#C62828;">3行</b></td><td>MRP计算错误</td></tr>
+                <tr><td>计量单位混用（7种）</td><td>多行</td><td>成本分摊不准</td></tr>
+                <tr><td>用量精度异常</td><td><b style="color:#E65100;">4行</b></td><td>无法指导实际领料</td></tr>
+                <tr><td>汇总数据行混入</td><td><b style="color:#E65100;">3行</b></td><td>数据污染</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="sec-sub">第一层BOM典型问题子件（部分展示）</div>
+      <table>
+        <thead><tr><th>层次</th><th>子件编码</th><th>子件名称</th><th>用量/10000件</th><th>单位</th><th>问题标注</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>68BJMBA0004017</td><td>面板灯光源60W 超炫六代</td><td>40,000</td><td>BLK</td><td>—</td></tr>
+          <tr><td>1</td><td>18X809010167</td><td>螺丝 ST3.2×5 铁 镀锌</td><td>160,000</td><td>PCS</td><td>—</td></tr>
+          <tr style="background:#FFF5F5;"><td>1</td><td>18X9H1440101</td><td>粘接胶 速干 25KG桶装</td><td>2.7</td><td><b style="color:#C62828;">EA（桶）</b></td><td>⚠ 0.00027桶/件，无法指导领料</td></tr>
+          <tr style="background:#FFF5F5;"><td>1</td><td>81A0330011</td><td>机包装膜 1500mm×0.02mm</td><td>172</td><td><b style="color:#C62828;">KG（重量）</b></td><td>⚠ 用重量无法指导卷材长度领料</td></tr>
+          <tr style="background:#FFF5F5;"><td>1</td><td>143000A00073</td><td>胶纸卷 60mm×1000码</td><td>2.161</td><td><b style="color:#C62828;">WIN（卷）</b></td><td>⚠ 0.0002161卷/件，精度过细</td></tr>
+          <tr style="background:#FFF5F5;"><td>2</td><td><b style="color:#C62828;">（空）</b></td><td><b style="color:#C62828;">备注：分板 PC胶水</b></td><td>1</td><td>—</td><td>❌ 无物料编码，污染BOM</td></tr>
+          <tr style="background:#FFF5F5;"><td>2</td><td><b style="color:#C62828;">（空）</b></td><td><b style="color:#C62828;">65×34×64（尺寸备注）</b></td><td>1</td><td>—</td><td>❌ 包装尺寸写入BOM物料行</td></tr>
+          <tr style="background:#FFF5F5;"><td>2</td><td><b style="color:#C62828;">（空）</b></td><td><b style="color:#C62828;">G434A BC（材料规格备注）</b></td><td>1</td><td>—</td><td>❌ 规格备注写入BOM物料行</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sec" id="s4-3">
+      <div class="sec-title">4.3 工艺路线深度分析（18条工序 · 9个物料 · 6个工作中心）</div>
+      <table>
+        <thead><tr><th>物料</th><th>物料描述（简）</th><th>工序</th><th>工作中心</th><th>工序描述</th><th>标准工时/万件</th><th>问题</th></tr></thead>
+        <tbody>
+          <tr><td>504A001703</td><td>面板灯电源贴片板</td><td>0010</td><td>WK18105</td><td>线路板车间贴片（NPM机）</td><td>17.83 H</td><td>—</td></tr>
+          <tr style="background:#FFF5F5;"><td>66A0108919000036</td><td>防窜码标贴</td><td>0010</td><td>WK19006</td><td><b style="color:#C62828;">（无描述）</b></td><td>0.009 H</td><td>⚠ 工序无描述</td></tr>
+          <tr style="background:#FFF5F5;"><td>66JMB15129008913</td><td>外箱8只装</td><td>0010</td><td>WK19006</td><td><b style="color:#C62828;">（无描述）</b></td><td>15.23 H</td><td>⚠ 工序无描述</td></tr>
+          <tr style="background:#FFF8E1;"><td>68AJMBA0004285</td><td>电源60W插件</td><td>0010</td><td>WK18104</td><td>线路板车间电源插件线</td><td><b style="color:#E65100;">294.61 H</b></td><td>⚠ 是贴片(17.83H)的16倍，需核实</td></tr>
+          <tr style="background:#FFF5F5;"><td rowspan="6">JMB151A0000524</td><td rowspan="6">直发光面板灯（成品）</td><td><b style="color:#C62828;">0010 × 2</b></td><td><b style="color:#C62828;">（无工作中心）</b></td><td><b style="color:#C62828;">（无描述）</b></td><td><b style="color:#C62828;">0.0</b></td><td>❌ 工序重复，无工作中心</td></tr>
+          <tr><td>0010</td><td>GB16404</td><td>禅昌面板灯车间成品灯组装</td><td>270 H</td><td>—</td></tr>
+          <tr style="background:#FFF5F5;"><td>0020</td><td>GB16404</td><td>常规检验项</td><td><b style="color:#C62828;">0.0</b></td><td>❌ 检验工时为0</td></tr>
+          <tr style="background:#FFF5F5;"><td>0030</td><td>GB16404</td><td>光电参数检验项</td><td><b style="color:#C62828;">0.0</b></td><td>❌ 检验工时为0</td></tr>
+          <tr style="background:#FFF5F5;"><td>0040</td><td>GB16404</td><td>型式试验检验项</td><td><b style="color:#C62828;">0.0</b></td><td>❌ 检验工时为0</td></tr>
+          <tr style="background:#FFF5F5;"><td>0050</td><td>GB16404</td><td>开关、寿试检验</td><td><b style="color:#C62828;">0.0</b></td><td>❌ 检验工时为0</td></tr>
+        </tbody>
+      </table>
+      <div class="grid-4" style="margin-top:14px;">
+        <div class="metric-card"><div class="mc-num red">44%</div><div class="mc-lbl">工序无描述（8/18条）</div></div>
+        <div class="metric-card"><div class="mc-num red">39%</div><div class="mc-lbl">工时为0（7/18条）</div></div>
+        <div class="metric-card"><div class="mc-num orange">11%</div><div class="mc-lbl">重复工序（成品0010×2）</div></div>
+        <div class="metric-card"><div class="mc-num orange">17%</div><div class="mc-lbl">完全空行（3行）</div></div>
+      </div>
+      <div class="box warn">
+        <p><b>根本影响链：</b>检验工序工时全为0 → 产品标准成本不含检验费用 → 成本核算系统性低估 → 管理报表失真 → 无法实现精益目标「工费降3%」的精确追踪 → 成本降本KPI无法量化验证。</p>
+      </div>
+    </div>
+
+    <div class="sec" id="s4-4">
+      <div class="sec-title">4.4 数据质量根因分析</div>
+      <div class="grid-2">
+        <div>
+          <div class="sec-sub">根因分类</div>
+          <table>
+            <thead><tr><th>根因维度</th><th>具体问题</th></tr></thead>
+            <tbody>
+              <tr><td><b>人员因素</b></td><td>IT人力严重不足（16–23人）；流程意识薄弱（仅1名流程专员）；数据Owner权责不清</td></tr>
+              <tr><td><b>流程因素</b></td><td>无MDG主数据治理平台；PLM→SAP同步单向半手工；无数据质量门控机制</td></tr>
+              <tr><td><b>工具因素</b></td><td>ECC 6.0无MDG原生支持；编码规则文档（2022）未集成进系统强制校验；无统一数据字典</td></tr>
+              <tr><td><b>组织因素</b></td><td>多事业部各自维护主数据；研发（PLM）与制造（SAP）数据责任边界不清；历史失败导致规范化推进抵触</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <div class="sec-sub">对Greenfield迁移的影响评估</div>
+          <table>
+            <thead><tr><th>影响维度</th><th>风险级别</th><th>说明</th></tr></thead>
+            <tbody>
+              <tr><td>主数据清洗工作量</td><td><span class="badge high">高</span></td><td>1,159个成品需补充技术要求/69码/旧物料号等</td></tr>
+              <tr><td>BOM重新整理</td><td><span class="badge high">高</span></td><td>需清除备注行、统一计量单位、补充工序描述</td></tr>
+              <tr><td>工艺路线重建</td><td><span class="badge med">中</span></td><td>需补充工序描述、修正0工时检验工序</td></tr>
+              <tr><td>计量单位统一</td><td><span class="badge high">高</span></td><td>ZEA→EA涉及所有库存/价格/BOM联动修改</td></tr>
+              <tr><td>数据迁移时间</td><td><span class="badge high">高</span></td><td>质量差将直接延长数据迁移和验证周期</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 第五章 技术架构 -->
+<div class="chapter" id="s5">
+  <div class="ch-header"><div class="ch-num">5</div><h2>技术架构（Technology Architecture）</h2></div>
+  <div class="ch-body">
+    <div class="sec" id="s5-1">
+      <div class="sec-title">5.1 S/4HANA PCE 技术实施规格</div>
+      <div class="grid-2">
+        <table>
+          <tbody>
+            <tr><td><b>目标版本</b></td><td>SAP S/4HANA PCE（Private Cloud Edition）</td></tr>
+            <tr><td><b>实施方式</b></td><td><b style="color:var(--dark);">Greenfield（全新实施）</b> — 不迁移历史配置</td></tr>
+            <tr><td><b>数据库</b></td><td>SAP HANA（内存计算，报表性能提升10–100倍）</td></tr>
+            <tr><td><b>集成中间件</b></td><td>SAP CPI（Cloud Platform Integration）</td></tr>
+            <tr><td><b>法人范围</b></td><td>19家法人（含泰国FZ40、德国FZ33）</td></tr>
+            <tr><td><b>预计上线</b></td><td>2027年Q1</td></tr>
+          </tbody>
+        </table>
+        <div>
+          <div class="sec-sub">实施模块范围</div>
+          <table>
+            <thead><tr><th>模块</th><th>核心功能</th><th>解决的主要痛点</th></tr></thead>
+            <tbody>
+              <tr><td><b>FICO</b></td><td>财务+管控</td><td>成本核算不透明、月结慢</td></tr>
+              <tr><td><b>SD</b></td><td>销售与分销</td><td>折扣丢失、价格混乱</td></tr>
+              <tr><td><b>MM</b></td><td>物料管理</td><td>价格主数据断点</td></tr>
+              <tr><td><b>PP</b></td><td>生产计划</td><td>BOM冗余、无滚动预测</td></tr>
+              <tr><td><b>QM</b></td><td>质量管理</td><td>检验成本未核算</td></tr>
+              <tr><td><b>EWM</b></td><td>仓库管理（WM升级）</td><td>库位管理混乱</td></tr>
+              <tr><td><b>Group Reporting</b></td><td>集团合并报表</td><td>19法人月结手工合并</td></tr>
+              <tr><td><b>MDG</b></td><td>主数据治理</td><td>本章分析的所有主数据问题</td></tr>
+              <tr><td><b>CPI</b></td><td>系统集成</td><td>五大电商断点</td></tr>
+              <tr><td><b>DRC</b></td><td>合规报告</td><td>泰国/德国法人税务合规</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="sec" id="s5-2">
+      <div class="sec-title">5.2 信息安全体系评估</div>
+      <p>佛照已建立完整的信息安全管理体系（ISO 27001对标），包含<b>40份制度文件</b>，覆盖5个安全域。</p>
+      <table>
+        <thead><tr><th>安全域</th><th>制度文件数</th><th>成熟度评估</th><th>S/4HANA上云影响</th></tr></thead>
+        <tbody>
+          <tr><td>安全管理制度</td><td>7份</td><td><span class="badge done">✓ 完善</span></td><td>制度为PCE上云提供合规基础</td></tr>
+          <tr><td>安全管理机构</td><td>5份</td><td><span class="badge done">✓ 完善</span></td><td>—</td></tr>
+          <tr><td>安全管理人员</td><td>6份</td><td><span class="badge done">✓ 完善</span></td><td>外包安全管理规定适用于艾维登团队</td></tr>
+          <tr><td>安全建设管理</td><td>6份</td><td><span class="badge done">✓ 完善</span></td><td>系统变更管理制度约束SAP配置变更</td></tr>
+          <tr><td>安全运维管理</td><td>16份</td><td><span class="badge done">✓ 完善</span></td><td>应急预案需更新以覆盖PCE云场景</td></tr>
+        </tbody>
+      </table>
+      <div class="box gap"><p>优势：制度体系完善，为上云提供合规保障。差距：IT人员不足导致执行覆盖率有限；数据分类分级标准缺失；SAP权限管理（职责分离）需随Greenfield完全重新设计。</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- 第六章 差距分析 -->
+<div class="chapter" id="s6">
+  <div class="ch-header"><div class="ch-num">6</div><h2>差距分析与优先级矩阵</h2></div>
+  <div class="ch-body">
+    <div class="sec">
+      <div class="sec-title">4A架构 AS-IS vs TO-BE 差距汇总</div>
+      <table>
+        <thead><tr><th>架构层</th><th>现状成熟度</th><th>目标成熟度</th><th>关键行动</th></tr></thead>
+        <tbody>
+          <tr><td><b>业务架构 BA</b></td><td>2/5 <span class="badge med">中等</span></td><td>4/5</td><td>统一流程框架，建立跨法人标准，抽调6+名流程Champion</td></tr>
+          <tr><td><b>应用架构 AA</b></td><td>2/5 <span class="badge high">薄弱</span></td><td>4/5</td><td>S/4HANA覆盖19法人，CPI打通5大断点</td></tr>
+          <tr><td><b>数据架构 DA</b></td><td>1.7/5 <span class="badge high">极弱</span></td><td>4/5</td><td>MDG主数据治理上线，1,159个成品字段补全，BOM/工艺路线清洗</td></tr>
+          <tr><td><b>技术架构 TA</b></td><td>3/5 <span class="badge med">中等</span></td><td>4/5</td><td>PCE上云，扩充IT团队（约+15人），更新安全运维规程</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sec">
+      <div class="sec-title">高价值改善机会优先级矩阵</div>
+      <div class="priority-matrix">
+        <div class="pm-box p0">
+          <div class="pm-label">🔴 P0 — 立即行动（上线必须）</div>
+          <ul>
+            <li>价格/折扣/返利自动化（SD条件定价重建）</li>
+            <li>BOM/工艺路线清洗与重建（PP/MDG）</li>
+            <li>MDG主数据治理体系上线</li>
+            <li>成本核算精细化（CO/FICO料工费分明）</li>
+            <li>集团合并报表自动化（Group Reporting）</li>
+          </ul>
+        </div>
+        <div class="pm-box p1">
+          <div class="pm-label">🟡 P1 — 上线后3–6个月</div>
+          <ul>
+            <li>OTD统一口径 + ATP功能激活</li>
+            <li>电商系统CPI集成（聚水潭/商城/WMS）</li>
+            <li>WM→EWM仓储升级</li>
+            <li>采购价格主数据SRM-SAP自动同步</li>
+          </ul>
+        </div>
+        <div class="pm-box p0">
+          <div class="pm-label">🔴 P0 — 风险登记（4个极高）</div>
+          <ul>
+            <li><b>R-01</b> BOM/主数据质量差→上线延期</li>
+            <li><b>R-02</b> 历史失败→业务部门变革抗拒</li>
+            <li><b>R-03</b> IT人力不足→运维能力不足</li>
+            <li><b>R-04</b> 流程TO-BE确认困难</li>
+          </ul>
+        </div>
+        <div class="pm-box p2">
+          <div class="pm-label">🟢 P2 — 二期扩展（上线12个月+）</div>
+          <ul>
+            <li>GTS全球贸易服务（CBAM合规）</li>
+            <li>海外法人扩展（泰国/德国纳入）</li>
+            <li>SAP IBP需求计划</li>
+            <li>SAC分析云（替换帆软BI）</li>
+            <li>BTP + AI垂直应用</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 第七章 路线图 -->
+<div class="chapter" id="s7">
+  <div class="ch-header"><div class="ch-num">7</div><h2>战略建议与实施路线图</h2></div>
+  <div class="ch-body">
+    <div class="sec">
+      <div class="sec-title">90天立即行动计划</div>
+      <div class="route-timeline">
+        <div class="rt-row">
+          <div class="rt-dot warn"></div>
+          <div class="rt-content">
+            <div class="rt-title">2026年7月（立即行动）— 数据治理专项组成立</div>
+            <div class="rt-desc">任命物料/BOM/客商/财务四类数据Owner；发布数据清洗规范v1.0；制定验收标准；责任人：李泽华 + 数智化部</div>
+          </div>
+        </div>
+        <div class="rt-line"></div>
+        <div class="rt-row">
+          <div class="rt-dot warn"></div>
+          <div class="rt-content">
+            <div class="rt-title">2026年7月（立即行动）— 流程Champion抽调</div>
+            <div class="rt-desc">从家用/商用/电商/国际/财务各抽调1人（共≥6人）专职参与蓝图TO-BE设计；朱海英（企管部专职流程人员）统筹</div>
+          </div>
+        </div>
+        <div class="rt-line"></div>
+        <div class="rt-row">
+          <div class="rt-dot"></div>
+          <div class="rt-content">
+            <div class="rt-title">2026年7–9月 — IT人员招募</div>
+            <div class="rt-desc">优先：SAP功能运维×4（FICO/SD/MM/PP）+ Basis×1 + 数据治理专员×2 + 变革管理专员×2；共约9–10人</div>
+          </div>
+        </div>
+        <div class="rt-line"></div>
+        <div class="rt-row">
+          <div class="rt-dot"></div>
+          <div class="rt-content">
+            <div class="rt-title">2026年8月 — BOM/工艺路线清洗启动</div>
+            <div class="rt-desc">优先清洗在产成品（约300–500条）；清除备注行；统一计量单位；补充工序描述；目标：问题行比例&lt;3%</div>
+          </div>
+        </div>
+        <div class="rt-line"></div>
+        <div class="rt-row">
+          <div class="rt-dot"></div>
+          <div class="rt-content">
+            <div class="rt-title">2026年8–9月 — SD价格体系TO-BE确认</div>
+            <div class="rt-desc">优先级最高、最复杂的流程设计；涉及家用/商用/电商/国际四个事业部；建议设立价格专项Workshop（2天）</div>
+          </div>
+        </div>
+        <div class="rt-line"></div>
+        <div class="rt-row">
+          <div class="rt-dot done"></div>
+          <div class="rt-content">
+            <div class="rt-title">2027年Q1 — S/4HANA 上线目标</div>
+            <div class="rt-desc">月结周期目标：12天→5天；集团合并报表自动化；成本核算达到料工费分明；SAP覆盖率从2/19→19/19法人</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-title">业务价值实现目标</div>
+      <table>
+        <thead><tr><th>业务指标</th><th>当前基线</th><th>12个月目标</th><th>24个月目标</th></tr></thead>
+        <tbody>
+          <tr><td>销售开单手工占比</td><td>50–60%工时</td><td>&lt;20%工时</td><td>&lt;5%工时</td></tr>
+          <tr><td>月结关账周期</td><td>7–12天</td><td>≤5天</td><td>≤3天（行业标杆）</td></tr>
+          <tr><td>OTD准时交货率</td><td>无统一口径</td><td>建立基线</td><td>提升5%+</td></tr>
+          <tr><td>成本核算精度</td><td>料工费不分</td><td>料工费分明</td><td>到成本中心级</td></tr>
+          <tr><td>销售预测准确率</td><td>无机制</td><td>A类≥60%（精益目标）</td><td>A类≥75%</td></tr>
+          <tr><td>扣非净利率</td><td>0.95%</td><td>建立精细管控</td><td>目标3%+</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<footer-note>
+  本报告为 ★4《数据调研分析》交付物 · 版本 v2.0 · 2026-06-27 · 保密咨询交付物，仅供项目组内部使用 <br>
+  编制：艾维登咨询数据专家 · 甲方验收：数智化部 + 李一帜 ·
+  <a href="/fsl-report/consulting/blueprint/" style="color:var(--primary);">返回蓝图阶段</a>
+</footer-note>
+
+</div><!-- /content -->
+</div><!-- /main -->
+
+<script>
+// 进度条
+window.addEventListener('scroll', function() {
+  var scrollTop = document.documentElement.scrollTop;
+  var scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  var progress = (scrollTop / scrollHeight) * 100;
+  document.getElementById('prog').style.width = progress + '%';
+});
+// 侧边栏高亮
+var sections = document.querySelectorAll('[id^="s"]');
+var navLinks = document.querySelectorAll('.sb-menu a[href^="#"]');
+window.addEventListener('scroll', function() {
+  var current = '';
+  sections.forEach(function(s) {
+    if (s.getBoundingClientRect().top < 100) current = s.id;
+  });
+  navLinks.forEach(function(a) {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+</script>
+</body>
+</html>
