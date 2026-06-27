@@ -167,9 +167,9 @@ footer-note{display:block;text-align:center;font-size:11px;color:var(--muted);ma
   <div class="cover-meta">
     <div class="cover-meta-item"><div class="lbl">版本</div><div class="val">v2.0 · 2026-06-27</div></div>
     <div class="cover-meta-item"><div class="lbl">方法论</div><div class="val">TOGAF ADM · 4A架构</div></div>
-    <div class="cover-meta-item"><div class="lbl">数据来源</div><div class="val">D1–D5 访谈 · 现状材料收集</div></div>
+    <div class="cover-meta-item"><div class="lbl">数据来源</div><div class="val">访谈 · 系统导出 · 现状材料收集</div></div>
     <div class="cover-meta-item"><div class="lbl">主责顾问</div><div class="val">艾维登咨询 数据专家</div></div>
-    <div class="cover-meta-item"><div class="lbl">甲方验收</div><div class="val">数智化部 · 李一帜</div></div>
+    <div class="cover-meta-item"><div class="lbl">甲方验收</div><div class="val">待定</div></div>
   </div>
   <div class="cover-kpi">
     <div class="kpi-box"><div class="num">3,542</div><div class="desc">物料主数据条数</div></div>
@@ -195,7 +195,7 @@ footer-note{display:block;text-align:center;font-size:11px;color:var(--muted);ma
       <div class="metric-card">
         <div class="mc-num red">2/5</div>
         <div class="pbar-wrap"><div class="pbar-fill red" style="width:40%"></div></div>
-        <div class="mc-lbl">应用架构 AA<br>SAP仅覆盖2/19法人</div>
+        <div class="mc-lbl">应用架构 AA<br>ECC仅覆盖2家，本期扩至19家法人</div>
       </div>
       <div class="metric-card">
         <div class="mc-num red">1.7/5</div>
@@ -214,7 +214,7 @@ footer-note{display:block;text-align:center;font-size:11px;color:var(--muted);ma
         <thead><tr><th>#</th><th>核心发现</th><th>等级</th><th>直接影响</th></tr></thead>
         <tbody>
           <tr><td><b>F-01</b></td><td><b>主数据质量是最大技术风险</b> — 1,159个成品100%缺技术要求/69码/旧物料号；BOM 12%问题行；工艺路线44%工序无描述</td><td><span class="badge high">极高</span></td><td>Greenfield上线延期风险，MRP计算错误，成本核算失真</td></tr>
-          <tr><td><b>F-02</b></td><td><b>SAP覆盖严重不足（2/19法人）</b> — 燎旺车灯1,123人（占营收25.3%）完全无SAP，数据靠手工汇总</td><td><span class="badge high">极高</span></td><td>集团管控盲区，合并报表手工，月结7–12天</td></tr>
+          <tr><td><b>F-02</b></td><td><b>SAP ECC现状仅覆盖2家法人（本部+高明）</b> — 本期S/4HANA将扩展至招标文件明确的19家法人（不含燎旺车灯，燎旺不在本期范围）；当前17家法人数据孤岛，月结靠手工合并</td><td><span class="badge high">极高</span></td><td>Greenfield上线后集团管控能力大幅提升，但迁移复杂度高</td></tr>
           <tr><td><b>F-03</b></td><td><b>IT人力是最大执行风险</b> — 16–23人支撑8,000+员工，缺口4–5倍；2025年三系统同年上线叠加S/4HANA</td><td><span class="badge high">极高</span></td><td>运维能力不足，系统稳定性风险</td></tr>
           <tr><td><b>F-04</b></td><td><b>流程成熟度是最大变革风险</b> — 1名专职流程人员，4个历史项目失败（600+万损失）</td><td><span class="badge high">极高</span></td><td>TO-BE确认困难，业务变革抗拒</td></tr>
           <tr><td><b>F-05</b></td><td><b>电商五大系统断点（年销3-4亿）</b> — SAP/聚水潭/商城/SRM/顺丰WMS接口不通，退货全人工</td><td><span class="badge med">高</span></td><td>月底报表超时，每2天2.5小时人工退货处理</td></tr>
@@ -357,18 +357,28 @@ footer-note{display:block;text-align:center;font-size:11px;color:var(--muted);ma
 
     <div class="sec" id="s3-2">
       <div class="sec-title">3.2 SAP法人覆盖缺口</div>
-      <p>19家法人中，SAP ECC 6.0仅覆盖<b>本部和高明公司</b>，其余17家法人（包括燎旺车灯1,123人、国际事业部357人等）均未纳入SAP管控。</p>
+      <p>招标文件（第四章·四）明确，本期SAP实施建设的组织范围共 <b>19家法人</b>（见下表），涵盖从FZ01到FZ40的佛照体系各法人实体，按功能深度分为"全功能"与"仅FI+GR"两类。<br>
+      <b>现状（AS-IS）：</b>SAP ECC 6.0 当前仅运行于本部（FZ01）和高明分公司（FZ13），数据来源：现状材料收集 · 佛照系统清单及功能模块收集表.xlsx。<br>
+      <b>注意：</b>南宁燎旺车灯股份有限公司（1,123人，占集团营收约25.3%）<b>明确不在本期项目范围之内</b>，招标文件19家法人名单中不含燎旺车灯，其数据整合需另行规划。</p>
       <table>
-        <thead><tr><th>法人单位</th><th>人员规模</th><th>SAP ECC</th><th>PLM</th><th>主要影响</th></tr></thead>
+        <thead><tr><th>公司代码</th><th>法人单位（脱敏）</th><th>属地</th><th>SD</th><th>MM</th><th>PP</th><th>QM</th><th>FI</th><th>CO</th><th>MDG</th><th>GR</th><th>ECC现状</th></tr></thead>
         <tbody>
-          <tr style="background:#EBF4FF;"><td><b>佛山照明本部</b></td><td>1,122人</td><td><span class="badge done">✓ 覆盖</span></td><td><span class="badge done">✓</span></td><td>—</td></tr>
-          <tr style="background:#EBF4FF;"><td><b>高明公司</b></td><td>393人</td><td><span class="badge done">✓ 覆盖</span></td><td><span class="badge done">✓</span></td><td>—</td></tr>
-          <tr style="background:#FFF5F5;"><td><b>南宁燎旺车灯</b></td><td><b>1,123人（占营收25.3%）</b></td><td><span class="badge high">✗ 无</span></td><td><span class="badge high">✗</span></td><td>数据完全孤岛，手工汇总</td></tr>
-          <tr><td>国际事业部（佛照光电）</td><td>357人</td><td><span class="badge high">✗ 无</span></td><td><span class="badge done">✓</span></td><td>海外汇率核算手工</td></tr>
-          <tr><td>浙江沪乐电气</td><td>88人</td><td><span class="badge high">✗ 无</span></td><td><span class="badge high">✗</span></td><td>—</td></tr>
-          <tr><td>其余14家法人</td><td>—</td><td><span class="badge high">✗ 无</span></td><td>部分</td><td>集团月结手工合并</td></tr>
+          <tr style="background:#EBF4FF;"><td>FZ01</td><td><b>本部（母公司）</b></td><td>佛山·禅城</td><td>√</td><td>√</td><td>—</td><td>√</td><td>√</td><td>—</td><td>√</td><td>√</td><td><span class="badge done">✓ 已上线</span></td></tr>
+          <tr style="background:#EBF4FF;"><td>FZ13</td><td><b>高明分公司</b></td><td>佛山·高明</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge done">✓ 已上线</span></td></tr>
+          <tr><td>FZ05</td><td>禅昌光电有限公司</td><td>佛山·高明</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge high">✗ 本期新增</span></td></tr>
+          <tr><td>FZ06</td><td>泰美时代灯具有限公司</td><td>佛山·高明</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge high">✗ 本期新增</span></td></tr>
+          <tr><td>FZ18</td><td>（新乡）灯光有限公司</td><td>新乡</td><td>—</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge high">✗ 本期新增</span></td></tr>
+          <tr><td>FZ19</td><td>佛照智城科技有限公司</td><td>佛山·禅城</td><td>√</td><td>√</td><td>—</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge high">✗ 本期新增</span></td></tr>
+          <tr><td>FZ22</td><td>智达电工科技有限公司</td><td>佛山·高明</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge high">✗ 本期新增</span></td></tr>
+          <tr><td>FZ25</td><td>皓徕特光电（本部）</td><td>佛山·高明</td><td>√</td><td>√</td><td>—</td><td>—</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge high">✗ 本期新增</span></td></tr>
+          <tr><td>FZ29</td><td>（海南）科技有限公司</td><td>海口</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge high">✗ 本期新增</span></td></tr>
+          <tr><td>FZ36</td><td>华光（茂名）科技有限公司</td><td>茂名</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge high">✗ 本期新增</span></td></tr>
+          <tr><td>FZ38</td><td>北京航信助航科技有限公司</td><td>广州·花都</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge high">✗ 本期新增</span></td></tr>
+          <tr><td>FZ40</td><td><b>（泰国）光电科技 FSL OPTOTECH</b></td><td>泰国·北榄府</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge high">✗ 本期新增</span></td></tr>
+          <tr style="background:#f8f8f8;"><td>FZ14/FZ23/FZ11<br>FZ28/FZ33/FZ30<br>FZ35</td><td>高明灯具分/南海务庄/南京佛照<br>皓徕特禅城/国星光电德国<br>科联新能源/西格玛投资</td><td>各地</td><td>—</td><td>—</td><td>—</td><td>—</td><td>√</td><td>—</td><td>—</td><td>√</td><td><span class="badge high">✗ 本期新增</span></td></tr>
         </tbody>
       </table>
+      <div class="box warn"><p><b>明确不在本期范围：</b>南宁燎旺车灯股份有限公司及其子公司（柳州桂格、重庆桂诺、青岛桂格、苏州燎旺等）——招标文件第四章·四明确的19家法人名单不含燎旺体系。燎旺现状为独立信息系统，其数据整合需单独立项规划，不属于本期合同范围。</p></div>
     </div>
 
     <div class="sec" id="s3-3">
@@ -742,7 +752,7 @@ footer-note{display:block;text-align:center;font-size:11px;color:var(--muted);ma
 
 <footer-note>
   本报告为 ★4《数据调研分析》交付物 · 版本 v2.0 · 2026-06-27 · 保密咨询交付物，仅供项目组内部使用 <br>
-  编制：艾维登咨询数据专家 · 甲方验收：数智化部 + 李一帜 ·
+  编制：艾维登咨询数据专家 · 甲方验收：待定 ·
   <a href="/fsl-report/consulting/blueprint/" style="color:var(--primary);">返回蓝图阶段</a>
 </footer-note>
 
