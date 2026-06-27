@@ -3479,10 +3479,23 @@ function cgInitCytoscape(){
   var container=document.getElementById('cgContainer');
   if(!container) return;
   // Build cytoscape elements
+  // Pre-calculate node dimensions based on label length
+  function cgNodeSize(label){
+    var chars=label.length;
+    // Estimate: Chinese char ~11px, wrap at ~18 chars per line, line height ~18px
+    var charsPerLine=16;
+    var lines=Math.ceil(chars/charsPerLine);
+    var w=Math.min(Math.max(chars*11.5, 140), 240);
+    var h=Math.max(lines*20+22, 44);
+    var tw=w-20;
+    return {w:Math.round(w), h:Math.round(h), tw:Math.round(tw)};
+  }
+
   var elements=[];
   (CG_DATA.nodes||[]).forEach(function(n){
     var pos=CG_DATA.positions&&CG_DATA.positions[n.id];
-    elements.push({group:'nodes', data:{id:n.id, label:n.label, sub:n.sub||'', type:n.type||'', color:n.color||'#2374A3'}, position:pos||{x:0,y:0}});
+    var sz=cgNodeSize(n.label||'');
+    elements.push({group:'nodes', data:{id:n.id, label:n.label, sub:n.sub||'', type:n.type||'', color:n.color||'#2374A3', w:sz.w, h:sz.h, tw:sz.tw}, position:pos||{x:0,y:0}});
   });
   (CG_DATA.edges||[]).forEach(function(e){
     elements.push({group:'edges', data:{id:e.id, source:e.source, target:e.target, label:e.label||'', style:e.style||'solid'}});
@@ -3494,18 +3507,15 @@ function cgInitCytoscape(){
     elements:elements,
     style:[
       {selector:'node',style:{
-        'width':180,'height':'label',
+        'width':'data(w)','height':'data(h)',
         'shape':'roundrectangle',
         'background-color':'data(color)',
         'label':'data(label)',
         'color':'#fff',
         'font-size':11,'font-weight':700,
         'text-valign':'center','text-halign':'center',
-        'text-wrap':'wrap','text-max-width':168,
-        'border-width':0,
-        'padding-left':'10px','padding-right':'10px',
-        'padding-top':'10px','padding-bottom':'10px',
-        'min-height':44
+        'text-wrap':'wrap','text-max-width':'data(tw)',
+        'border-width':0
       }},
       {selector:'node:selected',style:{
         'border-color':'#F5C842','border-width':3,
@@ -3620,7 +3630,8 @@ function cgSaveEditPanel(){
       n.color=document.getElementById('cgF_color').value;
       n.note=document.getElementById('cgF_note').value;
       // Update cytoscape
-      CG_SELECTED.data({label:n.label,sub:n.sub,type:n.type,color:n.color});
+      var sz3=cgNodeSize(n.label);
+      CG_SELECTED.data({label:n.label,sub:n.sub,type:n.type,color:n.color,w:sz3.w,h:sz3.h,tw:sz3.tw});
       CG_SELECTED.style('background-color',n.color);
     }
   } else {
@@ -3654,7 +3665,10 @@ function cgOpenNodeModal(parentId){
   var newNode={id:nid,label:label,sub:'',type:'子公司',color:'#2374A3',code:'',location:''};
   if(!CG_DATA) CG_DATA={nodes:[],edges:[],positions:{}};
   CG_DATA.nodes.push(newNode);
-  if(CY) CY.add({group:'nodes',data:{id:nid,label:label,sub:'',type:'子公司',color:'#2374A3'},position:{x:200,y:200}});
+  if(CY){
+    var sz2=cgNodeSize(label);
+    CY.add({group:'nodes',data:{id:nid,label:label,sub:'',type:'子公司',color:'#2374A3',w:sz2.w,h:sz2.h,tw:sz2.tw},position:{x:200,y:200}});
+  }
 }
 
 function cgEditNodeById(nid){
