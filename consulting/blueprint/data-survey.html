@@ -151,18 +151,30 @@ footer-note{display:block;text-align:center;font-size:11px;color:var(--muted);ma
 .nav-dd-research{margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08);}
 .nav-dd-research-links{display:flex;gap:18px;}
 
-/* ══ STATUS SWITCHER (右上角，与 topnav 对齐) ══ */
+/* ══ STATUS SWITCHER ══ */
 .status-switcher{position:fixed;top:8px;right:16px;z-index:1100;
-  background:rgba(11,45,71,.92);border:1px solid rgba(255,255,255,.15);border-radius:6px;
+  background:rgba(11,45,71,.95);border:1px solid rgba(255,255,255,.2);border-radius:6px;
   padding:5px 10px;display:flex;align-items:center;gap:7px;font-family:inherit;
-  backdrop-filter:blur(4px);}
-.status-switcher .ss-label{color:rgba(255,255,255,.5);font-weight:700;font-size:10px;
+  backdrop-filter:blur(6px);box-shadow:0 2px 12px rgba(0,0,0,.3);}
+.status-switcher .ss-label{color:rgba(255,255,255,.45);font-weight:700;font-size:10px;
   letter-spacing:.5px;text-transform:uppercase;white-space:nowrap;}
-.ss-btn{border:none;border-radius:3px;padding:3px 9px;font-size:10.5px;font-weight:700;
-  cursor:pointer;transition:all .15s;font-family:inherit;white-space:nowrap;}
-.ss-btn.active{background:#1A4F73;color:#fff;}
-.ss-btn:not(.active){background:rgba(255,255,255,.12);color:rgba(255,255,255,.6);}
-.ss-btn:hover:not(.active){background:rgba(255,255,255,.22);color:#fff;}
+.ss-btn{border:1.5px solid transparent;border-radius:4px;padding:4px 11px;font-size:11px;font-weight:700;
+  cursor:pointer;transition:all .2s;font-family:inherit;white-space:nowrap;line-height:1;}
+.ss-btn:not(.active){background:transparent;color:rgba(255,255,255,.45);border-color:transparent;}
+.ss-btn:hover:not(.active){background:rgba(255,255,255,.1);color:rgba(255,255,255,.85);border-color:rgba(255,255,255,.2);}
+/* 各状态激活色不同，视觉差异明显 */
+.ss-btn#ss-todo.active{background:#4A5568;color:#fff;border-color:#718096;}
+.ss-btn#ss-wip.active{background:#1A56DB;color:#fff;border-color:#3B82F6;box-shadow:0 0 0 2px rgba(59,130,246,.4);}
+.ss-btn#ss-done.active{background:#166534;color:#fff;border-color:#22C55E;box-shadow:0 0 0 2px rgba(34,197,94,.4);}
+/* topnav 右侧状态指示器（文字标签） */
+.ss-indicator-wrap{display:flex;align-items:center;gap:5px;margin-left:3px;
+  padding-left:10px;border-left:1px solid rgba(255,255,255,.15);}
+.ss-indicator-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.ss-indicator-dot.todo{background:#718096;}
+.ss-indicator-dot.wip{background:#3B82F6;}
+.ss-indicator-dot.done{background:#22C55E;}
+.ss-indicator-text{font-size:10.5px;font-weight:700;color:rgba(255,255,255,.7);}
+
 /* sidebar与topnav兼容：sidebar顶部留出topnav高度 */
 #sidebar{top:50px !important;height:calc(100vh - 50px) !important;}
 #main{margin-top:0;}
@@ -884,6 +896,10 @@ window.addEventListener('scroll', function() {
   <button class="ss-btn" id="ss-todo" onclick="setDocStatus('todo')">⏳ 待开始</button>
   <button class="ss-btn" id="ss-wip"  onclick="setDocStatus('wip')">⟳ 进行中</button>
   <button class="ss-btn" id="ss-done" onclick="setDocStatus('done')">✅ 已完成</button>
+  <div class="ss-indicator-wrap">
+    <div class="ss-indicator-dot" id="ss-dot"></div>
+    <span class="ss-indicator-text" id="ss-indicator">—</span>
+  </div>
 </div>
 
 
@@ -906,15 +922,17 @@ window.addEventListener('scroll', function() {
       }).catch(function(){cb({},'' );});
   }
 
-  function applyStatus(s){
-    var labels = {todo:'⏳ 待开始', wip:'⟳ 进行中', done:'✅ 已完成'};
+    function applyStatus(s){
+    var labels = {todo:'待开始', wip:'进行中', done:'已完成'};
+    var dotCls = {todo:'todo', wip:'wip', done:'done'};
     ['todo','wip','done'].forEach(function(k){
       var b=document.getElementById('ss-'+k);
       if(b) b.classList.toggle('active',k===s);
     });
     var ind = document.getElementById('ss-indicator');
     if(ind) ind.textContent = labels[s]||s;
-    // 同步到 localStorage 作为离线缓存
+    var dot = document.getElementById('ss-dot');
+    if(dot){ dot.className='ss-indicator-dot '+(dotCls[s]||''); }
     try{localStorage.setItem('ds_'+KEY, s);}catch(e){}
   }
 
