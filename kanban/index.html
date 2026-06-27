@@ -2238,7 +2238,9 @@ function switchTab(el, panel){
                     'org':'项目架构'};
   document.getElementById('tb-task').style.display  = TASK_TABS.indexOf(panel)!==-1  ? 'flex':'none';
   document.getElementById('tb-risk').style.display  = RISK_TABS.indexOf(panel)!==-1  ? 'flex':'none';
-  document.getElementById('tb-empty').style.display = (TASK_TABS.indexOf(panel)===-1&&RISK_TABS.indexOf(panel)===-1) ? 'flex':'none';
+  document.getElementById('tb-empty').style.display = (TASK_TABS.indexOf(panel)===-1&&RISK_TABS.indexOf(panel)===-1&&panel!=='org') ? 'flex':'none';
+  // 项目架构 tab has its own sub-tabs — hide the shared sub-toolbar entirely
+  document.getElementById('subToolbar').style.display = panel==='org' ? 'none' : '';
   var emptyLbl=document.getElementById('tb-empty-label');
   if(emptyLbl) emptyLbl.textContent=EMPTY_LABELS[panel]||'';
   // Lazy-render org chart only when tab is activated
