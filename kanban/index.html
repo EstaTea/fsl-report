@@ -3485,13 +3485,7 @@ function cgRenderList(){
   }).join('');
 }
 
-function cgInitCytoscape(){
-  if(!CG_DATA) return;
-  var container=document.getElementById('cgContainer');
-  if(!container) return;
-  // Build cytoscape elements
-  // Pre-calculate node dimensions based on label length
-  function cgNodeSize(label){
+function cgNodeSize(label){
     var chars=label.length;
     // Estimate: Chinese char ~11px, wrap at ~18 chars per line, line height ~18px
     var charsPerLine=16;
@@ -3501,6 +3495,12 @@ function cgInitCytoscape(){
     var tw=w-20;
     return {w:Math.round(w), h:Math.round(h), tw:Math.round(tw)};
   }
+
+function cgInitCytoscape(){
+  if(!CG_DATA) return;
+  var container=document.getElementById('cgContainer');
+  if(!container) return;
+  // Build cytoscape elements
 
   var elements=[];
   (CG_DATA.nodes||[]).forEach(function(n){
