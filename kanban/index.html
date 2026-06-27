@@ -868,16 +868,32 @@ select.dp-input{appearance:none;-webkit-appearance:none;
 
     <!-- 公司架构 -->
     <div id="archPanelCompany" class="arch-panel">
-      <div class="company-arch-body">
-        <div class="company-toolbar">
-          <button class="org-add-btn" onclick="openCompanyModal(null)">＋ 添加根节点</button>
-          <span style="font-size:11px;color:var(--muted);margin-left:8px;">右键节点编辑，点击展开/折叠</span>
-          <button class="org-add-btn" style="margin-left:auto;background:var(--steel);" onclick="saveCompanyData()">💾 保存到 GitHub</button>
+      <div style="padding:12px 16px 0;flex-shrink:0;">
+        <div class="org-view-toggle" style="margin-bottom:0;">
+          <button class="org-view-btn active" id="compViewTree" onclick="switchCompanyView('tree')">🌲 公司树状图</button>
+          <button class="org-view-btn"        id="compViewList" onclick="switchCompanyView('list')">📋 公司列表</button>
+          <button class="org-add-btn" style="margin-left:auto;" onclick="loadCompanyData(function(){openCompanyModal(null);})">＋ 添加节点</button>
+          <button class="org-add-btn" onclick="saveCompanyData()">💾 保存到 GitHub</button>
         </div>
+      </div>
+      <div id="companyTreeView" style="flex:1;overflow:auto;padding:16px;">
         <div id="companyTree" class="company-tree"></div>
       </div>
+      <div id="companyListView" style="display:none;flex:1;overflow:auto;padding:16px;">
+        <table style="width:100%;border-collapse:collapse;font-size:12.5px;">
+          <thead><tr style="background:var(--dark);color:#fff;">
+            <th style="padding:8px 10px;text-align:left;">名称</th>
+            <th style="padding:8px 10px;">公司代码</th>
+            <th style="padding:8px 10px;">类型</th>
+            <th style="padding:8px 10px;">属地</th>
+            <th style="padding:8px 10px;">持股%</th>
+            <th style="padding:8px 10px;">工厂</th>
+            <th style="padding:8px 10px;">操作</th>
+          </tr></thead>
+          <tbody id="companyListBody"></tbody>
+        </table>
+      </div>
     </div>
-
     <!-- 功能架构 -->
     <div id="archPanelFunction" class="arch-panel">
       <div style="padding:24px;overflow:auto;flex:1;">
@@ -894,6 +910,39 @@ select.dp-input{appearance:none;-webkit-appearance:none;
       </div>
     </div>
 
+  </div>
+</div>
+
+<!-- Company Node Edit Modal -->
+<div class="org-modal-overlay" id="companyModalOverlay">
+  <div class="org-modal" style="width:540px;max-width:96vw;max-height:90vh;overflow-y:auto;">
+    <h3 id="companyModalTitle">添加公司节点</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div class="org-form-row" style="grid-column:1/-1;">
+        <label class="org-form-label">名称 *</label>
+        <input class="org-form-input" id="cpName" placeholder="如：佛山电器照明股份有限公司">
+      </div>
+      <div class="org-form-row"><label class="org-form-label">公司代码</label><input class="org-form-input" id="cpCode" placeholder="如：FZ01"></div>
+      <div class="org-form-row"><label class="org-form-label">属地</label><input class="org-form-input" id="cpLocation" placeholder="如：佛山"></div>
+      <div class="org-form-row"><label class="org-form-label">实体类型</label><select class="org-form-input" id="cpType"><option value="">请选择</option><option>集团</option><option>子公司</option><option>分公司</option><option>事业部</option><option>部门</option></select></div>
+      <div class="org-form-row"><label class="org-form-label">持股比例(%)</label><input class="org-form-input" id="cpEquity" type="number" min="0" max="100" placeholder="如：100"></div>
+      <div class="org-form-row"><label class="org-form-label">工厂</label><input class="org-form-input" id="cpPlant" placeholder="如：1000"></div>
+      <div class="org-form-row"><label class="org-form-label">库存地点</label><input class="org-form-input" id="cpStoreLoc" placeholder="如：0001"></div>
+      <div class="org-form-row"><label class="org-form-label">成本中心</label><input class="org-form-input" id="cpCostCenter" placeholder="如：1000"></div>
+      <div class="org-form-row"><label class="org-form-label">利润中心</label><input class="org-form-input" id="cpProfitCenter" placeholder="如：PC01"></div>
+      <div class="org-form-row"><label class="org-form-label">销售组织</label><input class="org-form-input" id="cpSalesOrg" placeholder="如：1000"></div>
+      <div class="org-form-row"><label class="org-form-label">分销渠道</label><input class="org-form-input" id="cpDistCh" placeholder="如：10"></div>
+      <div class="org-form-row"><label class="org-form-label">采购组织</label><input class="org-form-input" id="cpPurchOrg" placeholder="如：1000"></div>
+      <div class="org-form-row"><label class="org-form-label">工作中心</label><input class="org-form-input" id="cpWorkCenter" placeholder="如：WC01"></div>
+      <div class="org-form-row"><label class="org-form-label">功能范围</label><input class="org-form-input" id="cpFuncArea" placeholder="如：制造"></div>
+      <div class="org-form-row"><label class="org-form-label">产品线</label><input class="org-form-input" id="cpProductLine" placeholder="如：LED照明"></div>
+      <div class="org-form-row" style="grid-column:1/-1;"><label class="org-form-label">描述</label><textarea class="org-form-input" id="cpDesc" rows="2" placeholder="补充说明"></textarea></div>
+    </div>
+    <div class="org-form-actions">
+      <button class="org-form-btn primary" onclick="saveCompanyNode()">保存</button>
+      <button class="org-form-btn ghost" onclick="closeCompanyModal()">取消</button>
+      <button class="org-form-btn" id="cpDeleteBtn" style="display:none;background:#fee2e2;color:#dc2626;border:1px solid #fca5a5;" onclick="deleteCompanyNode()">删除节点</button>
+    </div>
   </div>
 </div>
 
@@ -2984,54 +3033,97 @@ function saveCompanyData(){
   }).catch(function(){ showOrgToast('保存失败',true); });
 }
 
+
+var COMP_VIEW='tree', COMP_DRAG_ID=null;
+
+function switchCompanyView(view){
+  COMP_VIEW=view;
+  document.getElementById('compViewTree').className='org-view-btn'+(view==='tree'?' active':'');
+  document.getElementById('compViewList').className='org-view-btn'+(view==='list'?' active':'');
+  document.getElementById('companyTreeView').style.display=view==='tree'?'':'none';
+  document.getElementById('companyListView').style.display=view==='list'?'':'none';
+  if(view==='list') renderCompanyList();
+}
+
+function renderCompanyList(){
+  var tbody=document.getElementById('companyListBody'); if(!tbody||!COMPANY_DATA) return;
+  var rows=[]; function flat(nid,d){var n=COMPANY_DATA.nodes[nid];if(!n)return;rows.push({n:n,d:d});(n.children||[]).forEach(function(c){flat(c,d+1);});}
+  flat(COMPANY_DATA.rootId||Object.keys(COMPANY_DATA.nodes)[0],0);
+  var typeColor={'集团':'#0B2D47','子公司':'#2374A3','分公司':'#3D8FC4','事业部':'#5B7A91','部门':'#7fb3d3'};
+  tbody.innerHTML=rows.map(function(r){
+    var n=r.n, ind='&nbsp;'.repeat(r.d*4), tc=typeColor[n.type]||'#5B7A91';
+    return '<tr style="border-bottom:1px solid var(--pale);">'
+      +'<td style="padding:7px 10px;">'+ind+'<b style="font-weight:'+(r.d===0?700:500)+'">'+n.name+'</b></td>'
+      +'<td style="padding:7px 10px;"><span style="background:var(--pale);padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600;">'+(n.code||'—')+'</span></td>'
+      +'<td style="padding:7px 10px;color:'+tc+';font-size:11.5px;">'+(n.type||'—')+'</td>'
+      +'<td style="padding:7px 10px;font-size:11.5px;color:var(--muted);">'+(n.location||'—')+'</td>'
+      +'<td style="padding:7px 10px;font-size:11.5px;color:var(--primary);font-weight:600;">'+(n.equity?n.equity+'%':'—')+'</td>'
+      +'<td style="padding:7px 10px;font-size:11px;color:var(--muted);">'+(n.sapPlant||'—')+'</td>'
+      +'<td style="padding:7px 10px;">'
+      +'<button class="ct-btn add" onclick="loadCompanyData(function(){openCompanyModal(\''+n.id+'\')})">＋子节点</button> '
+      +'<button class="ct-btn" onclick="loadCompanyData(function(){editCompanyNode(\''+n.id+'\')})">编辑</button>'
+      +'</td></tr>';
+  }).join('');
+}
+
 function renderCompanyTree(){
   var el=document.getElementById('companyTree'); if(!el||!COMPANY_DATA) return;
   var collapsed={};
-
-  function renderNode(nodeId, depth){
-    var n=COMPANY_DATA.nodes[nodeId]; if(!n) return '';
-    var children=n.children||[];
-    var typeColor={'集团':'#0B2D47','子公司':'#2374A3','分公司':'#3D8FC4','事业部':'#5B7A91','部门':'#7fb3d3'}[n.type]||'#5B7A91';
-    var isCollapsed=!!collapsed[nodeId];
-    var row='<div class="ct-row" id="ctr_'+nodeId+'" onclick="ctRowClick(\''+nodeId+'\')"'
-      +' oncontextmenu="event.preventDefault();ctContextMenu(\''+nodeId+'\',event)"'
-      +' style="padding-left:'+(8+depth*4)+'px">'
-      +(children.length?'<span class="ct-toggle" onclick="event.stopPropagation();ctToggle(\''+nodeId+'\')" id="ctt_'+nodeId+'">'+(isCollapsed?'▶':'▼')+'</span>':'<span class="ct-toggle"></span>')
+  function renderNode(nid,depth){
+    var n=COMPANY_DATA.nodes[nid]; if(!n) return '';
+    var ch=n.children||[], tc={'集团':'#0B2D47','子公司':'#2374A3','分公司':'#3D8FC4','事业部':'#5B7A91','部门':'#7fb3d3'}[n.type]||'#5B7A91';
+    var row='<div class="ct-row" id="ctr_'+nid+'" draggable="true"'
+      +' ondragstart="compDragStart(event,\''+nid+'\')"'
+      +' ondragend="compDragEnd(event)"'
+      +' ondragover="compDragOver(event,\''+nid+'\')"'
+      +' ondrop="compDrop(event,\''+nid+'\')"'
+      +' onclick="ctRowClick(\''+nid+'\')"'
+      +' oncontextmenu="event.preventDefault();loadCompanyData(function(){editCompanyNode(\''+nid+'\');})"'
+      +' style="padding-left:'+(8+depth*18)+'px">'
+      +(ch.length?'<span class="ct-toggle" onclick="event.stopPropagation();ctToggle(\''+nid+'\')" id="ctt_'+nid+'">'+(collapsed[nid]?'▶':'▼')+'</span>':'<span class="ct-toggle"></span>')
       +'<span class="ct-icon">'+({'集团':'🏛','子公司':'🏢','分公司':'🏬','事业部':'📦','部门':'👤'}[n.type]||'🏢')+'</span>'
       +'<span class="ct-name">'+n.name+'</span>'
       +(n.code?'<span class="ct-code">'+n.code+'</span>':'')
-      +'<span class="ct-type" style="color:'+typeColor+';background:'+typeColor+'18;">'+n.type+'</span>'
+      +'<span class="ct-type" style="color:'+tc+';background:'+tc+'18;">'+n.type+'</span>'
       +(n.location?'<span class="ct-type">📍'+n.location+'</span>':'')
       +(n.equity?'<span class="ct-equity">持股'+n.equity+'%</span>':'')
       +'<div class="ct-actions">'
-      +'<button class="ct-btn add" onclick="event.stopPropagation();openCompanyModal(\''+nodeId+'\')">＋子节点</button>'
-      +'<button class="ct-btn" onclick="event.stopPropagation();editCompanyNode(\''+nodeId+'\')">编辑</button>'
-      +'</div>'
-      +'</div>';
-    var childHtml='';
-    if(!isCollapsed && children.length){
-      childHtml='<div class="ct-children" id="ctc_'+nodeId+'">'+children.map(function(cid){ return renderNode(cid,depth+1); }).join('')+'</div>';
-    }
-    return row+childHtml;
+      +'<button class="ct-btn add" onclick="event.stopPropagation();loadCompanyData(function(){openCompanyModal(\''+nid+'\')})">＋子节点</button>'
+      +'<button class="ct-btn" onclick="event.stopPropagation();loadCompanyData(function(){editCompanyNode(\''+nid+'\')})">编辑</button>'
+      +'</div></div>';
+    var kids=!collapsed[nid]&&ch.length?'<div class="ct-children" id="ctc_'+nid+'">'+ch.map(function(c){return renderNode(c,depth+1);}).join('')+'</div>':'';
+    return row+kids;
   }
+  window.ctToggle=function(nid){collapsed[nid]=!collapsed[nid];var t=document.getElementById('ctt_'+nid),k=document.getElementById('ctc_'+nid);if(t)t.textContent=collapsed[nid]?'▶':'▼';if(k)k.style.display=collapsed[nid]?'none':'';};
+  window.ctRowClick=function(nid){document.querySelectorAll('.ct-row').forEach(function(r){r.classList.remove('ct-selected');});var row=document.getElementById('ctr_'+nid);if(row)row.classList.add('ct-selected');};
+  el.innerHTML=renderNode(COMPANY_DATA.rootId||Object.keys(COMPANY_DATA.nodes)[0],0);
+}
 
-  // Store collapsed state function on window for onclick
-  window.ctToggle=function(nid){
-    collapsed[nid]=!collapsed[nid];
-    var t=document.getElementById('ctt_'+nid);
-    var c=document.getElementById('ctc_'+nid);
-    if(t) t.textContent=collapsed[nid]?'▶':'▼';
-    if(c) c.style.display=collapsed[nid]?'none':'';
-  };
-  window.ctRowClick=function(nid){
-    document.querySelectorAll('.ct-row').forEach(function(r){r.classList.remove('ct-selected');});
-    var row=document.getElementById('ctr_'+nid); if(row) row.classList.add('ct-selected');
-  };
-  window.ctContextMenu=function(nid,e){
-    editCompanyNode(nid);
-  };
-
-  el.innerHTML=renderNode(COMPANY_DATA.rootId||'gz',0);
+function compDragStart(e,nid){COMP_DRAG_ID=nid;e.dataTransfer.effectAllowed='move';e.currentTarget.style.opacity='0.5';}
+function compDragEnd(e){e.currentTarget.style.opacity='1';document.querySelectorAll('.ct-row').forEach(function(r){r.style.borderTop='';r.style.borderBottom='';r.style.outline='';});COMP_DRAG_ID=null;}
+function compDragOver(e,nid){
+  e.preventDefault();e.stopPropagation();if(!COMP_DRAG_ID||COMP_DRAG_ID===nid)return;
+  document.querySelectorAll('.ct-row').forEach(function(r){r.style.borderTop='';r.style.borderBottom='';r.style.outline='';});
+  var el=document.getElementById('ctr_'+nid);if(!el)return;
+  var rect=el.getBoundingClientRect(),y=e.clientY-rect.top,h=rect.height;
+  if(y<h*0.3)el.style.borderTop='2px solid var(--primary)';
+  else if(y>h*0.7)el.style.borderBottom='2px solid var(--primary)';
+  else el.style.outline='2px solid var(--primary)';
+}
+function compDrop(e,tgtId){
+  e.preventDefault();e.stopPropagation();
+  document.querySelectorAll('.ct-row').forEach(function(r){r.style.borderTop='';r.style.borderBottom='';r.style.outline='';});
+  var srcId=COMP_DRAG_ID;COMP_DRAG_ID=null;
+  if(!srcId||srcId===tgtId||!COMPANY_DATA)return;
+  var src=COMPANY_DATA.nodes[srcId],tgt=COMPANY_DATA.nodes[tgtId];if(!src||!tgt)return;
+  function isDesc(pid,cid){var n=COMPANY_DATA.nodes[pid];if(!n)return false;for(var i=0;i<n.children.length;i++){if(n.children[i]===cid||isDesc(n.children[i],cid))return true;}return false;}
+  if(isDesc(srcId,tgtId))return;
+  if(src.parent&&COMPANY_DATA.nodes[src.parent])COMPANY_DATA.nodes[src.parent].children=COMPANY_DATA.nodes[src.parent].children.filter(function(c){return c!==srcId;});
+  var el=document.getElementById('ctr_'+tgtId),mode='into';
+  if(el){var rect=el.getBoundingClientRect(),y=e.clientY-rect.top,h=rect.height;if(y<h*0.3)mode='before';else if(y>h*0.7)mode='after';}
+  if(mode==='into'){src.parent=tgtId;if(!tgt.children)tgt.children=[];tgt.children.push(srcId);}
+  else{src.parent=tgt.parent;if(tgt.parent&&COMPANY_DATA.nodes[tgt.parent]){var sib=COMPANY_DATA.nodes[tgt.parent].children,ti=sib.indexOf(tgtId);sib.splice(mode==='after'?ti+1:ti,0,srcId);}}
+  renderCompanyTree();
 }
 
 function openCompanyModal(parentId){
