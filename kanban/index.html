@@ -3842,6 +3842,21 @@ document.getElementById('tb-task').style.display='flex';
 document.getElementById('tb-risk').style.display='none';
 document.getElementById('tb-empty').style.display='none';
 init();  // Always load from API (public repo, no token needed for reads)
+
+// Hash routing: /kanban/#milestone → auto-switch tab on load
+(function(){
+  var PANELS=['kanban','milestone','tasklist','gantt','risk','deliverable','stats','org'];
+  function activateHash(){
+    var h=(location.hash||'').replace('#','');
+    if(PANELS.indexOf(h)!==-1){
+      var tab=document.querySelector('.mod-tab[data-panel="'+h+'"]');
+      if(tab) switchTab(tab,h);
+    }
+  }
+  window.addEventListener('hashchange',activateHash);
+  // Wait for init() to finish rendering before switching
+  setTimeout(activateHash, 600);
+})();
 </script>
 </body>
 </html>
