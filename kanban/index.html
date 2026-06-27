@@ -3038,6 +3038,9 @@ var COMP_VIEW='tree', COMP_DRAG_ID=null;
 
 function switchCompanyView(view){
   COMP_VIEW=view;
+  // Ensure modal is hidden
+  var mo=document.getElementById('companyModalOverlay');
+  if(mo && mo.style.display==='flex') mo.style.display='none';
   document.getElementById('compViewTree').className='org-view-btn'+(view==='tree'?' active':'');
   document.getElementById('compViewList').className='org-view-btn'+(view==='list'?' active':'');
   document.getElementById('companyTreeView').style.display=view==='tree'?'':'none';
@@ -3052,7 +3055,10 @@ function switchCompanyView(view){
 function renderCompanyList(){
   var tbody=document.getElementById('companyListBody'); if(!tbody||!COMPANY_DATA) return;
   var rows=[]; function flat(nid,d){var n=COMPANY_DATA.nodes[nid];if(!n)return;rows.push({n:n,d:d});(n.children||[]).forEach(function(c){flat(c,d+1);});}
-  flat(COMPANY_DATA.rootId||Object.keys(COMPANY_DATA.nodes)[0],0);
+  var rootIds2 = COMPANY_DATA.roots && COMPANY_DATA.roots.length
+    ? COMPANY_DATA.roots
+    : [COMPANY_DATA.rootId||Object.keys(COMPANY_DATA.nodes)[0]];
+  rootIds2.forEach(function(rid){ flat(rid,0); });
   var typeColor={'集团':'#0B2D47','子公司':'#2374A3','分公司':'#3D8FC4','事业部':'#5B7A91','部门':'#7fb3d3'};
   tbody.innerHTML=rows.map(function(r){
     var n=r.n, ind='&nbsp;'.repeat(r.d*4), tc=typeColor[n.type]||'#5B7A91';
@@ -3100,7 +3106,10 @@ function renderCompanyTree(){
   }
   window.ctToggle=function(nid){collapsed[nid]=!collapsed[nid];var t=document.getElementById('ctt_'+nid),k=document.getElementById('ctc_'+nid);if(t)t.textContent=collapsed[nid]?'▶':'▼';if(k)k.style.display=collapsed[nid]?'none':'';};
   window.ctRowClick=function(nid){document.querySelectorAll('.ct-row').forEach(function(r){r.classList.remove('ct-selected');});var row=document.getElementById('ctr_'+nid);if(row)row.classList.add('ct-selected');};
-  el.innerHTML=renderNode(COMPANY_DATA.rootId||Object.keys(COMPANY_DATA.nodes)[0],0);
+  var rootIds = COMPANY_DATA.roots && COMPANY_DATA.roots.length
+    ? COMPANY_DATA.roots
+    : [COMPANY_DATA.rootId||Object.keys(COMPANY_DATA.nodes)[0]];
+  el.innerHTML = rootIds.map(function(rid){ return renderNode(rid,0); }).join('');
 }
 
 function compDragStart(e,nid){COMP_DRAG_ID=nid;e.dataTransfer.effectAllowed='move';e.currentTarget.style.opacity='0.5';}
@@ -3140,7 +3149,7 @@ function openCompanyModal(parentId){
   document.getElementById('cpType').value='';
   document.getElementById('cpEquity').value='';
   document.getElementById('cpDeleteBtn').style.display='none';
-  document.getElementById('companyModalOverlay').classList.add('open');
+  document.getElementById('companyModalOverlay').style.display='flex';
   setTimeout(function(){ document.getElementById('cpName').focus(); },100);
 }
 
@@ -3165,11 +3174,11 @@ function editCompanyNode(nodeId){
   document.getElementById('cpProductLine').value=n.sapProductLine||'';
   document.getElementById('cpDesc').value=n.desc||'';
   document.getElementById('cpDeleteBtn').style.display=n.parent?'':'none';
-  document.getElementById('companyModalOverlay').classList.add('open');
+  document.getElementById('companyModalOverlay').style.display='flex';
 }
 
 function closeCompanyModal(){
-  document.getElementById('companyModalOverlay').classList.remove('open');
+  document.getElementById('companyModalOverlay').style.display='none';
   COMPANY_EDITING_ID=null; COMPANY_EDITING_PARENT_ID=null;
 }
 
@@ -3216,9 +3225,15 @@ function saveCompanyNode(){
       parent:COMPANY_EDITING_PARENT_ID,children:[]};
     if(COMPANY_EDITING_PARENT_ID&&COMPANY_DATA.nodes[COMPANY_EDITING_PARENT_ID]){
       COMPANY_DATA.nodes[COMPANY_EDITING_PARENT_ID].children.push(nid);
-    } else { COMPANY_DATA.rootId=nid; }
+    } else {
+      // Support multiple root nodes via a roots array
+      if(!COMPANY_DATA.roots) COMPANY_DATA.roots=COMPANY_DATA.rootId?[COMPANY_DATA.rootId]:[];
+      COMPANY_DATA.roots.push(nid);
+      if(!COMPANY_DATA.rootId) COMPANY_DATA.rootId=nid; // keep for backward compat
+    }
   }
-  closeCompanyModal(); renderCompanyTree();
+  closeCompanyModal();
+  if(COMP_VIEW==='list') renderCompanyList(); else renderCompanyTree();
 }
 
 function deleteCompanyNode(){
@@ -3227,10 +3242,15 @@ function deleteCompanyNode(){
   if(!n||!n.parent){alert('根节点不可删除');return;}
   if(!confirm('删除此节点及所有子节点？')) return;
   function removeNode(nid){ var nd=COMPANY_DATA.nodes[nid]; if(!nd)return; (nd.children||[]).forEach(removeNode); delete COMPANY_DATA.nodes[nid]; }
-  var parent=COMPANY_DATA.nodes[n.parent];
-  if(parent){ parent.children=parent.children.filter(function(c){return c!==COMPANY_EDITING_ID;}); }
+  if(n.parent && COMPANY_DATA.nodes[n.parent]){
+    COMPANY_DATA.nodes[n.parent].children=COMPANY_DATA.nodes[n.parent].children.filter(function(c){return c!==COMPANY_EDITING_ID;});
+  } else {
+    // Root node — remove from roots array
+    if(COMPANY_DATA.roots) COMPANY_DATA.roots=COMPANY_DATA.roots.filter(function(r){return r!==COMPANY_EDITING_ID;});
+  }
   removeNode(COMPANY_EDITING_ID);
-  closeCompanyModal(); renderCompanyTree();
+  closeCompanyModal();
+  if(COMP_VIEW==='list') renderCompanyList(); else renderCompanyTree();
 }
 
 // ── FUNCTION ARCHITECTURE (preset diagram) ────────────────────────────────────
