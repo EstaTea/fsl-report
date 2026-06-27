@@ -193,10 +193,10 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
 <div class="container">
   <div class="stats-row">
     <div class="stat"><div class="sv">40</div><div class="sl">交付物总数</div></div>
-    <div class="stat"><div class="sv" style="color:var(--b500);">9</div><div class="sl">已完成</div></div>
-    <div class="stat"><div class="sv" style="color:var(--b700);">2</div><div class="sl">进行中</div></div>
-    <div class="stat"><div class="sv" style="color:var(--muted);">29</div><div class="sl">待开始</div></div>
-    <div class="stat"><div class="sv" style="color:var(--b700);">25%</div><div class="sl">整体完成率</div></div>
+    <div class="stat"><div class="sv" style="color:var(--b500);" id="sv-done">—</div><div class="sl">已完成</div></div>
+    <div class="stat"><div class="sv" style="color:var(--b700);" id="sv-wip">—</div><div class="sl">进行中</div></div>
+    <div class="stat"><div class="sv" style="color:var(--muted);" id="sv-todo">—</div><div class="sl">待开始</div></div>
+    <div class="stat"><div class="sv" style="color:var(--b700);" id="sv-pct">—</div><div class="sl">整体完成率</div></div>
   </div>
 
   <div class="section-hd">
@@ -207,7 +207,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
     </div>
   </div>
   <div class="grid">
-    <a href="/fsl-report/consulting/diagnosis/" class="folder-card">
+    <a href="/fsl-report/consulting/diagnosis/" class="folder-card" data-docs="/consulting/diagnosis/report-01,/research/industry-benchmark">
       <div class="fc-icon">🔍</div>
       <div style="flex:1;">
         <div class="fc-name">现状分析与诊断阶段</div>
@@ -216,7 +216,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
       </div>
       <div class="fc-arrow">›</div>
     </a>
-    <a href="/fsl-report/consulting/blueprint/" class="folder-card">
+    <a href="/fsl-report/consulting/blueprint/" class="folder-card" data-docs="/consulting/blueprint/ea-report,/consulting/blueprint/solution-report,/consulting/blueprint/data-survey,/consulting/blueprint/data-governance,/consulting/blueprint/data-summary,/consulting/blueprint/org-design">
       <div class="fc-icon">🏛</div>
       <div style="flex:1;">
         <div class="fc-name">蓝图及架构设计阶段</div>
@@ -225,7 +225,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
       </div>
       <div class="fc-arrow">›</div>
     </a>
-    <a href="/fsl-report/consulting/solutions/" class="folder-card">
+    <a href="/fsl-report/consulting/solutions/" class="folder-card" data-docs="/consulting/solutions/sol-masterdata,/consulting/solutions/sol-pricing,/consulting/solutions/sol-costing,/consulting/solutions/sol-bom,/consulting/solutions/sol-planning,/consulting/solutions/sol-finance,/consulting/solutions/sol-quality,/consulting/solutions/sol-global">
       <div class="fc-icon">🎯</div>
       <div style="flex:1;">
         <div class="fc-name">专项方案设计阶段（8个高价值场景）</div>
@@ -234,7 +234,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
       </div>
       <div class="fc-arrow">›</div>
     </a>
-    <a href="/fsl-report/consulting/roadmap/" class="folder-card">
+    <a href="/fsl-report/consulting/roadmap/" class="folder-card" data-docs="/consulting/roadmap/roadmap-report">
       <div class="fc-icon">🗺</div>
       <div style="flex:1;">
         <div class="fc-name">实施路径规划阶段</div>
@@ -255,7 +255,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
     </div>
   </div>
   <div class="grid">
-    <a href="/fsl-report/sap/prepare/" class="folder-card">
+    <a href="/fsl-report/sap/prepare/" class="folder-card" data-docs="/sap/prepare/kickoff,/sap/prepare/project-plan,/sap/prepare/charter,/sap/prepare/survey,/sap/prepare/org">
       <div class="fc-icon">🚀</div>
       <div style="flex:1;">
         <div class="fc-name">项目准备阶段</div>
@@ -264,7 +264,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
       </div>
       <div class="fc-arrow">›</div>
     </a>
-    <a href="/fsl-report/sap/blueprint/" class="folder-card">
+    <a href="/fsl-report/sap/blueprint/" class="folder-card" data-docs="/sap/blueprint/survey-report,/sap/blueprint/solution,/sap/blueprint/bbp,/sap/blueprint/dev-list,/sap/blueprint/data-migration,/sap/blueprint/integration">
       <div class="fc-icon">📐</div>
       <div style="flex:1;">
         <div class="fc-name">蓝图方案设计阶段</div>
@@ -273,7 +273,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
       </div>
       <div class="fc-arrow">›</div>
     </a>
-    <a href="/fsl-report/sap/realize/" class="folder-card">
+    <a href="/fsl-report/sap/realize/" class="folder-card" data-docs="/sap/realize/config,/sap/realize/dev-spec,/sap/realize/sit,/sap/realize/uat,/sap/realize/auth">
       <div class="fc-icon">🔧</div>
       <div style="flex:1;">
         <div class="fc-name">系统实现阶段</div>
@@ -282,7 +282,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
       </div>
       <div class="fc-arrow">›</div>
     </a>
-    <a href="/fsl-report/sap/deploy/" class="folder-card">
+    <a href="/fsl-report/sap/deploy/" class="folder-card" data-docs="/sap/deploy/cutover,/sap/deploy/data-migration-final,/sap/deploy/manual,/sap/deploy/training,/sap/deploy/issues,/sap/deploy/acceptance">
       <div class="fc-icon">🚢</div>
       <div style="flex:1;">
         <div class="fc-name">上线切换阶段</div>
@@ -303,7 +303,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
     </div>
   </div>
   <div class="grid">
-    <a href="/fsl-report/research/" class="folder-card">
+    <a href="/fsl-report/research/" class="folder-card" data-docs="/research/industry-benchmark">
       <div class="fc-icon">📊</div>
       <div style="flex:1;">
         <div class="fc-name">行业研究</div>
@@ -318,5 +318,6 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
 </div>
 
 <footer>佛山照明 SAP S/4HANA 升级项目工作台 · 机密文件 · 仅供项目组内部使用 · 2026</footer>
+<script src="/fsl-report/status/status-loader.js"></script>
 </body>
 </html>
