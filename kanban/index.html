@@ -363,7 +363,7 @@ nav{overflow:visible !important;}
 
 
 /* ── Org Panel ── */
-.org-panel-body{flex:1;overflow:auto;padding:16px 12px;min-width:0;}
+.org-panel-body{flex:1;overflow:hidden;display:flex;flex-direction:column;min-width:0;}
 .org-section{margin-bottom:24px;}
 .org-section-hd{display:flex;align-items:center;gap:10px;margin-bottom:12px;
   padding-bottom:8px;border-bottom:2px solid var(--pale);}
@@ -476,8 +476,8 @@ select.dp-input{appearance:none;-webkit-appearance:none;
 
 
 /* ── Project Architecture Tabs ── */
-.arch-tabs{display:flex;gap:4px;padding:10px 12px 0;background:var(--white);
-  border-bottom:1px solid var(--pale);flex-shrink:0;}
+.arch-tabs{display:flex;gap:4px;padding:10px 16px 0;background:var(--white);
+  border-bottom:2px solid var(--pale);flex-shrink:0;margin-bottom:0;}
 .arch-tab{padding:7px 14px;font-size:12.5px;color:var(--muted);cursor:pointer;
   border:1px solid transparent;border-bottom:none;border-radius:5px 5px 0 0;
   background:var(--bg);font-family:inherit;transition:all .15s;}
@@ -485,10 +485,10 @@ select.dp-input{appearance:none;-webkit-appearance:none;
 .arch-tab.active{color:var(--primary);background:var(--white);
   border-color:var(--pale);font-weight:700;margin-bottom:-1px;}
 .arch-panel{display:none;flex:1;flex-direction:column;overflow:hidden;}
-.arch-panel.active{display:flex;}
+.arch-panel.active{display:flex;flex-direction:column;}
 
 /* ── Company Architecture ── */
-.company-arch-body{flex:1;overflow:auto;padding:16px;}
+.company-arch-body{flex:1;overflow:auto;padding:14px 16px;}
 .company-toolbar{display:flex;align-items:center;gap:8px;margin-bottom:14px;}
 .company-tree{font-size:12.5px;}
 .ct-node{margin-left:0;}
@@ -831,10 +831,12 @@ select.dp-input{appearance:none;-webkit-appearance:none;
 
     <!-- 人员架构 -->
     <div id="archPanelPeople" class="arch-panel active">
-      <div class="org-view-toggle">
+      <div style="padding:12px 16px 0;flex-shrink:0;">
+      <div class="org-view-toggle" style="margin-bottom:0;">
         <button class="org-view-btn active" id="orgViewTree" onclick="switchOrgView('tree')">🌲 树状图</button>
         <button class="org-view-btn" id="orgViewList" onclick="switchOrgView('list')">📋 成员列表</button>
       </div>
+      </div><!-- /padding wrapper -->
       <!-- Tree chart view -->
       <div id="orgChartView">
         <div class="org-chart-wrap" ondragover="event.preventDefault()" ondrop="promoteToRoot(event)">
@@ -2233,7 +2235,7 @@ function switchTab(el, panel){
   var EMPTY_LABELS={'milestone':'里程碑 · 共 '+allMilestones.length+' 个里程碑',
                     'gantt':'甘特图 · 项目计划总览',
                     'deliverable':'交付物追踪',
-                    'org':'组织架构'};
+                    'org':'项目架构'};
   document.getElementById('tb-task').style.display  = TASK_TABS.indexOf(panel)!==-1  ? 'flex':'none';
   document.getElementById('tb-risk').style.display  = RISK_TABS.indexOf(panel)!==-1  ? 'flex':'none';
   document.getElementById('tb-empty').style.display = (TASK_TABS.indexOf(panel)===-1&&RISK_TABS.indexOf(panel)===-1) ? 'flex':'none';
