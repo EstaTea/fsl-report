@@ -3503,8 +3503,7 @@ function cgInitCytoscape(){
         'text-valign':'center','text-halign':'center',
         'text-wrap':'wrap','text-max-width':140,
         'border-width':0,
-        'padding':'8px',
-        'shadow-blur':6,'shadow-color':'rgba(11,45,71,.25)','shadow-offset-x':0,'shadow-offset-y':2,'shadow-opacity':1
+        'padding':'8px'
       }},
       {selector:'node:selected',style:{
         'border-color':'#F5C842','border-width':3,
@@ -3515,20 +3514,16 @@ function cgInitCytoscape(){
         'line-color':'#C7E2F2',
         'target-arrow-color':'#5B7A91',
         'target-arrow-shape':'triangle',
-        'target-arrow-size':8,
         'curve-style':'taxi',
         'taxi-direction':'downward',
-        'taxi-turn':40,
+        'taxi-turn':'40px',
         'label':'data(label)',
         'font-size':10,'color':'#1A4F73',
         'text-background-color':'#fff',
         'text-background-opacity':1,
-        'text-background-padding':'3px',
-        'text-border-width':1,'text-border-color':'#D6E8F2','text-border-opacity':1,
+        'text-background-padding':'2px',
         'text-wrap':'wrap','text-max-width':90,
-        'edge-text-rotation':'none',
-        'source-endpoint':'bottom center',
-        'target-endpoint':'top center'
+        'edge-text-rotation':'none'
       }},
       {selector:'edge[style="dashed"]',style:{
         'line-style':'dashed','line-dash-pattern':[8,4],'line-color':'#B0C8E0'
@@ -3698,22 +3693,28 @@ function cgAutoLayout(){
     animate:true,
     animationDuration:500,
     animationEasing:'ease-in-out-cubic',
-    // Ensure edges draw correctly after layout
-    stop:function(){ CY.edges().style('curve-style','taxi'); }
+    // Edges re-apply style after layout
+    ready:function(){}
   }).run();
 }
 
 function renderCompanyGraph(){
   var el=document.getElementById('cgContainer'); if(!el) return;
   if(!window.cytoscape){
-    // Load Cytoscape.js + dagre layout on demand
-    var s1=document.createElement('script'); s1.src='https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.29.2/cytoscape.min.js';
-    var s2=document.createElement('script'); s2.src='https://cdnjs.cloudflare.com/ajax/libs/dagre/0.8.5/dagre.min.js';
-    var s3=document.createElement('script'); s3.src='https://cdn.jsdelivr.net/npm/cytoscape-dagre@2.5.0/cytoscape-dagre.min.js';
-    var loaded=0;
-    function onLoad(){ loaded++; if(loaded===3){ if(window.cytoscapeDagre) cytoscape.use(cytoscapeDagre); cgInitCytoscape(); } }
-    s1.onload=s2.onload=s3.onload=onLoad;
-    document.head.appendChild(s1); document.head.appendChild(s2); document.head.appendChild(s3);
+    // Load scripts sequentially: cytoscape → dagre → cytoscape-dagre → init
+    function loadScript(url, cb){
+      var s=document.createElement('script'); s.src=url;
+      s.onload=cb; s.onerror=function(){console.error('Failed to load:',url); cb();};
+      document.head.appendChild(s);
+    }
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.29.2/cytoscape.min.js',function(){
+      loadScript('https://cdnjs.cloudflare.com/ajax/libs/dagre/0.8.5/dagre.min.js',function(){
+        loadScript('https://cdn.jsdelivr.net/npm/cytoscape-dagre@2.5.0/cytoscape-dagre.min.js',function(){
+          if(window.cytoscapeDagre) cytoscape.use(cytoscapeDagre);
+          cgInitCytoscape();
+        });
+      });
+    });
   } else {
     if(!CY) cgInitCytoscape();
     else { CY.resize(); CY.fit(undefined,40); }
