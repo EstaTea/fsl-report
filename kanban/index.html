@@ -526,6 +526,20 @@ select.dp-input{appearance:none;-webkit-appearance:none;
 .arch-system-name{font-size:13px;font-weight:700;}
 .arch-system-sub{font-size:10.5px;opacity:.75;margin-top:3px;}
 
+
+/* ── Company Graph ── */
+.company-graph-toolbar{display:flex;align-items:center;padding:8px 14px;
+  background:var(--white);border-bottom:1px solid var(--pale);flex-shrink:0;flex-wrap:wrap;gap:4px;}
+#cgContainer .cy-panzoom-zoom-in,#cgContainer .cy-panzoom-zoom-out{display:none;}
+.cg-node-lbl{font-size:11px;font-weight:700;text-align:center;}
+.cg-form-row{margin-bottom:10px;}
+.cg-form-row label{display:block;font-size:11px;color:var(--muted);margin-bottom:3px;}
+.cg-form-row input,.cg-form-row select,.cg-form-row textarea{
+  width:100%;padding:5px 8px;border:1px solid var(--rule);border-radius:4px;
+  font-size:12.5px;font-family:inherit;color:var(--text);}
+.cg-form-row input:focus,.cg-form-row select:focus,.cg-form-row textarea:focus{
+  outline:none;border-color:var(--b500);}
+
 </style>
 </head>
 <body>
@@ -868,29 +882,58 @@ select.dp-input{appearance:none;-webkit-appearance:none;
 
     <!-- 公司架构 -->
     <div id="archPanelCompany" class="arch-panel">
-      <div style="padding:12px 16px 0;flex-shrink:0;">
-        <div class="org-view-toggle" style="margin-bottom:0;">
-          <button class="org-view-btn active" id="compViewTree" onclick="switchCompanyView('tree')">🌲 公司树状图</button>
-          <button class="org-view-btn"        id="compViewList" onclick="switchCompanyView('list')">📋 公司列表</button>
-          <button class="org-add-btn" style="margin-left:auto;" onclick="loadCompanyData(function(){openCompanyModal(null);})">＋ 添加节点</button>
-          <button class="org-add-btn" onclick="saveCompanyData()">💾 保存到 GitHub</button>
+      <!-- Toolbar -->
+      <div class="company-graph-toolbar">
+        <div style="display:flex;gap:6px;align-items:center;">
+          <button class="org-view-btn active" id="cgViewGraph" onclick="switchCGView('graph')">🔗 股权图</button>
+          <button class="org-view-btn"        id="cgViewList"  onclick="switchCGView('list')">📋 公司列表</button>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center;margin-left:16px;">
+          <button class="org-add-btn" id="cgAddNodeBtn" onclick="cgOpenNodeModal(null)" style="display:none;">＋ 添加公司</button>
+          <button class="org-add-btn" id="cgAddEdgeBtn" onclick="cgStartAddEdge()"     style="display:none;">⟶ 添加关系</button>
+          <button class="org-add-btn" id="cgLayoutBtn"  onclick="cgAutoLayout()"       style="display:none;">⚡ 自动布局</button>
+        </div>
+        <div style="margin-left:auto;display:flex;gap:6px;align-items:center;">
+          <span id="cgStatusMsg" style="font-size:11px;color:var(--muted);"></span>
+          <button class="org-add-btn" id="cgSaveBtn" onclick="cgSaveToGitHub()" style="display:none;">💾 保存到 GitHub</button>
         </div>
       </div>
-      <div id="companyTreeView" style="flex:1;overflow:auto;padding:16px;">
-        <div id="companyTree" class="company-tree"></div>
+      <!-- Graph view -->
+      <div id="cgGraphView" style="flex:1;position:relative;overflow:hidden;">
+        <div id="cgContainer" style="width:100%;height:100%;"></div>
+        <!-- Edit panel (right side) -->
+        <div id="cgEditPanel" style="display:none;position:absolute;top:0;right:0;width:280px;height:100%;
+          background:#fff;border-left:1px solid var(--rule);box-shadow:-4px 0 16px rgba(11,45,71,.1);
+          display:none;flex-direction:column;z-index:10;">
+          <div style="background:var(--b700);color:#fff;padding:10px 14px;display:flex;align-items:center;gap:8px;">
+            <span id="cgEditTitle" style="font-size:13px;font-weight:700;flex:1;">编辑节点</span>
+            <button onclick="cgCloseEditPanel()" style="background:rgba(255,255,255,.2);border:none;color:#fff;width:22px;height:22px;border-radius:3px;cursor:pointer;">✕</button>
+          </div>
+          <div style="padding:12px;overflow-y:auto;flex:1;">
+            <div id="cgEditFields"></div>
+          </div>
+          <div style="padding:10px 12px;border-top:1px solid var(--rule);display:flex;gap:8px;">
+            <button class="org-form-btn primary" onclick="cgSaveEditPanel()" style="flex:1;padding:7px;">保存</button>
+            <button class="org-form-btn" id="cgDeleteBtn" onclick="cgDeleteSelected()" style="background:#fee2e2;color:#dc2626;border:1px solid #fca5a5;padding:7px 10px;">删除</button>
+          </div>
+        </div>
+        <!-- Add edge status bar -->
+        <div id="cgEdgeHint" style="display:none;position:absolute;bottom:12px;left:50%;transform:translateX(-50%);
+          background:var(--b700);color:#fff;padding:8px 18px;border-radius:20px;font-size:12.5px;z-index:20;">
+          点击源节点，再点击目标节点，建立关系连线 &nbsp;<button onclick="cgCancelAddEdge()" style="background:rgba(255,255,255,.2);border:none;color:#fff;border-radius:3px;padding:2px 8px;cursor:pointer;">取消</button>
+        </div>
       </div>
-      <div id="companyListView" style="display:none;flex:1;overflow:auto;padding:16px;">
+      <!-- List view -->
+      <div id="cgListView" style="display:none;flex:1;overflow:auto;padding:16px;">
         <table style="width:100%;border-collapse:collapse;font-size:12.5px;">
           <thead><tr style="background:var(--dark);color:#fff;">
             <th style="padding:8px 10px;text-align:left;">名称</th>
             <th style="padding:8px 10px;">公司代码</th>
             <th style="padding:8px 10px;">类型</th>
             <th style="padding:8px 10px;">属地</th>
-            <th style="padding:8px 10px;">持股%</th>
-            <th style="padding:8px 10px;">工厂</th>
             <th style="padding:8px 10px;">操作</th>
           </tr></thead>
-          <tbody id="companyListBody"></tbody>
+          <tbody id="cgListBody"></tbody>
         </table>
       </div>
     </div>
@@ -2963,7 +3006,11 @@ function switchArchTab(tab){
     if(!ORG_DATA_LOADED){ loadOrgDataFromGitHub(function(){ if(ORG_CURRENT_VIEW==='tree') renderOrgChart(); else renderOrgPanel(); }); }
     else { if(ORG_CURRENT_VIEW==='tree') renderOrgChart(); else renderOrgPanel(); }
   } else if(tab==='company'){
-    loadCompanyData(function(){ renderCompanyTree(); });
+    // Load graph data and render
+    loadCGData(function(){
+      switchCGView('graph');
+      renderCompanyGraph();
+    });
   } else if(tab==='function'){
     renderFunctionArch();
   } else if(tab==='integration'){
@@ -3341,6 +3388,315 @@ function renderIntegrationArch(){
       }).join('')}
     </div>
   </div>`;
+}
+
+
+
+// ── COMPANY GRAPH (Cytoscape.js) ─────────────────────────────────────────────
+var CY = null;                // cytoscape instance
+var CG_VIEW = 'graph';
+var CG_DATA = null;           // {nodes:[], edges:[], positions:{}}
+var CG_DATA_SHA = null;
+var CG_ADD_EDGE_MODE = false;
+var CG_ADD_EDGE_SOURCE = null;
+var CG_SELECTED = null;       // selected element
+
+var CG_TYPE_COLORS = {
+  '政府机构':'#5B7A91','集团':'#0B2D47','上市公司':'#1A4F73',
+  '子公司':'#2374A3','分公司':'#3D8FC4','外部':'#5B7A91',
+  '子公司组':'#3D8FC4','default':'#2374A3'
+};
+
+function loadCGData(callback){
+  var h={'Accept':'application/vnd.github+json'};
+  if(TOKEN) h['Authorization']='Bearer '+TOKEN;
+  fetch('https://api.github.com/repos/EstaTea/fsl-report/contents/org/company_graph.json',{headers:h})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(d.content){
+        try{
+          CG_DATA=JSON.parse(decodeURIComponent(escape(atob(d.content.split('\n').join('')))));
+          CG_DATA_SHA=d.sha;
+        }catch(e){ CG_DATA={nodes:[],edges:[],positions:{}}; }
+      } else { CG_DATA={nodes:[],edges:[],positions:{}}; }
+      if(callback) callback();
+    }).catch(function(){ CG_DATA={nodes:[],edges:[],positions:{}}; if(callback) callback(); });
+}
+
+function cgSaveToGitHub(){
+  if(!TOKEN){ promptLoginThenDo(cgSaveToGitHub); return; }
+  if(!CG_DATA) return;
+  // Save current positions from cy
+  if(CY) CY.nodes().forEach(function(n){
+    var p=n.position(); CG_DATA.positions=CG_DATA.positions||{};
+    CG_DATA.positions[n.id()]={x:Math.round(p.x),y:Math.round(p.y)};
+  });
+  var body=JSON.stringify({
+    message:'update: company equity graph',
+    content:btoa(unescape(encodeURIComponent(JSON.stringify(CG_DATA,null,2)))),
+    sha:CG_DATA_SHA
+  });
+  document.getElementById('cgStatusMsg').textContent='保存中…';
+  fetch('https://api.github.com/repos/EstaTea/fsl-report/contents/org/company_graph.json',{
+    method:'PUT',headers:{'Accept':'application/vnd.github+json','Authorization':'Bearer '+TOKEN,'Content-Type':'application/json'},
+    body:body
+  }).then(function(r){return r.json();}).then(function(d){
+    if(d.content) CG_DATA_SHA=d.content.sha;
+    document.getElementById('cgStatusMsg').textContent='已保存 ✓';
+    setTimeout(function(){document.getElementById('cgStatusMsg').textContent='';},2000);
+  }).catch(function(){ document.getElementById('cgStatusMsg').textContent='保存失败'; });
+}
+
+function switchCGView(view){
+  CG_VIEW=view;
+  document.getElementById('cgViewGraph').className='org-view-btn'+(view==='graph'?' active':'');
+  document.getElementById('cgViewList').className='org-view-btn'+(view==='list'?' active':'');
+  document.getElementById('cgGraphView').style.display=view==='graph'?'flex':'none';
+  document.getElementById('cgListView').style.display=view==='list'?'':'none';
+  ['cgAddNodeBtn','cgAddEdgeBtn','cgLayoutBtn','cgSaveBtn'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.style.display=view==='graph'?'':'none';
+  });
+  if(view==='graph' && CY) setTimeout(function(){CY.resize();CY.fit(undefined,40);},50);
+  if(view==='list') cgRenderList();
+}
+
+function cgRenderList(){
+  var tbody=document.getElementById('cgListBody'); if(!tbody||!CG_DATA) return;
+  tbody.innerHTML=(CG_DATA.nodes||[]).map(function(n){
+    return '<tr style="border-bottom:1px solid var(--pale);">'
+      +'<td style="padding:7px 10px;font-weight:700;">'+n.label+'</td>'
+      +'<td style="padding:7px 10px;text-align:center;"><span style="background:var(--pale);padding:1px 6px;border-radius:3px;font-size:11px;">'+(n.code||'—')+'</span></td>'
+      +'<td style="padding:7px 10px;font-size:11.5px;">'+(n.type||'—')+'</td>'
+      +'<td style="padding:7px 10px;font-size:11.5px;color:var(--muted);">'+(n.location||'—')+'</td>'
+      +'<td style="padding:7px 10px;">'
+      +'<button class="ct-btn" onclick="cgEditNodeById(\''+n.id+'\')">编辑</button>'
+      +'</td></tr>';
+  }).join('');
+}
+
+function cgInitCytoscape(){
+  if(!CG_DATA) return;
+  var container=document.getElementById('cgContainer');
+  if(!container) return;
+  // Build cytoscape elements
+  var elements=[];
+  (CG_DATA.nodes||[]).forEach(function(n){
+    var pos=CG_DATA.positions&&CG_DATA.positions[n.id];
+    elements.push({group:'nodes', data:{id:n.id, label:n.label, sub:n.sub||'', type:n.type||'', color:n.color||'#2374A3'}, position:pos||{x:0,y:0}});
+  });
+  (CG_DATA.edges||[]).forEach(function(e){
+    elements.push({group:'edges', data:{id:e.id, source:e.source, target:e.target, label:e.label||'', style:e.style||'solid'}});
+  });
+  // Destroy old instance
+  if(CY){ try{CY.destroy();}catch(ex){} CY=null; }
+  CY=window.cytoscape({
+    container:container,
+    elements:elements,
+    style:[
+      {selector:'node',style:{
+        'width':140,'height':50,
+        'shape':'roundrectangle',
+        'background-color':'data(color)',
+        'label':'data(label)',
+        'color':'#fff',
+        'font-size':11,'font-weight':700,
+        'text-valign':'center','text-halign':'center',
+        'text-wrap':'wrap','text-max-width':130,
+        'border-width':2,'border-color':'rgba(255,255,255,.3)',
+        'padding':'6px'
+      }},
+      {selector:'node:selected',style:{
+        'border-color':'#F5C842','border-width':3,
+        'box-shadow':'0 0 0 3px rgba(245,200,66,.4)'
+      }},
+      {selector:'edge',style:{
+        'width':1.5,
+        'line-color':'#5B7A91',
+        'target-arrow-color':'#5B7A91',
+        'target-arrow-shape':'triangle',
+        'curve-style':'bezier',
+        'label':'data(label)',
+        'font-size':10,'color':'#1A4F73',
+        'text-background-color':'#fff',
+        'text-background-opacity':1,
+        'text-background-padding':'2px',
+        'text-wrap':'wrap','text-max-width':80,
+        'edge-text-rotation':'none'
+      }},
+      {selector:'edge[style="dashed"]',style:{
+        'line-style':'dashed','line-dash-pattern':[6,3]
+      }},
+      {selector:'edge:selected',style:{
+        'line-color':'#2374A3','target-arrow-color':'#2374A3','width':2.5
+      }}
+    ],
+    layout:Object.keys(CG_DATA.positions||{}).length>0
+      ?{name:'preset'}
+      :{name:'dagre',rankDir:'TB',nodeSep:60,rankSep:80,padding:40},
+    userZoomingEnabled:true,
+    userPanningEnabled:true,
+    boxSelectionEnabled:false,
+    autounselectify:false
+  });
+  // Drag to reposition
+  CY.on('dragfree','node',function(){ /* positions auto-tracked */ });
+  // Click to select / edit
+  CY.on('tap','node',function(e){
+    if(CG_ADD_EDGE_MODE){
+      if(!CG_ADD_EDGE_SOURCE){ CG_ADD_EDGE_SOURCE=e.target.id(); e.target.style('border-color','#F5C842'); return; }
+      if(CG_ADD_EDGE_SOURCE!==e.target.id()){ cgFinishAddEdge(CG_ADD_EDGE_SOURCE,e.target.id()); }
+      return;
+    }
+    CG_SELECTED=e.target;
+    cgShowEditPanel('node',e.target);
+  });
+  CY.on('tap','edge',function(e){
+    if(CG_ADD_EDGE_MODE) return;
+    CG_SELECTED=e.target;
+    cgShowEditPanel('edge',e.target);
+  });
+  CY.on('tap',function(e){ if(e.target===CY) cgCloseEditPanel(); });
+}
+
+function cgShowEditPanel(type, el){
+  var panel=document.getElementById('cgEditPanel');
+  var fields=document.getElementById('cgEditFields');
+  var title=document.getElementById('cgEditTitle');
+  if(!panel) return;
+  panel.style.display='flex';
+  if(type==='node'){
+    var d=el.data();
+    title.textContent='编辑节点';
+    fields.innerHTML=
+      '<div class="cg-form-row"><label>名称</label><input id="cgF_label" value="'+esc(d.label||'')+'"></div>'
+     +'<div class="cg-form-row"><label>副标题</label><textarea id="cgF_sub" rows="2">'+esc(d.sub||'')+'</textarea></div>'
+     +'<div class="cg-form-row"><label>类型</label>'
+     +'<select id="cgF_type">'
+     +['政府机构','集团','上市公司','子公司','分公司','外部','子公司组'].map(function(t){
+       return '<option'+(d.type===t?' selected':'')+'>'+t+'</option>';
+     }).join('')+'</select></div>'
+     +'<div class="cg-form-row"><label>公司代码</label><input id="cgF_code" value="'+esc(d.code||'')+'"></div>'
+     +'<div class="cg-form-row"><label>属地</label><input id="cgF_location" value="'+esc(d.location||'')+'"></div>'
+     +'<div class="cg-form-row"><label>颜色</label><input type="color" id="cgF_color" value="'+(d.color||'#2374A3')+'" style="height:32px;padding:2px;"></div>'
+     +'<div class="cg-form-row"><label>备注</label><textarea id="cgF_note" rows="2">'+esc(d.note||'')+'</textarea></div>';
+    document.getElementById('cgDeleteBtn').style.display='';
+  } else {
+    var d=el.data();
+    title.textContent='编辑关系线';
+    fields.innerHTML=
+      '<div class="cg-form-row"><label>关系/持股比例标签</label><input id="cgF_edgeLabel" value="'+esc(d.label||'')+'"></div>'
+     +'<div class="cg-form-row"><label>线型</label>'
+     +'<select id="cgF_edgeStyle">'
+     +'<option'+(d.style==='solid'?' selected':'')+' value="solid">实线</option>'
+     +'<option'+(d.style==='dashed'?' selected':'')+' value="dashed">虚线</option>'
+     +'</select></div>'
+     +'<div style="font-size:11px;color:var(--muted);margin-top:8px;">源节点: '+esc(CY.getElementById(d.source).data('label')||d.source)+'<br>目标节点: '+esc(CY.getElementById(d.target).data('label')||d.target)+'</div>';
+    document.getElementById('cgDeleteBtn').style.display='';
+  }
+}
+
+function cgCloseEditPanel(){
+  var panel=document.getElementById('cgEditPanel');
+  if(panel) panel.style.display='none';
+  if(CG_SELECTED){ try{CG_SELECTED.unselect();}catch(e){} CG_SELECTED=null; }
+}
+
+function cgSaveEditPanel(){
+  if(!CG_SELECTED||!CG_DATA) return;
+  var isNode=CG_SELECTED.isNode();
+  var id=CG_SELECTED.id();
+  if(isNode){
+    var n=CG_DATA.nodes.find(function(x){return x.id===id;});
+    if(n){
+      n.label=document.getElementById('cgF_label').value;
+      n.sub=document.getElementById('cgF_sub').value;
+      n.type=document.getElementById('cgF_type').value;
+      n.code=document.getElementById('cgF_code').value;
+      n.location=document.getElementById('cgF_location').value;
+      n.color=document.getElementById('cgF_color').value;
+      n.note=document.getElementById('cgF_note').value;
+      // Update cytoscape
+      CG_SELECTED.data({label:n.label,sub:n.sub,type:n.type,color:n.color});
+      CG_SELECTED.style('background-color',n.color);
+    }
+  } else {
+    var e=CG_DATA.edges.find(function(x){return x.id===id;});
+    if(e){
+      e.label=document.getElementById('cgF_edgeLabel').value;
+      e.style=document.getElementById('cgF_edgeStyle').value;
+      CG_SELECTED.data({label:e.label,style:e.style});
+    }
+  }
+  cgCloseEditPanel();
+}
+
+function cgDeleteSelected(){
+  if(!CG_SELECTED||!CG_DATA) return;
+  var id=CG_SELECTED.id();
+  if(CG_SELECTED.isNode()){
+    if(!confirm('删除该节点及其所有关联连线？')) return;
+    CG_DATA.nodes=CG_DATA.nodes.filter(function(n){return n.id!==id;});
+    CG_DATA.edges=CG_DATA.edges.filter(function(e){return e.source!==id&&e.target!==id;});
+  } else {
+    CG_DATA.edges=CG_DATA.edges.filter(function(e){return e.id!==id;});
+  }
+  CG_SELECTED.remove(); CG_SELECTED=null;
+  cgCloseEditPanel();
+}
+
+function cgOpenNodeModal(parentId){
+  var label=prompt('请输入公司名称:'); if(!label) return;
+  var nid='cg_'+Date.now();
+  var newNode={id:nid,label:label,sub:'',type:'子公司',color:'#2374A3',code:'',location:''};
+  if(!CG_DATA) CG_DATA={nodes:[],edges:[],positions:{}};
+  CG_DATA.nodes.push(newNode);
+  if(CY) CY.add({group:'nodes',data:{id:nid,label:label,sub:'',type:'子公司',color:'#2374A3'},position:{x:200,y:200}});
+}
+
+function cgEditNodeById(nid){
+  if(!CY) return;
+  var el=CY.getElementById(nid);
+  if(el) cgShowEditPanel('node',el);
+}
+
+function cgStartAddEdge(){
+  CG_ADD_EDGE_MODE=true; CG_ADD_EDGE_SOURCE=null;
+  document.getElementById('cgEdgeHint').style.display='';
+}
+function cgCancelAddEdge(){
+  CG_ADD_EDGE_MODE=false; CG_ADD_EDGE_SOURCE=null;
+  document.getElementById('cgEdgeHint').style.display='none';
+  if(CY) CY.nodes().style('border-color','rgba(255,255,255,.3)');
+}
+function cgFinishAddEdge(srcId,tgtId){
+  var lbl=prompt('请输入关系标签（如"持股32%"，可为空）:')||'';
+  var eid='edge_'+Date.now();
+  var newEdge={id:eid,source:srcId,target:tgtId,label:lbl,style:'solid'};
+  CG_DATA.edges.push(newEdge);
+  if(CY) CY.add({group:'edges',data:{id:eid,source:srcId,target:tgtId,label:lbl,style:'solid'}});
+  cgCancelAddEdge();
+}
+
+function cgAutoLayout(){
+  if(!CY) return;
+  CY.layout({name:'dagre',rankDir:'TB',nodeSep:60,rankSep:80,padding:40,animate:true,animationDuration:600}).run();
+}
+
+function renderCompanyGraph(){
+  var el=document.getElementById('cgContainer'); if(!el) return;
+  if(!window.cytoscape){
+    // Load Cytoscape.js + dagre layout on demand
+    var s1=document.createElement('script'); s1.src='https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.29.2/cytoscape.min.js';
+    var s2=document.createElement('script'); s2.src='https://cdnjs.cloudflare.com/ajax/libs/dagre/0.8.5/dagre.min.js';
+    var s3=document.createElement('script'); s3.src='https://cdn.jsdelivr.net/npm/cytoscape-dagre@2.5.0/cytoscape-dagre.min.js';
+    var loaded=0;
+    function onLoad(){ loaded++; if(loaded===3){ if(window.cytoscapeDagre) cytoscape.use(cytoscapeDagre); cgInitCytoscape(); } }
+    s1.onload=s2.onload=s3.onload=onLoad;
+    document.head.appendChild(s1); document.head.appendChild(s2); document.head.appendChild(s3);
+  } else {
+    if(!CY) cgInitCytoscape();
+    else { CY.resize(); CY.fit(undefined,40); }
+  }
 }
 
 
