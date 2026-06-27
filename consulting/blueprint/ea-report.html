@@ -1522,61 +1522,37 @@ if (gapCtx) {
 
 
 
+
 <script id="statusSwitcherJS">
 (function(){
-  var OWNER='EstaTea',REPO='fsl-report';
-  var WF_API='https://api.github.com/repos/'+OWNER+'/'+REPO+'/actions/workflows/update-status.yml/dispatches';
-  var STATUS_API='https://api.github.com/repos/'+OWNER+'/'+REPO+'/contents/status/doc-status.json';
+  var WORKER='https://fsl-status.283656314.workers.dev';
+  var SF='https://api.github.com/repos/EstaTea/fsl-report/contents/status/doc-status.json';
   var DOCKEY=location.pathname.replace(/\/$/,'').replace(/^\/fsl-report/,'')||'/';
-  var PAT='';
   function applyUI(s){
-    var L={todo:'待开始',wip:'进行中',done:'已完成'};
+    var L={todo:'\u5f85\u5f00\u59cb',wip:'\u8fdb\u884c\u4e2d',done:'\u5df2\u5b8c\u6210'};
     var D={todo:'todo',wip:'wip',done:'done'};
     ['todo','wip','done'].forEach(function(k){var b=document.getElementById('ss-'+k);if(b)b.classList.toggle('active',k===s);});
     var ind=document.getElementById('ss-indicator');if(ind)ind.textContent=L[s]||s;
     var dot=document.getElementById('ss-dot');if(dot)dot.className='ss-indicator-dot '+(D[s]||'');
   }
-  function decodeContent(raw){
-    var c='';for(var i=0;i<raw.length;i++){var ch=raw.charCodeAt(i);if(ch!==10&&ch!==13)c+=raw[i];}
-    return JSON.parse(atob(c));
-  }
   function readStatus(cb){
-    fetch(STATUS_API+'?ref=main&_='+Date.now())
+    fetch(SF+'?ref=main&_='+Date.now())
       .then(function(r){return r.json();})
-      .then(function(d){var j={};try{j=decodeContent(d.content||'');}catch(e){}cb(j);})
+      .then(function(d){var j={};try{var c='';for(var i=0;i<d.content.length;i++){var x=d.content.charCodeAt(i);if(x!==10&&x!==13)c+=d.content[i];}j=JSON.parse(atob(c));}catch(e){}cb(j);})
       .catch(function(){cb({});});
-  }
-  function triggerWorkflow(status,cb){
-    fetch(WF_API,{
-      method:'POST',
-      headers:{'Authorization':'token '+PAT,'Content-Type':'application/json','Accept':'application/vnd.github+json'},
-      body:JSON.stringify({ref:'main',inputs:{doc_key:DOCKEY,status:status}})
-    }).then(function(r){
-      if(r.status===204)cb(null);
-      else r.text().then(function(t){cb(new Error('HTTP '+r.status+': '+t.slice(0,120)));});
-    }).catch(function(e){cb(e);});
   }
   window.setDocStatus=function(s){
     applyUI(s);
     var sw=document.getElementById('statusSwitcher');
-    if(!PAT){
-      PAT=prompt('请输入 GitHub PAT（需 actions:write 权限，本次会话有效）：')||'';
-      if(!PAT){applyUI('todo');return;}
-    }
-    if(sw){sw.style.outline='2px solid #F59E0B';sw.title='触发 Action 中...';}
-    triggerWorkflow(s,function(err){
-      if(err){
-        alert('失败: '+err.message);
-        if(sw)sw.style.outline='2px solid #EF4444';
-        PAT='';
-      } else {
-        if(sw){sw.style.outline='2px solid #22C55E';sw.title='已提交（~10秒生效）';setTimeout(function(){sw.style.outline='';sw.title='';},3000);}
-      }
-    });
+    if(sw){sw.style.outline='2px solid #F59E0B';sw.title='\u4fdd\u5b58\u4e2d...';}
+    fetch(WORKER,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({doc_key:DOCKEY,status:s})})
+      .then(function(r){return r.json().then(function(j){return {ok:r.ok,body:j};});})
+      .then(function(res){
+        if(res.ok){if(sw){sw.style.outline='2px solid #22C55E';sw.title='\u5df2\u4fdd\u5b58';setTimeout(function(){sw.style.outline='';sw.title='';},3000);}}
+        else{alert('\u4fdd\u5b58\u5931\u8d25: '+(res.body.error||'unknown'));if(sw)sw.style.outline='2px solid #EF4444';}
+      }).catch(function(e){alert(e.message);if(sw)sw.style.outline='2px solid #EF4444';});
   };
-  document.addEventListener('DOMContentLoaded',function(){
-    readStatus(function(j){applyUI(j[DOCKEY]||'todo');});
-  });
+  document.addEventListener('DOMContentLoaded',function(){readStatus(function(j){applyUI(j[DOCKEY]||'todo');});});
 })();
 </script>
 </body>

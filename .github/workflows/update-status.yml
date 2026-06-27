@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       doc_key:
-        description: 'Document key (e.g. /consulting/blueprint/ea-report)'
+        description: 'Document key'
         required: true
         type: string
       status:
@@ -12,6 +12,10 @@ on:
         required: true
         type: choice
         options: [todo, wip, done]
+      trigger_code:
+        description: 'Authorization code'
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -20,16 +24,22 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
+      - name: Verify trigger code
+        run: |
+          if [ "${{ github.event.inputs.trigger_code }}" != "${{ secrets.TRIGGER_CODE }}" ]; then
+            echo "Invalid trigger code"
+            exit 1
+          fi
+
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.STATUS_PAT }}
 
       - name: Update status JSON
         run: |
-          FILE="status/doc-status.json"
-          KEY="${{ github.event.inputs.doc_key }}"
-          VAL="${{ github.event.inputs.status }}"
           python3 - <<'PY'
           import json, os
-          f = os.environ['FILE']
+          f = 'status/doc-status.json'
           key = os.environ['KEY']
           val = os.environ['VAL']
           try:
@@ -37,10 +47,9 @@ jobs:
           except: data = {}
           data[key] = val
           with open(f, 'w') as fp: json.dump(data, fp, ensure_ascii=False, indent=2)
-          print(f"Set {key} = {val}")
+          print(f"OK: {key} = {val}")
           PY
         env:
-          FILE: status/doc-status.json
           KEY: ${{ github.event.inputs.doc_key }}
           VAL: ${{ github.event.inputs.status }}
 
