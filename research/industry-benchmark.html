@@ -253,7 +253,25 @@
   #main { margin-left: var(--nav-w); }
   @media (max-width: 900px) { #sidebar { display: none; } #main { margin-left: 0; } }
 
-  /* ══ STATUS SWITCHER ══ */
+  /* ══ NAV DROPDOWN (for topnav) ══ */
+  .nav-dropdown { position: relative; display: inline-flex; align-items: center; }
+  .nav-dropdown > a { padding: 0 14px; color: rgba(255,255,255,.6); font-size: 12.5px; height: 52px; display: flex; align-items: center; white-space: nowrap; text-decoration: none; border-bottom: 2px solid transparent; cursor: pointer; }
+  .nav-dropdown > a:hover, .nav-dropdown:hover > a { color: #fff; }
+  .nav-dropdown-panel { display: none; position: absolute; top: 52px; left: 0; z-index: 400; background: #1B3A6B; border: 1px solid rgba(255,255,255,.1); border-top: 2px solid #A8C4E0; border-radius: 0 0 6px 6px; padding: 16px 20px; min-width: 480px; box-shadow: 0 8px 24px rgba(11,45,71,.6); }
+  .nav-dropdown:hover .nav-dropdown-panel { display: block; }
+  .nav-dd-row { display: flex; gap: 0; }
+  .nav-dd-col { flex: 1; padding: 0 16px 0 0; }
+  .nav-dd-col:last-child { padding-right: 0; }
+  .nav-dd-col + .nav-dd-col { border-left: 1px solid rgba(255,255,255,.08); padding-left: 16px; }
+  .nav-dd-group-title { font-size: 10px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; color: #A8C4E0; margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .nav-dd-panel a { display: block; padding: 5px 0; color: rgba(255,255,255,.65); font-size: 12.5px; text-decoration: none; transition: color .12s; }
+  .nav-dd-panel a:hover { color: #fff; }
+  .nav-dd-research { margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.08); }
+  .nav-dd-research .nav-dd-group-title { margin-bottom: 6px; }
+  .nav-dd-research-links { display: flex; gap: 20px; }
+  .nav-dd-research-links a { color: rgba(255,255,255,.65); font-size: 12.5px; padding: 3px 0; text-decoration: none; }
+  .nav-dd-research-links a:hover { color: #fff; }
+  .nav-arrow { font-size: 10px; margin-left: 3px; opacity: .7; }
   .status-switcher {
     position: fixed; top: 8px; right: 16px; z-index: 1100;
     background: rgba(11,45,71,.95); border: 1px solid rgba(255,255,255,.2);
@@ -286,10 +304,59 @@
   </a>
   <div style="width:1px;height:24px;background:rgba(255,255,255,.15);margin:0 16px;flex-shrink:0;"></div>
   <span style="color:rgba(255,255,255,.55);font-size:12px;white-space:nowrap;">数字化转型项目工作台</span>
-  <div style="display:flex;flex:1;margin-left:8px;overflow:visible;">
+  <div style="display:flex;flex:1;margin-left:8px;overflow:visible;position:relative;">
     <a href="/fsl-report/" style="padding:0 14px;color:rgba(255,255,255,.6);font-size:12.5px;height:52px;display:flex;align-items:center;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;">工作台首页</a>
-    <a href="/fsl-report/deliverables/" style="padding:0 14px;color:rgba(255,255,255,.6);font-size:12.5px;height:52px;display:flex;align-items:center;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;">交付物</a>
+    <div class="nav-dropdown">
+      <a href="/fsl-report/deliverables/" style="padding:0 14px;color:rgba(255,255,255,.6);font-size:12.5px;height:52px;display:flex;align-items:center;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;">交付物 <span class="nav-arrow">▾</span></a>
+      <div class="nav-dropdown-panel">
+        <div class="nav-dd-row">
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">管理咨询交付</div>
+            <a href="/fsl-report/consulting/diagnosis/">现状分析与诊断</a>
+            <a href="/fsl-report/consulting/blueprint/">蓝图及架构设计</a>
+            <a href="/fsl-report/consulting/solutions/">专项方案设计</a>
+            <a href="/fsl-report/consulting/roadmap/">实施路径规划</a>
+          </div>
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">SAP 实施交付</div>
+            <a href="/fsl-report/sap/prepare/">项目准备阶段</a>
+            <a href="/fsl-report/sap/blueprint/">蓝图方案设计</a>
+            <a href="/fsl-report/sap/realize/">系统实现阶段</a>
+            <a href="/fsl-report/sap/deploy/">上线切换阶段</a>
+          </div>
+        </div>
+        <div class="nav-dd-research">
+          <div class="nav-dd-group-title">行业研究</div>
+          <div class="nav-dd-research-links">
+            <a href="/fsl-report/research/">照明行业对标研究</a>
+          </div>
+        </div>
+      </div>
+    </div>
     <a href="/fsl-report/weekly/" style="padding:0 14px;color:rgba(255,255,255,.6);font-size:12.5px;height:52px;display:flex;align-items:center;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;">项目周报</a>
+    <div class="nav-dropdown">
+      <a href="/fsl-report/kanban/" style="padding:0 14px;color:rgba(255,255,255,.6);font-size:12.5px;height:52px;display:flex;align-items:center;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;">任务看板 <span class="nav-arrow">▾</span></a>
+      <div class="nav-dropdown-panel">
+        <div class="nav-dd-row">
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">看板视图</div>
+            <a href="/fsl-report/kanban/#kanban">📋 看板</a>
+            <a href="/fsl-report/kanban/#milestone">🎯 里程碑</a>
+            <a href="/fsl-report/kanban/#tasklist">☑ 任务列表</a>
+            <a href="/fsl-report/kanban/#gantt">📅 甘特图</a>
+            <a href="/fsl-report/kanban/#risk">⚠️ 风险</a>
+          </div>
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">分析与管理</div>
+            <a href="/fsl-report/kanban/#deliverable">📦 交付物追踪</a>
+            <a href="/fsl-report/kanban/#stats">📊 统计</a>
+            <a href="/fsl-report/kanban/#org">🏗 项目架构</a>
+            <a href="/fsl-report/kanban/survey-ar.html">📝 调研问卷</a>
+            <a href="/fsl-report/weekly/">📰 项目周报</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </nav>
 
