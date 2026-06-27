@@ -854,7 +854,17 @@ async function init(){
     allIssues=results[0].concat(results[1]).filter(function(i){return !i.pull_request;});
     allMilestones=results[2];
     clearTimeout(killTimer);
-    loadGanttData(function(){ render(); hideLoading(); });
+    // Render immediately so the UI shows data without waiting for gantt.json
+    render();
+    hideLoading();
+    // Then load gantt overrides in background and re-render gantt if needed
+    loadGanttData(function(){
+      try{
+        applyGanttOverrides();
+        syncIssuesToGantt(allIssues);
+        renderGantt();
+      }catch(e){}
+    });
   }catch(e){
     clearTimeout(killTimer);
     console.warn('API load failed, using demo data:', e.message);
