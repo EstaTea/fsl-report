@@ -609,29 +609,7 @@ select.dp-input{appearance:none;-webkit-appearance:none;
       </div>
     </div>
     <a href="/fsl-report/weekly/">项目周报</a>
-    <div class="nav-dropdown">
-      <a href="/fsl-report/kanban/" class="active">任务看板 <span class="nav-arrow">▾</span></a>
-      <div class="nav-dropdown-panel">
-        <div class="nav-dd-row">
-          <div class="nav-dd-col nav-dd-panel">
-            <div class="nav-dd-group-title">看板视图</div>
-            <a href="/fsl-report/kanban/#kanban">📋 看板</a>
-            <a href="/fsl-report/kanban/#milestone">🎯 里程碑</a>
-            <a href="/fsl-report/kanban/#tasklist">☑ 任务列表</a>
-            <a href="/fsl-report/kanban/#gantt">📅 甘特图</a>
-            <a href="/fsl-report/kanban/#risk">⚠️ 风险</a>
-          </div>
-          <div class="nav-dd-col nav-dd-panel">
-            <div class="nav-dd-group-title">分析与管理</div>
-            <a href="/fsl-report/kanban/#deliverable">📦 交付物追踪</a>
-            <a href="/fsl-report/kanban/#stats">📊 统计</a>
-            <a href="/fsl-report/kanban/#org">🏗 项目架构</a>
-            <a href="/fsl-report/kanban/survey-ar.html">📝 调研问卷</a>
-            <a href="/fsl-report/weekly/">📰 项目周报</a>
-          </div>
-        </div>
-      </div>
-    </div>
+    <a href="/fsl-report/kanban/" class="active">任务看板</a>
   </div>
   <div class="nav-right">
     <button class="btn btn-ghost" onclick="openNewIssue()" id="newTaskBtn">＋ 新建任务</button>
@@ -709,6 +687,30 @@ select.dp-input{appearance:none;-webkit-appearance:none;
 
 </div>
 
+<!-- Milestone Edit Modal -->
+<div class="org-modal-overlay" id="msModalOverlay">
+  <div class="org-modal" style="width:480px;">
+    <h3 id="msModalTitle">新建里程碑</h3>
+    <div class="org-form-row">
+      <label class="org-form-label">名称 *</label>
+      <input class="org-form-input" id="msFormTitle" placeholder="如：M1 架构蓝图评审通过">
+    </div>
+    <div class="org-form-row">
+      <label class="org-form-label">截止日期</label>
+      <input class="org-form-input" id="msFormDue" type="date">
+    </div>
+    <div class="org-form-row">
+      <label class="org-form-label">描述</label>
+      <textarea class="org-form-input" id="msFormDesc" rows="3" placeholder="里程碑验收标准、关联交付物等"></textarea>
+    </div>
+    <div class="org-form-actions">
+      <button class="org-form-btn primary" onclick="saveMsModal()">保存</button>
+      <button class="org-form-btn ghost" onclick="closeMsModal()">取消</button>
+      <button class="org-form-btn" id="msDeleteBtn" style="display:none;background:#fee2e2;color:#dc2626;border:1px solid #fca5a5;" onclick="deleteMilestone()">删除</button>
+    </div>
+  </div>
+</div>
+
 <!-- ═══ KANBAN PANEL ═══ -->
 <div class="mod-panel active" id="panel-kanban">
   <div class="board" id="board">
@@ -721,6 +723,14 @@ select.dp-input{appearance:none;-webkit-appearance:none;
 
 <!-- ═══ MILESTONE PANEL ═══ -->
 <div class="mod-panel" id="panel-milestone">
+  <!-- Milestone toolbar -->
+  <div style="background:var(--white);border-bottom:1px solid var(--pale);padding:8px 20px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+    <span style="font-size:12.5px;font-weight:700;color:var(--dark);">里程碑列表</span>
+    <span id="msBadge" style="background:var(--bg);border:1px solid var(--pale);border-radius:10px;padding:1px 9px;font-size:11px;color:var(--steel);">0 个</span>
+    <div style="margin-left:auto;display:flex;gap:6px;">
+      <button class="btn btn-ghost" onclick="openMsModal(null)" style="font-size:12px;padding:4px 12px;background:var(--primary);color:#fff;border-radius:5px;">＋ 新建里程碑</button>
+    </div>
+  </div>
   <div class="ms-panel-body"><div class="ms-timeline" id="msTimeline"></div></div>
 </div>
 
@@ -1547,7 +1557,7 @@ function renderMilestones(){
     return '<div class="ms-item">'+
       '<div class="ms-spine"><div class="ms-dot '+dotCls+'"></div><div class="ms-line"></div></div>'+
       '<div class="ms-card '+cls+'">'+
-        '<div class="ms-title">'+esc(ms.title)+'</div>'+
+        '<div class="ms-title" style="display:flex;align-items:center;gap:8px;">'+esc(ms.title)+'<button onclick="event.stopPropagation();openMsModal('+ms.number+')" style="margin-left:auto;font-size:10px;padding:2px 8px;background:var(--bg);border:1px solid var(--pale);border-radius:3px;cursor:pointer;color:var(--steel);flex-shrink:0;">编辑</button></div>'+
         '<div class="ms-due">📅 截止：'+(due?due.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric'}):'未设定')+'</div>'+
         '<div class="ms-desc">'+(ms.description?esc(ms.description):'暂无描述')+'</div>'+
         '<div class="ms-progress"><div class="ms-progress-fill" style="width:'+pct+'%"></div></div>'+
@@ -1560,6 +1570,8 @@ function renderMilestones(){
     '</div>';
   }).join('');
   document.getElementById('msTimeline').innerHTML=html||'<p style="color:var(--muted);padding:20px">暂无里程碑数据</p>';
+  var badge=document.getElementById('msBadge');
+  if(badge) badge.textContent=allMilestones.length+' 个';
 }
 
 // ── TASK LIST ─────────────────────────────────────────────────────
@@ -2364,6 +2376,12 @@ function switchTab(el, panel){
   document.getElementById('tb-empty').style.display = (TASK_TABS.indexOf(panel)===-1&&RISK_TABS.indexOf(panel)===-1&&panel!=='org') ? 'flex':'none';
   // 项目架构 tab has its own sub-tabs — hide the shared sub-toolbar entirely
   document.getElementById('subToolbar').style.display = panel==='org' ? 'none' : '';
+  // Hide 新建任务/刷新 on milestone and risk tabs (read-only views)
+  var hideNavBtns = ['milestone','risk'].indexOf(panel)!==-1;
+  var ntBtn=document.getElementById('newTaskBtn');
+  var rfBtn=ntBtn&&ntBtn.nextElementSibling; // refresh button is sibling
+  if(ntBtn) ntBtn.style.display=hideNavBtns?'none':'';
+  if(rfBtn&&rfBtn.title==='刷新') rfBtn.style.display=hideNavBtns?'none':'';
   var emptyLbl=document.getElementById('tb-empty-label');
   if(emptyLbl) emptyLbl.textContent=EMPTY_LABELS[panel]||'';
   // Lazy-render org chart only when tab is activated
@@ -3855,6 +3873,87 @@ function cgExportExcel(){
     s.onload=doExportExcel;
     document.head.appendChild(s);
   } else { doExportExcel(); }
+}
+
+
+// ── MILESTONE EDIT ────────────────────────────────────────────────────────────
+var MS_EDITING_NUM = null;
+
+function openMsModal(msNum){
+  MS_EDITING_NUM = msNum;
+  document.getElementById('msModalTitle').textContent = msNum ? '编辑里程碑' : '新建里程碑';
+  document.getElementById('msDeleteBtn').style.display = msNum ? '' : 'none';
+  if(msNum){
+    var ms=allMilestones.find(function(m){return m.number===msNum;});
+    if(ms){
+      document.getElementById('msFormTitle').value=ms.title||'';
+      document.getElementById('msFormDue').value=ms.due_on?(ms.due_on.split('T')[0]):'';
+      document.getElementById('msFormDesc').value=ms.description||'';
+    }
+  } else {
+    document.getElementById('msFormTitle').value='';
+    document.getElementById('msFormDue').value='';
+    document.getElementById('msFormDesc').value='';
+  }
+  document.getElementById('msModalOverlay').style.display='flex';
+  setTimeout(function(){document.getElementById('msFormTitle').focus();},100);
+}
+
+function closeMsModal(){
+  document.getElementById('msModalOverlay').style.display='none';
+  MS_EDITING_NUM=null;
+}
+
+function saveMsModal(){
+  var title=(document.getElementById('msFormTitle').value||'').trim();
+  if(!title){alert('名称不能为空');return;}
+  if(!TOKEN){promptLoginThenDo(saveMsModal);return;}
+  var due=document.getElementById('msFormDue').value;
+  var desc=document.getElementById('msFormDesc').value;
+  var body={title:title,description:desc};
+  if(due) body.due_on=due+'T00:00:00Z';
+  var url=MS_EDITING_NUM
+    ?'https://api.github.com/repos/EstaTea/fsl-report/milestones/'+MS_EDITING_NUM
+    :'https://api.github.com/repos/EstaTea/fsl-report/milestones';
+  var method=MS_EDITING_NUM?'PATCH':'POST';
+  var saveBtn=document.querySelector('#msModalOverlay .org-form-btn.primary');
+  if(saveBtn){saveBtn.disabled=true;saveBtn.textContent='保存中…';}
+  fetch(url,{method:method,headers:{'Accept':'application/vnd.github+json','Authorization':'Bearer '+TOKEN,'Content-Type':'application/json'},body:JSON.stringify(body)})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(saveBtn){saveBtn.disabled=false;saveBtn.textContent='保存';}
+      if(d.number){
+        // Update local allMilestones
+        if(MS_EDITING_NUM){
+          var idx=allMilestones.findIndex(function(m){return m.number===MS_EDITING_NUM;});
+          if(idx>=0) allMilestones[idx]=d;
+        } else {
+          allMilestones.push(d);
+        }
+        renderMilestones();
+        closeMsModal();
+        showOrgToast(MS_EDITING_NUM?'里程碑已更新':'里程碑已创建');
+      } else {
+        showOrgToast('保存失败: '+(d.message||'未知错误'),true);
+      }
+    })
+    .catch(function(){if(saveBtn){saveBtn.disabled=false;saveBtn.textContent='保存';}showOrgToast('网络错误',true);});
+}
+
+function deleteMilestone(){
+  if(!MS_EDITING_NUM) return;
+  if(!confirm('确认删除此里程碑？此操作不可撤销。')) return;
+  if(!TOKEN){promptLoginThenDo(deleteMilestone);return;}
+  fetch('https://api.github.com/repos/EstaTea/fsl-report/milestones/'+MS_EDITING_NUM,{
+    method:'DELETE',
+    headers:{'Accept':'application/vnd.github+json','Authorization':'Bearer '+TOKEN}
+  }).then(function(r){
+    if(r.status===204){
+      allMilestones=allMilestones.filter(function(m){return m.number!==MS_EDITING_NUM;});
+      renderMilestones(); closeMsModal();
+      showOrgToast('里程碑已删除');
+    } else {showOrgToast('删除失败',true);}
+  }).catch(function(){showOrgToast('网络错误',true);});
 }
 
 // ── START ─────────────────────────────────────────────────────────
