@@ -1,0 +1,53 @@
+name: Update Document Status
+
+on:
+  workflow_dispatch:
+    inputs:
+      doc_key:
+        description: 'Document key (e.g. /consulting/blueprint/ea-report)'
+        required: true
+        type: string
+      status:
+        description: 'Status: todo | wip | done'
+        required: true
+        type: choice
+        options: [todo, wip, done]
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update status JSON
+        run: |
+          FILE="status/doc-status.json"
+          KEY="${{ github.event.inputs.doc_key }}"
+          VAL="${{ github.event.inputs.status }}"
+          python3 - <<'PY'
+          import json, os
+          f = os.environ['FILE']
+          key = os.environ['KEY']
+          val = os.environ['VAL']
+          try:
+              with open(f) as fp: data = json.load(fp)
+          except: data = {}
+          data[key] = val
+          with open(f, 'w') as fp: json.dump(data, fp, ensure_ascii=False, indent=2)
+          print(f"Set {key} = {val}")
+          PY
+        env:
+          FILE: status/doc-status.json
+          KEY: ${{ github.event.inputs.doc_key }}
+          VAL: ${{ github.event.inputs.status }}
+
+      - name: Commit and push
+        run: |
+          git config user.name  "FSL Status Bot"
+          git config user.email "bot@fsl-report"
+          git add status/doc-status.json
+          git diff --cached --quiet || git commit -m "status: ${{ github.event.inputs.doc_key }} -> ${{ github.event.inputs.status }}"
+          git push
