@@ -39,13 +39,6 @@
       "color": "#2374A3"
     },
     {
-      "id": "fsl",
-      "label": "佛山照明",
-      "sub": "FZ01，A股上市公司",
-      "type": "上市公司",
-      "color": "#0B2D47"
-    },
-    {
       "id": "fsl_corp",
       "label": "佛山电器照明股份有限公司",
       "sub": "二级主体，FZ01，上市母公司",
@@ -174,48 +167,6 @@
       "style": "solid"
     },
     {
-      "id": "e5",
-      "source": "gz_group",
-      "target": "fsl",
-      "label": "直接持股\n8.45%",
-      "style": "solid"
-    },
-    {
-      "id": "e6",
-      "source": "gz_invest",
-      "target": "fsl",
-      "label": "持股佛照\n1.66%",
-      "style": "solid"
-    },
-    {
-      "id": "e7",
-      "source": "gz_elec",
-      "target": "fsl",
-      "label": "持股佛照\n9.35%",
-      "style": "solid"
-    },
-    {
-      "id": "e8",
-      "source": "hk_huachen",
-      "target": "fsl",
-      "label": "持股佛照\n12.85%",
-      "style": "solid"
-    },
-    {
-      "id": "e9",
-      "source": "external",
-      "target": "fsl",
-      "label": "合计\n15.77%",
-      "style": "dashed"
-    },
-    {
-      "id": "e10",
-      "source": "fsl",
-      "target": "fsl_corp",
-      "label": "",
-      "style": "solid"
-    },
-    {
       "id": "e11",
       "source": "fsl_corp",
       "target": "branch_co",
@@ -298,88 +249,116 @@
       "target": "fz40",
       "label": "间接100%",
       "style": "solid"
+    },
+    {
+      "id": "edge_1782574985666",
+      "source": "hk_huachen",
+      "target": "fsl_corp",
+      "label": "持股佛照12.85%",
+      "style": "solid"
+    },
+    {
+      "id": "edge_1782575018799",
+      "source": "gz_elec",
+      "target": "fsl_corp",
+      "label": "持股佛照9.35%",
+      "style": "solid"
+    },
+    {
+      "id": "edge_1782575031598",
+      "source": "gz_invest",
+      "target": "fsl_corp",
+      "label": "持股佛照1.66%",
+      "style": "solid"
+    },
+    {
+      "id": "edge_1782575095398",
+      "source": "external",
+      "target": "fsl_corp",
+      "label": "佑昌灯光9.57%、汇金2.16%、自然人等合计15.77%",
+      "style": "solid"
     }
   ],
   "positions": {
     "gz_guozi": {
-      "x": 788,
-      "y": 32
+      "x": 323,
+      "y": 29
     },
     "gz_group": {
-      "x": 816,
-      "y": 139
+      "x": 324,
+      "y": 189
     },
     "gz_invest": {
-      "x": 612,
-      "y": 320
+      "x": 624,
+      "y": 369
     },
     "gz_elec": {
-      "x": 1002,
-      "y": 313
+      "x": 83,
+      "y": 370
     },
     "hk_huachen": {
-      "x": 1221,
-      "y": 286
+      "x": 329,
+      "y": 370
     },
     "fsl": {
-      "x": 933,
-      "y": 464
+      "x": 459.01775548601444,
+      "y": 605.5975423170042
     },
     "fsl_corp": {
-      "x": 933,
-      "y": 608
+      "x": 329,
+      "y": 538
     },
     "external": {
-      "x": 1457,
-      "y": 321
+      "x": 848,
+      "y": 439
     },
     "branch_co": {
-      "x": 291,
-      "y": 752
+      "x": 576,
+      "y": 697
     },
     "direct_sub": {
-      "x": 719,
-      "y": 752
+      "x": 1067,
+      "y": 706
     },
     "fz06_tkd": {
-      "x": 933,
-      "y": 752
+      "x": 1313,
+      "y": 706
     },
     "fz22_zd": {
-      "x": 1147,
-      "y": 752
+      "x": 1559,
+      "y": 706
     },
     "fz25_ht": {
-      "x": 1361,
-      "y": 752
+      "x": 1805,
+      "y": 706
     },
     "fz_100pct": {
-      "x": 719,
-      "y": 896
+      "x": 1067,
+      "y": 874
     },
     "fz23": {
-      "x": 77,
-      "y": 896
+      "x": 329,
+      "y": 874
     },
     "fz13": {
-      "x": 291,
-      "y": 896
+      "x": 575,
+      "y": 874
     },
     "fz14": {
-      "x": 505,
-      "y": 896
+      "x": 821,
+      "y": 874
     },
     "fz28": {
-      "x": 1040,
-      "y": 896
+      "x": 1805,
+      "y": 874
     },
     "fz33": {
-      "x": 1361,
-      "y": 896
+      "x": 2051,
+      "y": 874
     },
     "fz40": {
-      "x": 1575,
-      "y": 896
+      "x": 2297,
+      "y": 874
     }
   }
 }
