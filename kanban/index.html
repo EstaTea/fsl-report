@@ -19,7 +19,7 @@
 body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;background:var(--bg);color:var(--text);height:100vh;display:flex;flex-direction:column;overflow:hidden}
 
 /* TOP NAV */
-nav{background:#1B3A6B;height:54px;display:flex;align-items:center;padding:0 32px;gap:20px;flex-shrink:0;z-index:300;overflow:visible !important;box-shadow:0 2px 10px rgba(11,45,71,.5);}
+nav{background:var(--b900);height:54px;display:flex;align-items:center;padding:0 32px;gap:20px;flex-shrink:0;z-index:300;overflow:visible !important;box-shadow:0 2px 10px rgba(11,45,71,.5);}
 .nav-brand{display:flex;align-items:center;gap:8px;flex-shrink:0}
 .nav-brand span{color:rgba(255,255,255,.65);font-size:12px;white-space:nowrap}
 .nav-divider{width:1px;height:18px;background:rgba(255,255,255,.15);flex-shrink:0}
@@ -297,8 +297,8 @@ nav{background:#1B3A6B;height:54px;display:flex;align-items:center;padding:0 32p
 .nav-arrow{font-size:10px;margin-left:3px;opacity:.7;}
 .nav-dropdown-panel{
   display:none;position:absolute;top:54px;left:0;z-index:200;
-  background:#1B3A6B;border:1px solid rgba(255,255,255,.1);
-  border-top:2px solid #A8C4E0;border-radius:0 0 6px 6px;
+  background:var(--b900);border:1px solid rgba(255,255,255,.1);
+  border-top:2px solid #5EA4CE;border-radius:0 0 6px 6px;
   padding:16px 20px;min-width:540px;
   box-shadow:0 8px 24px rgba(11,45,71,.6);}
 .nav-dropdown:hover .nav-dropdown-panel{display:block;}
@@ -2375,7 +2375,7 @@ function switchTab(el, panel){
   document.getElementById('tb-risk').style.display  = RISK_TABS.indexOf(panel)!==-1  ? 'flex':'none';
   document.getElementById('tb-empty').style.display = (TASK_TABS.indexOf(panel)===-1&&RISK_TABS.indexOf(panel)===-1&&panel!=='org') ? 'flex':'none';
   // 项目架构 tab has its own sub-tabs — hide the shared sub-toolbar entirely
-  document.getElementById('subToolbar').style.display = panel==='org' ? 'none' : '';
+  document.getElementById('subToolbar').style.display = (panel==='org'||panel==='milestone') ? 'none' : '';
   // Hide 新建任务/刷新 on milestone and risk tabs (read-only views)
   var hideNavBtns = ['milestone','risk'].indexOf(panel)!==-1;
   var ntBtn=document.getElementById('newTaskBtn');
