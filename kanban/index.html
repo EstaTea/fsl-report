@@ -141,19 +141,65 @@ nav{background:var(--b900);height:54px;display:flex;align-items:center;padding:0
 .g-today-label{position:absolute;top:0;font-size:8px;color:var(--navy);font-weight:700;transform:translateX(-50%);background:rgba(235,244,255,.9);padding:0 3px;border-radius:2px}
 
 /* ── RISK ── */
-.risk-panel-body{flex:1;overflow-y:auto;padding:14px 20px}
-.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.risk-card{background:var(--white);border:1px solid var(--pale);border-radius:8px;padding:14px;border-left:4px solid var(--pale)}
-.risk-card.r-high{border-left-color:var(--navy)}
-.risk-card.r-med{border-left-color:var(--primary)}
-.risk-card.r-low{border-left-color:var(--steel)}
-.risk-title{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:4px}
-.risk-meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
-.risk-tag{font-size:10px;padding:2px 7px;border-radius:3px;background:var(--bg);color:var(--steel);font-weight:600}
-.risk-tag.high{background:var(--navy);color:#fff}
-.risk-tag.med{background:var(--primary);color:#fff}
-.risk-desc{font-size:11.5px;color:var(--text2);line-height:1.6}
-.risk-mitigation{font-size:11px;color:var(--muted);margin-top:6px;padding:6px 8px;background:var(--bg);border-radius:4px}
+.risk-panel-body{flex:1;overflow-y:auto;padding:16px 24px}
+.risk-layout{display:grid;grid-template-columns:300px 1fr;gap:20px;align-items:start}
+.risk-matrix-wrap{background:var(--white);border:1px solid var(--pale);border-radius:10px;padding:16px;position:sticky;top:0}
+.risk-matrix-label{font-size:12px;font-weight:700;color:var(--dark);margin-bottom:4px}
+.risk-matrix-sub{font-size:10px;color:var(--muted);margin-bottom:12px}
+.risk-matrix{display:grid;grid-template-columns:42px repeat(3,1fr);gap:3px;font-size:10.5px}
+.rm-corner{display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:2px;font-size:9px;color:var(--muted);line-height:1.3;text-align:right;padding-right:4px}
+.rm-col-hdr{text-align:center;font-weight:700;color:var(--muted);font-size:10px;padding:3px 0}
+.rm-row-hdr{display:flex;align-items:center;justify-content:flex-end;padding-right:5px;font-weight:700;color:var(--muted);font-size:10px;white-space:nowrap}
+.rm-cell{border-radius:6px;min-height:46px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:filter .15s}
+.rm-cell:hover{filter:brightness(.9)}
+.rm-cell .rmc-n{font-size:18px;font-weight:800;color:#fff}
+.rm-green{background:#5CB85C}.rm-yellow{background:#F0AD4E}.rm-orange{background:#E8722A}.rm-red{background:#D9534F}
+.risk-legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.risk-legend-item{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--muted)}
+.risk-legend-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+.risk-register-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.risk-register-ttl{font-size:13px;font-weight:700;color:var(--dark)}
+.risk-register-cnt{font-size:11px;color:var(--muted)}
+.risk-item{background:var(--white);border:1px solid var(--pale);border-radius:8px;padding:14px 16px;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start;transition:box-shadow .15s}
+.risk-item:hover{box-shadow:0 2px 8px rgba(11,45,71,.09)}
+.risk-item-body{flex:1;min-width:0}
+.risk-item-title{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:4px}
+.risk-item-desc{font-size:12px;color:var(--text2);line-height:1.55;margin-bottom:6px}
+.risk-item-mit{font-size:11px;color:var(--muted);background:var(--bg);border-radius:4px;padding:5px 8px;line-height:1.5}
+.risk-item-pills{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:8px}
+.rpill{font-size:10.5px;padding:2px 9px;border-radius:10px;font-weight:600;border:1px solid}
+.rpill-plow{background:#EBF5FB;color:var(--b500);border-color:var(--b100)}
+.rpill-pmed{background:#FFF3E0;color:#E65100;border-color:#FFCC80}
+.rpill-phigh{background:#FFEBEE;color:#C62828;border-color:#FFCDD2}
+.rpill-ilow{background:#F3E5F5;color:#6A1B9A;border-color:#CE93D8}
+.rpill-imed{background:#FFF3E0;color:#E65100;border-color:#FFCC80}
+.rpill-ihigh{background:#FFEBEE;color:#C62828;border-color:#FFCDD2}
+.risk-item-side{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0}
+.rsbadge{font-size:10.5px;padding:3px 10px;border-radius:10px;font-weight:700;white-space:nowrap}
+.rsb-open{background:#FFEBEE;color:#C62828}
+.rsb-mit{background:#E3F2FD;color:var(--b500)}
+.rsb-closed{background:#E8F5E9;color:#2E7D32}
+.rsb-accepted{background:#F3E5F5;color:#6A1B9A}
+.risk-item-side .risk-item-btns{display:flex;gap:3px}
+.ribtn{background:none;border:none;cursor:pointer;padding:3px 5px;border-radius:4px;font-size:13px;color:var(--muted)}
+.ribtn:hover{background:var(--pale);color:var(--dark)}
+.risk-modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:600;align-items:center;justify-content:center}
+.risk-modal-ov.open{display:flex}
+.risk-modal-box{background:#fff;border-radius:12px;width:520px;max-width:95vw;box-shadow:0 20px 50px rgba(0,0,0,.22);overflow:hidden}
+.risk-modal-hdr{background:linear-gradient(90deg,var(--b700),var(--b500));color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+.risk-modal-hdr h3{font-size:14px;font-weight:700;margin:0}
+.rmclose{background:rgba(255,255,255,.15);border:none;color:#fff;width:26px;height:26px;border-radius:5px;cursor:pointer;font-size:14px}
+.risk-modal-bdy{padding:20px;display:flex;flex-direction:column;gap:14px}
+.rmf-row{display:flex;flex-direction:column;gap:5px}
+.rmf-lbl{font-size:11.5px;font-weight:700;color:var(--dark)}
+.rmf-inp,.rmf-ta,.rmf-sel{width:100%;padding:8px 10px;border:1px solid var(--pale);border-radius:6px;font-size:12.5px;font-family:inherit;color:var(--text)}
+.rmf-ta{resize:vertical;min-height:70px}
+.rmf-inp:focus,.rmf-ta:focus,.rmf-sel:focus{outline:none;border-color:var(--b300)}
+.rmf-grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.risk-modal-ft{padding:12px 20px;border-top:1px solid var(--pale);display:flex;justify-content:flex-end;gap:8px}
+.rmbtn{padding:7px 18px;border-radius:6px;font-size:12.5px;cursor:pointer;border:none;font-family:inherit;font-weight:600}
+.rmbtn-cancel{background:var(--bg);color:var(--dark);border:1px solid var(--pale)}
+.rmbtn-save{background:var(--b500);color:#fff}.rmbtn-save:hover{background:var(--b700)}
 
 /* ── STATS ── */
 .stats-panel-body{flex:1;overflow-y:auto;padding:16px 20px}
@@ -524,7 +570,7 @@ select.dp-input{appearance:none;-webkit-appearance:none;
   <select id="filterPri" onchange="applyFilters()"><option value="">所有优先级</option><option>优先级:高</option><option>优先级:中</option><option>优先级:低</option></select>
   <select id="filterType" onchange="applyFilters()"><option value="">所有类型</option><option>类型:交付物</option><option>类型:任务</option><option>类型:风险</option><option>类型:会议</option><option>类型:问题</option></select>
   <input class="search-box" id="searchBox" placeholder="🔍 搜索任务..." oninput="applyFilters()">
-  <div class="toolbar-right">
+  <div class="toolbar-right"><button class="btn btn-primary" id="riskAddBtn" style="display:none" onclick="openRiskModal(null)">＋ 登记风险</button>
     <span class="stat-pill">总计 <span id="stTotal">-</span></span>
     <span class="stat-pill">进行中 <span id="stDoing">-</span></span>
     <span class="stat-pill">高优 <span id="stHigh">-</span></span>
@@ -594,7 +640,50 @@ select.dp-input{appearance:none;-webkit-appearance:none;
 
 <!-- ═══ RISK PANEL ═══ -->
 <div class="mod-panel" id="panel-risk">
-  <div class="risk-panel-body"><div class="risk-grid" id="riskGrid"></div></div>
+  <div class="risk-panel-body">
+    <div class="risk-layout">
+      <div class="risk-matrix-wrap">
+        <div class="risk-matrix-label">风险矩阵</div>
+        <div class="risk-matrix-sub">影响（横轴）× 可能性（纵轴）</div>
+        <div class="risk-matrix" id="riskMatrix"></div>
+        <div class="risk-legend">
+          <div class="risk-legend-item"><div class="risk-legend-dot" style="background:#5CB85C"></div>低风险</div>
+          <div class="risk-legend-item"><div class="risk-legend-dot" style="background:#F0AD4E"></div>中风险</div>
+          <div class="risk-legend-item"><div class="risk-legend-dot" style="background:#E8722A"></div>高风险</div>
+          <div class="risk-legend-item"><div class="risk-legend-dot" style="background:#D9534F"></div>严重</div>
+        </div>
+      </div>
+      <div>
+        <div class="risk-register-hdr">
+          <span class="risk-register-ttl">风险登记册</span>
+          <span class="risk-register-cnt" id="riskCount"></span>
+        </div>
+        <div id="riskList"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="risk-modal-ov" id="riskModalOv">
+  <div class="risk-modal-box">
+    <div class="risk-modal-hdr">
+      <h3 id="riskModalTitle">登记风险</h3>
+      <button class="rmclose" onclick="closeRiskModal()">✕</button>
+    </div>
+    <div class="risk-modal-bdy">
+      <div class="rmf-row"><label class="rmf-lbl">标题 *</label><input class="rmf-inp" id="rmfTitle" placeholder="简短描述风险"></div>
+      <div class="rmf-row"><label class="rmf-lbl">描述</label><textarea class="rmf-ta" id="rmfDesc" placeholder="详细描述风险场景和潜在影响"></textarea></div>
+      <div class="rmf-grid3">
+        <div class="rmf-row"><label class="rmf-lbl">可能性</label><select class="rmf-sel" id="rmfProb"><option>低</option><option>中</option><option>高</option></select></div>
+        <div class="rmf-row"><label class="rmf-lbl">影响</label><select class="rmf-sel" id="rmfImpact"><option>低</option><option>中</option><option>高</option></select></div>
+        <div class="rmf-row"><label class="rmf-lbl">状态</label><select class="rmf-sel" id="rmfStatus"><option>未处理</option><option>缓解中</option><option>已关闭</option><option>已接受</option></select></div>
+      </div>
+      <div class="rmf-row"><label class="rmf-lbl">缓解措施</label><textarea class="rmf-ta" id="rmfMitigation" placeholder="描述应对措施和负责人" style="min-height:56px"></textarea></div>
+    </div>
+    <div class="risk-modal-ft">
+      <button class="rmbtn rmbtn-cancel" onclick="closeRiskModal()">取消</button>
+      <button class="rmbtn rmbtn-save" onclick="saveRisk()">保存</button>
+    </div>
+  </div>
 </div>
 
 <!-- ═══ DELIVERABLE PANEL ═══ -->
@@ -1751,28 +1840,101 @@ function ganttToday(){
 }
 
 // ── RISK ──────────────────────────────────────────────────────────
-function renderRisk(issues){
-  var risks=issues.filter(function(i){return isRisk(i);});
-  var staticRisks=[
-    {title:'主数据清洗周期超预期',level:'high',tags:['高概率','高影响'],desc:'6.2万物料数据质量比预期差，清洗工作量超出，数据迁移100%准确率无法按时达到',mitigation:'2026年6月立即启动数据清洗（先于系统配置）；三轮模拟迁移'},
-    {title:'广晟集团系统边界未明确',level:'high',tags:['中概率','高影响'],desc:'广晟推行的共享/司库/合并系统与佛照S/4HANA的边界未定义，可能导致范围蔓延或接口冲突',mitigation:'2026年7月31日前明确边界协议，超出边界的需求纳入变更请求管理'},
-    {title:'关键用户参与度不足',level:'med',tags:['中概率','中影响'],desc:'业务部门关键用户无法投入足够时间参与蓝图确认和UAT测试',mitigation:'李泽华副总经理签字的关键用户承诺书；每周项目例会机制'},
-    {title:'PCE季度升级兼容性',level:'med',tags:['低概率','低影响'],desc:'SAP强制季度升级可能影响已配置的Z程序或CPI接口',mitigation:'严格遵守Clean Core原则；每次升级前在QAS回归测试'},
-    {title:'上市合规风险',level:'high',tags:['低概率','高影响'],desc:'S/4HANA上线初期可能存在财务数据过渡期不稳定，影响A股信息披露合规',mitigation:'上线时间避开半年报/年报披露窗口；ECC保持只读3个月'},
-    {title:'变革阻力',level:'med',tags:['中概率','中影响'],desc:'部分业务部门对新系统操作方式改变产生抵触，系统上线后使用率不高',mitigation:'高层公开表态支持；Fiori界面提升用户体验；超级用户制度'},
+// ── RISK ──────────────────────────────────────────────────────────
+var RKEY='fsl-risks-v2', rEditId=null;
+function rLoad(){
+  var def=[
+    {id:'r1',title:'上市合规风险',desc:'S/4HANA上线初期可能存在财务数据过渡期不稳定，影响A股信息披露合规',prob:'低',impact:'高',status:'缓解中',mitigation:'上线时间避开半年报/年报披露窗口；ECC保持只读3个月'},
+    {id:'r2',title:'主数据清洗周期超预期',desc:'6.2万物料数据质量比预期差，清洗工作量超出，数据迁移100%准确率无法按时达到',prob:'高',impact:'高',status:'未处理',mitigation:'2026年6月立即启动数据清洗（先于系统配置）；三轮模拟迁移'},
+    {id:'r3',title:'明确广晟集团与佛照S/4HANA系统边界',desc:'广晟推行的共享/司库/合并系统与佛照S/4HANA的边界未定义，可能导致范围蔓延或接口冲突',prob:'高',impact:'高',status:'已接受',mitigation:'2026年7月31日前明确边界协议，超出边界的需求纳入变更请求管理'},
+    {id:'r4',title:'MES/WMS供应商接口配合风险',desc:'EWM↔WMS库存和MES→PP投工接口需要供应商配合改造，可能导致接口延迟',prob:'中',impact:'中',status:'缓解中',mitigation:'蓝图阶段锁定接口设计方案；要求供应商签署配合协议；提前3个月启动接口联调'},
+    {id:'r5',title:'关键用户参与度不足',desc:'业务部门关键用户无法投入足够时间参与蓝图确认和UAT测试',prob:'中',impact:'中',status:'缓解中',mitigation:'李泽华副总经理签字的关键用户承诺书；每周项目例会机制'},
   ];
-  var issueRisks=risks.map(function(i){ return {title:i.title,level:'high',tags:getMods(i).concat(getPhases(i)),desc:i.body?i.body.split('\n')[0].replace(/^#+\s*/,''):'',mitigation:'',num:i.number}; });
-  var all=issueRisks.concat(staticRisks);
-  var html=all.map(function(r){
-    return '<div class="risk-card r-'+r.level+'">'+
-      '<div class="risk-title">'+(r.num?'#'+r.num+' ':'')+esc(r.title)+'</div>'+
-      '<div class="risk-meta">'+r.tags.map(function(t){return '<span class="risk-tag">'+esc(t)+'</span>';}).join('')+'</div>'+
-      '<div class="risk-desc">'+esc(r.desc)+'</div>'+
-      (r.mitigation?'<div class="risk-mitigation">🛡 应对：'+esc(r.mitigation)+'</div>':'')+
+  try{var s=localStorage.getItem(RKEY);return s?JSON.parse(s):def;}catch(e){return def;}
+}
+function rSave(risks){try{localStorage.setItem(RKEY,JSON.stringify(risks));}catch(e){}}
+function rColor(prob,impact){
+  var p={低:1,中:2,高:3}[prob]||1,i={低:1,中:2,高:3}[impact]||1,sc=p*i;
+  return sc<=1?'rm-green':sc<=2?'rm-yellow':sc<=4?'rm-orange':'rm-red';
+}
+function rSCls(s){return s==='未处理'?'rsb-open':s==='缓解中'?'rsb-mit':s==='已关闭'?'rsb-closed':s==='已接受'?'rsb-accepted':'rsb-open';}
+function renderRisk(issues){
+  var risks=rLoad();
+  var levels=['高','中','低'],impacts=['低','中','高'];
+  var mh='<div class="rm-corner"><span>影响→</span><span>可能性↓</span></div>';
+  impacts.forEach(function(imp){mh+='<div class="rm-col-hdr">'+imp+'</div>';});
+  levels.forEach(function(prob){
+    mh+='<div class="rm-row-hdr">'+prob+'</div>';
+    impacts.forEach(function(imp){
+      var cnt=risks.filter(function(r){return r.prob===prob&&r.impact===imp&&r.status!=='已关闭';}).length;
+      mh+='<div class="rm-cell '+rColor(prob,imp)+'" onclick="rFilterCell(''+prob+'',''+imp+'')">'+(cnt?'<span class="rmc-n">'+cnt+'</span>':'')+'</div>';
+    });
+  });
+  var me=document.getElementById('riskMatrix');if(me)me.innerHTML=mh;
+  rRenderList(risks);
+  document.getElementById('riskCount').textContent='共 '+risks.length+' 项';
+  var ab=document.getElementById('riskAddBtn');
+  if(ab&&!ab._b){ab._b=1;ab.addEventListener('click',function(){openRiskModal(null);});}
+}
+var _rfp=null,_rfi=null;
+function rRenderList(risks,fp,fi){
+  var list=(fp&&fi)?risks.filter(function(r){return r.prob===fp&&r.impact===fi;}):risks;
+  var el=document.getElementById('riskList');if(!el)return;
+  if(!list.length){el.innerHTML='<p style="color:var(--muted);font-size:12px;padding:8px 0">暂无风险</p>';return;}
+  el.innerHTML=list.map(function(r){
+    var pc='rpill-p'+(r.prob==='低'?'low':r.prob==='中'?'med':'high');
+    var ic='rpill-i'+(r.impact==='低'?'low':r.impact==='中'?'med':'high');
+    return '<div class="risk-item">'+
+      '<div class="risk-item-body">'+
+        '<div class="risk-item-title">'+esc(r.title)+'</div>'+
+        '<div class="risk-item-desc">'+esc(r.desc)+'</div>'+
+        (r.mitigation?'<div class="risk-item-mit">🛡 缓解：'+esc(r.mitigation)+'</div>':'')+
+        '<div class="risk-item-pills"><span class="rpill '+pc+'">可能性 '+esc(r.prob)+'</span><span class="rpill '+ic+'">影响 '+esc(r.impact)+'</span></div>'+
+      '</div>'+
+      '<div class="risk-item-side">'+
+        '<span class="rsbadge '+rSCls(r.status)+'">'+esc(r.status)+'</span>'+
+        '<div class="risk-item-btns">'+
+          '<button class="ribtn" onclick="openRiskModal(''+r.id+'')">✏️</button>'+
+          '<button class="ribtn" onclick="deleteRisk(''+r.id+'')">🗑</button>'+
+        '</div>'+
+      '</div>'+
     '</div>';
   }).join('');
-  document.getElementById('riskGrid').innerHTML=html||'<p style="color:var(--muted)">暂无风险数据</p>';
 }
+function rFilterCell(prob,imp){
+  var risks=rLoad();
+  if(_rfp===prob&&_rfi===imp){_rfp=_rfi=null;rRenderList(risks);document.getElementById('riskCount').textContent='共 '+risks.length+' 项';}
+  else{_rfp=prob;_rfi=imp;rRenderList(risks,prob,imp);document.getElementById('riskCount').textContent='筛选：可能性 '+prob+' × 影响 '+imp;}
+}
+function openRiskModal(id){
+  rEditId=id;var risks=rLoad(),r=id?risks.find(function(x){return x.id===id;}):null;
+  document.getElementById('riskModalTitle').textContent=id?'编辑风险':'登记风险';
+  document.getElementById('rmfTitle').value=r?r.title:'';
+  document.getElementById('rmfDesc').value=r?r.desc:'';
+  document.getElementById('rmfProb').value=r?r.prob:'低';
+  document.getElementById('rmfImpact').value=r?r.impact:'低';
+  document.getElementById('rmfStatus').value=r?r.status:'未处理';
+  document.getElementById('rmfMitigation').value=r?r.mitigation:'';
+  document.getElementById('riskModalOv').classList.add('open');
+}
+function closeRiskModal(){document.getElementById('riskModalOv').classList.remove('open');}
+function saveRisk(){
+  var title=document.getElementById('rmfTitle').value.trim();
+  if(!title){alert('请填写标题');return;}
+  var risks=rLoad();
+  var r={id:rEditId||(Date.now().toString(36)+Math.random().toString(36).slice(2,5)),
+    title:title,desc:document.getElementById('rmfDesc').value.trim(),
+    prob:document.getElementById('rmfProb').value,impact:document.getElementById('rmfImpact').value,
+    status:document.getElementById('rmfStatus').value,
+    mitigation:document.getElementById('rmfMitigation').value.trim()};
+  if(rEditId){var idx=risks.findIndex(function(x){return x.id===rEditId;});if(idx>=0)risks[idx]=r;}else risks.push(r);
+  rSave(risks);closeRiskModal();renderRisk([]);
+}
+function deleteRisk(id){
+  if(!confirm('确认删除此风险？'))return;
+  rSave(rLoad().filter(function(r){return r.id!==id;}));renderRisk([]);
+}
+
 
 // ── DELIVERABLES ──────────────────────────────────────────────────
 function renderDeliverables(){
@@ -1871,6 +2033,8 @@ function renderStats(issues){
 
 // ── TABS ──────────────────────────────────────────────────────────
 function switchTab(el, panel){
+  var rb=document.getElementById('riskAddBtn');
+  if(rb) rb.style.display=(panel==='risk'?'inline-flex':'none');
   document.querySelectorAll('.mod-tab').forEach(function(t){t.classList.remove('active');});
   document.querySelectorAll('.mod-panel').forEach(function(p){p.classList.remove('active');});
   el.classList.add('active');
