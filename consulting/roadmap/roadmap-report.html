@@ -1267,81 +1267,62 @@ tr:hover td{background:#E0EEFF}
 
 <script id="statusSwitcherJS">
 (function(){
-  var OWNER = 'EstaTea', REPO = 'fsl-report', BRANCH = 'main';
-  var STATUS_FILE = 'status/doc-status.json';
-  var API = 'https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/' + STATUS_FILE;
-  var KEY = location.pathname.replace(/\/$/,'').replace(/^\/fsl-report/,'') || '/';
+  var KEY = 'doc_status_' + location.pathname.replace(/\/$/,'');
 
-  function fetchStatus(cb){
-    fetch(API + '?ref=' + BRANCH + '&t=' + Date.now())
-      .then(function(r){return r.json();})
-      .then(function(d){
-        try{
-          var json = JSON.parse(atob(d.content.replace(/
-/g,'')));
-          cb(json, d.sha);
-        }catch(e){cb({}, '');}
-      }).catch(function(){cb({},'' );});
-  }
-
-    function applyStatus(s){
+  function applyStatus(s){
     var labels = {todo:'待开始', wip:'进行中', done:'已完成'};
-    var dotCls = {todo:'todo', wip:'wip', done:'done'};
+    var dotCls  = {todo:'todo',  wip:'wip',   done:'done'};
     ['todo','wip','done'].forEach(function(k){
-      var b=document.getElementById('ss-'+k);
-      if(b) b.classList.toggle('active',k===s);
+      var b = document.getElementById('ss-'+k);
+      if(b) b.classList.toggle('active', k===s);
     });
     var ind = document.getElementById('ss-indicator');
-    if(ind) ind.textContent = labels[s]||s;
+    if(ind) ind.textContent = labels[s] || s;
     var dot = document.getElementById('ss-dot');
-    if(dot){ dot.className='ss-indicator-dot '+(dotCls[s]||''); }
-    try{localStorage.setItem('ds_'+KEY, s);}catch(e){}
+    if(dot) dot.className = 'ss-indicator-dot ' + (dotCls[s] || '');
+    try{ localStorage.setItem(KEY, s); }catch(e){}
   }
 
   window.setDocStatus = function(s){
     applyStatus(s);
-    // 获取 token（从 URL hash 或 prompt）
-    var token = sessionStorage.getItem('gh_token');
-    if(!token){
-      token = prompt('请输入 GitHub Personal Access Token（仅本次会话使用）：');
-      if(token) sessionStorage.setItem('gh_token', token);
-    }
-    if(!token) return;
-    // 读取当前文件 sha，然后更新
-    fetchStatus(function(json, sha){
-      json[KEY] = s;
-      var body = JSON.stringify({
-        message: 'status: update ' + KEY + ' -> ' + s,
-        content: btoa(unescape(encodeURIComponent(JSON.stringify(json, null, 2)))),
-        sha: sha, branch: BRANCH
-      });
-      fetch(API, {
-        method:'PUT', headers:{
-          'Authorization':'token '+token,
-          'Content-Type':'application/json'
-        }, body: body
-      }).then(function(r){
-        if(!r.ok) throw new Error('HTTP '+r.status);
-        var sw = document.getElementById('statusSwitcher');
-        if(sw){ sw.style.outline='2px solid #2E7D32'; setTimeout(function(){sw.style.outline='';},1500);}
-      }).catch(function(e){
-        alert('保存失败：'+e.message+'
-
-Token 权限不足或网络问题。状态已在本次会话暂存。');
-      });
-    });
+    /* 后台尝试同步到 GitHub（不影响 UI） */
+    try{
+      var token = sessionStorage.getItem('gh_pat');
+      if(!token) return;
+      var owner='EstaTea', repo='fsl-report', branch='main';
+      var file='status/doc-status.json';
+      var api='https://api.github.com/repos/'+owner+'/'+repo+'/contents/'+file;
+      var docKey = location.pathname.replace(/\/$/,'').replace(/^\/fsl-report/,'') || '/';
+      fetch(api+'?ref='+branch+'&t='+Date.now(), {headers:{'Authorization':'token '+token}})
+        .then(function(r){return r.json();})
+        .then(function(d){
+          var json={};
+          try{ json=JSON.parse(atob(d.content.split('
+').join(''))); }catch(e){}
+          json[docKey]=s;
+          return fetch(api,{method:'PUT',
+            headers:{'Authorization':'token '+token,'Content-Type':'application/json'},
+            body:JSON.stringify({message:'status: '+docKey+' -> '+s,
+              content:btoa(unescape(encodeURIComponent(JSON.stringify(json,null,2)))),
+              sha:d.sha, branch:branch})});
+        }).then(function(r){
+          if(r && r.ok){ var sw=document.getElementById('statusSwitcher');
+            if(sw){sw.style.outline='2px solid #22C55E';
+              setTimeout(function(){sw.style.outline='';},1500);}}
+        }).catch(function(){});
+    }catch(e){}
   };
 
-  // 初始化：优先从 GitHub 读，降级到 localStorage
+  /* 设置 GitHub PAT（一次性） */
+  window.setGhPat = function(){
+    var t=prompt('GitHub Personal Access Token（仅存在本次会话）：');
+    if(t){ sessionStorage.setItem('gh_pat',t); alert('PAT 已保存，下次状态修改将同步到云端'); }
+  };
+
   document.addEventListener('DOMContentLoaded', function(){
-    var cached = '';
-    try{cached = localStorage.getItem('ds_'+KEY)||'';}catch(e){}
-    if(cached) applyStatus(cached);
-    fetchStatus(function(json){
-      var s = json[KEY] || 'todo';
-      applyStatus(s);
-      try{localStorage.setItem('ds_'+KEY, s);}catch(e){}
-    });
+    var saved = '';
+    try{ saved=localStorage.getItem(KEY)||''; }catch(e){}
+    applyStatus(saved||'todo');
   });
 })();
 </script>
