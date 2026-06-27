@@ -1875,7 +1875,7 @@ function renderRisk(issues){
     mh+='<div class="rm-row-hdr">'+prob+'</div>';
     impacts.forEach(function(imp){
       var cnt=risks.filter(function(r){return r.prob===prob&&r.impact===imp&&r.status!=='已关闭';}).length;
-      mh+='<div class="rm-cell '+rColor(prob,imp)+'" onclick="rFilterCell(''+prob+'',''+imp+'')">'+(cnt?'<span class="rmc-n">'+cnt+'</span>':'')+'</div>';
+      mh+='<div class="rm-cell '+rColor(prob,imp)+'" data-prob="'+prob+'" data-imp="'+imp+'" onclick="var el=this;rFilterCell(el.getAttribute(\'data-prob\'),el.getAttribute(\'data-imp\'))">'+(cnt?'<span class="rmc-n">'+cnt+'</span>':'')+'</div>';
     });
   });
   var me=document.getElementById('riskMatrix');if(me)me.innerHTML=mh;
