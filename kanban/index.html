@@ -3055,9 +3055,10 @@ function switchCompanyView(view){
 function renderCompanyList(){
   var tbody=document.getElementById('companyListBody'); if(!tbody||!COMPANY_DATA) return;
   var rows=[]; function flat(nid,d){var n=COMPANY_DATA.nodes[nid];if(!n)return;rows.push({n:n,d:d});(n.children||[]).forEach(function(c){flat(c,d+1);});}
-  var rootIds2 = COMPANY_DATA.roots && COMPANY_DATA.roots.length
-    ? COMPANY_DATA.roots
-    : [COMPANY_DATA.rootId||Object.keys(COMPANY_DATA.nodes)[0]];
+  var rootIds2 = Object.keys(COMPANY_DATA.nodes).filter(function(nid){
+    return !COMPANY_DATA.nodes[nid].parent;
+  });
+  if(!rootIds2.length) rootIds2=[COMPANY_DATA.rootId||Object.keys(COMPANY_DATA.nodes)[0]];
   rootIds2.forEach(function(rid){ flat(rid,0); });
   var typeColor={'集团':'#0B2D47','子公司':'#2374A3','分公司':'#3D8FC4','事业部':'#5B7A91','部门':'#7fb3d3'};
   tbody.innerHTML=rows.map(function(r){
@@ -3106,9 +3107,11 @@ function renderCompanyTree(){
   }
   window.ctToggle=function(nid){collapsed[nid]=!collapsed[nid];var t=document.getElementById('ctt_'+nid),k=document.getElementById('ctc_'+nid);if(t)t.textContent=collapsed[nid]?'▶':'▼';if(k)k.style.display=collapsed[nid]?'none':'';};
   window.ctRowClick=function(nid){document.querySelectorAll('.ct-row').forEach(function(r){r.classList.remove('ct-selected');});var row=document.getElementById('ctr_'+nid);if(row)row.classList.add('ct-selected');};
-  var rootIds = COMPANY_DATA.roots && COMPANY_DATA.roots.length
-    ? COMPANY_DATA.roots
-    : [COMPANY_DATA.rootId||Object.keys(COMPANY_DATA.nodes)[0]];
+  // Always derive roots from parent=null nodes (ignore stale roots array)
+  var rootIds = Object.keys(COMPANY_DATA.nodes).filter(function(nid){
+    return !COMPANY_DATA.nodes[nid].parent;
+  });
+  if(!rootIds.length) rootIds=[COMPANY_DATA.rootId||Object.keys(COMPANY_DATA.nodes)[0]];
   el.innerHTML = rootIds.map(function(rid){ return renderNode(rid,0); }).join('');
 }
 
