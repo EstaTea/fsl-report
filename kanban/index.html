@@ -578,16 +578,47 @@ select.dp-input{appearance:none;-webkit-appearance:none;
 
 <!-- Sub toolbar (shared, dynamically updated) -->
 <div class="sub-toolbar" id="subToolbar">
-  <select id="filterPhase" onchange="applyFilters()"><option value="">所有阶段</option><option>阶段:咨询-诊断</option><option>阶段:咨询-蓝图</option><option>阶段:咨询-路径</option><option>阶段:SAP-准备</option><option>阶段:SAP-蓝图</option><option>阶段:SAP-实现</option><option>阶段:SAP-部署</option><option>阶段:SAP-运行</option><option>阶段:SAP-验收</option></select>
-  <select id="filterMod" onchange="applyFilters()"><option value="">所有模块</option><option>模块:FI/CO</option><option>模块:SD</option><option>模块:MM/EWM</option><option>模块:PP/QM</option><option>模块:MDG</option><option>模块:CPI</option><option>模块:Group Rpt</option></select>
-  <select id="filterPri" onchange="applyFilters()"><option value="">所有优先级</option><option>优先级:高</option><option>优先级:中</option><option>优先级:低</option></select>
-  <select id="filterType" onchange="applyFilters()"><option value="">所有类型</option><option>类型:交付物</option><option>类型:任务</option><option>类型:风险</option><option>类型:会议</option><option>类型:问题</option></select>
-  <input class="search-box" id="searchBox" placeholder="🔍 搜索任务..." oninput="applyFilters()">
-  <div class="toolbar-right"><button class="btn btn-primary" id="riskAddBtn" style="display:none" onclick="openRiskModal(null)">＋ 登记风险</button>
-    <span class="stat-pill">总计 <span id="stTotal">-</span></span>
-    <span class="stat-pill">进行中 <span id="stDoing">-</span></span>
-    <span class="stat-pill">高优 <span id="stHigh">-</span></span>
+
+  <!-- 层1：任务筛选（看板 + 任务列表 + 统计） -->
+  <div id="tb-task" style="display:none;flex:1;display:none;align-items:center;gap:8px;flex-wrap:wrap">
+    <select id="filterPhase" onchange="applyFilters()"><option value="">所有阶段</option><option>阶段:咨询-诊断</option><option>阶段:咨询-蓝图</option><option>阶段:咨询-路径</option><option>阶段:SAP-准备</option><option>阶段:SAP-蓝图</option><option>阶段:SAP-实现</option><option>阶段:SAP-部署</option><option>阶段:SAP-运行</option><option>阶段:SAP-验收</option></select>
+    <select id="filterMod" onchange="applyFilters()"><option value="">所有模块</option><option>模块:FI/CO</option><option>模块:SD</option><option>模块:MM/EWM</option><option>模块:PP/QM</option><option>模块:MDG</option><option>模块:CPI</option><option>模块:Group Rpt</option></select>
+    <select id="filterPri" onchange="applyFilters()"><option value="">所有优先级</option><option>优先级:高</option><option>优先级:中</option><option>优先级:低</option></select>
+    <select id="filterType" onchange="applyFilters()"><option value="">所有类型</option><option>类型:交付物</option><option>类型:任务</option><option>类型:风险</option><option>类型:会议</option><option>类型:问题</option></select>
+    <input class="search-box" id="searchBox" placeholder="🔍 搜索任务..." oninput="applyFilters()">
+    <div class="toolbar-right">
+      <span class="stat-pill">总计 <span id="stTotal">-</span></span>
+      <span class="stat-pill">进行中 <span id="stDoing">-</span></span>
+      <span class="stat-pill">高优 <span id="stHigh">-</span></span>
+    </div>
   </div>
+
+  <!-- 层2：风险工具栏 -->
+  <div id="tb-risk" style="display:none;flex:1;align-items:center;gap:8px;flex-wrap:wrap">
+    <span style="font-size:12px;color:var(--muted)">筛选：</span>
+    <select id="riskFilterStatus" onchange="rApplyFilter()" style="padding:4px 9px;border:1px solid var(--pale);border-radius:5px;font-size:12px;color:var(--text2);background:var(--white);font-family:inherit">
+      <option value="">所有状态</option>
+      <option>未处理</option><option>缓解中</option><option>已关闭</option><option>已接受</option>
+    </select>
+    <select id="riskFilterProb" onchange="rApplyFilter()" style="padding:4px 9px;border:1px solid var(--pale);border-radius:5px;font-size:12px;color:var(--text2);background:var(--white);font-family:inherit">
+      <option value="">所有可能性</option><option>低</option><option>中</option><option>高</option>
+    </select>
+    <select id="riskFilterImpact" onchange="rApplyFilter()" style="padding:4px 9px;border:1px solid var(--pale);border-radius:5px;font-size:12px;color:var(--text2);background:var(--white);font-family:inherit">
+      <option value="">所有影响</option><option>低</option><option>中</option><option>高</option>
+    </select>
+    <div class="toolbar-right" style="display:flex;align-items:center;gap:8px">
+      <button class="btn btn-primary" id="riskAddBtn" onclick="openRiskModal(null)" style="background:var(--b500);color:#fff;border:none;padding:5px 14px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:4px">＋ 登记风险</button>
+      <span class="stat-pill" id="riskStatOpen" style="background:var(--b050);border-color:var(--b100)">活跃 <span style="color:var(--b500)" id="stRiskOpen">-</span></span>
+      <span class="stat-pill" id="riskStatMit" style="background:#E3F2FD;border-color:#BBDEFB">缓解中 <span style="color:var(--b500)" id="stRiskMit">-</span></span>
+      <span class="stat-pill" id="riskStatHigh" style="background:#FFEBEE;border-color:#FFCDD2">高风险 <span style="color:#C62828" id="stRiskHigh">-</span></span>
+    </div>
+  </div>
+
+  <!-- 层3：其他页（里程碑/甘特/交付物/组织架构 等）— 空工具栏 -->
+  <div id="tb-empty" style="display:flex;flex:1;align-items:center">
+    <span style="font-size:11.5px;color:var(--muted)" id="tb-empty-label"></span>
+  </div>
+
 </div>
 
 <!-- ═══ KANBAN PANEL ═══ -->
@@ -1923,8 +1954,16 @@ function renderRisk(issues){
   var me=document.getElementById('riskMatrix');if(me)me.innerHTML=mh;
   rRenderList(risks);
   document.getElementById('riskCount').textContent='共 '+risks.length+' 项';
-  var ab=document.getElementById('riskAddBtn');
-  if(ab&&!ab._b){ab._b=1;ab.addEventListener('click',function(){openRiskModal(null);});}
+  // 更新风险统计数字
+  var open=risks.filter(function(r){return r.status!=='已关闭';});
+  var mit=risks.filter(function(r){return r.status==='缓解中';});
+  var high=risks.filter(function(r){
+    var p={低:1,中:2,高:3}[r.prob]||1, i={低:1,中:2,高:3}[r.impact]||1;
+    return p*i>=4&&r.status!=='已关闭';
+  });
+  var el1=document.getElementById('stRiskOpen'); if(el1)el1.textContent=open.length;
+  var el2=document.getElementById('stRiskMit');  if(el2)el2.textContent=mit.length;
+  var el3=document.getElementById('stRiskHigh'); if(el3)el3.textContent=high.length;
 }
 var _rfp=null,_rfi=null;
 function rRenderList(risks,fp,fi){
@@ -1950,6 +1989,19 @@ function rRenderList(risks,fp,fi){
       '</div>'+
     '</div>';
   }).join('');
+}
+function rApplyFilter(){
+  var status=document.getElementById('riskFilterStatus').value;
+  var prob=document.getElementById('riskFilterProb').value;
+  var impact=document.getElementById('riskFilterImpact').value;
+  var risks=rLoad().filter(function(r){
+    if(status&&r.status!==status) return false;
+    if(prob&&r.prob!==prob) return false;
+    if(impact&&r.impact!==impact) return false;
+    return true;
+  });
+  rRenderList(risks);
+  document.getElementById('riskCount').textContent='共 '+risks.length+' 项'+(status||prob||impact?' (已筛选)':'');
 }
 function rFilterCell(prob,imp){
   var risks=rLoad();
@@ -2083,15 +2135,22 @@ function renderStats(issues){
 
 // ── TABS ──────────────────────────────────────────────────────────
 function switchTab(el, panel){
-  var rb=document.getElementById('riskAddBtn');
-  if(rb) rb.style.display=(panel==='risk'?'inline-flex':'none');
   document.querySelectorAll('.mod-tab').forEach(function(t){t.classList.remove('active');});
   document.querySelectorAll('.mod-panel').forEach(function(p){p.classList.remove('active');});
   el.classList.add('active');
   document.getElementById('panel-'+panel).classList.add('active');
-  // Show/hide sub-toolbar filters
-  var showFilters=['kanban','tasklist'].indexOf(panel)!==-1;
-  document.getElementById('subToolbar').style.opacity=showFilters?'1':'0.5';
+  // Switch toolbar layers
+  var TASK_TABS  =['kanban','tasklist','stats'];
+  var RISK_TABS  =['risk'];
+  var EMPTY_LABELS={'milestone':'里程碑 · 共 '+allMilestones.length+' 个里程碑',
+                    'gantt':'甘特图 · 项目计划总览',
+                    'deliverable':'交付物追踪',
+                    'org':'组织架构'};
+  document.getElementById('tb-task').style.display  = TASK_TABS.indexOf(panel)!==-1  ? 'flex':'none';
+  document.getElementById('tb-risk').style.display  = RISK_TABS.indexOf(panel)!==-1  ? 'flex':'none';
+  document.getElementById('tb-empty').style.display = (TASK_TABS.indexOf(panel)===-1&&RISK_TABS.indexOf(panel)===-1) ? 'flex':'none';
+  var emptyLbl=document.getElementById('tb-empty-label');
+  if(emptyLbl) emptyLbl.textContent=EMPTY_LABELS[panel]||'';
   // Lazy-render org chart only when tab is activated
   if(panel==='gantt'){ syncIssuesToGantt(allIssues); renderGantt(); }
   if(panel==='org'){
@@ -2754,6 +2813,10 @@ function resetOrgTree(){
 
 // ── START ─────────────────────────────────────────────────────────
 renderOrgPanel();
+// 初始化 toolbar：默认显示任务筛选层（看板是默认 tab）
+document.getElementById('tb-task').style.display='flex';
+document.getElementById('tb-risk').style.display='none';
+document.getElementById('tb-empty').style.display='none';
 init();  // Always load from API (public repo, no token needed for reads)
 </script>
 </body>
