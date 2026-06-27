@@ -839,36 +839,24 @@ function loadDemo(){ document.getElementById('token-prompt').style.display='none
 
 // ── init ──────────────────────────────────────────────────────────
 async function init(){
-  showLoading();
-  // Absolute safety net — hide spinner after 6s no matter what
-  var killTimer=setTimeout(function(){
-    hideLoading();
-    if(!allIssues.length) try{useDemoData();}catch(e){}
-  },6000);
+  // Step 1: immediately load demo data and render — page is always usable
+  useDemoData();
+
+  // Step 2: try to enhance with real GitHub data in background
   try{
     var results=await Promise.all([
       gf(API+'/issues?state=open&per_page=100&sort=created&direction=desc'),
       gf(API+'/issues?state=closed&per_page=30&sort=updated'),
       gf(API+'/milestones?state=open&per_page=50&sort=due_on')
     ]);
-    allIssues=results[0].concat(results[1]).filter(function(i){return !i.pull_request;});
-    allMilestones=results[2];
-    clearTimeout(killTimer);
-    // Render immediately so the UI shows data without waiting for gantt.json
-    render();
-    hideLoading();
-    // Then load gantt overrides in background and re-render gantt if needed
-    loadGanttData(function(){
-      try{
-        applyGanttOverrides();
-        syncIssuesToGantt(allIssues);
-        renderGantt();
-      }catch(e){}
-    });
+    var realIssues=results[0].concat(results[1]).filter(function(i){return !i.pull_request;});
+    if(realIssues.length){
+      allIssues=realIssues;
+      allMilestones=results[2];
+      render();
+    }
   }catch(e){
-    clearTimeout(killTimer);
-    console.warn('API load failed, using demo data:', e.message);
-    try{ useDemoData(); }catch(e2){ console.error('demo data error',e2); }
+    console.warn('GitHub API unavailable, using demo data:', e.message);
   }
 }
 
@@ -894,12 +882,9 @@ function useDemoData(){
     {number:9,title:'[测试] 制定SIT/UAT测试计划',state:'open',labels:[{name:'status:待办'},{name:'优先级:高'},{name:'类型:任务'},{name:'阶段:SAP-实现'}],milestone:{number:4,title:'M3 SIT/UAT测试通过'},body:'制定集成测试（SIT）和用户验收测试（UAT）计划，确保招标文件要求的100%场景覆盖。',html_url:'https://github.com/'+REPO+'/issues/9'},
     {number:10,title:'[风险] MES/WMS供应商接口配合风险',state:'open',labels:[{name:'status:待办'},{name:'优先级:高'},{name:'类型:风险'},{name:'模块:CPI'},{name:'阶段:SAP-蓝图'}],milestone:{number:2,title:'M1 架构蓝图评审通过'},body:'IF-005和IF-006需要MES/WMS供应商配合改造，供应商可能响应慢或配合不足。',html_url:'https://github.com/'+REPO+'/issues/10'},
   ];
-  loadGanttData(function(){
-    render();
-    hideLoading();
-  });
-  // Fallback: always hide spinner after 2s even if loadGanttData callback never fires
-  setTimeout(hideLoading, 2000);
+  // Render synchronously — no async dependencies
+  render();
+  hideLoading();
 }
 
 // ── render all ────────────────────────────────────────────────────
