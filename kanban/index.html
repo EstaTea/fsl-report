@@ -474,6 +474,58 @@ select.dp-input{appearance:none;-webkit-appearance:none;
 .oc-drop-target{transition:box-shadow .15s,border-color .15s !important;}
 .oc-drop-over{border-color:#F5C842 !important;box-shadow:0 0 0 3px rgba(245,200,66,.4) !important;}
 
+
+/* ── Project Architecture Tabs ── */
+.arch-tabs{display:flex;gap:4px;padding:10px 12px 0;background:var(--white);
+  border-bottom:1px solid var(--pale);flex-shrink:0;}
+.arch-tab{padding:7px 14px;font-size:12.5px;color:var(--muted);cursor:pointer;
+  border:1px solid transparent;border-bottom:none;border-radius:5px 5px 0 0;
+  background:var(--bg);font-family:inherit;transition:all .15s;}
+.arch-tab:hover{color:var(--primary);background:var(--white);}
+.arch-tab.active{color:var(--primary);background:var(--white);
+  border-color:var(--pale);font-weight:700;margin-bottom:-1px;}
+.arch-panel{display:none;flex:1;flex-direction:column;overflow:hidden;}
+.arch-panel.active{display:flex;}
+
+/* ── Company Architecture ── */
+.company-arch-body{flex:1;overflow:auto;padding:16px;}
+.company-toolbar{display:flex;align-items:center;gap:8px;margin-bottom:14px;}
+.company-tree{font-size:12.5px;}
+.ct-node{margin-left:0;}
+.ct-row{display:flex;align-items:center;gap:6px;padding:5px 8px;
+  border-radius:5px;cursor:pointer;transition:background .12s;
+  border:1px solid transparent;margin-bottom:2px;}
+.ct-row:hover{background:var(--bg);border-color:var(--pale);}
+.ct-row.ct-selected{background:rgba(35,116,163,.08);border-color:var(--primary);}
+.ct-toggle{font-size:9px;color:var(--muted);width:14px;text-align:center;
+  cursor:pointer;flex-shrink:0;user-select:none;}
+.ct-icon{font-size:13px;flex-shrink:0;}
+.ct-name{font-weight:700;color:var(--dark);flex:1;}
+.ct-code{font-size:10.5px;background:var(--pale);color:var(--steel);
+  padding:1px 6px;border-radius:3px;font-weight:600;}
+.ct-type{font-size:10px;color:var(--muted);padding:1px 5px;
+  background:var(--bg);border-radius:3px;}
+.ct-equity{font-size:10.5px;color:var(--primary);font-weight:600;}
+.ct-actions{display:flex;gap:4px;opacity:0;transition:opacity .12s;}
+.ct-row:hover .ct-actions{opacity:1;}
+.ct-btn{padding:2px 7px;border:1px solid var(--pale);border-radius:3px;
+  font-size:10.5px;cursor:pointer;background:var(--white);color:var(--steel);
+  font-family:inherit;}
+.ct-btn:hover{background:var(--pale);}
+.ct-btn.add{color:var(--primary);border-color:var(--primary);}
+.ct-children{margin-left:22px;border-left:2px solid var(--pale);padding-left:8px;}
+
+/* ── Function & Integration Architecture ── */
+.arch-diagram-box{border:2px solid var(--pale);border-radius:8px;padding:14px 18px;
+  background:var(--white);text-align:center;min-width:120px;}
+.arch-diagram-box.core{background:var(--b700);color:#fff;border-color:var(--b700);}
+.arch-diagram-box.peripheral{background:var(--b050);border-color:var(--b100);}
+.arch-arrow{color:var(--b300);font-size:16px;font-weight:700;align-self:center;}
+.arch-system-title{font-size:11px;font-weight:800;letter-spacing:.4px;
+  text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.arch-system-name{font-size:13px;font-weight:700;}
+.arch-system-sub{font-size:10.5px;opacity:.75;margin-top:3px;}
+
 </style>
 </head>
 <body>
@@ -2154,13 +2206,8 @@ function switchTab(el, panel){
   // Lazy-render org chart only when tab is activated
   if(panel==='gantt'){ syncIssuesToGantt(allIssues); renderGantt(); }
   if(panel==='org'){
-    if(!ORG_DATA_LOADED){
-      loadOrgDataFromGitHub(function(){
-        if(ORG_CURRENT_VIEW==='tree') renderOrgChart(); else renderOrgPanel();
-      });
-    } else {
-      if(ORG_CURRENT_VIEW==='tree') renderOrgChart(); else renderOrgPanel();
-    }
+    // Delegate to sub-tab system; default to 'people' on first open
+    switchArchTab(ARCH_CURRENT||'people');
   }
 }
 
@@ -2810,6 +2857,333 @@ function resetOrgTree(){
   if(!confirm('重置组织架构为默认结构？'))return;
   ORG_TREE=getDefaultOrgTree();saveOrgTree();renderOrgChart();
 }
+
+
+// ── PROJECT ARCHITECTURE TABS ─────────────────────────────────────────────────
+var ARCH_CURRENT = 'people';
+
+function switchArchTab(tab){
+  ARCH_CURRENT = tab;
+  document.querySelectorAll('.arch-tab').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('.arch-panel').forEach(function(p){ p.classList.remove('active'); });
+  var btn = document.getElementById('archTab'+tab.charAt(0).toUpperCase()+tab.slice(1));
+  var panel = document.getElementById('archPanel'+tab.charAt(0).toUpperCase()+tab.slice(1));
+  if(btn) btn.classList.add('active');
+  if(panel) panel.classList.add('active');
+  if(tab==='people'){
+    if(!ORG_DATA_LOADED){ loadOrgDataFromGitHub(function(){ if(ORG_CURRENT_VIEW==='tree') renderOrgChart(); else renderOrgPanel(); }); }
+    else { if(ORG_CURRENT_VIEW==='tree') renderOrgChart(); else renderOrgPanel(); }
+  } else if(tab==='company'){
+    loadCompanyData(function(){ renderCompanyTree(); });
+  } else if(tab==='function'){
+    renderFunctionArch();
+  } else if(tab==='integration'){
+    renderIntegrationArch();
+  }
+}
+
+// ── COMPANY ARCHITECTURE ──────────────────────────────────────────────────────
+var COMPANY_DATA = null;
+var COMPANY_DATA_SHA = null;
+var COMPANY_EDITING_ID = null;
+var COMPANY_EDITING_PARENT_ID = null;
+
+var DEFAULT_COMPANY_DATA = {
+  nodes: {
+    'gz': {id:'gz', name:'广东省广晟控股集团', code:'', type:'集团', location:'广州', equity:'', desc:'', parent:null, children:['fsl']},
+    'fsl': {id:'fsl', name:'佛山电器照明股份有限公司', code:'FZ01', type:'集团', location:'佛山', equity:'', sapPlant:'', sapStoreLoc:'', sapCostCenter:'', sapProfitCenter:'', sapSalesOrg:'', sapDistCh:'', sapPurchOrg:'', sapWorkCenter:'', sapFuncArea:'', sapProductLine:'', desc:'上市主体', parent:'gz', children:['fsl_hm','fsl_nm','fsl_zs','ht','tkd','flkj','fzcs','fbml','fzkl','fjkl','fhg','nhfz','nj']},
+    'fsl_hm':  {id:'fsl_hm',  name:'佛山电器照明股份有限公司高明分公司',     code:'FZ13', type:'分公司', location:'佛山', equity:'', parent:'fsl', children:[]},
+    'fsl_nm':  {id:'fsl_nm',  name:'佛山电器照明股份有限公司南海务庄分公司',  code:'FZ23', type:'分公司', location:'佛山', equity:'', parent:'fsl', children:[]},
+    'fsl_zs':  {id:'fsl_zs',  name:'佛山电器照明股份有限公司禅城分公司',     code:'',     type:'分公司', location:'佛山', equity:'', parent:'fsl', children:[]},
+    'ht':      {id:'ht',      name:'佛山皓徕特光电有限公司',                 code:'FZ25', type:'子公司', location:'佛山', equity:'100', parent:'fsl', children:['ht_zc','fsl_thailand','fsl_de']},
+    'ht_zc':   {id:'ht_zc',   name:'佛山皓徕特光电有限公司禅城分公司',      code:'FZ28', type:'分公司', location:'佛山', equity:'', parent:'ht', children:[]},
+    'fsl_thailand': {id:'fsl_thailand', name:'佛照（泰国）光电科技有限公司 FSL OPTOTECH (THAILAND)', code:'FZ40', type:'子公司', location:'泰国', equity:'100', parent:'ht', children:[]},
+    'fsl_de':  {id:'fsl_de',  name:'国星光电（德国）有限公司 Nationstar GmbH', code:'FZ33', type:'分公司', location:'德国', equity:'100', parent:'ht', children:[]},
+    'tkd':     {id:'tkd',     name:'佛山泰美时代灯具有限公司',               code:'FZ06', type:'子公司', location:'佛山', equity:'70',  parent:'fsl', children:[]},
+    'flkj':    {id:'flkj',    name:'佛山科联新能源产业科技有限公司',          code:'FZ30', type:'子公司', location:'佛山', equity:'100', parent:'fsl', children:[]},
+    'fzcs':    {id:'fzcs',    name:'佛山市佛照智城科技有限公司',             code:'FZ19', type:'子公司', location:'佛山', equity:'100', parent:'fsl', children:[]},
+    'fbml':    {id:'fbml',    name:'佛山市西格玛创业投资有限公司',            code:'FZ35', type:'子公司', location:'佛山', equity:'100', parent:'fsl', children:[]},
+    'fzkl':    {id:'fzkl',    name:'佛山禅昌光电有限公司',                   code:'FZ05', type:'子公司', location:'佛山', equity:'100', parent:'fsl', children:[]},
+    'fjkl':    {id:'fjkl',    name:'佛山照明智达电工科技有限公司',            code:'FZ22', type:'子公司', location:'佛山', equity:'66.84', parent:'fsl', children:[]},
+    'fhg':     {id:'fhg',     name:'佛照华光（茂名）科技有限公司',           code:'FZ36', type:'子公司', location:'茂名', equity:'100', parent:'fsl', children:[]},
+    'nhfz':    {id:'nhfz',    name:'佛照（海南）科技有限公司',               code:'FZ29', type:'子公司', location:'海南', equity:'100', parent:'fsl', children:[]},
+    'nj':      {id:'nj',      name:'南京佛照照明器材制造有限公司',            code:'FZ11', type:'子公司', location:'南京', equity:'100', parent:'fsl', children:[]}
+  },
+  rootId: 'gz'
+};
+
+function loadCompanyData(callback){
+  var h={'Accept':'application/vnd.github+json'};
+  if(TOKEN) h['Authorization']='Bearer '+TOKEN;
+  fetch('https://api.github.com/repos/EstaTea/fsl-report/contents/org/company.json',{headers:h})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(d.content){
+        try{
+          var parsed=JSON.parse(decodeURIComponent(escape(atob(d.content.split('\n').join('')))));
+          COMPANY_DATA=parsed; COMPANY_DATA_SHA=d.sha;
+        }catch(e){ COMPANY_DATA=JSON.parse(JSON.stringify(DEFAULT_COMPANY_DATA)); }
+      } else { COMPANY_DATA=JSON.parse(JSON.stringify(DEFAULT_COMPANY_DATA)); }
+      if(callback) callback();
+    }).catch(function(){ COMPANY_DATA=JSON.parse(JSON.stringify(DEFAULT_COMPANY_DATA)); if(callback) callback(); });
+}
+
+function saveCompanyData(){
+  if(!TOKEN){ promptLoginThenDo(saveCompanyData); return; }
+  var body=JSON.stringify({
+    message:'update: company structure',
+    content:btoa(unescape(encodeURIComponent(JSON.stringify(COMPANY_DATA,null,2)))),
+    sha:COMPANY_DATA_SHA
+  });
+  fetch('https://api.github.com/repos/EstaTea/fsl-report/contents/org/company.json',{
+    method:'PUT',headers:{'Accept':'application/vnd.github+json','Authorization':'Bearer '+TOKEN,'Content-Type':'application/json'},
+    body:body
+  }).then(function(r){return r.json();}).then(function(d){
+    if(d.content) COMPANY_DATA_SHA=d.content.sha;
+    showOrgToast('公司架构已保存到 GitHub');
+  }).catch(function(){ showOrgToast('保存失败',true); });
+}
+
+function renderCompanyTree(){
+  var el=document.getElementById('companyTree'); if(!el||!COMPANY_DATA) return;
+  var collapsed={};
+
+  function renderNode(nodeId, depth){
+    var n=COMPANY_DATA.nodes[nodeId]; if(!n) return '';
+    var children=n.children||[];
+    var typeColor={'集团':'#0B2D47','子公司':'#2374A3','分公司':'#3D8FC4','事业部':'#5B7A91','部门':'#7fb3d3'}[n.type]||'#5B7A91';
+    var isCollapsed=!!collapsed[nodeId];
+    var row='<div class="ct-row" id="ctr_'+nodeId+'" onclick="ctRowClick(\''+nodeId+'\')"'
+      +' oncontextmenu="event.preventDefault();ctContextMenu(\''+nodeId+'\',event)"'
+      +' style="padding-left:'+(8+depth*4)+'px">'
+      +(children.length?'<span class="ct-toggle" onclick="event.stopPropagation();ctToggle(\''+nodeId+'\')" id="ctt_'+nodeId+'">'+(isCollapsed?'▶':'▼')+'</span>':'<span class="ct-toggle"></span>')
+      +'<span class="ct-icon">'+({'集团':'🏛','子公司':'🏢','分公司':'🏬','事业部':'📦','部门':'👤'}[n.type]||'🏢')+'</span>'
+      +'<span class="ct-name">'+n.name+'</span>'
+      +(n.code?'<span class="ct-code">'+n.code+'</span>':'')
+      +'<span class="ct-type" style="color:'+typeColor+';background:'+typeColor+'18;">'+n.type+'</span>'
+      +(n.location?'<span class="ct-type">📍'+n.location+'</span>':'')
+      +(n.equity?'<span class="ct-equity">持股'+n.equity+'%</span>':'')
+      +'<div class="ct-actions">'
+      +'<button class="ct-btn add" onclick="event.stopPropagation();openCompanyModal(\''+nodeId+'\')">＋子节点</button>'
+      +'<button class="ct-btn" onclick="event.stopPropagation();editCompanyNode(\''+nodeId+'\')">编辑</button>'
+      +'</div>'
+      +'</div>';
+    var childHtml='';
+    if(!isCollapsed && children.length){
+      childHtml='<div class="ct-children" id="ctc_'+nodeId+'">'+children.map(function(cid){ return renderNode(cid,depth+1); }).join('')+'</div>';
+    }
+    return row+childHtml;
+  }
+
+  // Store collapsed state function on window for onclick
+  window.ctToggle=function(nid){
+    collapsed[nid]=!collapsed[nid];
+    var t=document.getElementById('ctt_'+nid);
+    var c=document.getElementById('ctc_'+nid);
+    if(t) t.textContent=collapsed[nid]?'▶':'▼';
+    if(c) c.style.display=collapsed[nid]?'none':'';
+  };
+  window.ctRowClick=function(nid){
+    document.querySelectorAll('.ct-row').forEach(function(r){r.classList.remove('ct-selected');});
+    var row=document.getElementById('ctr_'+nid); if(row) row.classList.add('ct-selected');
+  };
+  window.ctContextMenu=function(nid,e){
+    editCompanyNode(nid);
+  };
+
+  el.innerHTML=renderNode(COMPANY_DATA.rootId||'gz',0);
+}
+
+function openCompanyModal(parentId){
+  COMPANY_EDITING_ID=null; COMPANY_EDITING_PARENT_ID=parentId;
+  document.getElementById('companyModalTitle').textContent='添加'+(parentId?'子节点':'根节点');
+  ['cpName','cpCode','cpLocation','cpPlant','cpStoreLoc','cpCostCenter','cpProfitCenter',
+   'cpSalesOrg','cpDistCh','cpPurchOrg','cpWorkCenter','cpFuncArea','cpProductLine','cpDesc'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.value='';
+  });
+  document.getElementById('cpType').value='';
+  document.getElementById('cpEquity').value='';
+  document.getElementById('cpDeleteBtn').style.display='none';
+  document.getElementById('companyModalOverlay').classList.add('open');
+  setTimeout(function(){ document.getElementById('cpName').focus(); },100);
+}
+
+function editCompanyNode(nodeId){
+  var n=COMPANY_DATA&&COMPANY_DATA.nodes[nodeId]; if(!n) return;
+  COMPANY_EDITING_ID=nodeId; COMPANY_EDITING_PARENT_ID=n.parent;
+  document.getElementById('companyModalTitle').textContent='编辑节点';
+  document.getElementById('cpName').value=n.name||'';
+  document.getElementById('cpCode').value=n.code||'';
+  document.getElementById('cpLocation').value=n.location||'';
+  document.getElementById('cpType').value=n.type||'';
+  document.getElementById('cpEquity').value=n.equity||'';
+  document.getElementById('cpPlant').value=n.sapPlant||'';
+  document.getElementById('cpStoreLoc').value=n.sapStoreLoc||'';
+  document.getElementById('cpCostCenter').value=n.sapCostCenter||'';
+  document.getElementById('cpProfitCenter').value=n.sapProfitCenter||'';
+  document.getElementById('cpSalesOrg').value=n.sapSalesOrg||'';
+  document.getElementById('cpDistCh').value=n.sapDistCh||'';
+  document.getElementById('cpPurchOrg').value=n.sapPurchOrg||'';
+  document.getElementById('cpWorkCenter').value=n.sapWorkCenter||'';
+  document.getElementById('cpFuncArea').value=n.sapFuncArea||'';
+  document.getElementById('cpProductLine').value=n.sapProductLine||'';
+  document.getElementById('cpDesc').value=n.desc||'';
+  document.getElementById('cpDeleteBtn').style.display=n.parent?'':'none';
+  document.getElementById('companyModalOverlay').classList.add('open');
+}
+
+function closeCompanyModal(){
+  document.getElementById('companyModalOverlay').classList.remove('open');
+  COMPANY_EDITING_ID=null; COMPANY_EDITING_PARENT_ID=null;
+}
+
+function saveCompanyNode(){
+  var name=document.getElementById('cpName').value.trim();
+  if(!name){alert('名称不能为空');return;}
+  if(!COMPANY_DATA) COMPANY_DATA={nodes:{},rootId:null};
+  if(COMPANY_EDITING_ID){
+    var n=COMPANY_DATA.nodes[COMPANY_EDITING_ID];
+    if(n){
+      n.name=name; n.code=document.getElementById('cpCode').value;
+      n.location=document.getElementById('cpLocation').value;
+      n.type=document.getElementById('cpType').value;
+      n.equity=document.getElementById('cpEquity').value;
+      n.sapPlant=document.getElementById('cpPlant').value;
+      n.sapStoreLoc=document.getElementById('cpStoreLoc').value;
+      n.sapCostCenter=document.getElementById('cpCostCenter').value;
+      n.sapProfitCenter=document.getElementById('cpProfitCenter').value;
+      n.sapSalesOrg=document.getElementById('cpSalesOrg').value;
+      n.sapDistCh=document.getElementById('cpDistCh').value;
+      n.sapPurchOrg=document.getElementById('cpPurchOrg').value;
+      n.sapWorkCenter=document.getElementById('cpWorkCenter').value;
+      n.sapFuncArea=document.getElementById('cpFuncArea').value;
+      n.sapProductLine=document.getElementById('cpProductLine').value;
+      n.desc=document.getElementById('cpDesc').value;
+    }
+  } else {
+    var nid='cp_'+Date.now();
+    COMPANY_DATA.nodes[nid]={id:nid,name:name,code:document.getElementById('cpCode').value,
+      location:document.getElementById('cpLocation').value,
+      type:document.getElementById('cpType').value,
+      equity:document.getElementById('cpEquity').value,
+      sapPlant:document.getElementById('cpPlant').value,
+      sapStoreLoc:document.getElementById('cpStoreLoc').value,
+      sapCostCenter:document.getElementById('cpCostCenter').value,
+      sapProfitCenter:document.getElementById('cpProfitCenter').value,
+      sapSalesOrg:document.getElementById('cpSalesOrg').value,
+      sapDistCh:document.getElementById('cpDistCh').value,
+      sapPurchOrg:document.getElementById('cpPurchOrg').value,
+      sapWorkCenter:document.getElementById('cpWorkCenter').value,
+      sapFuncArea:document.getElementById('cpFuncArea').value,
+      sapProductLine:document.getElementById('cpProductLine').value,
+      desc:document.getElementById('cpDesc').value,
+      parent:COMPANY_EDITING_PARENT_ID,children:[]};
+    if(COMPANY_EDITING_PARENT_ID&&COMPANY_DATA.nodes[COMPANY_EDITING_PARENT_ID]){
+      COMPANY_DATA.nodes[COMPANY_EDITING_PARENT_ID].children.push(nid);
+    } else { COMPANY_DATA.rootId=nid; }
+  }
+  closeCompanyModal(); renderCompanyTree();
+}
+
+function deleteCompanyNode(){
+  if(!COMPANY_EDITING_ID||!COMPANY_DATA) return;
+  var n=COMPANY_DATA.nodes[COMPANY_EDITING_ID];
+  if(!n||!n.parent){alert('根节点不可删除');return;}
+  if(!confirm('删除此节点及所有子节点？')) return;
+  function removeNode(nid){ var nd=COMPANY_DATA.nodes[nid]; if(!nd)return; (nd.children||[]).forEach(removeNode); delete COMPANY_DATA.nodes[nid]; }
+  var parent=COMPANY_DATA.nodes[n.parent];
+  if(parent){ parent.children=parent.children.filter(function(c){return c!==COMPANY_EDITING_ID;}); }
+  removeNode(COMPANY_EDITING_ID);
+  closeCompanyModal(); renderCompanyTree();
+}
+
+// ── FUNCTION ARCHITECTURE (preset diagram) ────────────────────────────────────
+function renderFunctionArch(){
+  var el=document.getElementById('functionArchChart'); if(!el) return;
+  el.innerHTML=`
+  <div style="font-size:11.5px;color:var(--muted);margin-bottom:16px;">
+    💡 预设示意图 — 后续可扩展为可编辑版本
+  </div>
+  <div style="display:flex;flex-direction:column;gap:16px;">
+    <div>
+      <div class="arch-system-title">核心业务系统</div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <div class="arch-diagram-box core"><div class="arch-system-name">SAP S/4HANA PCE</div><div class="arch-system-sub">FICO / SD / MM / PP / QM / EWM / MDG</div></div>
+        <div class="arch-diagram-box core" style="background:var(--b500);border-color:var(--b500);"><div class="arch-system-name">SAP PLM</div><div class="arch-system-sub">产品生命周期管理 / BOM</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="arch-system-title">制造与运营系统</div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <div class="arch-diagram-box peripheral"><div class="arch-system-name">MES</div><div class="arch-system-sub">制造执行系统</div></div>
+        <div class="arch-diagram-box peripheral"><div class="arch-system-name">WMS</div><div class="arch-system-sub">仓库管理系统 (2025上线)</div></div>
+        <div class="arch-diagram-box peripheral"><div class="arch-system-name">APS</div><div class="arch-system-sub">高级计划排程（停用）</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="arch-system-title">销售与营销系统</div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <div class="arch-diagram-box peripheral"><div class="arch-system-name">CRM (纷享销客)</div><div class="arch-system-sub">客户关系管理 (2026上线)</div></div>
+        <div class="arch-diagram-box peripheral"><div class="arch-system-name">电商平台</div><div class="arch-system-sub">佛照商城 / 聚水潭 / 天猫/京东</div></div>
+        <div class="arch-diagram-box peripheral"><div class="arch-system-name">SRM</div><div class="arch-system-sub">供应商关系管理</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="arch-system-title">管理与协同系统</div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <div class="arch-diagram-box peripheral"><div class="arch-system-name">OA</div><div class="arch-system-sub">办公自动化 / 审批流</div></div>
+        <div class="arch-diagram-box peripheral"><div class="arch-system-name">HR 系统</div><div class="arch-system-sub">人力资源管理</div></div>
+        <div class="arch-diagram-box peripheral"><div class="arch-system-name">AI 平台</div><div class="arch-system-sub">私有化部署 RAG + 多模态 (3台服务器)</div></div>
+        <div class="arch-diagram-box peripheral"><div class="arch-system-name">BI / 报表</div><div class="arch-system-sub">经营分析报表平台</div></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ── INTEGRATION ARCHITECTURE (preset diagram) ─────────────────────────────────
+function renderIntegrationArch(){
+  var el=document.getElementById('integrationArchChart'); if(!el) return;
+  el.innerHTML=`
+  <div style="font-size:11.5px;color:var(--muted);margin-bottom:16px;">
+    💡 预设示意图（基于项目章程8条CPI接口）— 后续可扩展为可编辑版本
+  </div>
+  <div style="display:flex;align-items:flex-start;gap:24px;flex-wrap:wrap;">
+    <!-- Center: SAP + CPI -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:180px;">
+      <div class="arch-diagram-box core" style="width:160px;">
+        <div class="arch-system-name">SAP S/4HANA</div>
+        <div class="arch-system-sub">核心 ERP</div>
+      </div>
+      <div style="font-size:20px;color:var(--b300);">⇅</div>
+      <div class="arch-diagram-box" style="background:var(--b700);color:#fff;border-color:var(--b700);width:160px;">
+        <div class="arch-system-name">SAP CPI</div>
+        <div class="arch-system-sub">集成中枢 (8条接口)</div>
+      </div>
+    </div>
+    <!-- Right: connected systems -->
+    <div style="display:flex;flex-direction:column;gap:8px;flex:1;min-width:280px;">
+      ${[
+        {id:'IF-001',name:'MES',desc:'工单/报工/质检数据'},
+        {id:'IF-002',name:'WMS (顺丰)',desc:'收发货/库存同步'},
+        {id:'IF-003',name:'电商OMS (聚水潭)',desc:'订单/库存/发货'},
+        {id:'IF-004',name:'佛照商城',desc:'B2B下单/库存查询'},
+        {id:'IF-005',name:'CRM (纷享销客)',desc:'客户/商机/合同'},
+        {id:'IF-006',name:'SRM',desc:'供应商/采购协同'},
+        {id:'IF-007',name:'PLM',desc:'BOM/物料主数据'},
+        {id:'IF-008',name:'金税平台',desc:'发票/税务数据'}
+      ].map(function(i){
+        return '<div style="display:flex;align-items:center;gap:8px;">'
+          +'<span style="font-size:10px;font-weight:700;color:var(--muted);width:50px;flex-shrink:0;">'+i.id+'</span>'
+          +'<div style="width:2px;height:20px;background:var(--b300);flex-shrink:0;"></div>'
+          +'<div class="arch-diagram-box peripheral" style="flex:1;text-align:left;padding:6px 12px;">'
+          +'<span style="font-weight:700;font-size:12.5px;">'+i.name+'</span>'
+          +'<span style="font-size:10.5px;color:var(--muted);margin-left:8px;">'+i.desc+'</span>'
+          +'</div></div>';
+      }).join('')}
+    </div>
+  </div>`;
+}
+
 
 // ── START ─────────────────────────────────────────────────────────
 renderOrgPanel();
