@@ -7,12 +7,14 @@
 <title>项目管理 | 佛照SAP升级项目</title>
 <style>
 :root{
-  --b900:#0B2D47;--b700:#1A4F73;--b500:#2374A3;--b300:#5EA4CE;
-  --b100:#C7E2F2;--b050:#EBF5FB;--bg:#F2F7FB;--text:#0F2233;
-  --muted:#5B7A91;--rule:#D6E8F2;--r:6px;
-  /* kanban aliases mapped to unified tokens */
-  --navy:var(--b900);--dark:var(--b700);--primary:var(--b500);--mid:var(--b300);
-  --steel:var(--muted);--light:var(--b100);--pale:var(--rule);
+  --navy:   #003087;  --dark:   #1B3A6B;  --primary:#005EB8;
+  --mid:    #1F70C1;  --steel:  #4A6FA5;  --muted:  #6B8CB8;
+  --light:  #A8C4E0;  --pale:   #D0E4F7;  --bg:     #EBF4FF;
+  --white:  #FFFFFF;  --text:   #0D1B2A;  --text2:  #2C3E50;
+  /* legacy aliases */
+  --b900:var(--navy);  --b700:var(--dark);  --b500:var(--primary);
+  --b300:var(--light); --b100:var(--pale);  --b050:var(--bg);
+  --rule:var(--pale);  --r:6px;
   --bg:#F2F7FB;--white:#fff;--text2:#2C4A6A;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -293,12 +295,12 @@ nav{background:var(--b900);height:54px;display:flex;align-items:center;padding:0
   height:54px;display:flex;align-items:center;white-space:nowrap;
   transition:color .15s;border-bottom:2px solid transparent;cursor:pointer;}
 .nav-dropdown>a:hover,.nav-dropdown:hover>a{color:#fff;}
-.nav-dropdown>a.active{color:#fff;border-bottom-color:#5EA4CE;}
+.nav-dropdown>a.active{color:#fff;border-bottom-color:#A8C4E0;}
 .nav-arrow{font-size:10px;margin-left:3px;opacity:.7;}
 .nav-dropdown-panel{
   display:none;position:absolute;top:54px;left:0;z-index:200;
   background:var(--b900);border:1px solid rgba(255,255,255,.1);
-  border-top:2px solid #5EA4CE;border-radius:0 0 6px 6px;
+  border-top:2px solid #A8C4E0;border-radius:0 0 6px 6px;
   padding:16px 20px;min-width:540px;
   box-shadow:0 8px 24px rgba(11,45,71,.6);}
 .nav-dropdown:hover .nav-dropdown-panel{display:block;}
@@ -307,7 +309,7 @@ nav{background:var(--b900);height:54px;display:flex;align-items:center;padding:0
 .nav-dd-col:last-child{padding-right:0;}
 .nav-dd-col+.nav-dd-col{border-left:1px solid rgba(255,255,255,.08);padding-left:16px;}
 .nav-dd-group-title{font-size:10px;font-weight:800;letter-spacing:.8px;
-  text-transform:uppercase;color:#5EA4CE;margin-bottom:8px;padding-bottom:4px;
+  text-transform:uppercase;color:#A8C4E0;margin-bottom:8px;padding-bottom:4px;
   border-bottom:1px solid rgba(255,255,255,.08);}
 .nav-dd-panel a{display:block;padding:5px 0;color:rgba(255,255,255,.65);
   font-size:12.5px;transition:color .12s;}
@@ -334,17 +336,17 @@ nav{overflow:visible !important;}
   height:54px;display:flex;align-items:center;white-space:nowrap;
   transition:color .15s;border-bottom:2px solid transparent;text-decoration:none;}
 .nav-links a:hover{color:#fff;}
-.nav-links a.active{color:#fff;border-bottom-color:#5EA4CE;}
+.nav-links a.active{color:#fff;border-bottom-color:#A8C4E0;}
 .nav-dropdown{position:relative;display:inline-flex;align-items:center;}
 .nav-dropdown>a{padding:0 14px;color:rgba(255,255,255,.6);font-size:12.5px;height:54px;
   display:flex;align-items:center;white-space:nowrap;transition:color .15s;
   border-bottom:2px solid transparent;cursor:pointer;text-decoration:none;}
 .nav-dropdown>a:hover,.nav-dropdown:hover>a{color:#fff;}
-.nav-dropdown>a.active{color:#fff;border-bottom-color:#5EA4CE;}
+.nav-dropdown>a.active{color:#fff;border-bottom-color:#A8C4E0;}
 .nav-arrow{font-size:10px;margin-left:3px;opacity:.7;}
 .nav-dropdown-panel{display:none;position:absolute;top:54px;left:0;z-index:400;
   background:var(--b900);border:1px solid rgba(255,255,255,.1);
-  border-top:2px solid #5EA4CE;border-radius:0 0 6px 6px;
+  border-top:2px solid #A8C4E0;border-radius:0 0 6px 6px;
   padding:16px 20px;min-width:540px;box-shadow:0 8px 24px rgba(11,45,71,.6);}
 .nav-dropdown:hover .nav-dropdown-panel{display:block;}
 .nav-dd-row{display:flex;gap:0;}
@@ -352,7 +354,7 @@ nav{overflow:visible !important;}
 .nav-dd-col:last-child{padding-right:0;}
 .nav-dd-col+.nav-dd-col{border-left:1px solid rgba(255,255,255,.08);padding-left:16px;}
 .nav-dd-group-title{font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;
-  color:#5EA4CE;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid rgba(255,255,255,.08);}
+  color:#A8C4E0;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid rgba(255,255,255,.08);}
 .nav-dd-panel a{display:block;padding:5px 0;color:rgba(255,255,255,.65);font-size:12.5px;transition:color .12s;}
 .nav-dd-panel a:hover{color:#fff;}
 .nav-dd-research{margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);}
