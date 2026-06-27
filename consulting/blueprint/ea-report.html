@@ -222,18 +222,19 @@ tr:hover td{background:#E0EEFF}
 .nav-dd-panel a:hover,.nav-dd-research-links a:hover{color:#fff;}
 .nav-dd-research{margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08);}
 .nav-dd-research-links{display:flex;gap:18px;}
-/* ══ STATUS SWITCHER ══ */
-.status-switcher{position:fixed;bottom:20px;right:20px;z-index:800;
-  background:#fff;border:1.5px solid #D0E4F7;border-radius:8px;
-  padding:9px 13px;box-shadow:0 4px 16px rgba(0,48,135,.12);
-  display:flex;align-items:center;gap:8px;font-family:inherit;}
-.status-switcher .ss-label{color:#6B8CB8;font-weight:700;font-size:11px;
+
+/* ══ STATUS SWITCHER (右上角，与 topnav 对齐) ══ */
+.status-switcher{position:fixed;top:8px;right:16px;z-index:1100;
+  background:rgba(11,45,71,.92);border:1px solid rgba(255,255,255,.15);border-radius:6px;
+  padding:5px 10px;display:flex;align-items:center;gap:7px;font-family:inherit;
+  backdrop-filter:blur(4px);}
+.status-switcher .ss-label{color:rgba(255,255,255,.5);font-weight:700;font-size:10px;
   letter-spacing:.5px;text-transform:uppercase;white-space:nowrap;}
-.ss-btn{border:none;border-radius:4px;padding:4px 10px;font-size:11px;font-weight:700;
+.ss-btn{border:none;border-radius:3px;padding:3px 9px;font-size:10.5px;font-weight:700;
   cursor:pointer;transition:all .15s;font-family:inherit;white-space:nowrap;}
 .ss-btn.active{background:#1A4F73;color:#fff;}
-.ss-btn:not(.active){background:#EBF4FF;color:#2374A3;}
-.ss-btn:hover:not(.active){background:#C7E2F2;}
+.ss-btn:not(.active){background:rgba(255,255,255,.12);color:rgba(255,255,255,.6);}
+.ss-btn:hover:not(.active){background:rgba(255,255,255,.22);color:#fff;}
 /* sidebar与topnav兼容：sidebar顶部留出topnav高度 */
 #sidebar{top:50px !important;height:calc(100vh - 50px) !important;}
 #main{margin-top:0;}
@@ -1479,6 +1480,7 @@ if (gapCtx) {
 }); // end DOMContentLoaded
 </script>
 
+
 <div class="status-switcher" id="statusSwitcher">
   <span class="ss-label">文档状态</span>
   <button class="ss-btn" id="ss-todo" onclick="setDocStatus('todo')">⏳ 待开始</button>
@@ -1486,19 +1488,82 @@ if (gapCtx) {
   <button class="ss-btn" id="ss-done" onclick="setDocStatus('done')">✅ 已完成</button>
 </div>
 
+
 <script id="statusSwitcherJS">
 (function(){
-  var KEY = 'doc_status_' + location.pathname.replace(/\/$/,'');
-  function setDocStatus(s){
-    localStorage.setItem(KEY, s);
+  var OWNER = 'EstaTea', REPO = 'fsl-report', BRANCH = 'main';
+  var STATUS_FILE = 'status/doc-status.json';
+  var API = 'https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/' + STATUS_FILE;
+  var KEY = location.pathname.replace(/\/$/,'').replace(/^\/fsl-report/,'') || '/';
+
+  function fetchStatus(cb){
+    fetch(API + '?ref=' + BRANCH + '&t=' + Date.now())
+      .then(function(r){return r.json();})
+      .then(function(d){
+        try{
+          var json = JSON.parse(atob(d.content.replace(/
+/g,'')));
+          cb(json, d.sha);
+        }catch(e){cb({}, '');}
+      }).catch(function(){cb({},'' );});
+  }
+
+  function applyStatus(s){
+    var labels = {todo:'⏳ 待开始', wip:'⟳ 进行中', done:'✅ 已完成'};
     ['todo','wip','done'].forEach(function(k){
       var b=document.getElementById('ss-'+k);
       if(b) b.classList.toggle('active',k===s);
     });
+    var ind = document.getElementById('ss-indicator');
+    if(ind) ind.textContent = labels[s]||s;
+    // 同步到 localStorage 作为离线缓存
+    try{localStorage.setItem('ds_'+KEY, s);}catch(e){}
   }
-  window.setDocStatus = setDocStatus;
-  document.addEventListener('DOMContentLoaded',function(){
-    setDocStatus(localStorage.getItem(KEY)||'wip');
+
+  window.setDocStatus = function(s){
+    applyStatus(s);
+    // 获取 token（从 URL hash 或 prompt）
+    var token = sessionStorage.getItem('gh_token');
+    if(!token){
+      token = prompt('请输入 GitHub Personal Access Token（仅本次会话使用）：');
+      if(token) sessionStorage.setItem('gh_token', token);
+    }
+    if(!token) return;
+    // 读取当前文件 sha，然后更新
+    fetchStatus(function(json, sha){
+      json[KEY] = s;
+      var body = JSON.stringify({
+        message: 'status: update ' + KEY + ' -> ' + s,
+        content: btoa(unescape(encodeURIComponent(JSON.stringify(json, null, 2)))),
+        sha: sha, branch: BRANCH
+      });
+      fetch(API, {
+        method:'PUT', headers:{
+          'Authorization':'token '+token,
+          'Content-Type':'application/json'
+        }, body: body
+      }).then(function(r){
+        if(!r.ok) throw new Error('HTTP '+r.status);
+        var sw = document.getElementById('statusSwitcher');
+        if(sw){ sw.style.outline='2px solid #2E7D32'; setTimeout(function(){sw.style.outline='';},1500);}
+      }).catch(function(e){
+        alert('保存失败：'+e.message+'
+
+Token 权限不足或网络问题。状态已在本次会话暂存。');
+      });
+    });
+  };
+
+  // 初始化：优先从 GitHub 读，降级到 localStorage
+  document.addEventListener('DOMContentLoaded', function(){
+    var cached = '';
+    try{cached = localStorage.getItem('ds_'+KEY)||'';}catch(e){}
+    if(cached) applyStatus(cached);
+    fetchStatus(function(json){
+      var s = json[KEY] || 'todo';
+      applyStatus(s);
+      try{localStorage.setItem('ds_'+KEY, s);}catch(e){}
+    });
   });
 })();
 </script>
