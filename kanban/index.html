@@ -820,42 +820,78 @@ select.dp-input{appearance:none;-webkit-appearance:none;
 <!-- ═══ ORG PANEL ═══ -->
 <div class="mod-panel" id="panel-org">
   <div class="org-panel-body">
-    <!-- View toggle -->
-    <div class="org-view-toggle">
-      <button class="org-view-btn active" id="orgViewTree" onclick="switchOrgView('tree')">🌲 树状图</button>
-      <button class="org-view-btn" id="orgViewList" onclick="switchOrgView('list')">📋 成员列表</button>
+
+    <!-- Sub-tab bar for 项目架构 -->
+    <div class="arch-tabs">
+      <button class="arch-tab active" id="archTabPeople"      onclick="switchArchTab('people')">👥 人员架构</button>
+      <button class="arch-tab"        id="archTabCompany"     onclick="switchArchTab('company')">🏢 公司架构</button>
+      <button class="arch-tab"        id="archTabFunction"    onclick="switchArchTab('function')">⚙️ 功能架构</button>
+      <button class="arch-tab"        id="archTabIntegration" onclick="switchArchTab('integration')">🔗 集成架构</button>
     </div>
 
-    <!-- Tree chart view -->
-    <div id="orgChartView">
-      <div class="org-chart-wrap"
-        ondragover="event.preventDefault()"
-        ondrop="promoteToRoot(event)">
-        <div class="org-chart" id="orgChart"></div>
+    <!-- 人员架构 -->
+    <div id="archPanelPeople" class="arch-panel active">
+      <div class="org-view-toggle">
+        <button class="org-view-btn active" id="orgViewTree" onclick="switchOrgView('tree')">🌲 树状图</button>
+        <button class="org-view-btn" id="orgViewList" onclick="switchOrgView('list')">📋 成员列表</button>
+      </div>
+      <!-- Tree chart view -->
+      <div id="orgChartView">
+        <div class="org-chart-wrap" ondragover="event.preventDefault()" ondrop="promoteToRoot(event)">
+          <div class="org-chart" id="orgChart"></div>
+        </div>
+      </div>
+      <!-- List view -->
+      <div id="orgListView" style="display:none;">
+        <div class="org-section" id="orgSectionClient">
+          <div class="org-section-hd">
+            <span style="font-size:18px">🏢</span>
+            <span class="org-section-title">甲方团队 — 佛山照明</span>
+            <span class="org-section-badge" id="orgCountClient">0</span>
+            <button class="org-add-btn" onclick="openOrgModal('client')">＋ 添加成员</button>
+          </div>
+          <div class="org-tree" id="orgTreeClient"></div>
+        </div>
+        <div class="org-section" id="orgSectionConsultant">
+          <div class="org-section-hd">
+            <span style="font-size:18px">💼</span>
+            <span class="org-section-title">乙方团队 — 艾维登咨询</span>
+            <span class="org-section-badge" id="orgCountConsultant">0</span>
+            <button class="org-add-btn" onclick="openOrgModal('consultant')">＋ 添加成员</button>
+          </div>
+          <div class="org-tree" id="orgTreeConsultant"></div>
+        </div>
       </div>
     </div>
 
-    <!-- List view -->
-    <div id="orgListView" style="display:none;">
-      <div class="org-section" id="orgSectionClient">
-        <div class="org-section-hd">
-          <span style="font-size:18px">🏢</span>
-          <span class="org-section-title">甲方团队 — 佛山照明</span>
-          <span class="org-section-badge" id="orgCountClient">0</span>
-          <button class="org-add-btn" onclick="openOrgModal('client')">＋ 添加成员</button>
+    <!-- 公司架构 -->
+    <div id="archPanelCompany" class="arch-panel">
+      <div class="company-arch-body">
+        <div class="company-toolbar">
+          <button class="org-add-btn" onclick="openCompanyModal(null)">＋ 添加根节点</button>
+          <span style="font-size:11px;color:var(--muted);margin-left:8px;">右键节点编辑，点击展开/折叠</span>
+          <button class="org-add-btn" style="margin-left:auto;background:var(--steel);" onclick="saveCompanyData()">💾 保存到 GitHub</button>
         </div>
-        <div class="org-tree" id="orgTreeClient"></div>
-      </div>
-      <div class="org-section" id="orgSectionConsultant">
-        <div class="org-section-hd">
-          <span style="font-size:18px">💼</span>
-          <span class="org-section-title">乙方团队 — 艾维登咨询</span>
-          <span class="org-section-badge" id="orgCountConsultant">0</span>
-          <button class="org-add-btn" onclick="openOrgModal('consultant')">＋ 添加成员</button>
-        </div>
-        <div class="org-tree" id="orgTreeConsultant"></div>
+        <div id="companyTree" class="company-tree"></div>
       </div>
     </div>
+
+    <!-- 功能架构 -->
+    <div id="archPanelFunction" class="arch-panel">
+      <div style="padding:24px;overflow:auto;flex:1;">
+        <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:16px;">系统功能架构图</div>
+        <div id="functionArchChart"></div>
+      </div>
+    </div>
+
+    <!-- 集成架构 -->
+    <div id="archPanelIntegration" class="arch-panel">
+      <div style="padding:24px;overflow:auto;flex:1;">
+        <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:16px;">系统集成架构图</div>
+        <div id="integrationArchChart"></div>
+      </div>
+    </div>
+
   </div>
 </div>
 
