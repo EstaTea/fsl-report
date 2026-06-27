@@ -836,6 +836,9 @@ function loadDemo(){ document.getElementById('token-prompt').style.display='none
 // ── init ──────────────────────────────────────────────────────────
 async function init(){
   document.getElementById('loading').style.display='flex';
+  var hideLoading=function(){try{document.getElementById('loading').style.display='none';}catch(e){}};
+  // 5s safety timeout — always hide spinner even if something hangs
+  var safetyTimer=setTimeout(function(){hideLoading();useDemoData();},5000);
   try{
     var [open,closed,ms]=await Promise.all([
       gf(API+'/issues?state=open&per_page=100&sort=created&direction=desc'),
@@ -844,14 +847,13 @@ async function init(){
     ]);
     allIssues=open.concat(closed).filter(function(i){return !i.pull_request;});
     allMilestones=ms;
-    // Load gantt overrides from GitHub before rendering
-    loadGanttData(function(){ render(); });
+    clearTimeout(safetyTimer);
+    loadGanttData(function(){ render(); hideLoading(); });
   }catch(e){
-    // API failed (rate limit, network) — fall back to demo data
+    clearTimeout(safetyTimer);
     console.warn('API load failed, using demo data:', e.message);
     try{ useDemoData(); }catch(e2){ console.error('demo data error',e2); }
-  } finally {
-    document.getElementById('loading').style.display='none';
+    hideLoading();
   }
 }
 
@@ -881,6 +883,8 @@ function useDemoData(){
     render();
     try{ document.getElementById('loading').style.display='none'; }catch(e){}
   });
+  // Fallback: if loadGanttData hangs, hide spinner after 2s
+  setTimeout(function(){try{document.getElementById('loading').style.display='none';}catch(e){}},2000);
 }
 
 // ── render all ────────────────────────────────────────────────────
@@ -986,9 +990,13 @@ function syncIssuesToGantt(issues){
 }
 
 function loadGanttData(callback){
+  var done=false;
+  var finish=function(){if(!done){done=true;if(callback)callback();}};
+  // Safety: always call callback within 3s
+  setTimeout(finish, 3000);
   var h={'Accept':'application/vnd.github+json'};
   if(TOKEN) h['Authorization']='Bearer '+TOKEN;
-  fetch('https://api.github.com/repos/EstaTea/fsl-report/contents/org/gantt.json',{headers:h})
+  fetch('https://api.github.com/repos/EstaTea/fsl-report/contents/org/gantt.json',{headers:h,signal:AbortSignal.timeout?AbortSignal.timeout(2500):undefined})
     .then(function(r){return r.json();})
     .then(function(gData){
       if(gData.content){
@@ -998,8 +1006,8 @@ function loadGanttData(callback){
           if(gp&&gp.tasks) GANTT_OVERRIDES=gp.tasks;
         }catch(e){}
       }
-      if(callback) callback();
-    }).catch(function(){ if(callback) callback(); });
+      finish();
+    }).catch(function(){ finish(); });
 }
 
 function applyGanttStructure(){
