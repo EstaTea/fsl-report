@@ -1,3 +1,217 @@
 {
-  "_note": "Company structure data - populated by the web app"
+  "nodes": {
+    "gz": {
+      "id": "gz",
+      "name": "广东省广晟控股集团",
+      "code": "",
+      "type": "集团",
+      "location": "广州",
+      "equity": "",
+      "desc": "",
+      "parent": null,
+      "children": [
+        "fsl"
+      ]
+    },
+    "fsl": {
+      "id": "fsl",
+      "name": "佛山电器照明股份有限公司",
+      "code": "FZ01",
+      "type": "集团",
+      "location": "佛山",
+      "equity": "",
+      "sapPlant": "",
+      "sapStoreLoc": "",
+      "sapCostCenter": "",
+      "sapProfitCenter": "",
+      "sapSalesOrg": "",
+      "sapDistCh": "",
+      "sapPurchOrg": "",
+      "sapWorkCenter": "",
+      "sapFuncArea": "",
+      "sapProductLine": "",
+      "desc": "上市主体",
+      "parent": "gz",
+      "children": [
+        "fsl_hm",
+        "fsl_nm",
+        "fsl_zs",
+        "ht",
+        "tkd",
+        "flkj",
+        "fzcs",
+        "fbml",
+        "fzkl",
+        "fjkl",
+        "fhg",
+        "nhfz",
+        "nj"
+      ]
+    },
+    "fsl_hm": {
+      "id": "fsl_hm",
+      "name": "佛山电器照明股份有限公司高明分公司",
+      "code": "FZ13",
+      "type": "分公司",
+      "location": "佛山",
+      "equity": "",
+      "parent": "fsl",
+      "children": []
+    },
+    "fsl_nm": {
+      "id": "fsl_nm",
+      "name": "佛山电器照明股份有限公司南海务庄分公司",
+      "code": "FZ23",
+      "type": "分公司",
+      "location": "佛山",
+      "equity": "",
+      "parent": "fsl",
+      "children": []
+    },
+    "fsl_zs": {
+      "id": "fsl_zs",
+      "name": "佛山电器照明股份有限公司禅城分公司",
+      "code": "",
+      "type": "分公司",
+      "location": "佛山",
+      "equity": "",
+      "parent": "fsl",
+      "children": []
+    },
+    "ht": {
+      "id": "ht",
+      "name": "佛山皓徕特光电有限公司",
+      "code": "FZ25",
+      "type": "子公司",
+      "location": "佛山",
+      "equity": "100",
+      "parent": "fsl",
+      "children": [
+        "ht_zc",
+        "fsl_thailand",
+        "fsl_de"
+      ]
+    },
+    "ht_zc": {
+      "id": "ht_zc",
+      "name": "佛山皓徕特光电有限公司禅城分公司",
+      "code": "FZ28",
+      "type": "分公司",
+      "location": "佛山",
+      "equity": "",
+      "parent": "ht",
+      "children": []
+    },
+    "fsl_thailand": {
+      "id": "fsl_thailand",
+      "name": "佛照（泰国）光电科技有限公司 FSL OPTOTECH (THAILAND)",
+      "code": "FZ40",
+      "type": "子公司",
+      "location": "泰国",
+      "equity": "100",
+      "parent": "ht",
+      "children": []
+    },
+    "fsl_de": {
+      "id": "fsl_de",
+      "name": "国星光电（德国）有限公司 Nationstar GmbH",
+      "code": "FZ33",
+      "type": "分公司",
+      "location": "德国",
+      "equity": "100",
+      "parent": "ht",
+      "children": []
+    },
+    "tkd": {
+      "id": "tkd",
+      "name": "佛山泰美时代灯具有限公司",
+      "code": "FZ06",
+      "type": "子公司",
+      "location": "佛山",
+      "equity": "70",
+      "parent": "fsl",
+      "children": []
+    },
+    "flkj": {
+      "id": "flkj",
+      "name": "佛山科联新能源产业科技有限公司",
+      "code": "FZ30",
+      "type": "子公司",
+      "location": "佛山",
+      "equity": "100",
+      "parent": "fsl",
+      "children": []
+    },
+    "fzcs": {
+      "id": "fzcs",
+      "name": "佛山市佛照智城科技有限公司",
+      "code": "FZ19",
+      "type": "子公司",
+      "location": "佛山",
+      "equity": "100",
+      "parent": "fsl",
+      "children": []
+    },
+    "fbml": {
+      "id": "fbml",
+      "name": "佛山市西格玛创业投资有限公司",
+      "code": "FZ35",
+      "type": "子公司",
+      "location": "佛山",
+      "equity": "100",
+      "parent": "fsl",
+      "children": []
+    },
+    "fzkl": {
+      "id": "fzkl",
+      "name": "佛山禅昌光电有限公司",
+      "code": "FZ05",
+      "type": "子公司",
+      "location": "佛山",
+      "equity": "100",
+      "parent": "fsl",
+      "children": []
+    },
+    "fjkl": {
+      "id": "fjkl",
+      "name": "佛山照明智达电工科技有限公司",
+      "code": "FZ22",
+      "type": "子公司",
+      "location": "佛山",
+      "equity": "66.84",
+      "parent": "fsl",
+      "children": []
+    },
+    "fhg": {
+      "id": "fhg",
+      "name": "佛照华光（茂名）科技有限公司",
+      "code": "FZ36",
+      "type": "子公司",
+      "location": "茂名",
+      "equity": "100",
+      "parent": "fsl",
+      "children": []
+    },
+    "nhfz": {
+      "id": "nhfz",
+      "name": "佛照（海南）科技有限公司",
+      "code": "FZ29",
+      "type": "子公司",
+      "location": "海南",
+      "equity": "100",
+      "parent": "fsl",
+      "children": []
+    },
+    "nj": {
+      "id": "nj",
+      "name": "南京佛照照明器材制造有限公司",
+      "code": "FZ11",
+      "type": "子公司",
+      "location": "南京",
+      "equity": "100",
+      "parent": "fsl",
+      "children": []
+    }
+  },
+  "rootId": "gz"
 }
