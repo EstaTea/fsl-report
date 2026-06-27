@@ -724,6 +724,15 @@ select.dp-input{appearance:none;-webkit-appearance:none;
       <input class="org-form-input" id="msFormDue" type="date">
     </div>
     <div class="org-form-row">
+      <label class="org-form-label">状态</label>
+      <select class="org-form-input" id="msFormStatus">
+        <option value="计划">计划</option>
+        <option value="进行中">进行中</option>
+        <option value="已完成">已完成</option>
+        <option value="已逾期">已逾期</option>
+      </select>
+    </div>
+    <div class="org-form-row">
       <label class="org-form-label">描述</label>
       <textarea class="org-form-input" id="msFormDesc" rows="3" placeholder="里程碑验收标准、关联交付物等"></textarea>
     </div>
@@ -1569,6 +1578,12 @@ async function moveIssue(num, newStatus){
 // ── MILESTONE ─────────────────────────────────────────────────────
 function renderMilestones(){
   var now=new Date();
+  var STATUS_STYLE={
+    '计划':   'background:#EBF4FF;color:#1B3A6B;border:1px solid #D0E4F7',
+    '进行中': 'background:#005EB8;color:#fff;border:1px solid #005EB8',
+    '已完成': 'background:#166534;color:#fff;border:1px solid #166534',
+    '已逾期': 'background:#dc2626;color:#fff;border:1px solid #dc2626'
+  };
   var html=allMilestones.map(function(ms){
     var due=ms.due_on?new Date(ms.due_on):null;
     var total=(ms.open_issues||0)+(ms.closed_issues||0);
@@ -1578,12 +1593,21 @@ function renderMilestones(){
     var dotCls=cls;
     var payment={'M0 数据清洗启动':'','M1 架构蓝图评审通过':'付款触发：第2笔 20%','M2 系统配置完成':'','M3 SIT/UAT测试通过':'','M4 正式上线':'付款触发：第3笔 45%','M5 稳定运行6个月':'付款触发：第4笔 15%'};
     var ptag=payment[ms.title.replace(/^M\d+ /,'').trim()]||payment[ms.title]||'';
+    var rawDesc=ms.description||'';
+    var statusMatch=rawDesc.match(/\[状态:([^\]]+)\]/);
+    var status=statusMatch?statusMatch[1]:'计划';
+    var cleanDesc=rawDesc.replace(/\[状态:[^\]]+\]\s*/,'');
+    var statusStyle=STATUS_STYLE[status]||STATUS_STYLE['计划'];
     return '<div class="ms-item">'+
       '<div class="ms-spine"><div class="ms-dot '+dotCls+'"></div><div class="ms-line"></div></div>'+
       '<div class="ms-card '+cls+'">'+
-        '<div class="ms-title" style="display:flex;align-items:center;gap:8px;">'+esc(ms.title)+'<button onclick="event.stopPropagation();openMsModal('+ms.number+')" style="margin-left:auto;font-size:10px;padding:2px 8px;background:var(--bg);border:1px solid var(--pale);border-radius:3px;cursor:pointer;color:var(--steel);flex-shrink:0;">编辑</button></div>'+
+        '<div class="ms-title" style="display:flex;align-items:center;gap:8px;">'+
+          esc(ms.title)+
+          '<span style="font-size:10px;font-weight:700;padding:2px 9px;border-radius:10px;'+statusStyle+'">'+esc(status)+'</span>'+
+          '<button onclick="event.stopPropagation();openMsModal('+ms.number+')" style="margin-left:auto;font-size:10px;padding:2px 8px;background:var(--bg);border:1px solid var(--pale);border-radius:3px;cursor:pointer;color:var(--steel);flex-shrink:0;">编辑</button>'+
+        '</div>'+
         '<div class="ms-due">📅 截止：'+(due?due.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric'}):'未设定')+'</div>'+
-        '<div class="ms-desc">'+(ms.description?esc(ms.description):'暂无描述')+'</div>'+
+        '<div class="ms-desc">'+(cleanDesc?esc(cleanDesc):'暂无描述')+'</div>'+
         '<div class="ms-progress"><div class="ms-progress-fill" style="width:'+pct+'%"></div></div>'+
         '<div class="ms-meta">'+
           '<span class="ms-tag">'+pct+'% 完成</span>'+
@@ -3912,11 +3936,15 @@ function openMsModal(msNum){
     if(ms){
       document.getElementById('msFormTitle').value=ms.title||'';
       document.getElementById('msFormDue').value=ms.due_on?(ms.due_on.split('T')[0]):'';
-      document.getElementById('msFormDesc').value=ms.description||'';
+      var rawDesc=ms.description||'';
+      var statusMatch=rawDesc.match(/\[状态:([^\]]+)\]/);
+      document.getElementById('msFormStatus').value=statusMatch?statusMatch[1]:'计划';
+      document.getElementById('msFormDesc').value=rawDesc.replace(/\[状态:[^\]]+\]\s*/,'');
     }
   } else {
     document.getElementById('msFormTitle').value='';
     document.getElementById('msFormDue').value='';
+    document.getElementById('msFormStatus').value='计划';
     document.getElementById('msFormDesc').value='';
   }
   document.getElementById('msModalOverlay').style.display='flex';
@@ -3933,7 +3961,9 @@ function saveMsModal(){
   if(!title){alert('名称不能为空');return;}
   if(!TOKEN){promptLoginThenDo(saveMsModal);return;}
   var due=document.getElementById('msFormDue').value;
-  var desc=document.getElementById('msFormDesc').value;
+  var status=document.getElementById('msFormStatus').value||'计划';
+  var descRaw=(document.getElementById('msFormDesc').value||'').trim();
+  var desc='[状态:'+status+']'+(descRaw?' '+descRaw:'');
   var body={title:title,description:desc};
   if(due) body.due_on=due+'T00:00:00Z';
   var url=MS_EDITING_NUM
