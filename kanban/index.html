@@ -1902,8 +1902,8 @@ function rRenderList(risks,fp,fi){
       '<div class="risk-item-side">'+
         '<span class="rsbadge '+rSCls(r.status)+'">'+esc(r.status)+'</span>'+
         '<div class="risk-item-btns">'+
-          '<button class="ribtn" onclick="openRiskModal(''+r.id+'')">✏️</button>'+
-          '<button class="ribtn" onclick="deleteRisk(''+r.id+'')">🗑</button>'+
+          '<button class="ribtn" data-rid="'+r.id+'" onclick="openRiskModal(this.getAttribute(\'data-rid\'))">✏️</button>'+
+          '<button class="ribtn" data-rid="'+r.id+'" onclick="deleteRisk(this.getAttribute(\'data-rid\'))">🗑</button>'+
         '</div>'+
       '</div>'+
     '</div>';
