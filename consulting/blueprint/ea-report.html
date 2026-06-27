@@ -1522,62 +1522,109 @@ if (gapCtx) {
 
 <script id="statusSwitcherJS">
 (function(){
-  var KEY = 'doc_status_' + location.pathname.replace(/\/$/,'');
+  var OWNER='EstaTea', REPO='fsl-report', BRANCH='main';
+  var FILE='status/doc-status.json';
+  var API='https://api.github.com/repos/'+OWNER+'/'+REPO+'/contents/'+FILE;
+  var DOCKEY=location.pathname.replace(/\/$/,'').replace(/^\/fsl-report/,'') || '/';
 
-  function applyStatus(s){
-    var labels = {todo:'待开始', wip:'进行中', done:'已完成'};
-    var dotCls  = {todo:'todo',  wip:'wip',   done:'done'};
+  function applyUI(s){
+    var labels={todo:'待开始',wip:'进行中',done:'已完成'};
+    var dotCls={todo:'todo',wip:'wip',done:'done'};
     ['todo','wip','done'].forEach(function(k){
-      var b = document.getElementById('ss-'+k);
-      if(b) b.classList.toggle('active', k===s);
+      var b=document.getElementById('ss-'+k);
+      if(b) b.classList.toggle('active',k===s);
     });
-    var ind = document.getElementById('ss-indicator');
-    if(ind) ind.textContent = labels[s] || s;
-    var dot = document.getElementById('ss-dot');
-    if(dot) dot.className = 'ss-indicator-dot ' + (dotCls[s] || '');
-    try{ localStorage.setItem(KEY, s); }catch(e){}
+    var ind=document.getElementById('ss-indicator');
+    if(ind) ind.textContent=labels[s]||s;
+    var dot=document.getElementById('ss-dot');
+    if(dot) dot.className='ss-indicator-dot '+(dotCls[s]||'');
   }
 
-  window.setDocStatus = function(s){
-    applyStatus(s);
-    /* 后台尝试同步到 GitHub（不影响 UI） */
-    try{
-      var token = sessionStorage.getItem('gh_pat');
-      if(!token) return;
-      var owner='EstaTea', repo='fsl-report', branch='main';
-      var file='status/doc-status.json';
-      var api='https://api.github.com/repos/'+owner+'/'+repo+'/contents/'+file;
-      var docKey = location.pathname.replace(/\/$/,'').replace(/^\/fsl-report/,'') || '/';
-      fetch(api+'?ref='+branch+'&t='+Date.now(), {headers:{'Authorization':'token '+token}})
-        .then(function(r){return r.json();})
-        .then(function(d){
-          var json={};
-          try{ json=JSON.parse(atob(d.content.split('
-').join(''))); }catch(e){}
-          json[docKey]=s;
-          return fetch(api,{method:'PUT',
-            headers:{'Authorization':'token '+token,'Content-Type':'application/json'},
-            body:JSON.stringify({message:'status: '+docKey+' -> '+s,
-              content:btoa(unescape(encodeURIComponent(JSON.stringify(json,null,2)))),
-              sha:d.sha, branch:branch})});
-        }).then(function(r){
-          if(r && r.ok){ var sw=document.getElementById('statusSwitcher');
-            if(sw){sw.style.outline='2px solid #22C55E';
-              setTimeout(function(){sw.style.outline='';},1500);}}
-        }).catch(function(){});
-    }catch(e){}
+  function getToken(){
+    var t=sessionStorage.getItem('gh_pat');
+    if(!t){
+      t=prompt('请输入 GitHub Personal Access Token（仅存在本次会话中）：');
+      if(t) sessionStorage.setItem('gh_pat',t);
+    }
+    return t||'';
+  }
+
+  function readStatus(token, cb){
+    var headers=token ? {'Authorization':'token '+token} : {};
+    fetch(API+'?ref='+BRANCH+'&_='+Date.now(), {headers:headers})
+      .then(function(r){return r.json();})
+      .then(function(d){
+        var json={}, sha=d.sha||'';
+        try{
+          var raw=d.content||'';
+          var clean='';
+          for(var i=0;i<raw.length;i++){
+            if(raw.charCodeAt(i)!==10 && raw.charCodeAt(i)!==13) clean+=raw[i];
+          }
+          json=JSON.parse(atob(clean));
+        }catch(e){}
+        cb(null,json,sha);
+      }).catch(function(e){cb(e,{}, '');});
+  }
+
+  function writeStatus(token, json, sha, cb){
+    var body=JSON.stringify({
+      message:'status: '+DOCKEY+' -> '+json[DOCKEY],
+      content:btoa(unescape(encodeURIComponent(JSON.stringify(json,null,2)))),
+      sha:sha,
+      branch:BRANCH
+    });
+    fetch(API,{
+      method:'PUT',
+      headers:{'Authorization':'token '+token,'Content-Type':'application/json'},
+      body:body
+    }).then(function(r){
+      if(r.ok) cb(null);
+      else r.text().then(function(t){cb(new Error('HTTP '+r.status+': '+t.slice(0,100)));});
+    }).catch(function(e){cb(e);});
+  }
+
+  window.setDocStatus=function(s){
+    applyUI(s);
+    var sw=document.getElementById('statusSwitcher');
+    if(sw){
+      sw.style.outline='2px solid #F59E0B';
+      sw.title='正在保存到 GitHub...';
+    }
+    var token=getToken();
+    if(!token){
+      if(sw){sw.style.outline='2px solid #EF4444';sw.title='需要 PAT 才能保存';}
+      return;
+    }
+    readStatus(token,function(err,json,sha){
+      if(err){
+        alert('读取 GitHub 状态失败：'+err.message);
+        if(sw){sw.style.outline='2px solid #EF4444';sw.title='读取失败';}
+        return;
+      }
+      json[DOCKEY]=s;
+      writeStatus(token,json,sha,function(err2){
+        if(err2){
+          alert('保存到 GitHub 失败：'+err2.message+'
+
+Tip: 请确认 PAT 具有 repo 写权限。');
+          if(sw){sw.style.outline='2px solid #EF4444';sw.title='保存失败';}
+        } else {
+          if(sw){
+            sw.style.outline='2px solid #22C55E';
+            sw.title='已保存到 GitHub';
+            setTimeout(function(){sw.style.outline='';sw.title='';},2000);
+          }
+        }
+      });
+    });
   };
 
-  /* 设置 GitHub PAT（一次性） */
-  window.setGhPat = function(){
-    var t=prompt('GitHub Personal Access Token（仅存在本次会话）：');
-    if(t){ sessionStorage.setItem('gh_pat',t); alert('PAT 已保存，下次状态修改将同步到云端'); }
-  };
-
-  document.addEventListener('DOMContentLoaded', function(){
-    var saved = '';
-    try{ saved=localStorage.getItem(KEY)||''; }catch(e){}
-    applyStatus(saved||'todo');
+  /* 初始化：从 GitHub 读取当前状态 */
+  document.addEventListener('DOMContentLoaded',function(){
+    readStatus('',function(err,json){
+      applyUI(json[DOCKEY]||'todo');
+    });
   });
 })();
 </script>
