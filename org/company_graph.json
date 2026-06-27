@@ -1,0 +1,308 @@
+{
+  "nodes": [
+    {
+      "id": "gz_guozi",
+      "label": "广东省国资委",
+      "sub": "最终实控",
+      "type": "政府机构",
+      "color": "#5B7A91"
+    },
+    {
+      "id": "gz_group",
+      "label": "广东省广晟控股集团有限公司",
+      "sub": "实控集团，广媒体系合计控制佛照 32.31%",
+      "type": "集团",
+      "color": "#1A4F73"
+    },
+    {
+      "id": "gz_invest",
+      "label": "广晟投资发展有限公司",
+      "sub": "全资：广晟控股集团",
+      "type": "子公司",
+      "color": "#2374A3"
+    },
+    {
+      "id": "gz_elec",
+      "label": "广东省电子信息产业集团有限公司",
+      "sub": "全资：广晟控股集团",
+      "type": "子公司",
+      "color": "#2374A3"
+    },
+    {
+      "id": "hk_huachen",
+      "label": "香港华晟控股",
+      "sub": "全资：广晟控股集团",
+      "type": "子公司",
+      "color": "#2374A3"
+    },
+    {
+      "id": "fsl",
+      "label": "佛山照明",
+      "sub": "FZ01，A股上市公司",
+      "type": "上市公司",
+      "color": "#0B2D47"
+    },
+    {
+      "id": "fsl_corp",
+      "label": "佛山电器照明股份有限公司",
+      "sub": "二级主体，FZ01，上市母公司",
+      "type": "上市公司",
+      "color": "#0B2D47"
+    },
+    {
+      "id": "external",
+      "label": "其他外部股东",
+      "sub": "佐昌光光9.57%、汇金2.16%、\n自然人等合计15.77%",
+      "type": "外部",
+      "color": "#5B7A91"
+    },
+    {
+      "id": "branch_co",
+      "label": "本部分公司",
+      "sub": "100%归属，无法人股权",
+      "type": "分公司",
+      "color": "#3D8FC4"
+    },
+    {
+      "id": "direct_sub",
+      "label": "直接控股三级子公司",
+      "sub": "100%全资",
+      "type": "子公司组",
+      "color": "#3D8FC4"
+    },
+    {
+      "id": "fz06_tkd",
+      "label": "FZ06 泰美时代灯具",
+      "sub": "70%控股（少数30%）",
+      "type": "子公司",
+      "color": "#3D8FC4"
+    },
+    {
+      "id": "fz22_zd",
+      "label": "FZ22 智达电工",
+      "sub": "66.84%控股（少数33.16%）",
+      "type": "子公司",
+      "color": "#3D8FC4"
+    },
+    {
+      "id": "fz25_ht",
+      "label": "FZ25 皓徕特光电",
+      "sub": "100%全资",
+      "type": "子公司",
+      "color": "#3D8FC4"
+    },
+    {
+      "id": "fz_100pct",
+      "label": "100%全资子公司",
+      "sub": "FZ05/FZ11/FZ18/FZ19/FZ30/FZ29/FZ36/FZ38",
+      "type": "子公司组",
+      "color": "#3D8FC4"
+    },
+    {
+      "id": "fz23",
+      "label": "FZ23 南海务庄分公司",
+      "sub": "",
+      "type": "分公司",
+      "color": "#5EA4CE"
+    },
+    {
+      "id": "fz13",
+      "label": "FZ13 高明分公司",
+      "sub": "",
+      "type": "分公司",
+      "color": "#5EA4CE"
+    },
+    {
+      "id": "fz14",
+      "label": "FZ14 高明灯具分公司",
+      "sub": "",
+      "type": "分公司",
+      "color": "#5EA4CE"
+    },
+    {
+      "id": "fz28",
+      "label": "FZ28 禅城分公司",
+      "sub": "分支机构",
+      "type": "分公司",
+      "color": "#5EA4CE"
+    },
+    {
+      "id": "fz33",
+      "label": "FZ33 德国国星光电",
+      "sub": "间接100%孙公司",
+      "type": "子公司",
+      "color": "#5EA4CE"
+    },
+    {
+      "id": "fz40",
+      "label": "FZ40 泰国光电科技",
+      "sub": "间接100%孙公司",
+      "type": "子公司",
+      "color": "#5EA4CE"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "gz_guozi",
+      "target": "gz_group",
+      "label": "最终实控",
+      "style": "solid"
+    },
+    {
+      "id": "e2",
+      "source": "gz_group",
+      "target": "gz_invest",
+      "label": "全资",
+      "style": "solid"
+    },
+    {
+      "id": "e3",
+      "source": "gz_group",
+      "target": "gz_elec",
+      "label": "全资",
+      "style": "solid"
+    },
+    {
+      "id": "e4",
+      "source": "gz_group",
+      "target": "hk_huachen",
+      "label": "全资",
+      "style": "solid"
+    },
+    {
+      "id": "e5",
+      "source": "gz_group",
+      "target": "fsl",
+      "label": "直接持股\n8.45%",
+      "style": "solid"
+    },
+    {
+      "id": "e6",
+      "source": "gz_invest",
+      "target": "fsl",
+      "label": "持股佛照\n1.66%",
+      "style": "solid"
+    },
+    {
+      "id": "e7",
+      "source": "gz_elec",
+      "target": "fsl",
+      "label": "持股佛照\n9.35%",
+      "style": "solid"
+    },
+    {
+      "id": "e8",
+      "source": "hk_huachen",
+      "target": "fsl",
+      "label": "持股佛照\n12.85%",
+      "style": "solid"
+    },
+    {
+      "id": "e9",
+      "source": "external",
+      "target": "fsl",
+      "label": "合计\n15.77%",
+      "style": "dashed"
+    },
+    {
+      "id": "e10",
+      "source": "fsl",
+      "target": "fsl_corp",
+      "label": "",
+      "style": "solid"
+    },
+    {
+      "id": "e11",
+      "source": "fsl_corp",
+      "target": "branch_co",
+      "label": "本部分公司",
+      "style": "solid"
+    },
+    {
+      "id": "e12",
+      "source": "fsl_corp",
+      "target": "direct_sub",
+      "label": "直接控股",
+      "style": "solid"
+    },
+    {
+      "id": "e13",
+      "source": "fsl_corp",
+      "target": "fz06_tkd",
+      "label": "70%控股",
+      "style": "solid"
+    },
+    {
+      "id": "e14",
+      "source": "fsl_corp",
+      "target": "fz22_zd",
+      "label": "66.84%控股",
+      "style": "solid"
+    },
+    {
+      "id": "e15",
+      "source": "fsl_corp",
+      "target": "fz25_ht",
+      "label": "100%全资",
+      "style": "solid"
+    },
+    {
+      "id": "e16",
+      "source": "branch_co",
+      "target": "fz23",
+      "label": "",
+      "style": "solid"
+    },
+    {
+      "id": "e17",
+      "source": "branch_co",
+      "target": "fz13",
+      "label": "",
+      "style": "solid"
+    },
+    {
+      "id": "e18",
+      "source": "branch_co",
+      "target": "fz14",
+      "label": "",
+      "style": "solid"
+    },
+    {
+      "id": "e19",
+      "source": "direct_sub",
+      "target": "fz_100pct",
+      "label": "100%全资",
+      "style": "solid"
+    },
+    {
+      "id": "e20",
+      "source": "fz25_ht",
+      "target": "fz28",
+      "label": "",
+      "style": "solid"
+    },
+    {
+      "id": "e21",
+      "source": "fz25_ht",
+      "target": "fz33",
+      "label": "间接100%",
+      "style": "solid"
+    },
+    {
+      "id": "e22",
+      "source": "fz25_ht",
+      "target": "fz40",
+      "label": "间接100%",
+      "style": "solid"
+    },
+    {
+      "id": "e23",
+      "source": "gz_elec",
+      "target": "gz_group",
+      "label": "全资：广晟电子信息\n产业集团有限公司",
+      "style": "dashed"
+    }
+  ],
+  "positions": {}
+}
