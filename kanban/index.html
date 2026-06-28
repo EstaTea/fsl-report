@@ -240,6 +240,12 @@ nav{background:var(--b900);height:54px;display:flex;align-items:center;padding:0
 .deliv-card{background:var(--white);border:1px solid var(--pale);border-radius:7px;padding:12px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:box-shadow .15s}
 .deliv-card:hover{box-shadow:0 2px 8px rgba(0,48,135,.1)}
 .deliv-icon{font-size:20px;flex-shrink:0}
+.fi{display:inline-block;font-size:9px;font-weight:800;padding:2px 5px;border-radius:3px;letter-spacing:.3px;line-height:1.4;flex-shrink:0}
+.fi-word{background:#185ABD;color:#fff}
+.fi-ppt{background:#C43E1C;color:#fff}
+.fi-excel{background:#107C41;color:#fff}
+.fi-pdf{background:#B30B00;color:#fff}
+.fi-visio{background:#2B579A;color:#fff}
 .deliv-info{flex:1;min-width:0}
 .deliv-name{font-size:12px;font-weight:700;color:var(--dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .deliv-desc{font-size:10.5px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -2347,31 +2353,31 @@ function _renderDeliverables(statusMap){
   function st(key){ return statusMap[key]||statusMap[key+'.html']||'todo'; }
   var sections=[
     {title:'管理咨询交付物',docs:[
-      {name:'1. 佛山照明企业现状诊断报告',      key:'/consulting/diagnosis/report-01',        icon:'📊',url:'/fsl-report/consulting/diagnosis/report-01.html'},
-      {name:'2. 佛山照明企业架构设计报告',      key:'/consulting/blueprint/ea-report',         icon:'🏛',url:'/fsl-report/consulting/blueprint/ea-report.html'},
-      {name:'3. 佛山照明专项方案设计报告',      key:'/consulting/blueprint/solution-report',   icon:'🎯',url:'/fsl-report/consulting/solutions/'},
-      {name:'4.1 佛山照明数据调研分析报告',     key:'/consulting/blueprint/data-survey',       icon:'📋',url:'/fsl-report/consulting/blueprint/data-survey.html'},
-      {name:'4.2 佛山照明数据规划及管理办法',   key:'/consulting/blueprint/data-governance',   icon:'📋',url:'/fsl-report/consulting/blueprint/data-governance.html'},
-      {name:'4.3 佛山照明数据治理总结报告',     key:'/consulting/blueprint/data-summary',      icon:'📋',url:'/fsl-report/consulting/blueprint/data-summary.html'},
-      {name:'5. 数字化保障组织设计报告（可选）', key:'/consulting/blueprint/org-design',        icon:'🏢',url:'/fsl-report/consulting/blueprint/org-design.html'},
-      {name:'6. 佛山照明企业数字化转型路径规划', key:'/consulting/roadmap/roadmap-report',      icon:'🗺',url:'/fsl-report/consulting/roadmap/roadmap-report.html'},
+      {name:'1. 佛山照明企业现状诊断报告',      key:'/consulting/diagnosis/report-01',        icon:'<span class="fi fi-word">Word</span>',url:'/fsl-report/consulting/diagnosis/report-01.html'},
+      {name:'2. 佛山照明企业架构设计报告',      key:'/consulting/blueprint/ea-report',         icon:'<span class="fi fi-word">Word</span>',url:'/fsl-report/consulting/blueprint/ea-report.html'},
+      {name:'3. 佛山照明专项方案设计报告',      key:'/consulting/blueprint/solution-report',   icon:'<span class="fi fi-ppt">PPT</span>',url:'/fsl-report/consulting/solutions/'},
+      {name:'4.1 佛山照明数据调研分析报告',     key:'/consulting/blueprint/data-survey',       icon:'<span class="fi fi-word">Word</span>',url:'/fsl-report/consulting/blueprint/data-survey.html'},
+      {name:'4.2 佛山照明数据规划及管理办法',   key:'/consulting/blueprint/data-governance',   icon:'<span class="fi fi-word">Word</span>',url:'/fsl-report/consulting/blueprint/data-governance.html'},
+      {name:'4.3 佛山照明数据治理总结报告',     key:'/consulting/blueprint/data-summary',      icon:'<span class="fi fi-word">Word</span>',url:'/fsl-report/consulting/blueprint/data-summary.html'},
+      {name:'5. 数字化保障组织设计报告（可选）', key:'/consulting/blueprint/org-design',        icon:'<span class="fi fi-ppt">PPT</span>',url:'/fsl-report/consulting/blueprint/org-design.html'},
+      {name:'6. 佛山照明企业数字化转型路径规划', key:'/consulting/roadmap/roadmap-report',      icon:'<span class="fi fi-ppt">PPT</span>',url:'/fsl-report/consulting/roadmap/roadmap-report.html'},
     ]},
     {title:'SAP实施交付物 — 系统实施准备阶段',docs:[
-      {name:'项目启动会',   key:'/sap/prepare/kickoff',      icon:'🚀',url:'/fsl-report/sap/prepare/kickoff.html'},
-      {name:'项目总体计划', key:'/sap/prepare/project-plan', icon:'📅',url:'/fsl-report/sap/prepare/project-plan.html'},
-      {name:'项目章程',     key:'/sap/prepare/charter',      icon:'📄',url:'/fsl-report/sap/prepare/charter.html'},
-      {name:'调研计划',     key:'/sap/prepare/survey',       icon:'📝',url:'/fsl-report/sap/prepare/survey.html'},
+      {name:'项目启动会',   key:'/sap/prepare/kickoff',      icon:'<span class="fi fi-ppt">PPT</span>',url:'/fsl-report/sap/prepare/kickoff.html'},
+      {name:'项目总体计划', key:'/sap/prepare/project-plan', icon:'<span class="fi fi-excel">Excel</span>',url:'/fsl-report/sap/prepare/project-plan.html'},
+      {name:'项目章程',     key:'/sap/prepare/charter',      icon:'<span class="fi fi-pdf">PDF</span>',url:'/fsl-report/sap/prepare/charter.html'},
+      {name:'调研计划',     key:'/sap/prepare/survey',       icon:'<span class="fi fi-word">Word</span>',url:'/fsl-report/sap/prepare/survey.html'},
     ]},
     {title:'SAP实施交付物 — 蓝图至验收阶段',docs:[
-      {name:'调研报告',       key:'/sap/blueprint/survey-report',    icon:'🔍',url:'#'},
-      {name:'解决方案文档',   key:'/sap/blueprint/solution',         icon:'💡',url:'#'},
-      {name:'配置文档',       key:'/sap/realize/config',             icon:'⚙️',url:'#'},
-      {name:'开发文档',       key:'/sap/realize/dev-spec',           icon:'💻',url:'#'},
-      {name:'用户测试完成报告',key:'/sap/realize/uat',               icon:'✅',url:'#'},
-      {name:'上线策略',       key:'/sap/deploy/cutover',             icon:'🚢',url:'#'},
-      {name:'系统操作手册',   key:'/sap/deploy/manual',              icon:'📖',url:'#'},
-      {name:'培训文档',       key:'/sap/deploy/training',            icon:'🎓',url:'#'},
-      {name:'项目验收报告',   key:'/sap/deploy/acceptance',          icon:'🏆',url:'#'},
+      {name:'调研报告',        key:'/sap/blueprint/survey-report', icon:'<span class="fi fi-word">Word</span>',url:'#'},
+      {name:'解决方案文档',    key:'/sap/blueprint/solution',      icon:'<span class="fi fi-ppt">PPT</span>',url:'#'},
+      {name:'配置文档',        key:'/sap/realize/config',          icon:'<span class="fi fi-word">Word</span>',url:'#'},
+      {name:'开发文档',        key:'/sap/realize/dev-spec',        icon:'<span class="fi fi-word">Word</span>',url:'#'},
+      {name:'用户测试完成报告', key:'/sap/realize/uat',             icon:'<span class="fi fi-excel">Excel</span>',url:'#'},
+      {name:'上线策略',        key:'/sap/deploy/cutover',          icon:'<span class="fi fi-ppt">PPT</span>',url:'#'},
+      {name:'系统操作手册',    key:'/sap/deploy/manual',           icon:'<span class="fi fi-pdf">PDF</span>',url:'#'},
+      {name:'培训文档',        key:'/sap/deploy/training',         icon:'<span class="fi fi-ppt">PPT</span>',url:'#'},
+      {name:'项目验收报告',    key:'/sap/deploy/acceptance',       icon:'<span class="fi fi-word">Word</span>',url:'#'},
     ]},
   ];
   var html=sections.map(function(sec){
