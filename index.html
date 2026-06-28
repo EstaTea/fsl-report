@@ -420,8 +420,8 @@ Promise.all([
   document.getElementById('scRisk').textContent  = risks.length;
   document.getElementById('scMs').textContent    = milestones.length;
 
-  // 任务完成率（所有 issue 含 open+closed，非 PR）
-  var allTasks  = allIssues.filter(function(i){ return !i.pull_request; });
+  // 任务完成率（与任务总数口径一致：排除风险类、PR）
+  var allTasks  = allIssues.filter(function(i){ return !isRisk(i) && !i.pull_request; });
   var closedAll = allTasks.filter(function(i){ return i.state === 'closed'; });
   var iPct = allTasks.length ? Math.round(closedAll.length / allTasks.length * 100) : 0;
   document.getElementById('scIssuePct').textContent = iPct + '%';
