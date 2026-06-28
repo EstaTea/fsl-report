@@ -408,127 +408,133 @@ h2.slide-h2{font-size:var(--h2-size);font-weight:600;color:var(--sap-dark);margi
   </section>
   <section class="slide content-slide" id="slide-3">
     
-      <div style="width:100%;height:100%;display:grid;grid-template-columns:1fr 1px 0.72fr;gap:0;padding:clamp(.5rem,1.4vw,1.1rem);box-sizing:border-box;background:#fff;font-family:var(--font-body)">
+      <div style="width:100%;height:100%;display:grid;grid-template-columns:1fr 1px 0.78fr;gap:0;padding:clamp(.5rem,1.4vw,1.1rem);box-sizing:border-box;background:#fff;font-family:var(--font-body)">
 
         <!-- ══ 左侧：四象限图 ══ -->
         <div style="display:flex;flex-direction:column;gap:.3rem;padding-right:.8rem">
-          <div style="font-size:clamp(.85rem,2vw,1.4rem);font-weight:800;color:#0070F2;margin-bottom:.1rem">高价值专项方案评估：</div>
-          <div style="font-size:var(--small-size);color:#5B7A91;margin-bottom:.3rem">业务价值 × 技术难度 四象限分析 — 聚焦高价值、可落地的优先方案</div>
+          <div style="font-size:clamp(.85rem,2vw,1.35rem);font-weight:800;color:#0070F2;margin-bottom:.05rem">高价值专项方案评估</div>
+          <div style="font-size:var(--small-size);color:#5B7A91;margin-bottom:.25rem">业务价值 × 技术难度 四象限分析 &nbsp;|&nbsp; <span style="color:#0070F2;font-weight:700">★ 本期8个入选方案</span> &nbsp;|&nbsp; <span style="color:#bbb">其他候选</span></div>
 
-          <!-- 四象限容器 -->
           <div style="flex:1;position:relative;min-height:0">
 
+            <!-- 象限背景色 -->
+            <div style="position:absolute;left:50%;top:0;right:0;bottom:50%;background:rgba(0,112,242,.04);border-radius:0 4px 0 0"></div>
+            <div style="position:absolute;left:50%;top:50%;right:0;bottom:0;background:rgba(0,112,242,.07);border-radius:0 0 4px 0"></div>
+
             <!-- 象限标签 -->
-            <div style="position:absolute;top:2%;left:2%;font-size:var(--small-size);color:#888">优先级低</div>
-            <div style="position:absolute;top:2%;left:52%;font-size:var(--small-size);color:#0070F2;font-weight:700">优先级中</div>
-            <div style="position:absolute;bottom:2%;left:2%;font-size:var(--small-size);color:#0070F2;font-weight:700">优先级中</div>
-            <div style="position:absolute;bottom:2%;left:52%;font-size:var(--small-size);color:#0070F2;font-weight:700">优先级高</div>
+            <div style="position:absolute;top:3%;left:3%;font-size:var(--label-size);color:#bbb;font-weight:500">优先级低</div>
+            <div style="position:absolute;top:3%;left:53%;font-size:var(--label-size);color:#0070F2;font-weight:700">优先级中</div>
+            <div style="position:absolute;bottom:8%;left:3%;font-size:var(--label-size);color:#555;font-weight:600">优先级中</div>
+            <div style="position:absolute;bottom:8%;left:53%;font-size:var(--label-size);color:#0070F2;font-weight:700">优先级高</div>
 
             <!-- X轴 (业务价值) -->
-            <div style="position:absolute;top:50%;left:4%;right:2%;height:2px;background:#0070F2;transform:translateY(-50%)">
-              <div style="position:absolute;right:-6px;top:-4px;border:5px solid transparent;border-left:8px solid #0070F2"></div>
+            <div style="position:absolute;top:50%;left:5%;right:2%;height:2px;background:#0070F2;transform:translateY(-50%)">
+              <div style="position:absolute;right:-7px;top:-5px;border:5px solid transparent;border-left:9px solid #0070F2"></div>
             </div>
-            <div style="position:absolute;top:50%;left:2%;transform:translate(-100%,-50%) rotate(-90deg);font-size:var(--small-size);font-weight:700;color:#0070F2;white-space:nowrap;transform-origin:right center;writing-mode:horizontal-tb;transform:translateX(-105%) translateY(-50%)">业务价值</div>
+            <div style="position:absolute;top:50%;left:0;transform:translateY(-50%);writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg) translateY(50%);font-size:var(--small-size);font-weight:700;color:#0070F2;white-space:nowrap;left:.2rem">业务价值</div>
 
             <!-- Y轴 (技术难度) -->
-            <div style="position:absolute;left:50%;top:2%;bottom:4%;width:2px;background:#0070F2;margin-left:-1px">
-              <div style="position:absolute;top:-6px;left:-4px;border:5px solid transparent;border-bottom:8px solid #0070F2"></div>
+            <div style="position:absolute;left:50%;top:2%;bottom:5%;width:2px;background:#0070F2;margin-left:-1px">
+              <div style="position:absolute;top:-7px;left:-5px;border:5px solid transparent;border-bottom:9px solid #0070F2"></div>
             </div>
+            <div style="position:absolute;top:3%;left:51.5%;font-size:var(--small-size);font-weight:700;color:#0070F2">高</div>
+            <div style="position:absolute;top:49%;right:1.5%;font-size:var(--small-size);font-weight:700;color:#0070F2">高</div>
+            <div style="position:absolute;bottom:5.5%;left:50%;transform:translateX(-50%);font-size:var(--small-size);font-weight:700;color:#555">技术难度</div>
 
-            <!-- 轴标签 高 -->
-            <div style="position:absolute;top:3%;left:50%;transform:translateX(6px);font-size:var(--small-size);font-weight:700;color:#0070F2">高</div>
-            <div style="position:absolute;top:50%;right:2%;transform:translateY(-200%);font-size:var(--small-size);font-weight:700;color:#0070F2">高</div>
-            <div style="position:absolute;bottom:3%;left:50%;transform:translateX(-50%);font-size:var(--small-size);font-weight:700;color:#555">技术难度</div>
+            <!-- ★ 右上：高业务价值 + 高技术难度 → 优先级中 -->
+            <div class="qs" style="left:55%;top:6%">跨公司转移定价<br>和成本还原 ★</div>
+            <div class="qs" style="left:72%;top:18%">主数据规范<br>及治理 ★</div>
+            <div class="qs" style="left:59%;top:30%">标准成本估算<br>及发布 ★</div>
 
-            <!-- ── 象限一（左上）：高业务价值 低技术难度 → 优先级中 ── -->
-            <!-- 管理报表与财务报告的统驭 -->
-            <div style="position:absolute;left:18%;top:12%;font-size:var(--label-size);color:#333;text-align:center;line-height:1.35;max-width:80px">管理报表与<br>财务报告的统驭</div>
+            <!-- ★ 右下：高业务价值 + 低技术难度 → 优先级高（即将处理） -->
+            <div class="qs" style="left:65%;top:55%">自动化运行<br>MRP资源计划 ★</div>
+            <div class="qs" style="left:52%;top:61%">泰国外币及<br>本地化监管需求 ★</div>
+            <div class="qs" style="left:70%;top:70%">集团财务管控<br>专项方案 ★</div>
+            <div class="qs" style="left:53%;top:76%">销售价格体系<br>专项方案 ★</div>
+            <div class="qs" style="left:72%;top:82%">研发与BOM<br>管理专项 ★</div>
 
-            <!-- ── 象限二（右上）：高业务价值 高技术难度 → 优先级中 ── -->
-            <!-- ★ 跨公司转移定价和成本还原 -->
-            <div style="position:absolute;left:56%;top:8%;font-size:var(--label-size);font-weight:700;color:#0070F2;text-align:center;line-height:1.35;max-width:90px;background:#EFF6FF;border-radius:4px;padding:2px 4px">跨公司转移定价<br>和成本还原 ★</div>
-            <!-- ★ 主数据规范及治理 -->
-            <div style="position:absolute;left:73%;top:20%;font-size:var(--label-size);font-weight:700;color:#0070F2;text-align:center;line-height:1.35;max-width:80px;background:#EFF6FF;border-radius:4px;padding:2px 4px">主数据规范<br>及治理 ★</div>
-            <!-- ★ 标准成本估算及发布 -->
-            <div style="position:absolute;left:60%;top:30%;font-size:var(--label-size);font-weight:700;color:#0070F2;text-align:center;line-height:1.35;max-width:80px;background:#EFF6FF;border-radius:4px;padding:2px 4px">标准成本估算<br>及发布 ★</div>
+            <!-- 左上：管理报表（非优先，灰色） -->
+            <div class="qo" style="left:18%;top:10%">管理报表与<br>财务报告统驭</div>
 
-            <!-- ── 象限三（左上偏左）：低技术难度 中等业务价值 ── -->
-            <div style="position:absolute;left:6%;top:28%;font-size:var(--label-size);color:#888;text-align:center;line-height:1.35;max-width:80px">退货逆向流程<br>的优化</div>
-            <div style="position:absolute;left:8%;top:40%;font-size:var(--label-size);color:#888;text-align:center;line-height:1.35">产销协同</div>
-            <div style="position:absolute;left:4%;top:46%;font-size:var(--label-size);color:#888;text-align:center;line-height:1.35;max-width:90px">销售履约的<br>全景追踪</div>
-
-            <!-- ── 象限四（右下）：低业务价值 高技术难度 → 优先级高 ── -->
-            <!-- ★ 自动化运行MRP资源计划 -->
-            <div style="position:absolute;left:66%;top:55%;font-size:var(--label-size);font-weight:700;color:#0070F2;text-align:center;line-height:1.35;max-width:80px;background:#EFF6FF;border-radius:4px;padding:2px 4px">自动化运行<br>MRP资源计划 ★</div>
-            <!-- ★ 泰国外币及本地化监管需求 -->
-            <div style="position:absolute;left:52%;top:60%;font-size:var(--label-size);font-weight:700;color:#0070F2;text-align:center;line-height:1.35;max-width:85px;background:#EFF6FF;border-radius:4px;padding:2px 4px">泰国外币及本地<br>化监管需求 ★</div>
-            <!-- ★ 集团财务管控 / Group Reporting -->
-            <div style="position:absolute;left:67%;top:72%;font-size:var(--label-size);font-weight:700;color:#0070F2;text-align:center;line-height:1.35;max-width:80px;background:#EFF6FF;border-radius:4px;padding:2px 4px">集团财务管控<br>专项方案 ★</div>
-            <!-- ★ 销售价格体系 -->
-            <div style="position:absolute;left:54%;top:77%;font-size:var(--label-size);font-weight:700;color:#0070F2;text-align:center;line-height:1.35;max-width:80px;background:#EFF6FF;border-radius:4px;padding:2px 4px">销售价格体系<br>专项方案 ★</div>
-            <!-- ★ 研发与BOM管理 -->
-            <div style="position:absolute;left:72%;top:82%;font-size:var(--label-size);font-weight:700;color:#0070F2;text-align:center;line-height:1.35;max-width:80px;background:#EFF6FF;border-radius:4px;padding:2px 4px">研发与BOM<br>管理专项 ★</div>
-
-            <!-- 左下：非优先方案 -->
-            <div style="position:absolute;left:6%;top:62%;font-size:var(--label-size);color:#888;text-align:center;line-height:1.35;max-width:90px">集团采购组织<br>的集中化管理</div>
-            <div style="position:absolute;left:25%;top:58%;font-size:var(--label-size);color:#555;text-align:center;line-height:1.35;max-width:85px">加强IT管队<br>的建设</div>
+            <!-- 左侧：其他候选（灰色弱化） -->
+            <div class="qo" style="left:5%;top:26%">退货逆向流程<br>的优化</div>
+            <div class="qo" style="left:8%;top:38%">产销协同</div>
+            <div class="qo" style="left:3%;top:44%">销售履约的<br>全景追踪</div>
+            <div class="qo" style="left:5%;top:62%">集团采购组织<br>集中化管理</div>
+            <div class="qo" style="left:24%;top:57%">加强IT管队<br>的建设</div>
           </div>
 
           <!-- 图例 -->
-          <div style="display:flex;align-items:center;gap:1rem;padding-top:.3rem;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:1.2rem;padding-top:.3rem;flex-wrap:wrap">
             <div style="display:flex;align-items:center;gap:.3rem;font-size:var(--label-size)">
-              <div style="width:12px;height:12px;background:#EFF6FF;border-radius:2px;border:1px solid #0070F2"></div>
-              <span style="color:#0070F2;font-weight:700">★ 本期8个高价值专项方案</span>
+              <div style="width:11px;height:11px;background:#EFF6FF;border-radius:2px;border:1.5px solid #0070F2"></div>
+              <span style="color:#0070F2;font-weight:700">★ 本期8个高价值入选方案</span>
             </div>
             <div style="display:flex;align-items:center;gap:.3rem;font-size:var(--label-size)">
-              <div style="width:12px;height:12px;background:#f5f5f5;border-radius:2px;border:1px solid #ccc"></div>
-              <span style="color:#888">其他候选方案（暂不纳入本期）</span>
+              <div style="width:11px;height:11px;background:#f7f7f7;border-radius:2px;border:1px solid #ddd"></div>
+              <span style="color:#bbb">其他候选方案（暂不纳入本期）</span>
             </div>
           </div>
         </div>
 
-        <!-- ══ 中间分隔线 ══ -->
-        <div style="background:#E5E7EB;margin:0 .6rem"></div>
+        <!-- 分隔线 -->
+        <div style="background:#E5E7EB;margin:0 .5rem"></div>
 
-        <!-- ══ 右侧：选择标准 ══ -->
-        <div style="padding-left:.8rem;display:flex;flex-direction:column;gap:.55rem;overflow:hidden">
-          <div style="font-size:clamp(.8rem,1.7vw,1.1rem);font-weight:800;color:#0070F2;border-bottom:2px solid #DBEAFE;padding-bottom:.3rem">本期8个方案的选择标准</div>
+        <!-- ══ 右侧：为什么选这8个 ══ -->
+        <div style="padding-left:.8rem;display:flex;flex-direction:column;gap:.35rem;overflow:hidden">
+          <div style="font-size:clamp(.8rem,1.6vw,1.05rem);font-weight:800;color:#0070F2;border-bottom:2px solid #DBEAFE;padding-bottom:.25rem;margin-bottom:.1rem">为什么选择这8个方案？</div>
 
-          <div style="display:flex;flex-direction:column;gap:.5rem;flex:1">
+          <div style="display:flex;flex-direction:column;gap:.32rem;flex:1;overflow:hidden">
 
-            <div style="background:#EFF6FF;border-radius:6px;border-left:3px solid #0070F2;padding:.45rem .6rem">
-              <div style="font-size:var(--small-size);font-weight:800;color:#0B2D47;margin-bottom:.2rem">① 业务痛点明确，需求驱动力强</div>
-              <div style="font-size:var(--label-size);color:#444;line-height:1.5">选择的专项方案均对应佛照探索阶段访谈中明确提出的痛点：跨公司成本失真（净利率0.95%）、主数据混乱（19家法人口径不一）、MRP未驱动（季末缺货率30-40%）等，业务部门有强烈推动意愿。</div>
+            <div style="background:#EFF6FF;border-radius:5px;border-left:3px solid #0070F2;padding:.38rem .55rem">
+              <div style="font-size:var(--small-size);font-weight:800;color:#0B2D47;margin-bottom:.15rem">① 跨公司转移定价和成本还原</div>
+              <div style="font-size:var(--label-size);color:#333;line-height:1.5">集团扣非净利率仅0.95%（行业底部），19家法人内部交易规模约30亿，但物料分类账仅激活未启用平行评估，管理报告靠手工汇总。S/4HANA平行评估+Group Reporting可将月结从15天压缩至5天，BU绩效考核失真问题系统性解决。</div>
             </div>
 
-            <div style="background:#F0FFF4;border-radius:6px;border-left:3px solid #188918;padding:.45rem .6rem">
-              <div style="font-size:var(--small-size);font-weight:800;color:#0B2D47;margin-bottom:.2rem">② 与S/4HANA标准功能高度匹配</div>
-              <div style="font-size:var(--label-size);color:#444;line-height:1.5">8个方案均以S/4HANA PCE原生功能为核心（平行评估、MDG、Group Reporting、MRP Live、DRC等），无需大量定制开发，技术风险可控，与Greenfield实施方法论一致。</div>
+            <div style="background:#EFF6FF;border-radius:5px;border-left:3px solid #0070F2;padding:.38rem .55rem">
+              <div style="font-size:var(--small-size);font-weight:800;color:#0B2D47;margin-bottom:.15rem">② 主数据规范及治理（MDG）</div>
+              <div style="font-size:var(--label-size);color:#333;line-height:1.5">19家法人物料/客商主数据口径不统一，同一LED灯珠在不同法人有5-8个物料编码，是所有其他专项方案的数据底座。MDG不先行，跨公司成本还原、标准成本估算的准确性均无法保证。</div>
             </div>
 
-            <div style="background:#FFFBEB;border-radius:6px;border-left:3px solid #D97706;padding:.45rem .6rem">
-              <div style="font-size:var(--small-size);font-weight:800;color:#0B2D47;margin-bottom:.2rem">③ 业务价值可量化、可验收</div>
-              <div style="font-size:var(--label-size);color:#444;line-height:1.5">每个方案均设有可量化的数字化指标（如净利率提升≥1.5pp、月结周期15天→5天、成本核算偏差±15%→±3%），便于项目验收和价值证明，支撑二期商机。</div>
+            <div style="background:#EFF6FF;border-radius:5px;border-left:3px solid #0070F2;padding:.38rem .55rem">
+              <div style="font-size:var(--small-size);font-weight:800;color:#0B2D47;margin-bottom:.15rem">③ 标准成本估算及发布（CK40N）</div>
+              <div style="font-size:var(--label-size);color:#333;line-height:1.5">LED芯片年波动±25%，MAP导致采购时机决定BU绩效，年价格差异（PPV）约7,500万≈集团全年净利润。标准成本体系让差异可归因：芯片涨价归采购部，良率问题归生产BU，管理责任首次可精准追踪。</div>
             </div>
 
-            <div style="background:#FFF1F2;border-radius:6px;border-left:3px solid #E53935;padding:.45rem .6rem">
-              <div style="font-size:var(--small-size);font-weight:800;color:#0B2D47;margin-bottom:.2rem">④ 规避高风险、低价值方案</div>
-              <div style="font-size:var(--label-size);color:#444;line-height:1.5">暂不纳入本期的方案（如退货逆向流程优化、产销协同等）或技术复杂度与收益不成比例，或依赖外部系统接口尚未就绪，留待二期评估，避免分散资源影响核心目标。</div>
+            <div style="background:#F0FFF4;border-radius:5px;border-left:3px solid #188918;padding:.38rem .55rem">
+              <div style="font-size:var(--small-size);font-weight:800;color:#0B2D47;margin-bottom:.15rem">④ 自动化运行MRP资源计划（MRP Live）</div>
+              <div style="font-size:var(--label-size);color:#333;line-height:1.5">家用事业部季末缺货率高达30-40%，销售预测仅能覆盖品类无法细化至SKU，供应商交期准确率低、计划调整频繁。MRP Live替代手工排产，预计将缺货率降至10%以内，支撑88亿营收规模下的精益运营。</div>
             </div>
 
-            <div style="background:#F5F3FF;border-radius:6px;border-left:3px solid #7C3AED;padding:.45rem .6rem">
-              <div style="font-size:var(--small-size);font-weight:800;color:#0B2D47;margin-bottom:.2rem">⑤ 战略合规与扩展性</div>
-              <div style="font-size:var(--label-size);color:#444;line-height:1.5">泰国本地化、DRC税务合规、Group Reporting等方案响应佛照集团国际化战略需求（德国FZ33/泰国FZ40），并为后续SAP GTS、IBP等二期产品奠定数据和流程基础。</div>
+            <div style="background:#F0FFF4;border-radius:5px;border-left:3px solid #188918;padding:.38rem .55rem">
+              <div style="font-size:var(--small-size);font-weight:800;color:#0B2D47;margin-bottom:.15rem">⑤ 销售价格体系（SD定价条件）</div>
+              <div style="font-size:var(--label-size);color:#333;line-height:1.5">多渠道定价策略零散（五金批发/零售/商用/电商），缺乏标准化，复杂促销全靠人工核算，占销售支持岗50-60%工时。SD价格条件+促销模块可实现"下单自动匹配最优价格"，杜绝低价乱价与价格战。</div>
             </div>
 
-          </div>
+            <div style="background:#FFF8E7;border-radius:5px;border-left:3px solid #D97706;padding:.38rem .55rem">
+              <div style="font-size:var(--small-size);font-weight:800;color:#0B2D47;margin-bottom:.15rem">⑥ 集团财务管控（Group Reporting）</div>
+              <div style="font-size:var(--label-size);color:#333;line-height:1.5">19家法人含德国FZ33(EUR)、泰国FZ40(THB)，内部交易消除靠手工需3周、差错频繁。Group Reporting实现T+0自动消除，满足IFRS/CAS双套报告要求，为国际化扩张和CBAM合规提供数据基础。</div>
+            </div>
 
-          <div style="font-size:var(--label-size);color:#888;border-top:1px solid #E5E7EB;padding-top:.3rem;line-height:1.5">
-            评估维度参考：Gartner两×两优先级矩阵 / SAP Value Advisor方法论 / 佛照业务诊断访谈（2026.06）
+            <div style="background:#FFF8E7;border-radius:5px;border-left:3px solid #D97706;padding:.38rem .55rem">
+              <div style="font-size:var(--small-size);font-weight:800;color:#0B2D47;margin-bottom:.15rem">⑦ 泰国外币及本地化监管需求（DRC）</div>
+              <div style="font-size:var(--label-size);color:#333;line-height:1.5">泰国FZ40涉及多币种结算、本地税务合规及OECD转移定价稽查风险。DRC数字合规报告自动生成关联交易文档，规避平均18-36个月补税周期风险，中国制造业被调整均值约0.5%营收≈2,800万/年潜在补税。</div>
+            </div>
+
+            <div style="background:#F5F0FF;border-radius:5px;border-left:3px solid #7C3AED;padding:.38rem .55rem">
+              <div style="font-size:var(--small-size);font-weight:800;color:#0B2D47;margin-bottom:.15rem">⑧ 研发与BOM管理（PP/PLM集成）</div>
+              <div style="font-size:var(--label-size);color:#333;line-height:1.5">佛照研发费用5.60亿/年（占收入6.37%），但PLM-ERP集成于2025年才刚上线，EBOM→MBOM转换仍靠人工，BOM准确性直接影响MRP计划与标准成本估算精度。本方案为标准成本和MRP两大核心方案提供数据保障。</div>
+            </div>
+
           </div>
         </div>
-
       </div>
+
+      <style>
+      .qs{position:absolute;font-size:var(--label-size);font-weight:700;color:#0070F2;text-align:center;line-height:1.35;max-width:88px;background:#EFF6FF;border-radius:4px;padding:2px 4px;border:1px solid #BFDBFE}
+      .qo{position:absolute;font-size:var(--label-size);font-weight:400;color:#bbb;text-align:center;line-height:1.35;max-width:82px}
+      </style>
+    
   </section>
   <section class="slide section-divider" id="slide-3">
     
