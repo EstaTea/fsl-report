@@ -286,11 +286,6 @@ textarea.ip-field{resize:vertical;min-height:100px;line-height:1.6;}
 
   <!-- KPI 统计行 -->
   <div class="stat-grid" id="statGrid">
-    <div class="stat-card"><div class="sc-num" id="scTotal">—</div><div class="sc-sub">任务总数</div></div>
-    <div class="stat-card"><div class="sc-num" id="scDone" style="color:#15803d">—</div><div class="sc-sub">已完成 <span id="scDonePct" style="font-size:12px;color:var(--muted)"></span></div><a class="sc-link" href="/fsl-report/kanban/#kanban">查看看板 →</a></div>
-    <div class="stat-card"><div class="sc-num" id="scWip" style="color:var(--b500)">—</div><div class="sc-sub">进行中</div><a class="sc-link" href="/fsl-report/kanban/#kanban">查看看板 →</a></div>
-    <div class="stat-card"><div class="sc-num" id="scRisk" style="color:#dc2626">—</div><div class="sc-sub">开放风险</div><a class="sc-link" href="/fsl-report/kanban/#risk">查看风险 →</a></div>
-    <div class="stat-card"><div class="sc-num" id="scMs" style="color:var(--b700)">—</div><div class="sc-sub">里程碑总数</div><a class="sc-link" href="/fsl-report/kanban/#milestone">查看里程碑 →</a></div>
     <div class="stat-card">
       <div class="sc-num" id="scTimePct" style="color:var(--b500)">—</div>
       <div class="sc-sub">时间进度</div>
@@ -299,10 +294,14 @@ textarea.ip-field{resize:vertical;min-height:100px;line-height:1.6;}
     </div>
     <div class="stat-card">
       <div class="sc-num" id="scIssuePct" style="color:#15803d">—</div>
-      <div class="sc-sub">任务完成率</div>
+      <div class="sc-sub">任务进度</div>
       <div id="scIssueDetail" style="font-size:11px;color:var(--muted);margin-top:3px;"></div>
       <a class="sc-link" href="/fsl-report/kanban/#kanban">查看看板 →</a>
     </div>
+    <div class="stat-card"><div class="sc-num" id="scTotal">—</div><div class="sc-sub">任务总数</div></div>
+    <div class="stat-card"><div class="sc-num" id="scWip" style="color:var(--b500)">—</div><div class="sc-sub">进行中</div><a class="sc-link" href="/fsl-report/kanban/#kanban">查看看板 →</a></div>
+    <div class="stat-card"><div class="sc-num" id="scRisk" style="color:#dc2626">—</div><div class="sc-sub">开放风险</div><a class="sc-link" href="/fsl-report/kanban/#risk">查看风险 →</a></div>
+    <div class="stat-card"><div class="sc-num" id="scMs" style="color:var(--b700)">—</div><div class="sc-sub">里程碑总数</div><a class="sc-link" href="/fsl-report/kanban/#milestone">查看里程碑 →</a></div>
   </div>
 
   <!-- 可视化图表行 -->
@@ -428,7 +427,7 @@ Promise.all([
   var closedAll = allTasks.filter(function(i){ return i.state === 'closed'; });
   var iPct = allTasks.length ? Math.round(closedAll.length / allTasks.length * 100) : 0;
   document.getElementById('scIssuePct').textContent = iPct + '%';
-  document.getElementById('scIssueDetail').textContent = closedAll.length + '/' + allTasks.length + ' 项已关闭';
+  document.getElementById('scIssueDetail').textContent = closedAll.length + '/' + allTasks.length + ' 项已完成';
 
   // Progress
   document.getElementById('pctLabel').textContent = pct+'%';
