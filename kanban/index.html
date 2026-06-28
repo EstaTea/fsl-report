@@ -49,7 +49,7 @@ nav{background:var(--b900);height:54px;display:flex;align-items:center;padding:0
 .mod-tab.active{color:var(--b500);border-bottom-color:var(--b500);font-weight:700}
 .mod-tab .new-badge{font-size:9px;background:var(--primary);color:#fff;padding:1px 4px;border-radius:3px;font-weight:700}
 .mod-tab-dd{position:relative;display:inline-flex;align-items:stretch}
-.mod-tab-dd-panel{display:none;position:fixed;z-index:9999;background:var(--b900);border:1px solid rgba(255,255,255,.12);border-top:2px solid var(--b500);border-radius:0 6px 6px 6px;min-width:192px;padding:6px 0;box-shadow:0 6px 20px rgba(11,45,71,.5)}
+.mod-tab-dd-panel{display:none;position:fixed;z-index:9999;background:var(--b900);border:1px solid rgba(255,255,255,.12);border-top:2px solid var(--b500);border-radius:0 6px 6px 6px;min-width:220px;padding:6px 0;box-shadow:0 6px 20px rgba(11,45,71,.5)}
 .mod-tab-dd-panel.dd-open{display:block}
 .mod-tab-dd-panel a{display:flex;align-items:center;gap:8px;padding:8px 16px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;white-space:nowrap;transition:background .12s,color .12s}
 .mod-tab-dd-panel a:hover{background:rgba(255,255,255,.1);color:#fff}
@@ -680,9 +680,28 @@ select.dp-input{appearance:none;-webkit-appearance:none;
     <div class="mod-tab" data-panel="stats" onclick="switchTab(this,'stats')">📊 <span class="label-text">统计</span></div>
     <div class="mod-tab" data-panel="org" onclick="switchTab(this,'org')">🏗 <span class="label-text">项目架构</span></div>
     <div class="mod-tab-dd" id="surveyTabDd">
-      <div class="mod-tab" style="cursor:pointer" onclick="toggleSurveyDd(event)">📋 <span class="label-text">调研访谈</span><span class="new-badge">2</span><span style="font-size:8px;margin-left:2px;opacity:.6">▾</span></div>
+      <div class="mod-tab" style="cursor:pointer" onclick="toggleSurveyDd(event)">📋 <span class="label-text">调研访谈</span><span class="new-badge">12</span><span style="font-size:8px;margin-left:2px;opacity:.6">▾</span></div>
       <div class="mod-tab-dd-panel" id="survey-dropdown">
-        <a href="/fsl-report/kanban/survey-ar.html">💰 开票与应收</a>
+        <div style="padding:5px 16px 3px;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.6px;text-transform:uppercase">财务</div>
+        <a href="/fsl-report/kanban/survey-ar.html">💰 开票与应收全流程</a>
+        <a href="/fsl-report/kanban/survey-mdg.html">🗃 财务主数据与MDG规划</a>
+        <div style="height:1px;background:rgba(255,255,255,.08);margin:4px 0"></div>
+        <div style="padding:5px 16px 3px;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.6px;text-transform:uppercase">销售 / 电商</div>
+        <a href="/fsl-report/kanban/survey-ecommerce.html">🛒 电商与产品规划</a>
+        <a href="/fsl-report/kanban/survey-intl.html">🌍 国际业务+外汇合规</a>
+        <a href="/fsl-report/kanban/survey-newbiz.html">🚀 新业务拓展中心</a>
+        <div style="height:1px;background:rgba(255,255,255,.08);margin:4px 0"></div>
+        <div style="padding:5px 16px 3px;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.6px;text-transform:uppercase">生产 / 质量</div>
+        <a href="/fsl-report/kanban/survey-carlamp.html">🚗 车灯事业部全面访谈</a>
+        <a href="/fsl-report/kanban/survey-quality.html">✅ 质量与客服中心</a>
+        <a href="/fsl-report/kanban/survey-pp.html">⚙️ 生产计划+MES+BOM</a>
+        <div style="height:1px;background:rgba(255,255,255,.08);margin:4px 0"></div>
+        <div style="padding:5px 16px 3px;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.6px;text-transform:uppercase">技术 / 数据</div>
+        <a href="/fsl-report/kanban/survey-plm.html">📐 PLM与SAP集成</a>
+        <a href="/fsl-report/kanban/survey-masterdata.html">📊 主数据质量改进研讨</a>
+        <div style="height:1px;background:rgba(255,255,255,.08);margin:4px 0"></div>
+        <div style="padding:5px 16px 3px;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.6px;text-transform:uppercase">现场 / 战略</div>
+        <a href="/fsl-report/kanban/survey-gaoming.html">🏭 高明分公司实地调研</a>
         <a href="/fsl-report/kanban/survey-strategy.html">🏛 战略调研 · 董事会</a>
       </div>
     </div>
