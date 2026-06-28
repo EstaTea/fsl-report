@@ -27,7 +27,7 @@
     .then(function (statusMap) {
 
       /* ── 1. Update doc-card badges ── */
-      document.querySelectorAll('a.doc-card[href]').forEach(function (card) {
+      document.querySelectorAll('a.doc-card[href], a.folder-card[href]').forEach(function (card) {
         const key = hrefToKey(card.getAttribute('href'));
         if (!key) return;
         const st = statusMap[key] || statusMap[key + '.html'];
