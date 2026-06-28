@@ -257,6 +257,95 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
   #main{margin-left:0}
   .chapter{page-break-inside:avoid}
 }
+/* ── Radar/Spider chart ── */
+.radar-wrap{display:flex;justify-content:center;align-items:center;margin:16px 0;overflow-x:auto}
+.radar-wrap svg{max-width:100%;height:auto}
+.radar-label{font-family:"Microsoft YaHei",Arial,sans-serif;fill:var(--text)}
+
+/* ── Gauge grid (DCMM bars) ── */
+.gauge-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:10px;margin:13px 0}
+.gauge-item{background:var(--white);border:1px solid var(--pale);border-radius:8px;padding:12px 14px}
+.gauge-item .gi-label{font-size:12px;font-weight:700;color:var(--dark);margin-bottom:6px}
+.gauge-bar{height:8px;background:var(--pale);border-radius:4px;overflow:hidden;margin-bottom:4px}
+.gauge-fill{height:100%;border-radius:4px}
+.gauge-fill.l1{background:#C0392B}
+.gauge-fill.l2{background:#E67E22}
+.gauge-fill.l3{background:#F1C40F}
+.gauge-fill.l4{background:#27AE60}
+.gauge-fill.l5{background:#1A6B3A}
+.gauge-meta{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted)}
+
+/* ── ROI grid ── */
+.roi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:14px 0}
+.roi-box{border-radius:10px;padding:20px 18px}
+.roi-box.invest{background:#EBF4FF;border:2px solid var(--pale)}
+.roi-box.return{background:#D1FAE5;border:2px solid #A7F3D0}
+.roi-box.net{background:var(--white);border:2px solid var(--primary)}
+.roi-box .rl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:6px}
+.roi-box .rv{font-size:24px;font-weight:800;margin:6px 0 10px}
+.roi-box .rb{font-size:11.5px;color:var(--text2);line-height:1.75}
+@media(max-width:768px){.roi-grid{grid-template-columns:1fr}}
+
+/* ── Priority cards ── */
+.prio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0}
+.prio-card{background:var(--white);border-radius:10px;padding:18px;border-top:4px solid;box-shadow:0 2px 8px rgba(0,48,135,.07)}
+.prio-card.p1{border-top-color:#C0392B}
+.prio-card.p2{border-top-color:#E67E22}
+.prio-card.p3{border-top-color:#F1C40F}
+.prio-card .pl{font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.prio-card.p1 .pl{color:#C0392B}
+.prio-card.p2 .pl{color:#E67E22}
+.prio-card.p3 .pl{color:#B7950B}
+.prio-card .pt{font-size:14px;font-weight:700;color:var(--dark);margin-bottom:8px}
+.prio-card .pi{font-size:12px;color:var(--text2);list-style:none;padding:0}
+.prio-card .pi li{padding:3px 0 3px 16px;position:relative;line-height:1.6}
+.prio-card .pi li::before{content:"›";position:absolute;left:2px;color:var(--primary);font-weight:700}
+
+/* ── Root cause cards (NEW card style) ── */
+.rc-cards{display:flex;flex-direction:column;gap:14px;margin:14px 0}
+.rc-card{background:var(--white);border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,48,135,.08)}
+.rc-card-head{display:flex;align-items:center;gap:12px;padding:12px 18px;background:linear-gradient(90deg,#C0392B,#E74C3C);color:#fff}
+.rc-card-head .rc-num{background:rgba(255,255,255,.25);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0}
+.rc-card-head h4{font-size:13px;font-weight:700;line-height:1.4}
+.rc-card-body{padding:14px 18px}
+.rc-steps{display:flex;flex-direction:column;gap:0}
+.rc-step{display:flex;gap:12px;align-items:flex-start;padding:7px 0;border-bottom:1px dashed var(--pale)}
+.rc-step:last-child{border-bottom:none}
+.rc-step-icon{width:26px;height:26px;border-radius:50%;background:var(--bg);border:2px solid var(--pale);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;margin-top:1px}
+.rc-step-icon.red{background:#FDECEA;border-color:#E74C3C;color:#C0392B}
+.rc-step-icon.amber{background:#FEF3C7;border-color:#F39C12;color:#B7950B}
+.rc-step-icon.break{background:var(--primary);border-color:var(--primary);color:#fff}
+.rc-step-text{font-size:12px;color:var(--text2);line-height:1.65;padding-top:2px}
+.rc-step-text strong{color:var(--dark)}
+.rc-arrow-down{text-align:center;color:var(--steel);font-size:18px;line-height:1;padding:2px 0}
+.rc-result{background:#FFF5F5;border:1px solid #FECACA;border-radius:6px;padding:8px 12px;font-size:12px;color:#C0392B;font-weight:600;margin-top:4px}
+.rc-impact{background:var(--bg);border-left:3px solid var(--primary);padding:7px 12px;font-size:11.5px;color:var(--muted);margin-top:8px;border-radius:0 4px 4px 0}
+/* legacy support */
+.root-cause-card{background:var(--white);border-radius:8px;padding:16px;border-left:5px solid #C0392B;margin-bottom:12px;box-shadow:0 1px 6px rgba(0,48,135,.06)}
+.root-cause-card .rc-title{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.root-cause-card .rc-chain{font-size:12px;color:var(--text2);line-height:2;background:var(--bg);padding:10px 12px;border-radius:6px;font-family:"Courier New",monospace;white-space:pre-wrap}
+
+/* ── SAP module matrix ── */
+.sap-matrix{width:100%;border-collapse:collapse;margin:12px 0;font-size:11.5px}
+.sap-matrix th{background:var(--dark);color:#fff;padding:7px 10px;text-align:center;font-weight:700;font-size:11px}
+.sap-matrix th.left{text-align:left}
+.sap-matrix td{padding:6px 10px;border-bottom:1px solid var(--pale);text-align:center;vertical-align:middle}
+.sap-matrix td.ent{text-align:left;font-size:11px;font-weight:600;color:var(--dark)}
+.sap-matrix td.code{font-size:10px;color:var(--muted);font-family:monospace}
+.sap-check{color:#27AE60;font-weight:800;font-size:13px}
+.sap-empty{color:var(--pale)}
+.sap-row-full{background:#EBF4FF}
+.sap-row-fi{background:#F9F9F9}
+
+/* ── IT org card ── */
+.it-staff-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:12px 0}
+.it-staff-card{background:var(--white);border:1px solid var(--pale);border-radius:8px;padding:14px;text-align:center}
+.it-staff-card .isc-role{font-size:11px;font-weight:700;color:var(--dark);margin-bottom:4px}
+.it-staff-card .isc-num{font-size:26px;font-weight:800;color:var(--primary);line-height:1}
+.it-staff-card .isc-sub{font-size:10.5px;color:var(--muted);margin-top:3px}
+.it-staff-card.gap{border-color:#C0392B;background:#FFF5F5}
+.it-staff-card.gap .isc-num{color:#C0392B}
+
 </style>
 </head>
 <body>
@@ -489,16 +578,81 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
       </table>
     </div>
     <div class="sec">
-      <div class="sec-title"><i class="fas fa-tachometer-alt"></i> 1.2 DCMM成熟度评分（当前综合1.4/5分）</div>
-      <div class="gauge-grid">
-        <div class="gauge-item"><div class="gi-label">数据战略与方向</div><div class="gauge-bar"><div class="gauge-fill l1" style="width:30%"></div></div><div class="gauge-meta"><span>当前 1.5</span><span>目标 3.0 ▲1.5</span></div></div>
-        <div class="gauge-item"><div class="gi-label">数据治理组织</div><div class="gauge-bar"><div class="gauge-fill l1" style="width:20%"></div></div><div class="gauge-meta"><span>当前 1.0</span><span>目标 3.0 ▲2.0</span></div></div>
-        <div class="gauge-item"><div class="gi-label">数据标准规范</div><div class="gauge-bar"><div class="gauge-fill l1" style="width:20%"></div></div><div class="gauge-meta"><span>当前 1.0</span><span>目标 3.5 ▲2.5</span></div></div>
-        <div class="gauge-item"><div class="gi-label">主数据质量</div><div class="gauge-bar"><div class="gauge-fill l1" style="width:20%"></div></div><div class="gauge-meta"><span>当前 1.0</span><span>目标 3.5 ▲2.5</span></div></div>
-        <div class="gauge-item"><div class="gi-label">数据架构</div><div class="gauge-bar"><div class="gauge-fill l1" style="width:30%"></div></div><div class="gauge-meta"><span>当前 1.5</span><span>目标 3.5 ▲2.0</span></div></div>
-        <div class="gauge-item"><div class="gi-label">数据应用</div><div class="gauge-bar"><div class="gauge-fill l1" style="width:30%"></div></div><div class="gauge-meta"><span>当前 1.5</span><span>目标 3.0 ▲1.5</span></div></div>
-        <div class="gauge-item"><div class="gi-label">数据安全</div><div class="gauge-bar"><div class="gauge-fill l2" style="width:50%"></div></div><div class="gauge-meta"><span>当前 2.5（制度完善）</span><span>目标 3.5 ▲1.0</span></div></div>
-        <div class="gauge-item"><div class="gi-label">数据生命周期</div><div class="gauge-bar"><div class="gauge-fill l1" style="width:20%"></div></div><div class="gauge-meta"><span>当前 1.0</span><span>目标 3.0 ▲2.0</span></div></div>
+      <div class="sec-title"><i class="fas fa-chart-area"></i> 1.2 DCMM成熟度雷达图（当前综合1.4/5分）</div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:8px">蓝色区域 = 当前状态（1-2.5分）· 虚线圈 = 目标状态（3-3.5分）· 评分体系：DCMM GB/T 36073—2018</p>
+      <div class="radar-wrap">
+        <svg viewBox="0 0 520 380" width="520" height="380" xmlns="http://www.w3.org/2000/svg" style="font-family:'Microsoft YaHei',Arial,sans-serif">
+          <defs>
+            <style>.rl{font-size:11px;fill:#2C3E50;font-weight:600} .rs{font-size:10px;fill:#6B8CB8}</style>
+          </defs>
+          <!-- Background rings -->
+          <g transform="translate(250,195)">
+            <!-- 5 rings at 20% each -->
+            <polygon points="0,-120 113.9,-36.9 70.5,96.9 -70.5,96.9 -113.9,-36.9" fill="none" stroke="#D0E4F7" stroke-width="1"/>
+            <polygon points="0,-96 91.1,-29.5 56.4,77.5 -56.4,77.5 -91.1,-29.5" fill="none" stroke="#D0E4F7" stroke-width="1"/>
+            <polygon points="0,-72 68.3,-22.1 42.3,58.1 -42.3,58.1 -68.3,-22.1" fill="none" stroke="#D0E4F7" stroke-width="1"/>
+            <polygon points="0,-48 45.5,-14.8 28.2,38.8 -28.2,38.8 -45.5,-14.8" fill="none" stroke="#D0E4F7" stroke-width="1"/>
+            <polygon points="0,-24 22.8,-7.4 14.1,19.4 -14.1,19.4 -22.8,-7.4" fill="none" stroke="#D0E4F7" stroke-width="1"/>
+            <!-- Axes (8 axes for 8 dimensions) -->
+            <!-- 0°top, 45°, 90°, 135°, 180°, 225°, 270°, 315° -->
+            <line x1="0" y1="0" x2="0" y2="-120" stroke="#D0E4F7" stroke-width="1"/>
+            <line x1="0" y1="0" x2="84.9" y2="-84.9" stroke="#D0E4F7" stroke-width="1"/>
+            <line x1="0" y1="0" x2="120" y2="0" stroke="#D0E4F7" stroke-width="1"/>
+            <line x1="0" y1="0" x2="84.9" y2="84.9" stroke="#D0E4F7" stroke-width="1"/>
+            <line x1="0" y1="0" x2="0" y2="120" stroke="#D0E4F7" stroke-width="1"/>
+            <line x1="0" y1="0" x2="-84.9" y2="84.9" stroke="#D0E4F7" stroke-width="1"/>
+            <line x1="0" y1="0" x2="-120" y2="0" stroke="#D0E4F7" stroke-width="1"/>
+            <line x1="0" y1="0" x2="-84.9" y2="-84.9" stroke="#D0E4F7" stroke-width="1"/>
+            <!-- Scale labels (1-5) -->
+            <text x="4" y="-22" class="rs">1</text>
+            <text x="4" y="-46" class="rs">2</text>
+            <text x="4" y="-70" class="rs">3</text>
+            <text x="4" y="-94" class="rs">4</text>
+            <text x="4" y="-118" class="rs">5</text>
+            <!-- TARGET polygon (3.0~3.5 avg = 72~84) dashed -->
+            <!-- 目标值: 战略3.0=72, 治理3.0=72, 标准3.5=84, 质量3.5=84, 架构3.5=84, 应用3.0=72, 安全3.5=84, 生命周期3.0=72 -->
+            <!-- coords per axis: top(0,-r), TR(r*sin45,-r*cos45), right(r,0), BR(r*sin45,r*cos45), bottom(0,r), BL(-r*sin45,r*cos45), left(-r,0), TL(-r*sin45,-r*cos45) -->
+            <polygon points="0,-72 59.4,-59.4 84,0 59.4,59.4 0,72 -59.4,59.4 -84,0 -59.4,-59.4"
+              fill="none" stroke="#005EB8" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.5"/>
+            <!-- CURRENT polygon -->
+            <!-- 当前值: 战略1.5=36, 治理1.0=24, 标准1.0=24, 质量1.0=24, 架构1.5=36, 应用1.5=36, 安全2.5=60, 生命周期1.0=24 -->
+            <!-- top=战略=36, TR=治理=24, right=标准=24, BR=质量=24, bottom=架构=36, BL=应用=36, left=安全=60, TL=生命周期=24 -->
+            <polygon points="0,-36 17.0,-17.0 24,0 17.0,17.0 0,36 -25.5,25.5 -60,0 -17.0,-17.0"
+              fill="#005EB8" fill-opacity="0.20" stroke="#005EB8" stroke-width="2"/>
+            <!-- Dots on current -->
+            <circle cx="0" cy="-36" r="4" fill="#005EB8"/>
+            <circle cx="17" cy="-17" r="4" fill="#005EB8"/>
+            <circle cx="24" cy="0" r="4" fill="#005EB8"/>
+            <circle cx="17" cy="17" r="4" fill="#005EB8"/>
+            <circle cx="0" cy="36" r="4" fill="#005EB8"/>
+            <circle cx="-25.5" cy="25.5" r="4" fill="#005EB8"/>
+            <circle cx="-60" cy="0" r="4" fill="#003087"/>
+            <circle cx="-17" cy="-17" r="4" fill="#005EB8"/>
+          </g>
+          <!-- Axis labels -->
+          <text x="250" y="58" text-anchor="middle" class="rl">数据战略</text>
+          <text x="250" y="71" text-anchor="middle" style="font-size:9px;fill:#6B8CB8">1.5→3.0</text>
+          <text x="366" y="95" text-anchor="start" class="rl">数据治理组织</text>
+          <text x="366" y="108" text-anchor="start" style="font-size:9px;fill:#C0392B">1.0→3.0 ▲最大缺口</text>
+          <text x="384" y="197" text-anchor="start" class="rl">数据标准规范</text>
+          <text x="384" y="210" text-anchor="start" style="font-size:9px;fill:#6B8CB8">1.0→3.5</text>
+          <text x="366" y="302" text-anchor="start" class="rl">主数据质量</text>
+          <text x="366" y="315" text-anchor="start" style="font-size:9px;fill:#6B8CB8">1.0→3.5</text>
+          <text x="250" y="335" text-anchor="middle" class="rl">数据架构</text>
+          <text x="250" y="348" text-anchor="middle" style="font-size:9px;fill:#6B8CB8">1.5→3.5</text>
+          <text x="134" y="302" text-anchor="end" class="rl">数据应用</text>
+          <text x="134" y="315" text-anchor="end" style="font-size:9px;fill:#6B8CB8">1.5→3.0</text>
+          <text x="105" y="197" text-anchor="end" class="rl">数据安全</text>
+          <text x="105" y="210" text-anchor="end" style="font-size:9px;fill:#27AE60">2.5→3.5 ✓相对较好</text>
+          <text x="134" y="95" text-anchor="end" class="rl">数据生命周期</text>
+          <text x="134" y="108" text-anchor="end" style="font-size:9px;fill:#6B8CB8">1.0→3.0</text>
+          <!-- Legend -->
+          <rect x="20" y="345" width="14" height="8" fill="#005EB8" fill-opacity="0.2" stroke="#005EB8" stroke-width="1.5"/>
+          <text x="38" y="354" class="rs">当前状态（综合1.4分）</text>
+          <line x1="170" y1="349" x2="184" y2="349" stroke="#005EB8" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.6"/>
+          <text x="188" y="354" class="rs">目标状态（综合3.0-3.5分）</text>
+          <text x="360" y="354" class="rs" style="fill:#C0392B">● 当前值数据点</text>
+        </svg>
       </div>
       <div class="box guide"><p>工信部《制造业企业数字化转型实施指南》（2024）要求大型制造企业"推进数据管理能力成熟度评估（DCMM）等国家标准应用"，并将数据质量水平列为数字化能力评价核心指标。佛照当前综合处于 <strong>DCMM 1级（初始级）</strong>，与行业标杆（3-4级）差距约2个等级。目标路径：2026年Cut-over前接近2级 → 2028年申请2级认证 → 2030年达到3级。</p></div>
     </div>
@@ -520,34 +674,48 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
       </table>
     </div>
     <div class="sec">
-      <div class="sec-title"><i class="fas fa-network-wired"></i> 1.4 数据孤岛量化分析</div>
-      <div class="arch-diagram">
-        <div style="text-align:center;margin-bottom:12px;font-size:12px;color:var(--muted);font-weight:700;letter-spacing:1px;text-transform:uppercase">数据孤岛现状图 — 17/19法人（89%）完全游离于SAP体系之外</div>
-        <div class="arch-row">
-          <div class="arch-layer-label">已集成</div>
-          <div class="arch-boxes">
-            <div class="arch-box navy-box"><div class="ab-title">SAP ECC 6.0</div><div class="ab-sub">佛山本部 + 高明（2家）</div></div>
-            <div class="arch-box primary-box"><div class="ab-title">PLM系统</div><div class="ab-sub">接口存在但字段不全</div></div>
-            <div class="arch-box"><div class="ab-title">OA系统</div><div class="ab-sub">审批流程，无业务数据</div></div>
-          </div>
-        </div>
-        <div class="arch-row">
-          <div class="arch-layer-label">断点/孤岛</div>
-          <div class="arch-boxes">
-            <div class="arch-box amber-box"><div class="ab-title">SRM系统</div><div class="ab-sub">审批后价格断点<br>需人工二次维护</div></div>
-            <div class="arch-box amber-box"><div class="ab-title">CRM（纷享销客）</div><div class="ab-sub">2026年刚上线<br>完全未与SAP集成</div></div>
-            <div class="arch-box amber-box"><div class="ab-title">WMS（2025新上线）</div><div class="ab-sub">集成状态不明<br>库存同步未验证</div></div>
-            <div class="arch-box amber-box"><div class="ab-title">电商系统 ×5</div><div class="ab-sub">天猫/京东/抖音等<br>各自独立，互不相通</div></div>
-          </div>
-        </div>
-        <div class="arch-row">
-          <div class="arch-layer-label">完全孤立</div>
-          <div class="arch-boxes">
-            <div class="arch-box" style="flex:3;background:#FDECEA;border-color:#C0392B"><div class="ab-title" style="color:#C0392B">17家法人 — 完全游离于SAP之外</div><div class="ab-sub" style="color:#C0392B">使用金蝶/用友等各自财务软件；各自CoA；无统一数据接口</div></div>
-            <div class="arch-box amber-box"><div class="ab-title">AI私有化平台</div><div class="ab-sub">RAG阶段<br>无数据底座</div></div>
-          </div>
-        </div>
+      <div class="sec-title"><i class="fas fa-table"></i> 1.4 S/4HANA目标覆盖范围（19家法人 · 各模块）</div>
+      <p>根据招标文件（2026年4月），本次S/4HANA PCE Greenfield项目将覆盖集团旗下全部<strong>19家法人实体</strong>。<strong>纠正历史描述：非"只有2家上SAP"，而是19家法人均在本次实施范围内</strong>，只是各法人涉及的SAP模块深度不同。</p>
+      <div class="box amber"><p><strong>重要说明：</strong>现有ECC 6.0仅在本部+高明分公司（2家）深度运行，其余17家法人主要依赖财务共享/OA等系统。本次S/4HANA Greenfield项目将首次实现19家法人统一在同一S/4HANA实例下，是真正意义上的集团全面数字化升级。</p></div>
+      <div style="overflow-x:auto;margin:12px 0">
+      <table class="sap-matrix">
+        <thead>
+          <tr>
+            <th class="left" style="min-width:170px">企业名称</th>
+            <th style="min-width:44px">SD</th>
+            <th style="min-width:44px">MM</th>
+            <th style="min-width:44px">PP</th>
+            <th style="min-width:44px">QM</th>
+            <th style="min-width:44px">FI</th>
+            <th style="min-width:44px">CO</th>
+            <th style="min-width:44px">MDG</th>
+            <th style="min-width:44px">GR</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="sap-row-full"><td class="ent">本部（FZ01）</td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td></tr>
+          <tr class="sap-row-fi"><td class="ent">南海务庄分公司（FZ23）</td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-check">√</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-check">√</span></td></tr>
+          <tr class="sap-row-full"><td class="ent">高明分公司（FZ13）</td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td></tr>
+          <tr class="sap-row-fi"><td class="ent">高明灯具分公司（FZ14）</td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-check">√</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-check">√</span></td></tr>
+          <tr class="sap-row-full"><td class="ent">禅昌光电（FZ05）</td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td></tr>
+          <tr class="sap-row-full"><td class="ent">泰美时代灯具（FZ06）</td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td></tr>
+          <tr class="sap-row-fi"><td class="ent">南京佛照（FZ11）</td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-check">√</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-check">√</span></td></tr>
+          <tr class="sap-row-full"><td class="ent">新乡灯光（FZ18）</td><td><span class="sap-empty">—</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td></tr>
+          <tr class="sap-row-full"><td class="ent">佛照智城科技（FZ19）</td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td></tr>
+          <tr class="sap-row-full"><td class="ent">智达电工科技（FZ22）</td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td></tr>
+          <tr class="sap-row-full"><td class="ent">皓徕特光电（FZ25）</td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td></tr>
+          <tr class="sap-row-fi"><td class="ent">皓徕特禅城分公司（FZ28）</td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-check">√</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-check">√</span></td></tr>
+          <tr class="sap-row-fi"><td class="ent">德国公司 Nationstar（FZ33）</td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-check">√</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-check">√</span></td></tr>
+          <tr class="sap-row-full"><td class="ent">泰国光电科技（FZ40）</td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td></tr>
+          <tr class="sap-row-fi"><td class="ent">科联新能源（FZ30）</td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-check">√</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-check">√</span></td></tr>
+          <tr class="sap-row-full"><td class="ent">海南科技（FZ29）</td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td></tr>
+          <tr class="sap-row-full"><td class="ent">茂名华光（FZ36）</td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td></tr>
+          <tr class="sap-row-full"><td class="ent">航信助航科技（FZ38）</td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td><td><span class="sap-check">√</span></td></tr>
+          <tr class="sap-row-fi"><td class="ent">西格玛投资（FZ35）</td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-check">√</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-empty">—</span></td><td><span class="sap-check">√</span></td></tr>
+        </tbody>
+      </table>
       </div>
+      <p style="font-size:11px;color:var(--muted);margin-top:6px">蓝色行 = 全模块或多模块（生产运营型法人）· 灰色行 = 仅FI+GR（财务合并型）· SD=销售 · MM=采购 · PP=生产 · QM=质检 · FI=财务 · CO=成控 · MDG=主数据治理 · GR=集团合并</p>
     </div>
   </div>
 </div>
@@ -752,67 +920,133 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
     </div>
     <div class="sec">
       <div class="sec-title"><i class="fas fa-link"></i> 五条根因链详解</div>
-      <div class="root-cause-card r">
-        <div class="rc-title"><span class="badge r">根因链一</span> PLM-SAP双系统BOM割裂 → 版本失控 → 生产领料差异</div>
-        <div class="rc-chain">产品设计变更（PLM）→ ECO批准 → PLM BOM更新
-    ↓ 【断点：接口不完整 / 工程师忘记在SAP中操作 / 权限不足】
-SAP BOM未同步 → 生产工单仍按旧BOM生成 → 领料按旧BOM配料
-    ↓
-实际装配发现物料不对（多/少/错/代替料）→ 手工补单退料补领
-    ↓
-生产延误 + 成本差异 + 人工核对工时消耗
-年度损耗估算：3,600元（纯人工）+ 质量投诉无法追溯到BOM版本（战略损失不可量化）</div>
-      </div>
-      <div class="root-cause-card r">
-        <div class="rc-title"><span class="badge r">根因链二</span> 研发BOM混入生产系统 → MRP信号失真 → 计划员放弃MRP</div>
-        <div class="rc-chain">研发BOM（C25MB508-3）特征：
-  ├── 备注行污染（供应商信息写入子件名称字段）
-  ├── 替代料仅文本说明，未通过SAP替代件机制配置
-  ├── 用量为估算值（精度不足）
-  └── 版本频繁变更（设计迭代中）
-    ↓ 被MRP读取时
-备注行→ 虚假子件需求（向不存在的"物料"发采购申请）
-替代料无法识别→ 无法利用库存中替代料，备料紧张
-用量偏差→ 需求量系统性高估或低估
-版本变更→ 每次MRP结果不同，计划员无所适从
-    ↓
-计划员选择放弃MRP → 全部改用Excel手工排产
-"MRP不被信任"（访谈证据：家用/供应链/成本三个部门一致反映）</div>
-      </div>
-      <div class="root-cause-card r">
-        <div class="rc-title"><span class="badge r">根因链三</span> ZEA/EA计量单位混用 → 需求量计算错误 → 库存不准（停线/积压）</div>
-        <div class="rc-chain">成品（层1）基本UoM = ZEA，外箱子件（层2）基本UoM = EA
-ZEA:EA换算关系未在SAP物料主数据中显式配置（虽业务上1:1，系统不知道）
-    ↓ MRP展开计划生产10,000 ZEA面板灯
-SAP尝试计算外箱需求 = 10,000 × (1 EA / 1 ZEA)
-  → 可能报警告 / 使用错误换算系数 / 拒绝计算
-    ↓
-外箱采购需求量错误 → 外箱库存积压（高估）OR 缺货停线（低估，已实际发生）
-年度损耗估算：库存积压资金占用 + 停线损失，约50-150万元/年</div>
-      </div>
-      <div class="root-cause-card r">
-        <div class="rc-title"><span class="badge r">根因链四</span> 工时数据缺失 → 产能计划失效 → 交期无法承诺 → 客户投诉</div>
-        <div class="rc-chain">工艺路线覆盖率~5%（约95%的生产工单无工艺路线）
-    ↓
-SAP产能需求计算（CRP）：95%的工单产能需求 = 0
-    ↓
-排程完全依赖计划员经验判断（不可扩展、不可追溯）
-紧急插单时无法评估产能冲击 → 频繁超负荷 → 加班 → 质量事故 → 客户投诉
-    ↓
-月均额外协调损耗：约23,750元/月 = 28.5万元/年（纯协调人工成本）
-更大损失：OTD（准时交付率）无统一口径监测，精益改善项目无数据支撑</div>
-      </div>
-      <div class="root-cause-card r">
-        <div class="rc-title"><span class="badge r">根因链五</span> 外协工序不规范 → 外协成本核算错误 → 月末大量手工凭证</div>
-        <div class="rc-chain">GB16404（禅昌外协）外协工序未配置SubContract标识
-外协PIR（价格记录）可能未与工艺路线关联
-541发料（材料出库到外协）/ 543反冲（外协完工结料）移动类型配置可能缺失
-    ↓
-成品组装外协费用（270H/万套 × 外协单价）无法通过标准流程自动归集
-    ↓
-只能通过手工凭证补录（月末约50-100张/月仅面板灯产品线）
-外协成本核算准确性依赖个人经验，漏记/多记风险高
-外协供应商发票与SAP记录的3路匹配（PO+GR+Invoice）无法自动完成</div>
+      <div class="rc-cards">
+
+        <!-- 根因链1 -->
+        <div class="rc-card">
+          <div class="rc-card-head">
+            <div class="rc-num">1</div>
+            <h4>PLM-SAP双系统BOM割裂 → 版本失控 → 生产领料差异</h4>
+          </div>
+          <div class="rc-card-body">
+            <div class="rc-steps">
+              <div class="rc-step"><div class="rc-step-icon">📐</div><div class="rc-step-text">产品设计变更（PLM）→ ECO批准 → <strong>PLM BOM已更新</strong></div></div>
+              <div class="rc-arrow-down">↓</div>
+              <div class="rc-step"><div class="rc-step-icon break">断点</div><div class="rc-step-text"><strong>接口不完整 / 工程师忘记在SAP中操作</strong> → SAP BOM未同步</div></div>
+              <div class="rc-arrow-down">↓</div>
+              <div class="rc-step"><div class="rc-step-icon red">⚠</div><div class="rc-step-text">生产工单仍按旧BOM生成 → 领料按旧BOM配料 → 实际装配发现物料不对（多/少/错/代替料）</div></div>
+              <div class="rc-arrow-down">↓</div>
+              <div class="rc-result">手工补单退料 · 生产延误 · 成本差异 · 质量投诉无法追溯到BOM版本</div>
+            </div>
+            <div class="rc-impact">💰 年度损耗估算：约3,600元（纯人工协调）+ 质量追溯成本不可量化</div>
+          </div>
+        </div>
+
+        <!-- 根因链2 -->
+        <div class="rc-card">
+          <div class="rc-card-head">
+            <div class="rc-num">2</div>
+            <h4>研发BOM混入生产系统 → MRP信号失真 → 计划员放弃MRP</h4>
+          </div>
+          <div class="rc-card-body">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+              <div style="background:var(--bg);border-radius:6px;padding:10px">
+                <div style="font-size:11px;font-weight:700;color:var(--dark);margin-bottom:6px">研发BOM的4个特征问题</div>
+                <div style="font-size:11.5px;color:var(--text2);line-height:1.8">
+                  🔴 备注行污染（供应商信息写入子件名称字段）<br>
+                  🔴 替代料仅文本说明，未配置SAP替代件机制<br>
+                  🟡 用量为估算值，精度不足<br>
+                  🟡 版本频繁变更（设计迭代中）
+                </div>
+              </div>
+              <div style="background:#FFF5F5;border-radius:6px;padding:10px">
+                <div style="font-size:11px;font-weight:700;color:#C0392B;margin-bottom:6px">进入MRP后的连锁反应</div>
+                <div style="font-size:11.5px;color:var(--text2);line-height:1.8">
+                  → 虚假采购申请（向不存在物料发单）<br>
+                  → 替代料无法自动识别<br>
+                  → 需求量系统性偏高/低<br>
+                  → 每次运行结果不同
+                </div>
+              </div>
+            </div>
+            <div class="rc-result">计划员选择放弃MRP → 全部改用Excel手工排产<br><span style="font-size:11px">（访谈证据：家用/供应链/成本三个部门一致反映"MRP不被信任"）</span></div>
+          </div>
+        </div>
+
+        <!-- 根因链3 -->
+        <div class="rc-card">
+          <div class="rc-card-head">
+            <div class="rc-num">3</div>
+            <h4>ZEA/EA计量单位混用 → 需求量计算错误 → 库存积压/停线</h4>
+          </div>
+          <div class="rc-card-body">
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px;font-size:12.5px">
+              <div style="background:var(--navy);color:#fff;padding:6px 12px;border-radius:6px;font-weight:700">成品层1<br>基本UoM = <span style="color:#FFD700">ZEA</span></div>
+              <div style="font-size:18px;color:var(--steel)">+</div>
+              <div style="background:var(--steel);color:#fff;padding:6px 12px;border-radius:6px;font-weight:700">外箱子件<br>基本UoM = <span style="color:#FFD700">EA</span></div>
+              <div style="font-size:18px;color:var(--steel)">→</div>
+              <div style="background:#FDECEA;border:2px solid #C0392B;padding:6px 12px;border-radius:6px;font-size:12px;color:#C0392B;font-weight:700">ZEA:EA换算关系<br>未在SAP中显式配置！</div>
+            </div>
+            <div class="rc-steps">
+              <div class="rc-step"><div class="rc-step-icon red">!</div><div class="rc-step-text">MRP展开10,000 ZEA → SAP尝试跨单位换算 → 可能报错/使用错误系数/警告</div></div>
+              <div class="rc-arrow-down">↓</div>
+              <div class="rc-result">外箱需求量错误 → <strong>库存积压</strong>（高估）或 <strong>缺货停线</strong>（低估，已实际发生）</div>
+            </div>
+            <div class="rc-impact">💰 年度损耗：库存积压资金占用 + 停线损失，约50-150万元/年</div>
+          </div>
+        </div>
+
+        <!-- 根因链4 -->
+        <div class="rc-card">
+          <div class="rc-card-head">
+            <div class="rc-num">4</div>
+            <h4>工时数据缺失 → 产能计划失效 → 交期无法承诺 → 客户投诉</h4>
+          </div>
+          <div class="rc-card-body">
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px;text-align:center">
+              <div style="background:#FDECEA;border-radius:6px;padding:8px">
+                <div style="font-size:20px;font-weight:800;color:#C0392B">~5%</div>
+                <div style="font-size:10.5px;color:var(--muted)">工艺路线覆盖率</div>
+              </div>
+              <div style="background:var(--bg);border-radius:6px;padding:8px">
+                <div style="font-size:20px;font-weight:800;color:var(--dark)">→ 0</div>
+                <div style="font-size:10.5px;color:var(--muted)">95%工单产能需求=0</div>
+              </div>
+              <div style="background:#FEF3C7;border-radius:6px;padding:8px">
+                <div style="font-size:18px;font-weight:800;color:#B7950B">超负荷</div>
+                <div style="font-size:10.5px;color:var(--muted)">排程依赖经验判断</div>
+              </div>
+              <div style="background:#FDECEA;border-radius:6px;padding:8px">
+                <div style="font-size:18px;font-weight:800;color:#C0392B">客诉</div>
+                <div style="font-size:10.5px;color:var(--muted)">交期承诺不可靠</div>
+              </div>
+            </div>
+            <div class="rc-impact">💰 月均额外协调损耗：约23,750元/月 = <strong>28.5万元/年</strong>（纯协调人工成本）</div>
+          </div>
+        </div>
+
+        <!-- 根因链5 -->
+        <div class="rc-card">
+          <div class="rc-card-head">
+            <div class="rc-num">5</div>
+            <h4>外协工序不规范（GB16404禅昌）→ 外协成本核算错误 → 月末大量手工凭证</h4>
+          </div>
+          <div class="rc-card-body">
+            <table style="width:100%;font-size:12px;border-collapse:collapse">
+              <tr>
+                <td style="width:40%;padding:6px 10px;background:var(--bg);border-radius:6px 0 0 6px;font-weight:700;color:var(--dark)">外协配置缺失项</td>
+                <td style="width:60%;padding:6px 10px;background:#FFF5F5;border-radius:0 6px 6px 0;color:#C0392B">
+                  ① 外协工序未配置SubContract标识<br>
+                  ② 外协PIR未与工艺路线关联<br>
+                  ③ 541发料/543反冲移动类型配置可能缺失
+                </td>
+              </tr>
+            </table>
+            <div class="rc-arrow-down" style="margin:8px 0">↓</div>
+            <div class="rc-result">外协费用（270H/万套）无法自动归集 → 月末约50-100张手工补录凭证 → 外协成本准确性依赖个人经验</div>
+          </div>
+        </div>
+
       </div>
     </div>
     <div class="sec">
@@ -930,17 +1164,51 @@ SAP产能需求计算（CRP）：95%的工单产能需求 = 0
           <tr><td>信息安全</td><td>制度体系完善（50+份文件）</td><td>执行到位+技术管控</td><td>执行受IT人力缺口制约</td></tr>
         </tbody>
       </table>
-      <div class="sec-sub">IT人力缺口量化分析</div>
+      <div class="sec-sub">数智化部当前配置（16人，2025年8月数据）</div>
+      <div class="it-staff-grid">
+        <div class="it-staff-card">
+          <div class="isc-role">部门总人数</div>
+          <div class="isc-num">16</div>
+          <div class="isc-sub">含部长+副部长</div>
+        </div>
+        <div class="it-staff-card">
+          <div class="isc-role">SAP内部顾问</div>
+          <div class="isc-num" style="color:#005EB8">2</div>
+          <div class="isc-sub">MM/PP + 开发顾问</div>
+        </div>
+        <div class="it-staff-card">
+          <div class="isc-role">SAP外包顾问</div>
+          <div class="isc-num" style="color:#E67E22">2</div>
+          <div class="isc-sub">FICO + SD（外部机构）</div>
+        </div>
+        <div class="it-staff-card gap">
+          <div class="isc-role">MDM专员（主数据）</div>
+          <div class="isc-num">0</div>
+          <div class="isc-sub">⚠️ 完全缺失</div>
+        </div>
+        <div class="it-staff-card">
+          <div class="isc-role">服务用户数</div>
+          <div class="isc-num" style="color:var(--dark)">8,000+</div>
+          <div class="isc-sub">全集团员工</div>
+        </div>
+        <div class="it-staff-card gap">
+          <div class="isc-role">IT/员工比</div>
+          <div class="isc-num">0.2%</div>
+          <div class="isc-sub">行业标准1-1.5%</div>
+        </div>
+      </div>
+      <div class="box finding"><p><strong>SAP顾问现状（来源：数智化部项目介绍PPT，2025-08-08）：</strong>内部顾问2人（MM/PP模块顾问1人 + 开发顾问1人）；外部运维顾问2人（覆盖FICO、SD模块 + Basis + 报表开发）。SAP系统目前由外部咨询机构提供FI/CO/SD/PP/MM/QM/BASIS全模块运维服务，内部顾问主要承担日常需求对接和开发工作。</p></div>
+      <div class="sec-sub">S/4HANA升级期间IT人力缺口分析</div>
       <table>
-        <thead><tr><th>岗位类型</th><th>当前人数</th><th>转型期建议人数</th><th>缺口</th></tr></thead>
+        <thead><tr><th>岗位类型</th><th>当前情况</th><th>升级期建议</th><th>缺口</th></tr></thead>
         <tbody>
-          <tr><td>SAP业务顾问（内部）</td><td>0人</td><td>3-5人</td><td><span class="badge r">缺3-5人</span></td></tr>
-          <tr><td>SAP技术顾问（内部）</td><td>约2人</td><td>4-6人</td><td><span class="badge r">缺2-4人</span></td></tr>
+          <tr><td>SAP内部顾问（业务功能）</td><td>2人（MM/PP+开发）</td><td>5-7人（含SD/FI/CO）</td><td><span class="badge r">缺3-5人</span></td></tr>
+          <tr><td>SAP外包顾问</td><td>2人（FICO+SD）</td><td>维持或扩展至4人</td><td><span class="badge a">可通过合同扩展</span></td></tr>
           <tr><td><b>主数据管理专员（MDM）</b></td><td><b>0人</b></td><td><b>2-3人</b></td><td><span class="badge r"><b>缺2-3人（最紧迫）</b></span></td></tr>
-          <tr><td>数据分析/BI</td><td>约1人</td><td>3-5人</td><td><span class="badge r">缺2-4人</span></td></tr>
-          <tr><td>集成/接口开发</td><td>约2人</td><td>4-6人</td><td><span class="badge r">缺2-4人</span></td></tr>
-          <tr><td>项目管理</td><td>约1人（吴梓填）</td><td>2-3人</td><td><span class="badge a">缺1-2人</span></td></tr>
-          <tr><td><b>合计缺口</b></td><td></td><td></td><td><span class="badge r"><b>约12-22人（4-5倍缺口）</b></span></td></tr>
+          <tr><td>CPI集成工程师</td><td>0人</td><td>1-2人</td><td><span class="badge r">缺1-2人</span></td></tr>
+          <tr><td>数据分析/BI</td><td>约1人</td><td>3人</td><td><span class="badge r">缺2人</span></td></tr>
+          <tr><td>甲方项目经理</td><td>1人（吴梓填）</td><td>保持</td><td><span class="badge g">满足</span></td></tr>
+          <tr><td><b>合计缺口（内部）</b></td><td></td><td></td><td><span class="badge r"><b>约8-12人（4-5倍缺口）</b></span></td></tr>
         </tbody>
       </table>
     </div>
@@ -1185,31 +1453,47 @@ SAP产能需求计算（CRP）：95%的工单产能需求 = 0
       <div class="sec-title"><i class="fas fa-coins"></i> 9.2 3年数据治理投资回报分析（ROI）</div>
       <div class="roi-grid">
         <div class="roi-box invest">
-          <div class="rl">3年总投入</div>
-          <div class="rv" style="color:var(--red)">约 780 万元</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:6px;line-height:1.7">
-            一次性：数据清洗人力≈300万<br>年运营：MDM专员(2-3人)+工具≈160万/年×3<br>合计：约780万元（3年）
+          <div class="rl">💰 3年总投入</div>
+          <div class="rv" style="color:#C0392B">约 780 万元</div>
+          <div class="rb">
+            <strong>一次性投入约300万：</strong><br>
+            · 数据清洗人力（UoM标准化/BOM确认/工艺路线补录）<br>
+            · 临时增援专员（1-2人）<br><br>
+            <strong>年运营成本约160万/年：</strong><br>
+            · MDM专员 2-3人 ≈ 100-150万/年<br>
+            · 数据质量工具（SAP MDG等） ≈ 20-30万/年<br>
+            · 培训/审计 ≈ 10万/年<br><br>
+            <strong>3年合计：300 + 160×3 ≈ 780万</strong>
           </div>
         </div>
         <div class="roi-box return">
-          <div class="rl">3年预期总收益</div>
+          <div class="rl">📈 3年预期总收益</div>
           <div class="rv" style="color:#065F46">约 2,175 万元</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:6px;line-height:1.7">
-            财务效率提升：100-150万/年（月结缩短6-9天）<br>
-            采购成本降低：200-400万/年（价格数据准确→谈判改善）<br>
-            库存优化：100-200万/年（MRP可信→安全库存压降）<br>
-            生产+质量改善：100-200万/年<br>
-            合计：约725万/年×3年
+          <div class="rb">
+            <strong>财务效率提升：100-150万/年</strong><br>
+            月结从7-12天缩短→3天，节省财务人工<br><br>
+            <strong>采购成本降低：200-400万/年</strong><br>
+            价格数据准确化后谈判改善<br>（采购额约8-10亿×降本0.3-0.5%）<br><br>
+            <strong>库存占用降低：100-200万/年</strong><br>
+            MRP可信后安全库存压降10%<br><br>
+            <strong>生产+质量改善：100-200万/年</strong><br>
+            BOM准确后减少领料差异和返工<br><br>
+            <strong>合计：约725万/年 × 3年 = 2,175万</strong>
           </div>
         </div>
         <div class="roi-box net">
-          <div class="rl">3年净收益 · ROI · 回收期</div>
-          <div class="rv" style="color:var(--primary)">约1,395万 · 179% · 14-18月</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:6px;line-height:1.7">
-            净收益：2,175 - 780 = 1,395万<br>
-            ROI：1,395 / 780 ≈ 179%<br>
-            投资回收期：约14-18个月<br>
-            <b>战略价值（AI底座/集团管控/新赛道）另计，不可量化但更重要</b>
+          <div class="rl">🏆 净收益 · ROI · 回收期</div>
+          <div class="rv" style="color:var(--primary)">ROI 179%</div>
+          <div class="rb">
+            <table style="width:100%;font-size:12px;border-collapse:collapse">
+              <tr><td style="padding:3px 0;color:var(--muted)">3年总收益</td><td style="text-align:right;font-weight:700">2,175万元</td></tr>
+              <tr><td style="padding:3px 0;color:var(--muted)">减：3年总投入</td><td style="text-align:right;font-weight:700">-780万元</td></tr>
+              <tr style="border-top:1px solid var(--pale)"><td style="padding:5px 0;font-weight:700;color:var(--dark)">净收益</td><td style="text-align:right;font-weight:800;color:var(--primary);font-size:14px">1,395万元</td></tr>
+              <tr><td style="padding:3px 0;color:var(--muted)">投资回收期</td><td style="text-align:right;font-weight:700">约14-18个月</td></tr>
+            </table>
+            <div style="margin-top:10px;font-size:11.5px;background:var(--bg);padding:8px 10px;border-radius:6px;color:var(--muted)">
+              ⚡ <strong style="color:var(--dark)">战略价值（另计）：</strong>AI应用底座 · 集团精细化管控 · 新赛道快速扩张 · DCMM 3级认证
+            </div>
           </div>
         </div>
       </div>
@@ -1248,33 +1532,33 @@ SAP产能需求计算（CRP）：95%的工单产能需求 = 0
       <div class="sec-title"><i class="fas fa-star"></i> 10.1 三件最重要的事（优先于一切）</div>
       <div class="prio-grid">
         <div class="prio-card p1">
-          <div class="pl">第一件事 · 2026年8月前立即启动</div>
-          <div class="pt">ZEA→EA计量单位标准化</div>
+          <div class="pl">第一件事 · 截止 2026年8月底</div>
+          <div class="pt">🔴 立即启动 ZEA→EA 计量单位标准化</div>
           <ul class="pi">
-            <li>技术影响范围最广（全模块）</li>
-            <li>推进难度相对低（技术操作为主）</li>
-            <li>越早越好，越晚风险越高</li>
-            <li>建议：产品中心8月确认受影响清单，数智化部9月完成批量替换</li>
+            <li><strong>影响范围最广：</strong>约700-800条成品，涉及全模块BOM计算</li>
+            <li><strong>难度相对低：</strong>主要是技术批量操作，不依赖大量业务决策</li>
+            <li><strong>越晚风险越高：</strong>8月开始还来得及，10月开始将压缩Mock 1时间</li>
+            <li><strong>行动：</strong>产品中心8月15日前确认受影响物料清单，数智化部9月30日前完成批量替换+验证</li>
           </ul>
         </div>
         <div class="prio-card p1">
-          <div class="pl">第二件事 · 管理层宣示</div>
-          <div class="pt">让产品中心和生产立即开始BOM确认</div>
+          <div class="pl">第二件事 · 管理层宣示（8月管理层会议）</div>
+          <div class="pt">🔴 让产品中心和生产立即开始BOM确认</div>
           <ul class="pi">
-            <li>技术不是瓶颈，人是瓶颈</li>
-            <li>需要分管副总在管理层明确：BOM准确率是产品中心绩效KPI</li>
-            <li>8月开始，每周汇报进度</li>
-            <li>数据治理是项目成功前提，而非IT项目</li>
+            <li><strong>瓶颈是人，不是技术：</strong>技术团队准备好了，但业务Owner不确认就无法推进</li>
+            <li><strong>需要高层明确：</strong>分管副总在管理层会议宣布"BOM准确率是产品中心的绩效KPI"</li>
+            <li><strong>节奏：</strong>8月开始，每周向项目组汇报确认进度，目标10月底TOP 200成品全部签字</li>
+            <li><strong>关键认知：</strong>数据治理是SAP成功的前提，而不是IT部门的工作</li>
           </ul>
         </div>
         <div class="prio-card p1">
-          <div class="pl">第三件事 · 2026年9月前招募1人</div>
-          <div class="pt">为MDM办公室招募第一位数据管理专员</div>
+          <div class="pl">第三件事 · 截止 2026年9月底</div>
+          <div class="pt">🔴 招募第一位 MDM 主数据管理专员</div>
           <ul class="pi">
-            <li>0个专员是所有数据问题的组织根源</li>
-            <li>哪怕只有1人，效果也比0人强100倍</li>
-            <li>人力资源部9月前完成招募</li>
-            <li>岗位直接向数智化部负责人汇报</li>
+            <li><strong>根本原因：</strong>全公司0名MDM专员，是所有数据质量问题的组织根源</li>
+            <li><strong>最低要求：</strong>哪怕只招1人，也比0人强100倍</li>
+            <li><strong>岗位要求：</strong>有SAP MM/PLM背景，理解主数据概念，能协调各业务Owner</li>
+            <li><strong>行动：</strong>人力资源部9月底前完成招募，岗位直接向数智化部负责人汇报</li>
           </ul>
         </div>
       </div>
