@@ -579,82 +579,273 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
     </div>
     <div class="sec">
       <div class="sec-title"><i class="fas fa-chart-area"></i> 1.2 DCMM成熟度雷达图（当前综合1.4/5分）</div>
-      <p style="font-size:12px;color:var(--muted);margin-bottom:8px">蓝色区域 = 当前状态（1-2.5分）· 虚线圈 = 目标状态（3-3.5分）· 评分体系：DCMM GB/T 36073—2018</p>
-      <div class="radar-wrap">
-        <svg viewBox="0 0 520 380" width="520" height="380" xmlns="http://www.w3.org/2000/svg" style="font-family:'Microsoft YaHei',Arial,sans-serif">
+      <p style="font-size:12px;color:var(--muted);margin-bottom:10px">蓝色区域 = 当前状态 · 虚线 = 目标状态 · 评分体系：DCMM GB/T 36073—2018 · <strong style="color:var(--primary)">点击任意维度标签或数据点查看详情</strong></p>
+      <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap">
+
+        <!-- SVG radar (clickable) -->
+        <div style="flex:0 0 auto">
+        <svg id="dcmmRadar" viewBox="0 0 520 390" width="480" height="360" xmlns="http://www.w3.org/2000/svg" style="font-family:'Microsoft YaHei',Arial,sans-serif;cursor:pointer">
           <defs>
-            <style>.rl{font-size:11px;fill:#2C3E50;font-weight:600} .rs{font-size:10px;fill:#6B8CB8}</style>
+            <style>
+              .rl{font-size:11px;fill:#1B3A6B;font-weight:700}
+              .rs{font-size:10px;fill:#6B8CB8}
+              .rl-btn{cursor:pointer;transition:fill .15s}
+              .rl-btn:hover .rl{fill:#005EB8}
+              .dot-btn{cursor:pointer}
+              .dot-btn circle{transition:r .15s,fill .15s}
+              .dot-btn:hover circle{r:7;fill:#003087}
+              .dot-btn.active circle{r:7;fill:#003087}
+              .rl-group.active .rl{fill:#005EB8}
+            </style>
           </defs>
-          <!-- Background rings -->
           <g transform="translate(250,195)">
-            <!-- 5 rings at 20% each -->
-            <polygon points="0,-120 113.9,-36.9 70.5,96.9 -70.5,96.9 -113.9,-36.9" fill="none" stroke="#D0E4F7" stroke-width="1"/>
-            <polygon points="0,-96 91.1,-29.5 56.4,77.5 -56.4,77.5 -91.1,-29.5" fill="none" stroke="#D0E4F7" stroke-width="1"/>
-            <polygon points="0,-72 68.3,-22.1 42.3,58.1 -42.3,58.1 -68.3,-22.1" fill="none" stroke="#D0E4F7" stroke-width="1"/>
-            <polygon points="0,-48 45.5,-14.8 28.2,38.8 -28.2,38.8 -45.5,-14.8" fill="none" stroke="#D0E4F7" stroke-width="1"/>
-            <polygon points="0,-24 22.8,-7.4 14.1,19.4 -14.1,19.4 -22.8,-7.4" fill="none" stroke="#D0E4F7" stroke-width="1"/>
-            <!-- Axes (8 axes for 8 dimensions) -->
-            <!-- 0°top, 45°, 90°, 135°, 180°, 225°, 270°, 315° -->
-            <line x1="0" y1="0" x2="0" y2="-120" stroke="#D0E4F7" stroke-width="1"/>
-            <line x1="0" y1="0" x2="84.9" y2="-84.9" stroke="#D0E4F7" stroke-width="1"/>
-            <line x1="0" y1="0" x2="120" y2="0" stroke="#D0E4F7" stroke-width="1"/>
-            <line x1="0" y1="0" x2="84.9" y2="84.9" stroke="#D0E4F7" stroke-width="1"/>
-            <line x1="0" y1="0" x2="0" y2="120" stroke="#D0E4F7" stroke-width="1"/>
-            <line x1="0" y1="0" x2="-84.9" y2="84.9" stroke="#D0E4F7" stroke-width="1"/>
-            <line x1="0" y1="0" x2="-120" y2="0" stroke="#D0E4F7" stroke-width="1"/>
-            <line x1="0" y1="0" x2="-84.9" y2="-84.9" stroke="#D0E4F7" stroke-width="1"/>
-            <!-- Scale labels (1-5) -->
-            <text x="4" y="-22" class="rs">1</text>
-            <text x="4" y="-46" class="rs">2</text>
-            <text x="4" y="-70" class="rs">3</text>
-            <text x="4" y="-94" class="rs">4</text>
-            <text x="4" y="-118" class="rs">5</text>
-            <!-- TARGET polygon (3.0~3.5 avg = 72~84) dashed -->
-            <!-- 目标值: 战略3.0=72, 治理3.0=72, 标准3.5=84, 质量3.5=84, 架构3.5=84, 应用3.0=72, 安全3.5=84, 生命周期3.0=72 -->
-            <!-- coords per axis: top(0,-r), TR(r*sin45,-r*cos45), right(r,0), BR(r*sin45,r*cos45), bottom(0,r), BL(-r*sin45,r*cos45), left(-r,0), TL(-r*sin45,-r*cos45) -->
-            <polygon points="0,-72 59.4,-59.4 84,0 59.4,59.4 0,72 -59.4,59.4 -84,0 -59.4,-59.4"
-              fill="none" stroke="#005EB8" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.5"/>
-            <!-- CURRENT polygon -->
-            <!-- 当前值: 战略1.5=36, 治理1.0=24, 标准1.0=24, 质量1.0=24, 架构1.5=36, 应用1.5=36, 安全2.5=60, 生命周期1.0=24 -->
-            <!-- top=战略=36, TR=治理=24, right=标准=24, BR=质量=24, bottom=架构=36, BL=应用=36, left=安全=60, TL=生命周期=24 -->
-            <polygon points="0,-36 17.0,-17.0 24,0 17.0,17.0 0,36 -25.5,25.5 -60,0 -17.0,-17.0"
-              fill="#005EB8" fill-opacity="0.20" stroke="#005EB8" stroke-width="2"/>
-            <!-- Dots on current -->
-            <circle cx="0" cy="-36" r="4" fill="#005EB8"/>
-            <circle cx="17" cy="-17" r="4" fill="#005EB8"/>
-            <circle cx="24" cy="0" r="4" fill="#005EB8"/>
-            <circle cx="17" cy="17" r="4" fill="#005EB8"/>
-            <circle cx="0" cy="36" r="4" fill="#005EB8"/>
-            <circle cx="-25.5" cy="25.5" r="4" fill="#005EB8"/>
-            <circle cx="-60" cy="0" r="4" fill="#003087"/>
-            <circle cx="-17" cy="-17" r="4" fill="#005EB8"/>
+            <!-- Grid rings -->
+            <polygon points="0,-120 84.9,-84.9 120,0 84.9,84.9 0,120 -84.9,84.9 -120,0 -84.9,-84.9" fill="none" stroke="#D0E4F7" stroke-width="1"/>
+            <polygon points="0,-96 67.9,-67.9 96,0 67.9,67.9 0,96 -67.9,67.9 -96,0 -67.9,-67.9" fill="none" stroke="#D0E4F7" stroke-width="1"/>
+            <polygon points="0,-72 50.9,-50.9 72,0 50.9,50.9 0,72 -50.9,50.9 -72,0 -50.9,-50.9" fill="none" stroke="#D0E4F7" stroke-width="1"/>
+            <polygon points="0,-48 33.9,-33.9 48,0 33.9,33.9 0,48 -33.9,33.9 -48,0 -33.9,-33.9" fill="none" stroke="#D0E4F7" stroke-width="1"/>
+            <polygon points="0,-24 17.0,-17.0 24,0 17.0,17.0 0,24 -17.0,17.0 -24,0 -17.0,-17.0" fill="none" stroke="#D0E4F7" stroke-width="1"/>
+            <!-- Axes -->
+            <line x1="0" y1="0" x2="0" y2="-120" stroke="#C8DDF0" stroke-width="1.2"/>
+            <line x1="0" y1="0" x2="84.9" y2="-84.9" stroke="#C8DDF0" stroke-width="1.2"/>
+            <line x1="0" y1="0" x2="120" y2="0" stroke="#C8DDF0" stroke-width="1.2"/>
+            <line x1="0" y1="0" x2="84.9" y2="84.9" stroke="#C8DDF0" stroke-width="1.2"/>
+            <line x1="0" y1="0" x2="0" y2="120" stroke="#C8DDF0" stroke-width="1.2"/>
+            <line x1="0" y1="0" x2="-84.9" y2="84.9" stroke="#C8DDF0" stroke-width="1.2"/>
+            <line x1="0" y1="0" x2="-120" y2="0" stroke="#C8DDF0" stroke-width="1.2"/>
+            <line x1="0" y1="0" x2="-84.9" y2="-84.9" stroke="#C8DDF0" stroke-width="1.2"/>
+            <!-- Scale labels -->
+            <text x="5" y="-20" class="rs">1</text><text x="5" y="-44" class="rs">2</text>
+            <text x="5" y="-68" class="rs">3</text><text x="5" y="-92" class="rs">4</text><text x="5" y="-116" class="rs">5</text>
+            <!-- Target polygon -->
+            <!-- 战略3.0=72, 治理3.0=72*sin45=50.9, 标准3.5=84, 质量3.5=84*sin45=59.4, 架构3.5=84, 应用3.0=72, 安全3.5=84, 生命周期3.0=72 -->
+            <polygon id="radarTarget"
+              points="0,-72 50.9,-50.9 84,0 59.4,59.4 0,84 -50.9,50.9 -84,0 -50.9,-50.9"
+              fill="none" stroke="#005EB8" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.45"/>
+            <!-- Current polygon -->
+            <!-- 战略1.5=36, 治理1.0=24*sin45=17, 标准1.0=24, 质量1.0=24*sin45=17, 架构1.5=36, 应用1.5=36*sin45=25.5, 安全2.5=60, 生命周期1.0=24*sin45=17 -->
+            <polygon id="radarCurrent"
+              points="0,-36 17.0,-17.0 24,0 17.0,17.0 0,36 -25.5,25.5 -60,0 -17.0,-17.0"
+              fill="#005EB8" fill-opacity="0.18" stroke="#005EB8" stroke-width="2.5"/>
+            <!-- Interactive dots (each wrapped in a clickable g) -->
+            <g class="dot-btn" id="dot-0" onclick="showDcmm(0)" title="数据战略"><circle cx="0" cy="-36" r="5" fill="#005EB8" stroke="#fff" stroke-width="1.5"/></g>
+            <g class="dot-btn" id="dot-1" onclick="showDcmm(1)" title="数据治理组织"><circle cx="17" cy="-17" r="5" fill="#005EB8" stroke="#fff" stroke-width="1.5"/></g>
+            <g class="dot-btn" id="dot-2" onclick="showDcmm(2)" title="数据标准规范"><circle cx="24" cy="0" r="5" fill="#005EB8" stroke="#fff" stroke-width="1.5"/></g>
+            <g class="dot-btn" id="dot-3" onclick="showDcmm(3)" title="主数据质量"><circle cx="17" cy="17" r="5" fill="#005EB8" stroke="#fff" stroke-width="1.5"/></g>
+            <g class="dot-btn" id="dot-4" onclick="showDcmm(4)" title="数据架构"><circle cx="0" cy="36" r="5" fill="#005EB8" stroke="#fff" stroke-width="1.5"/></g>
+            <g class="dot-btn" id="dot-5" onclick="showDcmm(5)" title="数据应用"><circle cx="-25.5" cy="25.5" r="5" fill="#005EB8" stroke="#fff" stroke-width="1.5"/></g>
+            <g class="dot-btn" id="dot-6" onclick="showDcmm(6)" title="数据安全"><circle cx="-60" cy="0" r="5" fill="#003087" stroke="#fff" stroke-width="1.5"/></g>
+            <g class="dot-btn" id="dot-7" onclick="showDcmm(7)" title="数据生命周期"><circle cx="-17" cy="-17" r="5" fill="#005EB8" stroke="#fff" stroke-width="1.5"/></g>
           </g>
-          <!-- Axis labels -->
-          <text x="250" y="58" text-anchor="middle" class="rl">数据战略</text>
-          <text x="250" y="71" text-anchor="middle" style="font-size:9px;fill:#6B8CB8">1.5→3.0</text>
-          <text x="366" y="95" text-anchor="start" class="rl">数据治理组织</text>
-          <text x="366" y="108" text-anchor="start" style="font-size:9px;fill:#C0392B">1.0→3.0 ▲最大缺口</text>
-          <text x="384" y="197" text-anchor="start" class="rl">数据标准规范</text>
-          <text x="384" y="210" text-anchor="start" style="font-size:9px;fill:#6B8CB8">1.0→3.5</text>
-          <text x="366" y="302" text-anchor="start" class="rl">主数据质量</text>
-          <text x="366" y="315" text-anchor="start" style="font-size:9px;fill:#6B8CB8">1.0→3.5</text>
-          <text x="250" y="335" text-anchor="middle" class="rl">数据架构</text>
-          <text x="250" y="348" text-anchor="middle" style="font-size:9px;fill:#6B8CB8">1.5→3.5</text>
-          <text x="134" y="302" text-anchor="end" class="rl">数据应用</text>
-          <text x="134" y="315" text-anchor="end" style="font-size:9px;fill:#6B8CB8">1.5→3.0</text>
-          <text x="105" y="197" text-anchor="end" class="rl">数据安全</text>
-          <text x="105" y="210" text-anchor="end" style="font-size:9px;fill:#27AE60">2.5→3.5 ✓相对较好</text>
-          <text x="134" y="95" text-anchor="end" class="rl">数据生命周期</text>
-          <text x="134" y="108" text-anchor="end" style="font-size:9px;fill:#6B8CB8">1.0→3.0</text>
+          <!-- Clickable axis label groups -->
+          <g class="rl-group" id="lbl-0" onclick="showDcmm(0)" style="cursor:pointer">
+            <text x="250" y="55" text-anchor="middle" class="rl rl-btn">数据战略</text>
+            <text x="250" y="68" text-anchor="middle" style="font-size:9px;fill:#6B8CB8">1.5 → 3.0</text>
+          </g>
+          <g class="rl-group" id="lbl-1" onclick="showDcmm(1)" style="cursor:pointer">
+            <text x="357" y="93" text-anchor="start" class="rl rl-btn">数据治理组织</text>
+            <text x="357" y="106" text-anchor="start" style="font-size:9px;fill:#C0392B;font-weight:600">1.0 → 3.0 · ▲最大缺口</text>
+          </g>
+          <g class="rl-group" id="lbl-2" onclick="showDcmm(2)" style="cursor:pointer">
+            <text x="378" y="195" text-anchor="start" class="rl rl-btn">数据标准规范</text>
+            <text x="378" y="208" text-anchor="start" style="font-size:9px;fill:#6B8CB8">1.0 → 3.5</text>
+          </g>
+          <g class="rl-group" id="lbl-3" onclick="showDcmm(3)" style="cursor:pointer">
+            <text x="357" y="300" text-anchor="start" class="rl rl-btn">主数据质量</text>
+            <text x="357" y="313" text-anchor="start" style="font-size:9px;fill:#6B8CB8">1.0 → 3.5</text>
+          </g>
+          <g class="rl-group" id="lbl-4" onclick="showDcmm(4)" style="cursor:pointer">
+            <text x="250" y="335" text-anchor="middle" class="rl rl-btn">数据架构</text>
+            <text x="250" y="348" text-anchor="middle" style="font-size:9px;fill:#6B8CB8">1.5 → 3.5</text>
+          </g>
+          <g class="rl-group" id="lbl-5" onclick="showDcmm(5)" style="cursor:pointer">
+            <text x="143" y="300" text-anchor="end" class="rl rl-btn">数据应用</text>
+            <text x="143" y="313" text-anchor="end" style="font-size:9px;fill:#6B8CB8">1.5 → 3.0</text>
+          </g>
+          <g class="rl-group" id="lbl-6" onclick="showDcmm(6)" style="cursor:pointer">
+            <text x="116" y="195" text-anchor="end" class="rl rl-btn">数据安全</text>
+            <text x="116" y="208" text-anchor="end" style="font-size:9px;fill:#27AE60">2.5 → 3.5 · ✓相对最好</text>
+          </g>
+          <g class="rl-group" id="lbl-7" onclick="showDcmm(7)" style="cursor:pointer">
+            <text x="143" y="93" text-anchor="end" class="rl rl-btn">数据生命周期</text>
+            <text x="143" y="106" text-anchor="end" style="font-size:9px;fill:#6B8CB8">1.0 → 3.0</text>
+          </g>
           <!-- Legend -->
-          <rect x="20" y="345" width="14" height="8" fill="#005EB8" fill-opacity="0.2" stroke="#005EB8" stroke-width="1.5"/>
-          <text x="38" y="354" class="rs">当前状态（综合1.4分）</text>
-          <line x1="170" y1="349" x2="184" y2="349" stroke="#005EB8" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.6"/>
-          <text x="188" y="354" class="rs">目标状态（综合3.0-3.5分）</text>
-          <text x="360" y="354" class="rs" style="fill:#C0392B">● 当前值数据点</text>
+          <rect x="18" y="358" width="14" height="8" fill="#005EB8" fill-opacity="0.18" stroke="#005EB8" stroke-width="2"/>
+          <text x="36" y="367" class="rs">当前状态（综合 1.4/5）</text>
+          <line x1="168" y1="362" x2="184" y2="362" stroke="#005EB8" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.55"/>
+          <text x="188" y="367" class="rs">目标状态（综合 3.0-3.5）</text>
+          <text x="365" y="367" class="rs" style="fill:var(--primary);font-weight:600">↑ 点击维度查看详情</text>
         </svg>
+        </div>
+
+        <!-- Detail panel (right side, updates on click) -->
+        <div id="dcmmDetail" style="flex:1;min-width:220px;max-width:340px;background:var(--white);border:1.5px solid var(--pale);border-radius:10px;padding:18px;box-shadow:0 2px 12px rgba(0,48,135,.08);transition:all .25s;min-height:320px">
+          <div style="text-align:center;padding:40px 0 20px;color:var(--muted)">
+            <i class="fas fa-hand-pointer" style="font-size:28px;opacity:.4;display:block;margin-bottom:10px"></i>
+            <div style="font-size:13px;font-weight:600;color:var(--steel)">点击左侧雷达图中的<br>任意维度标签或数据点</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:8px">查看该维度的详细评分说明、<br>主要问题与改善行动</div>
+          </div>
+        </div>
       </div>
-      <div class="box guide"><p>工信部《制造业企业数字化转型实施指南》（2024）要求大型制造企业"推进数据管理能力成熟度评估（DCMM）等国家标准应用"，并将数据质量水平列为数字化能力评价核心指标。佛照当前综合处于 <strong>DCMM 1级（初始级）</strong>，与行业标杆（3-4级）差距约2个等级。目标路径：2026年Cut-over前接近2级 → 2028年申请2级认证 → 2030年达到3级。</p></div>
+
+      <div class="box guide" style="margin-top:14px"><p>工信部《制造业企业数字化转型实施指南》（2024）要求大型制造企业"推进数据管理能力成熟度评估（DCMM）等国家标准应用"，并将数据质量水平列为数字化能力评价核心指标。佛照当前综合处于 <strong>DCMM 1级（初始级）</strong>，与行业标杆（3-4级）差距约2个等级。目标路径：2026年Cut-over前接近2级 → 2028年申请2级认证 → 2030年达到3级。</p></div>
+
+      <script>
+      const dcmmData = [
+        {
+          name: '数据战略与方向',
+          cur: 1.5, tgt: 3.0,
+          icon: '🎯',
+          color: '#1F70C1',
+          status: '已定义但执行路径不清晰',
+          evidence: ['十五五战略规划明确数智化为重点方向', '但数据治理的具体战略路径和里程碑尚未文档化', 'SAP项目启动即是战略落地的开始'],
+          problems: ['无正式的数据战略文件', '数字化目标与日常数据维护行为脱节', '缺乏数据驱动决策的文化基础'],
+          actions: ['本报告（及三部曲）即为数据战略文件的起点', '将数据质量KPI纳入2026年绩效考核体系', '在SAP项目启动会明确数据战略方向'],
+          timeline: '2026年8月前完成战略文件发布'
+        },
+        {
+          name: '数据治理组织',
+          cur: 1.0, tgt: 3.0,
+          icon: '🏛',
+          color: '#C0392B',
+          status: '⚠️ 最大缺口 — 组织能力几乎缺失',
+          evidence: ['全公司仅1名专职流程人员（企管部朱海英）', '数智化部0名MDM主数据管理专员', '数智化部16人支撑8,000+员工（缺口4-5倍）', '数据Owner责任制完全缺失'],
+          problems: ['无数据治理委员会', '无主数据管理（MDM）专职岗位', '数智化部代维业务数据，权责不清', 'IT背锅但无业务决策权'],
+          actions: ['【最紧迫】招募第一位MDM专员（2026年9月前）', '设立数据治理委员会（分管副总任主任）', '建立各业务域数据Owner制度并纳入绩效', '推动权责分离：业务Owner负责数据内容，IT负责系统操作'],
+          timeline: 'MDM专员招募：2026年9月 · 治理委员会成立：2026年10月'
+        },
+        {
+          name: '数据标准规范',
+          cur: 1.0, tgt: 3.5,
+          icon: '📐',
+          color: '#1F70C1',
+          status: '标准残缺，4年未更新',
+          evidence: ['物料编码规则总表2022年版，近4年未更新', '计量单位11种并存（ZEA≡EA重复定义）', '产品分类表（2025版）与SAP物料组映射51%不完整', '航空照明/海洋照明等新赛道无对应编码规则'],
+          problems: ['ZEA与EA语义相同但代码不同，导致BOM计算错误', '全局枚举35+种UoM可选，是混用的制度根源', '新赛道（航空/海洋）产品无编码规范'],
+          actions: ['【P1】立即启动ZEA→EA全量标准化（2026年9月底）', '更新物料编码规则总表（补充新赛道，2026年8月）', '补全产品分类与SAP物料组的映射（2026年8月）', '制定并发布《佛照主数据标准规范》V1.0'],
+          timeline: 'ZEA标准化：2026年9月 · 规范发布：2026年10月'
+        },
+        {
+          name: '主数据质量',
+          cur: 1.0, tgt: 3.5,
+          icon: '🔍',
+          color: '#1F70C1',
+          status: '质量极差 — 关键字段几乎全部缺失',
+          evidence: ['3,542条物料：技术要求/69码/旧物料号/图号~100%缺失', '跨工厂物料状态缺失率99.9%', 'BOM覆盖率约15-30%，问题行率12%', '工艺路线覆盖率~5%，44%工序无描述，39%工时为零'],
+          problems: ['无强制字段校验（SAP配置宽松，允许跳过必填字段）', '无主数据审核流程（创建后直接可用）', '历史数据积累错误无人清理', '研发BOM与生产BOM混用'],
+          actions: ['【P1】物料关键字段补录（69码/旧料号/跨工厂状态）', '【P1】BOM研产分离 + TOP 200成品Owner确认', '【P1】工艺路线全产品线补全（非QM工序工时不能为零）', '配置SAP字段强制校验，防止带缺口激活物料'],
+          timeline: '关键字段补录：2026年10月 · BOM/工艺路线：2026年11月'
+        },
+        {
+          name: '数据架构',
+          cur: 1.5, tgt: 3.5,
+          icon: '🏗',
+          color: '#1F70C1',
+          status: '无MDM平台，无统一CoA，数据孤岛严重',
+          evidence: ['无MDM主数据管理平台', '19法人无统一集团科目表（Group CoA）', '12套保留系统通过CPI集成（目标架构），当前多为点对点接口', 'SRM→SAP价格断点，PLM→SAP字段不全'],
+          problems: ['数据孤岛：每个系统都是一个信息孤岛', '无统一主数据中心，物料可在PLM/SAP/手工多处创建', 'CoA不统一导致集团合并月结7-12天'],
+          actions: ['以S/4HANA为主数据黄金来源，统一MDM架构', '确定集团Group CoA方案（以FZCA为基础扩展）', '建立PLM-SAP-CRM-WMS的集成规范', '推进75个研发成本中心三分类清查'],
+          timeline: 'Group CoA确定：2026年9月 · S/4HANA MDM上线：2027年Q1'
+        },
+        {
+          name: '数据应用',
+          cur: 1.5, tgt: 3.0,
+          icon: '📊',
+          color: '#1F70C1',
+          status: '依赖Excel，无BI，AI无数据底座',
+          evidence: ['报表系统以SAP标准报表+Excel手工汇总为主', '无BI实时分析平台', 'AI私有化平台已部署（3台服务器），但处于RAG阶段，无结构化数据支撑', 'MRP计划被计划员采纳率<20%（不信任系统输出）'],
+          problems: ['月底报表超时（电商事业部已发生），缺实时分析能力', 'AI应用无数据底座：BOM/工艺路线/标准成本不完整，AI无法调用', '决策依赖个人经验而非数据'],
+          actions: ['SAP上线后配置SAC（SAP Analytics Cloud）或等效BI工具', '建立S/4HANA→AI平台的数据接口（2027年）', '以MRP建议采纳率为核心KPI（目标上线后12月达75%）', '逐步推进AI采购助手/成本预警等场景'],
+          timeline: 'BI工具规划：2026年Q4 · AI结构化驱动：2027年Q2'
+        },
+        {
+          name: '数据安全',
+          cur: 2.5, tgt: 3.5,
+          icon: '🔒',
+          color: '#27AE60',
+          status: '✅ 相对最好 — 制度完善，执行力待加强',
+          evidence: ['已建立50+份信息安全制度文件，体系完整', '覆盖：安全管理制度/机构/人员/建设/运维全5个维度', '包含数据安全、应急预案、用户个人信息保护等专项制度', 'SAP数据访问权限有基础管控'],
+          problems: ['制度完善但执行受IT人力缺口制约（16人撑8,000人）', '缺乏SAP数据敏感字段（价格/成本/BOM）的精细化访问控制', '职责分离（SoD）检查未定期执行'],
+          actions: ['【P2】在S/4HANA中配置精细化SoD（职责分离）规则', '【P2】敏感数据分级（C3机密/C2内部/C1公开）并在SAP中实现访问控制', '维持现有制度体系，重点加强技术层面执行机制', '补充MDM相关的数据访问审计条款'],
+          timeline: 'S/4HANA SoD配置：2026年Q4 · 审计机制：2027年Q1'
+        },
+        {
+          name: '数据生命周期管理',
+          cur: 1.0, tgt: 3.0,
+          icon: '♻️',
+          color: '#1F70C1',
+          status: '无停用/归档机制，僵尸数据大量积累',
+          evidence: ['3,542条物料中估计20-30%为2年以上无交易的"僵尸物料"', '75个研发成本中心疑有大量历史遗留未关闭', '科目表中存在格式异常科目（100201022，9位非标准）', 'BOM无有效期管理，停产产品仍参与MRP'],
+          problems: ['僵尸物料参与MRP → 每次MRP运行约产生500-1,000条虚假需求', '计划员花大量时间过滤无效MRP建议，加剧对系统的不信任', '历史错误数据在Greenfield迁移时如不清理将带入新系统'],
+          actions: ['【P1】建立物料5阶段生命周期管理规范（申请→建码→运营→停用→归档）', '【P1】僵尸物料专项清查（近2年无交易，按品类审查+Owner确认停用）', '【P1】75个研发成本中心三分类清查（活跃/锁定/不迁移）', '上线后建立季度数据生命周期审核机制'],
+          timeline: '生命周期规范发布：2026年9月 · 僵尸物料清查：2026年10月'
+        }
+      ];
+
+      function showDcmm(idx) {
+        const d = dcmmData[idx];
+        // Update detail panel
+        const panel = document.getElementById('dcmmDetail');
+        const gap = d.tgt - d.cur;
+        const gapColor = gap >= 2 ? '#C0392B' : gap >= 1.5 ? '#E67E22' : '#27AE60';
+        const barW = (d.cur / 5 * 100).toFixed(0);
+        const tgtW = (d.tgt / 5 * 100).toFixed(0);
+
+        panel.innerHTML = `
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--pale)">
+            <div style="font-size:22px">${d.icon}</div>
+            <div>
+              <div style="font-size:14px;font-weight:800;color:var(--dark)">${d.name}</div>
+              <div style="font-size:11px;color:${d.color};font-weight:600;margin-top:2px">${d.status}</div>
+            </div>
+          </div>
+
+          <div style="margin-bottom:12px">
+            <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px">
+              <span style="color:var(--muted)">当前 <strong style="color:var(--dark)">${d.cur}/5</strong></span>
+              <span style="color:${gapColor};font-weight:700">差距 ▲${gap.toFixed(1)}</span>
+              <span style="color:var(--muted)">目标 <strong style="color:var(--primary)">${d.tgt}/5</strong></span>
+            </div>
+            <div style="height:10px;background:var(--pale);border-radius:5px;overflow:hidden;position:relative">
+              <div style="width:${tgtW}%;height:100%;background:#D0E4F7;border-radius:5px;position:absolute;top:0;left:0"></div>
+              <div style="width:${barW}%;height:100%;background:${d.color};border-radius:5px;position:absolute;top:0;left:0"></div>
+            </div>
+            <div style="font-size:10px;color:var(--muted);margin-top:3px;text-align:right">DCMM 1→5级，目标${d.tgt}级</div>
+          </div>
+
+          <div style="margin-bottom:10px">
+            <div style="font-size:11px;font-weight:700;color:var(--dark);margin-bottom:5px">📋 调研依据</div>
+            ${d.evidence.map(e=>`<div style="font-size:11.5px;color:var(--text2);padding:2px 0 2px 14px;position:relative;line-height:1.5"><span style="position:absolute;left:2px;color:var(--primary)">›</span>${e}</div>`).join('')}
+          </div>
+
+          <div style="margin-bottom:10px">
+            <div style="font-size:11px;font-weight:700;color:#C0392B;margin-bottom:5px">⚠️ 核心问题</div>
+            ${d.problems.map(p=>`<div style="font-size:11.5px;color:var(--text2);padding:2px 0 2px 14px;position:relative;line-height:1.5"><span style="position:absolute;left:2px;color:#C0392B">×</span>${p}</div>`).join('')}
+          </div>
+
+          <div style="margin-bottom:10px">
+            <div style="font-size:11px;font-weight:700;color:#27AE60;margin-bottom:5px">✅ 改善行动</div>
+            ${d.actions.map(a=>`<div style="font-size:11.5px;color:var(--text2);padding:2px 0 2px 14px;position:relative;line-height:1.5"><span style="position:absolute;left:2px;color:#27AE60">✓</span>${a}</div>`).join('')}
+          </div>
+
+          <div style="background:var(--bg);border-radius:6px;padding:7px 10px;font-size:11px;color:var(--muted)">
+            ⏰ <strong style="color:var(--dark)">时间节点：</strong>${d.timeline}
+          </div>
+        `;
+
+        // Highlight active dot and label
+        for(let i=0;i<8;i++){
+          const dot = document.getElementById('dot-'+i);
+          const lbl = document.getElementById('lbl-'+i);
+          if(dot) dot.classList.toggle('active', i===idx);
+          if(lbl) lbl.classList.toggle('active', i===idx);
+        }
+
+        // Scroll panel into view on mobile
+        if(window.innerWidth < 768) panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+      }
+      </script>
     </div>
     <div class="sec">
       <div class="sec-title"><i class="fas fa-chart-line"></i> 1.3 行业横向对标（同等规模SAP制造企业）</div>
