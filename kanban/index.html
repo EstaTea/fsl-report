@@ -42,15 +42,15 @@ nav{background:var(--b900);height:54px;display:flex;align-items:center;padding:0
 .proj-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);padding:2px 10px;border-radius:10px;font-size:11px;color:rgba(255,255,255,.8);margin-left:8px}
 
 /* MODULE TABS (like the screenshot) */
-.mod-tabs{display:flex;gap:0;overflow-x:auto;margin-top:0}
+.mod-tabs{display:flex;gap:0;overflow-x:auto;overflow-y:visible;margin-top:0}
 .mod-tabs::-webkit-scrollbar{height:3px}
 .mod-tab{padding:9px 14px;font-size:12.5px;color:rgba(255,255,255,.55);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:5px;transition:color .15s}
 .mod-tab:hover{color:var(--b500)}
 .mod-tab.active{color:var(--b500);border-bottom-color:var(--b500);font-weight:700}
 .mod-tab .new-badge{font-size:9px;background:var(--primary);color:#fff;padding:1px 4px;border-radius:3px;font-weight:700}
 .mod-tab-dd{position:relative;display:inline-flex;align-items:stretch}
-.mod-tab-dd-panel{display:none;position:absolute;top:100%;left:0;z-index:500;background:var(--b900);border:1px solid rgba(255,255,255,.12);border-top:2px solid var(--b500);border-radius:0 6px 6px 6px;min-width:192px;padding:6px 0;box-shadow:0 6px 20px rgba(11,45,71,.5)}
-.mod-tab-dd:hover .mod-tab-dd-panel{display:block}
+.mod-tab-dd-panel{display:none;position:fixed;z-index:9999;background:var(--b900);border:1px solid rgba(255,255,255,.12);border-top:2px solid var(--b500);border-radius:0 6px 6px 6px;min-width:192px;padding:6px 0;box-shadow:0 6px 20px rgba(11,45,71,.5)}
+.mod-tab-dd-panel.dd-open{display:block}
 .mod-tab-dd-panel a{display:flex;align-items:center;gap:8px;padding:8px 16px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;white-space:nowrap;transition:background .12s,color .12s}
 .mod-tab-dd-panel a:hover{background:rgba(255,255,255,.1);color:#fff}
 
@@ -672,9 +672,9 @@ select.dp-input{appearance:none;-webkit-appearance:none;
     <div class="mod-tab" data-panel="deliverable" onclick="switchTab(this,'deliverable')">📦 <span class="label-text">交付物</span></div>
     <div class="mod-tab" data-panel="stats" onclick="switchTab(this,'stats')">📊 <span class="label-text">统计</span></div>
     <div class="mod-tab" data-panel="org" onclick="switchTab(this,'org')">🏗 <span class="label-text">项目架构</span></div>
-    <div class="mod-tab-dd">
-      <div class="mod-tab" style="cursor:default">📋 <span class="label-text">调研访谈</span><span class="new-badge">2</span><span style="font-size:8px;margin-left:2px;opacity:.6">▾</span></div>
-      <div class="mod-tab-dd-panel">
+    <div class="mod-tab-dd" id="surveyTabDd">
+      <div class="mod-tab" style="cursor:pointer" onclick="toggleSurveyDd(event)">📋 <span class="label-text">调研访谈</span><span class="new-badge">2</span><span style="font-size:8px;margin-left:2px;opacity:.6">▾</span></div>
+      <div class="mod-tab-dd-panel" id="survey-dropdown">
         <a href="/fsl-report/kanban/survey-ar.html">💰 开票与应收</a>
         <a href="/fsl-report/kanban/survey-strategy.html">🏛 战略调研 · 董事会</a>
       </div>
@@ -4027,6 +4027,25 @@ function deleteMilestone(){
     } else {showOrgToast('删除失败',true);}
   }).catch(function(){showOrgToast('网络错误',true);});
 }
+
+// ── Survey dropdown toggle ───────────────────────────────────────────────
+function toggleSurveyDd(e){
+  e.stopPropagation();
+  var panel=document.getElementById('survey-dropdown');
+  var btn=e.currentTarget;
+  var rect=btn.getBoundingClientRect();
+  var isOpen=panel.classList.contains('dd-open');
+  // close any open dropdowns first
+  document.querySelectorAll('.mod-tab-dd-panel').forEach(function(p){p.classList.remove('dd-open');});
+  if(!isOpen){
+    panel.style.top=(rect.bottom+2)+'px';
+    panel.style.left=rect.left+'px';
+    panel.classList.add('dd-open');
+  }
+}
+document.addEventListener('click',function(){
+  document.querySelectorAll('.mod-tab-dd-panel').forEach(function(p){p.classList.remove('dd-open');});
+});
 
 // ── START ─────────────────────────────────────────────────────────
 renderOrgPanel();
