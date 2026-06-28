@@ -65,6 +65,12 @@ body{font-family:"Microsoft YaHei",Arial,sans-serif;background:var(--bg);color:v
 .ss-btn#ss-todo.active{background:#4A5568;color:#fff;border-color:#718096;}
 .ss-btn#ss-wip.active{background:#1A56DB;color:#fff;border-color:#3B82F6;box-shadow:0 0 0 2px rgba(59,130,246,.4);}
 .ss-btn#ss-done.active{background:#166534;color:#fff;border-color:#22C55E;box-shadow:0 0 0 2px rgba(34,197,94,.4);}
+.ss-indicator-wrap{display:flex;align-items:center;gap:5px;margin-left:3px;padding-left:10px;border-left:1px solid rgba(255,255,255,.15);}
+.ss-indicator-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.ss-indicator-dot.todo{background:#718096;}
+.ss-indicator-dot.wip{background:#3B82F6;}
+.ss-indicator-dot.done{background:#22C55E;}
+.ss-indicator-text{font-size:10.5px;font-weight:700;color:rgba(255,255,255,.7);}
 /* ── SIDEBAR ── */
 #sidebar{position:fixed;top:50px;left:0;width:var(--nav-w);height:calc(100vh - 50px);
   background:var(--dark);overflow-y:auto;z-index:100;display:flex;flex-direction:column;padding-bottom:20px}
@@ -424,9 +430,13 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 </nav>
 <div class="status-switcher" id="statusSwitcher">
   <span class="ss-label">文档状态</span>
-  <button class="ss-btn" id="ss-todo" onclick="setStatus('todo')">待开始</button>
-  <button class="ss-btn active" id="ss-wip" onclick="setStatus('wip')">进行中</button>
-  <button class="ss-btn" id="ss-done" onclick="setStatus('done')">已完成</button>
+  <button class="ss-btn" id="ss-todo" onclick="setDocStatus(&quot;todo&quot;)">⏳ 待开始</button>
+  <button class="ss-btn" id="ss-wip"  onclick="setDocStatus(&quot;wip&quot;)">⟳ 进行中</button>
+  <button class="ss-btn" id="ss-done" onclick="setDocStatus(&quot;done&quot;)">✅ 已完成</button>
+  <div class="ss-indicator-wrap">
+    <div class="ss-indicator-dot" id="ss-dot"></div>
+    <span class="ss-indicator-text" id="ss-indicator">—</span>
+  </div>
 </div>
 
 <button id="ham" onclick="toggleSidebar()">☰</button>
@@ -692,9 +702,147 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
   </div>
 </div>
 
+
+<!-- ═══ MISSING: PROBLEMS CHAPTER ═══ -->
+<div class="chapter" id="problems">
+  <div class="ch-header"><div class="ch-num">3B</div><h2>五大核心组织问题深度分析</h2></div>
+  <div class="ch-body">
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-search"></i> 问题一：数智化部定位模糊，权责边界不清</div>
+      <table>
+        <thead><tr><th>数智化部当前角色</th><th>估算精力占比</th><th>理论上应由谁承担</th><th>问题</th></tr></thead>
+        <tbody>
+          <tr><td>IT基础设施运维（服务器/网络/安全）</td><td>~30%</td><td>数智化部（合理）</td><td><span class="badge g">合理</span></td></tr>
+          <tr><td>SAP系统运维（含外包顾问协调）</td><td>~20%</td><td>数智化部（合理）</td><td><span class="badge g">合理</span></td></tr>
+          <tr><td>业务数据代维（物料建档/价格录入等）</td><td>~20%</td><td>各业务部门数据Owner</td><td><span class="badge r">权责错位</span></td></tr>
+          <tr><td>数字化项目推进（甲方PM协调）</td><td>~15%</td><td>数智化部+业务部门共同</td><td><span class="badge a">应加强业务侧</span></td></tr>
+          <tr><td>新系统建设（WMS/CRM/AI等）</td><td>~10%</td><td>数智化部（合理，但资源不足）</td><td><span class="badge a">资源不足</span></td></tr>
+          <tr><td>数据治理/MDM</td><td>&lt;5%</td><td>应设专职MDM团队</td><td><span class="badge r">严重缺位</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-clock"></i> 问题二：IT人力严重不足，实施期工作量超载</div>
+      <p>数智化部22人（含临时）在SAP实施期需同时承担：SAP配合（~4-5人）+ 数据治理（~8-10人）+ 日常运维（~4人）+ 变革管理（~3人，需新增）+ CPI接口（~2人，需新增）+ Mock迁移（~2人）= 约23-26人需求，而实际可投入约<strong>14人</strong>，缺口约9-12人。</p>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-file-alt"></i> 问题三：流程治理组织严重缺位</div>
+      <table>
+        <thead><tr><th>流程治理维度</th><th>国际标杆企业（华为/美的）</th><th>佛山照明当前</th><th>差距</th></tr></thead>
+        <tbody>
+          <tr><td>专职流程人员</td><td>约20-50人</td><td><span class="badge r">1人（朱海英）</span></td><td>缺口约20-50倍</td></tr>
+          <tr><td>流程管理平台</td><td>专用BPM工具（Signavio等）</td><td><span class="badge r">无，只有OA审批流</span></td><td>完全缺失</td></tr>
+          <tr><td>流程Owner机制</td><td>每个L3/L4流程有指定Owner</td><td><span class="badge r">无流程Owner</span></td><td>完全缺失</td></tr>
+          <tr><td>流程绩效考核</td><td>流程KPI纳入Owner考核</td><td><span class="badge r">无流程相关KPI</span></td><td>完全缺失</td></tr>
+        </tbody>
+      </table>
+      <div class="box finding"><p>朱海英（2026-06-25访谈）：<em>"现在大家认知里的流程，基本就是OA审批流。"</em><br>直接含义：SAP蓝图阶段需确认约150-200条TO-BE流程，以1人处理需75-100个工作日，远超60天时间窗口。</p></div>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-user-slash"></i> 问题四：数据Owner制度缺失，责任链完全断裂</div>
+      <p>当前佛照主数据是"无主之地"——每条数据从创建到停用，没有任何角色被明确授权负责，没有绩效追责，没有质量审核流程。以物料编码规则总表（2022年版，1,571条）为例：<strong>制定后4年无人更新</strong>，新赛道（航空/海洋照明）无对应编码规则，导致大量"特殊编码"绕过规则体系。</p>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-times"></i> 问题五：历史项目失败的组织共性根因</div>
+      <div class="box guide"><p><strong>李泽华副总（2026-06-23）：</strong><em>"从一开始规划的时候，整体思路不会错，但无奈于基础太差，可能没有对业务流程做细化。"</em>  四次失败均出现：① 数智化部既是甲方PM又代替业务做决策 ② 无业务Key User全程参与 ③ 无明确的验收标准 ④ 无变革管理帮助用户接受新系统。</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MISSING: MECHANISM CHAPTER ═══ -->
+<div class="chapter" id="mechanism">
+  <div class="ch-header"><div class="ch-num">5</div><h2>IT与业务协同运作机制</h2></div>
+  <div class="ch-body">
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-project-diagram"></i> 5.1 IT需求管理6步流程</div>
+      <div class="flow" style="flex-wrap:nowrap;overflow-x:auto;gap:4px">
+        <div class="flow-step navy" style="min-width:90px;text-align:center">Step 1<br><small>联络员提交申请表</small></div><div class="flow-arrow">→</div>
+        <div class="flow-step" style="min-width:90px;text-align:center">Step 2<br><small>数智化部初审（5日）</small></div><div class="flow-arrow">→</div>
+        <div class="flow-step" style="min-width:90px;text-align:center">Step 3<br><small>委员会优先级决策</small></div><div class="flow-arrow">→</div>
+        <div class="flow-step" style="min-width:90px;text-align:center">Step 4<br><small>需求冻结立项</small></div><div class="flow-arrow">→</div>
+        <div class="flow-step green" style="min-width:90px;text-align:center">Step 5<br><small>实施与UAT验收</small></div><div class="flow-arrow">→</div>
+        <div class="flow-step active" style="min-width:90px;text-align:center">Step 6<br><small>运营与30天回顾</small></div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-layer-group"></i> 5.2 IT项目分级管理</div>
+      <table>
+        <thead><tr><th>级别</th><th>定义</th><th>典型例子</th><th>立项审批</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge r">A类（战略级）</span></td><td>合同金额&gt;100万或涉及核心系统架构</td><td>SAP升级、WMS、CRM</td><td>数字化保障委员会+总经理</td></tr>
+          <tr><td><span class="badge a">B类（重要级）</span></td><td>合同金额50-100万或跨部门协同</td><td>PLM二期、AI平台、档案系统</td><td>委员会+分管副总</td></tr>
+          <tr><td><span class="badge g">C类（常规级）</span></td><td>合同金额&lt;50万或单部门IT优化</td><td>OA增值模块、小程序</td><td>数智化部部长批准</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-tachometer-alt"></i> 5.3 数字化绩效考核KPI体系（三级）</div>
+      <div class="kpi-grid">
+        <div class="kpi-card r"><div class="kn">SAP按时上线率（高管）</div><div class="kv">100%</div><div class="kd">2027年1月1日 Go-Live · 李泽华（CIO）</div></div>
+        <div class="kpi-card r"><div class="kn">数据质量门控通过率</div><div class="kv">100%通过</div><div class="kd">DQ-01至DQ-07全部达标 · 苏大明（CDO）</div></div>
+        <div class="kpi-card"><div class="kn">BPO/联络员出席率</div><div class="kv">≥ 90%</div><div class="kd">关键会议出席 · 各部门负责人</div></div>
+        <div class="kpi-card g"><div class="kn">数据Owner字段完整率</div><div class="kv">≥ 97%</div><div class="kd">关键字段有值 · 各BPO所属部门（权重10%）</div></div>
+        <div class="kpi-card g"><div class="kn">UAT一次通过率</div><div class="kv">≥ 85%</div><div class="kd">本部门相关流程 · 各模块BPO（权重5%）</div></div>
+        <div class="kpi-card g"><div class="kn">Super User培训完成率</div><div class="kv">100%</div><div class="kd">上线前完成 · 各部门联络员（权重5%）</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MISSING: TALENT CHAPTER ═══ -->
+<div class="chapter" id="talent">
+  <div class="ch-header"><div class="ch-num">6</div><h2>人才结构与能力规划</h2></div>
+  <div class="ch-body">
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-graduation-cap"></i> 6.1 Super User培训4期计划（2026年10月-12月）</div>
+      <table>
+        <thead><tr><th>培训期</th><th>时间</th><th>内容</th><th>参与人员</th></tr></thead>
+        <tbody>
+          <tr><td>第一期：认知培训</td><td>2026年10月</td><td>S/4HANA概念、与ECC的区别、核心业务场景演示</td><td>所有联络员（21人）+ BPO（8人）</td></tr>
+          <tr><td>第二期：模块深度</td><td>2026年11月</td><td>按模块分组（FI/SD/MM/PP等），深度操作培训（40小时/组）</td><td>各模块Super User（共约21人）</td></tr>
+          <tr><td>第三期：综合测试</td><td>2026年12月</td><td>端到端场景测试（从询价到付款等），上线前UAT</td><td>所有Super User + BPO</td></tr>
+          <tr><td>第四期：培训师培训</td><td>2026年12月</td><td>如何培训本部门同事，培训材料制作</td><td>Super User全部参与</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-user-plus"></i> 6.2 关键新增岗位说明（P1级，2026年8-9月前到位）</div>
+      <div class="prio-grid">
+        <div class="prio-card p1">
+          <div class="pl">MDM主任 · 9月前到岗</div>
+          <div class="pt">主数据管理负责人</div>
+          <ul class="pi"><li>SAP MM/MDG主数据治理，3年以上经验</li><li>参与过Greenfield迁移优先</li><li>最大挑战：催动业务部门Owner确认数据</li><li>薪酬区间：35-50万/年</li></ul>
+        </div>
+        <div class="prio-card p1">
+          <div class="pl">CPI集成工程师 · 8月前到岗</div>
+          <div class="pt">SAP Cloud Platform Integration</div>
+          <ul class="pi"><li>SAP CPI/HCI实施经验，2年以上</li><li>主要任务：12套保留系统接口开发</li><li>技术栈：Java/Groovy，REST API，XML/JSON</li><li>薪酬区间：30-45万/年</li></ul>
+        </div>
+        <div class="prio-card p2">
+          <div class="pl">变革管理专员 · 7月-2027年3月</div>
+          <div class="pt">组织变革管理（OCM）</div>
+          <ul class="pi"><li>熟悉Prosci ADKAR或Kotter 8步模型</li><li>协调联络员培训，监测用户接受度</li><li>可为项目制合同工（7个月）</li><li>预算：约15-25万</li></ul>
+        </div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-road"></i> 6.3 数智化部人才发展三阶段</div>
+      <table>
+        <thead><tr><th>阶段</th><th>时间</th><th>目标</th><th>关键人才动作</th></tr></thead>
+        <tbody>
+          <tr><td>阶段一：补缺期</td><td>2026-2027</td><td>快速补强SAP实施能力缺口</td><td>招募MDM专员×2、CPI工程师×1-2；内部SAP培训（C_TS410认证）；Super User体系建立</td></tr>
+          <tr><td>阶段二：成长期</td><td>2027-2028</td><td>建立自主SAP运营能力，减少外包依赖</td><td>SAP CoE正式成立；外包顾问从4人减至2人；BI分析师扩至3人</td></tr>
+          <tr><td>阶段三：成熟期</td><td>2028-2030</td><td>AI应用落地，DCMM认证</td><td>AI工程师×3；数据治理中心建立；探索CIO后备干部培养；与广工大/华南理工建立校企合作</td></tr>
+        </tbody>
+      </table>
+      <div class="box guide"><p><strong>十五五战略人才目标对齐：</strong>"重点引育智能制造专业赛道高端人才20人"——MDM主任、AI工程师属于智能制造高端人才，可按高端人才政策申请特殊薪酬待遇；"谱光计划（中高层领导能力提升）"——苏大明（CDO候选）纳入领导力培养计划，推荐参加广晟集团数字化高管研修。</p></div>
+    </div>
+  </div>
+</div>
+
 <!-- ═══ CH4 TARGET ORG ═══ -->
 <div class="chapter" id="target-org">
-  <div class="ch-header"><div class="ch-num">4</div><h2>目标组织架构设计</h2></div>
+  <div class="ch-header"><div class="ch-num">7</div><h2>目标组织架构设计</h2></div>
   <div class="ch-body">
     <div class="sec">
       <div class="sec-title"><i class="fas fa-building"></i> 4.1 数智化部目标架构（三阶段演进）</div>
@@ -775,7 +923,7 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 
 <!-- ═══ CH5 OCM ═══ -->
 <div class="chapter" id="ocm">
-  <div class="ch-header"><div class="ch-num">5</div><h2>变革管理行动计划（Kotter 8步模型）</h2></div>
+  <div class="ch-header"><div class="ch-num">9</div><h2>变革管理行动计划（Kotter 8步模型）</h2></div>
   <div class="ch-body">
     <div class="sec">
       <div class="sec-title"><i class="fas fa-exclamation-triangle"></i> 5.1 四类变革阻力分析</div>
@@ -810,7 +958,7 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 
 <!-- ═══ CH6 ROADMAP ═══ -->
 <div class="chapter" id="roadmap">
-  <div class="ch-header"><div class="ch-num">6</div><h2>组织转型路线图（20个里程碑 · 2026-2030）</h2></div>
+  <div class="ch-header"><div class="ch-num">10</div><h2>组织转型路线图（20个里程碑 · 2026-2030）</h2></div>
   <div class="ch-body">
     <div class="sec">
       <div class="sec-title"><i class="fas fa-flag"></i> 阶段一：组织建立期（2026年7月-2027年1月）</div>
@@ -853,7 +1001,7 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 
 <!-- ═══ CH7 BENCHMARK ═══ -->
 <div class="chapter" id="benchmark">
-  <div class="ch-header"><div class="ch-num">7</div><h2>行业对标与最佳实践</h2></div>
+  <div class="ch-header"><div class="ch-num">11</div><h2>行业对标与最佳实践</h2></div>
   <div class="ch-body">
     <div class="sec">
       <div class="sec-title"><i class="fas fa-balance-scale"></i> 照明行业对标（欧普照明 · 阳光照明）</div>
@@ -894,7 +1042,7 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 
 <!-- ═══ CH8 RISK ═══ -->
 <div class="chapter" id="risk">
-  <div class="ch-header"><div class="ch-num">8</div><h2>实施风险管理</h2></div>
+  <div class="ch-header"><div class="ch-num">12</div><h2>实施风险管理</h2></div>
   <div class="ch-body">
     <div class="sec">
       <div class="sec-title"><i class="fas fa-shield-alt"></i> 组织转型5大风险及应对</div>
@@ -950,10 +1098,38 @@ window.addEventListener('scroll',()=>{
   });
 });
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open')}
-function setStatus(s){
-  document.querySelectorAll('.ss-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('ss-'+s).classList.add('active');
-}
+<script id="statusSwitcherJS">
+(function(){
+  var WORKER='https://fsl-status.283656314.workers.dev';
+  var SF='https://api.github.com/repos/EstaTea/fsl-report/contents/status/doc-status.json';
+  var DOCKEY=location.pathname.replace(/\.html$/,'').replace(/\/$/,'').replace(/^\/fsl-report/,'')||'/';
+  function applyUI(s){
+    var L={todo:'\u5f85\u5f00\u59cb',wip:'\u8fdb\u884c\u4e2d',done:'\u5df2\u5b8c\u6210'};
+    var D={todo:'todo',wip:'wip',done:'done'};
+    ['todo','wip','done'].forEach(function(k){var b=document.getElementById('ss-'+k);if(b)b.classList.toggle('active',k===s);});
+    var ind=document.getElementById('ss-indicator');if(ind)ind.textContent=L[s]||s;
+    var dot=document.getElementById('ss-dot');if(dot)dot.className='ss-indicator-dot '+(D[s]||'');
+  }
+  function readStatus(cb){
+    fetch(SF+'?ref=main&_='+Date.now())
+      .then(function(r){return r.json();})
+      .then(function(d){var j={};try{var c='';for(var i=0;i<d.content.length;i++){var x=d.content.charCodeAt(i);if(x!==10&&x!==13)c+=d.content[i];}j=JSON.parse(atob(c));}catch(e){}cb(j);})
+      .catch(function(){cb({});});
+  }
+  window.setDocStatus=function(s){
+    applyUI(s);
+    var sw=document.getElementById('statusSwitcher');
+    if(sw){sw.style.outline='2px solid #F59E0B';sw.title='\u4fdd\u5b58\u4e2d...';}
+    fetch(WORKER,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({doc_key:DOCKEY,status:s})})
+      .then(function(r){return r.json().then(function(j){return {ok:r.ok,body:j};});})
+      .then(function(res){
+        if(res.ok){if(sw){sw.style.outline='2px solid #22C55E';sw.title='\u5df2\u4fdd\u5b58';setTimeout(function(){sw.style.outline='';sw.title='';},3000);}}
+        else{alert('\u4fdd\u5b58\u5931\u8d25: '+(res.body.error||'unknown'));if(sw)sw.style.outline='2px solid #EF4444';}
+      }).catch(function(e){alert(e.message);if(sw)sw.style.outline='2px solid #EF4444';});
+  };
+  document.addEventListener('DOMContentLoaded',function(){readStatus(function(j){applyUI(j[DOCKEY]||'wip');});});
+})();
+</script>
 </script>
 </body>
 </html>
