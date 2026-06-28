@@ -179,7 +179,6 @@ nav{background:var(--b900);height:54px;display:flex;align-items:center;padding:0
   <div class="hero-title">🏛 调研问卷 — 董事会办公室（战略投资部）</div>
   <div class="hero-meta">
     <span>👤 黄玉芬（负责人）· 傅雪君（联系人）</span>
-    <span>📅 访谈日：D2（2026-06-23）</span>
     <span>⏱ 建议时长：60分钟</span>
     <span>🔗 关联：★6 数字化转型路线图 · 十五五战略</span>
   </div>
@@ -194,21 +193,10 @@ nav{background:var(--b900);height:54px;display:flex;align-items:center;padding:0
   <div class="q-progress-row">
     <span><b id="q-done">0</b>/<b id="q-total">18</b> 题已填写</span>
     <div class="pbar-wrap"><div class="pbar" id="q-pbar" style="width:0%"></div></div>
-    <button class="gh-save-btn" onclick="saveToGitHub()">☁ 保存到GitHub</button>
+    <button class="gh-save-btn" onclick="saveToGitHub()">💾 保存</button>
     <button class="q-btn q-btn-p" onclick="exportQA()">📄 导出纪要</button>
     <button class="q-btn q-btn-o" onclick="window.print()">🖨 打印</button>
     <button class="q-btn q-btn-d" onclick="clearAll()">🗑 清空</button>
-  </div>
-</div>
-
-<div class="main" style="padding-bottom:0;padding-top:16px">
-  <div class="gh-token-bar">
-    <label>🔑 GitHub Token（保存问卷数据到仓库）：</label>
-    <input type="password" class="gh-token-input" id="ghToken"
-           placeholder="ghp_xxxxxxxxxxxx（需要 repo 写权限）"
-           oninput="onTokenInput()">
-    <span class="gh-save-status" id="ghSaveStatus">未配置</span>
-    <span style="font-size:10.5px;color:var(--muted)">· Token 仅存于本地浏览器，不会上传</span>
   </div>
 </div>
 
@@ -463,7 +451,7 @@ nav{background:var(--b900);height:54px;display:flex;align-items:center;padding:0
   <div class="kv"><span class="k">关联交付物</span><span class="v">★6《数字化转型路线图2026-2028》· ★1痛点清单（战略层面）· 项目成功标准确认</span></div>
   <div class="hbox">⚡ 访谈纪要须于访谈结束后 <b>T+1日内</b>完成，点击「保存到GitHub」同步至项目仓库（路径：kanban/survey-strategy-data.json）。</div>
   <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
-    <button class="gh-save-btn" onclick="saveToGitHub()" style="font-size:13px;padding:8px 22px">☁ 保存到GitHub</button>
+    <button class="gh-save-btn" onclick="saveToGitHub()" style="font-size:13px;padding:8px 22px">💾 保存</button>
     <button class="q-btn q-btn-p" onclick="exportQA()" style="padding:7px 18px;font-size:12.5px">📄 导出访谈纪要</button>
     <button class="q-btn q-btn-o" onclick="window.print()" style="padding:7px 18px;font-size:12.5px">🖨 打印问卷</button>
     <a href="/fsl-report/kanban/" class="q-btn q-btn-o" style="padding:7px 18px;font-size:12.5px">← 返回看板</a>
@@ -486,18 +474,9 @@ function updateProgress(){
   document.getElementById('q-pbar').style.width=Math.round(f/TOTAL*100)+'%';
 }
 
-function onTokenInput(){
-  var t=document.getElementById('ghToken').value.trim();
-  if(t){localStorage.setItem('gh_token_fsl',t);updateSaveStatus('已配置 ✓','ok');}
-}
 function updateSaveStatus(msg,cls){
-  var el=document.getElementById('ghSaveStatus');
-  el.textContent=msg;el.className='gh-save-status '+(cls||'');
+  // status shown in save banner only
 }
-(function(){
-  var t=localStorage.getItem('gh_token_fsl')||'';
-  if(t){document.getElementById('ghToken').value=t;updateSaveStatus('已配置 ✓','ok');}
-})();
 
 // 自动本地保存
 document.querySelectorAll('.q-answer').forEach(function(a){
@@ -528,8 +507,13 @@ function collectAnswers(){
 }
 
 async function saveToGitHub(){
-  var token=(document.getElementById('ghToken').value||localStorage.getItem('gh_token_fsl')||'').trim();
-  if(!token){showBanner('请先填写 GitHub Token','err-b');document.getElementById('ghToken').focus();return;}
+  var token=(localStorage.getItem('gh_token_fsl')||'').trim();
+  if(!token){
+    var t=prompt('请输入访问令牌以保存数据（仅首次需要，之后自动记住）：');
+    if(!t||!t.trim()){return;}
+    token=t.trim();
+    localStorage.setItem('gh_token_fsl',token);
+  }
   var data=collectAnswers();
   var content=btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2))));
   var headers={'Accept':'application/vnd.github+json','Authorization':'Bearer '+token,'Content-Type':'application/json'};
@@ -543,10 +527,10 @@ async function saveToGitHub(){
     if(sha)body.sha=sha;
     var r=await fetch(api,{method:'PUT',headers:headers,body:JSON.stringify(body)});
     if(!r.ok)throw new Error((await r.json()).message||r.status);
-    updateSaveStatus('已保存 ✓ '+new Date().toLocaleTimeString('zh-CN'),'ok');
+
     showBanner('✅ 已保存到 GitHub：'+SAVE_PATH,'');
   }catch(e){
-    updateSaveStatus('保存失败: '+e.message,'err');
+
     showBanner('❌ 保存失败：'+e.message,'err-b');
   }finally{
     btns.forEach(function(b){b.classList.remove('saving');b.textContent='☁ 保存到GitHub';});
