@@ -424,9 +424,13 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 </nav>
 <div class="status-switcher" id="statusSwitcher">
   <span class="ss-label">文档状态</span>
-  <button class="ss-btn" id="ss-todo" onclick="setStatus('todo')">待开始</button>
-  <button class="ss-btn active" id="ss-wip" onclick="setStatus('wip')">进行中</button>
-  <button class="ss-btn" id="ss-done" onclick="setStatus('done')">已完成</button>
+  <button class="ss-btn" id="ss-todo" onclick="setDocStatus('todo')">⏳ 待开始</button>
+  <button class="ss-btn" id="ss-wip"  onclick="setDocStatus('wip')">🔄 进行中</button>
+  <button class="ss-btn" id="ss-done" onclick="setDocStatus('done')">✅ 已完成</button>
+  <div class="ss-indicator-wrap">
+    <div class="ss-indicator-dot" id="ss-dot"></div>
+    <span class="ss-indicator-text" id="ss-indicator">—</span>
+  </div>
 </div>
 
 <button id="ham" onclick="toggleSidebar()">☰</button>
@@ -580,10 +584,10 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
     <div class="sec">
       <div class="sec-title"><i class="fas fa-chart-area"></i> 1.2 DCMM成熟度雷达图（当前综合1.4/5分）</div>
       <p style="font-size:12px;color:var(--muted);margin-bottom:10px">蓝色区域 = 当前状态 · 虚线 = 目标状态 · 评分体系：DCMM GB/T 36073—2018 · <strong style="color:var(--primary)">点击任意维度标签或数据点查看详情</strong></p>
-      <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap">
+      <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;width:100%">
 
         <!-- SVG radar (clickable) -->
-        <div style="flex:0 0 auto">
+        <div style="flex:0 0 480px">
         <svg id="dcmmRadar" viewBox="0 0 520 390" width="480" height="360" xmlns="http://www.w3.org/2000/svg" style="font-family:'Microsoft YaHei',Arial,sans-serif;cursor:pointer">
           <defs>
             <style>
@@ -680,7 +684,7 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
         </div>
 
         <!-- Detail panel (right side, updates on click) -->
-        <div id="dcmmDetail" style="flex:1;min-width:220px;max-width:340px;background:var(--white);border:1.5px solid var(--pale);border-radius:10px;padding:18px;box-shadow:0 2px 12px rgba(0,48,135,.08);transition:all .25s;min-height:320px">
+        <div id="dcmmDetail" style="flex:1;min-width:260px;background:var(--white);border:1.5px solid var(--pale);border-radius:10px;padding:18px;box-shadow:0 2px 12px rgba(0,48,135,.08);transition:all .25s;min-height:320px">
           <div style="text-align:center;padding:40px 0 20px;color:var(--muted)">
             <i class="fas fa-hand-pointer" style="font-size:28px;opacity:.4;display:block;margin-bottom:10px"></i>
             <div style="font-size:13px;font-weight:600;color:var(--steel)">点击左侧雷达图中的<br>任意维度标签或数据点</div>
@@ -1808,10 +1812,36 @@ window.addEventListener('scroll',()=>{
   });
 });
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open')}
-function setStatus(s){
-  document.querySelectorAll('.ss-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('ss-'+s).classList.add('active');
-}
+<script id="statusSwitcherJS">
+(function(){
+  var WORKER='https://fsl-status.283656314.workers.dev';
+  var SF='https://api.github.com/repos/EstaTea/fsl-report/contents/status/doc-status.json';
+  var DOCKEY=location.pathname.replace(/\.html$/,'').replace(/\/$/,'').replace(/^\/fsl-report/,'')||'/';
+  function applyUI(s){
+    var L={todo:'待开始',wip:'进行中',done:'已完成'};
+    ['todo','wip','done'].forEach(function(k){var b=document.getElementById('ss-'+k);if(b)b.classList.toggle('active',k===s);});
+    var ind=document.getElementById('ss-indicator');if(ind)ind.textContent=L[s]||s;
+    var dot=document.getElementById('ss-dot');if(dot)dot.className='ss-indicator-dot '+(s||'');
+  }
+  function readStatus(cb){
+    fetch(SF+'?ref=main&_='+Date.now())
+      .then(function(r){return r.json();})
+      .then(function(d){var j={};try{var c='';for(var i=0;i<d.content.length;i++){var x=d.content.charCodeAt(i);if(x!==10&&x!==13)c+=d.content[i];}j=JSON.parse(atob(c));}catch(e){}cb(j);})
+      .catch(function(){cb({});});
+  }
+  window.setDocStatus=function(s){
+    applyUI(s);
+    var sw=document.getElementById('statusSwitcher');
+    if(sw){sw.style.outline='2px solid #F59E0B';sw.title='保存中...';}
+    fetch(WORKER,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({doc_key:DOCKEY,status:s})})
+      .then(function(r){return r.json().then(function(j){return {ok:r.ok,body:j};});})
+      .then(function(res){
+        if(res.ok){if(sw){sw.style.outline='2px solid #22C55E';sw.title='已保存';setTimeout(function(){sw.style.outline='';sw.title='';},3000);}}
+        else{alert('保存失败: '+(res.body.error||'unknown'));if(sw)sw.style.outline='2px solid #EF4444';}
+      }).catch(function(e){alert(e.message);if(sw)sw.style.outline='2px solid #EF4444';});
+  };
+  document.addEventListener('DOMContentLoaded',function(){readStatus(function(j){applyUI(j[DOCKEY]||'todo');});});
+})();
 </script>
 </body>
 </html>
