@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>战略调研问卷 — 董事会办公室 | 佛照SAP升级项目</title>
+<link rel="icon" type="image/x-icon" href="/fsl-report/favicon.ico">
+<style>
+:root{--b900:#0B2D47;--b700:#1A4F73;--b500:#2374A3;--b300:#5EA4CE;--b100:#C7E2F2;--b050:#EBF5FB;--bg:#F2F7FB;--text:#0F2233;--muted:#5B7A91;--rule:#D6E8F2;--navy:#0B2D47;--dark:#1A4F73;--primary:#2374A3;--mid:#3D8FC4;--steel:#5B7A91;--pale:#D6E8F2;--white:#fff;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:13px;line-height:1.6;display:flex;flex-direction:column;min-height:100vh}
+a{color:inherit;text-decoration:none}
+nav{background:var(--b900);height:54px;display:flex;align-items:center;padding:0 32px;gap:20px;flex-shrink:0;z-index:300;overflow:visible!important;box-shadow:0 2px 10px rgba(11,45,71,.5)}
+.nav-logo-link{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.nav-divider{width:1px;height:18px;background:rgba(255,255,255,.15);flex-shrink:0}
+.nav-project{color:rgba(255,255,255,.55);font-size:12px;white-space:nowrap}
+.nav-links{display:flex;flex:1;gap:0;overflow:visible!important}
+.nav-links a{color:rgba(255,255,255,.55);font-size:12px;padding:0 11px;height:54px;display:flex;align-items:center;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s}
+.nav-links a:hover{color:#fff}
+.nav-links a.active{color:#fff;border-bottom-color:var(--b300)}
+.nav-dropdown{position:relative;display:inline-flex;align-items:center}
+.nav-dropdown>a{padding:0 11px;color:rgba(255,255,255,.55);font-size:12px;height:54px;display:flex;align-items:center;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s;cursor:pointer}
+.nav-dropdown>a:hover,.nav-dropdown:hover>a{color:#fff}
+.nav-arrow{font-size:10px;margin-left:3px;opacity:.7}
+.nav-dropdown-panel{display:none;position:absolute;top:54px;left:0;z-index:400;background:var(--b900);border:1px solid rgba(255,255,255,.1);border-top:2px solid var(--b300);border-radius:0 0 6px 6px;padding:16px 20px;min-width:480px;box-shadow:0 8px 24px rgba(11,45,71,.6)}
+.nav-dropdown:hover .nav-dropdown-panel{display:block}
+.nav-dd-row{display:flex;gap:0}
+.nav-dd-col{flex:1;padding:0 16px 0 0}
+.nav-dd-col:last-child{padding-right:0}
+.nav-dd-col+.nav-dd-col{border-left:1px solid rgba(255,255,255,.08);padding-left:16px}
+.nav-dd-group-title{font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--b300);margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid rgba(255,255,255,.08)}
+.nav-dd-panel a{display:block;padding:5px 0;color:rgba(255,255,255,.65);font-size:12.5px;transition:color .12s}
+.nav-dd-panel a:hover{color:#fff}
+.nav-dd-research{margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08)}
+.nav-dd-research-links{display:flex;gap:12px}
+.nav-dd-research-links a{color:rgba(255,255,255,.65);font-size:12.5px;padding:3px 0;transition:color .12s}
+.nav-dd-research-links a:hover{color:#fff}
+.nav-right{display:flex;align-items:center;gap:8px;margin-left:auto}
+.btn-ghost{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);padding:5px 12px;border-radius:5px;font-size:11.5px;cursor:pointer;font-family:inherit}
+.btn-ghost:hover{background:rgba(255,255,255,.2)}
+.proj-header{background:linear-gradient(135deg,var(--b900),var(--b700));border-bottom:3px solid var(--b500);padding:0 32px;display:flex;flex-direction:column;flex-shrink:0;color:#fff}
+.proj-title-row{display:flex;align-items:center;gap:10px;padding:11px 0 0}
+.proj-icon{font-size:20px}
+.proj-name{font-size:16px;font-weight:800;color:#fff;letter-spacing:-.2px}
+.proj-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);padding:2px 10px;border-radius:10px;font-size:11px;color:rgba(255,255,255,.8);margin-left:8px}
+.mod-tabs{display:flex;gap:0;overflow-x:auto;margin-top:0}
+.mod-tabs::-webkit-scrollbar{height:3px}
+.mod-tab{padding:9px 14px;font-size:12.5px;color:rgba(255,255,255,.55);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:5px;transition:color .15s;text-decoration:none}
+.mod-tab:hover{color:var(--b500)}
+.mod-tab.active{color:var(--b500);border-bottom-color:var(--b500);font-weight:700}
+.mod-tab .new-badge{font-size:9px;background:var(--primary);color:#fff;padding:1px 4px;border-radius:3px;font-weight:700}
+.page-hero{background:linear-gradient(135deg,var(--b900),var(--b700));color:#fff;padding:16px 32px 14px;border-bottom:2px solid rgba(255,255,255,.12)}
+.hero-title{font-size:17px;font-weight:800}
+.hero-meta{margin-top:5px;font-size:11.5px;color:rgba(255,255,255,.6);display:flex;gap:20px;flex-wrap:wrap}
+.hero-bg{margin-top:8px;background:rgba(255,255,255,.08);border-left:3px solid var(--b300);padding:7px 12px;border-radius:0 4px 4px 0;font-size:11px;color:rgba(255,255,255,.75);line-height:1.5}
+.q-toolbar{background:#fff;border-bottom:1px solid var(--rule);padding:8px 32px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(11,45,71,.06)}
+.q-progress-row{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--muted);margin-left:auto}
+.pbar-wrap{background:var(--rule);border-radius:4px;height:7px;width:100px}
+.pbar{background:var(--b500);border-radius:4px;height:7px;transition:width .3s}
+.q-btn{padding:5px 13px;border:none;border-radius:5px;font-size:11.5px;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:4px}
+.q-btn-p{background:var(--b500);color:#fff}.q-btn-p:hover{background:var(--b700)}
+.q-btn-o{background:#fff;color:var(--b500);border:1px solid var(--b300)}.q-btn-o:hover{background:var(--b050)}
+.q-btn-d{background:#fff;color:#c62828;border:1px solid #ef9a9a}
+.tag{display:inline-block;background:var(--b050);color:var(--b700);border-radius:4px;padding:2px 8px;font-size:11px;margin:1px}
+/* GitHub save */
+.gh-save-btn{background:var(--b700);color:#fff;border:none;padding:5px 14px;border-radius:5px;font-size:11.5px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:5px;font-family:inherit;transition:background .15s}
+.gh-save-btn:hover{background:var(--b900)}
+.gh-save-btn.saving{opacity:.65;pointer-events:none}
+.gh-token-bar{background:var(--b050);border:1px solid var(--b100);border-radius:8px;padding:10px 18px;margin-bottom:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.gh-token-bar label{font-size:11.5px;font-weight:700;color:var(--dark);white-space:nowrap}
+.gh-token-input{padding:5px 10px;border:1px solid var(--pale);border-radius:5px;font-size:12px;font-family:inherit;color:var(--text);flex:1;min-width:200px;max-width:320px}
+.gh-token-input:focus{outline:none;border-color:var(--b300)}
+.gh-save-status{font-size:11px;color:var(--muted)}
+.gh-save-status.ok{color:#2E7D32;font-weight:700}
+.gh-save-status.err{color:#C62828;font-weight:700}
+.save-banner{display:none;position:fixed;bottom:24px;right:28px;z-index:500;background:var(--b700);color:#fff;padding:11px 22px;border-radius:8px;font-size:12.5px;font-weight:700;box-shadow:0 4px 16px rgba(11,45,71,.3);animation:slideUp .3s ease}
+.save-banner.show{display:block}
+.save-banner.err-b{background:#C62828}
+@keyframes slideUp{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
+/* survey */
+.main{padding:18px 32px 48px;max-width:1080px;margin:0 auto;width:100%}
+.q-section{margin-bottom:18px;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(11,45,71,.07)}
+.q-sec-title{background:var(--b700);color:#fff;padding:9px 18px;font-size:12.5px;font-weight:700;display:flex;align-items:center;gap:8px}
+.q-sec-title .bdg{background:rgba(255,255,255,.18);padding:1px 7px;border-radius:10px;font-size:10.5px;font-weight:400}
+.q-item{background:#fff;border-bottom:1px solid var(--rule);padding:13px 18px 11px}
+.q-item:last-child{border-bottom:none}
+.q-item:nth-child(even){background:#f8fbfd}
+.q-head{display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.q-id{background:var(--b700);color:#fff;border-radius:4px;padding:2px 8px;font-size:10.5px;font-weight:700;flex-shrink:0}
+.q-label{background:var(--b050);color:var(--b700);border-radius:4px;padding:2px 8px;font-size:10.5px}
+.q-p0{background:#fff3e0;color:#e65100;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700}
+.q-text{font-size:12.5px;line-height:1.65;margin-bottom:6px;color:var(--text)}
+.q-bg{font-size:11px;color:var(--muted);border-left:3px solid var(--b100);padding:5px 10px;border-radius:0 4px 4px 0;background:var(--b050);margin-bottom:8px;line-height:1.5}
+.q-answer{width:100%;min-height:62px;border:1px solid var(--rule);border-radius:5px;padding:7px 10px;font-size:12px;color:var(--text);font-family:inherit;resize:vertical;background:#fafdff;transition:border-color .15s}
+.q-answer:focus{outline:none;border-color:var(--b300);background:#fff}
+.q-sr{display:flex;gap:12px;margin-top:6px;flex-wrap:wrap}
+.q-radio{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--muted);cursor:pointer}
+.q-radio input{accent-color:var(--b500)}
+.sum-card{background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(11,45,71,.07);padding:18px 22px;margin-bottom:20px}
+.sum-card h3{font-size:13px;font-weight:700;color:var(--b700);border-bottom:1px solid var(--rule);padding-bottom:8px;margin-bottom:10px}
+.kv{display:flex;gap:6px;margin-bottom:6px;font-size:12px}
+.kv .k{color:var(--b300);font-weight:700;min-width:80px;flex-shrink:0}
+.hbox{background:var(--b050);border-left:3px solid var(--b300);border-radius:0 5px 5px 0;padding:8px 12px;font-size:11.5px;color:var(--b700);line-height:1.55;margin-top:8px}
+@media print{nav,.proj-header,.q-toolbar,.gh-token-bar{display:none!important}.main{padding:10px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/fsl-report/" class="nav-logo-link">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 36" height="26">
+      <rect x="0" y="3" width="4" height="30" fill="#F06000"/>
+      <rect x="0" y="3" width="18" height="4" fill="#F06000"/>
+      <rect x="0" y="16" width="13" height="4" fill="#F06000"/>
+      <path d="M22 3h14v4h-9v6h9v4h-9v7h10v4H22v-9h9v-3h-9z" fill="#F06000"/>
+      <rect x="42" y="3" width="4" height="30" fill="#F06000"/>
+      <rect x="42" y="29" width="16" height="4" fill="#F06000"/>
+      <text x="66" y="26" font-family="Microsoft YaHei,PingFang SC,sans-serif" font-size="14" font-weight="700" fill="rgba(255,255,255,0.92)" letter-spacing="1">佛山照明</text>
+    </svg>
+  </a>
+  <div class="nav-divider"></div>
+  <span class="nav-project">数字化转型项目工作台</span>
+  <div class="nav-links">
+    <a href="/fsl-report/">首页</a>
+    <div class="nav-dropdown">
+      <a href="/fsl-report/deliverables/">交付物 <span class="nav-arrow">▾</span></a>
+      <div class="nav-dropdown-panel">
+        <div class="nav-dd-row">
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">管理咨询交付</div>
+            <a href="/fsl-report/consulting/diagnosis/">现状分析与诊断</a>
+            <a href="/fsl-report/consulting/blueprint/">蓝图及架构设计</a>
+            <a href="/fsl-report/consulting/solutions/">专项方案设计</a>
+            <a href="/fsl-report/consulting/roadmap/">实施路径规划</a>
+          </div>
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">SAP 实施交付</div>
+            <a href="/fsl-report/sap/prepare/">项目准备阶段</a>
+            <a href="/fsl-report/sap/blueprint/">蓝图方案设计</a>
+            <a href="/fsl-report/sap/realize/">系统实现阶段</a>
+            <a href="/fsl-report/sap/deploy/">上线切换阶段</a>
+          </div>
+        </div>
+        <div class="nav-dd-research">
+          <div class="nav-dd-group-title">行业研究</div>
+          <div class="nav-dd-research-links"><a href="/fsl-report/research/">照明行业对标研究</a></div>
+        </div>
+      </div>
+    </div>
+    <a href="/fsl-report/weekly/">项目周报</a>
+    <a href="/fsl-report/kanban/" class="active">任务看板</a>
+  </div>
+  <div class="nav-right">
+    <a href="/fsl-report/kanban/" class="btn-ghost">← 返回看板</a>
+  </div>
+</nav>
+
+<div class="proj-header">
+  <div class="proj-title-row">
+    <span class="proj-icon">📋</span>
+    <span class="proj-name">佛照 SAP S/4HANA 升级项目</span>
+    <span class="proj-badge">任务看板 · 调研问卷</span>
+  </div>
+  <div class="mod-tabs">
+    <a href="/fsl-report/kanban/" class="mod-tab">📋 <span class="label-text">看板</span></a>
+    <a href="/fsl-report/kanban/#milestone" class="mod-tab">🎯 <span class="label-text">里程碑</span></a>
+    <a href="/fsl-report/kanban/#tasklist" class="mod-tab">☑ <span class="label-text">任务</span></a>
+    <a href="/fsl-report/kanban/#gantt" class="mod-tab">📅 <span class="label-text">甘特图</span></a>
+    <a href="/fsl-report/kanban/#risk" class="mod-tab">⚠️ <span class="label-text">风险</span></a>
+    <a href="/fsl-report/kanban/#deliverable" class="mod-tab">📦 <span class="label-text">交付物</span></a>
+    <a href="/fsl-report/kanban/#stats" class="mod-tab">📊 <span class="label-text">统计</span></a>
+    <a href="/fsl-report/kanban/#org" class="mod-tab">👥 <span class="label-text">组织架构</span></a>
+    <a href="/fsl-report/kanban/survey-ar.html" class="mod-tab">💰 <span class="label-text">开票应收</span></a>
+    <a href="/fsl-report/kanban/survey-strategy.html" class="mod-tab active">🏛 <span class="label-text">战略调研</span><span class="new-badge">NEW</span></a>
+  </div>
+</div>
+
+<div class="page-hero">
+  <div class="hero-title">🏛 调研问卷 — 董事会办公室（战略投资部）</div>
+  <div class="hero-meta">
+    <span>👤 黄玉芬（负责人）· 傅雪君（联系人）</span>
+    <span>📅 访谈日：D2（2026-06-23）</span>
+    <span>⏱ 建议时长：60分钟</span>
+    <span>🔗 关联：★6 数字化转型路线图 · 十五五战略</span>
+  </div>
+  <div class="hero-bg">
+    <b>背景：</b>净利润-51.85%（2.15亿）｜ROE 3.21%｜车灯逆势+5.63%｜950万S/4HANA升级｜广晟集团系统边界待明确｜十五五规划制定中
+  </div>
+</div>
+
+<div class="q-toolbar">
+  <span class="tag">黄玉芬（董事会办公室）</span>
+  <span class="tag">傅雪君（联系人）</span>
+  <div class="q-progress-row">
+    <span><b id="q-done">0</b>/<b id="q-total">18</b> 题已填写</span>
+    <div class="pbar-wrap"><div class="pbar" id="q-pbar" style="width:0%"></div></div>
+    <button class="gh-save-btn" onclick="saveToGitHub()">☁ 保存到GitHub</button>
+    <button class="q-btn q-btn-p" onclick="exportQA()">📄 导出纪要</button>
+    <button class="q-btn q-btn-o" onclick="window.print()">🖨 打印</button>
+    <button class="q-btn q-btn-d" onclick="clearAll()">🗑 清空</button>
+  </div>
+</div>
+
+<div class="main" style="padding-bottom:0;padding-top:16px">
+  <div class="gh-token-bar">
+    <label>🔑 GitHub Token（保存问卷数据到仓库）：</label>
+    <input type="password" class="gh-token-input" id="ghToken"
+           placeholder="ghp_xxxxxxxxxxxx（需要 repo 写权限）"
+           oninput="onTokenInput()">
+    <span class="gh-save-status" id="ghSaveStatus">未配置</span>
+    <span style="font-size:10.5px;color:var(--muted)">· Token 仅存于本地浏览器，不会上传</span>
+  </div>
+</div>
+
+<div class="main" style="padding-top:6px">
+
+<!-- ═══ A. 公司战略方向与十五五规划 ═══ -->
+<div class="q-section">
+  <div class="q-sec-title">A. 公司战略方向与十五五规划 <span class="bdg">A1–A5</span></div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">A1</span><span class="q-label">十五五战略蓝图</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">董事会正在制定的十五五规划（2026-2030）中，公司的核心战略定位是什么？<br>照明主业、车灯、LED 封装三条业务线的优先级排序是否会调整？<br>国际化（泰国/德国/东南亚）在战略中的权重如何变化？</div>
+    <div class="q-bg">2025年年报：车灯+5.63%逆势增长、LED封装-8.35%、通用照明-6.09%；净利润-51.85%；ROE降至3.21%</div>
+    <textarea class="q-answer" data-qid="A1" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-A1" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-A1" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-A1" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">A2</span><span class="q-label">数字化战略定位</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">在十五五规划中，数字化转型（包括本次S/4HANA升级）的战略地位是什么？<br>公司对「数字化」的定义是什么——是降本增效工具，还是新业务能力建设？<br>董事会层面是否有独立的数字化战略规划，还是作为各业务战略的支撑手段？</div>
+    <div class="q-bg">本次SAP升级预算950万元、工期240天；招标文件要求交付★6《数字化转型路线图2026-2028》</div>
+    <textarea class="q-answer" data-qid="A2" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-A2" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-A2" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-A2" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">A3</span><span class="q-label">竞争格局判断</span></div>
+    <div class="q-text">董事会如何看待欧普、阳光照明、Signify 等竞争对手在数字化和供应链能力上的差距？<br>2025年行业整体承压，佛照净利润下滑51.85%，管理层认为根本原因在哪里？<br>未来3年，公司最担心的外部威胁是价格战、技术替代、还是渠道重构？</div>
+    <div class="q-bg">2025年行业对标：Signify净利率约5.2%；欧普照明净利率约8.1%；佛照净利率约2.4%</div>
+    <textarea class="q-answer" data-qid="A3" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-A3" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-A3" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-A3" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">A4</span><span class="q-label">投资并购方向</span></div>
+    <div class="q-text">十五五期间是否有外延式增长计划（并购/参股/合资）？<br>重点关注哪些方向：车灯Tier1供应商、LED芯片、海外销售网络、还是软件/数字化能力？<br>广晟集团作为大股东，在战略投资方向上有哪些协同期望或约束？</div>
+    <div class="q-bg">广晟集团为控股股东；佛照总资产171.7亿，净资产68.3亿；此次S/4HANA升级涉及广晟系统边界问题</div>
+    <textarea class="q-answer" data-qid="A4" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-A4" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-A4" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-A4" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">A5</span><span class="q-label">股东回报与资本配置</span></div>
+    <div class="q-text">在净利润承压的情况下，董事会如何平衡：股东分红、研发投入、资本开支、数字化投资？<br>2025年每股派息0.05元（总计约7679万元），这一分红政策在十五五期间会调整吗？<br>公司ROE仅3.21%，董事会设定的ROE改善目标是什么？靠什么路径实现？</div>
+    <div class="q-bg">2025年年报：现金分红7679万；ROE 3.21%（2024年6.94%）；货币资金约34亿；总资产171.7亿</div>
+    <textarea class="q-answer" data-qid="A5" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-A5" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-A5" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-A5" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ B. 国际化战略 ═══ -->
+<div class="q-section">
+  <div class="q-sec-title">B. 国际化战略 <span class="bdg">B1–B3</span></div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">B1</span><span class="q-label">海外布局优先级</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">泰国（FZ40）、德国分公司目前的战略定位是什么——生产基地、销售前哨、还是完整法人运营？<br>东南亚（越南/印尼）是否有近期布局计划？<br>欧盟碳边境调节机制（CBAM）对公司出口产品有影响吗？董事会是否已启动合规应对？</div>
+    <div class="q-bg">招标文件：DRC支持泰国/德国本地税务合规；Q04（泰国FZ40是否纳入一期）待管理层确认</div>
+    <textarea class="q-answer" data-qid="B1" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-B1" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-B1" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-B1" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">B2</span><span class="q-label">海外营收目标</span></div>
+    <div class="q-text">2025年海外收入占比大概是多少？十五五末期目标占比是多少？<br>车灯业务中，是否已有或计划进入欧美日主机厂供应链？<br>海外扩张最大的瓶颈是什么——资金、人才、合规、还是品牌认知？</div>
+    <div class="q-bg">2025年年报：车灯收入22.3亿（+5.63%）；国际事业部负责人赵俊杰已纳入项目指导委员会</div>
+    <textarea class="q-answer" data-qid="B2" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-B2" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-B2" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-B2" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">B3</span><span class="q-label">汇率与财务风险管理</span></div>
+    <div class="q-text">公司目前的外汇敞口规模大概是多少？主要是泰铢、欧元还是美元？<br>汇率波动对利润的影响有多大？现有对冲机制是什么？<br>SAP升级后，是否期望加强多币种管理和外汇重估的自动化？</div>
+    <div class="q-bg">已知痛点：泰国/德国外汇管理缺乏自动化；DRC模块可支持海外法人本地合规；Group Reporting处理多货币合并</div>
+    <textarea class="q-answer" data-qid="B3" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-B3" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-B3" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-B3" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ C. ESG与可持续发展 ═══ -->
+<div class="q-section">
+  <div class="q-sec-title">C. ESG 与可持续发展 <span class="bdg">C1–C3</span></div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">C1</span><span class="q-label">ESG战略定位</span></div>
+    <div class="q-text">佛照作为上市公司，ESG（环境/社会/治理）是否已纳入董事会议程？<br>上交所正在推进上市公司ESG信息披露强制化，公司准备情况如何？<br>碳中和/碳达峰目标对佛照的制造端（禅城工厂、高明分公司）有多大影响？</div>
+    <div class="q-bg">A股上市公司600541；上交所要求大市值公司2026年起强制披露ESG报告；公司有车灯+新能源双重绿色属性</div>
+    <textarea class="q-answer" data-qid="C1" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-C1" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-C1" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-C1" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">C2</span><span class="q-label">绿色照明产业机会</span></div>
+    <div class="q-text">双碳政策为照明行业带来了智慧照明、节能改造等机会，佛照如何把握？<br>政府工程类绿色照明招标是否已成为重要收入来源？未来增长空间多大？<br>LED和光伏结合的「光储一体」是否在战略讨论范围内？</div>
+    <div class="q-bg">商用事业部（智城科技）负责工程渠道；车灯+5.63%增长部分来自新能源车需求拉动</div>
+    <textarea class="q-answer" data-qid="C2" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-C2" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-C2" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-C2" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">C3</span><span class="q-label">党建与合规治理</span></div>
+    <div class="q-text">余中民董事长兼党委书记，党建工作如何与公司战略目标结合？<br>纪律检查室在采购合规、廉政风控方面有哪些新要求，会影响SAP权限设计吗？<br>在数字化升级过程中，是否需要将党建管理相关流程纳入系统？</div>
+    <div class="q-bg">干系人：纪委书记裴文贤（合规/廉政要求）；董事长余中民（党委书记）；权限设计需内控审计支持</div>
+    <textarea class="q-answer" data-qid="C3" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-C3" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-C3" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-C3" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ D. 数字化战略与S/4HANA升级 ═══ -->
+<div class="q-section">
+  <div class="q-sec-title">D. 数字化战略与 S/4HANA 升级 <span class="bdg">D1–D4</span></div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">D1</span><span class="q-label">战略投资回报预期</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">董事会批准此次950万元SAP升级投资时，预期的投资回报（ROI）是什么？<br>是否设定了量化的收益目标？（如：月结周期缩短、报表准确率提升、人效提升）<br>如果项目超期或超预算，触发什么级别的审批和决策机制？</div>
+    <div class="q-bg">合同总价950万（含税）；工期240天；首笔款约190万已于7月中旬到期；第2笔（20%）需蓝图评审签字触发</div>
+    <textarea class="q-answer" data-qid="D1" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-D1" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-D1" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-D1" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">D2</span><span class="q-label">数据治理与决策支持</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">董事会目前获取经营数据的方式是什么？多少是实时的，多少需要等财务月报？<br>十五五期间是否计划建设董事会级别的数字驾驶舱或经营分析平台？<br>S/4HANA升级后，期望哪些数据能做到「按需实时查看」？（如：各业务线盈利、子公司运营）</div>
+    <div class="q-bg">已知痛点：ROE 3.21%、现金流-50.32%、子公司数据可见性差；★5架构设计含BI/分析层；SAC可替换SmartBI</div>
+    <textarea class="q-answer" data-qid="D2" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-D2" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-D2" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-D2" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">D3</span><span class="q-label">广晟集团系统协同</span></div>
+    <div class="q-text">广晟推行的集团共享/司库/合并系统与佛照S/4HANA的边界协议，董事会层面如何决策？<br>是否存在广晟集团要求佛照在系统层面向上整合的压力？<br>这个边界问题（需2026年7月31日前明确）的决策节点在董事会还是管理层？</div>
+    <div class="q-bg">风险R03：广晟系统边界未定义，可能导致范围蔓延；已被识别为高风险项，需7月31日前明确协议</div>
+    <textarea class="q-answer" data-qid="D3" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-D3" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-D3" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-D3" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">D4</span><span class="q-label">信息安全与数据主权</span></div>
+    <div class="q-text">S/4HANA PCE（私有云）部署，核心业务数据存储在SAP数据中心，董事会对数据安全有哪些要求？<br>招标文件要求源代码完整交付甲方、不含后门——这一条款是否已得到法务和董事会的确认？<br>上市公司信息系统安全等级保护（等保2.0）的合规现状如何？</div>
+    <div class="q-bg">招标文件：源代码归甲方所有；3年免费维保；不含后门；需符合信息安全等级保护；3年维保到期约2030年Q1</div>
+    <textarea class="q-answer" data-qid="D4" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-D4" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-D4" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-D4" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ E. 开放性问题 ═══ -->
+<div class="q-section">
+  <div class="q-sec-title">E. 开放性问题 <span class="bdg">E1–E3</span></div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">E1</span><span class="q-label">十五五最大挑战</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">您认为佛照在十五五期间面临的最大挑战是什么？<br>（请不限于数字化，从战略、市场、组织、资本等维度自由表达）</div>
+    <div class="q-bg">开放性问题，尽量记录原话；这是★1痛点清单和★6转型路线图的重要顶层输入</div>
+    <textarea class="q-answer" data-qid="E1" rows="4" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-E1" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-E1" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-E1" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">E2</span><span class="q-label">对SAP项目的核心期望</span></div>
+    <div class="q-text">从战略投资部的视角，您对本次S/4HANA升级项目最希望看到的成果是什么？<br>如果18个月后项目完成，什么样的结果会让您认为这950万花得值？</div>
+    <div class="q-bg">关联★6《数字化转型路线图》；是评估项目成功标准的关键视角；可追问具体量化指标</div>
+    <textarea class="q-answer" data-qid="E2" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-E2" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-E2" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-E2" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">E3</span><span class="q-label">需要关注的其他议题</span></div>
+    <div class="q-text">还有哪些我们在调研中可能忽略的战略性话题，需要提前了解？<br>（如：即将发生的重大股权变化、监管政策变化、重大客户关系调整、与广晟集团的重大协同事项等）</div>
+    <div class="q-bg">董事会办公室掌握公司最全面的战略信息，此题可能挖出高价值线索；注意保密事项不强求</div>
+    <textarea class="q-answer" data-qid="E3" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-E3" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-E3" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-E3" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+</div>
+
+<!-- 收尾 -->
+<div class="sum-card">
+  <h3>📎 访谈收尾</h3>
+  <div class="kv"><span class="k">资料收集</span><span class="v">① 十五五规划草稿或纲要（如有）② 最近一次董事会审议的数字化议案 ③ 广晟集团系统协同的相关会议纪要</span></div>
+  <div class="kv"><span class="k">关键决策</span><span class="v">广晟系统边界问题需在2026年7月31日前明确，请确认决策人和审批流程</span></div>
+  <div class="kv"><span class="k">关联交付物</span><span class="v">★6《数字化转型路线图2026-2028》· ★1痛点清单（战略层面）· 项目成功标准确认</span></div>
+  <div class="hbox">⚡ 访谈纪要须于访谈结束后 <b>T+1日内</b>完成，点击「保存到GitHub」同步至项目仓库（路径：kanban/survey-strategy-data.json）。</div>
+  <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+    <button class="gh-save-btn" onclick="saveToGitHub()" style="font-size:13px;padding:8px 22px">☁ 保存到GitHub</button>
+    <button class="q-btn q-btn-p" onclick="exportQA()" style="padding:7px 18px;font-size:12.5px">📄 导出访谈纪要</button>
+    <button class="q-btn q-btn-o" onclick="window.print()" style="padding:7px 18px;font-size:12.5px">🖨 打印问卷</button>
+    <a href="/fsl-report/kanban/" class="q-btn q-btn-o" style="padding:7px 18px;font-size:12.5px">← 返回看板</a>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<div class="save-banner" id="saveBanner"></div>
+
+<script>
+var TOTAL=18, LKEY='fsl-survey-strategy';
+var REPO='EstaTea/fsl-report', SAVE_PATH='kanban/survey-strategy-data.json';
+document.getElementById('q-total').textContent=TOTAL;
+
+function updateProgress(){
+  var f=0;
+  document.querySelectorAll('.q-answer').forEach(function(a){if(a.value&&a.value.trim().length>3)f++;});
+  document.getElementById('q-done').textContent=f;
+  document.getElementById('q-pbar').style.width=Math.round(f/TOTAL*100)+'%';
+}
+
+function onTokenInput(){
+  var t=document.getElementById('ghToken').value.trim();
+  if(t){localStorage.setItem('gh_token_fsl',t);updateSaveStatus('已配置 ✓','ok');}
+}
+function updateSaveStatus(msg,cls){
+  var el=document.getElementById('ghSaveStatus');
+  el.textContent=msg;el.className='gh-save-status '+(cls||'');
+}
+(function(){
+  var t=localStorage.getItem('gh_token_fsl')||'';
+  if(t){document.getElementById('ghToken').value=t;updateSaveStatus('已配置 ✓','ok');}
+})();
+
+// 自动本地保存
+document.querySelectorAll('.q-answer').forEach(function(a){
+  var key=LKEY+'-'+a.getAttribute('data-qid');
+  if(localStorage.getItem(key))a.value=localStorage.getItem(key);
+  a.addEventListener('input',function(){localStorage.setItem(key,a.value);updateProgress();});
+});
+// 恢复 radio 状态
+document.querySelectorAll('.q-sr input[type=radio]').forEach(function(r){
+  var key=LKEY+'-radio-'+r.name+'-'+r.value;
+  if(localStorage.getItem(key)==='1')r.checked=true;
+  r.addEventListener('change',function(){
+    if(r.checked)localStorage.setItem(key,'1');
+    else localStorage.removeItem(key);
+    updateProgress();
+  });
+});
+updateProgress();
+
+function collectAnswers(){
+  var data={meta:{survey:'strategy',interviewee:'黄玉芬',org:'董事会办公室（战略投资部）',date:new Date().toISOString().slice(0,10),savedAt:new Date().toLocaleString('zh-CN')},answers:{}};
+  document.querySelectorAll('.q-answer').forEach(function(a){
+    var qid=a.getAttribute('data-qid');
+    var radio=document.querySelector('input[name="s-'+qid+'"]:checked');
+    data.answers[qid]={text:a.value.trim(),status:radio?radio.value:''};
+  });
+  return data;
+}
+
+async function saveToGitHub(){
+  var token=(document.getElementById('ghToken').value||localStorage.getItem('gh_token_fsl')||'').trim();
+  if(!token){showBanner('请先填写 GitHub Token','err-b');document.getElementById('ghToken').focus();return;}
+  var data=collectAnswers();
+  var content=btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2))));
+  var headers={'Accept':'application/vnd.github+json','Authorization':'Bearer '+token,'Content-Type':'application/json'};
+  var api='https://api.github.com/repos/'+REPO+'/contents/'+SAVE_PATH;
+  var sha='';
+  try{var r0=await fetch(api,{headers:headers});if(r0.ok){var d0=await r0.json();sha=d0.sha||'';}}catch(e){}
+  var btns=document.querySelectorAll('.gh-save-btn');
+  btns.forEach(function(b){b.classList.add('saving');b.textContent='保存中…';});
+  try{
+    var body={message:'survey: save strategy interview data '+data.meta.date,content:content};
+    if(sha)body.sha=sha;
+    var r=await fetch(api,{method:'PUT',headers:headers,body:JSON.stringify(body)});
+    if(!r.ok)throw new Error((await r.json()).message||r.status);
+    updateSaveStatus('已保存 ✓ '+new Date().toLocaleTimeString('zh-CN'),'ok');
+    showBanner('✅ 已保存到 GitHub：'+SAVE_PATH,'');
+  }catch(e){
+    updateSaveStatus('保存失败: '+e.message,'err');
+    showBanner('❌ 保存失败：'+e.message,'err-b');
+  }finally{
+    btns.forEach(function(b){b.classList.remove('saving');b.textContent='☁ 保存到GitHub';});
+  }
+}
+
+function showBanner(msg,cls){
+  var b=document.getElementById('saveBanner');
+  b.textContent=msg;b.className='save-banner show'+(cls?' '+cls:'');
+  setTimeout(function(){b.className='save-banner';},4000);
+}
+
+function exportQA(){
+  var lines=['佛照SAP升级项目 — 战略调研访谈纪要（董事会办公室·战略投资部）','导出时间：'+new Date().toLocaleString('zh-CN'),'='.repeat(60),''];
+  document.querySelectorAll('.q-answer').forEach(function(a){
+    var qid=a.getAttribute('data-qid');
+    var radio=document.querySelector('input[name="s-'+qid+'"]:checked');
+    lines.push('['+qid+'] 状态：'+(radio?radio.value:'未标注'));
+    lines.push(a.value.trim()||'（未填写）');lines.push('');
+  });
+  var blob=new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'});
+  var url=URL.createObjectURL(blob);
+  var link=document.createElement('a');link.href=url;link.download='佛照_战略调研_访谈纪要.txt';link.click();
+  URL.revokeObjectURL(url);
+}
+
+function clearAll(){
+  if(!confirm('确认清空所有填写内容？'))return;
+  document.querySelectorAll('.q-answer').forEach(function(a){a.value='';localStorage.removeItem(LKEY+'-'+a.getAttribute('data-qid'));});
+  document.querySelectorAll('.q-sr input').forEach(function(r){r.checked=false;});
+  updateProgress();
+}
+</script>
+</body>
+</html>
