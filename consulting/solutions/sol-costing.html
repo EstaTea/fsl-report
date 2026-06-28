@@ -408,71 +408,82 @@ h2.slide-h2{font-size:var(--h2-size);font-weight:600;color:var(--sap-dark);margi
   </section>
   <section class="slide content-slide" id="slide-3">
     
-      <div style="width:100%;height:100%;display:grid;grid-template-columns:1fr 1px 0.78fr;gap:0;padding:clamp(.5rem,1.4vw,1.1rem);box-sizing:border-box;background:#fff;font-family:var(--font-body)">
+      <div style="width:100%;height:100%;display:grid;grid-template-columns:1fr 1px 0.78fr;gap:0;padding:clamp(.45rem,1.3vw,1rem);box-sizing:border-box;background:#fff;font-family:var(--font-body)">
 
-        <!-- ══ 左侧：四象限图 ══ -->
-        <div style="display:flex;flex-direction:column;gap:.3rem;padding-right:.8rem">
-          <div style="font-size:clamp(.85rem,2vw,1.35rem);font-weight:800;color:#0070F2;margin-bottom:.05rem">高价值专项方案评估</div>
-          <div style="font-size:var(--small-size);color:#5B7A91;margin-bottom:.25rem">业务价值 × 技术难度 四象限分析 &nbsp;|&nbsp; <span style="color:#0070F2;font-weight:700">★ 本期8个入选方案</span> &nbsp;|&nbsp; <span style="color:#bbb">其他候选</span></div>
+        <!-- ══ 左侧：四象限 ══ -->
+        <div style="display:flex;flex-direction:column;gap:.25rem;padding-right:.7rem">
+          <div style="font-size:clamp(.85rem,1.9vw,1.35rem);font-weight:800;color:#0070F2">高价值专项方案评估</div>
+          <div style="font-size:var(--small-size);color:#5B7A91;margin-bottom:.2rem">
+            业务价值 × 技术难度 四象限分析 &nbsp;|&nbsp;
+            <span style="color:#0070F2;font-weight:700">★ 本期8个入选方案</span> &nbsp;|&nbsp;
+            <span style="color:#888">其他候选方案</span>
+          </div>
 
-          <div style="flex:1;position:relative;min-height:0">
+          <!-- 四象限主体 -->
+          <div style="flex:1;position:relative;min-height:0;margin-left:1.4rem">
 
-            <!-- 象限背景色 -->
-            <div style="position:absolute;left:50%;top:0;right:0;bottom:50%;background:rgba(0,112,242,.04);border-radius:0 4px 0 0"></div>
-            <div style="position:absolute;left:50%;top:50%;right:0;bottom:0;background:rgba(0,112,242,.07);border-radius:0 0 4px 0"></div>
+            <!-- 象限背景 -->
+            <div style="position:absolute;left:50%;top:0;right:0;bottom:50%;background:rgba(0,112,242,.05);border-radius:0 4px 0 0"></div>
+            <div style="position:absolute;left:50%;top:50%;right:0;bottom:0;background:rgba(0,112,242,.09);border-radius:0 0 4px 0"></div>
 
             <!-- 象限标签 -->
-            <div style="position:absolute;top:3%;left:3%;font-size:var(--label-size);color:#bbb;font-weight:500">优先级低</div>
-            <div style="position:absolute;top:3%;left:53%;font-size:var(--label-size);color:#0070F2;font-weight:700">优先级中</div>
-            <div style="position:absolute;bottom:8%;left:3%;font-size:var(--label-size);color:#555;font-weight:600">优先级中</div>
-            <div style="position:absolute;bottom:8%;left:53%;font-size:var(--label-size);color:#0070F2;font-weight:700">优先级高</div>
+            <div style="position:absolute;top:2%;left:2%;font-size:var(--label-size);color:#aaa">优先级低</div>
+            <div style="position:absolute;top:2%;left:53%;font-size:var(--label-size);color:#0070F2;font-weight:700">优先级中</div>
+            <div style="position:absolute;bottom:7%;left:2%;font-size:var(--label-size);color:#666;font-weight:600">优先级中</div>
+            <div style="position:absolute;bottom:7%;left:53%;font-size:var(--label-size);color:#0070F2;font-weight:700">优先级高</div>
 
-            <!-- X轴 (业务价值) -->
-            <div style="position:absolute;top:50%;left:5%;right:2%;height:2px;background:#0070F2;transform:translateY(-50%)">
+            <!-- X 轴（水平，业务价值方向） -->
+            <div style="position:absolute;top:50%;left:0;right:1%;height:2px;background:#0070F2;transform:translateY(-50%)">
               <div style="position:absolute;right:-7px;top:-5px;border:5px solid transparent;border-left:9px solid #0070F2"></div>
             </div>
-            <div style="position:absolute;top:50%;left:0;transform:translateY(-50%);writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg) translateY(50%);font-size:var(--small-size);font-weight:700;color:#0070F2;white-space:nowrap;left:.2rem">业务价值</div>
 
-            <!-- Y轴 (技术难度) -->
-            <div style="position:absolute;left:50%;top:2%;bottom:5%;width:2px;background:#0070F2;margin-left:-1px">
+            <!-- Y 轴（垂直，技术难度方向） -->
+            <div style="position:absolute;left:50%;top:1%;bottom:4%;width:2px;background:#0070F2;margin-left:-1px">
               <div style="position:absolute;top:-7px;left:-5px;border:5px solid transparent;border-bottom:9px solid #0070F2"></div>
             </div>
-            <div style="position:absolute;top:3%;left:51.5%;font-size:var(--small-size);font-weight:700;color:#0070F2">高</div>
-            <div style="position:absolute;top:49%;right:1.5%;font-size:var(--small-size);font-weight:700;color:#0070F2">高</div>
-            <div style="position:absolute;bottom:5.5%;left:50%;transform:translateX(-50%);font-size:var(--small-size);font-weight:700;color:#555">技术难度</div>
+
+            <!-- 轴文字标签（不旋转，用绝对定位放边缘） -->
+            <!-- 业务价值（X轴左端，横排） -->
+            <div style="position:absolute;top:50%;left:-1.3rem;transform:translateY(-50%);font-size:var(--label-size);font-weight:700;color:#0070F2;white-space:nowrap;writing-mode:vertical-lr;transform:translateX(-50%) translateY(-50%) rotate(180deg)">业务价值</div>
+            <!-- 技术难度（X轴底部） -->
+            <div style="position:absolute;bottom:4.5%;left:50%;transform:translateX(-50%);font-size:var(--label-size);font-weight:700;color:#555">技术难度</div>
+            <!-- 高（Y轴顶） -->
+            <div style="position:absolute;top:1.5%;left:51.5%;font-size:var(--label-size);font-weight:700;color:#0070F2">高</div>
+            <!-- 高（X轴右端） -->
+            <div style="position:absolute;top:47%;right:.5%;font-size:var(--label-size);font-weight:700;color:#0070F2">高</div>
 
             <!-- ★ 右上：高业务价值 + 高技术难度 → 优先级中 -->
             <div class="qs" style="left:55%;top:6%">跨公司转移定价<br>和成本还原 ★</div>
-            <div class="qs" style="left:72%;top:18%">主数据规范<br>及治理 ★</div>
+            <div class="qs" style="left:73%;top:18%">主数据规范<br>及治理 ★</div>
             <div class="qs" style="left:59%;top:30%">标准成本估算<br>及发布 ★</div>
 
-            <!-- ★ 右下：高业务价值 + 低技术难度 → 优先级高（即将处理） -->
-            <div class="qs" style="left:65%;top:55%">自动化运行<br>MRP资源计划 ★</div>
-            <div class="qs" style="left:52%;top:61%">泰国外币及<br>本地化监管需求 ★</div>
-            <div class="qs" style="left:70%;top:70%">集团财务管控<br>专项方案 ★</div>
-            <div class="qs" style="left:53%;top:76%">销售价格体系<br>专项方案 ★</div>
-            <div class="qs" style="left:72%;top:82%">研发与BOM<br>管理专项 ★</div>
-
-            <!-- 左上：管理报表（非优先，灰色） -->
+            <!-- 左上非优先（正常可读灰色） -->
             <div class="qo" style="left:18%;top:10%">管理报表与<br>财务报告统驭</div>
 
-            <!-- 左侧：其他候选（灰色弱化） -->
+            <!-- ★ 右下：高业务价值 + 低技术难度 → 优先级高 -->
+            <div class="qs" style="left:66%;top:55%">自动化运行<br>MRP资源计划 ★</div>
+            <div class="qs" style="left:52%;top:61%">泰国外币及<br>本地化监管需求 ★</div>
+            <div class="qs" style="left:68%;top:70%">集团财务管控<br>专项方案 ★</div>
+            <div class="qs" style="left:53%;top:77%">销售价格体系<br>专项方案 ★</div>
+            <div class="qs" style="left:72%;top:83%">研发与BOM<br>管理专项 ★</div>
+
+            <!-- 左下候选（可读，非高亮） -->
             <div class="qo" style="left:5%;top:26%">退货逆向流程<br>的优化</div>
-            <div class="qo" style="left:8%;top:38%">产销协同</div>
+            <div class="qo" style="left:9%;top:38%">产销协同</div>
             <div class="qo" style="left:3%;top:44%">销售履约的<br>全景追踪</div>
-            <div class="qo" style="left:5%;top:62%">集团采购组织<br>集中化管理</div>
-            <div class="qo" style="left:24%;top:57%">加强IT管队<br>的建设</div>
+            <div class="qo" style="left:6%;top:62%">集团采购组织<br>集中化管理</div>
+            <div class="qo" style="left:26%;top:57%">加强IT管队<br>的建设</div>
           </div>
 
           <!-- 图例 -->
-          <div style="display:flex;align-items:center;gap:1.2rem;padding-top:.3rem;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:1.2rem;padding-top:.25rem;flex-wrap:wrap">
             <div style="display:flex;align-items:center;gap:.3rem;font-size:var(--label-size)">
-              <div style="width:11px;height:11px;background:#EFF6FF;border-radius:2px;border:1.5px solid #0070F2"></div>
+              <div style="width:10px;height:10px;background:#EFF6FF;border-radius:2px;border:1.5px solid #0070F2"></div>
               <span style="color:#0070F2;font-weight:700">★ 本期8个高价值入选方案</span>
             </div>
             <div style="display:flex;align-items:center;gap:.3rem;font-size:var(--label-size)">
-              <div style="width:11px;height:11px;background:#f7f7f7;border-radius:2px;border:1px solid #ddd"></div>
-              <span style="color:#bbb">其他候选方案（暂不纳入本期）</span>
+              <div style="width:10px;height:10px;background:#F0F4F8;border-radius:2px;border:1px solid #aaa"></div>
+              <span style="color:#666">其他候选（暂不纳入本期）</span>
             </div>
           </div>
         </div>
@@ -480,50 +491,72 @@ h2.slide-h2{font-size:var(--h2-size);font-weight:600;color:var(--sap-dark);margi
         <!-- 分隔线 -->
         <div style="background:#E5E7EB;margin:0 .5rem"></div>
 
-        <!-- ══ 右侧：为什么选这8个 ══ -->
-        <div style="padding-left:.8rem;display:flex;flex-direction:column;gap:.35rem;overflow:hidden">
-          <div style="font-size:clamp(.8rem,1.6vw,1.05rem);font-weight:800;color:#0070F2;border-bottom:2px solid #DBEAFE;padding-bottom:.25rem;margin-bottom:.1rem">为什么选择这8个方案？</div>
+        <!-- ══ 右侧：选择标准 + 8个原因 ══ -->
+        <div style="padding-left:.7rem;display:flex;flex-direction:column;gap:.3rem;overflow:hidden">
 
-          <div style="display:flex;flex-direction:column;gap:.32rem;flex:1;overflow:hidden">
+          <!-- 上半：选择标准 -->
+          <div style="font-size:clamp(.78rem,1.5vw,1rem);font-weight:800;color:#002A86;border-bottom:2px solid #DBEAFE;padding-bottom:.2rem">方案选择标准</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.22rem .5rem">
+            <div style="background:#EFF6FF;border-radius:4px;padding:.28rem .45rem;border-left:2.5px solid #0070F2">
+              <div style="font-size:var(--label-size);font-weight:800;color:#002A86">① 痛点明确，业务驱动力强</div>
+              <div style="font-size:var(--label-size);color:#444;line-height:1.4;margin-top:.1rem">均来自访谈中业务部门明确呼吁解决的核心问题</div>
+            </div>
+            <div style="background:#EFF6FF;border-radius:4px;padding:.28rem .45rem;border-left:2.5px solid #0070F2">
+              <div style="font-size:var(--label-size);font-weight:800;color:#002A86">② 匹配S/4HANA原生功能</div>
+              <div style="font-size:var(--label-size);color:#444;line-height:1.4;margin-top:.1rem">以标准功能为核心，Greenfield实施，定制化开发最小</div>
+            </div>
+            <div style="background:#D1EFFF;border-radius:4px;padding:.28rem .45rem;border-left:2.5px solid #1B90FF">
+              <div style="font-size:var(--label-size);font-weight:800;color:#002A86">③ 业务价值可量化可验收</div>
+              <div style="font-size:var(--label-size);color:#444;line-height:1.4;margin-top:.1rem">设有净利率/月结周期/缺货率等可测量数字化指标</div>
+            </div>
+            <div style="background:#D1EFFF;border-radius:4px;padding:.28rem .45rem;border-left:2.5px solid #1B90FF">
+              <div style="font-size:var(--label-size);font-weight:800;color:#002A86">④ 战略合规与二期扩展性</div>
+              <div style="font-size:var(--label-size);color:#444;line-height:1.4;margin-top:.1rem">响应国际化战略（德/泰）；为GTS/IBP二期奠定基础</div>
+            </div>
+          </div>
 
-            <div style="background:#EFF6FF;border-radius:5px;border-left:3px solid #0070F2;padding:.38rem .55rem">
-              <div style="font-size:var(--small-size);font-weight:800;color:#0B2D47;margin-bottom:.15rem">① 跨公司转移定价和成本还原</div>
-              <div style="font-size:var(--label-size);color:#333;line-height:1.5">集团扣非净利率仅0.95%（行业底部），19家法人内部交易规模约30亿，但物料分类账仅激活未启用平行评估，管理报告靠手工汇总。S/4HANA平行评估+Group Reporting可将月结从15天压缩至5天，BU绩效考核失真问题系统性解决。</div>
+          <!-- 下半：8个方案具体原因 -->
+          <div style="font-size:clamp(.75rem,1.4vw,.95rem);font-weight:800;color:#002A86;border-bottom:2px solid #DBEAFE;padding-bottom:.18rem;margin-top:.1rem">各方案入选具体理由</div>
+          <div style="display:flex;flex-direction:column;gap:.2rem;flex:1;overflow:hidden">
+
+            <div style="background:#EFF6FF;border-radius:4px;border-left:3px solid #002A86;padding:.26rem .5rem">
+              <div style="font-size:var(--label-size);font-weight:800;color:#002A86">① 跨公司转移定价和成本还原</div>
+              <div style="font-size:var(--label-size);color:#333;line-height:1.45">集团净利率0.95%（行业底部），19家法人内部交易约30亿，物料分类账未启用平行评估，管理报告靠手工汇总，BU绩效考核失真。S/4HANA平行评估+Group Reporting月结从15天压缩至5天，成本失真问题系统性解决。</div>
             </div>
 
-            <div style="background:#EFF6FF;border-radius:5px;border-left:3px solid #0070F2;padding:.38rem .55rem">
-              <div style="font-size:var(--small-size);font-weight:800;color:#0B2D47;margin-bottom:.15rem">② 主数据规范及治理（MDG）</div>
-              <div style="font-size:var(--label-size);color:#333;line-height:1.5">19家法人物料/客商主数据口径不统一，同一LED灯珠在不同法人有5-8个物料编码，是所有其他专项方案的数据底座。MDG不先行，跨公司成本还原、标准成本估算的准确性均无法保证。</div>
+            <div style="background:#EFF6FF;border-radius:4px;border-left:3px solid #002A86;padding:.26rem .5rem">
+              <div style="font-size:var(--label-size);font-weight:800;color:#002A86">② 主数据规范及治理（MDG）</div>
+              <div style="font-size:var(--label-size);color:#333;line-height:1.45">同一LED灯珠在不同法人存5-8个物料编码，是所有其他方案的数据前提。MDG不先行，跨公司成本还原和标准成本估算的准确性均无保证。</div>
             </div>
 
-            <div style="background:#EFF6FF;border-radius:5px;border-left:3px solid #0070F2;padding:.38rem .55rem">
-              <div style="font-size:var(--small-size);font-weight:800;color:#0B2D47;margin-bottom:.15rem">③ 标准成本估算及发布（CK40N）</div>
-              <div style="font-size:var(--label-size);color:#333;line-height:1.5">LED芯片年波动±25%，MAP导致采购时机决定BU绩效，年价格差异（PPV）约7,500万≈集团全年净利润。标准成本体系让差异可归因：芯片涨价归采购部，良率问题归生产BU，管理责任首次可精准追踪。</div>
+            <div style="background:#EFF6FF;border-radius:4px;border-left:3px solid #002A86;padding:.26rem .5rem">
+              <div style="font-size:var(--label-size);font-weight:800;color:#002A86">③ 标准成本估算及发布（CK40N）</div>
+              <div style="font-size:var(--label-size);color:#333;line-height:1.45">LED芯片年波动±25%，MAP导致年PPV约7,500万≈集团全年净利润。标准成本体系让差异可归因：芯片涨价归采购部，良率问题归生产BU，管理责任首次可精准追踪。</div>
             </div>
 
-            <div style="background:#F0FFF4;border-radius:5px;border-left:3px solid #188918;padding:.38rem .55rem">
-              <div style="font-size:var(--small-size);font-weight:800;color:#0B2D47;margin-bottom:.15rem">④ 自动化运行MRP资源计划（MRP Live）</div>
-              <div style="font-size:var(--label-size);color:#333;line-height:1.5">家用事业部季末缺货率高达30-40%，销售预测仅能覆盖品类无法细化至SKU，供应商交期准确率低、计划调整频繁。MRP Live替代手工排产，预计将缺货率降至10%以内，支撑88亿营收规模下的精益运营。</div>
+            <div style="background:#DBEAFE;border-radius:4px;border-left:3px solid #0070F2;padding:.26rem .5rem">
+              <div style="font-size:var(--label-size);font-weight:800;color:#002A86">④ 自动化运行MRP资源计划（MRP Live）</div>
+              <div style="font-size:var(--label-size);color:#333;line-height:1.45">家用事业部季末缺货率高达30-40%，销售预测仅覆盖品类无法细化至SKU，供应商交期准确率低。MRP Live替代手工排产，预计缺货率降至10%以内，支撑88亿营收精益运营。</div>
             </div>
 
-            <div style="background:#F0FFF4;border-radius:5px;border-left:3px solid #188918;padding:.38rem .55rem">
-              <div style="font-size:var(--small-size);font-weight:800;color:#0B2D47;margin-bottom:.15rem">⑤ 销售价格体系（SD定价条件）</div>
-              <div style="font-size:var(--label-size);color:#333;line-height:1.5">多渠道定价策略零散（五金批发/零售/商用/电商），缺乏标准化，复杂促销全靠人工核算，占销售支持岗50-60%工时。SD价格条件+促销模块可实现"下单自动匹配最优价格"，杜绝低价乱价与价格战。</div>
+            <div style="background:#DBEAFE;border-radius:4px;border-left:3px solid #0070F2;padding:.26rem .5rem">
+              <div style="font-size:var(--label-size);font-weight:800;color:#002A86">⑤ 销售价格体系（SD定价条件）</div>
+              <div style="font-size:var(--label-size);color:#333;line-height:1.45">多渠道定价零散，复杂促销全靠人工核算，占销售支持岗50-60%工时，错误率高。SD价格条件+促销模块实现"下单自动匹配最优价格"，杜绝低价乱价。</div>
             </div>
 
-            <div style="background:#FFF8E7;border-radius:5px;border-left:3px solid #D97706;padding:.38rem .55rem">
-              <div style="font-size:var(--small-size);font-weight:800;color:#0B2D47;margin-bottom:.15rem">⑥ 集团财务管控（Group Reporting）</div>
-              <div style="font-size:var(--label-size);color:#333;line-height:1.5">19家法人含德国FZ33(EUR)、泰国FZ40(THB)，内部交易消除靠手工需3周、差错频繁。Group Reporting实现T+0自动消除，满足IFRS/CAS双套报告要求，为国际化扩张和CBAM合规提供数据基础。</div>
+            <div style="background:#DBEAFE;border-radius:4px;border-left:3px solid #0070F2;padding:.26rem .5rem">
+              <div style="font-size:var(--label-size);font-weight:800;color:#002A86">⑥ 集团财务管控（Group Reporting）</div>
+              <div style="font-size:var(--label-size);color:#333;line-height:1.45">19家法人含德国FZ33(EUR)、泰国FZ40(THB)，内部交易消除靠手工需3周且差错频繁。Group Reporting实现T+0自动消除，满足IFRS/CAS双套报告，支撑国际化扩张和CBAM合规。</div>
             </div>
 
-            <div style="background:#FFF8E7;border-radius:5px;border-left:3px solid #D97706;padding:.38rem .55rem">
-              <div style="font-size:var(--small-size);font-weight:800;color:#0B2D47;margin-bottom:.15rem">⑦ 泰国外币及本地化监管需求（DRC）</div>
-              <div style="font-size:var(--label-size);color:#333;line-height:1.5">泰国FZ40涉及多币种结算、本地税务合规及OECD转移定价稽查风险。DRC数字合规报告自动生成关联交易文档，规避平均18-36个月补税周期风险，中国制造业被调整均值约0.5%营收≈2,800万/年潜在补税。</div>
+            <div style="background:#D1EFFF;border-radius:4px;border-left:3px solid #1B90FF;padding:.26rem .5rem">
+              <div style="font-size:var(--label-size);font-weight:800;color:#002A86">⑦ 泰国外币及本地化监管需求（DRC）</div>
+              <div style="font-size:var(--label-size);color:#333;line-height:1.45">泰国FZ40涉及多币种结算与OECD转移定价稽查风险。DRC自动生成关联交易文档，规避中国制造业被调整均值约0.5%营收≈2,800万/年潜在补税风险。</div>
             </div>
 
-            <div style="background:#F5F0FF;border-radius:5px;border-left:3px solid #7C3AED;padding:.38rem .55rem">
-              <div style="font-size:var(--small-size);font-weight:800;color:#0B2D47;margin-bottom:.15rem">⑧ 研发与BOM管理（PP/PLM集成）</div>
-              <div style="font-size:var(--label-size);color:#333;line-height:1.5">佛照研发费用5.60亿/年（占收入6.37%），但PLM-ERP集成于2025年才刚上线，EBOM→MBOM转换仍靠人工，BOM准确性直接影响MRP计划与标准成本估算精度。本方案为标准成本和MRP两大核心方案提供数据保障。</div>
+            <div style="background:#D1EFFF;border-radius:4px;border-left:3px solid #1B90FF;padding:.26rem .5rem">
+              <div style="font-size:var(--label-size);font-weight:800;color:#002A86">⑧ 研发与BOM管理（PP/PLM集成）</div>
+              <div style="font-size:var(--label-size);color:#333;line-height:1.45">研发费5.60亿/年（收入6.37%），PLM-ERP集成2025年才刚上线，EBOM→MBOM仍靠人工，BOM准确性直接影响MRP计划与标准成本估算精度，是①③④的数据保障。</div>
             </div>
 
           </div>
@@ -532,7 +565,7 @@ h2.slide-h2{font-size:var(--h2-size);font-weight:600;color:var(--sap-dark);margi
 
       <style>
       .qs{position:absolute;font-size:var(--label-size);font-weight:700;color:#0070F2;text-align:center;line-height:1.35;max-width:88px;background:#EFF6FF;border-radius:4px;padding:2px 4px;border:1px solid #BFDBFE}
-      .qo{position:absolute;font-size:var(--label-size);font-weight:400;color:#bbb;text-align:center;line-height:1.35;max-width:82px}
+      .qo{position:absolute;font-size:var(--label-size);font-weight:500;color:#555;text-align:center;line-height:1.35;max-width:82px}
       </style>
     
   </section>
