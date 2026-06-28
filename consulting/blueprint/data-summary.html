@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>佛照数据治理总结报告 | TOGAF 4A · DCMM · v1.0</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{
+  --navy:#003087;--dark:#1B3A6B;--primary:#005EB8;--mid:#1F70C1;
+  --steel:#4A6FA5;--muted:#6B8CB8;--light:#A8C4E0;--pale:#D0E4F7;
+  --bg:#EBF4FF;--white:#FFFFFF;--text:#0D1B2A;--text2:#2C3E50;
+  --nav-w:270px;
+  --red:#C0392B;--amber:#E67E22;--green:#1A6B3A;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Microsoft YaHei",Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+#prog{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--navy),var(--primary));width:0;z-index:9999;transition:width .1s}
+#topnav{background:#0B2D47;padding:0 28px;display:flex;align-items:center;gap:18px;height:50px;position:sticky;top:0;z-index:900;box-shadow:0 2px 10px rgba(11,45,71,.5);overflow:visible!important}
+.nav-logo-link{display:flex;align-items:center;gap:10px;flex-shrink:0;text-decoration:none}
+.nav-divider{width:1px;height:22px;background:rgba(255,255,255,.15);flex-shrink:0}
+.nav-project{color:rgba(255,255,255,.5);font-size:11.5px;white-space:nowrap}
+.nav-links{display:flex;flex:1;overflow:visible!important;position:relative}
+.nav-links>a{padding:0 12px;color:rgba(255,255,255,.6);font-size:12px;height:50px;display:flex;align-items:center;white-space:nowrap;transition:color .15s;border-bottom:2px solid transparent;text-decoration:none}
+.nav-links>a:hover{color:#fff}
+.nav-dropdown{position:relative;display:inline-flex;align-items:center}
+.nav-dropdown>a{padding:0 12px;color:rgba(255,255,255,.6);font-size:12px;height:50px;display:flex;align-items:center;white-space:nowrap;transition:color .15s;border-bottom:2px solid transparent;cursor:pointer;text-decoration:none}
+.nav-dropdown>a:hover,.nav-dropdown:hover>a{color:#fff}
+.nav-arrow{font-size:9px;margin-left:3px;opacity:.7}
+.nav-dropdown-panel{display:none;position:absolute;top:50px;left:0;z-index:1000;background:#0B2D47;border:1px solid rgba(255,255,255,.1);border-top:2px solid #5EA4CE;border-radius:0 0 6px 6px;padding:14px 18px;min-width:500px;box-shadow:0 8px 24px rgba(11,45,71,.6)}
+.nav-dropdown:hover .nav-dropdown-panel{display:block}
+.nav-dd-row{display:flex;gap:0}
+.nav-dd-col{flex:1;padding:0 14px 0 0}
+.nav-dd-col:last-child{padding-right:0}
+.nav-dd-col+.nav-dd-col{border-left:1px solid rgba(255,255,255,.08);padding-left:14px}
+.nav-dd-group-title{font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:#5EA4CE;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid rgba(255,255,255,.08)}
+.nav-dd-panel a,.nav-dd-research-links a{display:block;padding:4px 0;color:rgba(255,255,255,.65);font-size:12px;transition:color .12s;text-decoration:none}
+.nav-dd-panel a:hover,.nav-dd-research-links a:hover{color:#fff}
+.nav-dd-research{margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08)}
+.nav-dd-research-links{display:flex;gap:18px}
+.status-switcher{position:fixed;top:8px;right:16px;z-index:1100;background:rgba(11,45,71,.95);border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:5px 10px;display:flex;align-items:center;gap:7px;font-family:inherit;backdrop-filter:blur(6px);box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.status-switcher .ss-label{color:rgba(255,255,255,.45);font-weight:700;font-size:10px;letter-spacing:.5px;text-transform:uppercase;white-space:nowrap}
+.ss-btn{border:1.5px solid transparent;border-radius:4px;padding:4px 11px;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;font-family:inherit;white-space:nowrap;line-height:1}
+.ss-btn:not(.active){background:transparent;color:rgba(255,255,255,.45);border-color:transparent}
+.ss-btn:hover:not(.active){background:rgba(255,255,255,.1);color:rgba(255,255,255,.85);border-color:rgba(255,255,255,.2)}
+.ss-btn#ss-todo.active{background:#4A5568;color:#fff;border-color:#718096}
+.ss-btn#ss-wip.active{background:#1A56DB;color:#fff;border-color:#3B82F6;box-shadow:0 0 0 2px rgba(59,130,246,.4)}
+.ss-btn#ss-done.active{background:#166534;color:#fff;border-color:#22C55E;box-shadow:0 0 0 2px rgba(34,197,94,.4)}
+#sidebar{position:fixed;top:50px;left:0;width:var(--nav-w);height:calc(100vh - 50px);background:var(--dark);overflow-y:auto;z-index:100;display:flex;flex-direction:column;padding-bottom:20px}
+#sidebar::-webkit-scrollbar{width:4px}
+#sidebar::-webkit-scrollbar-thumb{background:var(--steel);border-radius:2px}
+.sb-logo{padding:14px 16px 9px;border-bottom:1px solid rgba(255,255,255,.1)}
+.sb-logo .co{font-size:10px;color:var(--pale);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px}
+.sb-logo .title{font-size:12px;font-weight:700;color:#fff;line-height:1.4}
+.sb-logo .badge{display:inline-block;margin-top:4px;background:var(--primary);color:#fff;font-size:10px;padding:2px 8px;border-radius:10px}
+.sb-menu{padding:7px 0;flex:1}
+.sb-ch{padding:6px 16px 2px;font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;font-weight:700}
+.sb-menu a{display:block;padding:5px 16px;color:rgba(255,255,255,.72);text-decoration:none;font-size:12px;border-left:3px solid transparent;transition:all .2s;line-height:1.4}
+.sb-menu a:hover{color:#fff;background:rgba(255,255,255,.07);border-left-color:var(--light)}
+.sb-menu a.active{color:#fff;background:rgba(0,94,184,.35);border-left-color:var(--primary);font-weight:600}
+.sb-menu .sub{padding-left:28px;font-size:11px;color:rgba(255,255,255,.5)}
+.sb-menu .sub:hover{color:rgba(255,255,255,.82)}
+#ham{display:none;position:fixed;top:58px;left:10px;z-index:200;background:var(--dark);border:none;color:#fff;width:36px;height:36px;border-radius:6px;cursor:pointer;font-size:15px}
+#main{margin-left:var(--nav-w);min-height:100vh}
+.cover{background:linear-gradient(135deg,var(--navy) 0%,var(--dark) 50%,var(--primary) 100%);color:#fff;padding:56px 48px 44px;position:relative;overflow:hidden}
+.cover::before{content:"";position:absolute;top:-40px;right:-60px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.04)}
+.cover::after{content:"";position:absolute;bottom:-50px;left:120px;width:180px;height:180px;border-radius:50%;background:rgba(0,94,184,.18)}
+.cover-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);padding:4px 14px;border-radius:20px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px}
+.cover h1{font-size:26px;font-weight:700;line-height:1.3;margin-bottom:6px;position:relative}
+.cover .sub{font-size:14px;color:var(--pale);margin-bottom:26px;position:relative}
+.cover-meta{display:flex;gap:28px;flex-wrap:wrap;position:relative}
+.cover-meta-item .lbl{font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px}
+.cover-meta-item .val{font-size:13px;color:#fff;font-weight:600;margin-top:1px}
+.cover-kpi{display:flex;gap:13px;flex-wrap:wrap;margin-top:26px;position:relative}
+.kpi-box{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:12px 17px;min-width:90px}
+.kpi-box .num{font-size:22px;font-weight:700;color:#fff}
+.kpi-box .desc{font-size:11px;color:var(--pale);margin-top:2px}
+.content{padding:28px 38px 60px}
+.chapter{margin-bottom:42px}
+.ch-header{background:linear-gradient(90deg,var(--dark),var(--primary));color:#fff;padding:12px 22px;border-radius:10px 10px 0 0;display:flex;align-items:center;gap:12px}
+.ch-header .ch-num{background:rgba(255,255,255,.2);width:29px;height:29px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.ch-header h2{font-size:15px;font-weight:700}
+.ch-body{background:var(--white);border-radius:0 0 10px 10px;padding:24px;box-shadow:0 2px 12px rgba(0,48,135,.08)}
+.sec{margin-bottom:24px}
+.sec-title{font-size:14px;font-weight:700;color:var(--dark);border-left:4px solid var(--primary);padding-left:11px;margin-bottom:11px;display:flex;align-items:center;gap:7px}
+.sec-title i{color:var(--primary)}
+.sec-sub{font-size:13px;font-weight:700;color:var(--mid);margin:13px 0 7px;padding-left:7px;border-left:2px solid var(--pale)}
+p{margin-bottom:9px;color:var(--text2)}
+.box{border-radius:8px;padding:12px 16px;margin:11px 0;border-left:4px solid}
+.box.finding{background:#FFF5F5;border-color:#C0392B}
+.box.finding::before{content:"🔴 关键风险  ";font-weight:700;color:#C0392B;display:block;margin-bottom:3px;font-size:12px}
+.box.principle{background:#F0F7FF;border-color:var(--primary)}
+.box.principle::before{content:"📐 治理原则  ";font-weight:700;color:var(--primary);display:block;margin-bottom:3px;font-size:12px}
+.box.guide{background:#EBF4FF;border-color:var(--muted)}
+.box.guide::before{content:"📋 指南参考  ";font-weight:700;color:var(--muted);display:block;margin-bottom:3px;font-size:12px}
+.box.green{background:#F0FFF4;border-color:#1A6B3A}
+.box.green::before{content:"✅ 建议措施  ";font-weight:700;color:#1A6B3A;display:block;margin-bottom:3px;font-size:12px}
+.box.amber{background:#FFFBEB;border-color:#E67E22}
+.box.amber::before{content:"⚠️ 注意事项  ";font-weight:700;color:#E67E22;display:block;margin-bottom:3px;font-size:12px}
+.box p{margin-bottom:3px;font-size:13px}
+table{width:100%;border-collapse:collapse;margin:11px 0;font-size:12.5px}
+th{background:var(--dark);color:#fff;padding:8px 11px;text-align:left;font-weight:600}
+td{padding:7px 11px;border-bottom:1px solid var(--pale);vertical-align:top}
+tr:nth-child(even) td{background:var(--bg)}
+tr:hover td{background:#E0EEFF}
+.badge{display:inline-block;padding:2px 8px;border-radius:11px;font-size:11px;font-weight:600}
+.badge.r{background:#FDECEA;color:#C0392B;border:1px solid #F5C6C6}
+.badge.a{background:#FEF3C7;color:#92400E;border:1px solid #FDE68A}
+.badge.g{background:#D1FAE5;color:#065F46;border:1px solid #A7F3D0}
+.badge.b{background:var(--pale);color:var(--dark)}
+.badge.p{background:var(--primary);color:#fff}
+.gauge-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:13px 0}
+.gauge-item{background:var(--white);border:1px solid var(--pale);border-radius:8px;padding:12px 14px}
+.gauge-item .gi-label{font-size:12px;font-weight:700;color:var(--dark);margin-bottom:6px}
+.gauge-bar{height:8px;background:var(--pale);border-radius:4px;overflow:hidden;margin-bottom:4px}
+.gauge-fill{height:100%;border-radius:4px}
+.gauge-fill.l1{background:#C0392B}
+.gauge-fill.l2{background:#E67E22}
+.gauge-fill.l3{background:#F1C40F}
+.gauge-fill.l4{background:#27AE60}
+.gauge-meta{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted)}
+.root-cause-card{background:var(--white);border-radius:8px;padding:16px;border-left:5px solid var(--primary);margin-bottom:12px;box-shadow:0 1px 6px rgba(0,48,135,.06)}
+.root-cause-card.r{border-left-color:#C0392B}
+.root-cause-card .rc-title{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.root-cause-card .rc-chain{font-size:12px;color:var(--text2);line-height:1.9;background:var(--bg);padding:10px 12px;border-radius:6px;font-family:"Courier New",monospace;white-space:pre-wrap}
+.prio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:12px 0}
+.prio-card{background:var(--white);border-radius:8px;padding:14px;border-top:4px solid}
+.prio-card.p1{border-top-color:#C0392B}
+.prio-card.p2{border-top-color:#E67E22}
+.prio-card.p3{border-top-color:#F1C40F}
+.prio-card .pl{font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px}
+.prio-card.p1 .pl{color:#C0392B}
+.prio-card.p2 .pl{color:#E67E22}
+.prio-card.p3 .pl{color:#B7950B}
+.prio-card .pt{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:4px}
+.prio-card .pi{font-size:11.5px;color:var(--text2)}
+.prio-card .pi li{list-style:none;padding-left:13px;position:relative;margin-bottom:2px}
+.prio-card .pi li::before{content:"›";position:absolute;left:2px;color:var(--primary)}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:10px;margin:12px 0}
+.kpi-card{background:var(--white);border:1px solid var(--pale);border-radius:8px;padding:14px;border-left:4px solid var(--primary)}
+.kpi-card.r{border-left-color:#C0392B}
+.kpi-card.a{border-left-color:#E67E22}
+.kpi-card.g{border-left-color:#27AE60}
+.kpi-card .kn{font-size:12px;font-weight:700;color:var(--dark)}
+.kpi-card .kv{font-size:20px;font-weight:800;color:var(--primary);margin:4px 0}
+.kpi-card.r .kv{color:#C0392B}
+.kpi-card.a .kv{color:#E67E22}
+.kpi-card.g .kv{color:#27AE60}
+.kpi-card .kd{font-size:11px;color:var(--muted)}
+.flow{display:flex;align-items:center;flex-wrap:wrap;gap:0;margin:12px 0}
+.flow-step{background:var(--white);border:1.5px solid var(--pale);border-radius:6px;padding:7px 11px;font-size:11.5px;font-weight:600;color:var(--dark);white-space:nowrap}
+.flow-step.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.flow-step.navy{background:var(--navy);color:#fff;border-color:var(--navy)}
+.flow-step.red{background:#C0392B;color:#fff;border-color:#C0392B}
+.flow-step.amber{background:#E67E22;color:#fff;border-color:#E67E22}
+.flow-step.green{background:#27AE60;color:#fff;border-color:#27AE60}
+.flow-arrow{color:var(--steel);font-size:15px;padding:0 4px}
+pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:13px;font-family:"Courier New",monospace;font-size:12px;color:var(--text);overflow-x:auto;margin:10px 0;line-height:1.6}
+.roi-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:14px 0}
+.roi-box{border-radius:8px;padding:16px;text-align:center}
+.roi-box.invest{background:var(--bg);border:2px solid var(--pale)}
+.roi-box.return{background:#D1FAE5;border:2px solid #A7F3D0}
+.roi-box.net{background:#FFF;border:2px solid var(--primary)}
+.roi-box .rv{font-size:22px;font-weight:800;margin:6px 0}
+.roi-box .rl{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+@media(max-width:768px){
+  #sidebar{transform:translateX(-100%);transition:transform .3s}
+  #sidebar.open{transform:translateX(0)}
+  #ham{display:flex;align-items:center;justify-content:center}
+  #main{margin-left:0}
+  .content{padding:16px 14px 40px}
+  .cover{padding:44px 18px 26px}
+  .cover h1{font-size:19px}
+  .cover-kpi{display:none}
+  .ch-body{padding:16px}
+  .gauge-grid{grid-template-columns:1fr 1fr}
+  .roi-grid{grid-template-columns:1fr}
+}
+@media print{
+  #sidebar,#ham,#prog,.status-switcher{display:none!important}
+  #main{margin-left:0}
+  .chapter{page-break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+
+<nav id="topnav">
+  <a href="/fsl-report/" class="nav-logo-link">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 36" height="26">
+      <rect x="0" y="3" width="4" height="30" fill="#F06000"/><rect x="0" y="3" width="18" height="4" fill="#F06000"/>
+      <rect x="0" y="16" width="13" height="4" fill="#F06000"/>
+      <path d="M22 3 h14 v4 h-9 v6 h9 v4 h-9 v7 h10 v4 h-15 v-9 h9 v-3 h-9 z" fill="#F06000"/>
+      <rect x="42" y="3" width="4" height="30" fill="#F06000"/><rect x="42" y="29" width="16" height="4" fill="#F06000"/>
+      <text x="66" y="26" font-family="Microsoft YaHei,PingFang SC,sans-serif" font-size="14" font-weight="700" fill="rgba(255,255,255,0.92)" letter-spacing="1">佛山照明</text>
+    </svg>
+  </a>
+  <div class="nav-divider"></div>
+  <span class="nav-project">数字化转型项目工作台</span>
+  <div class="nav-links">
+    <a href="/fsl-report/">工作台首页</a>
+    <div class="nav-dropdown">
+      <a href="/fsl-report/consulting/">交付物 <span class="nav-arrow">▾</span></a>
+      <div class="nav-dropdown-panel">
+        <div class="nav-dd-row">
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">管理咨询交付</div>
+            <a href="/fsl-report/consulting/diagnosis/">现状分析与诊断</a>
+            <a href="/fsl-report/consulting/blueprint/">蓝图及架构设计</a>
+            <a href="/fsl-report/consulting/solutions/">专项方案设计</a>
+            <a href="/fsl-report/consulting/roadmap/">实施路径规划</a>
+          </div>
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">SAP 实施交付</div>
+            <a href="/fsl-report/sap/prepare/">项目准备阶段</a>
+            <a href="/fsl-report/sap/blueprint/">蓝图方案设计</a>
+            <a href="/fsl-report/sap/realize/">系统实现阶段</a>
+            <a href="/fsl-report/sap/deploy/">上线切换阶段</a>
+          </div>
+        </div>
+        <div class="nav-dd-research">
+          <div class="nav-dd-group-title">行业研究</div>
+          <div class="nav-dd-research-links"><a href="/fsl-report/research/">照明行业对标研究</a></div>
+        </div>
+      </div>
+    </div>
+    <a href="/fsl-report/weekly/">项目周报</a>
+    <div class="nav-dropdown">
+      <a href="/fsl-report/kanban/">任务看板 <span class="nav-arrow">▾</span></a>
+      <div class="nav-dropdown-panel">
+        <div class="nav-dd-row">
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">看板视图</div>
+            <a href="/fsl-report/kanban/#kanban">📋 看板</a>
+            <a href="/fsl-report/kanban/#milestone">🎯 里程碑</a>
+            <a href="/fsl-report/kanban/#risk">⚠️ 风险</a>
+          </div>
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">分析与管理</div>
+            <a href="/fsl-report/kanban/#deliverable">📦 交付物追踪</a>
+            <a href="/fsl-report/weekly/">📰 项目周报</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="status-switcher">
+  <span class="ss-label">文档状态</span>
+  <button class="ss-btn" id="ss-todo" onclick="setStatus('todo')">待开始</button>
+  <button class="ss-btn active" id="ss-wip" onclick="setStatus('wip')">进行中</button>
+  <button class="ss-btn" id="ss-done" onclick="setStatus('done')">已完成</button>
+</div>
+
+<button id="ham" onclick="toggleSidebar()">☰</button>
+<nav id="sidebar">
+  <div class="sb-logo">
+    <div class="co">FSL S/4HANA 升级项目</div>
+    <div class="title">数据治理总结报告</div>
+    <span class="badge">★4 · TOGAF 4A · DCMM · v1.0</span>
+  </div>
+  <div class="sb-menu">
+    <div class="sb-ch">导航</div>
+    <a href="#cover">封面 &amp; 核心结论</a>
+    <a href="#exec">执行摘要</a>
+    <div class="sb-ch">诊断</div>
+    <a href="#quantify">现状量化诊断</a>
+    <a href="#audit">主数据深度审计</a>
+    <a href="#audit" class="sub">物料 · 产品分类 · 编码规则</a>
+    <a href="#bom-routing">BOM &amp; 工艺路线审计</a>
+    <a href="#bom-routing" class="sub">WC · 成本中心 · 科目表</a>
+    <div class="sb-ch">根因分析</div>
+    <a href="#rootcause">生产计划混乱根因链</a>
+    <a href="#rootcause" class="sub">五条根因链 · 量化损失</a>
+    <a href="#rootcause" class="sub">12步治理计划</a>
+    <div class="sb-ch">规划</div>
+    <a href="#togaf-gap">TOGAF差距分析</a>
+    <a href="#action">优先级矩阵 &amp; 行动计划</a>
+    <a href="#kpi">KPI承诺 &amp; 验收标准</a>
+    <div class="sb-ch">保障</div>
+    <a href="#risk">风险管理 &amp; 应急预案</a>
+    <a href="#longterm">长期能力建设 &amp; ROI</a>
+    <a href="#decision">给决策层的建议</a>
+    <div class="sb-ch">关联交付物</div>
+    <a href="/fsl-report/consulting/blueprint/data-survey.html">★4 数据调研分析报告</a>
+    <a href="/fsl-report/consulting/blueprint/data-governance.html">★4 数据规划及管理办法</a>
+    <a href="/fsl-report/consulting/blueprint/">← 返回蓝图阶段</a>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- COVER -->
+<section class="cover" id="cover">
+  <div class="cover-tag">★4 · 数据治理总结报告 · 探索阶段最终交付物 · 保密</div>
+  <h1>佛山照明数据治理总结报告</h1>
+  <div class="sub">数据治理三部曲 · 终章 | TOGAF ADM 4A · DCMM · 工信部数字化转型实施指南 | 17章 · 约4.6万字</div>
+  <div class="cover-meta">
+    <div class="cover-meta-item"><div class="lbl">版本</div><div class="val">v1.0 · 2026-06-28</div></div>
+    <div class="cover-meta-item"><div class="lbl">前置报告</div><div class="val">数字化现状分析 v2.0 · 数据规划及管理办法 v1.0</div></div>
+    <div class="cover-meta-item"><div class="lbl">数据来源</div><div class="val">7类主数据文件 · D1-D5共17场访谈</div></div>
+    <div class="cover-meta-item"><div class="lbl">主责顾问</div><div class="val">达维咨询 数据治理团队</div></div>
+    <div class="cover-meta-item"><div class="lbl">最终验收</div><div class="val">吴梓填（数智化部）/ 李泽华（签收）</div></div>
+  </div>
+  <div class="cover-kpi">
+    <div class="kpi-box"><div class="num">4.6万</div><div class="desc">报告字数</div></div>
+    <div class="kpi-box"><div class="num">17章</div><div class="desc">报告章节</div></div>
+    <div class="kpi-box"><div class="num">~32%</div><div class="desc">综合数据基线</div></div>
+    <div class="kpi-box"><div class="num">75-220万</div><div class="desc">年度业务损失估算（元）</div></div>
+    <div class="kpi-box"><div class="num">179%</div><div class="desc">3年治理ROI</div></div>
+    <div class="kpi-box"><div class="num">1→3级</div><div class="desc">DCMM目标跨越</div></div>
+  </div>
+</section>
+
+<div class="content">
+
+<!-- EXEC SUMMARY -->
+<div class="chapter" id="exec">
+  <div class="ch-header"><div class="ch-num">0</div><h2>执行摘要 · 数据治理三部曲总结</h2></div>
+  <div class="ch-body">
+    <div class="sec">
+      <p>本报告是佛山照明SAP S/4HANA Greenfield升级项目（探索阶段）<strong>数据治理三部曲的最终汇总性交付物</strong>。三份报告构成完整的数据治理认知链：</p>
+      <div class="flow">
+        <div class="flow-step navy">★4 现状分析报告</div><div class="flow-arrow">→</div>
+        <div class="flow-step">描述现状·揭示问题</div><div class="flow-arrow">→</div>
+        <div class="flow-step active">★4 数据规划及管理办法</div><div class="flow-arrow">→</div>
+        <div class="flow-step">规划路径·制定规则</div><div class="flow-arrow">→</div>
+        <div class="flow-step green">★4 本报告（总结）</div><div class="flow-arrow">→</div>
+        <div class="flow-step">综合治理·行动计划</div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-list-alt"></i> 十大核心治理结论</div>
+      <table>
+        <thead><tr><th>#</th><th>结论</th><th>风险</th><th>紧迫</th></tr></thead>
+        <tbody>
+          <tr><td><b>C01</b></td><td>工艺路线覆盖率仅~5%：MRP产能计划根本无法运行，是"MRP不被信任"直接根因</td><td><span class="badge r">极高</span></td><td><span class="badge r">极紧迫</span></td></tr>
+          <tr><td><b>C02</b></td><td>BOM研发版与生产版混用：计划结果污染，替代料无法识别</td><td><span class="badge r">极高</span></td><td><span class="badge r">极紧迫</span></td></tr>
+          <tr><td><b>C03</b></td><td>计量单位11种混用（ZEA≡EA重复定义）：影响全模块BOM计算，Greenfield最大技术风险</td><td><span class="badge r">极高</span></td><td><span class="badge r">极紧迫</span></td></tr>
+          <tr><td><b>C04</b></td><td>成品关键字段几乎全部缺失：技术要求/69码/旧料号/跨工厂状态~100%缺失</td><td><span class="badge r">极高</span></td><td><span class="badge a">高</span></td></tr>
+          <tr><td><b>C05</b></td><td>19法人89%孤岛 + 无统一集团CoA：多法人上线最大架构障碍</td><td><span class="badge r">极高</span></td><td><span class="badge a">高</span></td></tr>
+          <tr><td><b>C06</b></td><td>数智化部代维业务数据（权责不清）：数据质量恶化的制度根因</td><td><span class="badge a">高</span></td><td><span class="badge a">高</span></td></tr>
+          <tr><td><b>C07</b></td><td>75个研发成本中心疑有大量历史遗留未关闭：需全量清查</td><td><span class="badge a">高</span></td><td><span class="badge a">高</span></td></tr>
+          <tr><td><b>C08</b></td><td>物料编码规则总表2022年版近4年未更新：新赛道产品无对应编码规则</td><td><span class="badge a">高</span></td><td><span class="badge b">中</span></td></tr>
+          <tr><td><b>C09</b></td><td>产品分类与SAP物料组映射约51%不完整：上线后分类报表大量"未分类"数据</td><td><span class="badge b">中</span></td><td><span class="badge b">中</span></td></tr>
+          <tr><td><b>C10</b></td><td>科目表7种货币/20+银行体系完善，但无集团映射，集团资金可视化无从实现</td><td><span class="badge b">中</span></td><td><span class="badge a">高</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- QUANTIFY -->
+<div class="chapter" id="quantify">
+  <div class="ch-header"><div class="ch-num">1</div><h2>数据现状量化诊断</h2></div>
+  <div class="ch-body">
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-chart-bar"></i> 主数据治理基线（综合覆盖率约32%）</div>
+      <table>
+        <thead><tr><th>主数据域</th><th>完整性</th><th>准确性</th><th>及时性</th><th>一致性</th><th>总评</th></tr></thead>
+        <tbody>
+          <tr><td><b>物料主数据</b></td><td><span class="badge r">15%</span></td><td><span class="badge r">30%</span></td><td><span class="badge a">60%</span></td><td><span class="badge r">25%</span></td><td><span class="badge r">极差</span></td></tr>
+          <tr><td><b>BOM</b></td><td><span class="badge r">15-30%</span></td><td><span class="badge r">50%</span></td><td><span class="badge a">55%</span></td><td><span class="badge r">20%</span></td><td><span class="badge r">极差</span></td></tr>
+          <tr><td><b>工艺路线</b></td><td><span class="badge r">4.6%</span></td><td><span class="badge r">40%</span></td><td><span class="badge a">60%</span></td><td><span class="badge r">15%</span></td><td><span class="badge r">极差</span></td></tr>
+          <tr><td>工作中心</td><td><span class="badge a">70%</span></td><td><span class="badge a">65%</span></td><td><span class="badge a">70%</span></td><td><span class="badge a">60%</span></td><td><span class="badge a">较差</span></td></tr>
+          <tr><td>成本中心</td><td><span class="badge g">80%</span></td><td><span class="badge a">70%</span></td><td><span class="badge a">75%</span></td><td><span class="badge a">65%</span></td><td><span class="badge b">中等</span></td></tr>
+          <tr><td>科目表(FZ05)</td><td><span class="badge g">85%</span></td><td><span class="badge g">80%</span></td><td><span class="badge g">80%</span></td><td><span class="badge r">20%*</span></td><td><span class="badge b">中等</span></td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:11px;color:var(--muted)">* 科目表一致性低是因为19法人无统一Group CoA</p>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-database"></i> DCMM综合成熟度评分</div>
+      <div class="gauge-grid">
+        <div class="gauge-item"><div class="gi-label">数据战略</div><div class="gauge-bar"><div class="gauge-fill l1" style="width:30%"></div></div><div class="gauge-meta"><span>当前 1.5</span><span>目标 3.0</span></div></div>
+        <div class="gauge-item"><div class="gi-label">数据治理组织</div><div class="gauge-bar"><div class="gauge-fill l1" style="width:20%"></div></div><div class="gauge-meta"><span>当前 1.0</span><span>目标 3.0</span></div></div>
+        <div class="gauge-item"><div class="gi-label">数据标准规范</div><div class="gauge-bar"><div class="gauge-fill l1" style="width:20%"></div></div><div class="gauge-meta"><span>当前 1.0</span><span>目标 3.5</span></div></div>
+        <div class="gauge-item"><div class="gi-label">主数据质量</div><div class="gauge-bar"><div class="gauge-fill l1" style="width:20%"></div></div><div class="gauge-meta"><span>当前 1.0</span><span>目标 3.5</span></div></div>
+        <div class="gauge-item"><div class="gi-label">数据架构</div><div class="gauge-bar"><div class="gauge-fill l1" style="width:30%"></div></div><div class="gauge-meta"><span>当前 1.5</span><span>目标 3.5</span></div></div>
+        <div class="gauge-item"><div class="gi-label">数据安全</div><div class="gauge-bar"><div class="gauge-fill l2" style="width:50%"></div></div><div class="gauge-meta"><span>当前 2.5（制度完善）</span><span>目标 3.5</span></div></div>
+      </div>
+      <div class="box guide"><p>工信部《制造业企业数字化转型实施指南》（2024）要求大型制造企业"推进DCMM等国家标准应用，以国家标准引领传统产业优化升级"。佛照当前综合 DCMM <strong>1级（初始级）</strong>，目标2026年底Cut-over前提升至接近2级，2028年申请2级认证，2030年达到3级。</p></div>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-chart-line"></i> 行业横向对标（同等规模SAP制造企业）</div>
+      <table>
+        <thead><tr><th>对标维度</th><th>佛山照明</th><th>SAP客户中位数</th><th>行业领先</th><th>差距</th></tr></thead>
+        <tbody>
+          <tr><td>ERP覆盖法人比例</td><td><span class="badge r">10.5%</span></td><td>85%</td><td>100%</td><td><span class="badge r">极大</span></td></tr>
+          <tr><td>主数据完整率（业务可用）</td><td><span class="badge r">~15%</span></td><td>80%</td><td>97%</td><td><span class="badge r">极大</span></td></tr>
+          <tr><td>BOM准确率</td><td><span class="badge r">估计&lt;50%</span></td><td>88%</td><td>98%</td><td><span class="badge r">极大</span></td></tr>
+          <tr><td>工艺路线完整率</td><td><span class="badge r">~5%</span></td><td>85%</td><td>99%</td><td><span class="badge r">极大</span></td></tr>
+          <tr><td>MRP计划采纳率</td><td><span class="badge r">&lt;20%</span></td><td>65%</td><td>85%</td><td><span class="badge r">极大</span></td></tr>
+          <tr><td>月结关账天数</td><td><span class="badge a">7-12天</span></td><td>5天</td><td>2-3天</td><td><span class="badge a">较大</span></td></tr>
+          <tr><td>DCMM成熟度</td><td><span class="badge r">1级</span></td><td>2-3级</td><td>4级</td><td><span class="badge r">落后2个等级</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- BOM ROUTING ROOTCAUSE -->
+<div class="chapter" id="rootcause">
+  <div class="ch-header"><div class="ch-num">2</div><h2>生产与计划混乱的五条根因链</h2></div>
+  <div class="ch-body">
+    <div class="sec">
+      <p>通过探索阶段全部调研证据（17场访谈 + 7类主数据文件），识别出生产与计划数据混乱的五条系统性根因链。每条根因链均有从"制度/数据问题"到"业务损失"的完整逻辑路径。</p>
+    </div>
+    <div class="sec">
+      <div class="root-cause-card r">
+        <div class="rc-title"><span class="badge r">根因链一</span> PLM-SAP双系统BOM割裂 → 版本失控</div>
+        <div class="rc-chain">产品设计变更（PLM）→ PLM ECO批准 → PLM BOM更新
+    ↓ 【断点：接口不完整 / 工程师忘记操作】
+SAP BOM未同步 → 生产工单按旧BOM生成 → 领料按旧BOM配料
+    ↓
+实际装配发现物料不对 → 手工补单退料 → 生产延误+成本差异+人工核对
+年度估算损耗：约3,600元（纯人工）+ 质量投诉追溯困难（不可量化）</div>
+      </div>
+      <div class="root-cause-card r">
+        <div class="rc-title"><span class="badge r">根因链二</span> 研发BOM混入生产系统 → MRP信号失真</div>
+        <div class="rc-chain">研发BOM特征：备注行污染 / 替代料仅文本 / 用量估算不精确 / 版本频繁变更
+    ↓ 被MRP读取
+备注行→虚假需求（向不存在的"物料"发采购建议）
+替代料无法识别→备料时无法利用库存中的替代料
+用量偏差→需求量系统性高估或低估
+    ↓
+计划员每次MRP结果不同 → 放弃MRP → 改用Excel手工排产</div>
+      </div>
+      <div class="root-cause-card r">
+        <div class="rc-title"><span class="badge r">根因链三</span> ZEA/EA计量单位混用 → 需求量计算错误 → 库存不准</div>
+        <div class="rc-chain">成品（层1）基本单位=ZEA，外箱子件（层2）基本单位=EA
+ZEA:EA换算关系未在SAP中显式配置
+    ↓ MRP展开
+外箱需求量计算：SAP尝试跨单位换算 → 可能报错或使用错误换算系数
+    ↓
+外箱采购需求量错误 → 库存积压 OR 缺货停线（已实际发生）
+年度估算损耗：库存积压占用资金+停线损失，约50-150万元</div>
+      </div>
+      <div class="root-cause-card r">
+        <div class="rc-title"><span class="badge r">根因链四</span> 工时数据缺失 → 产能计划失效 → 交期无法承诺</div>
+        <div class="rc-chain">工艺路线覆盖率~5%（约95%的生产工单无工艺路线）
+    ↓
+SAP产能需求计算（CRP）：95%的工单产能需求=0
+    ↓
+产能排程完全依赖计划员经验判断
+紧急插单时无法评估产能影响 → 频繁超负荷→加班→质量事故→客户投诉
+月均额外协调损耗：约23,750元/月 = 28.5万元/年（纯协调人工）</div>
+      </div>
+      <div class="root-cause-card r">
+        <div class="rc-title"><span class="badge r">根因链五</span> 外协BOM/工艺路线不规范 → 外协成本核算错误</div>
+        <div class="rc-chain">GB16404（禅昌外协）外协工序未配置SubContract标识
+外协PIR（价格记录）可能未与工艺路线关联
+541发料 / 543反冲的移动类型配置可能缺失
+    ↓
+外协成本（270H/万套 × 外协单价）无法通过标准流程自动归集
+    ↓
+只能通过手工凭证补录，月末约50-100张/月
+外协成本核算准确性依赖个人经验，漏记/多记风险高</div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-dollar-sign"></i> 量化业务损失汇总（年度估算）</div>
+      <table>
+        <thead><tr><th>损失类别</th><th>年度损失估算</th><th>置信度</th></tr></thead>
+        <tbody>
+          <tr><td>额外库存积压（需求计算不准）</td><td>50-150万元</td><td><span class="badge a">中</span></td></tr>
+          <tr><td>手工协调损耗（计划人员额外工时）</td><td>20-50万元</td><td><span class="badge a">中</span></td></tr>
+          <tr><td>外协成本错误（漏记/多记）</td><td>5-20万元</td><td><span class="badge r">低</span></td></tr>
+          <tr><td>新品上市延迟/客户投诉</td><td>不可量化</td><td>—</td></tr>
+          <tr><td><b>可量化合计</b></td><td><b>75-220万元/年</b></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ACTION PLAN -->
+<div class="chapter" id="action">
+  <div class="ch-header"><div class="ch-num">3</div><h2>优先级矩阵与分域行动计划</h2></div>
+  <div class="ch-body">
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-tasks"></i> Q1立即行动（高影响·高紧迫）</div>
+      <div class="prio-grid">
+        <div class="prio-card p1">
+          <div class="pl">WP1 · 立即启动</div>
+          <div class="pt">ZEA→EA全量标准化</div>
+          <ul class="pi"><li>影响约700-800条成品物料</li><li>BOM用量关系约2,000-4,000对需重新确认</li><li>工作量约50-75天</li><li>截止：2026年9月底</li></ul>
+        </div>
+        <div class="prio-card p1">
+          <div class="pl">WP2 · 立即启动</div>
+          <div class="pt">BOM研发/生产分离</div>
+          <ul class="pi"><li>冻结研发BOM用于生产</li><li>TOP 200成品生产BOM确认（Owner签字）</li><li>工作量约50天（含业务确认）</li><li>截止：2026年10月底</li></ul>
+        </div>
+        <div class="prio-card p1">
+          <div class="pl">WP3 · 立即启动</div>
+          <div class="pt">TOP 200成品工艺路线补全</div>
+          <ul class="pi"><li>工艺路线模板设计（各产品线通用）</li><li>非QM工序工时不得为零</li><li>工作量约60-75天（工艺工程师）</li><li>截止：2026年10月底</li></ul>
+        </div>
+        <div class="prio-card p1">
+          <div class="pl">WP4 · 8月启动</div>
+          <div class="pt">物料关键字段补录</div>
+          <ul class="pi"><li>跨工厂状态补录（3,542条）</li><li>成品69码（1,159条优先）</li><li>旧物料号（历史编码追溯）</li><li>截止：2026年10月底</li></ul>
+        </div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-calendar-check"></i> 数据治理里程碑计划</div>
+      <table>
+        <thead><tr><th>里程碑</th><th>内容</th><th>计划日期</th><th>关键责任人</th></tr></thead>
+        <tbody>
+          <tr><td><b>M-D01</b></td><td>数据质量问题清单发布（所有P1数据域）+ 数据Owner确认</td><td>2026年8月15日</td><td>达维咨询+数智化部</td></tr>
+          <tr><td><b>M-D02</b></td><td>ZEA→EA标准化完成</td><td>2026年9月30日</td><td>产品中心+数智化部</td></tr>
+          <tr><td><b>M-D03</b></td><td>BOM研产分离完成 + TOP 200成品BOM Owner签字</td><td>2026年10月31日</td><td>产品中心+生产</td></tr>
+          <tr><td><b>M-D04</b></td><td>TOP 200成品工艺路线录入完成（含工时）</td><td>2026年10月31日</td><td>工艺工程师</td></tr>
+          <tr><td><b>M-D05</b></td><td>集团CoA方案确定（WP4.1）+ 75个研发CC三分类完成</td><td>2026年9月30日</td><td>财务管理部+研究院</td></tr>
+          <tr><td><b>M-D06</b></td><td>Mock 1试迁移执行（错误率目标≤10%）</td><td>2026年11月中旬</td><td>艾维登+数智化部</td></tr>
+          <tr><td><b>M-D07</b></td><td>Mock 2试迁移通过（错误率≤3%）→ 数据治理Ready证书</td><td>2026年12月底</td><td>艾维登+达维咨询</td></tr>
+          <tr><td><b>M-D08</b></td><td>正式Cut-over成功 → Go-Live</td><td>2027年1月初</td><td>吴梓填+李泽华（签收）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- KPI -->
+<div class="chapter" id="kpi">
+  <div class="ch-header"><div class="ch-num">4</div><h2>数据质量KPI承诺与验收标准</h2></div>
+  <div class="ch-body">
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-flag-checkered"></i> 一级KPI（Cut-over前强制达标）</div>
+      <div class="kpi-grid">
+        <div class="kpi-card r"><div class="kn">成品UoM规范率</div><div class="kv">ZEA剩余≤1%</div><div class="kd">SQL查询MARA.MEINS统计</div></div>
+        <div class="kpi-card r"><div class="kn">跨工厂状态填写率</div><div class="kv">≥ 95%</div><div class="kd">SQL查询MARC.MMSTA空值率</div></div>
+        <div class="kpi-card r"><div class="kn">P0成品BOM覆盖率</div><div class="kv">TOP 200 ≥ 95%</div><div class="kd">CS03逐一验证+Owner签字</div></div>
+        <div class="kpi-card r"><div class="kn">P0工艺路线覆盖率</div><div class="kv">TOP 200 ≥ 90%</div><div class="kd">CA03检查+工时填写率</div></div>
+        <div class="kpi-card r"><div class="kn">非QM工序工时率</div><div class="kv">≥ 95%</div><div class="kd">SAP CA60报表</div></div>
+        <div class="kpi-card r"><div class="kn">试迁移错误率（Mock2）</div><div class="kv">≤ 3%</div><div class="kd">迁移日志统计</div></div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-chart-line"></i> 二级KPI（上线后12个月达标）</div>
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kn">MRP计划采纳率</div><div class="kv">≥ 75%</div><div class="kd">（上线6月→40%；12月→75%）</div></div>
+        <div class="kpi-card g"><div class="kn">标准成本覆盖率</div><div class="kv">≥ 95%</div><div class="kd">所有在产成品有标准成本</div></div>
+        <div class="kpi-card g"><div class="kn">月结关账天数</div><div class="kv">≤ 3天</div><div class="kd">（上线后1年目标）</div></div>
+        <div class="kpi-card g"><div class="kn">发票三路匹配率</div><div class="kv">≥ 90%</div><div class="kd">PO+GR+Invoice自动匹配</div></div>
+        <div class="kpi-card"><div class="kn">BOM准确率（月抽检）</div><div class="kv">≥ 95%</div><div class="kd">随机抽检20个BOM/月</div></div>
+        <div class="kpi-card g"><div class="kn">库存帐实一致率</div><div class="kv">≥ 99%</div><div class="kd">月末盘点核实</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROI + LONG TERM -->
+<div class="chapter" id="longterm">
+  <div class="ch-header"><div class="ch-num">5</div><h2>长期数据能力建设与治理ROI</h2></div>
+  <div class="ch-body">
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-coins"></i> 3年数据治理投资回报分析</div>
+      <div class="roi-grid">
+        <div class="roi-box invest">
+          <div class="rl">3年总投入</div>
+          <div class="rv" style="color:var(--red)">约 780 万元</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:6px;line-height:1.7">一次性：数据清洗约300万<br>年运营：MDM专员+工具约160万/年×3</div>
+        </div>
+        <div class="roi-box return">
+          <div class="rl">3年总收益</div>
+          <div class="rv" style="color:#065F46">约 2,175 万元</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:6px;line-height:1.7">财务效率：100-150万/年<br>采购降本：200-400万/年<br>库存优化：100-200万/年<br>生产+质量：100-200万/年</div>
+        </div>
+        <div class="roi-box net">
+          <div class="rl">3年净收益 · ROI</div>
+          <div class="rv" style="color:var(--primary)">约1,395万 · 179%</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:6px;line-height:1.7">投资回收期：约14-18个月<br>战略收益（AI/集团管控）另计</div>
+        </div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-robot"></i> AI应用路线图（数据底座视角）</div>
+      <table>
+        <thead><tr><th>阶段</th><th>时间</th><th>数据前提</th><th>AI应用场景</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge p">RAG阶段</span></td><td>当前-2026</td><td>非结构化文档（已具备）</td><td>检索制度规程/FAQ；工具调用ECC基础数据</td></tr>
+          <tr><td><span class="badge b">结构化驱动</span></td><td>2027（上线后）</td><td>BOM≥90%+工艺路线≥90%+标准成本</td><td>智能采购助手；MRP辅助分析；成本异常预警</td></tr>
+          <tr><td><span class="badge g">垂直模型</span></td><td>2028-2030</td><td>2年+高质量运营数据积累</td><td>新产品成本预测；供应商风险预警；智能排程</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- DECISION -->
+<div class="chapter" id="decision">
+  <div class="ch-header"><div class="ch-num">6</div><h2>给决策层的核心建议</h2></div>
+  <div class="ch-body">
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-star"></i> 三件最重要的事</div>
+      <div class="prio-grid">
+        <div class="prio-card p1">
+          <div class="pl">第一件事 · 8月前</div>
+          <div class="pt">立即启动ZEA→EA标准化</div>
+          <ul class="pi"><li>技术影响最广</li><li>推进难度相对低</li><li>越早越好，越晚越危险</li><li>建议：产品中心8月确认清单，数智化9月完成替换</li></ul>
+        </div>
+        <div class="prio-card p1">
+          <div class="pl">第二件事 · 管理层宣示</div>
+          <div class="pt">产品中心和生产立即开始BOM确认</div>
+          <ul class="pi"><li>技术不是瓶颈，人是瓶颈</li><li>需要分管副总在管理层明确：BOM准确率是产品中心绩效KPI</li><li>8月开始，每周汇报进度</li></ul>
+        </div>
+        <div class="prio-card p1">
+          <div class="pl">第三件事 · 招募1人</div>
+          <div class="pt">为MDM办公室招募第一位数据管理专员</div>
+          <ul class="pi"><li>0个专员是所有数据问题的组织根源</li><li>哪怕只招1人，也比0人强100倍</li><li>人力资源9月前完成招募</li><li>岗位直接向数智化部负责人汇报</li></ul>
+        </div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-trophy"></i> 数据治理成功的最终标志</div>
+      <table>
+        <thead><tr><th>时间节点</th><th>业务验收标准</th></tr></thead>
+        <tbody>
+          <tr><td><b>2027年3月（上线3个月）</b></td><td>家用事业部不再手工补录ZD06折扣；财务月末发票人工核对减少70%；计划员50%以上MRP建议被直接采纳</td></tr>
+          <tr><td><b>2027年6月（上线6个月）</b></td><td>标准成本报告自动生成料工费三分解；月结关账≤5天；新品上市时物料完整率>90%</td></tr>
+          <tr><td><b>2028年底（上线2年）</b></td><td>申请DCMM 2级认证；AI采购助手日常使用，采纳率>80%；转移定价两套口径问题通过S/4HANA自动化彻底解决</td></tr>
+        </tbody>
+      </table>
+      <div class="box green"><p><strong>结语：数据是数字化转型的石油，数据治理是采油的钻机。</strong>佛照S/4HANA升级的核心不是换了一套更贵的ERP，而是借此机会彻底重建佛照的数据资产。从当前"DCMM 1级"跨越到"DCMM 3级"，需要三年时间、近千万元投入，但3年ROI约179%，且战略价值（AI底座、集团精细管控、新赛道扩张）难以用金额完全衡量。<strong>让每一条数据都找到它的Owner，让每一个业务决策都有数据支撑——这是本次数据治理工作的终极使命。</strong></p></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- .content -->
+</main>
+
+<footer style="background:#0B2D47;color:rgba(255,255,255,.35);text-align:center;padding:16px;font-size:11px;letter-spacing:.2px;margin-left:var(--nav-w)">
+  佛山照明 SAP S/4HANA 升级项目工作台 · 机密文件 · 仅供项目组内部使用 · 2026
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement,b=document.body;
+  const t=d.scrollTop||b.scrollTop,h=(d.scrollHeight||b.scrollHeight)-d.clientHeight;
+  document.getElementById('prog').style.width=(t/h*100)+'%';
+});
+document.querySelectorAll('#sidebar .sb-menu a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',()=>{
+    document.querySelectorAll('#sidebar .sb-menu a').forEach(x=>x.classList.remove('active'));
+    a.classList.add('active');
+  });
+});
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open')}
+function setStatus(s){
+  document.querySelectorAll('.ss-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('ss-'+s).classList.add('active');
+}
+</script>
+</body>
+</html>
