@@ -291,6 +291,18 @@ textarea.ip-field{resize:vertical;min-height:100px;line-height:1.6;}
     <div class="stat-card"><div class="sc-num" id="scWip" style="color:var(--b500)">—</div><div class="sc-sub">进行中</div><a class="sc-link" href="/fsl-report/kanban/#kanban">查看看板 →</a></div>
     <div class="stat-card"><div class="sc-num" id="scRisk" style="color:#dc2626">—</div><div class="sc-sub">开放风险</div><a class="sc-link" href="/fsl-report/kanban/#risk">查看风险 →</a></div>
     <div class="stat-card"><div class="sc-num" id="scMs" style="color:var(--b700)">—</div><div class="sc-sub">里程碑总数</div><a class="sc-link" href="/fsl-report/kanban/#milestone">查看里程碑 →</a></div>
+    <div class="stat-card">
+      <div class="sc-num" id="scTimePct" style="color:var(--b500)">—</div>
+      <div class="sc-sub">时间进度</div>
+      <div id="scTimeDetail" style="font-size:11px;color:var(--muted);margin-top:3px;"></div>
+      <a class="sc-link" href="/fsl-report/weekly/">查看周报 →</a>
+    </div>
+    <div class="stat-card">
+      <div class="sc-num" id="scIssuePct" style="color:#15803d">—</div>
+      <div class="sc-sub">任务完成率</div>
+      <div id="scIssueDetail" style="font-size:11px;color:var(--muted);margin-top:3px;"></div>
+      <a class="sc-link" href="/fsl-report/kanban/#kanban">查看看板 →</a>
+    </div>
   </div>
 
   <!-- 可视化图表行 -->
@@ -352,6 +364,20 @@ textarea.ip-field{resize:vertical;min-height:100px;line-height:1.6;}
 var REPO = 'EstaTea/fsl-report';
 var API  = 'https://api.github.com/repos/' + REPO;
 
+// 时间进度立即计算（无需等API）
+(function(){
+  var tStart = new Date('2026-06-22');
+  var tEnd   = new Date('2027-01-01');
+  var tNow   = new Date();
+  var tTotal = tEnd - tStart;
+  var tDone  = Math.min(Math.max(tNow - tStart, 0), tTotal);
+  var tPct   = Math.round(tDone / tTotal * 100);
+  var weeksTotal = Math.round(tTotal / (7*24*3600*1000));
+  var weeksDone  = Math.min(Math.round(tDone / (7*24*3600*1000)), weeksTotal);
+  document.getElementById('scTimePct').textContent = tPct + '%';
+  document.getElementById('scTimeDetail').textContent = '第' + weeksDone + '周 / 共' + weeksTotal + '周';
+})();
+
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 function getLabel(issue, prefix){
@@ -396,6 +422,13 @@ Promise.all([
   document.getElementById('scWip').textContent   = wipTasks.length;
   document.getElementById('scRisk').textContent  = risks.length;
   document.getElementById('scMs').textContent    = milestones.length;
+
+  // 任务完成率（所有 issue 含 open+closed，非 PR）
+  var allTasks  = allIssues.filter(function(i){ return !i.pull_request; });
+  var closedAll = allTasks.filter(function(i){ return i.state === 'closed'; });
+  var iPct = allTasks.length ? Math.round(closedAll.length / allTasks.length * 100) : 0;
+  document.getElementById('scIssuePct').textContent = iPct + '%';
+  document.getElementById('scIssueDetail').textContent = closedAll.length + '/' + allTasks.length + ' 项已关闭';
 
   // Progress
   document.getElementById('pctLabel').textContent = pct+'%';
