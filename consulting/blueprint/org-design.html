@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>佛照数据规划及管理办法 | TOGAF 4A · MDG</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{
+  --navy:#003087; --dark:#1B3A6B; --primary:#005EB8; --mid:#1F70C1;
+  --steel:#4A6FA5; --muted:#6B8CB8; --light:#A8C4E0; --pale:#D0E4F7;
+  --bg:#EBF4FF; --white:#FFFFFF; --text:#0D1B2A; --text2:#2C3E50;
+  --nav-w:268px;
+  --red:#C0392B; --amber:#E67E22; --green:#1A6B3A;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Microsoft YaHei",Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+#prog{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--navy),var(--primary));width:0;z-index:9999;transition:width .1s}
+/* ── TOP NAV ── */
+#topnav{background:#0B2D47;padding:0 28px;display:flex;align-items:center;gap:18px;
+  height:50px;position:sticky;top:0;z-index:900;
+  box-shadow:0 2px 10px rgba(11,45,71,.5);overflow:visible !important;}
+.nav-logo-link{display:flex;align-items:center;gap:10px;flex-shrink:0;text-decoration:none;}
+.nav-divider{width:1px;height:22px;background:rgba(255,255,255,.15);flex-shrink:0;}
+.nav-project{color:rgba(255,255,255,.5);font-size:11.5px;white-space:nowrap;}
+.nav-links{display:flex;flex:1;overflow:visible !important;position:relative;}
+.nav-links>a{padding:0 12px;color:rgba(255,255,255,.6);font-size:12px;height:50px;
+  display:flex;align-items:center;white-space:nowrap;transition:color .15s;
+  border-bottom:2px solid transparent;text-decoration:none;}
+.nav-links>a:hover{color:#fff;}
+.nav-dropdown{position:relative;display:inline-flex;align-items:center;}
+.nav-dropdown>a{padding:0 12px;color:rgba(255,255,255,.6);font-size:12px;height:50px;
+  display:flex;align-items:center;white-space:nowrap;transition:color .15s;
+  border-bottom:2px solid transparent;cursor:pointer;text-decoration:none;}
+.nav-dropdown>a:hover,.nav-dropdown:hover>a{color:#fff;}
+.nav-arrow{font-size:9px;margin-left:3px;opacity:.7;}
+.nav-dropdown-panel{display:none;position:absolute;top:50px;left:0;z-index:1000;
+  background:#0B2D47;border:1px solid rgba(255,255,255,.1);
+  border-top:2px solid #5EA4CE;border-radius:0 0 6px 6px;
+  padding:14px 18px;min-width:500px;box-shadow:0 8px 24px rgba(11,45,71,.6);}
+.nav-dropdown:hover .nav-dropdown-panel{display:block;}
+.nav-dd-row{display:flex;gap:0;}
+.nav-dd-col{flex:1;padding:0 14px 0 0;}
+.nav-dd-col:last-child{padding-right:0;}
+.nav-dd-col+.nav-dd-col{border-left:1px solid rgba(255,255,255,.08);padding-left:14px;}
+.nav-dd-group-title{font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;
+  color:#5EA4CE;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid rgba(255,255,255,.08);}
+.nav-dd-panel a,.nav-dd-research-links a{display:block;padding:4px 0;
+  color:rgba(255,255,255,.65);font-size:12px;transition:color .12s;text-decoration:none;}
+.nav-dd-panel a:hover,.nav-dd-research-links a:hover{color:#fff;}
+.nav-dd-research{margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08);}
+.nav-dd-research-links{display:flex;gap:18px;}
+/* status switcher */
+.status-switcher{position:fixed;top:8px;right:16px;z-index:1100;
+  background:rgba(11,45,71,.95);border:1px solid rgba(255,255,255,.2);border-radius:6px;
+  padding:5px 10px;display:flex;align-items:center;gap:7px;font-family:inherit;
+  backdrop-filter:blur(6px);box-shadow:0 2px 12px rgba(0,0,0,.3);}
+.status-switcher .ss-label{color:rgba(255,255,255,.45);font-weight:700;font-size:10px;
+  letter-spacing:.5px;text-transform:uppercase;white-space:nowrap;}
+.ss-btn{border:1.5px solid transparent;border-radius:4px;padding:4px 11px;font-size:11px;font-weight:700;
+  cursor:pointer;transition:all .2s;font-family:inherit;white-space:nowrap;line-height:1;}
+.ss-btn:not(.active){background:transparent;color:rgba(255,255,255,.45);border-color:transparent;}
+.ss-btn:hover:not(.active){background:rgba(255,255,255,.1);color:rgba(255,255,255,.85);border-color:rgba(255,255,255,.2);}
+.ss-btn#ss-todo.active{background:#4A5568;color:#fff;border-color:#718096;}
+.ss-btn#ss-wip.active{background:#1A56DB;color:#fff;border-color:#3B82F6;box-shadow:0 0 0 2px rgba(59,130,246,.4);}
+.ss-btn#ss-done.active{background:#166534;color:#fff;border-color:#22C55E;box-shadow:0 0 0 2px rgba(34,197,94,.4);}
+/* ── SIDEBAR ── */
+#sidebar{position:fixed;top:50px;left:0;width:var(--nav-w);height:calc(100vh - 50px);
+  background:var(--dark);overflow-y:auto;z-index:100;display:flex;flex-direction:column;padding-bottom:20px}
+#sidebar::-webkit-scrollbar{width:4px}
+#sidebar::-webkit-scrollbar-thumb{background:var(--steel);border-radius:2px}
+.sb-logo{padding:16px 16px 10px;border-bottom:1px solid rgba(255,255,255,.1)}
+.sb-logo .co{font-size:10px;color:var(--pale);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px}
+.sb-logo .title{font-size:12px;font-weight:700;color:#fff;line-height:1.4}
+.sb-logo .badge{display:inline-block;margin-top:5px;background:var(--primary);color:#fff;font-size:10px;padding:2px 8px;border-radius:10px}
+.sb-menu{padding:8px 0;flex:1}
+.sb-ch{padding:7px 16px 3px;font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;font-weight:700}
+.sb-menu a{display:block;padding:6px 16px;color:rgba(255,255,255,.72);text-decoration:none;font-size:12px;border-left:3px solid transparent;transition:all .2s;line-height:1.4}
+.sb-menu a:hover{color:#fff;background:rgba(255,255,255,.07);border-left-color:var(--light)}
+.sb-menu a.active{color:#fff;background:rgba(0,94,184,.35);border-left-color:var(--primary);font-weight:600}
+.sb-menu .sub{padding-left:28px;font-size:11px;color:rgba(255,255,255,.5)}
+.sb-menu .sub:hover{color:rgba(255,255,255,.82)}
+#ham{display:none;position:fixed;top:58px;left:10px;z-index:200;background:var(--dark);border:none;color:#fff;width:36px;height:36px;border-radius:6px;cursor:pointer;font-size:15px}
+/* ── MAIN ── */
+#main{margin-left:var(--nav-w);min-height:100vh}
+/* ── COVER ── */
+.cover{background:linear-gradient(135deg,var(--navy) 0%,var(--dark) 50%,var(--primary) 100%);color:#fff;padding:56px 48px 44px;position:relative;overflow:hidden}
+.cover::before{content:"";position:absolute;top:-40px;right:-60px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.04)}
+.cover::after{content:"";position:absolute;bottom:-50px;left:120px;width:180px;height:180px;border-radius:50%;background:rgba(0,94,184,.18)}
+.cover-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);padding:4px 14px;border-radius:20px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px}
+.cover h1{font-size:27px;font-weight:700;line-height:1.3;margin-bottom:6px;position:relative}
+.cover .sub{font-size:14px;color:var(--pale);margin-bottom:28px;position:relative}
+.cover-meta{display:flex;gap:28px;flex-wrap:wrap;position:relative}
+.cover-meta-item .lbl{font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px}
+.cover-meta-item .val{font-size:13px;color:#fff;font-weight:600;margin-top:1px}
+.cover-kpi{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px;position:relative}
+.kpi-box{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:13px 18px;min-width:95px}
+.kpi-box .num{font-size:22px;font-weight:700;color:#fff}
+.kpi-box .desc{font-size:11px;color:var(--pale);margin-top:2px}
+/* ── CONTENT ── */
+.content{padding:30px 38px 60px}
+/* ── CHAPTER ── */
+.chapter{margin-bottom:44px}
+.ch-header{background:linear-gradient(90deg,var(--dark),var(--primary));color:#fff;padding:13px 22px;border-radius:10px 10px 0 0;display:flex;align-items:center;gap:12px}
+.ch-header .ch-num{background:rgba(255,255,255,.2);width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.ch-header h2{font-size:16px;font-weight:700}
+.ch-body{background:var(--white);border-radius:0 0 10px 10px;padding:26px;box-shadow:0 2px 12px rgba(0,48,135,.08)}
+/* ── SECTION ── */
+.sec{margin-bottom:26px}
+.sec-title{font-size:14px;font-weight:700;color:var(--dark);border-left:4px solid var(--primary);padding-left:11px;margin-bottom:12px;display:flex;align-items:center;gap:7px}
+.sec-title i{color:var(--primary)}
+.sec-sub{font-size:13px;font-weight:700;color:var(--mid);margin:14px 0 7px;padding-left:7px;border-left:2px solid var(--pale)}
+p{margin-bottom:9px;color:var(--text2)}
+/* ── BOXES ── */
+.box{border-radius:8px;padding:13px 16px;margin:11px 0;border-left:4px solid}
+.box.vision{background:#EBF4FF;border-color:var(--navy)}
+.box.vision::before{content:"🎯 战略定位  ";font-weight:700;color:var(--navy);display:block;margin-bottom:3px;font-size:12px}
+.box.principle{background:#F0F7FF;border-color:var(--primary)}
+.box.principle::before{content:"📐 管理原则  ";font-weight:700;color:var(--primary);display:block;margin-bottom:3px;font-size:12px}
+.box.gap{background:#EBF4FF;border-color:var(--steel)}
+.box.gap::before{content:"⚡ 差距分析  ";font-weight:700;color:var(--steel);display:block;margin-bottom:3px;font-size:12px}
+.box.finding{background:#FFF5F5;border-color:#C0392B}
+.box.finding::before{content:"🔴 关键风险  ";font-weight:700;color:#C0392B;display:block;margin-bottom:3px;font-size:12px}
+.box.guide{background:#EBF4FF;border-color:var(--muted)}
+.box.guide::before{content:"📋 指南参考  ";font-weight:700;color:var(--muted);display:block;margin-bottom:3px;font-size:12px}
+.box.amber{background:#FFFBEB;border-color:#E67E22}
+.box.amber::before{content:"⚠️ 注意事项  ";font-weight:700;color:#E67E22;display:block;margin-bottom:3px;font-size:12px}
+.box.green{background:#F0FFF4;border-color:#1A6B3A}
+.box.green::before{content:"✅ 建议措施  ";font-weight:700;color:#1A6B3A;display:block;margin-bottom:3px;font-size:12px}
+.box p{margin-bottom:3px;font-size:13px}
+/* ── TABLES ── */
+table{width:100%;border-collapse:collapse;margin:11px 0;font-size:12.5px}
+th{background:var(--dark);color:#fff;padding:8px 11px;text-align:left;font-weight:600}
+td{padding:7px 11px;border-bottom:1px solid var(--pale);vertical-align:top}
+tr:nth-child(even) td{background:var(--bg)}
+tr:hover td{background:#E0EEFF}
+.badge{display:inline-block;padding:2px 8px;border-radius:11px;font-size:11px;font-weight:600}
+.badge.r{background:#FDECEA;color:#C0392B;border:1px solid #F5C6C6}
+.badge.a{background:#FEF3C7;color:#92400E;border:1px solid #FDE68A}
+.badge.g{background:#D1FAE5;color:#065F46;border:1px solid #A7F3D0}
+.badge.b{background:var(--pale);color:var(--dark)}
+.badge.p{background:var(--primary);color:#fff}
+/* ── DCMM GAUGE ── */
+.dcmm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:14px 0}
+.dcmm-item{background:var(--white);border:1px solid var(--pale);border-radius:8px;padding:12px 14px}
+.dcmm-item .di-label{font-size:12px;font-weight:700;color:var(--dark);margin-bottom:6px}
+.dcmm-bar{height:8px;background:var(--pale);border-radius:4px;overflow:hidden;margin-bottom:4px}
+.dcmm-fill{height:100%;border-radius:4px;transition:width .6s}
+.dcmm-fill.l1{background:#C0392B;width:20%}
+.dcmm-fill.l2{background:#E67E22;width:40%}
+.dcmm-fill.l3{background:#F1C40F;width:60%}
+.dcmm-fill.l4{background:#27AE60;width:80%}
+.dcmm-fill.l5{background:#1A6B3A;width:100%}
+.dcmm-meta{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted)}
+/* ── MDM ARCH ── */
+.arch-diagram{background:var(--bg);border:1px solid var(--pale);border-radius:10px;padding:18px;margin:14px 0;overflow-x:auto}
+.arch-row{display:flex;gap:8px;margin-bottom:8px;align-items:stretch}
+.arch-layer-label{writing-mode:vertical-rl;text-orientation:mixed;background:var(--dark);color:#fff;padding:8px 5px;border-radius:6px 0 0 6px;font-size:11px;font-weight:700;letter-spacing:1px;display:flex;align-items:center;justify-content:center;min-width:26px;text-align:center}
+.arch-boxes{display:flex;gap:6px;flex:1;flex-wrap:wrap}
+.arch-box{flex:1;min-width:90px;background:var(--white);border:1.5px solid var(--pale);border-radius:6px;padding:9px 11px;text-align:center}
+.arch-box.navy-box{background:var(--navy);color:#fff;border-color:var(--navy)}
+.arch-box.primary-box{border-color:var(--primary);border-width:2px}
+.arch-box.dark-box{background:var(--dark);color:#fff;border-color:var(--dark)}
+.arch-box.mid-box{background:var(--mid);color:#fff;border-color:var(--mid)}
+.arch-box.steel-box{background:var(--steel);color:#fff;border-color:var(--steel)}
+.arch-box.amber-box{background:#E67E22;color:#fff;border-color:#E67E22}
+.arch-box .ab-title{font-size:12px;font-weight:700}
+.arch-box .ab-sub{font-size:10px;color:var(--muted);margin-top:2px}
+.arch-box.navy-box .ab-sub,.arch-box.dark-box .ab-sub,.arch-box.mid-box .ab-sub,.arch-box.steel-box .ab-sub,.arch-box.amber-box .ab-sub{color:rgba(255,255,255,.75)}
+.arch-arrow{display:flex;align-items:center;justify-content:center;padding:3px;color:var(--steel);font-size:16px}
+/* ── PRIORITY CARDS ── */
+.priority-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:12px 0}
+.priority-card{background:var(--white);border-radius:8px;padding:14px;border-top:4px solid}
+.priority-card.p1{border-top-color:#C0392B}
+.priority-card.p2{border-top-color:#E67E22}
+.priority-card.p3{border-top-color:#F1C40F}
+.priority-card .pc-label{font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.priority-card.p1 .pc-label{color:#C0392B}
+.priority-card.p2 .pc-label{color:#E67E22}
+.priority-card.p3 .pc-label{color:#B7950B}
+.priority-card .pc-title{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:4px}
+.priority-card .pc-items{font-size:11.5px;color:var(--text2)}
+.priority-card .pc-items li{list-style:none;padding-left:13px;position:relative;margin-bottom:2px}
+.priority-card .pc-items li::before{content:"›";position:absolute;left:2px;color:var(--primary)}
+/* ── LIFECYCLE ── */
+.lifecycle{display:flex;gap:0;margin:14px 0;overflow-x:auto}
+.lc-step{flex:1;min-width:110px;padding:12px 10px;text-align:center;position:relative}
+.lc-step:not(:last-child)::after{content:"›";position:absolute;right:-8px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--steel);z-index:1}
+.lc-step .ls-num{width:28px;height:28px;border-radius:50%;background:var(--primary);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 6px}
+.lc-step .ls-title{font-size:12px;font-weight:700;color:var(--dark)}
+.lc-step .ls-sub{font-size:10px;color:var(--muted);margin-top:3px}
+.lc-step.navy .ls-num{background:var(--navy)}
+.lc-step.steel .ls-num{background:var(--steel)}
+/* ── KPI CARDS ── */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:12px 0}
+.kpi-card{background:var(--white);border:1px solid var(--pale);border-radius:8px;padding:14px;border-left:4px solid var(--primary)}
+.kpi-card.r{border-left-color:#C0392B}
+.kpi-card.a{border-left-color:#E67E22}
+.kpi-card.g{border-left-color:#27AE60}
+.kpi-card .kc-name{font-size:12px;font-weight:700;color:var(--dark)}
+.kpi-card .kc-target{font-size:20px;font-weight:800;color:var(--primary);margin:4px 0}
+.kpi-card.r .kc-target{color:#C0392B}
+.kpi-card.a .kc-target{color:#E67E22}
+.kpi-card.g .kc-target{color:#27AE60}
+.kpi-card .kc-desc{font-size:11px;color:var(--muted)}
+/* ── RISK TABLE ── */
+.risk-item{display:grid;grid-template-columns:60px 1fr 80px 80px 80px 1fr;gap:8px;align-items:start;padding:10px 14px;border-bottom:1px solid var(--pale);font-size:12.5px}
+.risk-item:last-child{border-bottom:none}
+.risk-header{background:var(--dark);color:#fff;font-weight:700;border-radius:6px 6px 0 0;font-size:12px}
+.risk-header,.risk-item{display:grid;grid-template-columns:60px 1fr 70px 70px 70px 1fr;gap:8px;padding:9px 14px}
+.risk-container{background:var(--white);border:1px solid var(--pale);border-radius:8px;overflow:hidden;margin:12px 0}
+.ri-code{font-weight:800;color:var(--primary)}
+.rt-cell{padding:2px 0;color:var(--text2)}
+/* ── MILESTONES ── */
+.ms-row{display:flex;align-items:flex-start;gap:14px;margin-bottom:18px;position:relative}
+.ms-row::before{content:"";position:absolute;left:17px;top:36px;width:2px;height:calc(100% - 8px);background:var(--pale)}
+.ms-dot{width:36px;height:36px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;z-index:1}
+.ms-dot.navy{background:var(--navy)}
+.ms-dot.steel{background:var(--steel)}
+.ms-dot.green{background:#27AE60}
+.ms-body{flex:1;background:var(--white);border:1px solid var(--pale);border-radius:8px;padding:11px 14px}
+.ms-body h4{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:3px}
+.ms-body .ms-date{font-size:11px;color:var(--muted);margin-bottom:5px}
+.ms-body p{font-size:12px;margin-bottom:0;color:var(--text2)}
+/* ── FLOW ── */
+.flow{display:flex;align-items:center;flex-wrap:wrap;gap:0;margin:12px 0}
+.flow-step{background:var(--white);border:1.5px solid var(--pale);border-radius:6px;padding:7px 11px;font-size:11.5px;font-weight:600;color:var(--dark);white-space:nowrap}
+.flow-step.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.flow-step.navy{background:var(--navy);color:#fff;border-color:var(--navy)}
+.flow-step.red{background:#C0392B;color:#fff;border-color:#C0392B}
+.flow-step.amber{background:#E67E22;color:#fff;border-color:#E67E22}
+.flow-step.green{background:#27AE60;color:#fff;border-color:#27AE60}
+.flow-arrow{color:var(--steel);font-size:15px;padding:0 4px}
+.flow-arrow.break{flex-basis:100%;height:0}
+/* ── CODE BLOCK ── */
+pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:14px;font-family:"Courier New",monospace;font-size:12px;color:var(--text);overflow-x:auto;margin:10px 0;line-height:1.6}
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  #sidebar{transform:translateX(-100%);transition:transform .3s}
+  #sidebar.open{transform:translateX(0)}
+  #ham{display:flex;align-items:center;justify-content:center}
+  #main{margin-left:0}
+  .content{padding:18px 14px 40px}
+  .cover{padding:46px 18px 28px}
+  .cover h1{font-size:20px}
+  .cover-kpi{display:none}
+  .ch-body{padding:16px}
+  .arch-row{flex-direction:column}
+  .arch-layer-label{writing-mode:horizontal-tb;min-width:unset;border-radius:6px 6px 0 0;padding:5px 10px}
+  .dcmm-grid{grid-template-columns:1fr 1fr}
+  .risk-header,.risk-item{grid-template-columns:50px 1fr 60px;font-size:11px}
+  .risk-header .rt-cell:nth-child(n+4),.risk-item .rt-cell:nth-child(n+4){display:none}
+}
+@media print{
+  #sidebar,#ham,#prog,.status-switcher{display:none!important}
+  #main{margin-left:0}
+  .chapter{page-break-inside:avoid}
+}
+/* ── Radar/Spider chart ── */
+.radar-wrap{display:flex;justify-content:center;align-items:center;margin:16px 0;overflow-x:auto}
+.radar-wrap svg{max-width:100%;height:auto}
+.radar-label{font-family:"Microsoft YaHei",Arial,sans-serif;fill:var(--text)}
+
+/* ── Gauge grid (DCMM bars) ── */
+.gauge-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:10px;margin:13px 0}
+.gauge-item{background:var(--white);border:1px solid var(--pale);border-radius:8px;padding:12px 14px}
+.gauge-item .gi-label{font-size:12px;font-weight:700;color:var(--dark);margin-bottom:6px}
+.gauge-bar{height:8px;background:var(--pale);border-radius:4px;overflow:hidden;margin-bottom:4px}
+.gauge-fill{height:100%;border-radius:4px}
+.gauge-fill.l1{background:#C0392B}
+.gauge-fill.l2{background:#E67E22}
+.gauge-fill.l3{background:#F1C40F}
+.gauge-fill.l4{background:#27AE60}
+.gauge-fill.l5{background:#1A6B3A}
+.gauge-meta{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted)}
+
+/* ── ROI grid ── */
+.roi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:14px 0}
+.roi-box{border-radius:10px;padding:20px 18px}
+.roi-box.invest{background:#EBF4FF;border:2px solid var(--pale)}
+.roi-box.return{background:#D1FAE5;border:2px solid #A7F3D0}
+.roi-box.net{background:var(--white);border:2px solid var(--primary)}
+.roi-box .rl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:6px}
+.roi-box .rv{font-size:24px;font-weight:800;margin:6px 0 10px}
+.roi-box .rb{font-size:11.5px;color:var(--text2);line-height:1.75}
+@media(max-width:768px){.roi-grid{grid-template-columns:1fr}}
+
+/* ── Priority cards ── */
+.prio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0}
+.prio-card{background:var(--white);border-radius:10px;padding:18px;border-top:4px solid;box-shadow:0 2px 8px rgba(0,48,135,.07)}
+.prio-card.p1{border-top-color:#C0392B}
+.prio-card.p2{border-top-color:#E67E22}
+.prio-card.p3{border-top-color:#F1C40F}
+.prio-card .pl{font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.prio-card.p1 .pl{color:#C0392B}
+.prio-card.p2 .pl{color:#E67E22}
+.prio-card.p3 .pl{color:#B7950B}
+.prio-card .pt{font-size:14px;font-weight:700;color:var(--dark);margin-bottom:8px}
+.prio-card .pi{font-size:12px;color:var(--text2);list-style:none;padding:0}
+.prio-card .pi li{padding:3px 0 3px 16px;position:relative;line-height:1.6}
+.prio-card .pi li::before{content:"›";position:absolute;left:2px;color:var(--primary);font-weight:700}
+
+/* ── Root cause cards (NEW card style) ── */
+.rc-cards{display:flex;flex-direction:column;gap:14px;margin:14px 0}
+.rc-card{background:var(--white);border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,48,135,.08)}
+.rc-card-head{display:flex;align-items:center;gap:12px;padding:12px 18px;background:linear-gradient(90deg,var(--dark),var(--primary));color:#fff}
+.rc-card-head .rc-num{background:rgba(255,255,255,.25);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0}
+.rc-card-head h4{font-size:13px;font-weight:700;line-height:1.4}
+.rc-card-body{padding:14px 18px}
+.rc-steps{display:flex;flex-direction:column;gap:0}
+.rc-step{display:flex;gap:12px;align-items:flex-start;padding:7px 0;border-bottom:1px dashed var(--pale)}
+.rc-step:last-child{border-bottom:none}
+.rc-step-icon{width:26px;height:26px;border-radius:50%;background:var(--bg);border:2px solid var(--pale);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;margin-top:1px}
+.rc-step-icon.red{background:#FDECEA;border-color:#E74C3C;color:#C0392B}
+.rc-step-icon.amber{background:#FEF3C7;border-color:#F39C12;color:#B7950B}
+.rc-step-icon.break{background:var(--primary);border-color:var(--primary);color:#fff}
+.rc-step-text{font-size:12px;color:var(--text2);line-height:1.65;padding-top:2px}
+.rc-step-text strong{color:var(--dark)}
+.rc-arrow-down{text-align:center;color:var(--steel);font-size:18px;line-height:1;padding:2px 0}
+.rc-result{background:#EBF4FF;border:1px solid var(--pale);border-radius:6px;padding:8px 12px;font-size:12px;color:var(--dark);font-weight:600;margin-top:4px;border-left:4px solid var(--primary)}
+.rc-impact{background:var(--bg);border-left:3px solid var(--primary);padding:7px 12px;font-size:11.5px;color:var(--muted);margin-top:8px;border-radius:0 4px 4px 0}
+/* legacy support */
+.root-cause-card{background:var(--white);border-radius:8px;padding:16px;border-left:5px solid var(--primary);margin-bottom:12px;box-shadow:0 1px 6px rgba(0,48,135,.06)}
+.root-cause-card .rc-title{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.root-cause-card .rc-chain{font-size:12px;color:var(--text2);line-height:2;background:var(--bg);padding:10px 12px;border-radius:6px;font-family:"Courier New",monospace;white-space:pre-wrap}
+
+/* ── SAP module matrix ── */
+.sap-matrix{width:100%;border-collapse:collapse;margin:12px 0;font-size:11.5px}
+.sap-matrix th{background:var(--dark);color:#fff;padding:7px 10px;text-align:center;font-weight:700;font-size:11px}
+.sap-matrix th.left{text-align:left}
+.sap-matrix td{padding:6px 10px;border-bottom:1px solid var(--pale);text-align:center;vertical-align:middle}
+.sap-matrix td.ent{text-align:left;font-size:11px;font-weight:600;color:var(--dark)}
+.sap-matrix td.code{font-size:10px;color:var(--muted);font-family:monospace}
+.sap-check{color:#27AE60;font-weight:800;font-size:13px}
+.sap-empty{color:var(--pale)}
+.sap-row-full{background:#EBF4FF}
+.sap-row-fi{background:#F9F9F9}
+
+/* ── IT org card ── */
+.it-staff-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:12px 0}
+.it-staff-card{background:var(--white);border:1px solid var(--pale);border-radius:8px;padding:14px;text-align:center}
+.it-staff-card .isc-role{font-size:11px;font-weight:700;color:var(--dark);margin-bottom:4px}
+.it-staff-card .isc-num{font-size:26px;font-weight:800;color:var(--primary);line-height:1}
+.it-staff-card .isc-sub{font-size:10.5px;color:var(--muted);margin-top:3px}
+.it-staff-card.gap{border-color:#C0392B;background:#FFF5F5}
+.it-staff-card.gap .isc-num{color:#C0392B}
+
+</style>
+</head>
+<body>
+<div id="prog"></div>
+
+<!-- TOP NAV -->
+<nav id="topnav">
+  <a href="/fsl-report/" class="nav-logo-link">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 36" height="26" aria-label="FSL 佛山照明">
+      <rect x="0" y="3" width="4" height="30" fill="#F06000"/>
+      <rect x="0" y="3" width="18" height="4" fill="#F06000"/>
+      <rect x="0" y="16" width="13" height="4" fill="#F06000"/>
+      <path d="M22 3 h14 v4 h-9 v6 h9 v4 h-9 v7 h10 v4 h-15 v-9 h9 v-3 h-9 z" fill="#F06000"/>
+      <rect x="42" y="3" width="4" height="30" fill="#F06000"/>
+      <rect x="42" y="29" width="16" height="4" fill="#F06000"/>
+      <text x="66" y="26" font-family="Microsoft YaHei,PingFang SC,sans-serif" font-size="14" font-weight="700" fill="rgba(255,255,255,0.92)" letter-spacing="1">佛山照明</text>
+    </svg>
+  </a>
+  <div class="nav-divider"></div>
+  <span class="nav-project">数字化转型项目工作台</span>
+  <div class="nav-links">
+    <a href="/fsl-report/">工作台首页</a>
+    <div class="nav-dropdown">
+      <a href="/fsl-report/consulting/">交付物 <span class="nav-arrow">▾</span></a>
+      <div class="nav-dropdown-panel">
+        <div class="nav-dd-row">
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">管理咨询交付</div>
+            <a href="/fsl-report/consulting/diagnosis/report-01.html">1. 现状诊断报告</a>
+            <a href="/fsl-report/consulting/blueprint/ea-report.html">2. 企业架构设计报告</a>
+            <a href="/fsl-report/consulting/solutions/">3. 专项方案设计报告</a>
+            <a href="/fsl-report/consulting/blueprint/data-survey.html">4.1 数据调研分析报告</a>
+            <a href="/fsl-report/consulting/blueprint/data-governance.html">4.2 数据规划及管理办法</a>
+            <a href="/fsl-report/consulting/blueprint/data-summary.html">4.3 数据治理总结报告</a>
+            <a href="/fsl-report/consulting/blueprint/org-design.html">5. 组织设计报告</a>
+            <a href="/fsl-report/consulting/roadmap/roadmap-report.html">6. 数字化转型路径规划</a>
+          </div>
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">SAP 实施交付</div>
+            <a href="/fsl-report/sap/prepare/">项目准备阶段</a>
+            <a href="/fsl-report/sap/blueprint/">蓝图方案设计</a>
+            <a href="/fsl-report/sap/realize/">系统实现阶段</a>
+            <a href="/fsl-report/sap/deploy/">上线切换阶段</a>
+          </div>
+        </div>
+        <div class="nav-dd-research">
+          <div class="nav-dd-group-title">行业研究</div>
+          <div class="nav-dd-research-links">
+            <a href="/fsl-report/research/">照明行业对标研究</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="/fsl-report/weekly/">项目周报</a>
+    <div class="nav-dropdown">
+      <a href="/fsl-report/kanban/">任务看板 <span class="nav-arrow">▾</span></a>
+      <div class="nav-dropdown-panel">
+        <div class="nav-dd-row">
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">看板视图</div>
+            <a href="/fsl-report/kanban/#kanban">📋 看板</a>
+            <a href="/fsl-report/kanban/#milestone">🎯 里程碑</a>
+            <a href="/fsl-report/kanban/#tasklist">☑ 任务列表</a>
+            <a href="/fsl-report/kanban/#risk">⚠️ 风险</a>
+          </div>
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">分析与管理</div>
+            <a href="/fsl-report/kanban/#deliverable">📦 交付物追踪</a>
+            <a href="/fsl-report/kanban/#stats">📊 统计</a>
+            <a href="/fsl-report/weekly/">📰 项目周报</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="status-switcher" id="statusSwitcher">
+  <span class="ss-label">文档状态</span>
+  <button class="ss-btn" id="ss-todo" onclick="setStatus('todo')">待开始</button>
+  <button class="ss-btn active" id="ss-wip" onclick="setStatus('wip')">进行中</button>
+  <button class="ss-btn" id="ss-done" onclick="setStatus('done')">已完成</button>
+</div>
+
+<button id="ham" onclick="toggleSidebar()">☰</button>
+<nav id="sidebar">
+  <div class="sb-logo">
+    <div class="co">FSL S/4HANA 升级项目</div>
+    <div class="title">数字化保障组织设计报告</div>
+    <span class="badge">★4（可选）· TOGAF 4A · OCM · v1.0</span>
+  </div>
+  <div class="sb-menu">
+    <div class="sb-ch">导航</div>
+    <a href="#cover">封面 &amp; 核心主张</a>
+    <a href="#exec">执行摘要</a>
+    <div class="sb-ch">现状诊断</div>
+    <a href="#diag-ba">一、业务架构（BA）诊断</a>
+    <a href="#diag-ba" class="sub">组织全景 · 权责边界问题</a>
+    <a href="#diag-aa">二、应用架构（AA）诊断</a>
+    <a href="#diag-aa" class="sub">IT建设历程 · 失败项目分析</a>
+    <a href="#diag-da">三、数据架构（DA）诊断</a>
+    <a href="#diag-da" class="sub">主数据权责真空</a>
+    <a href="#diag-ta">四、技术架构（TA）诊断</a>
+    <a href="#diag-ta" class="sub">IT人力缺口量化</a>
+    <div class="sb-ch">深度分析</div>
+    <a href="#problems">五、五大核心组织问题</a>
+    <a href="#problems" class="sub">权责/人力/流程/Owner/历史失败</a>
+    <div class="sb-ch">目标设计</div>
+    <a href="#target-org">六、目标组织架构</a>
+    <a href="#target-org" class="sub">数智化部TO-BE · MDM Office</a>
+    <a href="#target-org" class="sub">CIO/CDO方案 · 保障委员会</a>
+    <a href="#target-org" class="sub">21名联络员体系</a>
+    <a href="#mechanism">七、IT与业务协同机制</a>
+    <a href="#mechanism" class="sub">需求管理 · 项目管理 · KPI</a>
+    <a href="#talent">八、人才结构与能力规划</a>
+    <a href="#talent" class="sub">Super User体系 · 人才路线图</a>
+    <a href="#ocm">九、变革管理行动计划</a>
+    <a href="#ocm" class="sub">Kotter 8步 · 阻力分析</a>
+    <a href="#roadmap">十、组织转型路线图</a>
+    <a href="#roadmap" class="sub">20个里程碑 · 2026-2030</a>
+    <div class="sb-ch">参考与保障</div>
+    <a href="#benchmark">十一、行业对标</a>
+    <a href="#benchmark" class="sub">欧普 · 阳光 · 华为/美的</a>
+    <a href="#risk">十二、风险管理</a>
+    <div class="sb-ch">数据治理三部曲</div>
+    <a href="/fsl-report/consulting/blueprint/data-survey.html">★4 数字化现状分析报告</a>
+    <a href="/fsl-report/consulting/blueprint/data-governance.html">★4 数据规划及管理办法</a>
+    <a href="/fsl-report/consulting/blueprint/data-summary.html">★4 数据治理总结报告</a>
+    <div class="sb-ch">蓝图阶段交付物</div>
+    <a href="/fsl-report/consulting/blueprint/ea-report.html">★5 企业架构设计报告</a>
+    <a href="/fsl-report/consulting/blueprint/solution-report.html">★2 专项方案设计报告</a>
+    <a href="/fsl-report/consulting/blueprint/">← 返回蓝图阶段</a>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- COVER -->
+<section class="cover" id="cover">
+  <div class="cover-tag">★4（可选）· 数字化保障组织设计报告 · 探索阶段交付物 · 保密咨询文件</div>
+  <h1>佛山照明数字化保障组织设计报告</h1>
+  <div class="sub">TOGAF ADM 4A · 工信部数字化转型实施指南 · Kotter 8步变革管理模型 | 13章 · 约3万字</div>
+  <div class="cover-meta">
+    <div class="cover-meta-item"><div class="lbl">版本</div><div class="val">v1.0 · 2026-06-29</div></div>
+    <div class="cover-meta-item"><div class="lbl">方法论</div><div class="val">TOGAF 4A · 工信部指南 · Kotter OCM</div></div>
+    <div class="cover-meta-item"><div class="lbl">数据来源</div><div class="val">D1-D5访谈 · 数智化部PPT · 268节点组织架构</div></div>
+    <div class="cover-meta-item"><div class="lbl">主责顾问</div><div class="val">达维咨询 组织设计团队</div></div>
+    <div class="cover-meta-item"><div class="lbl">最终验收</div><div class="val">李泽华（分管副总）/ 吴梓填（数智化部）</div></div>
+  </div>
+  <div class="cover-kpi">
+    <div class="kpi-box"><div class="num">268</div><div class="desc">组织节点数</div></div>
+    <div class="kpi-box"><div class="num">3,570</div><div class="desc">集团员工总数</div></div>
+    <div class="kpi-box"><div class="num">16人</div><div class="desc">数智化部编制</div></div>
+    <div class="kpi-box"><div class="num">5倍</div><div class="desc">IT人力缺口比</div></div>
+    <div class="kpi-box"><div class="num">490万</div><div class="desc">历史失败项目损失（元）</div></div>
+    <div class="kpi-box"><div class="num">21人</div><div class="desc">建议联络员体系规模</div></div>
+  </div>
+</section>
+
+<div class="content">
+<!-- ═══ EXEC SUMMARY ═══ -->
+<div class="chapter" id="exec">
+  <div class="ch-header"><div class="ch-num">0</div><h2>执行摘要 · 三个核心主张</h2></div>
+  <div class="ch-body">
+    <div class="sec">
+      <p>基于2026年6月探索阶段17场访谈和全量组织架构数据（268节点/3,570人），本报告得出以下三个核心主张：</p>
+      <div class="prio-grid">
+        <div class="prio-card p1">
+          <div class="pl">主张一</div>
+          <div class="pt">组织能力是SAP成功的前置条件，而非可选项</div>
+          <ul class="pi"><li>历史4次项目失败（600+万损失）根因均是组织问题而非技术问题</li><li>业务部门不担责 + 数据质量差 + 流程不细化 = 必然失败公式</li><li>没有合理的组织设计，再先进的ERP也难以扎根佛照</li></ul>
+        </div>
+        <div class="prio-card p1">
+          <div class="pl">主张二</div>
+          <div class="pt">S/4HANA上线后IT组织需要扩张，而非维持现状</div>
+          <ul class="pi"><li>当前16人支持8,000+人，缺口约5倍</li><li>S/4HANA后系统复杂度大幅提升（19家法人、8个模块、12套集成系统）</li><li>不增加人力，维持系统稳定运行是不现实的</li></ul>
+        </div>
+        <div class="prio-card p1">
+          <div class="pl">主张三</div>
+          <div class="pt">数字化转型本质是业务变革，IT只能是推动者</div>
+          <ul class="pi"><li>李泽华副总（2026-06-23）：<em>"数字化不是说IT部门往前推就可以完事的，他们必须要来做改变。"</em></li><li>数字化保障组织必须是横跨IT和业务的联合体</li><li>业务部门是项目Owner，IT提供技术支持</li></ul>
+        </div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-table"></i> 组织诊断核心发现一览</div>
+      <table>
+        <thead><tr><th>#</th><th>发现</th><th>数据依据</th><th>风险</th></tr></thead>
+        <tbody>
+          <tr><td>F-01</td><td>IT人力严重不足：16人支持8,000+人，约为行业标准的1/5</td><td>数智化部PPT（2025-08-08）：编制16人</td><td><span class="badge r">极高</span></td></tr>
+          <tr><td>F-02</td><td>历史4次IT项目失败，累计损失490+万元，根因均指向组织</td><td>6月24日数字化系统现状讨论会议纪要</td><td><span class="badge r">极高</span></td></tr>
+          <tr><td>F-03</td><td>全公司仅1名专职流程人员（企管部朱海英），流程治理几乎空白</td><td>6月25日流程建设讨论纪要，朱海英访谈</td><td><span class="badge r">极高</span></td></tr>
+          <tr><td>F-04</td><td>无MDM主数据管理专员，数据权责真空——5大关键字段~100%缺失</td><td>物料主数据基本视图.xls，3,542条分析</td><td><span class="badge r">极高</span></td></tr>
+          <tr><td>F-05</td><td>数智化部代维业务数据（权责不清）：IT背锅但无业务决策权</td><td>6月25日供应链调研纪要</td><td><span class="badge a">高</span></td></tr>
+          <tr><td>F-06</td><td>高明公司（393人，第二大生产基地）0名本地IT支持人员</td><td>佛山照明企业组织架构.xlsx</td><td><span class="badge a">高</span></td></tr>
+          <tr><td>F-07</td><td>S/4HANA实施期需求约165人月工作量，当前可用甲方人力约14人</td><td>本报告测算，基于实施最佳实践</td><td><span class="badge r">极高</span></td></tr>
+          <tr><td>F-08</td><td>No Super User体系、No变革管理——是上线后用户不接受系统的最大隐患</td><td>历史失败根因分析+行业对标</td><td><span class="badge a">高</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CH1 BA ═══ -->
+<div class="chapter" id="diag-ba">
+  <div class="ch-header"><div class="ch-num">1</div><h2>业务架构（BA）诊断——组织结构与职责边界</h2></div>
+  <div class="ch-body">
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-sitemap"></i> 1.1 集团组织全景（268节点 · 3,570人）</div>
+      <table>
+        <thead><tr><th>部门/事业部</th><th>人数</th><th>SAP模块关联</th><th>数字化角色</th><th>主要痛点</th></tr></thead>
+        <tbody>
+          <tr><td><b>数智化部</b></td><td>23人</td><td>全模块主责</td><td>甲方项目经理（吴梓填）、IT运维、SAP配合</td><td><span class="badge r">人力缺口5倍</span></td></tr>
+          <tr><td>财务管理部</td><td>33人</td><td>FI/CO/GR</td><td>月结核算、合并报表、成本分析</td><td>月结7-12天，料工费不可见</td></tr>
+          <tr><td>企业管理部（品牌管理部）</td><td>15人</td><td>流程/制度</td><td>唯一流程人员（朱海英），绩效KPI</td><td><span class="badge r">1名专职流程人员</span></td></tr>
+          <tr><td>供应链中心</td><td>13人</td><td>MM/SRM</td><td>采购管理、供应商管理</td><td>SRM→SAP价格断点，IT代维</td></tr>
+          <tr><td>产品及方案中心</td><td>35人</td><td>MM（物料）/PLM</td><td>物料主数据、产品分类、项目特价</td><td>字段残缺，69码/图号~100%缺失</td></tr>
+          <tr><td>研究院</td><td>200人</td><td>PLM/MM（BOM）</td><td>研发BOM创建、工艺路线（几乎无）</td><td>工艺路线覆盖率<5%，研产BOM混用</td></tr>
+          <tr><td>质量与客服中心</td><td>73人</td><td>QM</td><td>质量检验、客户投诉</td><td>QM检验批未激活（技术要求~100%缺失）</td></tr>
+          <tr><td>家用事业部</td><td>258人</td><td>SD</td><td>销售订单、价格、库存</td><td>手工开单50-60%，阶梯价全人工</td></tr>
+          <tr><td>商用事业部（智城科技）</td><td>138人</td><td>SD</td><td>工程项目销售、里程碑开票</td><td>项目特价无数量控制</td></tr>
+          <tr><td>国际事业部（佛照光电）</td><td>357人</td><td>SD/FI</td><td>出口结算、转移定价、海外法人</td><td>转移定价两套口径，泰国数据孤岛</td></tr>
+          <tr><td>高明公司生产运营中心</td><td>140人</td><td>PP/QM/WM</td><td>生产计划、工单执行、仓库管理</td><td><span class="badge r">0名本地IT支持</span></td></tr>
+          <tr><td>南宁燎旺车灯（子公司）</td><td>1,123人</td><td>GR（合并）</td><td>独立上市，有自己IT部5人</td><td>本期建议仅做集团合并报表对接</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-exclamation-circle"></i> 1.2 三大职责边界核心问题</div>
+      <div class="rc-cards">
+        <div class="rc-card">
+          <div class="rc-card-head"><div class="rc-num">①</div><h4>IT"代维"业务数据——权责错位</h4></div>
+          <div class="rc-card-body">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+              <div style="background:var(--bg);border-radius:6px;padding:10px">
+                <div style="font-size:11px;font-weight:700;color:var(--dark);margin-bottom:5px">典型案例：SRM→SAP价格录入</div>
+                <div style="font-size:11.5px;color:var(--text2);line-height:1.75">SRM审批完成后，数智化部代劳将价格复制到SAP PIR。供应链中心无人会操作SAP，也没有人被考核"价格录入准确性"。</div>
+              </div>
+              <div style="background:#FFF5F5;border-radius:6px;padding:10px">
+                <div style="font-size:11px;font-weight:700;color:#C0392B;margin-bottom:5px">后果</div>
+                <div style="font-size:11.5px;color:var(--text2);line-height:1.75">错误率约5-8%；月均400-1,600小时无效搬运；数智化部无商业判断能力，录入格式错误频发。</div>
+              </div>
+            </div>
+            <div class="rc-impact">🔧 <strong>治理目标：</strong>SRM→S/4HANA价格通过CPI接口自动同步，数智化部完全退出价格录入工作</div>
+          </div>
+        </div>
+        <div class="rc-card">
+          <div class="rc-card-head"><div class="rc-num">②</div><h4>企管部 vs 数智化部——流程治理分工不清</h4></div>
+          <div class="rc-card-body">
+            <table style="width:100%;font-size:12px;border-collapse:collapse">
+              <tr style="background:var(--bg)"><td style="padding:6px 10px;font-weight:700">理论分工</td><td style="padding:6px 10px">企管部主导TO-BE流程设计，数智化部负责系统配置</td></tr>
+              <tr><td style="padding:6px 10px;font-weight:700">实际情况</td><td style="padding:6px 10px">企管部仅1人（朱海英），对SAP业务流程认知有限；流程确认工作大量压到数智化部（吴梓填）</td></tr>
+              <tr style="background:#FFF5F5"><td style="padding:6px 10px;font-weight:700;color:#C0392B">SAP项目风险</td><td style="padding:6px 10px;color:#C0392B">蓝图阶段需确认约150-200条流程，1人处理需要75-100个工作日，远超60天窗口</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="rc-card">
+          <div class="rc-card-head"><div class="rc-num">③</div><h4>总部精简目标 vs 数字化扩编——潜在矛盾</h4></div>
+          <div class="rc-card-body">
+            <p style="font-size:12px;color:var(--text2)">精益改善项目（序号30，党群与人力资源部）目标：总部人员精简20-30%，以前台市场化、中台专业化、后台精干化为导向。</p>
+            <p style="font-size:12px;color:var(--text2)">本报告建议数智化部新增约8-10人。两者需在2026年8月前协调：数字化战略性岗位应明确豁免精简范围。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CH2 AA ═══ -->
+<div class="chapter" id="diag-aa">
+  <div class="ch-header"><div class="ch-num">2</div><h2>应用架构（AA）诊断——IT建设历程与失败分析</h2></div>
+  <div class="ch-body">
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-history"></i> 2.1 IT建设投入概览（2022-2025年，约2,650万元）</div>
+      <table>
+        <thead><tr><th>类别</th><th>估算金额</th><th>代表项目</th><th>评估</th></tr></thead>
+        <tbody>
+          <tr><td>制造/生产类</td><td>约1,100万元</td><td>数字化车间（669万）+ SMT MES（293万）+ 数字孪生（49万）</td><td><span class="badge a">部分有效</span></td></tr>
+          <tr><td>网络安全类</td><td>约400万元</td><td>等保+加固+安全管控平台（共5批次）</td><td><span class="badge g">有效</span></td></tr>
+          <tr><td>管理信息类</td><td>约800万元</td><td>PLM（225万）+HR（53万）+WMS（356万）+CRM（在建）</td><td><span class="badge a">部分有效</span></td></tr>
+          <tr><td>基础设施类</td><td>约300万元</td><td>超融合（73万）+机房改造（39万）+云盘+VPN</td><td><span class="badge g">有效</span></td></tr>
+          <tr><td>SAP ECC运维</td><td>约50万元</td><td>外部运维机构（FI/CO/SD/PP/MM/QM/BASIS）</td><td><span class="badge b">最小必要</span></td></tr>
+          <tr><td><b>合计</b></td><td><b>约2,650万元</b></td><td colspan="2"><b>核心问题：外围系统多而杂，核心ERP（SAP）老而旧，未升级</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-times-circle"></i> 2.2 历史4次IT项目失败组织根因解剖</div>
+      <table>
+        <thead><tr><th>失败项目</th><th>损失</th><th>无业务Owner</th><th>无Super User</th><th>无变革管理</th><th>无验收标准</th><th>结果</th></tr></thead>
+        <tbody>
+          <tr><td>APS排产系统（Asprova）</td><td>约120万</td><td><span class="badge r">×</span></td><td><span class="badge r">×</span></td><td><span class="badge r">×</span></td><td><span class="badge a">模糊</span></td><td>停用</td></tr>
+          <tr><td>线路板车间MES</td><td>约90万</td><td><span class="badge r">×</span></td><td><span class="badge r">×</span></td><td><span class="badge r">×</span></td><td><span class="badge r">×</span></td><td>合同作废</td></tr>
+          <tr><td>财务共享平台</td><td>约180万</td><td><span class="badge a">不到位</span></td><td><span class="badge r">×</span></td><td><span class="badge r">×</span></td><td><span class="badge a">模糊</span></td><td>停止建设</td></tr>
+          <tr><td>营销管理平台</td><td>约100万</td><td><span class="badge r">×</span></td><td><span class="badge r">×</span></td><td><span class="badge r">×</span></td><td><span class="badge r">×</span></td><td>蓝图未过</td></tr>
+          <tr style="background:#FDECEA"><td><b>合计损失</b></td><td><b style="color:#C0392B">约490万元</b></td><td colspan="5" style="color:#C0392B"><b>四次失败的共同特征：数智化部既是甲方PM又代替业务做决策；无业务Key User全程参与</b></td></tr>
+        </tbody>
+      </table>
+      <div class="box finding"><p><strong>失败模式的组织成因（三重根因）：</strong>①业务部门不担责，视数字化为IT的事；②需求不清，无业务Owner全程主导确认；③无变革管理，用户上线后不会用也不愿用。</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CH3 DA+TA ═══ -->
+<div class="chapter" id="diag-da">
+  <div class="ch-header"><div class="ch-num">3</div><h2>数据架构（DA）·技术架构（TA）诊断</h2></div>
+  <div class="ch-body">
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-database"></i> 3.1 主数据治理权责真空——物料主数据5大字段缺失的组织责任归属</div>
+      <table>
+        <thead><tr><th>缺失字段</th><th>缺失率</th><th>理论应由谁负责</th><th>实际无人负责的原因</th><th>后果</th></tr></thead>
+        <tbody>
+          <tr><td>跨工厂物料状态（MMSTA）</td><td><span class="badge r">99.9%</span></td><td>计划部门</td><td>计划部门不知道此字段存在，IT宽松配置</td><td>停产物料参与MRP，虚假需求</td></tr>
+          <tr><td>技术要求（MTVFP）</td><td><span class="badge r">~100%</span></td><td>质量与客服中心</td><td>QM模块从未深度使用，质检部门不接触SAP</td><td>QM检验批无法自动创建</td></tr>
+          <tr><td>69码/EAN条形码（EAN11）</td><td><span class="badge r">~100%</span></td><td>产品及方案中心</td><td>产品中心认为69码是市场/电商的事，非SAP字段</td><td>WMS扫码无法关联物料</td></tr>
+          <tr><td>旧物料号（BISMT）</td><td><span class="badge r">~100%</span></td><td>数智化部/产品中心</td><td>创建物料时从未要求填写，无人提出历史追溯需求</td><td>Greenfield迁移无新旧编码追溯</td></tr>
+          <tr><td>主机图号（MHDRZ）</td><td><span class="badge r">~100%</span></td><td>研究院（工程师）</td><td>PLM与SAP物料从未真正关联，工程师只用PLM</td><td>ECO变更无法自动触发BOM更新</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-users"></i> 3.2 IT人力缺口量化分析</div>
+      <div class="it-staff-grid">
+        <div class="it-staff-card"><div class="isc-role">数智化部编制</div><div class="isc-num">16</div><div class="isc-sub">（实际22人）</div></div>
+        <div class="it-staff-card"><div class="isc-role">SAP内部顾问</div><div class="isc-num" style="color:var(--primary)">2</div><div class="isc-sub">MM/PP + 开发</div></div>
+        <div class="it-staff-card"><div class="isc-role">SAP外包顾问</div><div class="isc-num" style="color:var(--steel)">2</div><div class="isc-sub">FICO + SD</div></div>
+        <div class="it-staff-card gap"><div class="isc-role">MDM专员</div><div class="isc-num">0</div><div class="isc-sub">⚠️ 完全缺失</div></div>
+        <div class="it-staff-card gap"><div class="isc-role">CPI集成工程师</div><div class="isc-num">0</div><div class="isc-sub">⚠️ 完全缺失</div></div>
+        <div class="it-staff-card gap"><div class="isc-role">IT/员工比</div><div class="isc-num">0.2%</div><div class="isc-sub">行业标准1-1.5%</div></div>
+      </div>
+      <div class="sec-sub">S/4HANA实施期工作量测算（165人月）</div>
+      <table>
+        <thead><tr><th>工作类型</th><th>工作量（人月）</th><th>需要人力</th></tr></thead>
+        <tbody>
+          <tr><td>配合艾维登系统配置确认</td><td>约30人月</td><td>约4-5人</td></tr>
+          <tr><td>数据治理与清洗（WP1-WP4）</td><td>约60人月</td><td>约8-10人</td></tr>
+          <tr><td>现有系统日常运维（20+套）</td><td>约30人月</td><td>约4人</td></tr>
+          <tr><td>变革管理与用户培训</td><td>约20人月</td><td>约3人（需新增）</td></tr>
+          <tr><td>CPI接口开发配合</td><td>约15人月</td><td>约2人（需新增）</td></tr>
+          <tr><td>Mock迁移执行</td><td>约10人月</td><td>约2人</td></tr>
+          <tr style="background:#FDECEA"><td><b>合计需求</b></td><td><b>约165人月</b></td><td><b style="color:#C0392B">约23-26人（甲方侧）| 实际可投入约14人 | 缺口约9-12人</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CH4 TARGET ORG ═══ -->
+<div class="chapter" id="target-org">
+  <div class="ch-header"><div class="ch-num">4</div><h2>目标组织架构设计</h2></div>
+  <div class="ch-body">
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-building"></i> 4.1 数智化部目标架构（三阶段演进）</div>
+      <div class="arch-diagram">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+          <div style="background:var(--dark);color:#fff;border-radius:8px;padding:14px">
+            <div style="font-size:10px;opacity:.7;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">阶段一 · 2026年底（SAP实施期）</div>
+            <div style="font-size:13px;font-weight:800;margin-bottom:8px">约30人</div>
+            <div style="font-size:11.5px;opacity:.85;line-height:1.8">SAP CoE（8-10人）<br>MDM Office（2-3人）<br>数字化创新中心（3-4人）<br>IT基础设施（4-5人）<br>应用管理（3-4人）<br>变革管理临时团队（2人）</div>
+          </div>
+          <div style="background:var(--primary);color:#fff;border-radius:8px;padding:14px">
+            <div style="font-size:10px;opacity:.7;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">阶段二 · 2027年底（稳定运营期）</div>
+            <div style="font-size:13px;font-weight:800;margin-bottom:8px">约28-32人</div>
+            <div style="font-size:11.5px;opacity:.85;line-height:1.8">SAP CoE正式成立<br>外包顾问从4人减至2人<br>BI分析师扩展至3人<br>MDM Office常态化运营<br>变革管理团队解散</div>
+          </div>
+          <div style="background:var(--navy);color:#fff;border-radius:8px;padding:14px">
+            <div style="font-size:10px;opacity:.7;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">阶段三 · 2028-2030（数字化成熟期）</div>
+            <div style="font-size:13px;font-weight:800;margin-bottom:8px">约30-35人</div>
+            <div style="font-size:11.5px;opacity:.85;line-height:1.8">AI应用工程师×3<br>数据治理中心建立<br>DCMM 2级认证申请<br>数字化场景规划师×1-2<br>探索培养CIO后备干部</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-user-tie"></i> 4.2 CIO/CDO设置方案比较</div>
+      <table>
+        <thead><tr><th>方案</th><th>CIO</th><th>CDO</th><th>优点</th><th>缺点</th><th>推荐度</th></tr></thead>
+        <tbody>
+          <tr style="background:#EBF4FF"><td><b>方案A（推荐）</b></td><td>李泽华副总经理（兼任，正式授权）</td><td>苏大明部长升任</td><td>无新增编制；利用现有权威；快速生效</td><td>李泽华兼任精力有限</td><td><span class="badge p">推荐</span></td></tr>
+          <tr><td>方案B</td><td>外部引进专职CIO（SAP上线稳定后）</td><td>同上或另招</td><td>带来外部最佳实践</td><td>引进周期6-12月；文化融合风险</td><td><span class="badge b">次选</span></td></tr>
+          <tr><td>方案C</td><td>暂不设立，通过委员会机制代替</td><td>暂不设立</td><td>无编制压力</td><td>决策效率低；利益冲突调解难</td><td><span class="badge a">风险较高</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-network-wired"></i> 4.3 数字化保障委员会（三层治理结构）</div>
+      <div class="arch-diagram">
+        <div style="text-align:center;margin-bottom:12px">
+          <div style="display:inline-block;background:var(--dark);color:#fff;padding:10px 40px;border-radius:6px;font-weight:700;font-size:13px">指导委员会（战略决策层）<br><span style="font-size:11px;opacity:.75;font-weight:400">张学权（主席）· 李泽华 · 艾维登总监 · SAP原厂CSM陈宇峰 · 月度会议</span></div>
+        </div>
+        <div style="text-align:center;margin-bottom:12px">
+          <div style="display:inline-block;background:var(--primary);color:#fff;padding:10px 40px;border-radius:6px;font-weight:700;font-size:13px">项目管理委员会（执行决策层）<br><span style="font-size:11px;opacity:.75;font-weight:400">李泽华（主持）· 吴梓填（甲方PM）· 陈宇清（艾维登PM）· 各BPO · 双周会议</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px">
+          <div style="background:var(--bg);border:1px solid var(--pale);border-radius:6px;padding:9px;text-align:center;font-size:11px"><div style="font-weight:700;color:var(--dark)">FI工作组</div><div style="color:var(--muted)">财务管理部BPO</div></div>
+          <div style="background:var(--bg);border:1px solid var(--pale);border-radius:6px;padding:9px;text-align:center;font-size:11px"><div style="font-weight:700;color:var(--dark)">SD工作组</div><div style="color:var(--muted)">各事业部BPO</div></div>
+          <div style="background:var(--bg);border:1px solid var(--pale);border-radius:6px;padding:9px;text-align:center;font-size:11px"><div style="font-weight:700;color:var(--dark)">MM工作组</div><div style="color:var(--muted)">供应链中心BPO</div></div>
+          <div style="background:var(--bg);border:1px solid var(--pale);border-radius:6px;padding:9px;text-align:center;font-size:11px"><div style="font-weight:700;color:var(--dark)">PP工作组</div><div style="color:var(--muted)">高明公司BPO</div></div>
+          <div style="background:var(--bg);border:1px solid var(--pale);border-radius:6px;padding:9px;text-align:center;font-size:11px"><div style="font-weight:700;color:var(--dark)">MDG工作组</div><div style="color:var(--muted)">产品中心BPO</div></div>
+          <div style="background:#EBF4FF;border:1px solid var(--primary);border-radius:6px;padding:9px;text-align:center;font-size:11px"><div style="font-weight:700;color:var(--primary)">MDM Office</div><div style="color:var(--muted)">数据治理跨组</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-users"></i> 4.4 21名数字化联络员分配（Super User体系）</div>
+      <table>
+        <thead><tr><th>部门/事业部</th><th>建议人数</th><th>SAP模块</th><th>优先级</th></tr></thead>
+        <tbody>
+          <tr><td>财务管理部</td><td>2人</td><td>FI/CO/GR</td><td><span class="badge r">P0最关键</span></td></tr>
+          <tr><td>家用事业部</td><td>2人</td><td>SD/MM</td><td><span class="badge r">P0</span></td></tr>
+          <tr><td>商用事业部（智城科技）</td><td>2人</td><td>SD</td><td><span class="badge r">P0</span></td></tr>
+          <tr><td>供应链中心</td><td>2人</td><td>MM/SRM</td><td><span class="badge r">P0</span></td></tr>
+          <tr><td>产品及方案中心</td><td>2人</td><td>MM（物料主数据）/PLM</td><td><span class="badge r">P0</span></td></tr>
+          <tr><td>研究院</td><td>1人</td><td>PLM/MM（BOM）</td><td><span class="badge a">P1</span></td></tr>
+          <tr><td>质量与客服中心</td><td>1人</td><td>QM</td><td><span class="badge a">P1</span></td></tr>
+          <tr><td>高明公司（生产运营）</td><td>2人</td><td>PP/QM/WM</td><td><span class="badge a">P1</span></td></tr>
+          <tr><td>国际事业部</td><td>1人</td><td>SD（多币种）/FI</td><td><span class="badge a">P1</span></td></tr>
+          <tr><td>电商事业部</td><td>1人</td><td>SD/接口</td><td><span class="badge a">P1</span></td></tr>
+          <tr><td>企业管理部（朱海英）</td><td>1人</td><td>流程Owner</td><td><span class="badge a">P1</span></td></tr>
+          <tr><td>招投标中心</td><td>1人</td><td>MM（合同联动）</td><td><span class="badge b">P2</span></td></tr>
+          <tr><td>车灯事业部</td><td>1人</td><td>PP/QM/MES接口</td><td><span class="badge b">P2</span></td></tr>
+          <tr style="background:#EBF4FF"><td><b>合计</b></td><td><b>约21人</b></td><td colspan="2">激励：参与度纳入年度绩效5-10%；优秀联络员获SAP认证资助</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CH5 OCM ═══ -->
+<div class="chapter" id="ocm">
+  <div class="ch-header"><div class="ch-num">5</div><h2>变革管理行动计划（Kotter 8步模型）</h2></div>
+  <div class="ch-body">
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-exclamation-triangle"></i> 5.1 四类变革阻力分析</div>
+      <table>
+        <thead><tr><th>阻力类型</th><th>典型表现</th><th>来源部门</th><th>风险等级</th><th>应对策略</th></tr></thead>
+        <tbody>
+          <tr><td>历史失败组织创伤</td><td>"这次SAP肯定又是失败收场"；对数字化项目普遍不抱信心</td><td>全员</td><td><span class="badge r">高</span></td><td>高层启动会主动承认历史失败，说明本次不同之处（外部SI+咨询+业务主导）</td></tr>
+          <tr><td>"数字化是IT的事"认知定势</td><td>业务部门被要求参与数据清洗时，典型回应"找IT吧"</td><td>各事业部</td><td><span class="badge r">高</span></td><td>李泽华副总明确宣布"业务是SAP项目Owner，IT是技术支持"，纳入绩效KPI</td></tr>
+          <tr><td>生产一线习惯惯性</td><td>高明公司生产计划员习惯Excel/白板排产；"APS用了几年都是摆设"</td><td>高明公司</td><td><span class="badge a">中</span></td><td>用面板灯完整BOM+工艺路线演示MRP可信效果，让计划员亲眼看到系统能信</td></tr>
+          <tr><td>销售人员灵活性顾虑</td><td>"SAP上去了价格就灵活不了了"</td><td>家用/商用事业部</td><td><span class="badge a">中</span></td><td>蓝图阶段演示S/4HANA价格条件灵活性（特殊价格+阶梯价），消除顾虑</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-shoe-prints"></i> 5.2 Kotter 8步行动计划</div>
+      <table>
+        <thead><tr><th>步骤</th><th>时间</th><th>核心行动</th><th>负责人</th></tr></thead>
+        <tbody>
+          <tr><td><b>Step 1</b> 建立紧迫感</td><td>2026年7月（启动会）</td><td>张学权总经理宣布SAP项目为年度最高优先级；展示DCMM 1级评分和竞争对手对比；公开回顾4次失败原因</td><td>张学权+达维咨询</td></tr>
+          <tr><td><b>Step 2</b> 构建指导联盟</td><td>2026年7-8月</td><td>正式任命8个模块BPO；21名联络员正式命名+颁发证书；李泽华副总亲自走访各事业部</td><td>李泽华+苏大明</td></tr>
+          <tr><td><b>Step 3</b> 形成愿景</td><td>2026年8月（蓝图启动）</td><td>发布《数字化愿景宣言》（1页"上线后佛照是什么样"）；为每个主要部门制作专项"收益地图"</td><td>达维咨询+数智化部</td></tr>
+          <tr><td><b>Step 4</b> 传播愿景</td><td>2026年8-12月（贯穿实施）</td><td>月度《SAP项目进展简报》；季度李泽华3分钟视频；数字化看板（数据清洗进度实时可见）</td><td>吴梓填+变革管理专员</td></tr>
+          <tr><td><b>Step 5</b> 授权员工行动</td><td>2026年9-12月</td><td>消除阻力（委员会主席直接介入不配合部门）；Super User培训计划4期；所有TO-BE流程确认会议相关业务人员亲自参与</td><td>李泽华+数智化部</td></tr>
+          <tr><td><b>Step 6</b> 创造短期胜利</td><td>2026年11月-2027年1月</td><td>Mock 1后演示"ZD06折扣自动应用"场景给家用事业部；月度会议表彰参与度最高联络员</td><td>艾维登+达维咨询</td></tr>
+          <tr><td><b>Step 7</b> 巩固成果</td><td>2027年Q1-Q2</td><td>Go-Live庆典；上线30天用户满意度调查；关键流程不再允许绕开系统的手工操作</td><td>企管部+各BPO</td></tr>
+          <tr><td><b>Step 8</b> 融入文化</td><td>2027年Q3+</td><td>年终设立"数字化英雄奖"；新员工入职培训包含SAP基础操作；建立"数字化改进建议箱"</td><td>人力资源部+苏大明</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CH6 ROADMAP ═══ -->
+<div class="chapter" id="roadmap">
+  <div class="ch-header"><div class="ch-num">6</div><h2>组织转型路线图（20个里程碑 · 2026-2030）</h2></div>
+  <div class="ch-body">
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-flag"></i> 阶段一：组织建立期（2026年7月-2027年1月）</div>
+      <table>
+        <thead><tr><th>里程碑</th><th>内容</th><th>计划日期</th><th>负责人</th></tr></thead>
+        <tbody>
+          <tr><td><b>M-O01</b></td><td>数字化保障委员会正式成立，首次月会召开</td><td>2026年7月</td><td>李泽华</td></tr>
+          <tr><td><b>M-O02</b></td><td>8个模块BPO名单公布（FI/CO/SD/MM/PP/QM/MDG/GR）</td><td>2026年7月</td><td>李泽华</td></tr>
+          <tr><td><b>M-O03</b></td><td>21名数字化联络员正式任命</td><td>2026年7月</td><td>苏大明+各部门负责人</td></tr>
+          <tr><td><b>M-O04</b></td><td>CPI集成工程师到岗</td><td>2026年8月</td><td>数智化部</td></tr>
+          <tr><td><b>M-O05</b></td><td>变革管理专员到岗，变革管理计划发布</td><td>2026年8月</td><td>苏大明</td></tr>
+          <tr><td><b>M-O06</b></td><td>MDM主任到岗，MDM Office正式运营</td><td>2026年9月</td><td>苏大明</td></tr>
+          <tr><td><b>M-O07</b></td><td>MDM专员2人到岗</td><td>2026年9月</td><td>苏大明</td></tr>
+          <tr><td><b>M-O08</b></td><td>联络员SAP第一期认知培训完成</td><td>2026年10月</td><td>艾维登+数智化部</td></tr>
+          <tr><td><b>M-O09</b></td><td>Super User深度培训完成，UAT准备就绪</td><td>2026年11月</td><td>艾维登+数智化部</td></tr>
+          <tr><td><b>M-O10</b></td><td>SAP Go-Live，组织转型阶段一完成</td><td>2027年1月</td><td>吴梓填+李泽华</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-chart-line"></i> 阶段二 &amp; 三：稳定运营→数字化成熟（2027-2030）</div>
+      <table>
+        <thead><tr><th>里程碑</th><th>内容</th><th>计划时间</th></tr></thead>
+        <tbody>
+          <tr><td>M-O11</td><td>SAP CoE正式成立，所有模块有内部顾问支持</td><td>2027年Q2</td></tr>
+          <tr><td>M-O12</td><td>外包顾问从4人减少至2人</td><td>2027年Q2</td></tr>
+          <tr><td>M-O13</td><td>MDM Office月度数据质量报告制度化（首期发布）</td><td>2027年Q3</td></tr>
+          <tr><td>M-O14</td><td>FICO内部顾问能力认证（SAP C_S4CFI）</td><td>2027年Q4</td></tr>
+          <tr><td>M-O15</td><td>BI分析师扩展至3人，SAC报表体系上线</td><td>2028年Q1</td></tr>
+          <tr><td>M-O16</td><td>数智化部人均服务用户比改善至≤1:250</td><td>2028年Q2</td></tr>
+          <tr><td>M-O17</td><td>DCMM 2级认证申请提交</td><td>2028年Q4</td></tr>
+          <tr><td>M-O18</td><td>AI采购助手/成本预警等2+场景正式上线</td><td>2029年Q1</td></tr>
+          <tr><td>M-O19</td><td>DCMM 2级认证获批</td><td>2029年Q4</td></tr>
+          <tr><td>M-O20</td><td>DCMM 3级认证目标，数字化组织能力达行业中上</td><td>2030年</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CH7 BENCHMARK ═══ -->
+<div class="chapter" id="benchmark">
+  <div class="ch-header"><div class="ch-num">7</div><h2>行业对标与最佳实践</h2></div>
+  <div class="ch-body">
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-balance-scale"></i> 照明行业对标（欧普照明 · 阳光照明）</div>
+      <table>
+        <thead><tr><th>对标维度</th><th>欧普照明（S/4HANA已上线）</th><th>阳光照明（S/4HANA已上线）</th><th>佛山照明（现状）</th></tr></thead>
+        <tbody>
+          <tr><td>IT团队规模</td><td>约40-60人</td><td>约30-40人</td><td><span class="badge r">16-23人（缺口2-3倍）</span></td></tr>
+          <tr><td>CIO级别</td><td>集团CIO，副总裁级，专职</td><td>数字化VP，专职</td><td><span class="badge a">无，副总兼管</span></td></tr>
+          <tr><td>SAP内部顾问</td><td>约8-12人</td><td>约5-8人</td><td><span class="badge r">2人内部+2人外包</span></td></tr>
+          <tr><td>MDM数据治理</td><td>MDM中心约5人</td><td>MDM专员约3人</td><td><span class="badge r">0人</span></td></tr>
+          <tr><td>Super User体系</td><td>约60人（按产品线/部门）</td><td>约40人</td><td><span class="badge r">无正式体系</span></td></tr>
+          <tr><td>变革管理</td><td>专职OCM团队2-3人</td><td>HR部门兼任</td><td><span class="badge r">无</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-lightbulb"></i> 可直接借鉴的3个最佳实践</div>
+      <div class="prio-grid">
+        <div class="prio-card p2">
+          <div class="pl">来自美的集团</div>
+          <div class="pt">流程Owner制度</div>
+          <ul class="pi"><li>每个L3/L4流程指定Owner</li><li>每年评审一次流程适用性</li><li>变更必须由Owner发起审批</li><li>佛照适用：20-30条核心SAP流程逐一指定Owner</li></ul>
+        </div>
+        <div class="prio-card p2">
+          <div class="pl">来自华为</div>
+          <div class="pt">关键用户双轨制</div>
+          <ul class="pi"><li>业务Super User：理解业务，主导需求确认+用户培训</li><li>技术Super User：理解系统，配置验证+问题排查</li><li>佛照适用：财务/SD模块各设1名业务型+1名技术型</li></ul>
+        </div>
+        <div class="prio-card p2">
+          <div class="pl">来自美的集团</div>
+          <div class="pt">数字化绩效激励</div>
+          <ul class="pi"><li>系统操作合规率+数据质量+培训完成率纳入KPI</li><li>权重约10-15%</li><li>佛照适用：2026年先在3个试点部门引入，权重5%</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CH8 RISK ═══ -->
+<div class="chapter" id="risk">
+  <div class="ch-header"><div class="ch-num">8</div><h2>实施风险管理</h2></div>
+  <div class="ch-body">
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-shield-alt"></i> 组织转型5大风险及应对</div>
+      <table>
+        <thead><tr><th>风险</th><th>描述</th><th>可能性</th><th>影响</th><th>应对措施</th></tr></thead>
+        <tbody>
+          <tr><td><b>R-O01</b> 精简vs扩编矛盾</td><td>总部精简20-30%目标与数智化部扩编需求方向相反</td><td><span class="badge a">中</span></td><td><span class="badge a">中</span></td><td>明确数字化战略性岗位豁免精简范围；同时通过自动化让业务部门释放人力（净效果正向）</td></tr>
+          <tr><td><b>R-O02</b> BPO无时间参与</td><td>业务BPO和联络员有自己的业务工作量，难以每周投入5-10小时</td><td><span class="badge r">高</span></td><td><span class="badge r">高</span></td><td>精益改善项目明确SAP参与为部门年度重点工作；BPO可申请减少20%日常工作量</td></tr>
+          <tr><td><b>R-O03</b> MDM主任招募难</td><td>SAP MDG+数据治理+跨部门协调的复合人才在广东稀缺</td><td><span class="badge a">中</span></td><td><span class="badge r">高</span></td><td>7月上旬立即发布招聘；优先考虑艾维登体系转型候选人；7月底无合适人选则临时外包MDM服务</td></tr>
+          <tr><td><b>R-O04</b> 流程人员能力不匹配</td><td>企管部新增流程分析师如无SAP蓝图经验，仍难以承担TO-BE确认</td><td><span class="badge a">中</span></td><td><span class="badge a">中</span></td><td>招聘要求必须包含"参与过SAP蓝图设计"经验；艾维登顾问提供蓝图阶段"师傅带徒弟"指导</td></tr>
+          <tr><td><b>R-O05</b> 变革管理资源不足</td><td>无法招到变革管理专员时，工作压到吴梓填（甲方PM）</td><td><span class="badge a">中</span></td><td><span class="badge a">中</span></td><td>确认艾维登合同是否包含OCM服务；如包含，甲方变革专员可降级为协调员</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-check-square"></i> 组织准备度评估（蓝图阶段开始前必须通过）</div>
+      <div class="kpi-grid">
+        <div class="kpi-card r"><div class="kn">高层承诺</div><div class="kv">李泽华出席率≥90%</div><div class="kd">数字化保障委员会月会</div></div>
+        <div class="kpi-card r"><div class="kn">BPO任命</div><div class="kv">8/8模块已任命</div><div class="kd">正式文件 + 岗位职责接受</div></div>
+        <div class="kpi-card r"><div class="kn">联络员体系</div><div class="kv">21/21人已确认</div><div class="kd">正式任命通知 + 首期培训</div></div>
+        <div class="kpi-card"><div class="kn">MDM团队</div><div class="kv">主任到岗</div><div class="kd">完成入职并制定工作计划</div></div>
+        <div class="kpi-card"><div class="kn">数据Owner</div><div class="kv">清单已文件化</div><div class="kd">各主数据域Owner明确</div></div>
+        <div class="kpi-card g"><div class="kn">全员知晓率</div><div class="kv">≥1次正式沟通</div><div class="kd">OA公告 + 部门负责人宣讲</div></div>
+      </div>
+      <div class="box amber"><p><strong>评估规则：</strong>上述6项中如有3项以上未通过（红色），建议将蓝图阶段开始时间推迟2-4周，等待组织准备度达标后再启动，避免在组织能力不足时强行推进蓝图设计（历史教训：需求不清 → 频繁变更 → 项目延期/失败）。</p></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- .content -->
+</main>
+
+<footer style="background:#0B2D47;color:rgba(255,255,255,.35);text-align:center;padding:16px;font-size:11px;letter-spacing:.2px;margin-left:var(--nav-w)">
+  佛山照明 SAP S/4HANA 升级项目工作台 · 机密文件 · 仅供项目组内部使用 · 2026
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement,b=document.body;
+  const t=d.scrollTop||b.scrollTop,h=(d.scrollHeight||b.scrollHeight)-d.clientHeight;
+  document.getElementById('prog').style.width=(t/h*100)+'%';
+});
+const links=document.querySelectorAll('#sidebar .sb-menu a[href^="#"]');
+window.addEventListener('scroll',()=>{
+  const pos=window.scrollY+80;
+  links.forEach(a=>{
+    const id=a.getAttribute('href').slice(1);
+    const el=document.getElementById(id);
+    if(el&&el.offsetTop<=pos&&el.offsetTop+el.offsetHeight>pos){
+      links.forEach(x=>x.classList.remove('active'));
+      a.classList.add('active');
+    }
+  });
+});
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open')}
+function setStatus(s){
+  document.querySelectorAll('.ss-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('ss-'+s).classList.add('active');
+}
+</script>
+</body>
+</html>
