@@ -584,10 +584,10 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
     <div class="sec">
       <div class="sec-title"><i class="fas fa-chart-area"></i> 1.2 DCMM成熟度雷达图（当前综合1.4/5分）</div>
       <p style="font-size:12px;color:var(--muted);margin-bottom:10px">蓝色区域 = 当前状态 · 虚线 = 目标状态 · 评分体系：DCMM GB/T 36073—2018 · <strong style="color:var(--primary)">点击任意维度标签或数据点查看详情</strong></p>
-      <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap">
+      <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;width:100%">
 
         <!-- SVG radar (clickable) -->
-        <div style="flex:0 0 auto">
+        <div style="flex:0 0 480px">
         <svg id="dcmmRadar" viewBox="0 0 520 390" width="480" height="360" xmlns="http://www.w3.org/2000/svg" style="font-family:'Microsoft YaHei',Arial,sans-serif;cursor:pointer">
           <defs>
             <style>
@@ -684,7 +684,7 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
         </div>
 
         <!-- Detail panel (right side, updates on click) -->
-        <div id="dcmmDetail" style="flex:1;min-width:220px;max-width:340px;background:var(--white);border:1.5px solid var(--pale);border-radius:10px;padding:18px;box-shadow:0 2px 12px rgba(0,48,135,.08);transition:all .25s;min-height:320px">
+        <div id="dcmmDetail" style="flex:1;min-width:260px;background:var(--white);border:1.5px solid var(--pale);border-radius:10px;padding:18px;box-shadow:0 2px 12px rgba(0,48,135,.08);transition:all .25s;min-height:320px">
           <div style="text-align:center;padding:40px 0 20px;color:var(--muted)">
             <i class="fas fa-hand-pointer" style="font-size:28px;opacity:.4;display:block;margin-bottom:10px"></i>
             <div style="font-size:13px;font-weight:600;color:var(--steel)">点击左侧雷达图中的<br>任意维度标签或数据点</div>
