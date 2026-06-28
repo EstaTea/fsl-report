@@ -11,9 +11,9 @@
       --navy:#0B2D47;--dark:#1A4F73;--primary:#2374A3;--mid:#3D8FC4;
       --steel:#5B7A91;--pale:#D6E8F2;--white:#fff;--text2:#2C4A6A;}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;
+body{font-family:"Microsoft YaHei","Helvetica Neue",system-ui,sans-serif;
      background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;
-     display:flex;flex-direction:column;height:100vh;overflow:hidden;}
+     display:flex;flex-direction:column;min-height:100vh;overflow:auto;}
 a{color:inherit;text-decoration:none;}
 
 /* ── NAV ── */
@@ -130,6 +130,59 @@ textarea.ip-field{resize:vertical;min-height:100px;line-height:1.6;}
 .ip-pct-wrap input[type=range]{flex:1;accent-color:var(--b500);}
 .ip-pct-num{font-size:13px;font-weight:700;color:var(--b500);min-width:36px;text-align:right;}
 
+/* ── DASHBOARD ── */
+.dash-hero{background:linear-gradient(135deg,var(--b900) 0%,var(--b700) 100%);
+  color:#fff;padding:20px 32px;flex-shrink:0;border-bottom:3px solid var(--b500);}
+.dash-hero h1{font-size:18px;font-weight:800;margin-bottom:3px;}
+.dash-hero p{font-size:12.5px;opacity:.7;}
+.dash-chips{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.dash-chip{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);
+  border-radius:3px;padding:3px 10px;font-size:11px;}
+.dash-body{flex:1;padding:24px 32px;overflow-y:auto;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:24px;}
+.stat-card{background:#fff;border-radius:8px;padding:16px 18px;
+  box-shadow:0 1px 4px rgba(11,45,71,.08);border:1px solid var(--rule);}
+.stat-card .sc-num{font-size:28px;font-weight:800;color:var(--b700);line-height:1;}
+.stat-card .sc-sub{font-size:11.5px;color:var(--muted);margin-top:4px;}
+.stat-card .sc-link{font-size:11px;color:var(--b500);margin-top:6px;display:block;text-decoration:none;}
+.stat-card .sc-link:hover{text-decoration:underline;}
+.dash-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.dash-card{background:#fff;border-radius:8px;padding:18px 20px;
+  box-shadow:0 1px 4px rgba(11,45,71,.08);border:1px solid var(--rule);}
+.dash-card h3{font-size:13px;font-weight:800;color:var(--b900);
+  margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--rule);
+  display:flex;align-items:center;justify-content:space-between;}
+.dash-card h3 a{font-size:11px;font-weight:400;color:var(--b500);text-decoration:none;}
+.dash-card h3 a:hover{text-decoration:underline;}
+.task-item{display:flex;align-items:flex-start;gap:8px;padding:7px 0;
+  border-bottom:1px solid var(--rule);font-size:12.5px;}
+.task-item:last-child{border-bottom:none;}
+.task-item .ti-num{font-size:10.5px;color:var(--muted);min-width:28px;flex-shrink:0;margin-top:1px;}
+.task-item .ti-title{flex:1;color:var(--text);line-height:1.45;}
+.task-item .ti-title a{color:var(--text);text-decoration:none;}
+.task-item .ti-title a:hover{color:var(--b500);}
+.task-item .ti-badge{font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;
+  white-space:nowrap;flex-shrink:0;}
+.badge-wip{background:#EBF4FF;color:var(--b700);border:1px solid var(--b100);}
+.badge-done{background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;}
+.badge-todo{background:var(--bg);color:var(--muted);border:1px solid var(--rule);}
+.ms-item-row{display:flex;align-items:center;gap:8px;padding:7px 0;
+  border-bottom:1px solid var(--rule);font-size:12.5px;}
+.ms-item-row:last-child{border-bottom:none;}
+.ms-item-row .mi-name{flex:1;color:var(--b900);font-weight:600;}
+.ms-item-row .mi-date{font-size:11px;color:var(--muted);white-space:nowrap;}
+.ms-item-row .mi-status{font-size:10px;font-weight:700;padding:1px 8px;border-radius:10px;white-space:nowrap;}
+.risk-row{display:flex;align-items:center;gap:8px;padding:7px 0;
+  border-bottom:1px solid var(--rule);font-size:12.5px;}
+.risk-row:last-child{border-bottom:none;}
+.risk-row .rr-title{flex:1;color:var(--text);}
+.risk-row .rr-badge{font-size:10px;font-weight:700;padding:1px 8px;border-radius:10px;
+  white-space:nowrap;}
+.pct-bar{background:var(--rule);border-radius:3px;height:6px;margin-top:10px;}
+.pct-fill{height:6px;border-radius:3px;background:var(--b500);transition:width .4s;}
+.loading-row{color:var(--muted);font-size:12px;padding:12px 0;text-align:center;}
+@media(max-width:900px){.dash-row{grid-template-columns:1fr;}.dash-body{padding:16px;}}
+
 </style>
 </head>
 <body>
@@ -203,578 +256,185 @@ textarea.ip-field{resize:vertical;min-height:100px;line-height:1.6;}
   </div>
 </nav>
 
-<div class="hero-strip">
-  <div>
-    <h1>项目总体计划 — 甘特图</h1>
-    <p>SAP S/4HANA 升级 + 业务诊断咨询 · 实施伙伴：艾维登 Eviden</p>
+<div class="dash-hero">
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+    <div>
+      <h1>数字化转型项目工作台</h1>
+      <p>SAP S/4HANA 升级 + 业务诊断咨询 · 实施伙伴：艾维登 Eviden</p>
+    </div>
+    <a href="/fsl-report/kanban/" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:5px;padding:6px 14px;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;align-self:center;">📋 任务看板 →</a>
   </div>
-  <div class="hero-chips">
-    <span class="chip">2026-05-29 启动</span>
-    <span class="chip">预计 2027.01.01 上线</span>
-    <span class="chip">19家法人 · Green Field</span>
+  <div class="dash-chips">
+    <span class="dash-chip">2026-05-29 启动</span>
+    <span class="dash-chip">预计 2027.01.01 上线</span>
+    <span class="dash-chip">19家法人 · GREEN FIELD</span>
   </div>
 </div>
 
-<div class="gantt-toolbar">
-  <button class="g-btn active" id="gZoomW" onclick="ganttZoom('week')">按周</button>
-  <button class="g-btn" id="gZoomM" onclick="ganttZoom('month')">按月</button>
-  <button class="g-btn" onclick="ganttExpandAll()">展开全部</button>
-  <button class="g-btn" onclick="ganttCollapseAll()">折叠全部</button>
-  <button class="g-btn" onclick="ganttToday()">📅 今天</button>
-  <div class="g-legend">
-    <span><span class="g-dot" style="background:#0B2D47"></span>咨询</span>
-    <span><span class="g-dot" style="background:#2374A3"></span>SAP准备/蓝图</span>
-    <span><span class="g-dot" style="background:#3D8FC4"></span>实现</span>
-    <span><span class="g-dot" style="background:#5B7A91"></span>部署</span>
-    <span style="color:#0B2D47;font-weight:700">│今日</span>
-  </div>
-</div>
+<div class="dash-body">
 
-<div class="gantt-outer">
-  <div id="ganttLeft">
-    <div class="gantt-col-hd">
-      <span>名称</span>
-      <span style="text-align:center">负责人</span>
-      <span style="text-align:center">完成度</span>
-    </div>
-    <div id="ganttTreeBody"></div>
+  <!-- KPI 统计行 -->
+  <div class="stat-grid" id="statGrid">
+    <div class="stat-card"><div class="sc-num" id="scTotal">—</div><div class="sc-sub">任务总数</div></div>
+    <div class="stat-card"><div class="sc-num" id="scDone" style="color:#15803d">—</div><div class="sc-sub">已完成 <span id="scDonePct" style="font-size:12px;color:var(--muted)"></span></div><a class="sc-link" href="/fsl-report/kanban/#kanban">查看看板 →</a></div>
+    <div class="stat-card"><div class="sc-num" id="scWip" style="color:var(--b500)">—</div><div class="sc-sub">进行中</div><a class="sc-link" href="/fsl-report/kanban/#kanban">查看看板 →</a></div>
+    <div class="stat-card"><div class="sc-num" id="scRisk" style="color:#dc2626">—</div><div class="sc-sub">开放风险</div><a class="sc-link" href="/fsl-report/kanban/#risk">查看风险 →</a></div>
+    <div class="stat-card"><div class="sc-num" id="scMs" style="color:var(--b700)">—</div><div class="sc-sub">里程碑总数</div><a class="sc-link" href="/fsl-report/kanban/#milestone">查看里程碑 →</a></div>
   </div>
-  <div id="ganttRight">
-    <div id="ganttTimelineWrap" style="position:relative;min-width:900px">
-      <div id="ganttTimelineHeader" style="position:sticky;top:0;z-index:2;background:var(--white);border-bottom:1px solid var(--pale)"></div>
-      <div id="ganttBars"></div>
+
+  <!-- 进度条 -->
+  <div style="background:#fff;border-radius:8px;padding:14px 20px;margin-bottom:16px;border:1px solid var(--rule);box-shadow:0 1px 4px rgba(11,45,71,.08);">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+      <span style="font-size:12.5px;font-weight:700;color:var(--b900);">整体完成进度</span>
+      <span id="pctLabel" style="font-size:20px;font-weight:800;color:var(--b500);">—</span>
+    </div>
+    <div class="pct-bar"><div class="pct-fill" id="pctFill" style="width:0%"></div></div>
+    <div id="pctSub" style="font-size:11px;color:var(--muted);margin-top:5px;"></div>
+  </div>
+
+  <!-- 进行中 + 已完成任务 -->
+  <div class="dash-row">
+    <div class="dash-card">
+      <h3>⚡ 进行中任务 <a href="/fsl-report/kanban/#kanban">查看全部</a></h3>
+      <div id="wipList"><div class="loading-row">加载中…</div></div>
+    </div>
+    <div class="dash-card">
+      <h3>✅ 最近已完成 <a href="/fsl-report/kanban/#kanban">查看全部</a></h3>
+      <div id="doneList"><div class="loading-row">加载中…</div></div>
     </div>
   </div>
+
+  <!-- 里程碑 + 风险 -->
+  <div class="dash-row">
+    <div class="dash-card">
+      <h3>🎯 即将到来的里程碑 <a href="/fsl-report/kanban/#milestone">查看全部</a></h3>
+      <div id="msList"><div class="loading-row">加载中…</div></div>
+    </div>
+    <div class="dash-card">
+      <h3>⚠️ 高优先级风险 <a href="/fsl-report/kanban/#risk">查看全部</a></h3>
+      <div id="riskList"><div class="loading-row">加载中…</div></div>
+    </div>
+  </div>
+
 </div>
 
 <script>
-// ── GANTT ─────────────────────────────────────────────────────────
-var GANTT_ZOOM = 'week';
-var GANTT_COLLAPSED = {};
-var SELECTED_TASK_ID = null;  // "phaseId__taskLabel"
-var GANTT_DIRTY = false;      // unsaved changes flag
-
-// Full task data with start/end dates (editable)
-var GANTT_PHASES = [
-  { id:'consulting', label:'咨询阶段', color:'var(--navy)', owner:'艾维登PM', pct:60, start:'2026-06-15', end:'2026-09-30',
-    tasks:[
-      {id:'c1', issueNum:11, label:'现状分析与诊断报告',       owner:'规划师+业务专家',  pct:100, start:'2026-06-15',end:'2026-06-30', milestone:false, desc:'涵盖业务、数字化调研分析；梳理核心痛点与问题清单；数字化成熟度评估', deliverable:'rpt-01'},
-      {id:'c2', issueNum:12, label:'照明行业数字化对标研究报告',owner:'规划师',          pct:100, start:'2026-06-15',end:'2026-06-22', milestone:false, desc:'Signify/欧普/阳光照明/佛照四家2025年年报深度对标分析', deliverable:'rpt-01b'},
-      {id:'c3', issueNum:3, label:'企业架构设计报告（L1-L3）', owner:'规划师+应用专家',  pct:80,  start:'2026-06-22',end:'2026-08-15', milestone:false, desc:'企业架构蓝图（L1-L3）：BA/DA/AA/TA TO-BE 设计', deliverable:'rpt-02', issueNum:3},
-      {id:'c4', issueNum:6, label:'专项方案设计报告（8场景）', owner:'业务专家A/B',      pct:0,   start:'2026-07-15',end:'2026-09-15', milestone:false, desc:'覆盖8个高价值专项场景（L4-L5）；含痛点分析、流程设计', deliverable:'rpt-03', issueNum:6},
-      {id:'c5', issueNum:13, label:'数据调研分析报告',          owner:'数据专家',         pct:0,   start:'2026-07-01',end:'2026-08-31', milestone:false, desc:'产品主数据（物料、BOM）、客商主数据、财务主数据的现状调研分析', deliverable:'rpt-04a'},
-      {id:'c6', issueNum:14, label:'数据规划及管理办法',        owner:'数据专家',         pct:0,   start:'2026-08-01',end:'2026-09-15', milestone:false, desc:'主数据规划及管理办法，包含主数据清洗、编码标准化与系统导入等内容', deliverable:'rpt-04b'},
-      {id:'c7', issueNum:15, label:'数据治理总结报告',          owner:'数据专家',         pct:0,   start:'2026-09-01',end:'2026-09-30', milestone:false, desc:'佛山照明数据治理工作总结（数据清洗结果、治理成效、持续运营建议）', deliverable:'rpt-04c'},
-      {id:'c8', issueNum:16, label:'数字化保障组织设计报告',    owner:'规划师',           pct:0,   start:'2026-09-01',end:'2026-09-25', milestone:false, desc:'提出数字化组织及运作机制建议（可选交付物）', deliverable:'rpt-05'},
-      {id:'c9', issueNum:17, label:'数字化转型路径规划',        owner:'艾维登PM',         pct:100, start:'2026-06-15',end:'2026-06-22', milestone:false, desc:'包含项目清单、优先级排序结果、项目卡片、未来三年实施路线图', deliverable:'rpt-06'},
-      {id:'cm1', issueNum:18, label:'★ M1 架构蓝图评审通过',   owner:'李泽华',           pct:0,   start:'2026-09-30',end:'2026-09-30', milestone:true,  desc:'L1-L3企业架构蓝图经甲方审核确认签字，8条接口设计方案锁定\n💰 付款触发：合同第2笔 20%'},
-    ]
-  },
-  { id:'prepare', label:'系统实施准备阶段', color:'var(--primary)', owner:'艾维登PM', pct:20, start:'2026-06-15', end:'2026-08-09',
-    tasks:[
-      {id:'p1', issueNum:19, label:'项目启动会 & 宣贯',          owner:'李泽华',     pct:100, start:'2026-06-15',end:'2026-06-15', milestone:true, desc:'项目正式启动，宣贯调研目标与交付物说明，签署保密协议'},
-      {id:'p2', issueNum:20, label:'准备调研问卷 & 调研计划',    owner:'艾维登PM',   pct:80,  start:'2026-06-16',end:'2026-06-30', milestone:false, desc:'制定两周调研执行计划，发放调研问卷，确认参与人员'},
-      {id:'p3', issueNum:1, label:'佛照历史蓝图分析及定制代码盘点',owner:'技术专家', pct:30,  start:'2026-06-20',end:'2026-07-31', milestone:false, desc:'运行SAP Custom Code扫描工具，分析ECC Z程序清单，评估迁移工作量'},
-      {id:'p4', issueNum:4, label:'接口台账梳理',               owner:'集成负责人', pct:20,  start:'2026-07-01',end:'2026-08-09', milestone:false, desc:'梳理8条核心接口（IF-001至IF-008）的详细设计方案'},
-      {id:'p5', issueNum:21, label:'项目团队及入场时间确定',     owner:'艾维登PM',   pct:60,  start:'2026-06-15',end:'2026-06-22', milestone:false, desc:'确认顾问团队配置，签署项目章程，明确关键用户时间承诺'},
-      {id:'p6', issueNum:22, label:'Readiness Check',            owner:'技术专家',   pct:0,   start:'2026-06-16',end:'2026-07-15', milestone:false, desc:'系统就绪评估：PCE环境搭建、网络连通、授权确认'},
-    ]
-  },
-  { id:'explore', label:'探索阶段（蓝图）', color:'var(--mid)', owner:'应用架构师', pct:0, start:'2026-08-10', end:'2026-09-21',
-    tasks:[
-      {id:'e1', issueNum:23, label:'业务调研',              owner:'业务专家A/B', pct:0,  start:'2026-08-10',end:'2026-08-31', milestone:false, desc:'深度业务调研，覆盖8大业务域，输出调研报告'},
-      {id:'e2', issueNum:24, label:'方案蓝图',              owner:'应用架构师',  pct:0,  start:'2026-08-25',end:'2026-09-21', milestone:false, desc:'基于调研结果设计系统蓝图方案',
-       children:[
-        {id:'e2a', issueNum:25, label:'《数字化转型路线图》',                     owner:'规划师',    pct:0, start:'2026-08-25',end:'2026-09-10', milestone:false, desc:'2026-2028年分阶段计划，项目清单及优先级'},
-        {id:'e2b', issueNum:26, label:'《4A架构设计方案/数字化蓝图规划》',        owner:'规划师',    pct:0, start:'2026-08-25',end:'2026-09-15', milestone:false, desc:'BA/AA/DA/TA四层架构现状与目标设计'},
-        {id:'e2c', issueNum:27, label:'《主数据标准方案》+《数据规划及管理办法》', owner:'数据专家',  pct:0, start:'2026-09-01',end:'2026-09-21', milestone:false, desc:'产品/客商/财务三类主数据的编码规范、属性定义、维护流程'},
-        {id:'e2d', issueNum:28, label:'《业务&数字化转型现状调研分析》',          owner:'规划师',    pct:0, start:'2026-08-10',end:'2026-09-05', milestone:false, desc:'业务/数字化现状分析、流程IT/数据治理现状分析'},
-        {id:'e2e', issueNum:30, label:'《4级业务流程现状图》+《4级流程优化&专项方案》', owner:'业务专家A', pct:0, start:'2026-08-15',end:'2026-09-15', milestone:false, desc:'覆盖OTC/PTP/MTC三大端到端流程',
-         children:[
-          {id:'e2e7', issueNum:37, label:'专项方案7——跨公司转移定价和成本还原', owner:'业务专家A', pct:0, start:'2026-08-20',end:'2026-09-10', milestone:false, desc:'集团内部交易定价策略，跨法人成本还原方案'},
-          {id:'e2e6', issueNum:36, label:'专项方案6——标准成本估算及发布',      owner:'业务专家A', pct:0, start:'2026-08-20',end:'2026-09-10', milestone:false, desc:'S/4HANA标准成本估算（CK11N）规范化'},
-          {id:'e2e5', issueNum:35, label:'专项方案5——自动化运行MRP资源计划',   owner:'业务专家B', pct:0, start:'2026-08-20',end:'2026-09-10', milestone:false, desc:'MRP Live配置，产销协同机制设计'},
-          {id:'e2e4', issueNum:34, label:'专项方案4——泰国外币及本地化监管需求', owner:'业务专家A', pct:0, start:'2026-08-20',end:'2026-09-10', milestone:false, desc:'泰国增值税（7%）/预提税，泰国e-Tax Invoice'},
-          {id:'e2e3', issueNum:33, label:'专项方案3——管理报表与财务报告的统驭', owner:'业务专家A', pct:0, start:'2026-08-20',end:'2026-09-10', milestone:false, desc:'Group Reporting合并报表，多准则并行'},
-          {id:'e2e2', issueNum:32, label:'专项方案2——预入库/预出库优化',       owner:'业务专家B', pct:0, start:'2026-08-20',end:'2026-09-10', milestone:false, desc:'EWM高级仓储管理，收发货流程标准化'},
-          {id:'e2e1', issueNum:31, label:'专项方案1——主数据治理',              owner:'数据专家',  pct:0, start:'2026-08-20',end:'2026-09-10', milestone:false, desc:'MDG-M/BP/GL配置，统一编码规则，审批工作流'},
-        ]},
-        {id:'e2f', issueNum:29, label:'《业务需求与痛点清单》',                  owner:'业务专家A/B', pct:0, start:'2026-08-10',end:'2026-08-25', milestone:false, desc:'覆盖财务/供应链/生产等部门，问题分类不少于4类'},
-      ]},
-      {id:'e3', issueNum:10, label:'接口与集成设计',         owner:'集成负责人', pct:0,  start:'2026-08-15',end:'2026-09-21', milestone:false, desc:'8条核心接口（CPI中枢）设计方案确认，各系统供应商签署配合承诺'},
-      {id:'e4', issueNum:38, label:'蓝图汇报',               owner:'艾维登PM',   pct:0,  start:'2026-09-15',end:'2026-09-21', milestone:true,  desc:'蓝图方案向佛照管理层汇报，确认签字'},
-    ]
-  },
-  { id:'realize', label:'系统实现阶段', color:'#2D6BA8', owner:'开发负责人', pct:0, start:'2026-09-22', end:'2026-12-05',
-    tasks:[
-      {id:'r1', issueNum:7, label:'系统配置（FICO/SD/MM/PP/QM/EWM）', owner:'顾问团队',   pct:0, start:'2026-09-22',end:'2026-11-22', milestone:false, desc:'19家法人统一科目表、SD定价条件、MDG主数据治理平台全量配置'},
-      {id:'r2', issueNum:39, label:'开发文档（Z程序/接口/增强）',       owner:'开发负责人', pct:0, start:'2026-09-22',end:'2026-11-16', milestone:false, desc:'8条CPI接口开发，ABAP增强，BTP侧扩展'},
-      {id:'r3', issueNum:9, label:'用户测试完成报告（UAT）',          owner:'测试经理',   pct:0, start:'2026-11-01',end:'2026-12-05', milestone:false, desc:'招标文件硬性门槛：UAT蓝图定义业务场景100%覆盖；严重缺陷修复率100%'},
-      {id:'r4', issueNum:40, label:'Sprint 1 配置与开发',              owner:'开发负责人', pct:0, start:'2026-09-22',end:'2026-10-19', milestone:false, desc:'核心流程（OTC/PTP/MTC）配置，MDG基础配置，CPI接口第1批'},
-      {id:'r5', issueNum:41, label:'Sprint 2 配置与开发',              owner:'开发负责人', pct:0, start:'2026-10-20',end:'2026-11-16', milestone:false, desc:'集团报表、EWM仓储、DRC电子发票、CPI接口第2批'},
-      {id:'r6', issueNum:42, label:'Sprint 3 硬化',                   owner:'开发负责人', pct:0, start:'2026-11-17',end:'2026-12-05', milestone:false, desc:'系统性能调优，权限SoD设计，Cloud ALM质量门控'},
-      {id:'rm2', issueNum:43, label:'★ M2 系统配置完成',              owner:'艾维登PM',   pct:0, start:'2026-11-30',end:'2026-11-30', milestone:true,  desc:'S/4HANA核心模块配置完成，CPI 8条接口开发完成，数据首次试迁移'},
-    ]
-  },
-  { id:'deploy', label:'上线准备&切换阶段', color:'var(--steel)', owner:'PM', pct:0, start:'2026-12-06', end:'2027-01-01',
-    tasks:[
-      {id:'d1', issueNum:44, label:'上线策略文档',            owner:'艾维登PM',   pct:0, start:'2026-12-06',end:'2026-12-15', milestone:false, desc:'切换时点、数据切换策略、回滚计划，Big Bang上线方案'},
-      {id:'d2', issueNum:45, label:'正式系统安装设置完成报告', owner:'技术专家',   pct:0, start:'2026-12-06',end:'2026-12-20', milestone:false, desc:'PCE生产环境搭建完成，安装手册及完成报告'},
-      {id:'d3', issueNum:46, label:'培训文档',                owner:'业务专家A',  pct:0, start:'2026-12-06',end:'2026-12-24', milestone:false, desc:'培训计划、培训签到表、培训考核试卷'},
-      {id:'d4', issueNum:47, label:'系统操作手册',            owner:'顾问团队',   pct:0, start:'2026-12-06',end:'2026-12-24', milestone:false, desc:'按佛山照明业务描述SAP系统中的操作使用说明及截图'},
-      {id:'d5', issueNum:48, label:'上线支持安排计划',        owner:'艾维登PM',   pct:0, start:'2026-12-20',end:'2026-12-30', milestone:false, desc:'上线后应对上线问题的支持计划，确保系统能够顺利使用'},
-      {id:'dm4', issueNum:49, label:'★ M4 正式切换上线',     owner:'艾维登PM',   pct:0, start:'2027-01-01',end:'2027-01-01', milestone:true,  desc:'S/4HANA PCE正式切换，19家法人同步上线，ECC进入只读模式\n💰 付款触发：合同第3笔 45%'},
-    ]
-  },
-];
-
-var PSTART = new Date('2026-06-15');
-var PEND   = new Date('2027-01-31');
-var TOTAL_DAYS = (PEND - PSTART) / 86400000 + 1;
-
-function dayOffset(dateStr){ return (new Date(dateStr) - PSTART) / 86400000; }
-
-function buildSlots(zoom){
-  var slots=[], d=new Date(PSTART);
-  if(zoom==='week'){
-    while(d <= PEND){
-      var end=new Date(d); end.setDate(end.getDate()+6);
-      if(end>PEND) end=new Date(PEND);
-      slots.push({label:(d.getMonth()+1)+'/'+(d.getDate()),year:d.getFullYear(),month:d.getMonth()+1,start:new Date(d),end:new Date(end),days:(end-d)/86400000+1});
-      d.setDate(d.getDate()+7);
-    }
-  } else {
-    while(d <= PEND){
-      var y=d.getFullYear(), m=d.getMonth();
-      var ms=new Date(y,m,1), me=new Date(y,m+1,0);
-      if(ms<PSTART) ms=new Date(PSTART);
-      if(me>PEND) me=new Date(PEND);
-      slots.push({label:(m+1)+'月',year:y,month:m+1,start:ms,end:me,days:(me-ms)/86400000+1});
-      d=new Date(y,m+1,1);
-    }
-  }
-  return slots;
-}
-
-function flattenTree(){
-  var rows=[];
-  GANTT_PHASES.forEach(function(ph){
-    rows.push({type:'phase', ph:ph, depth:0, id:ph.id});
-    if(!GANTT_COLLAPSED[ph.id]){
-      ph.tasks.forEach(function(t){
-        rows.push({type:'task', task:t, ph:ph, depth:1, id:ph.id+'__'+t.id});
-        if(t.children && !GANTT_COLLAPSED[ph.id+'__'+t.id]){
-          t.children.forEach(function(c){
-            rows.push({type:'task', task:c, ph:ph, depth:2, id:ph.id+'__'+c.id, parent:t});
-            if(c.children && !GANTT_COLLAPSED[ph.id+'__'+c.id]){
-              c.children.forEach(function(g){
-                rows.push({type:'task', task:g, ph:ph, depth:3, id:ph.id+'__'+g.id, parent:c});
-              });
-            }
-          });
-        }
-      });
-    }
-  });
-  return rows;
-}
-
-// Find task by rowId
-
-function renderGantt(){
-  var zoom=GANTT_ZOOM;
-  var slots=buildSlots(zoom);
-  var rows=flattenTree();
-  var now=new Date();
-  var ROW_H=60;
-  var COL_W=zoom==='week'?78:110;
-  var totalW=slots.length*COL_W;
-
-  // ── Left tree ──────────────────────────────────────
-  var leftHtml='';
-  rows.forEach(function(row,ri){
-    var bg=ri%2===0?'var(--white)':'#EDF5FC';
-    var label,pct,owner,hasChildren,colId,isMilestone=false;
-    if(row.type==='phase'){
-      bg='#D0E8F5'; label=row.ph.label; pct=row.ph.pct; owner=row.ph.owner;
-      hasChildren=row.ph.tasks&&row.ph.tasks.length; colId=row.ph.id;
-    } else {
-      label=row.task.label; pct=row.task.pct||0; owner=row.task.owner||'';
-      hasChildren=row.task.children&&row.task.children.length; colId=row.id;
-      isMilestone=row.task.milestone;
-    }
-    var isSelected=(SELECTED_TASK_ID===row.id);
-    if(isSelected) bg='rgba(0,94,184,.1)';
-    var collapsed=GANTT_COLLAPSED[colId]||false;
-    var indent=row.depth*14;
-    var toggleBtn=hasChildren?
-      '<span onclick="event.stopPropagation();ganttToggle(\''+colId+'\')" style="cursor:pointer;margin-right:3px;font-size:9px;color:var(--steel);flex-shrink:0;user-select:none">'+(collapsed?'▶':'▼')+'</span>':
-      '<span style="display:inline-block;width:14px;flex-shrink:0"></span>';
-    var typeIcon=isMilestone?'<span style="color:#F4B942;font-size:10px;margin-right:3px;flex-shrink:0">◆</span>':
-      row.type==='phase'?'<span style="display:inline-block;width:9px;height:9px;background:'+row.ph.color+';border-radius:2px;margin-right:4px;flex-shrink:0;vertical-align:middle"></span>':
-      '<span style="font-size:9px;color:var(--pale);margin-right:3px;flex-shrink:0">☐</span>';
-    var pctColor=pct>=100?'var(--steel)':pct>0?'var(--primary)':'var(--pale)';
-    leftHtml+='<div onclick="selectGanttRow(\''+row.id+'\')" style="display:grid;grid-template-columns:1fr 60px 60px;height:'+ROW_H+'px;background:'+bg+';border-bottom:1px solid rgba(0,0,0,.04);cursor:pointer;align-items:center'+(isSelected?';outline:2px solid var(--primary);outline-offset:-2px':'')+'" title="'+label+'">'+
-      '<div style="padding:0 6px 0 '+(8+indent)+'px;display:flex;align-items:center;gap:2px;min-width:0;overflow:hidden">'+
-        toggleBtn+typeIcon+
-        '<span style="font-size:11.5px;'+(row.type==='phase'?'font-weight:700;color:var(--dark)':isMilestone?'font-weight:700;color:var(--navy)':'color:var(--text2)')+';white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+label+'</span>'+
-      '</div>'+
-      '<div style="text-align:center;padding:0 4px;display:flex;align-items:center;justify-content:center">'+
-        '<span style="display:inline-flex;width:20px;height:20px;border-radius:50%;background:var(--primary);color:#fff;font-size:8px;font-weight:700;align-items:center;justify-content:center;flex-shrink:0">'+
-        (owner?owner.charAt(0).toUpperCase():'?')+'</span>'+
-      '</div>'+
-      '<div style="text-align:center;font-size:11px;padding:0 4px">'+
-        '<span style="font-weight:700;color:'+(pct>0?'var(--primary)':'var(--muted)')+'">'+(isMilestone?'◆':pct+'%')+'</span>'+
-        (!isMilestone?'<div style="height:2px;background:var(--pale);border-radius:1px;margin-top:2px"><div style="height:100%;background:'+pctColor+';border-radius:1px;width:'+pct+'%"></div></div>':'')
-      +'</div>'+
-    '</div>';
-  });
-  document.getElementById('ganttTreeBody').innerHTML=leftHtml;
-
-  // ── Timeline header ─────────────────────────────────
-  var monthGroups=[];
-  slots.forEach(function(sl){
-    var key=sl.year+'-'+sl.month;
-    if(!monthGroups.length||monthGroups[monthGroups.length-1].key!==key) monthGroups.push({key:key,label:sl.year+'年'+sl.month+'月',cnt:0});
-    monthGroups[monthGroups.length-1].cnt++;
-  });
-  var hdr='<div style="min-width:'+totalW+'px"><div style="display:flex;background:var(--dark)">';
-  monthGroups.forEach(function(mg){ hdr+='<div style="min-width:'+(mg.cnt*COL_W)+'px;padding:4px 8px;font-size:11px;font-weight:700;color:#fff;border-right:1px solid rgba(255,255,255,.1)">'+mg.label+'</div>'; });
-  hdr+='</div><div style="display:flex;background:#EBF0F7;border-bottom:2px solid var(--pale)">';
-  var nowDate=now.toISOString().split('T')[0];
-  slots.forEach(function(sl){
-    var isNow=now>=sl.start&&now<=sl.end;
-    hdr+='<div style="min-width:'+COL_W+'px;width:'+COL_W+'px;padding:3px 4px;font-size:10px;font-weight:'+(isNow?'800':'600')+';color:'+(isNow?'var(--primary)':'var(--dark)')+';border-right:1px solid rgba(0,0,0,.06);text-align:center;white-space:nowrap;overflow:hidden">'+sl.label+'</div>';
-  });
-  hdr+='</div></div>';
-  document.getElementById('ganttTimelineHeader').innerHTML=hdr;
-
-  // ── Bars ─────────────────────────────────────────────
-  // Compute today px
-  var todayOff=dayOffset(now.toISOString().split('T')[0]);
-  var todayPx=0; var acc=0;
-  slots.forEach(function(sl){
-    var slS=dayOffset(sl.start.toISOString().split('T')[0]);
-    var slE=dayOffset(sl.end.toISOString().split('T')[0]);
-    if(todayOff>=slS&&todayOff<=slE){ todayPx=acc+((todayOff-slS)/(slE-slS+1))*COL_W; }
-    else if(todayOff>slE) acc+=COL_W;
-    if(todayPx===0&&todayOff>slE) acc+=COL_W;
-  });
-
-  var barsHtml='<div style="position:relative;min-width:'+totalW+'px">';
-  if(todayOff>=0&&todayOff<=TOTAL_DAYS){
-    barsHtml+='<div style="position:absolute;left:'+todayPx+'px;top:0;bottom:0;width:2px;background:rgba(0,48,135,.5);z-index:5"><div style="position:absolute;top:0;left:-12px;font-size:8.5px;font-weight:800;color:var(--navy);background:#EBF4FF;padding:0 2px;border-radius:2px;white-space:nowrap">今</div></div>';
-  }
-
-  function slotPx(dateStr){
-    var off=dayOffset(dateStr); var px=0; var a=0;
-    slots.forEach(function(sl){
-      var slS=dayOffset(sl.start.toISOString().split('T')[0]);
-      var slE=dayOffset(sl.end.toISOString().split('T')[0]);
-      var slD=slE-slS+1;
-      if(off>=slS&&off<=slE){ px=a+((off-slS)/slD)*COL_W; }
-      else if(off>slE){ a+=COL_W; }
-    });
-    return px;
-  }
-
-  rows.forEach(function(row,ri){
-    var rowBg=ri%2===0?'transparent':'rgba(235,244,255,.35)';
-    var isSelected=(SELECTED_TASK_ID===row.id);
-    if(isSelected) rowBg='rgba(0,94,184,.07)';
-    var start, end, color, pct, isMilestone=false;
-    if(row.type==='phase'){ start=row.ph.start; end=row.ph.end; color=row.ph.color; pct=row.ph.pct; }
-    else { start=row.task.start; end=row.task.end; color=row.ph.color; pct=row.task.pct||0; isMilestone=row.task.milestone||false; }
-
-    var rowHtml='<div onclick="selectGanttRow(\''+row.id+'\')" style="display:flex;height:'+ROW_H+'px;background:'+rowBg+';border-bottom:1px solid rgba(0,0,0,.03);position:relative;align-items:center;cursor:pointer">';
-    slots.forEach(function(sl){ rowHtml+='<div style="min-width:'+COL_W+'px;width:'+COL_W+'px;height:100%;border-right:1px solid rgba(0,0,0,.03);flex-shrink:0"></div>'; });
-
-    if(start&&end){
-      var lPx=slotPx(start), rPx=slotPx(end);
-      var wPx=Math.max(rPx-lPx + (dayOffset(end)-dayOffset(start)+1)/TOTAL_DAYS*totalW/(slots.length)||COL_W*0.5, 8);
-      // compute width more simply
-      var startOff=dayOffset(start), endOff=dayOffset(end);
-      var totalSlotDays=(new Date(PEND)-new Date(PSTART))/86400000+1;
-      lPx=(startOff/totalSlotDays)*totalW;
-      wPx=Math.max(((endOff-startOff+1)/totalSlotDays)*totalW, isMilestone?14:8);
-
-      if(isMilestone){
-        rowHtml+='<div style="position:absolute;left:'+lPx+'px;width:12px;height:12px;top:10px;transform:rotate(45deg);background:#F4B942;z-index:2;border:1px solid rgba(0,0,0,.1)" title="'+row.task.label+'"></div>';
-        rowHtml+='<span style="position:absolute;left:'+(lPx+16)+'px;top:9px;font-size:9.5px;font-weight:700;color:var(--navy);white-space:nowrap">'+row.task.label+'</span>';
-      } else {
-        var barH=row.type==='phase'?28:22;
-        var barTop=(ROW_H-barH)/2;
-        var barLabel=row.type==='phase'?row.ph.label:row.task.label;
-        rowHtml+='<div style="position:absolute;left:'+lPx+'px;width:'+wPx+'px;height:'+barH+'px;top:'+barTop+'px;border-radius:3px;background:'+color+';z-index:2;overflow:hidden" title="'+barLabel+' ('+start+' → '+end+')">';
-        if(pct>0&&pct<100) rowHtml+='<div style="width:'+pct+'%;height:100%;background:rgba(255,255,255,.25);border-right:1px solid rgba(255,255,255,.4)"></div>';
-        if(wPx>50) rowHtml+='<span style="position:absolute;left:5px;top:50%;transform:translateY(-50%);font-size:9px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:'+(wPx-10)+'px">'+barLabel+'</span>';
-        rowHtml+='</div>';
-      }
-    }
-    rowHtml+='</div>';
-    barsHtml+=rowHtml;
-  });
-  barsHtml+='</div>';
-  document.getElementById('ganttBars').innerHTML=barsHtml;
-
-  // Sync scroll
-  var gl=document.getElementById('ganttLeft'), gr=document.getElementById('ganttRight');
-  if(gl&&gr){ gl.onscroll=function(){gr.scrollTop=gl.scrollTop;}; gr.onscroll=function(){gl.scrollTop=gr.scrollTop;}; }
-}
-
-// ── Task detail panel ─────────────────────────────────────────────
-
-function ganttToggle(id){ GANTT_COLLAPSED[id]=!GANTT_COLLAPSED[id]; renderGantt(); if(SELECTED_TASK_ID) openTaskDetail(SELECTED_TASK_ID); }
-
-function ganttExpandAll(){ GANTT_COLLAPSED={}; renderGantt(); }
-
-function ganttCollapseAll(){
-  GANTT_PHASES.forEach(function(ph){
-    GANTT_COLLAPSED[ph.id]=true;
-    ph.tasks.forEach(function(t){ if(t.children||t.tasks) GANTT_COLLAPSED[ph.id+'__'+t.id]=true; });
-  });
-  renderGantt();
-}
-
-function ganttZoom(z){
-  GANTT_ZOOM=z;
-  var wBtn=document.getElementById('gZoomW'), mBtn=document.getElementById('gZoomM');
-  if(wBtn){ wBtn.style.background=z==='week'?'var(--primary)':'var(--bg)'; wBtn.style.color=z==='week'?'#fff':'var(--steel)'; wBtn.style.border=z==='week'?'none':'1px solid var(--pale)'; }
-  if(mBtn){ mBtn.style.background=z==='month'?'var(--primary)':'var(--bg)'; mBtn.style.color=z==='month'?'#fff':'var(--steel)'; mBtn.style.border=z==='month'?'none':'1px solid var(--pale)'; }
-  renderGantt();
-}
-
-function ganttToday(){
-  var gr=document.getElementById('ganttRight');
-  if(!gr) return;
-  var slots=buildSlots(GANTT_ZOOM), COL_W=GANTT_ZOOM==='week'?78:110, now=new Date(), acc=0, found=false;
-  slots.forEach(function(sl,si){ if(!found&&now>=sl.start&&now<=sl.end){ gr.scrollLeft=Math.max(0,acc-200); found=true; } acc+=COL_W; });
-}
-
-// ── RISK ──────────────────────────────────────────────────────────
-
-function selectGanttRow(rowId){ openIssuePanel(rowId); }
-
-
-// ── GITHUB ISSUE PANEL ──────────────────────────────────────────────
 var REPO = 'EstaTea/fsl-report';
-var GH_TOKEN = localStorage.getItem('gh_token_fsl') || '';
-var CURRENT_ROW_ID = null;
-var CURRENT_ISSUE_NUM = null;
+var API  = 'https://api.github.com/repos/' + REPO;
 
-function ghHeaders(){
-  var h = {'Accept':'application/vnd.github+json','Content-Type':'application/json'};
-  if(GH_TOKEN) h['Authorization'] = 'Bearer ' + GH_TOKEN;
-  return h;
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function getLabel(issue, prefix){
+  var lbl = (issue.labels||[]).find(function(l){ return l.name.startsWith(prefix); });
+  return lbl ? lbl.name : '';
+}
+function getStatus(issue){
+  return getLabel(issue,'status:').replace('status:','');
+}
+function isRisk(issue){
+  return (issue.labels||[]).some(function(l){ return l.name==='类型:风险'; });
+}
+function getRiskLevel(issue){
+  var l = getLabel(issue,'优先级:');
+  return l.replace('优先级:','');
 }
 
-function findTaskByRowId(rowId){
-  if(!rowId) return null;
-  var parts = rowId.split('__');
-  var phId = parts[0];
-  var ph = GANTT_PHASES.find(function(p){ return p.id === phId; });
-  if(!ph) return null;
-  if(parts.length === 1) return {type:'phase', ph:ph};
-  // search recursively
-  function findInTasks(tasks){
-    for(var i=0;i<tasks.length;i++){
-      if(ph.id+'__'+tasks[i].id === rowId) return {type:'task', task:tasks[i], ph:ph};
-      if(tasks[i].children){
-        var found = findInTasks(tasks[i].children);
-        if(found) return found;
-      }
-    }
-    return null;
-  }
-  return findInTasks(ph.tasks);
-}
+// Fetch all open issues
+Promise.all([
+  fetch(API+'/issues?state=open&per_page=100&sort=updated').then(function(r){return r.json();}),
+  fetch(API+'/issues?state=closed&per_page=50&sort=updated').then(function(r){return r.json();}),
+  fetch(API+'/milestones?state=open&per_page=50&sort=due_on').then(function(r){return r.json();})
+]).then(function(results){
+  var openIssues   = Array.isArray(results[0]) ? results[0] : [];
+  var closedIssues = Array.isArray(results[1]) ? results[1] : [];
+  var milestones   = Array.isArray(results[2]) ? results[2] : [];
 
-function openIssuePanel(rowId){
-  CURRENT_ROW_ID = rowId;
-  SELECTED_TASK_ID = rowId;
-  renderGantt();
+  var allIssues = openIssues.concat(closedIssues);
+  var tasks     = allIssues.filter(function(i){ return !isRisk(i) && !i.pull_request; });
+  var risks     = openIssues.filter(function(i){ return isRisk(i); });
+  var openTasks = openIssues.filter(function(i){ return !isRisk(i) && !i.pull_request; });
+  var doneTasks = closedIssues.filter(function(i){ return !isRisk(i) && !i.pull_request; });
+  var wipTasks  = openTasks.filter(function(i){ return getStatus(i)==='进行中'; });
 
-  var found = findTaskByRowId(rowId);
-  if(!found){ return; }
+  var total = openTasks.length + doneTasks.length;
+  var pct   = total ? Math.round(doneTasks.length/total*100) : 0;
 
-  var task = found.type==='phase' ? found.ph : found.task;
-  CURRENT_ISSUE_NUM = task.issueNum || null;
+  // KPI
+  document.getElementById('scTotal').textContent = total;
+  document.getElementById('scDone').textContent  = doneTasks.length;
+  document.getElementById('scDonePct').textContent = pct+'%';
+  document.getElementById('scWip').textContent   = wipTasks.length;
+  document.getElementById('scRisk').textContent  = risks.length;
+  document.getElementById('scMs').textContent    = milestones.length;
 
-  var panel = document.getElementById('issuePanel');
-  var overlay = document.getElementById('panelOverlay');
-  var loading = document.getElementById('ipLoading');
-  var content = document.getElementById('ipContent');
+  // Progress
+  document.getElementById('pctLabel').textContent = pct+'%';
+  document.getElementById('pctFill').style.width  = pct+'%';
+  document.getElementById('pctSub').textContent   = doneTasks.length+'/'+total+' 项任务已完成';
 
-  panel.classList.add('open');
-  overlay.classList.add('open');
-  loading.style.display = 'block';
-  content.style.display = 'none';
+  // 进行中任务
+  var wipHtml = wipTasks.slice(0,8).map(function(i){
+    var ms = i.milestone ? '<span style="font-size:10px;color:var(--muted);"> · '+esc(i.milestone.title.split(' ').slice(0,2).join(' '))+'</span>' : '';
+    return '<div class="task-item"><span class="ti-num">#'+i.number+'</span><span class="ti-title"><a href="'+esc(i.html_url)+'" target="_blank">'+esc(i.title.replace(/^[【\[][^\]】]+[】\]]\s*/,''))+'</a>'+ms+'</span><span class="ti-badge badge-wip">进行中</span></div>';
+  }).join('');
+  document.getElementById('wipList').innerHTML = wipHtml || '<div class="loading-row" style="color:#15803d">暂无进行中任务</div>';
 
-  // Pre-fill from static data immediately
-  document.getElementById('ipTitle').textContent = task.label || '任务详情';
-  document.getElementById('ipName').value = task.label || '';
-  document.getElementById('ipStart').value = task.start || '';
-  document.getElementById('ipEnd').value = task.end || '';
-  document.getElementById('ipOwner').value = task.owner || '';
-  var pct = task.pct || 0;
-  document.getElementById('ipPctSlider').value = pct;
-  document.getElementById('ipPctNum').textContent = pct + '%';
-  document.getElementById('ipPct').value = pct;
-  document.getElementById('ipBody').value = task.desc || '';
-  document.getElementById('ipLabelsWrap').style.display = 'none';
+  // 最近已完成
+  var doneHtml = doneTasks.slice(0,8).map(function(i){
+    return '<div class="task-item"><span class="ti-num">#'+i.number+'</span><span class="ti-title"><a href="'+esc(i.html_url)+'" target="_blank">'+esc(i.title.replace(/^[【\[][^\]】]+[】\]]\s*/,''))+'</a></span><span class="ti-badge badge-done">已完成</span></div>';
+  }).join('');
+  document.getElementById('doneList').innerHTML = doneHtml || '<div class="loading-row">暂无已完成任务</div>';
 
-  var ghLink = document.getElementById('ipGhLink');
-  var ghBtn = document.getElementById('ipGhBtn');
-  var meta = document.getElementById('ipMeta');
+  // 里程碑
+  var now = new Date();
+  var msHtml = milestones.slice(0,6).map(function(ms){
+    var due = ms.due_on ? new Date(ms.due_on) : null;
+    var dueTxt = due ? due.toLocaleDateString('zh-CN',{year:'numeric',month:'2-digit',day:'2-digit'}) : '未设定';
+    var isOverdue = due && due < now;
+    var rawDesc = ms.description||'';
+    var statusM = rawDesc.match(/\[状态:([^\]]+)\]/);
+    var status  = statusM ? statusM[1] : '计划';
+    var sStyle  = status==='进行中' ? 'background:#005EB8;color:#fff' :
+                  status==='已完成' ? 'background:#15803d;color:#fff' :
+                  status==='已逾期' ? 'background:#dc2626;color:#fff' :
+                  'background:var(--bg);color:var(--b700);border:1px solid var(--rule)';
+    return '<div class="ms-item-row"><span class="mi-name">'+esc(ms.title)+'</span>'
+      +'<span class="mi-status" style="'+sStyle+'">'+esc(status)+'</span>'
+      +'<span class="mi-date" style="'+(isOverdue?'color:#dc2626':'')+'">'+dueTxt+'</span></div>';
+  }).join('');
+  document.getElementById('msList').innerHTML = msHtml || '<div class="loading-row">暂无里程碑</div>';
 
-  if(CURRENT_ISSUE_NUM){
-    ghLink.href = 'https://github.com/' + REPO + '/issues/' + CURRENT_ISSUE_NUM;
-    ghBtn.style.display = '';
-    meta.innerHTML = '<span class="ip-badge ip-badge-open">Issue #' + CURRENT_ISSUE_NUM + '</span>';
-    // Load from GitHub API
-    fetch('https://api.github.com/repos/' + REPO + '/issues/' + CURRENT_ISSUE_NUM, {headers: ghHeaders()})
-      .then(function(r){ return r.json(); })
-      .then(function(issue){
-        // Parse gantt metadata from body
-        var body = issue.body || '';
-        var ganttM = body.match(/<!-- gantt: start=([\d-]+) end=([\d-]+) pct=(\d+) -->/);
-        var cleanBody = body.replace(/[\s\S]*<!--[\s\S]*?gantt:[\s\S]*?-->/g,'').trim();
-
-        document.getElementById('ipName').value = issue.title || task.label;
-        document.getElementById('ipTitle').textContent = issue.title || task.label;
-        document.getElementById('ipBody').value = cleanBody;
-        if(ganttM){
-          document.getElementById('ipStart').value = ganttM[1];
-          document.getElementById('ipEnd').value = ganttM[2];
-          var p = parseInt(ganttM[3]);
-          document.getElementById('ipPctSlider').value = p;
-          document.getElementById('ipPctNum').textContent = p + '%';
-          document.getElementById('ipPct').value = p;
-        }
-        // Labels
-        if(issue.labels && issue.labels.length){
-          document.getElementById('ipLabelsWrap').style.display = '';
-          document.getElementById('ipLabels').innerHTML = issue.labels.map(function(l){
-            return '<span class="ip-badge ip-badge-open">'+l.name+'</span>';
-          }).join('');
-        }
-        var stateClass = issue.state==='closed' ? 'ip-badge-closed' : 'ip-badge-open';
-        var stateLabel = issue.state==='closed' ? '已关闭' : '进行中';
-        meta.innerHTML = '<span class="ip-badge '+stateClass+'">Issue #'+CURRENT_ISSUE_NUM+' · '+stateLabel+'</span>'
-          + '<a href="'+issue.html_url+'" target="_blank" class="ip-link" style="margin-left:8px;">在 GitHub 查看 ↗</a>';
-        loading.style.display = 'none';
-        content.style.display = 'block';
-      })
-      .catch(function(){
-        // API failed (no token etc.) — show static data
-        if(!GH_TOKEN){
-          meta.innerHTML = '<span class="ip-badge ip-badge-open">Issue #'+CURRENT_ISSUE_NUM+'</span>'
-            + ' <span style="font-size:11px;color:var(--muted)">（未登录，无法读取详情）</span>';
-        }
-        loading.style.display = 'none';
-        content.style.display = 'block';
-      });
-  } else {
-    ghLink.href = 'https://github.com/' + REPO + '/issues';
-    ghBtn.style.display = 'none';
-    meta.innerHTML = '<span style="font-size:11.5px;color:var(--muted);">无关联 Issue</span>';
-    loading.style.display = 'none';
-    content.style.display = 'block';
-  }
-}
-
-function closeIssuePanel(){
-  document.getElementById('issuePanel').classList.remove('open');
-  document.getElementById('panelOverlay').classList.remove('open');
-  CURRENT_ROW_ID = null;
-}
-
-function openOnGitHub(){
-  if(CURRENT_ISSUE_NUM){
-    window.open('https://github.com/' + REPO + '/issues/' + CURRENT_ISSUE_NUM, '_blank');
-  }
-}
-
-function saveIssuePanel(){
-  var found = findTaskByRowId(CURRENT_ROW_ID);
-  if(!found) return;
-  var task = found.type==='phase' ? found.ph : found.task;
-
-  // Update in-memory GANTT_PHASES
-  task.label = document.getElementById('ipName').value.trim() || task.label;
-  task.start = document.getElementById('ipStart').value || task.start;
-  task.end   = document.getElementById('ipEnd').value   || task.end;
-  task.owner = document.getElementById('ipOwner').value || task.owner;
-  task.pct   = parseInt(document.getElementById('ipPct').value) || 0;
-  task.desc  = document.getElementById('ipBody').value;
-
-  // Update title display
-  document.getElementById('ipTitle').textContent = task.label;
-
-  // Re-render gantt immediately
-  renderGantt();
-
-  if(!CURRENT_ISSUE_NUM){
-    showSaveToast('已在本地保存（无关联 Issue）');
-    return;
-  }
-
-  if(!GH_TOKEN){
-    showSaveToast('未登录 GitHub，仅本地保存。请在任务看板页登录后再试。', true);
-    return;
-  }
-
-  // Build updated body with gantt metadata
-  var cleanBody = task.desc || '';
-  var ganttComment = '\\n\\n<!-- gantt: start='+task.start+' end='+task.end+' pct='+task.pct+' -->';
-  var newBody = cleanBody + ganttComment;
-
-  var saveBtn = document.querySelector('.ip-btn-primary');
-  saveBtn.disabled = true;
-  saveBtn.textContent = '保存中…';
-
-  fetch('https://api.github.com/repos/' + REPO + '/issues/' + CURRENT_ISSUE_NUM, {
-    method: 'PATCH',
-    headers: ghHeaders(),
-    body: JSON.stringify({ title: task.label, body: newBody })
-  })
-  .then(function(r){
-    saveBtn.disabled = false;
-    saveBtn.textContent = '💾 保存';
-    if(r.ok){
-      showSaveToast('已保存到 GitHub Issue #' + CURRENT_ISSUE_NUM);
-    } else {
-      r.json().then(function(e){ showSaveToast('保存失败：' + (e.message||r.status), true); });
-    }
-  })
-  .catch(function(e){
-    saveBtn.disabled = false;
-    saveBtn.textContent = '💾 保存';
-    showSaveToast('网络错误，请重试', true);
+  // 风险
+  var hiRisks = risks.filter(function(i){
+    var lv = getRiskLevel(i);
+    return lv==='高' || lv==='P1';
   });
-}
+  var riskHtml = (hiRisks.length ? hiRisks : risks).slice(0,6).map(function(i){
+    var lv = getRiskLevel(i) || '中';
+    var lvStyle = lv==='高'||lv==='P1' ? 'background:#fee2e2;color:#dc2626' :
+                  'background:#fef9c3;color:#92400e';
+    var status = getStatus(i) || getLabel(i,'风险状态:').replace('风险状态:','') || '未处理';
+    var sStyle = status.includes('缓解') ? 'background:#EBF4FF;color:var(--b700)' :
+                 status.includes('完成') ? 'background:#f0fdf4;color:#15803d' :
+                 'background:var(--bg);color:var(--muted)';
+    return '<div class="risk-row"><span class="rr-title">'+esc(i.title.replace(/^[【\[][^\]】]+[】\]]\s*/,''))+'</span>'
+      +'<span class="rr-badge" style="'+sStyle+'">'+esc(status)+'</span>'
+      +'<span class="rr-badge" style="'+lvStyle+';margin-left:2px">'+esc(lv)+'</span></div>';
+  }).join('');
+  document.getElementById('riskList').innerHTML = riskHtml || '<div class="loading-row" style="color:#15803d">暂无开放风险</div>';
 
-function showSaveToast(msg, isError){
-  var t = document.createElement('div');
-  t.textContent = msg;
-  t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);'
-    + 'background:'+(isError?'#dc2626':'var(--b700)')+';color:#fff;'
-    + 'padding:9px 20px;border-radius:6px;font-size:13px;z-index:600;'
-    + 'box-shadow:0 4px 12px rgba(0,0,0,.2);transition:opacity .3s;';
-  document.body.appendChild(t);
-  setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ t.remove(); }, 300); }, 2500);
-}
-
-window.addEventListener('DOMContentLoaded', function(){
-  ganttExpandAll();
-  renderGantt();
-  // Scroll to project start so bars are immediately visible
-  setTimeout(function(){
-    var gr = document.getElementById('ganttRight');
-    if(gr) gr.scrollLeft = 0;
-  }, 100);
+}).catch(function(e){
+  console.warn('Dashboard load error:', e);
+  ['wipList','doneList','msList','riskList'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.innerHTML = '<div class="loading-row">加载失败，请刷新重试</div>';
+  });
 });
 </script>
+
+<!-- Issue Panel Overlay -->
+
+
 
 <!-- Issue Panel Overlay -->
 <div id="panelOverlay" onclick="closeIssuePanel()"></div>
