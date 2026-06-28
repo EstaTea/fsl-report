@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>佛山照明数字化转型工作台 | FSL 工作台</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 :root{--b900:#0B2D47;--b700:#1A4F73;--b500:#2374A3;--b300:#5EA4CE;
       --b100:#C7E2F2;--b050:#EBF5FB;--bg:#F2F7FB;--text:#0F2233;
@@ -181,7 +182,17 @@ textarea.ip-field{resize:vertical;min-height:100px;line-height:1.6;}
 .pct-bar{background:var(--rule);border-radius:3px;height:6px;margin-top:10px;}
 .pct-fill{height:6px;border-radius:3px;background:var(--b500);transition:width .4s;}
 .loading-row{color:var(--muted);font-size:12px;padding:12px 0;text-align:center;}
-@media(max-width:900px){.dash-row{grid-template-columns:1fr;}.dash-body{padding:16px;}}
+.chart-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px;}
+.chart-card{background:#fff;border-radius:8px;padding:18px 20px;border:1px solid var(--rule);
+  box-shadow:0 1px 4px rgba(11,45,71,.08);}
+.chart-card h3{font-size:13px;font-weight:800;color:var(--b900);margin-bottom:14px;}
+.chart-wrap{position:relative;height:180px;}
+.donut-legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;}
+.dl-item{display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--text);}
+.dl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.pct-big{font-size:36px;font-weight:800;color:var(--b500);line-height:1;margin:20px 0 6px;}
+.pct-sub2{font-size:12.5px;color:var(--muted);}
+@media(max-width:900px){.chart-row{grid-template-columns:1fr;}}
 
 </style>
 </head>
@@ -282,8 +293,27 @@ textarea.ip-field{resize:vertical;min-height:100px;line-height:1.6;}
     <div class="stat-card"><div class="sc-num" id="scMs" style="color:var(--b700)">—</div><div class="sc-sub">里程碑总数</div><a class="sc-link" href="/fsl-report/kanban/#milestone">查看里程碑 →</a></div>
   </div>
 
-  <!-- 进度条 -->
-  <div style="background:#fff;border-radius:8px;padding:14px 20px;margin-bottom:16px;border:1px solid var(--rule);box-shadow:0 1px 4px rgba(11,45,71,.08);">
+  <!-- 可视化图表行 -->
+  <div class="chart-row">
+    <div class="chart-card">
+      <h3>任务状态分布</h3>
+      <div class="chart-wrap"><canvas id="chartDonut"></canvas></div>
+      <div class="donut-legend" id="donutLegend"></div>
+    </div>
+    <div class="chart-card">
+      <h3>按优先级</h3>
+      <div class="chart-wrap"><canvas id="chartBar"></canvas></div>
+    </div>
+    <div class="chart-card" style="display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;">
+      <h3 style="align-self:flex-start;">完成进度</h3>
+      <div class="pct-big" id="pctBig">—</div>
+      <div class="pct-sub2" id="pctBigSub">加载中…</div>
+      <div class="pct-bar" style="width:100%;margin-top:16px;height:8px;"><div class="pct-fill" id="pctFill2" style="width:0%;height:8px;border-radius:4px;"></div></div>
+    </div>
+  </div>
+
+  <!-- 进度条（已隐藏，数据合并到图表行） -->
+  <div style="display:none;background:#fff;border-radius:8px;padding:14px 20px;margin-bottom:16px;border:1px solid var(--rule);box-shadow:0 1px 4px rgba(11,45,71,.08);">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
       <span style="font-size:12.5px;font-weight:700;color:var(--b900);">整体完成进度</span>
       <span id="pctLabel" style="font-size:20px;font-weight:800;color:var(--b500);">—</span>
@@ -372,7 +402,61 @@ Promise.all([
   document.getElementById('pctFill').style.width  = pct+'%';
   document.getElementById('pctSub').textContent   = doneTasks.length+'/'+total+' 项任务已完成';
 
-  // 进行中任务
+  // ── 图表行 ──
+  var reviewTasks = openTasks.filter(function(i){ return getStatus(i)==='待评审'; });
+  var todoTasks   = openTasks.filter(function(i){
+    var s = getStatus(i);
+    return s==='待办' || s==='' || (!s);
+  });
+
+  // 1. 任务状态分布 — 环形图
+  var donutColors = ['#B0BEC5','#2374A3','#7C6FCD','#22C55E'];
+  var donutLabels = ['待办','进行中','评审中','已完成'];
+  var donutData   = [todoTasks.length, wipTasks.length, reviewTasks.length, doneTasks.length];
+  new Chart(document.getElementById('chartDonut'), {
+    type:'doughnut',
+    data:{
+      labels: donutLabels,
+      datasets:[{data:donutData, backgroundColor:donutColors, borderWidth:2, borderColor:'#fff', hoverOffset:4}]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      cutout:'65%',
+      plugins:{legend:{display:false}, tooltip:{callbacks:{label:function(ctx){return ' '+ctx.label+' '+ctx.raw+'项';}}}}
+    }
+  });
+  var legendHtml = donutLabels.map(function(l,i){
+    return '<div class="dl-item"><div class="dl-dot" style="background:'+donutColors[i]+'"></div><b>'+l+'</b> '+donutData[i]+'</div>';
+  }).join('');
+  document.getElementById('donutLegend').innerHTML = legendHtml;
+
+  // 2. 按优先级 — 柱状图
+  var pLevels = ['高','中','低'];
+  var pColors = ['#1B3A6B','#2374A3','#A8C4E0'];
+  var pCounts = pLevels.map(function(lv){
+    return openTasks.filter(function(i){ return getRiskLevel(i)===lv || getLabel(i,'优先级:').replace('优先级:','')===lv; }).length;
+  });
+  new Chart(document.getElementById('chartBar'), {
+    type:'bar',
+    data:{
+      labels:pLevels,
+      datasets:[{data:pCounts, backgroundColor:pColors, borderRadius:4, borderSkipped:false}]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:false}, tooltip:{callbacks:{label:function(ctx){return ' '+ctx.raw+' 项';}}}} ,
+      scales:{
+        x:{grid:{display:false}, ticks:{color:'#5B7A91',font:{size:12}}},
+        y:{beginAtZero:true, ticks:{color:'#5B7A91',font:{size:11},stepSize:1}, grid:{color:'rgba(0,0,0,.05)'}}
+      }
+    }
+  });
+
+  // 3. 完成进度卡片
+  document.getElementById('pctBig').textContent    = pct+'%';
+  document.getElementById('pctBigSub').textContent = doneTasks.length+'/'+total+' 任务已完成';
+  document.getElementById('pctFill2').style.width  = pct+'%';
+
   var wipHtml = wipTasks.slice(0,8).map(function(i){
     var ms = i.milestone ? '<span style="font-size:10px;color:var(--muted);"> · '+esc(i.milestone.title.split(' ').slice(0,2).join(' '))+'</span>' : '';
     return '<div class="task-item"><span class="ti-num">#'+i.number+'</span><span class="ti-title"><a href="'+esc(i.html_url)+'" target="_blank">'+esc(i.title.replace(/^[【\[][^\]】]+[】\]]\s*/,''))+'</a>'+ms+'</span><span class="ti-badge badge-wip">进行中</span></div>';
