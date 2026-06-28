@@ -2329,52 +2329,64 @@ function deleteRisk(id){
 
 // ── DELIVERABLES ──────────────────────────────────────────────────
 function renderDeliverables(){
+  // Fetch status from doc-status.json, then render
+  fetch('https://api.github.com/repos/EstaTea/fsl-report/contents/status/doc-status.json?ref=main&_='+Date.now())
+    .then(function(r){return r.json();})
+    .then(function(d){
+      var statusMap={};
+      try{
+        var c='';
+        for(var i=0;i<d.content.length;i++){var x=d.content.charCodeAt(i);if(x!==10&&x!==13)c+=d.content[i];}
+        statusMap=JSON.parse(atob(c));
+      }catch(e){}
+      _renderDeliverables(statusMap);
+    })
+    .catch(function(){ _renderDeliverables({}); });
+}
+function _renderDeliverables(statusMap){
+  function st(key){ return statusMap[key]||statusMap[key+'.html']||'todo'; }
   var sections=[
-    {title:'管理咨询交付物 — 现状分析与诊断阶段',docs:[
-      {name:'佛山照明企业现状诊断报告',status:'done',icon:'📊',url:'/fsl-report/consulting/diagnosis/report-01.html'},
-      {name:'照明行业数字化转型对标研究报告',status:'done',icon:'📈',url:'/fsl-report/research/industry-benchmark.html'},
-    ]},
-    {title:'管理咨询交付物 — 蓝图及架构设计阶段',docs:[
-      {name:'佛山照明企业架构设计报告',status:'done',icon:'🏛',url:'/fsl-report/consulting/blueprint/ea-report.html'},
-      {name:'佛山照明专项方案设计报告',status:'todo',icon:'🎯',url:'#'},
-      {name:'佛山照明数据调研分析报告',status:'todo',icon:'📋',url:'#'},
-      {name:'佛山照明数据规划及管理办法',status:'todo',icon:'📋',url:'#'},
-      {name:'佛山照明数据治理总结报告',status:'todo',icon:'📋',url:'#'},
-      {name:'数字化保障组织设计报告（可选）',status:'todo',icon:'🏢',url:'#'},
-    ]},
-    {title:'管理咨询交付物 — 实施路径规划阶段',docs:[
-      {name:'佛山照明企业数字化转型路径规划',status:'done',icon:'🗺',url:'/fsl-report/consulting/roadmap/roadmap-report.html'},
+    {title:'管理咨询交付物',docs:[
+      {name:'1. 佛山照明企业现状诊断报告',      key:'/consulting/diagnosis/report-01',        icon:'📊',url:'/fsl-report/consulting/diagnosis/report-01.html'},
+      {name:'2. 佛山照明企业架构设计报告',      key:'/consulting/blueprint/ea-report',         icon:'🏛',url:'/fsl-report/consulting/blueprint/ea-report.html'},
+      {name:'3. 佛山照明专项方案设计报告',      key:'/consulting/blueprint/solution-report',   icon:'🎯',url:'/fsl-report/consulting/solutions/'},
+      {name:'4.1 佛山照明数据调研分析报告',     key:'/consulting/blueprint/data-survey',       icon:'📋',url:'/fsl-report/consulting/blueprint/data-survey.html'},
+      {name:'4.2 佛山照明数据规划及管理办法',   key:'/consulting/blueprint/data-governance',   icon:'📋',url:'/fsl-report/consulting/blueprint/data-governance.html'},
+      {name:'4.3 佛山照明数据治理总结报告',     key:'/consulting/blueprint/data-summary',      icon:'📋',url:'/fsl-report/consulting/blueprint/data-summary.html'},
+      {name:'5. 数字化保障组织设计报告（可选）', key:'/consulting/blueprint/org-design',        icon:'🏢',url:'/fsl-report/consulting/blueprint/org-design.html'},
+      {name:'6. 佛山照明企业数字化转型路径规划', key:'/consulting/roadmap/roadmap-report',      icon:'🗺',url:'/fsl-report/consulting/roadmap/roadmap-report.html'},
     ]},
     {title:'SAP实施交付物 — 系统实施准备阶段',docs:[
-      {name:'项目启动会',status:'done',icon:'🚀',url:'/fsl-report/sap/prepare/kickoff.html'},
-      {name:'项目总体计划',status:'done',icon:'📅',url:'/fsl-report/sap/prepare/project-plan.html'},
-      {name:'项目章程',status:'done',icon:'📄',url:'/fsl-report/sap/prepare/charter.html'},
-      {name:'调研计划',status:'done',icon:'📝',url:'/fsl-report/sap/prepare/survey.html'},
+      {name:'项目启动会',   key:'/sap/prepare/kickoff',      icon:'🚀',url:'/fsl-report/sap/prepare/kickoff.html'},
+      {name:'项目总体计划', key:'/sap/prepare/project-plan', icon:'📅',url:'/fsl-report/sap/prepare/project-plan.html'},
+      {name:'项目章程',     key:'/sap/prepare/charter',      icon:'📄',url:'/fsl-report/sap/prepare/charter.html'},
+      {name:'调研计划',     key:'/sap/prepare/survey',       icon:'📝',url:'/fsl-report/sap/prepare/survey.html'},
     ]},
     {title:'SAP实施交付物 — 蓝图至验收阶段',docs:[
-      {name:'调研报告',status:'wip',icon:'🔍',url:'#'},
-      {name:'解决方案文档',status:'todo',icon:'💡',url:'#'},
-      {name:'配置文档',status:'todo',icon:'⚙️',url:'#'},
-      {name:'开发文档',status:'todo',icon:'💻',url:'#'},
-      {name:'用户测试完成报告',status:'todo',icon:'✅',url:'#'},
-      {name:'上线策略',status:'todo',icon:'🚢',url:'#'},
-      {name:'系统操作手册',status:'todo',icon:'📖',url:'#'},
-      {name:'培训文档',status:'todo',icon:'🎓',url:'#'},
-      {name:'项目验收报告',status:'todo',icon:'🏆',url:'#'},
+      {name:'调研报告',       key:'/sap/blueprint/survey-report',    icon:'🔍',url:'#'},
+      {name:'解决方案文档',   key:'/sap/blueprint/solution',         icon:'💡',url:'#'},
+      {name:'配置文档',       key:'/sap/realize/config',             icon:'⚙️',url:'#'},
+      {name:'开发文档',       key:'/sap/realize/dev-spec',           icon:'💻',url:'#'},
+      {name:'用户测试完成报告',key:'/sap/realize/uat',               icon:'✅',url:'#'},
+      {name:'上线策略',       key:'/sap/deploy/cutover',             icon:'🚢',url:'#'},
+      {name:'系统操作手册',   key:'/sap/deploy/manual',              icon:'📖',url:'#'},
+      {name:'培训文档',       key:'/sap/deploy/training',            icon:'🎓',url:'#'},
+      {name:'项目验收报告',   key:'/sap/deploy/acceptance',          icon:'🏆',url:'#'},
     ]},
   ];
   var html=sections.map(function(sec){
     var ds=sec.docs.map(function(d){
+      var s=st(d.key);
       var link=d.url!=='#'?'href="'+d.url+'" target="_blank"':'onclick="return false"';
-      var scls=d.status==='done'?'ds-done':d.status==='wip'?'ds-wip':'ds-todo';
-      var slbl=d.status==='done'?'已完成':d.status==='wip'?'进行中':'待开始';
+      var scls=s==='done'?'ds-done':s==='wip'?'ds-wip':'ds-todo';
+      var slbl=s==='done'?'已完成':s==='wip'?'进行中':'待开始';
       return '<a '+link+' class="deliv-card" style="text-decoration:none">'+
         '<div class="deliv-icon">'+d.icon+'</div>'+
         '<div class="deliv-info"><div class="deliv-name">'+esc(d.name)+'</div></div>'+
         '<span class="deliv-status '+scls+'">'+slbl+'</span>'+
       '</a>';
     }).join('');
-    var done=sec.docs.filter(function(d){return d.status==='done';}).length;
+    var done=sec.docs.filter(function(d){return st(d.key)==='done';}).length;
     return '<div class="deliv-section">'+
       '<div class="deliv-section-title"><span>'+esc(sec.title)+'</span><span style="font-size:11px;color:var(--muted)">'+done+'/'+sec.docs.length+'</span></div>'+
       '<div class="deliv-grid">'+ds+'</div>'+
