@@ -1651,42 +1651,75 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 </pre>
 <div class="sec-sub">5.2.2 目标组织架构（TO-BE）</div>
 <p style="margin-bottom:9px;color:var(--text2)"><strong>阶段一（2026年7月-2027年1月，SAP实施期）：</strong></p>
-<pre>
-数智化部（目标约30人，含新增8人）
-│
-├── 部长（苏大明）+ 副部长
-│
-├── SAP卓越中心（CoE）- 8-10人
-│   ├── SAP功能顾问组（5-6人）
-│   │   ├── FICO顾问（1人，新增或内部培养）
-│   │   ├── SD顾问（1人，新增或内部培养）
-│   │   ├── MM/PP顾问（1人，现有）
-│   │   └── QM顾问（1人，新增或外包）
-│   ├── SAP技术组（2-3人）
-│   │   ├── Basis/HANA管理员（1人，现有）
-│   │   └── CPI集成工程师（1-2人，新增）
-│   └── 甲方项目经理（吴梓填）
-│
-├── 主数据管理办公室（MDM Office）- 2-3人
-│   ├── MDM主任（1人，新增，具备SAP MM背景）
-│   └── MDM专员（1-2人，新增或从产品中心调入）
-│
-├── 数字化创新中心 - 3-4人
-│   ├── AI平台工程师（1人，现有）
-│   ├── BI/数据分析（1-2人，新增1人）
-│   └── 数字化场景规划师（1人，新增）
-│
-├── IT基础设施组 - 4-5人（维持现状）
-│   ├── 网络/安全工程师
-│   └── 服务器/存储运维
-│
-├── 应用管理组 - 3-4人（维持）
-│   └── OA/WMS/PLM/CRM等系统管理
-│
-└── 变革管理团队（临时，SAP项目期）- 2人
-    ├── 变革管理专员（新增或借调）
-    └── 培训协调员（新增或借调）
-</pre>
+<div style="background:var(--bg);border:1px solid var(--pale);border-radius:10px;padding:16px;margin:12px 0">
+  <div style="font-size:12px;font-weight:700;color:var(--dark);margin-bottom:14px">
+    <i class="fas fa-sitemap" style="color:var(--primary);margin-right:6px"></i>数智化部目标组织架构（约30人，SAP实施期）
+  </div>
+  <!-- Top: 部长 -->
+  <div style="text-align:center;margin-bottom:12px">
+    <div style="display:inline-block;background:var(--dark);color:#fff;padding:8px 24px;border-radius:6px;font-size:13px;font-weight:700">
+      部长（苏大明）+ 副部长
+    </div>
+  </div>
+  <!-- 5 groups -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px">
+    <!-- SAP CoE -->
+    <div style="background:var(--white);border-radius:8px;border-top:4px solid var(--primary);padding:12px">
+      <div style="font-size:11px;font-weight:800;color:var(--primary);margin-bottom:8px">SAP卓越中心（CoE）</div>
+      <div style="font-size:11.5px;color:var(--text2);line-height:2">
+        <div style="background:#EBF4FF;border-radius:4px;padding:2px 8px;margin-bottom:3px;font-weight:600">SAP功能顾问 5-6人</div>
+        <div style="padding-left:8px;font-size:11px;color:var(--muted)">FICO顾问 ×1 <span style="color:#C0392B">新增</span></div>
+        <div style="padding-left:8px;font-size:11px;color:var(--muted)">SD顾问 ×1 <span style="color:#C0392B">新增</span></div>
+        <div style="padding-left:8px;font-size:11px;color:var(--muted)">MM/PP顾问 ×1 现有</div>
+        <div style="padding-left:8px;font-size:11px;color:var(--muted)">QM顾问 ×1 <span style="color:#E67E22">外包</span></div>
+        <div style="background:#EBF4FF;border-radius:4px;padding:2px 8px;margin:5px 0 3px;font-weight:600">SAP技术组 2-3人</div>
+        <div style="padding-left:8px;font-size:11px;color:var(--muted)">Basis/HANA ×1 现有</div>
+        <div style="padding-left:8px;font-size:11px;color:var(--muted)">CPI工程师 ×1-2 <span style="color:#C0392B">新增</span></div>
+        <div style="padding-left:8px;font-size:11px;color:var(--muted)">甲方PM（吴梓填）</div>
+      </div>
+    </div>
+    <!-- MDM Office -->
+    <div style="background:var(--white);border-radius:8px;border-top:4px solid #C0392B;padding:12px">
+      <div style="font-size:11px;font-weight:800;color:#C0392B;margin-bottom:8px">MDM主数据办公室 <span style="background:#FDECEA;border-radius:3px;padding:0 4px">最紧迫</span></div>
+      <div style="font-size:11.5px;color:var(--text2);line-height:2">
+        <div style="background:#FDECEA;border-radius:4px;padding:2px 8px;margin-bottom:3px;font-weight:600">2-3人（全部新增）</div>
+        <div style="padding-left:8px;font-size:11px;color:var(--muted)">MDM主任 ×1 <span style="color:#C0392B">外招，9月前</span></div>
+        <div style="padding-left:8px;font-size:11px;color:var(--muted)">MDM专员 ×1-2 <span style="color:#C0392B">新增/调入</span></div>
+      </div>
+      <div style="font-size:10px;color:var(--muted);margin-top:8px;border-top:1px dashed var(--pale);padding-top:6px">职责：标准制定·审核·质量KPI·迁移支持</div>
+    </div>
+    <!-- Innovation Center -->
+    <div style="background:var(--white);border-radius:8px;border-top:4px solid #27AE60;padding:12px">
+      <div style="font-size:11px;font-weight:800;color:#27AE60;margin-bottom:8px">数字化创新中心</div>
+      <div style="font-size:11.5px;color:var(--text2);line-height:2">
+        <div style="background:#D1FAE5;border-radius:4px;padding:2px 8px;margin-bottom:3px;font-weight:600">3-4人</div>
+        <div style="padding-left:8px;font-size:11px;color:var(--muted)">AI平台工程师 ×1 现有</div>
+        <div style="padding-left:8px;font-size:11px;color:var(--muted)">BI/数据分析 ×1-2 <span style="color:#E67E22">+1新增</span></div>
+        <div style="padding-left:8px;font-size:11px;color:var(--muted)">数字化场景规划 ×1 <span style="color:#C0392B">新增</span></div>
+      </div>
+    </div>
+    <!-- IT Infrastructure -->
+    <div style="background:var(--white);border-radius:8px;border-top:4px solid var(--steel);padding:12px">
+      <div style="font-size:11px;font-weight:800;color:var(--steel);margin-bottom:8px">IT基础设施组</div>
+      <div style="font-size:11.5px;color:var(--text2);line-height:2">
+        <div style="background:var(--bg);border-radius:4px;padding:2px 8px;margin-bottom:3px;font-weight:600">4-5人（维持现状）</div>
+        <div style="padding-left:8px;font-size:11px;color:var(--muted)">网络/安全工程师</div>
+        <div style="padding-left:8px;font-size:11px;color:var(--muted)">服务器/存储运维</div>
+      </div>
+    </div>
+    <!-- App Mgmt + OCM -->
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="background:var(--white);border-radius:8px;border-top:4px solid var(--muted);padding:10px;flex:1">
+        <div style="font-size:11px;font-weight:800;color:var(--muted);margin-bottom:5px">应用管理组</div>
+        <div style="font-size:11px;color:var(--text2)">3-4人（维持）<br>OA/WMS/PLM/CRM等</div>
+      </div>
+      <div style="background:var(--white);border-radius:8px;border-top:4px solid #E67E22;padding:10px;border:1px dashed #E67E22;flex:1">
+        <div style="font-size:11px;font-weight:800;color:#E67E22;margin-bottom:5px">变革管理团队<span style="font-weight:400;font-size:9px">（临时，项目期）</span></div>
+        <div style="font-size:11px;color:var(--text2)">2人 · 变革专员+培训协调<br><span style="color:#E67E22;font-size:10px">2026.07—2027.03</span></div>
+      </div>
+    </div>
+  </div>
+</div>
 <p style="margin-bottom:9px;color:var(--text2)"><strong>阶段二（2027年Q1-Q4，SAP稳定运营期）：</strong></p>
 <p style="margin-bottom:9px;color:var(--text2)">SAP上线稳定后，CoE中的顾问逐步减少对艾维登支持的依赖，转向自主运营。变革管理团队解散，成员回归或转岗。MDM Office转入常态化运营。</p>
 <p style="margin-bottom:9px;color:var(--text2)"><strong>阶段三（2028年+，数字化成熟期）：</strong></p>
@@ -1942,40 +1975,54 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 <p style="margin-bottom:9px;color:var(--text2)">同一需求在调研、确认、开发过程中频繁变更，缺少正式的需求冻结机制，导致返工和超期。</p>
 <div class="sec-sub">6.1.2 目标需求管理流程</div>
 <p style="margin-bottom:9px;color:var(--text2)">参照SAP项目最佳实践，建立以下需求管理流程：</p>
-<pre>
-IT需求管理流程（目标状态）：
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Step 1：需求提出（业务部门）
-  → 业务部门联络员填写《IT需求申请表》
-  → 说明业务背景、期望效果、紧迫程度
-  → 提交到数字化保障委员会共享文档
-
-Step 2：需求初审（数智化部，5个工作日内）
-  → 技术可行性评估
-  → 工作量初步估算（人天）
-  → 与现有SAP/系统的影响范围评估
-  → 初步优先级建议（P0/P1/P2/P3）
-
-Step 3：优先级决策（委员会月会或紧急会议）
-  → P0（影响生产/业务停滞）：24小时决策
-  → P1（影响效率，有明确ROI）：月会决策
-  → P2/P3（优化类）：季度规划时统一排期
-
-Step 4：需求冻结与立项
-  → 需求文档经业务Owner和数智化部双签
-  → 明确验收标准（上线什么算成功）
-  → 纳入IT项目排期表
-
-Step 5：实施与验收
-  → 联络员参与UAT（用户验收测试）
-  → 联络员签字确认达到验收标准
-  → 上线后30天效果回顾
-
-Step 6：运营与优化
-  → 联络员收集用户反馈
-  → 定期评估系统使用率和目标达成情况
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-</pre>
+<div style="margin:12px 0">
+  <div style="display:flex;gap:0;overflow-x:auto;padding-bottom:4px">
+    <!-- Step 1 -->
+    <div style="flex:1;min-width:120px;background:var(--white);border:1px solid var(--pale);border-radius:8px 0 0 8px;padding:12px 10px;position:relative">
+      <div style="background:#1B3A6B;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;margin-bottom:7px;display:inline-block">Step 1</div>
+      <div style="font-size:12px;font-weight:700;color:var(--dark);margin-bottom:5px">需求提出</div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.7">业务部门联络员<br>填写申请表<br>说明背景/效果/<br>紧迫程度</div>
+      <div style="position:absolute;right:-10px;top:50%;transform:translateY(-50%);background:var(--primary);color:#fff;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;z-index:1">›</div>
+    </div>
+    <!-- Step 2 -->
+    <div style="flex:1;min-width:120px;background:var(--bg);border:1px solid var(--pale);padding:12px 10px 12px 18px;position:relative">
+      <div style="background:#1F70C1;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;margin-bottom:7px;display:inline-block">Step 2</div>
+      <div style="font-size:12px;font-weight:700;color:var(--dark);margin-bottom:5px">初审评估</div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.7">数智化部<br>5个工作日内<br>可行性+工作量+<br>影响范围评估</div>
+      <div style="position:absolute;right:-10px;top:50%;transform:translateY(-50%);background:var(--primary);color:#fff;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;z-index:1">›</div>
+    </div>
+    <!-- Step 3 -->
+    <div style="flex:1;min-width:120px;background:var(--white);border:1px solid var(--pale);padding:12px 10px 12px 18px;position:relative">
+      <div style="background:#005EB8;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;margin-bottom:7px;display:inline-block">Step 3</div>
+      <div style="font-size:12px;font-weight:700;color:var(--dark);margin-bottom:5px">优先级决策</div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.7"><span style="color:#C0392B;font-weight:700">P0</span> 24h决策<br><span style="color:#E67E22;font-weight:700">P1</span> 月会决策<br><span style="color:var(--muted)">P2/P3</span> 季度排期</div>
+      <div style="position:absolute;right:-10px;top:50%;transform:translateY(-50%);background:var(--primary);color:#fff;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;z-index:1">›</div>
+    </div>
+    <!-- Step 4 -->
+    <div style="flex:1;min-width:120px;background:var(--bg);border:1px solid var(--pale);padding:12px 10px 12px 18px;position:relative">
+      <div style="background:#003087;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;margin-bottom:7px;display:inline-block">Step 4</div>
+      <div style="font-size:12px;font-weight:700;color:var(--dark);margin-bottom:5px">需求冻结</div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.7">业务Owner+<br>数智化双签<br>明确验收标准<br>纳入项目排期</div>
+      <div style="position:absolute;right:-10px;top:50%;transform:translateY(-50%);background:var(--primary);color:#fff;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;z-index:1">›</div>
+    </div>
+    <!-- Step 5 -->
+    <div style="flex:1;min-width:120px;background:var(--white);border:1px solid var(--pale);padding:12px 10px 12px 18px;position:relative">
+      <div style="background:#27AE60;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;margin-bottom:7px;display:inline-block">Step 5</div>
+      <div style="font-size:12px;font-weight:700;color:var(--dark);margin-bottom:5px">实施验收</div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.7">联络员参与UAT<br>按验收标准签字<br>上线后30天<br>效果回顾</div>
+      <div style="position:absolute;right:-10px;top:50%;transform:translateY(-50%);background:#27AE60;color:#fff;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;z-index:1">›</div>
+    </div>
+    <!-- Step 6 -->
+    <div style="flex:1;min-width:120px;background:var(--bg);border:1px solid var(--pale);border-radius:0 8px 8px 0;padding:12px 10px 12px 18px">
+      <div style="background:#065F46;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;margin-bottom:7px;display:inline-block">Step 6</div>
+      <div style="font-size:12px;font-weight:700;color:var(--dark);margin-bottom:5px">运营优化</div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.7">联络员收集<br>用户反馈<br>定期评估使用率<br>持续改进</div>
+    </div>
+  </div>
+  <div style="margin-top:8px;font-size:11px;color:var(--muted);border-left:3px solid #C0392B;padding-left:8px">
+    💡 <strong style="color:var(--dark)">关键改变：</strong>业务部门联络员是需求提出者和验收确认者，数智化部从"甲方推动者"转变为"技术支持者"
+  </div>
+</div>
 </div><!-- /sec -->
 <div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 6.2 项目管理机制</div>
 <div class="sec-sub">6.2.1 IT项目分级管理</div>
@@ -2119,18 +2166,68 @@ Step 6：运营与优化
 <div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 7.1 现状人才结构分析</div>
 <div class="sec-sub">7.1.1 数智化部人才结构现状</div>
 <p style="margin-bottom:9px;color:var(--text2)">根据数智化部PPT（2025-08-08）：</p>
-<p style="margin-bottom:9px;color:var(--text2)"><strong>学历结构（16人编制）：</strong></p>
-<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
-<li style="margin-bottom:3px;line-height:1.65">本科及以上：100%（16人）</li>
-<li style="margin-bottom:3px;line-height:1.65">硕士（含在读）：约19%（3人）</li>
-<li style="margin-bottom:3px;line-height:1.65">博士：6%（1人）</li>
-</ul>
-<p style="margin-bottom:9px;color:var(--text2)"><strong>职称结构：</strong></p>
-<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
-<li style="margin-bottom:3px;line-height:1.65">高级职称：6%（1人）</li>
-<li style="margin-bottom:3px;line-height:1.65">中级职称：约19%（约3人）</li>
-<li style="margin-bottom:3px;line-height:1.65">无职称：75%（约12人）</li>
-</ul>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:12px 0">
+  <!-- 学历 -->
+  <div style="background:var(--white);border-radius:10px;border:1px solid var(--pale);padding:14px;text-align:center">
+    <div style="font-size:12px;font-weight:700;color:var(--dark);margin-bottom:12px">学历结构（16人）</div>
+    <svg viewBox="0 0 120 120" width="100" height="100" style="display:block;margin:0 auto">
+      <!-- 博士 6% (21.6°) -->
+      <circle cx="60" cy="60" r="40" fill="none" stroke="#003087" stroke-width="22"
+        stroke-dasharray="4.5 279.5" stroke-dashoffset="0" transform="rotate(-90 60 60)"/>
+      <!-- 硕士 13% (46.8°) -->
+      <circle cx="60" cy="60" r="40" fill="none" stroke="#005EB8" stroke-width="22"
+        stroke-dasharray="9.7 274.3" stroke-dashoffset="-4.5" transform="rotate(-90 60 60)"/>
+      <!-- 本科 81% (291.6°) -->
+      <circle cx="60" cy="60" r="40" fill="none" stroke="#A8C4E0" stroke-width="22"
+        stroke-dasharray="50.9 233.1" stroke-dashoffset="-14.2" transform="rotate(-90 60 60)"/>
+      <text x="60" y="56" text-anchor="middle" font-size="13" font-weight="800" fill="#1B3A6B">100%</text>
+      <text x="60" y="70" text-anchor="middle" font-size="9" fill="#6B8CB8">本科及以上</text>
+    </svg>
+    <div style="font-size:11px;color:var(--text2);margin-top:8px;text-align:left">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px"><span style="width:10px;height:10px;background:#003087;border-radius:2px;flex-shrink:0"></span>博士 6%（1人）</div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px"><span style="width:10px;height:10px;background:#005EB8;border-radius:2px;flex-shrink:0"></span>硕士 19%（3人）</div>
+      <div style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;background:#A8C4E0;border-radius:2px;flex-shrink:0"></span>本科 75%（12人）</div>
+    </div>
+  </div>
+  <!-- 职称 -->
+  <div style="background:var(--white);border-radius:10px;border:1px solid var(--pale);padding:14px;text-align:center">
+    <div style="font-size:12px;font-weight:700;color:var(--dark);margin-bottom:12px">职称结构（16人）</div>
+    <svg viewBox="0 0 120 120" width="100" height="100" style="display:block;margin:0 auto">
+      <circle cx="60" cy="60" r="40" fill="none" stroke="#27AE60" stroke-width="22"
+        stroke-dasharray="4.5 279.5" stroke-dashoffset="0" transform="rotate(-90 60 60)"/>
+      <circle cx="60" cy="60" r="40" fill="none" stroke="#E67E22" stroke-width="22"
+        stroke-dasharray="13.6 270.4" stroke-dashoffset="-4.5" transform="rotate(-90 60 60)"/>
+      <circle cx="60" cy="60" r="40" fill="none" stroke="#D0E4F7" stroke-width="22"
+        stroke-dasharray="50.9 233.1" stroke-dashoffset="-18.1" transform="rotate(-90 60 60)"/>
+      <text x="60" y="56" text-anchor="middle" font-size="13" font-weight="800" fill="#C0392B">75%</text>
+      <text x="60" y="70" text-anchor="middle" font-size="9" fill="#6B8CB8">暂无职称</text>
+    </svg>
+    <div style="font-size:11px;color:var(--text2);margin-top:8px;text-align:left">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px"><span style="width:10px;height:10px;background:#27AE60;border-radius:2px;flex-shrink:0"></span>高级 6%（1人）</div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px"><span style="width:10px;height:10px;background:#E67E22;border-radius:2px;flex-shrink:0"></span>中级 19%（3人）</div>
+      <div style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;background:#D0E4F7;border-radius:2px;flex-shrink:0"></span>无职称 75%（12人）</div>
+    </div>
+  </div>
+  <!-- SAP配置 -->
+  <div style="background:#FDECEA;border-radius:10px;border:2px solid #FECACA;padding:14px;text-align:center">
+    <div style="font-size:12px;font-weight:700;color:#C0392B;margin-bottom:12px">SAP顾问配置（关键缺口）</div>
+    <svg viewBox="0 0 120 120" width="100" height="100" style="display:block;margin:0 auto">
+      <circle cx="60" cy="60" r="40" fill="none" stroke="#27AE60" stroke-width="22"
+        stroke-dasharray="25.1 258.9" stroke-dashoffset="0" transform="rotate(-90 60 60)"/>
+      <circle cx="60" cy="60" r="40" fill="none" stroke="#E67E22" stroke-width="22"
+        stroke-dasharray="25.1 258.9" stroke-dashoffset="-25.1" transform="rotate(-90 60 60)"/>
+      <circle cx="60" cy="60" r="40" fill="none" stroke="#FECACA" stroke-width="22"
+        stroke-dasharray="234" stroke-dashoffset="-50.2" transform="rotate(-90 60 60)"/>
+      <text x="60" y="56" text-anchor="middle" font-size="13" font-weight="800" fill="#C0392B">0人</text>
+      <text x="60" y="70" text-anchor="middle" font-size="9" fill="#C0392B">MDM/CPI/变革</text>
+    </svg>
+    <div style="font-size:11px;color:var(--text2);margin-top:8px;text-align:left">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px"><span style="width:10px;height:10px;background:#27AE60;border-radius:2px;flex-shrink:0"></span>内部顾问 2人 MM/PP+开发</div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px"><span style="width:10px;height:10px;background:#E67E22;border-radius:2px;flex-shrink:0"></span>外包顾问 2人 FICO+SD</div>
+      <div style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;background:#FECACA;border-radius:2px;flex-shrink:0"></span><span style="color:#C0392B;font-weight:700">缺口 MDM/CPI/变革 各0人</span></div>
+    </div>
+  </div>
+</div>
 <p style="margin-bottom:9px;color:var(--text2)"><strong>能力结构评估（基于调研）：</strong></p>
 </div><!-- /sec -->
 <table>
@@ -2317,30 +2414,68 @@ Step 6：运营与优化
 </ul>
 <div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 7.3 长期人才发展路线图</div>
 <div class="sec-sub">7.3.1 数智化部人才发展三阶段规划</div>
-<p style="margin-bottom:9px;color:var(--text2)"><strong>阶段一（2026-2027，SAP实施期）：</strong></p>
-<p style="margin-bottom:9px;color:var(--text2)">目标：快速补强SAP实施能力缺口，建立Super User体系</p>
-<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
-<li style="margin-bottom:3px;line-height:1.65">新增MDM专员2-3人（外招）</li>
-<li style="margin-bottom:3px;line-height:1.65">新增CPI集成工程师1-2人（外招或外包）</li>
-<li style="margin-bottom:3px;line-height:1.65">现有顾问通过参与实施完成模块能力升级（FI/CO/QM内部培养）</li>
-<li style="margin-bottom:3px;line-height:1.65">数智化部全体参加SAP S/4HANA基础认证培训（SAP官方C_TS410或C_S4CFI）</li>
-</ul>
-<p style="margin-bottom:9px;color:var(--text2)"><strong>阶段二（2027-2028，稳定运营期）：</strong></p>
-<p style="margin-bottom:9px;color:var(--text2)">目标：建立自主SAP运营能力，减少外包依赖</p>
-<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
-<li style="margin-bottom:3px;line-height:1.65">SAP卓越中心（CoE）正式成立，覆盖所有已上线模块</li>
-<li style="margin-bottom:3px;line-height:1.65">外包顾问从4人逐步减少至2人（仅保留专项支持）</li>
-<li style="margin-bottom:3px;line-height:1.65">BI/数据分析能力从1人扩展至3人（承担SAC报表开发和经营分析大屏）</li>
-<li style="margin-bottom:3px;line-height:1.65">MDM Office进入常态化运营，月度数据质量报告制度化</li>
-</ul>
-<p style="margin-bottom:9px;color:var(--text2)"><strong>阶段三（2028-2030，数字化成熟期）：</strong></p>
-<p style="margin-bottom:9px;color:var(--text2)">目标：建立面向AI的数据能力，推进DCMM 2-3级</p>
-<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
-<li style="margin-bottom:3px;line-height:1.65">AI应用工程师团队从1人扩展至3人，支撑供应链/成本/销售的AI场景落地</li>
-<li style="margin-bottom:3px;line-height:1.65">数据治理中心建立（从MDM Office升级），申请DCMM 2级认证</li>
-<li style="margin-bottom:3px;line-height:1.65">专职数字化场景规划师1-2人，负责新赛道（车灯/海洋/航空照明）的数字化路线图</li>
-<li style="margin-bottom:3px;line-height:1.65">探索培养1-2名具备CIO潜力的中层干部</li>
-</ul>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0">
+  <!-- Phase 1 -->
+  <div style="background:var(--white);border-radius:10px;overflow:hidden;border:1px solid var(--pale)">
+    <div style="background:linear-gradient(135deg,#C0392B,#E74C3C);color:#fff;padding:12px 14px">
+      <div style="font-size:10px;opacity:.8;letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px">阶段一 · 2026-2027</div>
+      <div style="font-size:14px;font-weight:800">SAP实施期</div>
+      <div style="font-size:11px;opacity:.85;margin-top:2px">快速补强实施能力缺口</div>
+    </div>
+    <div style="padding:12px 14px">
+      <div style="font-size:11px;font-weight:700;color:var(--dark);margin-bottom:7px">🎯 核心目标</div>
+      <ul style="margin:0 0 0 14px;padding:0;font-size:11.5px;color:var(--text2);line-height:1.85;list-style:disc">
+        <li>新增MDM专员2-3人（外招）</li>
+        <li>新增CPI集成工程师1-2人</li>
+        <li>FI/CO/QM顾问内部培养</li>
+        <li>全体参加SAP认证培训<br><span style="font-size:10px;color:var(--muted)">（C_TS410或C_S4CFI）</span></li>
+      </ul>
+      <div style="margin-top:10px;background:#FDECEA;border-radius:6px;padding:6px 10px;font-size:11px;color:#C0392B;font-weight:600;text-align:center">
+        人数：22人 → 约30人
+      </div>
+    </div>
+  </div>
+  <!-- Phase 2 -->
+  <div style="background:var(--white);border-radius:10px;overflow:hidden;border:1px solid var(--pale)">
+    <div style="background:linear-gradient(135deg,#005EB8,#1F70C1);color:#fff;padding:12px 14px">
+      <div style="font-size:10px;opacity:.8;letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px">阶段二 · 2027-2028</div>
+      <div style="font-size:14px;font-weight:800">稳定运营期</div>
+      <div style="font-size:11px;opacity:.85;margin-top:2px">建立自主SAP运营能力</div>
+    </div>
+    <div style="padding:12px 14px">
+      <div style="font-size:11px;font-weight:700;color:var(--dark);margin-bottom:7px">🎯 核心目标</div>
+      <ul style="margin:0 0 0 14px;padding:0;font-size:11.5px;color:var(--text2);line-height:1.85;list-style:disc">
+        <li>SAP CoE正式成立</li>
+        <li>外包顾问从4人→2人</li>
+        <li>BI分析师扩展至3人</li>
+        <li>MDM Office常态化运营<br><span style="font-size:10px;color:var(--muted)">（月度质量报告制度化）</span></li>
+      </ul>
+      <div style="margin-top:10px;background:#EBF4FF;border-radius:6px;padding:6px 10px;font-size:11px;color:#005EB8;font-weight:600;text-align:center">
+        人数：约28-32人
+      </div>
+    </div>
+  </div>
+  <!-- Phase 3 -->
+  <div style="background:var(--white);border-radius:10px;overflow:hidden;border:1px solid var(--pale)">
+    <div style="background:linear-gradient(135deg,#065F46,#27AE60);color:#fff;padding:12px 14px">
+      <div style="font-size:10px;opacity:.8;letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px">阶段三 · 2028-2030</div>
+      <div style="font-size:14px;font-weight:800">数字化成熟期</div>
+      <div style="font-size:11px;opacity:.85;margin-top:2px">面向AI，推进DCMM认证</div>
+    </div>
+    <div style="padding:12px 14px">
+      <div style="font-size:11px;font-weight:700;color:var(--dark);margin-bottom:7px">🎯 核心目标</div>
+      <ul style="margin:0 0 0 14px;padding:0;font-size:11.5px;color:var(--text2);line-height:1.85;list-style:disc">
+        <li>AI工程师团队1→3人</li>
+        <li>数据治理中心建立</li>
+        <li>申请DCMM 2级认证</li>
+        <li>培养CIO后备1-2名<br><span style="font-size:10px;color:var(--muted)">（中层干部发展通道）</span></li>
+      </ul>
+      <div style="margin-top:10px;background:#D1FAE5;border-radius:6px;padding:6px 10px;font-size:11px;color:#065F46;font-weight:600;text-align:center">
+        人数：约30-35人
+      </div>
+    </div>
+  </div>
+</div>
 <div class="sec-sub">7.3.2 数智化部人员规模演进</div>
 </div><!-- /sec -->
 <table>
