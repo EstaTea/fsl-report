@@ -1057,18 +1057,22 @@ select.dp-input{appearance:none;-webkit-appearance:none;
     </div>
     <!-- 功能架构 -->
     <div id="archPanelFunction" class="arch-panel">
-      <div style="padding:24px;overflow:auto;flex:1;">
-        <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:16px;">系统功能架构图</div>
-        <div id="functionArchChart"></div>
-      </div>
+      <iframe id="iframeFunction"
+        src="about:blank"
+        data-src="https://fsl-ea.netlify.app/?view=capability"
+        style="width:100%;flex:1;border:none;display:block;"
+        allowfullscreen>
+      </iframe>
     </div>
 
     <!-- 集成架构 -->
     <div id="archPanelIntegration" class="arch-panel">
-      <div style="padding:24px;overflow:auto;flex:1;">
-        <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:16px;">系统集成架构图</div>
-        <div id="integrationArchChart"></div>
-      </div>
+      <iframe id="iframeIntegration"
+        src="about:blank"
+        data-src="https://fsl-ea.netlify.app/?view=integration"
+        style="width:100%;flex:1;border:none;display:block;"
+        allowfullscreen>
+      </iframe>
     </div>
 
   </div>
@@ -3177,6 +3181,15 @@ function switchArchTab(tab){
   var panel = document.getElementById('archPanel'+tab.charAt(0).toUpperCase()+tab.slice(1));
   if(btn) btn.classList.add('active');
   if(panel) panel.classList.add('active');
+  // 懒加载 iframe：首次切换到该 Tab 时才真正加载
+  if(tab === 'function' || tab === 'integration'){
+    var iframeId = tab === 'function' ? 'iframeFunction' : 'iframeIntegration';
+    var iframe = document.getElementById(iframeId);
+    if(iframe && iframe.src === 'about:blank'){
+      iframe.src = iframe.getAttribute('data-src');
+    }
+    return;
+  }
   if(tab==='people'){
     if(!ORG_DATA_LOADED){ loadOrgDataFromGitHub(function(){ if(ORG_CURRENT_VIEW==='tree') renderOrgChart(); else renderOrgPanel(); }); }
     else { if(ORG_CURRENT_VIEW==='tree') renderOrgChart(); else renderOrgPanel(); }
