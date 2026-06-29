@@ -549,7 +549,7 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
           <tr><td><b>C02</b></td><td>BOM研发版与生产版混用：计划结果污染，替代料无法识别，标准成本无法建立</td><td><span class="badge r">极高</span></td><td><span class="badge r">极紧迫</span></td><td>PP/PLM</td></tr>
           <tr><td><b>C03</b></td><td>计量单位11种混用（ZEA≡EA重复定义）：影响全模块BOM计算，Greenfield最大技术风险之一</td><td><span class="badge r">极高</span></td><td><span class="badge r">极紧迫</span></td><td>全模块</td></tr>
           <tr><td><b>C04</b></td><td>成品关键字段几乎全部缺失：技术要求/69码/旧料号/跨工厂状态~100%缺失，影响WMS/QM/迁移</td><td><span class="badge r">极高</span></td><td><span class="badge a">高</span></td><td>MM/QM/WMS</td></tr>
-          <tr><td><b>C05</b></td><td>19法人89%孤岛 + 无统一集团CoA：多法人并行上线的最大架构障碍</td><td><span class="badge r">极高</span></td><td><span class="badge a">高</span></td><td>FICO</td></tr>
+          <tr><td><b>C05</b></td><td>19法人均已部署ECC但模块深度差异悬殊 + 无统一集团CoA：多法人S/4HANA升级的最大架构挑战</td><td><span class="badge r">极高</span></td><td><span class="badge a">高</span></td><td>FICO</td></tr>
           <tr><td><b>C06</b></td><td>数智化部代维业务数据（权责不清）：是数据质量持续恶化的制度根因</td><td><span class="badge a">高</span></td><td><span class="badge a">高</span></td><td>治理/管理</td></tr>
           <tr><td><b>C07</b></td><td>75个研发成本中心（E类）疑有大量历史遗留未关闭：需全量清查，否则迁移带入"僵尸"中心</td><td><span class="badge a">高</span></td><td><span class="badge a">高</span></td><td>CO</td></tr>
           <tr><td><b>C08</b></td><td>物料编码规则总表2022年版（近4年未更新）：航空/海洋照明新赛道无对应编码前缀</td><td><span class="badge a">高</span></td><td><span class="badge b">中</span></td><td>MM/PLM</td></tr>
@@ -856,7 +856,7 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
       <table>
         <thead><tr><th>对标维度</th><th>佛山照明</th><th>SAP客户中位数</th><th>行业领先企业</th><th>差距评级</th></tr></thead>
         <tbody>
-          <tr><td>ERP覆盖法人比例</td><td><span class="badge r">10.5%（2/19）</span></td><td>85%</td><td>100%</td><td><span class="badge r">极大</span></td></tr>
+          <tr><td>ERP覆盖法人比例</td><td><span class="badge a">19/19（ECC均覆盖）</span><br><span style="font-size:10px;color:var(--muted)">但模块深度差异大</span></td><td>85%</td><td>100%</td><td><span class="badge r">极大</span></td></tr>
           <tr><td>主数据完整率（业务可用）</td><td><span class="badge r">~15%</span></td><td>80%</td><td>97%</td><td><span class="badge r">极大</span></td></tr>
           <tr><td>BOM准确率</td><td><span class="badge r">估计&lt;50%</span></td><td>88%</td><td>98%</td><td><span class="badge r">极大</span></td></tr>
           <tr><td>工艺路线完整率</td><td><span class="badge r">~5%</span></td><td>85%</td><td>99%</td><td><span class="badge r">极大</span></td></tr>
@@ -870,7 +870,7 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
     </div>
     <div class="sec">
       <div class="sec-title"><i class="fas fa-table"></i> 1.4 S/4HANA目标覆盖范围（19家法人 · 各模块）</div>
-      <p>根据招标文件（2026年4月），本次S/4HANA PCE Greenfield项目将覆盖集团旗下全部<strong>19家法人实体</strong>。<strong>纠正历史描述：非"只有2家上SAP"，而是19家法人均在本次实施范围内</strong>，只是各法人涉及的SAP模块深度不同。</p>
+      <p>根据招标文件（2026年4月），本次S/4HANA PCE Greenfield项目将覆盖集团旗下全部<strong>19家法人实体</strong>。SAP ECC 6.0已覆盖全部19家法人，但各法人<strong>模块覆盖深度差异悬殊</strong>（多数法人仅有FI基础模块）；本次S/4HANA升级目标是深化各法人的模块配置，实现集团统一管控。</p>
       <div class="box amber"><p><strong>重要说明：</strong>现有ECC 6.0仅在本部+高明分公司（2家）深度运行，其余17家法人主要依赖财务共享/OA等系统。本次S/4HANA Greenfield项目将首次实现19家法人统一在同一S/4HANA实例下，是真正意义上的集团全面数字化升级。</p></div>
       <div style="overflow-x:auto;margin:12px 0">
       <table class="sap-matrix">
@@ -1392,13 +1392,13 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
           <div class="isc-sub">行业标准1-1.5%</div>
         </div>
       </div>
-      <div class="box finding"><p><strong>SAP顾问现状（来源：数智化部项目介绍PPT，2025-08-08）：</strong>内部顾问2人（MM/PP模块顾问1人 + 开发顾问1人）；外部运维顾问2人（覆盖FICO、SD模块 + Basis + 报表开发）。SAP系统目前由外部咨询机构提供FI/CO/SD/PP/MM/QM/BASIS全模块运维服务，内部顾问主要承担日常需求对接和开发工作。</p></div>
+      <div class="box finding"><p><strong>SAP顾问现状（2026年最新确认）：</strong>内部顾问6人（PP×1、MM×1、SD×1、开发顾问×2、Basis架构×1）；外包顾问1人（FICO，来自外部运维机构）。SAP系统核心模块已有内部专职顾问覆盖，主要缺口是FICO内部顾问（待内部培养）和MDM主数据管理专员（0人，最紧迫缺口）。</p></div>
       <div class="sec-sub">S/4HANA升级期间IT人力缺口分析</div>
       <table>
         <thead><tr><th>岗位类型</th><th>当前情况</th><th>升级期建议</th><th>缺口</th></tr></thead>
         <tbody>
-          <tr><td>SAP内部顾问（业务功能）</td><td>2人（MM/PP+开发）</td><td>5-7人（含SD/FI/CO）</td><td><span class="badge r">缺3-5人</span></td></tr>
-          <tr><td>SAP外包顾问</td><td>2人（FICO+SD）</td><td>维持或扩展至4人</td><td><span class="badge a">可通过合同扩展</span></td></tr>
+          <tr><td>SAP内部顾问（业务功能）</td><td>6人（PP/MM/SD/开发×2/Basis）</td><td>7-9人（补充FI/CO内培）</td><td><span class="badge g">基本覆盖，待补FI</span></td></tr>
+          <tr><td>SAP外包顾问</td><td>1人（FICO）</td><td>维持至FI内部培养完成</td><td><span class="badge g">逐步替代为内部顾问</span></td></tr>
           <tr><td><b>主数据管理专员（MDM）</b></td><td><b>0人</b></td><td><b>2-3人</b></td><td><span class="badge r"><b>缺2-3人（最紧迫）</b></span></td></tr>
           <tr><td>CPI集成工程师</td><td>0人</td><td>1-2人</td><td><span class="badge r">缺1-2人</span></td></tr>
           <tr><td>数据分析/BI</td><td>约1人</td><td>3人</td><td><span class="badge r">缺2人</span></td></tr>
