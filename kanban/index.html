@@ -959,13 +959,13 @@ select.dp-input{appearance:none;-webkit-appearance:none;
       </div>
       </div><!-- /padding wrapper -->
       <!-- Tree chart view -->
-      <div id="orgChartView">
+      <div id="orgChartView" style="flex:1;overflow:auto;min-height:0;">
         <div class="org-chart-wrap" ondragover="event.preventDefault()" ondrop="promoteToRoot(event)">
           <div class="org-chart" id="orgChart"></div>
         </div>
       </div>
       <!-- List view -->
-      <div id="orgListView" style="display:none;">
+      <div id="orgListView" style="display:none;flex:1;flex-direction:column;overflow-y:auto;padding:16px 20px;min-height:0;">
         <div class="org-section" id="orgSectionClient">
           <div class="org-section-hd">
             <span style="font-size:18px">🏢</span>
@@ -2947,8 +2947,8 @@ function syncTreeFromMembers(){
 
 function switchOrgView(view){
   ORG_CURRENT_VIEW=view;
-  document.getElementById('orgChartView').style.display=view==='tree'?'':'none';
-  document.getElementById('orgListView').style.display=view==='list'?'':'none';
+  document.getElementById('orgChartView').style.display=view==='tree'?'flex':'none';
+  document.getElementById('orgListView').style.display=view==='list'?'flex':'none';
   document.getElementById('orgViewTree').className='org-view-btn'+(view==='tree'?' active':'');
   document.getElementById('orgViewList').className='org-view-btn'+(view==='list'?' active':'');
   if(view==='tree') renderOrgChart();
