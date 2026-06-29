@@ -65,12 +65,6 @@ body{font-family:"Microsoft YaHei",Arial,sans-serif;background:var(--bg);color:v
 .ss-btn#ss-todo.active{background:#4A5568;color:#fff;border-color:#718096;}
 .ss-btn#ss-wip.active{background:#1A56DB;color:#fff;border-color:#3B82F6;box-shadow:0 0 0 2px rgba(59,130,246,.4);}
 .ss-btn#ss-done.active{background:#166534;color:#fff;border-color:#22C55E;box-shadow:0 0 0 2px rgba(34,197,94,.4);}
-.ss-indicator-wrap{display:flex;align-items:center;gap:5px;margin-left:3px;padding-left:10px;border-left:1px solid rgba(255,255,255,.15);}
-.ss-indicator-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-.ss-indicator-dot.todo{background:#718096;}
-.ss-indicator-dot.wip{background:#3B82F6;}
-.ss-indicator-dot.done{background:#22C55E;}
-.ss-indicator-text{font-size:10.5px;font-weight:700;color:rgba(255,255,255,.7);}
 /* ── SIDEBAR ── */
 #sidebar{position:fixed;top:50px;left:0;width:var(--nav-w);height:calc(100vh - 50px);
   background:var(--dark);overflow-y:auto;z-index:100;display:flex;flex-direction:column;padding-bottom:20px}
@@ -422,12 +416,18 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
             <a href="/fsl-report/kanban/#deliverable">📦 交付物追踪</a>
             <a href="/fsl-report/kanban/#stats">📊 统计</a>
             <a href="/fsl-report/weekly/">📰 项目周报</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
 
 <div class="status-switcher" id="statusSwitcher">
   <span class="ss-label">文档状态</span>
-  <button class="ss-btn" id="ss-todo" onclick="setDocStatus(&quot;todo&quot;)">⏳ 待开始</button>
-  <button class="ss-btn" id="ss-wip"  onclick="setDocStatus(&quot;wip&quot;)">⟳ 进行中</button>
-  <button class="ss-btn" id="ss-done" onclick="setDocStatus(&quot;done&quot;)">✅ 已完成</button>
+  <button class="ss-btn" id="ss-todo" onclick="setDocStatus('todo')">⏳ 待开始</button>
+  <button class="ss-btn" id="ss-wip"  onclick="setDocStatus('wip')">🔄 进行中</button>
+  <button class="ss-btn" id="ss-done" onclick="setDocStatus('done')">✅ 已完成</button>
   <div class="ss-indicator-wrap">
     <div class="ss-indicator-dot" id="ss-dot"></div>
     <span class="ss-indicator-text" id="ss-indicator">—</span>
@@ -445,41 +445,31 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
     <div class="sb-ch">导航</div>
     <a href="#cover">封面 &amp; 核心主张</a>
     <a href="#exec">执行摘要</a>
-    <div class="sb-ch">第一部分：背景与方法论</div>
+    <div class="sb-ch">背景与方法论</div>
     <a href="#ch1">一、总则与背景</a>
-    <a href="#ch1" class="sub">三个核心主张 · 调研数据来源</a>
-    <a href="#ch3">二、工信部指南框架映射</a>
-    <a href="#ch3" class="sub">PDCA要求 · 分类推进</a>
-    <div class="sb-ch">第二部分：现状诊断</div>
-    <a href="#diag-ba">三、业务架构（BA）诊断</a>
-    <a href="#diag-ba" class="sub">组织全景268节点 · 权责边界</a>
-    <a href="#diag-ba" class="sub">高明公司 · 燎旺 · IT建设</a>
-    <a href="#diag-da">四、数据+技术架构（DA/TA）诊断</a>
-    <a href="#diag-da" class="sub">主数据权责真空 · IT人力缺口</a>
-    <div class="sb-ch">第三部分：深度分析</div>
-    <a href="#problems">五、五大核心组织问题</a>
-    <a href="#problems" class="sub">定位模糊 · 人力不足 · 流程缺位</a>
+    <a href="#ch3">二、工信部指南框架</a>
+    <div class="sb-ch">现状诊断</div>
+    <a href="#diag-ba">三、组织现状诊断（4A）</a>
+    <a href="#diag-ba" class="sub">BA组织全景268节点</a>
+    <a href="#diag-ba" class="sub">AA IT建设历程/失败分析</a>
+    <a href="#diag-ba" class="sub">DA主数据权责 · TA人力缺口</a>
+    <div class="sb-ch">深度分析</div>
+    <a href="#problems">四、五大核心组织问题</a>
+    <a href="#problems" class="sub">定位模糊 · 人力超载 · 流程缺位</a>
     <a href="#problems" class="sub">Owner缺失 · 历史失败根因</a>
-    <div class="sb-ch">第四部分：目标设计</div>
-    <a href="#target-org">六、目标组织架构</a>
+    <div class="sb-ch">目标设计</div>
+    <a href="#target-org">五、目标组织架构</a>
     <a href="#target-org" class="sub">数智化部TO-BE · MDM Office</a>
     <a href="#target-org" class="sub">CIO/CDO方案 · 保障委员会</a>
     <a href="#target-org" class="sub">21名联络员体系</a>
-    <a href="#mechanism">七、IT与业务协同机制</a>
-    <a href="#mechanism" class="sub">需求管理 · 项目分级 · KPI</a>
-    <a href="#talent">八、人才结构与能力规划</a>
-    <a href="#talent" class="sub">Super User体系 · 关键岗位</a>
-    <a href="#talent" class="sub">三阶段人才发展</a>
-    <a href="#ocm">九、变革管理行动计划</a>
-    <a href="#ocm" class="sub">阻力分析 · Kotter 8步</a>
-    <a href="#roadmap">十、组织转型路线图</a>
-    <a href="#roadmap" class="sub">20个里程碑 · 2026-2030</a>
-    <a href="#risk">十一、实施保障与风险管理</a>
-    <div class="sb-ch">第五部分：对标与时序</div>
+    <a href="#mechanism">六、IT与业务协同机制</a>
+    <a href="#talent">七、人才结构与能力规划</a>
+    <a href="#ocm">八、变革管理行动计划</a>
+    <a href="#roadmap">九、组织转型路线图</a>
+    <a href="#risk">十、实施保障与风险管理</a>
+    <div class="sb-ch">对标与时序</div>
     <a href="#benchmark">十二、行业对标</a>
-    <a href="#benchmark" class="sub">欧普 · 阳光 · 华为/美的</a>
-    <a href="#ch13">十三、时序协同</a>
-    <a href="#ch13" class="sub">Greenfield五阶段同步</a>
+    <a href="#ch13">十三、SAP时序协同</a>
     <div class="sb-ch">数据治理三部曲</div>
     <a href="/fsl-report/consulting/blueprint/data-survey.html">★4 数字化现状分析报告</a>
     <a href="/fsl-report/consulting/blueprint/data-governance.html">★4 数据规划及管理办法</a>
@@ -488,16 +478,15 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
     <a href="/fsl-report/consulting/blueprint/ea-report.html">★5 企业架构设计报告</a>
     <a href="/fsl-report/consulting/blueprint/">← 返回蓝图阶段</a>
   </div>
-</nav>
-<main id="main">
+</nav><main id="main">
 <section class="cover" id="cover">
-  <div class="cover-tag">★4（可选）· 数字化保障组织设计报告 · 探索阶段交付物 · 保密咨询文件</div>
+  <div class="cover-tag">★4（可选）· 数字化保障组织设计报告 · 探索阶段交付物 · 保密</div>
   <h1>佛山照明数字化保障组织设计报告</h1>
   <div class="sub">TOGAF ADM 4A · 工信部数字化转型实施指南（2024）· Kotter 8步变革管理 | 13章 · 约3万字</div>
   <div class="cover-meta">
     <div class="cover-meta-item"><div class="lbl">版本</div><div class="val">v1.0 · 2026-06-29</div></div>
     <div class="cover-meta-item"><div class="lbl">方法论</div><div class="val">TOGAF 4A · 工信部指南 · Kotter OCM</div></div>
-    <div class="cover-meta-item"><div class="lbl">数据来源</div><div class="val">D1-D5访谈 · 数智化部PPT · 268节点组织架构</div></div>
+    <div class="cover-meta-item"><div class="lbl">数据来源</div><div class="val">D1-D5 17场访谈 · 数智化部PPT · 268节点组织架构</div></div>
     <div class="cover-meta-item"><div class="lbl">主责顾问</div><div class="val">达维咨询 组织设计团队</div></div>
     <div class="cover-meta-item"><div class="lbl">最终验收</div><div class="val">李泽华（分管副总）/ 吴梓填（数智化部）</div></div>
   </div>
@@ -511,6 +500,7 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
   </div>
 </section>
 <div class="content">
+
 <div class="chapter" id="exec">
   <div class="ch-header"><div class="ch-num">0</div><h2>执行摘要 · 三个核心主张</h2></div>
   <div class="ch-body">
@@ -523,8 +513,7 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
       </div>
     </div>
   </div>
-</div>
-<div class="chapter" id="ch1">
+</div><div class="chapter" id="ch1">
   <div class="ch-header"><div class="ch-num">1</div><h2>总则与背景</h2></div>
   <div class="ch-body">
 <div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 1.1 报告编制背景</div>
@@ -900,7 +889,7 @@ P2缺口合计：约5-8人
   </div>
 </div>
 <div class="chapter" id="problems">
-  <div class="ch-header"><div class="ch-num">4</div><h2>数字化组织诊断——五大核心问题</h2></div>
+  <div class="ch-header"><div class="ch-num">4</div><h2>数字化组织诊断——五大核心问题深度分析</h2></div>
   <div class="ch-body">
 <div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 4.1 问题一：数智化部定位模糊，权责边界不清</div>
 <div class="sec-sub">4.1.1 问题描述</div>
@@ -2065,14 +2054,11 @@ Step 6：运营与优化
 <p><em>版本：V1.0 | 编制日期：2026年6月29日 | 达维咨询</em></p>
 <p><em>版权归佛山电器照明股份有限公司所有</em></p>
   </div>
-</div>
-</div><!-- .content -->
+</div></div><!-- .content -->
 </main>
-
 <footer style="background:#0B2D47;color:rgba(255,255,255,.35);text-align:center;padding:16px;font-size:11px;letter-spacing:.2px;margin-left:var(--nav-w)">
   佛山照明 SAP S/4HANA 升级项目工作台 · 机密文件 · 仅供项目组内部使用 · 2026
 </footer>
-
 <script>
 window.addEventListener('scroll',function(){
   var d=document.documentElement,b=document.body;
@@ -2083,8 +2069,7 @@ var links=document.querySelectorAll('#sidebar .sb-menu a[href^="#"]');
 window.addEventListener('scroll',function(){
   var pos=window.scrollY+80;
   links.forEach(function(a){
-    var id=a.getAttribute('href').slice(1);
-    var el=document.getElementById(id);
+    var id=a.getAttribute('href').slice(1),el=document.getElementById(id);
     if(el&&el.offsetTop<=pos&&el.offsetTop+el.offsetHeight>pos){
       links.forEach(function(x){x.classList.remove('active');});
       a.classList.add('active');
@@ -2093,18 +2078,16 @@ window.addEventListener('scroll',function(){
 });
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');}
 </script>
-
 <script id="statusSwitcherJS">
 (function(){
   var WORKER='https://fsl-status.283656314.workers.dev';
   var SF='https://api.github.com/repos/EstaTea/fsl-report/contents/status/doc-status.json';
   var DOCKEY=location.pathname.replace(/\.html$/,'').replace(/\/$/,'').replace(/^\/fsl-report/,'')||'/';
   function applyUI(s){
-    var L={todo:'\u5f85\u5f00\u59cb',wip:'\u8fdb\u884c\u4e2d',done:'\u5df2\u5b8c\u6210'};
-    var D={todo:'todo',wip:'wip',done:'done'};
+    var L={todo:'待开始',wip:'进行中',done:'已完成'};
     ['todo','wip','done'].forEach(function(k){var b=document.getElementById('ss-'+k);if(b)b.classList.toggle('active',k===s);});
     var ind=document.getElementById('ss-indicator');if(ind)ind.textContent=L[s]||s;
-    var dot=document.getElementById('ss-dot');if(dot)dot.className='ss-indicator-dot '+(D[s]||'');
+    var dot=document.getElementById('ss-dot');if(dot)dot.className='ss-indicator-dot '+(s||'');
   }
   function readStatus(cb){
     fetch(SF+'?ref=main&_='+Date.now())
@@ -2115,12 +2098,12 @@ function toggleSidebar(){document.getElementById('sidebar').classList.toggle('op
   window.setDocStatus=function(s){
     applyUI(s);
     var sw=document.getElementById('statusSwitcher');
-    if(sw){sw.style.outline='2px solid #F59E0B';sw.title='\u4fdd\u5b58\u4e2d...';}
+    if(sw){sw.style.outline='2px solid #F59E0B';sw.title='保存中...';}
     fetch(WORKER,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({doc_key:DOCKEY,status:s})})
       .then(function(r){return r.json().then(function(j){return {ok:r.ok,body:j};});})
       .then(function(res){
-        if(res.ok){if(sw){sw.style.outline='2px solid #22C55E';sw.title='\u5df2\u4fdd\u5b58';setTimeout(function(){sw.style.outline='';sw.title='';},3000);}}
-        else{alert('\u4fdd\u5b58\u5931\u8d25: '+(res.body.error||'unknown'));if(sw)sw.style.outline='2px solid #EF4444';}
+        if(res.ok){if(sw){sw.style.outline='2px solid #22C55E';sw.title='已保存';setTimeout(function(){sw.style.outline='';sw.title='';},3000);}}
+        else{alert('保存失败: '+(res.body&&res.body.error||'unknown'));if(sw)sw.style.outline='2px solid #EF4444';}
       }).catch(function(e){alert(e.message);if(sw)sw.style.outline='2px solid #EF4444';});
   };
   document.addEventListener('DOMContentLoaded',function(){readStatus(function(j){applyUI(j[DOCKEY]||'wip');});});
