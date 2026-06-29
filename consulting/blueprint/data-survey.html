@@ -310,7 +310,7 @@ footer-note{display:block;text-align:center;font-size:11px;color:var(--muted);ma
     <div class="kpi-box"><div class="num">3,542</div><div class="desc">物料主数据条数</div></div>
     <div class="kpi-box"><div class="num">100%</div><div class="desc">成品关键字段缺失率</div></div>
     <div class="kpi-box"><div class="num">12%</div><div class="desc">BOM问题行比例</div></div>
-    <div class="kpi-box"><div class="num">2/19</div><div class="desc">SAP覆盖法人数</div></div>
+    <div class="kpi-box"><div class="num">19/19</div><div class="desc">SAP ECC法人覆盖</div></div>
     <div class="kpi-box"><div class="num">1.7/5</div><div class="desc">数据架构成熟度评分</div></div>
   </div>
 </div>
@@ -330,7 +330,7 @@ footer-note{display:block;text-align:center;font-size:11px;color:var(--muted);ma
       <div class="metric-card">
         <div class="mc-num red">2/5</div>
         <div class="pbar-wrap"><div class="pbar-fill red" style="width:40%"></div></div>
-        <div class="mc-lbl">应用架构 AA<br>ECC仅覆盖2家，本期扩至19家法人</div>
+        <div class="mc-lbl">应用架构 AA<br>ECC已覆盖19家，本期S/4HANA深化模块配置</div>
       </div>
       <div class="metric-card">
         <div class="mc-num red">1.7/5</div>
@@ -349,7 +349,7 @@ footer-note{display:block;text-align:center;font-size:11px;color:var(--muted);ma
         <thead><tr><th>#</th><th>核心发现</th><th>等级</th><th>直接影响</th></tr></thead>
         <tbody>
           <tr><td><b>F-01</b></td><td><b>主数据质量是最大技术风险</b> — 1,159个成品100%缺技术要求/69码/旧物料号；BOM 12%问题行；工艺路线44%工序无描述</td><td><span class="badge high">极高</span></td><td>Greenfield上线延期风险，MRP计算错误，成本核算失真</td></tr>
-          <tr><td><b>F-02</b></td><td><b>SAP ECC现状仅覆盖2家法人（本部+高明）</b> — 本期S/4HANA将扩展至招标文件明确的19家法人（不含燎旺车灯，燎旺不在本期范围）；当前17家法人数据孤岛，月结靠手工合并</td><td><span class="badge high">极高</span></td><td>Greenfield上线后集团管控能力大幅提升，但迁移复杂度高</td></tr>
+          <tr><td><b>F-02</b></td><td><b>SAP ECC已覆盖全部19家法人实体</b>，但各法人模块深度差异悬殊（多数仅FI基础）；本期S/4HANA将在此基础上深化模块配置，实现集团统一的CoA和全流程管控</td><td><span class="badge high">极高</span></td><td>Greenfield上线后集团管控能力大幅提升，但迁移复杂度高</td></tr>
           <tr><td><b>F-03</b></td><td><b>IT人力是最大执行风险</b> — 16–23人支撑8,000+员工，缺口4–5倍；2025年三系统同年上线叠加S/4HANA</td><td><span class="badge high">极高</span></td><td>运维能力不足，系统稳定性风险</td></tr>
           <tr><td><b>F-04</b></td><td><b>流程成熟度是最大变革风险</b> — 1名专职流程人员，4个历史项目失败（600+万损失）</td><td><span class="badge high">极高</span></td><td>TO-BE确认困难，业务变革抗拒</td></tr>
           <tr><td><b>F-05</b></td><td><b>电商五大系统断点（年销3-4亿）</b> — SAP/聚水潭/商城/SRM/顺丰WMS接口不通，退货全人工</td><td><span class="badge med">高</span></td><td>月底报表超时，每2天2.5小时人工退货处理</td></tr>
@@ -474,12 +474,12 @@ footer-note{display:block;text-align:center;font-size:11px;color:var(--muted);ma
       <table>
         <thead><tr><th>系统</th><th>产品</th><th>上线时间</th><th>法人覆盖</th><th>SAP集成状态</th></tr></thead>
         <tbody>
-          <tr style="background:#FFF8E1;"><td><b>ERP（核心）</b></td><td><b>SAP ECC 6.0 (R/3)</b></td><td>2008年</td><td><b style="color:#C62828;">2/19家</b></td><td><span class="badge done">核心系统</span></td></tr>
+          <tr style="background:#FFF8E1;"><td><b>ERP（核心）</b></td><td><b>SAP ECC 6.0 (R/3)</b></td><td>2008年</td><td><b style="color:#2E7D32;">19/19家</b></td><td><span class="badge done">核心系统</span></td></tr>
           <tr><td>PLM</td><td>Windchill</td><td>2022年</td><td>9/19家</td><td><span class="badge med">单向同步↑</span></td></tr>
           <tr><td>CRM</td><td>纷享销客</td><td><b style="color:#2E7D32;">2026年新</b></td><td>5/19家</td><td><span class="badge low">集成待建</span></td></tr>
           <tr><td>SRM</td><td>自建</td><td>—</td><td>1/19家</td><td><span class="badge med">有断点⚠</span></td></tr>
-          <tr><td>WMS</td><td>自建</td><td><b style="color:#2E7D32;">2025年新</b></td><td>2/19家</td><td><span class="badge med">有联动</span></td></tr>
-          <tr><td>防伪防窜</td><td>二码合一</td><td>2023年</td><td>2/19家</td><td><span class="badge done">双向↕</span></td></tr>
+          <tr><td>WMS</td><td>自建</td><td><b style="color:#2E7D32;">2025年新</b></td><td>部分法人</td><td><span class="badge med">有联动</span></td></tr>
+          <tr><td>防伪防窜</td><td>二码合一</td><td>2023年</td><td>部分法人</td><td><span class="badge done">双向↕</span></td></tr>
           <tr style="background:#FFF5F5;"><td><b>电商ERP</b></td><td><b>聚水潭</b></td><td>—</td><td>1/19家</td><td><span class="badge high">断点❌</span></td></tr>
           <tr><td>人力资源</td><td>i人事</td><td>2023年</td><td>~14/19家</td><td><span class="badge low">独立运营</span></td></tr>
           <tr><td>财务共享</td><td>—</td><td><b style="color:#2E7D32;">2025年新</b></td><td>部分</td><td><span class="badge low">接口待评估</span></td></tr>
@@ -863,7 +863,7 @@ footer-note{display:block;text-align:center;font-size:11px;color:var(--muted);ma
           <div class="rt-dot done"></div>
           <div class="rt-content">
             <div class="rt-title">2027年Q1 — S/4HANA 上线目标</div>
-            <div class="rt-desc">月结周期目标：12天→5天；集团合并报表自动化；成本核算达到料工费分明；SAP覆盖率从2/19→19/19法人</div>
+            <div class="rt-desc">月结周期目标：12天→5天；集团合并报表自动化；成本核算达到料工费分明；从ECC基础模块覆盖→S/4HANA全模块深化覆盖</div>
           </div>
         </div>
       </div>
