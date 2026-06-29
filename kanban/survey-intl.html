@@ -290,9 +290,6 @@ function updateProgress(){
   document.getElementById('q-pbar').style.width=Math.round(f/TOTAL*100)+'%';
 }
 
-function updateSaveStatus(msg,cls){
-  // status shown in save banner only
-}
 
 // 自动本地保存
 document.querySelectorAll('.q-answer').forEach(function(a){
@@ -323,33 +320,25 @@ function collectAnswers(){
 }
 
 async function saveToGitHub(){
-  var token=(localStorage.getItem('gh_token_fsl')||'').trim();
-  if(!token){
-    var t=prompt('请输入访问令牌以保存数据（仅首次需要，之后自动记住）：');
-    if(!t||!t.trim()){return;}
-    token=t.trim();
-    localStorage.setItem('gh_token_fsl',token);
-  }
   var data=collectAnswers();
-  var content=btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2))));
-  var headers={'Accept':'application/vnd.github+json','Authorization':'Bearer '+token,'Content-Type':'application/json'};
-  var api='https://api.github.com/repos/'+REPO+'/contents/'+SAVE_PATH;
-  var sha='';
-  try{var r0=await fetch(api,{headers:headers});if(r0.ok){var d0=await r0.json();sha=d0.sha||'';}}catch(e){}
   var btns=document.querySelectorAll('.gh-save-btn');
   btns.forEach(function(b){b.classList.add('saving');b.textContent='保存中…';});
   try{
-    var body={message:'survey: save strategy interview data '+data.meta.date,content:content};
-    if(sha)body.sha=sha;
-    var r=await fetch(api,{method:'PUT',headers:headers,body:JSON.stringify(body)});
-    if(!r.ok)throw new Error((await r.json()).message||r.status);
-
-    showBanner('✅ 已保存到 GitHub：'+SAVE_PATH,'');
+    var r=await fetch('https://fsl-survey-proxy.283656314.workers.dev/save',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({slug:'intl',data:data})
+    });
+    var result=await r.json();
+    if(r.ok&&result.ok){
+      showBanner('✅ 已保存到云端','');
+    }else{
+      throw new Error(result.error||('HTTP '+r.status));
+    }
   }catch(e){
-
     showBanner('❌ 保存失败：'+e.message,'err-b');
   }finally{
-    btns.forEach(function(b){b.classList.remove('saving');b.textContent='☁ 保存到GitHub';});
+    btns.forEach(function(b){b.classList.remove('saving');b.textContent='💾 保存';});
   }
 }
 
@@ -369,7 +358,7 @@ function exportQA(){
   });
   var blob=new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'});
   var url=URL.createObjectURL(blob);
-  var link=document.createElement('a');link.href=url;link.download='佛照_intl_访谈纪要.txt';link.click();
+  var link=document.createElement('a');link.href=url;link.download='佛照_国际业务_访谈纪要.txt';link.click();
   URL.revokeObjectURL(url);
 }
 
