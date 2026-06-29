@@ -1425,42 +1425,162 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 <div class="sec-sub">4.4.1 数据责任的完整断裂链</div>
 <p style="margin-bottom:9px;color:var(--text2)">当前佛照的主数据问题，本质上是一个<strong>"无主之地"问题</strong>——每条数据从创建到停用，没有任何角色被明确指定为Owner，没有绩效机制追责，没有质量审核流程。</p>
 <p style="margin-bottom:9px;color:var(--text2)">以物料编码规则总表（2022年版，1,571条）为例：</p>
-<pre>
-物料编码规则的责任链（当前 vs 目标）：
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0">
 
-当前状态（断裂）：
-谁制定规则？ → 2022年数智化部/产品中心共同制定 → 制定后无人更新
-谁执行规则？ → 理论上产品中心，实际数智化部代劳
-谁检查合规？ → 无人检查
-谁更新规则？ → 4年未更新（2022-2026）
-                → 新赛道（航空/海洋照明）无对应编码规则
-                → 已导致大量"特殊编码"绕过规则体系
+  <!-- AS-IS: Broken chain -->
+  <div style="background:#FFF5F5;border:2px solid #FECACA;border-radius:10px;padding:14px">
+    <div style="font-size:12px;font-weight:800;color:#C0392B;margin-bottom:12px;display:flex;align-items:center;gap:6px">
+      <span style="background:#C0392B;color:#fff;border-radius:4px;padding:2px 8px;font-size:10px">当前</span>责任链断裂
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0">
+      <div style="background:var(--white);border:1px solid #FECACA;border-radius:6px;padding:8px 12px;font-size:12px">
+        <div style="font-weight:700;color:#C0392B;font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">谁制定规则？</div>
+        <div style="color:var(--text2)">2022年数智化部/产品中心共同制定</div>
+        <div style="color:#C0392B;font-size:11px;margin-top:2px">→ 制定后无人更新，4年未修订</div>
+      </div>
+      <div style="text-align:center;font-size:18px;color:#FECACA;line-height:1">↓</div>
+      <div style="background:var(--white);border:1px solid #FECACA;border-radius:6px;padding:8px 12px;font-size:12px">
+        <div style="font-weight:700;color:#C0392B;font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">谁执行规则？</div>
+        <div style="color:var(--text2)">理论上：产品中心</div>
+        <div style="color:#C0392B;font-size:11px;margin-top:2px">→ 实际：数智化部代劳</div>
+      </div>
+      <div style="text-align:center;font-size:18px;color:#FECACA;line-height:1">↓</div>
+      <div style="background:var(--white);border:1px solid #FECACA;border-radius:6px;padding:8px 12px;font-size:12px">
+        <div style="font-weight:700;color:#C0392B;font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">谁检查合规？</div>
+        <div style="color:#C0392B;font-weight:700">无人检查</div>
+      </div>
+      <div style="text-align:center;font-size:18px;color:#FECACA;line-height:1">↓</div>
+      <div style="background:var(--white);border:1px solid #FECACA;border-radius:6px;padding:8px 12px;font-size:12px">
+        <div style="font-weight:700;color:#C0392B;font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">谁更新规则？</div>
+        <div style="color:#C0392B;font-weight:700">4年未更新（2022→2026）</div>
+        <div style="color:var(--muted);font-size:11px;margin-top:2px">航空/海洋照明无对应编码规则<br>大量"特殊编码"绕过规则体系</div>
+      </div>
+    </div>
+  </div>
 
-目标状态（完整）：
-产品中心（规则制定Owner）
-    ↓ 每年12月审核更新一次
-数智化部（规则配置Owner）
-    ↓ 将规则配置到SAP物料类型/物料组体系
-产品及方案中心（各产品线编码合规性Owner）
-    ↓ 新建物料时按规则编码，偏差需要MDM审核
-MDM办公室（质量监督）
-    ↓ 月度抽检合规率，不达标触发整改
-绩效考核（追责机制）
-    ↓ 产品中心编码合规率纳入季度KPI
-</pre>
+  <!-- TO-BE: Complete chain -->
+  <div style="background:#F0FFF4;border:2px solid #A7F3D0;border-radius:10px;padding:14px">
+    <div style="font-size:12px;font-weight:800;color:#065F46;margin-bottom:12px;display:flex;align-items:center;gap:6px">
+      <span style="background:#27AE60;color:#fff;border-radius:4px;padding:2px 8px;font-size:10px">目标</span>责任链完整
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0">
+      <div style="background:var(--white);border:1px solid #A7F3D0;border-radius:6px;padding:8px 12px;font-size:12px;border-left:4px solid #27AE60">
+        <div style="font-weight:700;color:#27AE60;font-size:10.5px;margin-bottom:2px">产品中心 · 规则制定Owner</div>
+        <div style="color:var(--text2);font-size:11px">每年12月审核更新一次</div>
+      </div>
+      <div style="text-align:center;font-size:16px;color:#27AE60;line-height:1.2">↓</div>
+      <div style="background:var(--white);border:1px solid #A7F3D0;border-radius:6px;padding:8px 12px;font-size:12px;border-left:4px solid #1F70C1">
+        <div style="font-weight:700;color:#1F70C1;font-size:10.5px;margin-bottom:2px">数智化部 · 规则配置Owner</div>
+        <div style="color:var(--text2);font-size:11px">将规则配置到SAP物料类型/物料组体系</div>
+      </div>
+      <div style="text-align:center;font-size:16px;color:#27AE60;line-height:1.2">↓</div>
+      <div style="background:var(--white);border:1px solid #A7F3D0;border-radius:6px;padding:8px 12px;font-size:12px;border-left:4px solid #E67E22">
+        <div style="font-weight:700;color:#E67E22;font-size:10.5px;margin-bottom:2px">产品及方案中心 · 各产品线编码合规Owner</div>
+        <div style="color:var(--text2);font-size:11px">新建物料时按规则编码，偏差需MDM审核</div>
+      </div>
+      <div style="text-align:center;font-size:16px;color:#27AE60;line-height:1.2">↓</div>
+      <div style="background:var(--white);border:1px solid #A7F3D0;border-radius:6px;padding:8px 12px;font-size:12px;border-left:4px solid #4A6FA5">
+        <div style="font-weight:700;color:#4A6FA5;font-size:10.5px;margin-bottom:2px">MDM办公室 · 质量监督</div>
+        <div style="color:var(--text2);font-size:11px">月度抽检合规率，不达标触发整改</div>
+      </div>
+      <div style="text-align:center;font-size:16px;color:#27AE60;line-height:1.2">↓</div>
+      <div style="background:var(--white);border:1px solid #A7F3D0;border-radius:6px;padding:8px 12px;font-size:12px;border-left:4px solid #003087">
+        <div style="font-weight:700;color:#003087;font-size:10.5px;margin-bottom:2px">绩效考核 · 追责机制</div>
+        <div style="color:var(--text2);font-size:11px">产品中心编码合规率纳入季度KPI</div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="sec-sub">4.4.2 数据Owner缺失对SAP项目的量化影响</div>
-<p style="margin-bottom:9px;color:var(--text2)"><strong>影响一：数据清洗工作无法推进</strong></p>
-<p style="margin-bottom:9px;color:var(--text2)">数据清洗的最大瓶颈不是技术，而是"谁来确认这个数据对不对"。物料主数据3,542条中，关键字段缺失率接近100%，补录这些字段需要：</p>
-<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
-<li style="margin-bottom:3px;line-height:1.65">69码（EAN条形码）：产品及方案中心确认，约1,159条成品 × 0.5小时/条 = 约580小时工作量</li>
-<li style="margin-bottom:3px;line-height:1.65">跨工厂物料状态：计划部门确认，3,542条 × 0.1小时/条 = 约354小时</li>
-<li style="margin-bottom:3px;line-height:1.65">采购提前期：供应链中心采购专员确认，约689条原材料 × 0.5小时/条 = 约345小时</li>
-</ul>
-<p style="margin-bottom:9px;color:var(--text2)"><strong>在当前无Owner制度下，没有任何部门会主动承担这约1,279小时的工作量</strong>，只能继续由数智化部"代维"，但数智化部不具备业务判断能力，只能录入而无法确认准确性。</p>
-<p style="margin-bottom:9px;color:var(--text2)"><strong>影响二：Mock迁移验证无业务签字</strong></p>
-<p style="margin-bottom:9px;color:var(--text2)">SAP Greenfield最佳实践要求：试迁移（Mock 1/Mock 2）后，每个主数据域需要业务Owner签字确认数据准确性。在无Owner制度下，没有人愿意/应该签字，这将导致Go/No-Go决策无法形成共识。</p>
-<p style="margin-bottom:9px;color:var(--text2)"><strong>影响三：上线后数据质量将持续恶化</strong></p>
-<p style="margin-bottom:9px;color:var(--text2)">即使上线前通过强制清洗达到迁移标准，在无Owner制度和绩效约束的情况下，上线后的日常数据维护将重回"谁方便谁录，录错了没人负责"的模式，数据质量将在6-12个月内退化到ECC水准。</p>
+
+<!-- 3 impact cards -->
+<div style="display:flex;flex-direction:column;gap:12px;margin:14px 0">
+
+  <!-- Impact 1: Data cleaning stalled -->
+  <div style="background:var(--white);border-radius:10px;border:1px solid var(--pale);overflow:hidden">
+    <div style="background:linear-gradient(90deg,#C0392B,#E74C3C);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px">
+      <div style="background:rgba(255,255,255,.2);width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0">1</div>
+      <div style="font-size:13px;font-weight:700">影响一：数据清洗工作无法推进</div>
+    </div>
+    <div style="padding:14px 16px">
+      <p style="font-size:12.5px;color:var(--text2);margin-bottom:10px">最大瓶颈不是技术，而是<strong>"谁来确认这个数据对不对"</strong>。在无Owner制度下，数智化部只能代劳录入，但不具备业务判断能力，无法确认准确性。</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px">
+        <div style="background:var(--bg);border-radius:8px;padding:10px;text-align:center">
+          <div style="font-size:22px;font-weight:800;color:#C0392B">580h</div>
+          <div style="font-size:11px;font-weight:700;color:var(--dark)">69码补录</div>
+          <div style="font-size:10px;color:var(--muted)">1,159条成品×0.5h</div>
+          <div style="font-size:10px;color:#C0392B;margin-top:3px">产品及方案中心</div>
+        </div>
+        <div style="background:var(--bg);border-radius:8px;padding:10px;text-align:center">
+          <div style="font-size:22px;font-weight:800;color:#E67E22">354h</div>
+          <div style="font-size:11px;font-weight:700;color:var(--dark)">跨工厂状态</div>
+          <div style="font-size:10px;color:var(--muted)">3,542条×0.1h</div>
+          <div style="font-size:10px;color:#E67E22;margin-top:3px">计划部门</div>
+        </div>
+        <div style="background:var(--bg);border-radius:8px;padding:10px;text-align:center">
+          <div style="font-size:22px;font-weight:800;color:#E67E22">345h</div>
+          <div style="font-size:11px;font-weight:700;color:var(--dark)">采购提前期</div>
+          <div style="font-size:10px;color:var(--muted)">689条原材料×0.5h</div>
+          <div style="font-size:10px;color:#E67E22;margin-top:3px">供应链中心</div>
+        </div>
+      </div>
+      <div style="background:#FDECEA;border-radius:6px;padding:8px 12px;font-size:12px;font-weight:700;color:#C0392B;display:flex;align-items:center;gap:8px">
+        <span style="font-size:18px">⏱</span>
+        <span>合计约 <strong>1,279小时</strong> 需要业务部门确认——在无Owner制度下，没有任何部门会主动承担</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Impact 2: No business sign-off -->
+  <div style="background:var(--white);border-radius:10px;border:1px solid var(--pale);overflow:hidden">
+    <div style="background:linear-gradient(90deg,#E67E22,#F39C12);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px">
+      <div style="background:rgba(255,255,255,.2);width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0">2</div>
+      <div style="font-size:13px;font-weight:700">影响二：Mock迁移验证无业务签字</div>
+    </div>
+    <div style="padding:14px 16px">
+      <div style="display:flex;gap:10px;align-items:flex-start">
+        <div style="flex:1">
+          <p style="font-size:12.5px;color:var(--text2);margin-bottom:8px">SAP Greenfield最佳实践要求：Mock 1/Mock 2 迁移后，每个主数据域需要<strong>业务Owner签字</strong>确认数据准确性。</p>
+          <div style="background:#FEF3C7;border-radius:6px;padding:8px 12px;font-size:12px;color:#B7950B;font-weight:600">⚠️ 无Owner制度 → 没有人愿意/应该签字 → Go/No-Go决策无法形成共识 → 上线日期可能被推迟</div>
+        </div>
+        <div style="flex:0 0 120px;background:var(--bg);border-radius:8px;padding:10px;text-align:center">
+          <div style="font-size:11px;font-weight:700;color:var(--dark);margin-bottom:4px">需签字的数据域</div>
+          <div style="font-size:20px;font-weight:800;color:#E67E22">8个</div>
+          <div style="font-size:10px;color:var(--muted)">物料/BOM/工艺路线<br>客户/供应商/CoA<br>成本中心/工作中心</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Impact 3: Post-go-live degradation -->
+  <div style="background:var(--white);border-radius:10px;border:1px solid var(--pale);overflow:hidden">
+    <div style="background:linear-gradient(90deg,#4A6FA5,#1F70C1);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px">
+      <div style="background:rgba(255,255,255,.2);width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0">3</div>
+      <div style="font-size:13px;font-weight:700">影响三：上线后数据质量将持续恶化</div>
+    </div>
+    <div style="padding:14px 16px">
+      <p style="font-size:12.5px;color:var(--text2);margin-bottom:10px">即使上线前通过强制清洗达到迁移标准，在无Owner制度和绩效约束的情况下，日常数据维护将重回"谁方便谁录、录错了没人负责"的模式。</p>
+      <!-- Degradation bar -->
+      <div style="margin-bottom:6px">
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:4px">
+          <span>上线时（强制清洗后）</span><span>上线后6-12个月</span><span>若无Owner制度</span>
+        </div>
+        <div style="height:12px;background:var(--pale);border-radius:6px;overflow:hidden;position:relative">
+          <div style="position:absolute;left:0;top:0;width:95%;height:100%;background:linear-gradient(90deg,#27AE60 0%,#27AE60 30%,#E67E22 60%,#C0392B 100%);border-radius:6px;opacity:.85"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:10px;margin-top:3px">
+          <span style="color:#27AE60;font-weight:700">约95%达标</span>
+          <span style="color:#E67E22;font-weight:700">退化至70%</span>
+          <span style="color:#C0392B;font-weight:700">→ ECC当前水准</span>
+        </div>
+      </div>
+      <div style="background:#EBF4FF;border-radius:6px;padding:8px 12px;font-size:11.5px;color:#005EB8;margin-top:4px">
+        💡 <strong>解决方案：</strong>建立数据Owner制度+绩效KPI+MDM月度审计，将数据质量维护变为业务部门的日常职责，而非IT偶发任务。
+      </div>
+    </div>
+  </div>
+
+</div>
 </div><!-- /sec -->
 <div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 4.5 问题五：历史项目失败的组织根因分析</div>
 <div class="sec-sub">4.5.1 失败根因的系统性归因</div>
