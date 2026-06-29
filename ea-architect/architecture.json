@@ -2,7 +2,7 @@
   "nodes": [
     {
       "id": "cap-l0-core",
-      "name": "Core Business Operations",
+      "name": "核心业务系统",
       "type": "capability",
       "parent": null,
       "level": 0,
@@ -10,14 +10,14 @@
       "metadata": {
         "maturity": 4,
         "status": "active",
-        "description": "核心业务运营能力域",
+        "description": "驱动佛照核心制造与销售业务的系统",
         "owner": "",
         "tags": []
       }
     },
     {
-      "id": "cap-l0-support",
-      "name": "Supporting Services",
+      "id": "cap-l0-ops",
+      "name": "制造与运营系统",
       "type": "capability",
       "parent": null,
       "level": 0,
@@ -25,29 +25,44 @@
       "metadata": {
         "maturity": 3,
         "status": "active",
-        "description": "支撑服务能力域",
+        "description": "制造执行、仓储、计划排程",
         "owner": "",
         "tags": []
       }
     },
     {
-      "id": "cap-l0-digital",
-      "name": "Digital & Innovation",
+      "id": "cap-l0-sales",
+      "name": "销售与营销系统",
       "type": "capability",
       "parent": null,
       "level": 0,
-      "category": "strategic",
+      "category": "core",
       "metadata": {
-        "maturity": 2,
-        "status": "planned",
-        "description": "数字化与创新域",
+        "maturity": 3,
+        "status": "active",
+        "description": "CRM、电商、供应商关系管理",
         "owner": "",
         "tags": []
       }
     },
     {
-      "id": "cap-l1-scm",
-      "name": "Supply Chain Mgmt",
+      "id": "cap-l0-mgmt",
+      "name": "管理与协同系统",
+      "type": "capability",
+      "parent": null,
+      "level": 0,
+      "category": "supporting",
+      "metadata": {
+        "maturity": 3,
+        "status": "active",
+        "description": "OA、HR、AI、BI等管理支撑系统",
+        "owner": "",
+        "tags": []
+      }
+    },
+    {
+      "id": "cap-l1-erp",
+      "name": "ERP 核心",
       "type": "capability",
       "parent": "cap-l0-core",
       "level": 1,
@@ -55,325 +70,428 @@
       "metadata": {
         "maturity": 4,
         "status": "active",
-        "owner": "",
-        "tags": []
+        "owner": "IT部门",
+        "tags": [
+          "SAP"
+        ]
       }
     },
     {
-      "id": "cap-l1-finance",
-      "name": "Finance & Controlling",
+      "id": "cap-l1-plm",
+      "name": "产品生命周期管理",
       "type": "capability",
       "parent": "cap-l0-core",
       "level": 1,
       "category": "core",
       "metadata": {
-        "maturity": 5,
+        "maturity": 4,
         "status": "active",
-        "owner": "",
-        "tags": []
+        "owner": "研发部门",
+        "tags": [
+          "SAP PLM"
+        ]
       }
     },
     {
-      "id": "cap-l1-sales",
-      "name": "Sales & Distribution",
+      "id": "cap-l1-mfg",
+      "name": "制造执行",
       "type": "capability",
-      "parent": "cap-l0-core",
+      "parent": "cap-l0-ops",
+      "level": 1,
+      "category": "supporting",
+      "metadata": {
+        "maturity": 3,
+        "status": "active",
+        "owner": "生产部门",
+        "tags": [
+          "MES"
+        ]
+      }
+    },
+    {
+      "id": "cap-l1-wms",
+      "name": "仓储管理",
+      "type": "capability",
+      "parent": "cap-l0-ops",
+      "level": 1,
+      "category": "supporting",
+      "metadata": {
+        "maturity": 4,
+        "status": "active",
+        "owner": "供应链部门",
+        "tags": [
+          "WMS"
+        ]
+      }
+    },
+    {
+      "id": "cap-l1-aps",
+      "name": "高级计划排程",
+      "type": "capability",
+      "parent": "cap-l0-ops",
+      "level": 1,
+      "category": "supporting",
+      "metadata": {
+        "maturity": 1,
+        "status": "retiring",
+        "owner": "",
+        "tags": [
+          "APS"
+        ]
+      }
+    },
+    {
+      "id": "cap-l1-crm",
+      "name": "客户关系管理",
+      "type": "capability",
+      "parent": "cap-l0-sales",
       "level": 1,
       "category": "core",
       "metadata": {
         "maturity": 3,
         "status": "active",
-        "owner": "",
-        "tags": []
+        "owner": "销售部门",
+        "tags": [
+          "CRM"
+        ]
+      }
+    },
+    {
+      "id": "cap-l1-ec",
+      "name": "电商平台",
+      "type": "capability",
+      "parent": "cap-l0-sales",
+      "level": 1,
+      "category": "core",
+      "metadata": {
+        "maturity": 3,
+        "status": "active",
+        "owner": "电商部门",
+        "tags": [
+          "天猫",
+          "京东"
+        ]
+      }
+    },
+    {
+      "id": "cap-l1-srm",
+      "name": "供应商关系管理",
+      "type": "capability",
+      "parent": "cap-l0-sales",
+      "level": 1,
+      "category": "supporting",
+      "metadata": {
+        "maturity": 3,
+        "status": "active",
+        "owner": "采购部门",
+        "tags": [
+          "SRM"
+        ]
+      }
+    },
+    {
+      "id": "cap-l1-oa",
+      "name": "办公协同",
+      "type": "capability",
+      "parent": "cap-l0-mgmt",
+      "level": 1,
+      "category": "supporting",
+      "metadata": {
+        "maturity": 3,
+        "status": "active",
+        "owner": "行政部门",
+        "tags": [
+          "OA"
+        ]
       }
     },
     {
       "id": "cap-l1-hr",
-      "name": "Human Resources",
+      "name": "人力资源管理",
       "type": "capability",
-      "parent": "cap-l0-support",
-      "level": 1,
-      "category": "supporting",
-      "metadata": {
-        "maturity": 4,
-        "status": "active",
-        "owner": "",
-        "tags": []
-      }
-    },
-    {
-      "id": "cap-l1-it",
-      "name": "IT Infrastructure",
-      "type": "capability",
-      "parent": "cap-l0-support",
+      "parent": "cap-l0-mgmt",
       "level": 1,
       "category": "supporting",
       "metadata": {
         "maturity": 3,
         "status": "active",
-        "owner": "",
-        "tags": []
+        "owner": "HR部门",
+        "tags": [
+          "HR"
+        ]
       }
     },
     {
-      "id": "cap-l1-analytics",
-      "name": "Analytics & AI",
+      "id": "cap-l1-ai",
+      "name": "AI 平台",
       "type": "capability",
-      "parent": "cap-l0-digital",
+      "parent": "cap-l0-mgmt",
       "level": 1,
       "category": "strategic",
       "metadata": {
         "maturity": 2,
-        "status": "planned",
-        "owner": "",
-        "tags": []
-      }
-    },
-    {
-      "id": "cap-l2-procure",
-      "name": "Procurement",
-      "type": "capability",
-      "parent": "cap-l1-scm",
-      "level": 2,
-      "category": "core",
-      "metadata": {
-        "maturity": 5,
         "status": "active",
-        "owner": "Supply Chain Team",
+        "owner": "IT部门",
         "tags": [
-          "SAP Ariba"
+          "RAG",
+          "私有化"
         ]
       }
     },
     {
-      "id": "cap-l2-inventory",
-      "name": "Inventory Mgmt",
+      "id": "cap-l1-bi",
+      "name": "经营分析与报表",
       "type": "capability",
-      "parent": "cap-l1-scm",
-      "level": 2,
-      "category": "core",
-      "metadata": {
-        "maturity": 4,
-        "status": "active",
-        "owner": "",
-        "tags": []
-      }
-    },
-    {
-      "id": "cap-l2-logistics",
-      "name": "Logistics & Fulfillment",
-      "type": "capability",
-      "parent": "cap-l1-scm",
-      "level": 2,
-      "category": "core",
-      "metadata": {
-        "maturity": 3,
-        "status": "active",
-        "owner": "",
-        "tags": []
-      }
-    },
-    {
-      "id": "cap-l2-supplier",
-      "name": "Supplier Management",
-      "type": "capability",
-      "parent": "cap-l1-scm",
-      "level": 2,
-      "category": "supporting",
-      "metadata": {
-        "maturity": 4,
-        "status": "active",
-        "owner": "",
-        "tags": []
-      }
-    },
-    {
-      "id": "cap-l2-ar",
-      "name": "Accounts Receivable",
-      "type": "capability",
-      "parent": "cap-l1-finance",
-      "level": 2,
-      "category": "core",
-      "metadata": {
-        "maturity": 5,
-        "status": "active",
-        "owner": "Finance Team",
-        "tags": []
-      }
-    },
-    {
-      "id": "cap-l2-ap",
-      "name": "Accounts Payable",
-      "type": "capability",
-      "parent": "cap-l1-finance",
-      "level": 2,
-      "category": "core",
-      "metadata": {
-        "maturity": 5,
-        "status": "active",
-        "owner": "Finance Team",
-        "tags": []
-      }
-    },
-    {
-      "id": "cap-l2-gl",
-      "name": "General Ledger",
-      "type": "capability",
-      "parent": "cap-l1-finance",
-      "level": 2,
-      "category": "core",
-      "metadata": {
-        "maturity": 5,
-        "status": "active",
-        "owner": "Finance Team",
-        "tags": []
-      }
-    },
-    {
-      "id": "cap-l2-co",
-      "name": "Controlling & Costing",
-      "type": "capability",
-      "parent": "cap-l1-finance",
-      "level": 2,
-      "category": "core",
-      "metadata": {
-        "maturity": 4,
-        "status": "active",
-        "owner": "",
-        "tags": []
-      }
-    },
-    {
-      "id": "cap-l2-crm",
-      "name": "CRM & Opportunity",
-      "type": "capability",
-      "parent": "cap-l1-sales",
-      "level": 2,
-      "category": "core",
-      "metadata": {
-        "maturity": 3,
-        "status": "active",
-        "owner": "Sales Ops",
-        "tags": [
-          "Salesforce"
-        ]
-      }
-    },
-    {
-      "id": "cap-l2-order",
-      "name": "Order Management",
-      "type": "capability",
-      "parent": "cap-l1-sales",
-      "level": 2,
-      "category": "core",
-      "metadata": {
-        "maturity": 4,
-        "status": "active",
-        "owner": "",
-        "tags": []
-      }
-    },
-    {
-      "id": "cap-l2-pricing",
-      "name": "Pricing & Rebates",
-      "type": "capability",
-      "parent": "cap-l1-sales",
-      "level": 2,
-      "category": "supporting",
-      "metadata": {
-        "maturity": 3,
-        "status": "planned",
-        "owner": "",
-        "tags": []
-      }
-    },
-    {
-      "id": "cap-l2-recruit",
-      "name": "Recruiting & Onboarding",
-      "type": "capability",
-      "parent": "cap-l1-hr",
-      "level": 2,
-      "category": "supporting",
-      "metadata": {
-        "maturity": 4,
-        "status": "active",
-        "owner": "HR Team",
-        "tags": [
-          "SuccessFactors"
-        ]
-      }
-    },
-    {
-      "id": "cap-l2-payroll",
-      "name": "Payroll & Benefits",
-      "type": "capability",
-      "parent": "cap-l1-hr",
-      "level": 2,
-      "category": "supporting",
-      "metadata": {
-        "maturity": 4,
-        "status": "active",
-        "owner": "HR Team",
-        "tags": []
-      }
-    },
-    {
-      "id": "cap-l2-talent",
-      "name": "Talent & Performance",
-      "type": "capability",
-      "parent": "cap-l1-hr",
-      "level": 2,
-      "category": "strategic",
-      "metadata": {
-        "maturity": 3,
-        "status": "active",
-        "owner": "",
-        "tags": []
-      }
-    },
-    {
-      "id": "cap-l2-reporting",
-      "name": "Enterprise Reporting",
-      "type": "capability",
-      "parent": "cap-l1-analytics",
-      "level": 2,
+      "parent": "cap-l0-mgmt",
+      "level": 1,
       "category": "strategic",
       "metadata": {
         "maturity": 2,
-        "status": "planned",
-        "owner": "",
+        "status": "active",
+        "owner": "财务部门",
         "tags": [
-          "SAP Analytics Cloud"
+          "BI"
         ]
       }
     },
     {
-      "id": "cap-l2-aiml",
-      "name": "AI / ML Platform",
+      "id": "cap-l2-fico",
+      "name": "财务会计 FICO",
       "type": "capability",
-      "parent": "cap-l1-analytics",
+      "parent": "cap-l1-erp",
       "level": 2,
-      "category": "strategic",
+      "category": "core",
       "metadata": {
-        "maturity": 1,
+        "maturity": 4,
+        "status": "active",
+        "owner": "财务部门",
+        "tags": [
+          "S/4HANA PCE"
+        ]
+      }
+    },
+    {
+      "id": "cap-l2-sd",
+      "name": "销售与分销 SD",
+      "type": "capability",
+      "parent": "cap-l1-erp",
+      "level": 2,
+      "category": "core",
+      "metadata": {
+        "maturity": 4,
+        "status": "active",
+        "owner": "销售部门",
+        "tags": [
+          "S/4HANA PCE"
+        ]
+      }
+    },
+    {
+      "id": "cap-l2-mm",
+      "name": "物料管理 MM",
+      "type": "capability",
+      "parent": "cap-l1-erp",
+      "level": 2,
+      "category": "core",
+      "metadata": {
+        "maturity": 4,
+        "status": "active",
+        "owner": "采购部门",
+        "tags": [
+          "S/4HANA PCE"
+        ]
+      }
+    },
+    {
+      "id": "cap-l2-pp",
+      "name": "生产计划 PP",
+      "type": "capability",
+      "parent": "cap-l1-erp",
+      "level": 2,
+      "category": "core",
+      "metadata": {
+        "maturity": 3,
+        "status": "active",
+        "owner": "生产部门",
+        "tags": [
+          "S/4HANA PCE"
+        ]
+      }
+    },
+    {
+      "id": "cap-l2-qm",
+      "name": "质量管理 QM",
+      "type": "capability",
+      "parent": "cap-l1-erp",
+      "level": 2,
+      "category": "supporting",
+      "metadata": {
+        "maturity": 3,
+        "status": "active",
+        "owner": "质量部门",
+        "tags": [
+          "S/4HANA PCE"
+        ]
+      }
+    },
+    {
+      "id": "cap-l2-ewm",
+      "name": "扩展仓储 EWM",
+      "type": "capability",
+      "parent": "cap-l1-erp",
+      "level": 2,
+      "category": "supporting",
+      "metadata": {
+        "maturity": 3,
+        "status": "active",
+        "owner": "仓储部门",
+        "tags": [
+          "S/4HANA PCE"
+        ]
+      }
+    },
+    {
+      "id": "cap-l2-mdg",
+      "name": "主数据治理 MDG",
+      "type": "capability",
+      "parent": "cap-l1-erp",
+      "level": 2,
+      "category": "supporting",
+      "metadata": {
+        "maturity": 3,
         "status": "planned",
-        "owner": "",
-        "tags": []
+        "owner": "IT部门",
+        "tags": [
+          "S/4HANA PCE"
+        ]
+      }
+    },
+    {
+      "id": "cap-l2-bom",
+      "name": "BOM 管理",
+      "type": "capability",
+      "parent": "cap-l1-plm",
+      "level": 2,
+      "category": "core",
+      "metadata": {
+        "maturity": 4,
+        "status": "active",
+        "owner": "研发部门",
+        "tags": [
+          "SAP PLM"
+        ]
+      }
+    },
+    {
+      "id": "cap-l2-plm-doc",
+      "name": "产品文档管理",
+      "type": "capability",
+      "parent": "cap-l1-plm",
+      "level": 2,
+      "category": "supporting",
+      "metadata": {
+        "maturity": 3,
+        "status": "active",
+        "owner": "研发部门",
+        "tags": [
+          "SAP PLM"
+        ]
+      }
+    },
+    {
+      "id": "cap-l2-plm-chg",
+      "name": "工程变更管理 ECM",
+      "type": "capability",
+      "parent": "cap-l1-plm",
+      "level": 2,
+      "category": "supporting",
+      "metadata": {
+        "maturity": 3,
+        "status": "active",
+        "owner": "研发部门",
+        "tags": [
+          "SAP PLM"
+        ]
+      }
+    },
+    {
+      "id": "cap-l2-mes-exec",
+      "name": "生产执行监控",
+      "type": "capability",
+      "parent": "cap-l1-mfg",
+      "level": 2,
+      "category": "supporting",
+      "metadata": {
+        "maturity": 3,
+        "status": "active",
+        "owner": "生产部门",
+        "tags": [
+          "MES"
+        ]
+      }
+    },
+    {
+      "id": "cap-l2-wms-in",
+      "name": "入库 & 出库管理",
+      "type": "capability",
+      "parent": "cap-l1-wms",
+      "level": 2,
+      "category": "supporting",
+      "metadata": {
+        "maturity": 4,
+        "status": "active",
+        "owner": "仓储部门",
+        "tags": [
+          "WMS 2025上线"
+        ]
+      }
+    },
+    {
+      "id": "cap-l2-crm-op",
+      "name": "客户服务 & 跟进",
+      "type": "capability",
+      "parent": "cap-l1-crm",
+      "level": 2,
+      "category": "core",
+      "metadata": {
+        "maturity": 3,
+        "status": "active",
+        "owner": "销售部门",
+        "tags": [
+          "CRM 2026上线"
+        ]
+      }
+    },
+    {
+      "id": "cap-l2-ec-tmall",
+      "name": "天猫 / 京东店铺",
+      "type": "capability",
+      "parent": "cap-l1-ec",
+      "level": 2,
+      "category": "core",
+      "metadata": {
+        "maturity": 3,
+        "status": "active",
+        "owner": "电商部门",
+        "tags": [
+          "佛照商城",
+          "聚水潭"
+        ]
       }
     },
     {
       "id": "app-s4",
-      "name": "SAP S/4HANA",
+      "name": "SAP S/4HANA PCE",
       "type": "application",
       "parent": null,
       "level": null,
       "category": "core",
       "metadata": {
         "vendor": "SAP",
-        "version": "2023",
+        "version": "PCE",
         "status": "active",
-        "description": "Core ERP: Finance, SCM, Sales & Distribution",
-        "owner": "IT Architecture",
+        "description": "核心ERP：FICO/SD/MM/PP/QM/EWM/MDG",
+        "owner": "IT部门",
         "tags": [
           "ERP",
           "Core",
@@ -382,175 +500,204 @@
       }
     },
     {
-      "id": "app-sf",
-      "name": "SAP SuccessFactors",
+      "id": "app-plm",
+      "name": "SAP PLM",
+      "type": "application",
+      "parent": null,
+      "level": null,
+      "category": "core",
+      "metadata": {
+        "vendor": "SAP",
+        "version": "S/4",
+        "status": "active",
+        "description": "产品生命周期管理 / BOM",
+        "owner": "研发部门",
+        "tags": [
+          "PLM",
+          "SAP"
+        ]
+      }
+    },
+    {
+      "id": "app-mes",
+      "name": "MES",
       "type": "application",
       "parent": null,
       "level": null,
       "category": "supporting",
       "metadata": {
-        "vendor": "SAP",
-        "version": "H1 2024",
+        "vendor": "内部/第三方",
+        "version": "",
         "status": "active",
-        "description": "HCM Cloud Suite",
-        "owner": "HR IT",
+        "description": "制造执行系统",
+        "owner": "生产部门",
         "tags": [
-          "HR",
-          "Cloud",
-          "SAP"
+          "MES"
         ]
       }
     },
     {
-      "id": "app-ariba",
-      "name": "SAP Ariba",
+      "id": "app-wms",
+      "name": "WMS",
+      "type": "application",
+      "parent": null,
+      "level": null,
+      "category": "supporting",
+      "metadata": {
+        "vendor": "内部/第三方",
+        "version": "",
+        "status": "active",
+        "description": "仓库管理系统（2025上线）",
+        "owner": "仓储部门",
+        "tags": [
+          "WMS"
+        ]
+      }
+    },
+    {
+      "id": "app-aps",
+      "name": "APS",
+      "type": "application",
+      "parent": null,
+      "level": null,
+      "category": "supporting",
+      "metadata": {
+        "vendor": "第三方",
+        "version": "",
+        "status": "retiring",
+        "description": "高级计划排程（停用）",
+        "owner": "",
+        "tags": [
+          "APS",
+          "停用"
+        ]
+      }
+    },
+    {
+      "id": "app-crm",
+      "name": "CRM（分享客）",
       "type": "application",
       "parent": null,
       "level": null,
       "category": "core",
       "metadata": {
-        "vendor": "SAP",
-        "version": "2024",
+        "vendor": "分享客",
+        "version": "",
         "status": "active",
-        "description": "Procurement & Supply Chain Network",
-        "owner": "Procurement",
+        "description": "客户关系管理（2026上线）",
+        "owner": "销售部门",
         "tags": [
-          "Procurement",
-          "Cloud"
+          "CRM"
         ]
       }
     },
     {
-      "id": "app-btp",
-      "name": "SAP BTP",
-      "type": "application",
-      "parent": null,
-      "level": null,
-      "category": "strategic",
-      "metadata": {
-        "vendor": "SAP",
-        "version": "CF",
-        "status": "active",
-        "description": "Business Technology Platform: Integration & Extension",
-        "owner": "IT Architecture",
-        "tags": [
-          "Platform",
-          "Integration",
-          "SAP"
-        ]
-      }
-    },
-    {
-      "id": "app-salesforce",
-      "name": "Salesforce CRM",
+      "id": "app-ec",
+      "name": "电商平台",
       "type": "application",
       "parent": null,
       "level": null,
       "category": "core",
       "metadata": {
-        "vendor": "Salesforce",
-        "version": "Spring 2024",
+        "vendor": "内部",
+        "version": "",
         "status": "active",
-        "description": "Customer Relationship Management",
-        "owner": "Sales Ops",
+        "description": "佛照商城 / 聚水潭 / 天猫 / 京东",
+        "owner": "电商部门",
         "tags": [
-          "CRM",
-          "Cloud"
+          "电商"
         ]
       }
     },
     {
-      "id": "app-sac",
-      "name": "SAP Analytics Cloud",
+      "id": "app-srm",
+      "name": "SRM",
+      "type": "application",
+      "parent": null,
+      "level": null,
+      "category": "supporting",
+      "metadata": {
+        "vendor": "第三方",
+        "version": "",
+        "status": "active",
+        "description": "供应商关系管理",
+        "owner": "采购部门",
+        "tags": [
+          "SRM"
+        ]
+      }
+    },
+    {
+      "id": "app-oa",
+      "name": "OA",
+      "type": "application",
+      "parent": null,
+      "level": null,
+      "category": "supporting",
+      "metadata": {
+        "vendor": "内部",
+        "version": "",
+        "status": "active",
+        "description": "办公自动化 / 审批流",
+        "owner": "行政部门",
+        "tags": [
+          "OA"
+        ]
+      }
+    },
+    {
+      "id": "app-hr",
+      "name": "HR 系统",
+      "type": "application",
+      "parent": null,
+      "level": null,
+      "category": "supporting",
+      "metadata": {
+        "vendor": "第三方",
+        "version": "",
+        "status": "active",
+        "description": "人力资源管理",
+        "owner": "HR部门",
+        "tags": [
+          "HR"
+        ]
+      }
+    },
+    {
+      "id": "app-ai",
+      "name": "AI 平台",
       "type": "application",
       "parent": null,
       "level": null,
       "category": "strategic",
       "metadata": {
-        "vendor": "SAP",
-        "version": "2024.Q1",
+        "vendor": "私有化部署",
+        "version": "",
         "status": "active",
-        "description": "BI, Planning & Predictive Analytics",
-        "owner": "Finance",
+        "description": "私有化部署 RAG + 多模态（3台服务器）",
+        "owner": "IT部门",
         "tags": [
-          "Analytics",
+          "AI",
+          "RAG"
+        ]
+      }
+    },
+    {
+      "id": "app-bi",
+      "name": "BI / 报表",
+      "type": "application",
+      "parent": null,
+      "level": null,
+      "category": "strategic",
+      "metadata": {
+        "vendor": "内部",
+        "version": "",
+        "status": "active",
+        "description": "经营分析报表平台",
+        "owner": "财务部门",
+        "tags": [
           "BI",
-          "SAP"
-        ]
-      }
-    },
-    {
-      "id": "app-signavio",
-      "name": "SAP Signavio",
-      "type": "application",
-      "parent": null,
-      "level": null,
-      "category": "supporting",
-      "metadata": {
-        "vendor": "SAP",
-        "version": "2024",
-        "status": "active",
-        "description": "Business Process Intelligence & Mining",
-        "owner": "COE",
-        "tags": [
-          "BPM",
-          "Process Mining"
-        ]
-      }
-    },
-    {
-      "id": "tech-hana",
-      "name": "SAP HANA DB",
-      "type": "technology",
-      "parent": null,
-      "level": null,
-      "category": "core",
-      "metadata": {
-        "vendor": "SAP",
-        "version": "2.0 SPS07",
-        "status": "active",
-        "description": "In-Memory Relational Database",
-        "owner": "Basis Team",
-        "tags": [
-          "Database"
-        ]
-      }
-    },
-    {
-      "id": "tech-iflow",
-      "name": "SAP Integration Suite",
-      "type": "technology",
-      "parent": null,
-      "level": null,
-      "category": "core",
-      "metadata": {
-        "vendor": "SAP",
-        "version": "CF",
-        "status": "active",
-        "description": "iPaaS on BTP: CPI, API Mgmt, Event Mesh",
-        "owner": "Integration Team",
-        "tags": [
-          "iPaaS",
-          "Middleware"
-        ]
-      }
-    },
-    {
-      "id": "tech-mq",
-      "name": "RabbitMQ",
-      "type": "technology",
-      "parent": null,
-      "level": null,
-      "category": "supporting",
-      "metadata": {
-        "vendor": "VMware",
-        "version": "3.12",
-        "status": "active",
-        "description": "Message Queue Middleware",
-        "owner": "IT Infra",
-        "tags": [
-          "MQ",
-          "Middleware"
+          "报表"
         ]
       }
     }
@@ -559,30 +706,115 @@
     {
       "id": "int-001",
       "source": "app-s4",
-      "target": "app-sf",
+      "target": "app-plm",
       "type": "integration",
       "protocol": "REST",
       "direction": "bi",
       "metadata": {
-        "description": "Employee Master Data & Org Structure Sync",
+        "description": "BOM & 工程变更双向同步",
         "frequency": "real-time",
         "criticality": "high",
         "dataEntities": [
-          "Employee",
-          "OrgUnit",
-          "CostCenter"
+          "BOM",
+          "ECM",
+          "Material"
         ]
       }
     },
     {
       "id": "int-002",
       "source": "app-s4",
-      "target": "app-salesforce",
+      "target": "app-mes",
+      "type": "integration",
+      "protocol": "REST",
+      "direction": "uni",
+      "metadata": {
+        "description": "生产工单 & 工艺路线下达",
+        "frequency": "real-time",
+        "criticality": "high",
+        "dataEntities": [
+          "ProductionOrder",
+          "Routing"
+        ]
+      }
+    },
+    {
+      "id": "int-003",
+      "source": "app-mes",
+      "target": "app-s4",
+      "type": "integration",
+      "protocol": "REST",
+      "direction": "uni",
+      "metadata": {
+        "description": "生产完工确认 & 质检结果回写",
+        "frequency": "real-time",
+        "criticality": "high",
+        "dataEntities": [
+          "GoodsMovement",
+          "QualityResult"
+        ]
+      }
+    },
+    {
+      "id": "int-004",
+      "source": "app-s4",
+      "target": "app-wms",
       "type": "integration",
       "protocol": "REST",
       "direction": "bi",
       "metadata": {
-        "description": "Customer, Order & Invoice Sync via BTP",
+        "description": "库存 & 出入库单据同步",
+        "frequency": "real-time",
+        "criticality": "high",
+        "dataEntities": [
+          "StockTransfer",
+          "GoodsIssue",
+          "GoodsReceipt"
+        ]
+      }
+    },
+    {
+      "id": "int-005",
+      "source": "app-s4",
+      "target": "app-srm",
+      "type": "integration",
+      "protocol": "REST",
+      "direction": "uni",
+      "metadata": {
+        "description": "采购需求 & PR 传递给 SRM",
+        "frequency": "real-time",
+        "criticality": "medium",
+        "dataEntities": [
+          "PurchaseRequisition"
+        ]
+      }
+    },
+    {
+      "id": "int-006",
+      "source": "app-srm",
+      "target": "app-s4",
+      "type": "integration",
+      "protocol": "REST",
+      "direction": "uni",
+      "metadata": {
+        "description": "供应商报价 & PO 确认回写",
+        "frequency": "real-time",
+        "criticality": "medium",
+        "dataEntities": [
+          "PurchaseOrder",
+          "SupplierQuote"
+        ]
+      }
+    },
+    {
+      "id": "int-007",
+      "source": "app-s4",
+      "target": "app-crm",
+      "type": "integration",
+      "protocol": "REST",
+      "direction": "bi",
+      "metadata": {
+        "description": "客户主数据 & 销售订单同步",
         "frequency": "real-time",
         "criticality": "high",
         "dataEntities": [
@@ -593,31 +825,31 @@
       }
     },
     {
-      "id": "int-003",
-      "source": "app-ariba",
+      "id": "int-008",
+      "source": "app-ec",
       "target": "app-s4",
       "type": "integration",
       "protocol": "REST",
       "direction": "uni",
       "metadata": {
-        "description": "Purchase Order & Invoice Confirmation",
+        "description": "天猫/京东线上订单同步到ERP",
         "frequency": "real-time",
         "criticality": "high",
         "dataEntities": [
-          "PurchaseOrder",
-          "Invoice"
+          "OnlineOrder",
+          "Payment"
         ]
       }
     },
     {
-      "id": "int-004",
+      "id": "int-009",
       "source": "app-s4",
-      "target": "app-sac",
+      "target": "app-bi",
       "type": "integration",
       "protocol": "DB",
       "direction": "uni",
       "metadata": {
-        "description": "Financial Actuals for Planning & Reporting",
+        "description": "财务 Actuals 推送 BI 平台",
         "frequency": "batch",
         "criticality": "medium",
         "dataEntities": [
@@ -628,103 +860,54 @@
       }
     },
     {
-      "id": "int-005",
-      "source": "app-sf",
-      "target": "app-sac",
+      "id": "int-010",
+      "source": "app-hr",
+      "target": "app-s4",
       "type": "integration",
       "protocol": "REST",
       "direction": "uni",
       "metadata": {
-        "description": "Headcount & Talent Analytics",
-        "frequency": "batch",
-        "criticality": "low",
-        "dataEntities": [
-          "Headcount",
-          "Performance",
-          "Turnover"
-        ]
-      }
-    },
-    {
-      "id": "int-006",
-      "source": "app-salesforce",
-      "target": "app-btp",
-      "type": "integration",
-      "protocol": "REST",
-      "direction": "uni",
-      "metadata": {
-        "description": "CRM Events to BTP Event Mesh",
-        "frequency": "event",
+        "description": "员工 & 组织架构主数据同步",
+        "frequency": "real-time",
         "criticality": "medium",
         "dataEntities": [
-          "OpportunityEvent",
-          "QuoteEvent"
+          "Employee",
+          "OrgUnit",
+          "CostCenter"
         ]
       }
     },
     {
-      "id": "int-007",
-      "source": "app-btp",
-      "target": "app-s4",
-      "type": "integration",
-      "protocol": "REST",
-      "direction": "uni",
-      "metadata": {
-        "description": "BTP Integration Suite Inbound APIs to S/4",
-        "frequency": "real-time",
-        "criticality": "high",
-        "dataEntities": [
-          "Various"
-        ]
-      }
-    },
-    {
-      "id": "int-008",
-      "source": "app-signavio",
-      "target": "app-s4",
+      "id": "int-011",
+      "source": "app-s4",
+      "target": "app-ai",
       "type": "integration",
       "protocol": "DB",
       "direction": "uni",
       "metadata": {
-        "description": "Process Mining Data Extraction",
+        "description": "ERP 业务数据喂入 RAG 知识库",
         "frequency": "batch",
         "criticality": "low",
         "dataEntities": [
-          "ProcessLogs",
-          "Events"
+          "BusinessDocs",
+          "MasterData"
         ]
       }
     },
     {
-      "id": "int-009",
-      "source": "app-s4",
-      "target": "tech-iflow",
-      "type": "integration",
-      "protocol": "MQ",
-      "direction": "uni",
-      "metadata": {
-        "description": "Business Events Publishing via Event Mesh",
-        "frequency": "event",
-        "criticality": "high",
-        "dataEntities": [
-          "BusinessEvent"
-        ]
-      }
-    },
-    {
-      "id": "int-010",
-      "source": "app-ariba",
-      "target": "app-btp",
+      "id": "int-012",
+      "source": "app-oa",
+      "target": "app-s4",
       "type": "integration",
       "protocol": "REST",
-      "direction": "bi",
+      "direction": "uni",
       "metadata": {
-        "description": "Ariba Network ↔ BTP Integration for Supplier Portal",
-        "frequency": "real-time",
+        "description": "OA 审批完成触发 ERP 业务流程",
+        "frequency": "event",
         "criticality": "medium",
         "dataEntities": [
-          "SupplierCatalog",
-          "RFQ"
+          "ApprovalEvent",
+          "PRApproval"
         ]
       }
     }
