@@ -645,6 +645,48 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 <p style="margin-bottom:9px;color:var(--text2)"><strong>关键发现：数字化职责高度集中在数智化部（23人），而各业务部门的数字化配合岗位几乎为零。</strong> 以供应链中心（13人）为例，13人中无人专职负责SAP数据维护——但实际上供应商主数据、采购信息记录（PIR）的维护工作大量落到了数智化部，形成典型的"IT背锅、业务甩手"模式。</p>
 <div class="sec-sub">2.1.2 高明公司组织结构（第二大生产基地）</div>
 <p style="margin-bottom:9px;color:var(--text2)">高明公司（393人，佛照第二大生产基地）的组织架构与本部平行，包含：</p>
+<div style="background:var(--bg);border:1px solid var(--pale);border-radius:10px;padding:16px;margin:10px 0 14px 0">
+  <div style="font-size:12px;font-weight:700;color:var(--dark);margin-bottom:12px"><i class="fas fa-building" style="color:var(--primary);margin-right:6px"></i>高明公司（393人）部门规模气泡图——SAP关联度标注</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px">
+    <div style="background:var(--white);border-radius:8px;padding:12px;text-align:center;border-top:4px solid #C0392B">
+      <div style="font-size:24px;font-weight:800;color:#C0392B">140</div>
+      <div style="font-size:12px;font-weight:700;color:var(--dark)">生产运营中心</div>
+      <div style="font-size:10px;color:var(--muted);margin-top:3px">SAP PP/QM 主要用户</div>
+      <div style="background:#FDECEA;color:#C0392B;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-top:6px;display:inline-block">⚠️ 0名本地IT</div>
+    </div>
+    <div style="background:var(--white);border-radius:8px;padding:12px;text-align:center;border-top:4px solid #E67E22">
+      <div style="font-size:24px;font-weight:800;color:#E67E22">34</div>
+      <div style="font-size:12px;font-weight:700;color:var(--dark)">高明仓库</div>
+      <div style="font-size:10px;color:var(--muted);margin-top:3px">SAP WM/WMS 主要用户</div>
+      <div style="background:#FEF3C7;color:#B7950B;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-top:6px;display:inline-block">P1 关键</div>
+    </div>
+    <div style="background:var(--white);border-radius:8px;padding:12px;text-align:center;border-top:4px solid #1F70C1">
+      <div style="font-size:24px;font-weight:800;color:#1F70C1">24</div>
+      <div style="font-size:12px;font-weight:700;color:var(--dark)">财务部</div>
+      <div style="font-size:10px;color:var(--muted);margin-top:3px">SAP FI/CO 用户</div>
+      <div style="background:#EBF4FF;color:#005EB8;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-top:6px;display:inline-block">P0 关键</div>
+    </div>
+    <div style="background:var(--white);border-radius:8px;padding:12px;text-align:center;border-top:4px solid #4A6FA5">
+      <div style="font-size:24px;font-weight:800;color:#4A6FA5">20</div>
+      <div style="font-size:12px;font-weight:700;color:var(--dark)">行政后勤中心</div>
+      <div style="font-size:10px;color:var(--muted);margin-top:3px">OA/HR 系统</div>
+      <div style="background:var(--bg);color:var(--muted);font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-top:6px;display:inline-block">P3 支撑</div>
+    </div>
+    <div style="background:var(--white);border-radius:8px;padding:12px;text-align:center;border-top:4px solid #27AE60">
+      <div style="font-size:24px;font-weight:800;color:#27AE60">9</div>
+      <div style="font-size:12px;font-weight:700;color:var(--dark)">自动化中心</div>
+      <div style="font-size:10px;color:var(--muted);margin-top:3px">MES/数字孪生相关</div>
+      <div style="background:#D1FAE5;color:#065F46;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-top:6px;display:inline-block">创新中心</div>
+    </div>
+    <div style="background:#FDECEA;border-radius:8px;padding:12px;text-align:center;border-top:4px solid #C0392B;border:2px dashed #C0392B">
+      <div style="font-size:24px;font-weight:800;color:#C0392B">0</div>
+      <div style="font-size:12px;font-weight:700;color:#C0392B">本地IT支持</div>
+      <div style="font-size:10px;color:#C0392B;margin-top:3px">完全依赖总部<br>数智化部（23人）</div>
+      <div style="background:#C0392B;color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-top:6px;display:inline-block">🔴 最大盲区</div>
+    </div>
+  </div>
+  <div style="margin-top:10px;font-size:11px;color:var(--muted);border-left:3px solid #C0392B;padding-left:8px">S/4HANA上线后，高明公司新增PP/CO/QM全模块，SAP用户将大幅增加，但本地IT支持为零——这是运维能力的重大盲区，建议至少配置1-2名本地SAP支持人员。</div>
+</div>
 <ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">高明管理层（11人）</li>
 <li style="margin-bottom:3px;line-height:1.65">财务部（24人）</li>
@@ -660,6 +702,40 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 <p style="margin-bottom:9px;color:var(--text2)"><strong>关键发现：高明公司是当前ECC数据最完整的生产基地（FZ05工厂代码），但其IT支持完全依赖本部数智化部，本地无独立IT支持岗位。</strong> 在S/4HANA上线后，高明公司的SAP用户规模将大幅增加（新增PP/CO/QM全模块），但本地IT支持人员为零，这是运维能力的重大盲区。</p>
 <div class="sec-sub">2.1.3 南宁燎旺车灯（最大子公司，独立管控）</div>
 <p style="margin-bottom:9px;color:var(--text2)">南宁燎旺车灯股份有限公司（1,123人，独立上市子公司）是集团规模最大的子公司，组织结构高度独立：</p>
+<div style="background:var(--bg);border:1px solid var(--pale);border-radius:10px;padding:16px;margin:10px 0 14px 0">
+  <div style="font-size:12px;font-weight:700;color:var(--dark);margin-bottom:12px"><i class="fas fa-map-marked-alt" style="color:#E67E22;margin-right:6px"></i>南宁燎旺车灯（1,123人）——子公司地理分布</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <div style="flex:1;min-width:100px;background:var(--white);border-radius:8px;padding:10px;text-align:center;border-left:4px solid #003087">
+      <div style="font-size:20px;font-weight:800;color:#003087">341</div>
+      <div style="font-size:11.5px;font-weight:700;color:var(--dark)">燎旺本部</div>
+      <div style="font-size:10px;color:var(--muted)">南宁</div>
+    </div>
+    <div style="flex:1;min-width:100px;background:var(--white);border-radius:8px;padding:10px;text-align:center;border-left:4px solid #1F70C1">
+      <div style="font-size:20px;font-weight:800;color:#1F70C1">266</div>
+      <div style="font-size:11.5px;font-weight:700;color:var(--dark)">桂诺光电</div>
+      <div style="font-size:10px;color:var(--muted)">重庆</div>
+    </div>
+    <div style="flex:1;min-width:100px;background:var(--white);border-radius:8px;padding:10px;text-align:center;border-left:4px solid #005EB8">
+      <div style="font-size:20px;font-weight:800;color:#005EB8">187</div>
+      <div style="font-size:11.5px;font-weight:700;color:var(--dark)">桂格光电</div>
+      <div style="font-size:10px;color:var(--muted)">柳州</div>
+    </div>
+    <div style="flex:1;min-width:100px;background:var(--white);border-radius:8px;padding:10px;text-align:center;border-left:4px solid #4A6FA5">
+      <div style="font-size:20px;font-weight:800;color:#4A6FA5">139</div>
+      <div style="font-size:11.5px;font-weight:700;color:var(--dark)">桂格复煊</div>
+      <div style="font-size:10px;color:var(--muted)">柳州</div>
+    </div>
+    <div style="flex:1;min-width:100px;background:var(--white);border-radius:8px;padding:10px;text-align:center;border-left:4px solid #6B8CB8">
+      <div style="font-size:20px;font-weight:800;color:#6B8CB8">79+78+14+19</div>
+      <div style="font-size:11.5px;font-weight:700;color:var(--dark)">青岛/上海/佛山/苏州</div>
+      <div style="font-size:10px;color:var(--muted)">4个分支机构，共190人</div>
+    </div>
+  </div>
+  <div style="margin-top:10px;display:flex;gap:8px">
+    <div style="flex:1;background:#FDECEA;border-radius:6px;padding:8px 12px;font-size:11.5px;color:#C0392B;font-weight:600">🔴 独立上市公司，有自己的IT部（约5人），独立于佛照数智化部</div>
+    <div style="flex:1;background:#EBF4FF;border-radius:6px;padding:8px 12px;font-size:11.5px;color:#005EB8">📌 本期建议：仅做GR集团合并报表对接，完整SAP实施放二期</div>
+  </div>
+</div>
 <ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">燎旺本部（341人）</li>
 <li style="margin-bottom:3px;line-height:1.65">上海分公司（78人）</li>
@@ -693,37 +769,67 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 <div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 2.2 应用架构视角（AA）：IT支撑组织的能力现状</div>
 <div class="sec-sub">2.2.1 数智化部IT系统建设历程</div>
 <p style="margin-bottom:9px;color:var(--text2)">数智化部PPT（2025-08-08）揭示了一个清晰的IT建设演进历程：</p>
-<p style="margin-bottom:9px;color:var(--text2)"><strong>2008-2019年（基础信息化期）：</strong></p>
-<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
-<li style="margin-bottom:3px;line-height:1.65">2008年：SAP ECC上线（FI/PP/MM/QM/SD）、星源HR</li>
-<li style="margin-bottom:3px;line-height:1.65">2016年：佛照商城系统</li>
-<li style="margin-bottom:3px;line-height:1.65">2019年：OA（泛微E9）、SRM（SAAS版）</li>
-</ul>
-<p style="margin-bottom:9px;color:var(--text2)"><strong>2019-2022年（信息化补课期）：</strong></p>
-<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
-<li style="margin-bottom:3px;line-height:1.65">2020年：APS系统（2022年停用，损失约120万元）</li>
-<li style="margin-bottom:3px;line-height:1.65">2021年：PLM系统采购、5G+工业互联网</li>
-<li style="margin-bottom:3px;line-height:1.65">2021年：线路板车间MES（合同作废，损失89.93万元）</li>
-</ul>
-<p style="margin-bottom:9px;color:var(--text2)"><strong>2022年-2024年（数字化建设加速期）：</strong></p>
-<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
-<li style="margin-bottom:3px;line-height:1.65">2022年：数字化车间项目（669.98万元，2025年2月完成）</li>
-<li style="margin-bottom:3px;line-height:1.65">2022年：网络安全建设（60万元）</li>
-<li style="margin-bottom:3px;line-height:1.65">2023年：高明分公司防窜货系统（32.9万元）</li>
-<li style="margin-bottom:3px;line-height:1.65">2023年：HR系统新建（52.8万元）</li>
-<li style="margin-bottom:3px;line-height:1.65">2024年：WMS/MES/SRM系统对接（17.96万元）</li>
-<li style="margin-bottom:3px;line-height:1.65">2024年：SMT标杆线MES（293万元，已完成）</li>
-<li style="margin-bottom:3px;line-height:1.65">2024年：SAP ERP运维接口开发（联合外部顾问）</li>
-<li style="margin-bottom:3px;line-height:1.65">2024年：面向SAP财务数据的安全管控平台（48万元）</li>
-</ul>
-<p style="margin-bottom:9px;color:var(--text2)"><strong>2025年在建项目：</strong></p>
-<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
-<li style="margin-bottom:3px;line-height:1.65">WMS系统（356万元，完成率80%）</li>
-<li style="margin-bottom:3px;line-height:1.65">CRM/数字化营销管理平台（完成率60%）</li>
-<li style="margin-bottom:3px;line-height:1.65">财务共享（已停止建设，改接广晟集团共享平台）</li>
-<li style="margin-bottom:3px;line-height:1.65">PLM二期（49.8万元）</li>
-<li style="margin-bottom:3px;line-height:1.65">线路板/车灯/立体库数字孪生（48.9万元）</li>
-</ul>
+<div style="background:var(--bg);border:1px solid var(--pale);border-radius:10px;padding:16px;margin:12px 0">
+  <div style="font-size:12px;font-weight:700;color:var(--dark);margin-bottom:14px"><i class="fas fa-history" style="color:var(--primary);margin-right:6px"></i>数智化部IT建设演进历程（2008-2025年）</div>
+  <!-- Timeline -->
+  <div style="position:relative;padding-left:24px">
+    <div style="position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--pale)"></div>
+    <!-- 2008-2019 基础信息化期 -->
+    <div style="position:relative;margin-bottom:16px">
+      <div style="position:absolute;left:-20px;top:2px;width:12px;height:12px;border-radius:50%;background:var(--steel);border:2px solid var(--white)"></div>
+      <div style="background:var(--white);border-radius:8px;padding:10px 14px;border-left:3px solid var(--steel)">
+        <div style="font-size:12px;font-weight:700;color:var(--steel);margin-bottom:5px">2008—2019 · 基础信息化期</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <div style="background:var(--bg);border-radius:5px;padding:4px 10px;font-size:11.5px;color:var(--text2)">2008年 SAP ECC（FI/PP/MM/QM/SD）</div>
+          <div style="background:var(--bg);border-radius:5px;padding:4px 10px;font-size:11.5px;color:var(--text2)">2016年 佛照商城</div>
+          <div style="background:var(--bg);border-radius:5px;padding:4px 10px;font-size:11.5px;color:var(--text2)">2019年 OA（泛微E9）/ SRM</div>
+        </div>
+      </div>
+    </div>
+    <!-- 2019-2022 信息化补课期 -->
+    <div style="position:relative;margin-bottom:16px">
+      <div style="position:absolute;left:-20px;top:2px;width:12px;height:12px;border-radius:50%;background:#C0392B;border:2px solid var(--white)"></div>
+      <div style="background:var(--white);border-radius:8px;padding:10px 14px;border-left:3px solid #C0392B">
+        <div style="font-size:12px;font-weight:700;color:#C0392B;margin-bottom:5px">2019—2022 · 信息化补课期（含重大失败）</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <div style="background:#FDECEA;border-radius:5px;padding:4px 10px;font-size:11.5px;color:#C0392B">2020年 APS（2022停用 -120万）</div>
+          <div style="background:var(--bg);border-radius:5px;padding:4px 10px;font-size:11.5px;color:var(--text2)">2021年 PLM系统采购</div>
+          <div style="background:#FDECEA;border-radius:5px;padding:4px 10px;font-size:11.5px;color:#C0392B">2021年 线路板MES（作废 -90万）</div>
+          <div style="background:var(--bg);border-radius:5px;padding:4px 10px;font-size:11.5px;color:var(--text2)">2021年 5G+工业互联网</div>
+        </div>
+      </div>
+    </div>
+    <!-- 2022-2024 数字化建设加速期 -->
+    <div style="position:relative;margin-bottom:16px">
+      <div style="position:absolute;left:-20px;top:2px;width:12px;height:12px;border-radius:50%;background:#1F70C1;border:2px solid var(--white)"></div>
+      <div style="background:var(--white);border-radius:8px;padding:10px 14px;border-left:3px solid #1F70C1">
+        <div style="font-size:12px;font-weight:700;color:#1F70C1;margin-bottom:5px">2022—2024 · 数字化建设加速期（投入约1,800万）</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <div style="background:var(--bg);border-radius:5px;padding:4px 10px;font-size:11.5px;color:var(--text2)">数字化车间 670万</div>
+          <div style="background:var(--bg);border-radius:5px;padding:4px 10px;font-size:11.5px;color:var(--text2)">网络安全 60万</div>
+          <div style="background:var(--bg);border-radius:5px;padding:4px 10px;font-size:11.5px;color:var(--text2)">HR系统新建 53万</div>
+          <div style="background:var(--bg);border-radius:5px;padding:4px 10px;font-size:11.5px;color:var(--text2)">SMT MES 293万</div>
+          <div style="background:var(--bg);border-radius:5px;padding:4px 10px;font-size:11.5px;color:var(--text2)">SAP财务安全 48万</div>
+          <div style="background:var(--bg);border-radius:5px;padding:4px 10px;font-size:11.5px;color:var(--text2)">WMS/MES/SRM对接 18万</div>
+        </div>
+      </div>
+    </div>
+    <!-- 2025 在建 -->
+    <div style="position:relative">
+      <div style="position:absolute;left:-20px;top:2px;width:12px;height:12px;border-radius:50%;background:#27AE60;border:2px solid var(--white)"></div>
+      <div style="background:var(--white);border-radius:8px;padding:10px 14px;border-left:3px solid #27AE60">
+        <div style="font-size:12px;font-weight:700;color:#27AE60;margin-bottom:5px">2025年 · 在建项目</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <div style="background:#D1FAE5;border-radius:5px;padding:4px 10px;font-size:11.5px;color:#065F46">WMS系统 356万（80%）</div>
+          <div style="background:#D1FAE5;border-radius:5px;padding:4px 10px;font-size:11.5px;color:#065F46">CRM/营销平台（60%）</div>
+          <div style="background:#FEF3C7;border-radius:5px;padding:4px 10px;font-size:11.5px;color:#B7950B">财务共享（已停止，改接广晟）</div>
+          <div style="background:#D1FAE5;border-radius:5px;padding:4px 10px;font-size:11.5px;color:#065F46">PLM二期 50万</div>
+          <div style="background:#D1FAE5;border-radius:5px;padding:4px 10px;font-size:11.5px;color:#065F46">数字孪生 49万</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <p style="margin-bottom:9px;color:var(--text2)"><strong>IT建设投入规模估算（2022-2025年）：</strong></p>
 </div><!-- /sec -->
 <table>
@@ -780,31 +886,51 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 <tr><td><strong>合计</strong></td><td></td><td></td><td><strong>约490万元</strong></td><td></td></tr>
 </tbody></table>
 <div class="box guide"><p><strong>注：</strong>另有数字化车间项目（LED车灯车间和线路板APS/MES/WMS/5G，移动实施）因纠纷和未达标准全部停止，已付约200万元，合计历史IT项目损失超600万元。</p></div>
-<p style="margin-bottom:9px;color:var(--text2)"><strong>四次失败的组织根因共性模式：</strong></p>
-<pre>
-失败模式的组织结构成因：
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-根因1：业务部门不担责（最根本）
-  → 项目立项和推进由数智化部主导
-  → 业务部门视数字化项目为"IT的事"
-  → 出了问题归咎IT，不参与解决
-  
-根因2：需求不清晰，缺少业务Owner
-  → 没有业务Owner全程主导需求确认
-  → 需求在实施过程中频繁变更
-  → 验收标准在项目开始时未明确定义
-
-根因3：基础数据质量差
-  → APS的失败直接因BOM/工艺路线不准确
-  → 系统无法在脏数据上运行出可信结果
-  → 数据问题提前没有解决，上线后暴露
-
-根因4：无变革管理机制
-  → 没有针对用户的变革管理和培训计划
-  → 关键用户（Super User）未被识别和培养
-  → 上线后员工不会用、不愿用
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-</pre>
+<div style="background:var(--bg);border:1px solid var(--pale);border-radius:10px;padding:16px;margin:12px 0">
+  <div style="font-size:12px;font-weight:700;color:var(--dark);margin-bottom:12px"><i class="fas fa-search" style="color:#C0392B;margin-right:6px"></i>四次失败的组织根因——共性模式分析</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">
+    <div style="background:var(--white);border-radius:8px;padding:14px;border-top:4px solid #C0392B">
+      <div style="font-size:11px;font-weight:800;color:#C0392B;letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px">根因1（最根本）</div>
+      <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:6px">业务部门不担责</div>
+      <ul style="margin:0 0 0 14px;padding:0;font-size:11.5px;color:var(--text2);line-height:1.8">
+        <li>项目立项和推进由数智化部主导</li>
+        <li>业务部门视数字化为"IT的事"</li>
+        <li>出了问题归咎IT，不参与解决</li>
+      </ul>
+    </div>
+    <div style="background:var(--white);border-radius:8px;padding:14px;border-top:4px solid #E67E22">
+      <div style="font-size:11px;font-weight:800;color:#E67E22;letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px">根因2</div>
+      <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:6px">需求不清，缺少业务Owner</div>
+      <ul style="margin:0 0 0 14px;padding:0;font-size:11.5px;color:var(--text2);line-height:1.8">
+        <li>没有业务Owner全程主导需求确认</li>
+        <li>需求在实施过程中频繁变更</li>
+        <li>验收标准在项目开始时未定义</li>
+      </ul>
+    </div>
+    <div style="background:var(--white);border-radius:8px;padding:14px;border-top:4px solid #F1C40F">
+      <div style="font-size:11px;font-weight:800;color:#B7950B;letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px">根因3</div>
+      <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:6px">基础数据质量差</div>
+      <ul style="margin:0 0 0 14px;padding:0;font-size:11.5px;color:var(--text2);line-height:1.8">
+        <li>APS失败直接因BOM/工艺路线不准</li>
+        <li>系统无法在脏数据上输出可信结果</li>
+        <li>数据问题提前没解决，上线后暴露</li>
+      </ul>
+    </div>
+    <div style="background:var(--white);border-radius:8px;padding:14px;border-top:4px solid #4A6FA5">
+      <div style="font-size:11px;font-weight:800;color:#4A6FA5;letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px">根因4</div>
+      <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:6px">无变革管理机制</div>
+      <ul style="margin:0 0 0 14px;padding:0;font-size:11.5px;color:var(--text2);line-height:1.8">
+        <li>没有用户变革管理和培训计划</li>
+        <li>Super User未被识别和培养</li>
+        <li>上线后员工不会用、不愿用</li>
+      </ul>
+    </div>
+  </div>
+  <div style="margin-top:10px;background:#FDECEA;border-radius:6px;padding:8px 12px;font-size:11.5px;color:#C0392B;display:flex;align-items:center;gap:8px">
+    <span style="font-size:16px">⚡</span>
+    <span><strong>本次SAP项目如何不同：</strong>业务部门担责（BPO制度）+ 明确验收标准 + 数据提前治理 + 变革管理专员 + Super User体系——四大根因全部针对性解决。</span>
+  </div>
+</div>
 <div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 2.3 数据架构视角（DA）：数据治理的组织缺位</div>
 <p style="margin-bottom:9px;color:var(--text2)">数据治理的组织问题在《数据治理总结报告》（FSL-DA-2026-002）中已有系统分析。本节重点聚焦<strong>组织层面的数据治理缺失</strong>。</p>
 <div class="sec-sub">2.3.1 主数据治理的权责真空</div>
@@ -963,33 +1089,40 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
   <div style="margin-top:8px;font-size:11px;color:var(--muted);border-left:3px solid var(--primary);padding-left:8px">红色=完全缺失，需在2026年8月前启动招募；橙色=能力不足，上线12个月内补强</div>
 </div>
 
-<p style="margin-bottom:9px;color:var(--text2)"><strong>各岗位缺口详情：</strong></p>
-<pre>
-数智化部岗位缺口一览（S/4HANA上线前后）
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-岗位类型          当前人数    上线前需求    上线后需求    优先级
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-SAP内部顾问
-  FICO顾问         外包2人      +1人内部       +2人内部     P1
-  SD顾问           外包（兼）   +1人内部       +1人内部     P1
-  MM/PP顾问        内部1人      维持            +1人内部    P2
-  QM顾问           0人          +外包支持       +1人内部    P2
-  Basis管理员      约1人        维持            维持         P2
-
-主数据专员（MDM）    0人          +2人            +2人        P1(最紧迫)
-
-CPI集成工程师        0人          +1-2人          +2人        P1
-
-数据分析/BI         约1人        +1人            +2-3人      P2
-
-变革管理/培训        0人          +1-2人          +1人        P1
-
-项目经理/PMO        1人（吴梓填） 维持            +1人        P2
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-P1缺口合计：约7-10人（含2名MDM、1-2名CPI、1-2名变革管理、1名FICO/SD顾问）
-P2缺口合计：约5-8人
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-</pre>
+<div style="background:var(--bg);border:1px solid var(--pale);border-radius:10px;padding:16px;margin:12px 0">
+  <div style="font-size:12px;font-weight:700;color:var(--dark);margin-bottom:12px"><i class="fas fa-user-plus" style="color:var(--primary);margin-right:6px"></i>数智化部岗位缺口详情（S/4HANA上线前后）</div>
+  <div style="overflow-x:auto">
+  <table style="width:100%;border-collapse:collapse;font-size:12px">
+    <thead>
+      <tr>
+        <th style="background:var(--dark);color:#fff;padding:8px 12px;text-align:left;font-weight:700;white-space:nowrap">岗位类型</th>
+        <th style="background:var(--dark);color:#fff;padding:8px 12px;text-align:center;font-weight:700;white-space:nowrap">当前人数</th>
+        <th style="background:var(--dark);color:#fff;padding:8px 12px;text-align:center;font-weight:700;white-space:nowrap">上线前需求</th>
+        <th style="background:var(--dark);color:#fff;padding:8px 12px;text-align:center;font-weight:700;white-space:nowrap">上线后需求</th>
+        <th style="background:var(--dark);color:#fff;padding:8px 12px;text-align:center;font-weight:700;white-space:nowrap">优先级</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background:#EBF4FF"><td colspan="5" style="padding:6px 12px;font-size:11px;font-weight:700;color:var(--primary)">SAP功能顾问组</td></tr>
+      <tr><td style="padding:7px 12px;border-bottom:1px solid var(--pale)">FICO顾问</td><td style="text-align:center;padding:7px;border-bottom:1px solid var(--pale)"><span style="color:var(--muted)">外包2人</span></td><td style="text-align:center;padding:7px;border-bottom:1px solid var(--pale)">+1人内部</td><td style="text-align:center;padding:7px;border-bottom:1px solid var(--pale)">+2人内部</td><td style="text-align:center;padding:7px;border-bottom:1px solid var(--pale)"><span style="background:#FDECEA;color:#C0392B;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px">P1</span></td></tr>
+      <tr style="background:var(--bg)"><td style="padding:7px 12px;border-bottom:1px solid var(--pale)">SD顾问</td><td style="text-align:center;padding:7px;border-bottom:1px solid var(--pale)"><span style="color:var(--muted)">外包（兼）</span></td><td style="text-align:center;padding:7px;border-bottom:1px solid var(--pale)">+1人内部</td><td style="text-align:center;padding:7px;border-bottom:1px solid var(--pale)">+1人内部</td><td style="text-align:center;padding:7px;border-bottom:1px solid var(--pale)"><span style="background:#FDECEA;color:#C0392B;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px">P1</span></td></tr>
+      <tr><td style="padding:7px 12px;border-bottom:1px solid var(--pale)">MM/PP顾问</td><td style="text-align:center;padding:7px;border-bottom:1px solid var(--pale)"><span style="color:#27AE60;font-weight:700">内部1人</span></td><td style="text-align:center;padding:7px;border-bottom:1px solid var(--pale)">维持</td><td style="text-align:center;padding:7px;border-bottom:1px solid var(--pale)">+1人内部</td><td style="text-align:center;padding:7px;border-bottom:1px solid var(--pale)"><span style="background:var(--pale);color:var(--dark);font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px">P2</span></td></tr>
+      <tr style="background:var(--bg)"><td style="padding:7px 12px;border-bottom:1px solid var(--pale)">QM顾问</td><td style="text-align:center;padding:7px;border-bottom:1px solid var(--pale)"><span style="color:#C0392B;font-weight:700">0人</span></td><td style="text-align:center;padding:7px;border-bottom:1px solid var(--pale)">+外包支持</td><td style="text-align:center;padding:7px;border-bottom:1px solid var(--pale)">+1人内部</td><td style="text-align:center;padding:7px;border-bottom:1px solid var(--pale)"><span style="background:var(--pale);color:var(--dark);font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px">P2</span></td></tr>
+      <tr><td style="padding:7px 12px;border-bottom:2px solid var(--pale)">Basis/HANA</td><td style="text-align:center;padding:7px;border-bottom:2px solid var(--pale)"><span style="color:#27AE60;font-weight:700">约1人</span></td><td style="text-align:center;padding:7px;border-bottom:2px solid var(--pale)">维持</td><td style="text-align:center;padding:7px;border-bottom:2px solid var(--pale)">维持</td><td style="text-align:center;padding:7px;border-bottom:2px solid var(--pale)"><span style="background:var(--pale);color:var(--dark);font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px">P2</span></td></tr>
+      <tr style="background:#FFF5F5"><td style="padding:8px 12px;border-bottom:1px solid var(--pale);font-weight:700;color:#C0392B">主数据专员（MDM）</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--pale);font-weight:700;color:#C0392B">0人</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--pale);font-weight:700">+2人</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--pale);font-weight:700">+2人</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--pale)"><span style="background:#C0392B;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px">P1 最紧迫</span></td></tr>
+      <tr style="background:var(--bg)"><td style="padding:8px 12px;border-bottom:1px solid var(--pale);font-weight:700">CPI集成工程师</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--pale);color:#C0392B;font-weight:700">0人</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--pale)">+1-2人</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--pale)">+2人</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--pale)"><span style="background:#FDECEA;color:#C0392B;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px">P1</span></td></tr>
+      <tr><td style="padding:8px 12px;border-bottom:1px solid var(--pale)">数据分析/BI</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--pale)">约1人</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--pale)">+1人</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--pale)">+2-3人</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--pale)"><span style="background:var(--pale);color:var(--dark);font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px">P2</span></td></tr>
+      <tr style="background:var(--bg)"><td style="padding:8px 12px;border-bottom:1px solid var(--pale)">变革管理/培训</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--pale);color:#C0392B;font-weight:700">0人</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--pale)">+1-2人</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--pale)">+1人</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--pale)"><span style="background:#FDECEA;color:#C0392B;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px">P1</span></td></tr>
+      <tr><td style="padding:8px 12px">项目经理/PMO</td><td style="text-align:center;padding:8px">1人（吴梓填）</td><td style="text-align:center;padding:8px">维持</td><td style="text-align:center;padding:8px">+1人</td><td style="text-align:center;padding:8px"><span style="background:var(--pale);color:var(--dark);font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px">P2</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+    <div style="flex:1;min-width:140px;background:#FDECEA;border-radius:6px;padding:8px 12px;font-size:12px;text-align:center"><div style="font-weight:800;color:#C0392B;font-size:18px">7-10人</div><div style="color:var(--muted)">P1缺口（含2名MDM、1-2名CPI、1-2名变革管理、1名FICO/SD）</div></div>
+    <div style="flex:1;min-width:140px;background:#FEF3C7;border-radius:6px;padding:8px 12px;font-size:12px;text-align:center"><div style="font-weight:800;color:#B7950B;font-size:18px">5-8人</div><div style="color:var(--muted)">P2缺口（上线后12个月内补强）</div></div>
+    <div style="flex:1;min-width:140px;background:var(--bg);border-radius:6px;padding:8px 12px;font-size:12px;text-align:center"><div style="font-weight:800;color:var(--dark);font-size:18px">2026-08</div><div style="color:var(--muted)">P1岗位需在此日期前完成招募或到位</div></div>
+  </div>
+</div>
   </div>
 </div>
 <div class="chapter" id="ch3">
