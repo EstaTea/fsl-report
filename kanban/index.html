@@ -829,6 +829,8 @@ select.dp-input{appearance:none;-webkit-appearance:none;
     <button onclick="ganttExpandAll()" style="padding:3px 9px;border:1px solid var(--pale);border-radius:4px;font-size:11px;cursor:pointer;background:var(--bg);color:var(--steel);font-family:inherit">展开全部</button>
     <button onclick="ganttCollapseAll()" style="padding:3px 9px;border:1px solid var(--pale);border-radius:4px;font-size:11px;cursor:pointer;background:var(--bg);color:var(--steel);font-family:inherit">折叠全部</button>
     <button onclick="addNewTask()" style="padding:3px 9px;border:1px solid var(--pale);border-radius:4px;font-size:11px;cursor:pointer;background:var(--primary);color:#fff;font-family:inherit">＋ 新建任务</button>
+    <button id="ganttSaveBtn" onclick="ganttSaveStructureBtn()" style="padding:3px 9px;border:1px solid var(--pale);border-radius:4px;font-size:11px;cursor:pointer;background:var(--bg);color:var(--steel);font-family:inherit">💾 保存结构</button>
+    <span id="ganttSaveStatus" style="font-size:10.5px;color:var(--muted);display:none"></span>
     <span style="margin-left:auto;font-size:10.5px;color:var(--muted)">
       <span style="display:inline-block;width:9px;height:9px;background:var(--navy);border-radius:2px;margin-right:2px;vertical-align:middle"></span>咨询
       <span style="display:inline-block;width:9px;height:9px;background:var(--primary);border-radius:2px;margin-left:7px;margin-right:2px;vertical-align:middle"></span>SAP准备/蓝图
@@ -1890,10 +1892,29 @@ function ganttDrop(e,rid){
   saveGanttStructure();
 }
 
+function ganttSaveStructureBtn(){
+  if(!TOKEN){ promptLoginThenDo(function(){ ganttSaveStructureBtn(); }); return; }
+  var btn=document.getElementById('ganttSaveBtn');
+  var status=document.getElementById('ganttSaveStatus');
+  if(btn){ btn.disabled=true; btn.textContent='保存中…'; }
+  if(status){ status.style.display=''; status.style.color='var(--muted)'; status.textContent=''; }
+  var structure=GANTT_PHASES.map(function(ph){
+    function minTask(t){
+      var r={id:t.id,issueNum:t.issueNum};
+      if(t.children&&t.children.length) r.children=t.children.map(minTask);
+      return r;
+    }
+    return {id:ph.id, tasks:(ph.tasks||[]).map(minTask)};
+  });
+  GANTT_OVERRIDES['__structure']=structure;
+  saveGanttOverrides(function(){
+    if(btn){ btn.disabled=false; btn.textContent='💾 保存结构'; }
+    if(status){ status.style.color='#166534'; status.textContent='✓ 已保存'; setTimeout(function(){ status.style.display='none'; },3000); }
+  });
+}
+
 function saveGanttStructure(){
-  if(!TOKEN) return;
-  // Store the full GANTT_PHASES structure (labels, ids, children relationships)
-  // We store minimal structure: just order and parent-child relationships
+  if(!TOKEN){ promptLoginThenDo(function(){ saveGanttStructure(); }); return; }
   var structure=GANTT_PHASES.map(function(ph){
     function minTask(t){
       var r={id:t.id,issueNum:t.issueNum};
@@ -2489,7 +2510,7 @@ function switchTab(el, panel){
   var emptyLbl=document.getElementById('tb-empty-label');
   if(emptyLbl) emptyLbl.textContent=EMPTY_LABELS[panel]||'';
   // Lazy-render org chart only when tab is activated
-  if(panel==='gantt'){ syncIssuesToGantt(allIssues); renderGantt(); }
+  if(panel==='gantt'){ applyGanttOverrides(); syncIssuesToGantt(allIssues); renderGantt(); }
   if(panel==='org'){
     // Delegate to sub-tab system; default to 'people' on first open
     switchArchTab(ARCH_CURRENT||'people');
@@ -2651,7 +2672,7 @@ function saveGanttOverrides(callback){
   }).then(function(r){return r.json();}).then(function(d){
     if(d.content) GANTT_OVERRIDES_SHA=d.content.sha;
     if(callback) callback();
-  }).catch(function(){});
+  }).catch(function(){ if(callback) callback(); });
 }
 
 function promptLoginThenDo(callback){
