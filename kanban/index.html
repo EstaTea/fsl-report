@@ -1211,8 +1211,14 @@ async function init(){
   // Step 1: immediately load demo data and render — page is always usable
   useDemoData();
 
-  // Step 2: try to enhance with real GitHub data in background
+  // Step 2: load gantt.json (structure overrides) + real issues in parallel
   try{
+    var ganttLoaded=false, issuesLoaded=false;
+    var issueData=null;
+
+    // Load gantt overrides first (needed before render so structure is applied)
+    loadGanttData(function(){ ganttLoaded=true; tryRender(); });
+
     var results=await Promise.all([
       gf(API+'/issues?state=open&per_page=100&sort=created&direction=desc'),
       gf(API+'/issues?state=closed&per_page=30&sort=updated'),
@@ -1222,7 +1228,13 @@ async function init(){
     if(realIssues.length){
       allIssues=realIssues;
       allMilestones=results[2];
-      render();
+      issueData=true;
+    }
+    issuesLoaded=true;
+    tryRender();
+
+    function tryRender(){
+      if(ganttLoaded && issuesLoaded) render();
     }
   }catch(e){
     console.warn('GitHub API unavailable, using demo data:', e.message);
