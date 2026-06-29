@@ -1144,30 +1144,139 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 <tr><td>分类推进</td><td>大型企业：全流程、全场景、全链条数字化转型</td><td>仅2/19法人在SAP，数字化覆盖率10.5%</td><td>距离"全链条"差距极大</td></tr>
 </tbody></table>
 <div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 3.2 指南"组织落地实施"的PDCA要求</div>
-<p style="margin-bottom:9px;color:var(--text2)">指南提出"规划-实施-评估-优化"（PDCA）循环，佛照当前在各环节的组织准备状态：</p>
-<p style="margin-bottom:9px;color:var(--text2)"><strong>Plan（规划）—— 较好</strong></p>
-<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
-<li style="margin-bottom:3px;line-height:1.65">十五五战略规划已明确数字化转型目标，各事业部有精益改善项目配合</li>
-<li style="margin-bottom:3px;line-height:1.65">本次S/4HANA项目采用专业SI（艾维登）+咨询顾问（达维）组合</li>
-<li style="margin-bottom:3px;line-height:1.65">建议在此基础上补充专项《数字化组织建设规划》（即本报告的核心价值）</li>
-</ul>
-<p style="margin-bottom:9px;color:var(--text2)"><strong>Do（实施）—— 最薄弱，风险最高</strong></p>
-<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
-<li style="margin-bottom:3px;line-height:1.65">数智化部16人需同时支撑SAP实施（与艾维登60+人团队配合）、现有系统运维（20+套系统）、日常IT支持</li>
-<li style="margin-bottom:3px;line-height:1.65">没有专职的变革管理团队支撑业务部门的系统接受和流程变革</li>
-<li style="margin-bottom:3px;line-height:1.65">各业务部门没有关键用户（Super User）体系，上线培训缺乏系统规划</li>
-</ul>
-<p style="margin-bottom:9px;color:var(--text2)"><strong>Check（评估）—— 几乎缺失</strong></p>
-<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
-<li style="margin-bottom:3px;line-height:1.65">无数字化绩效考核体系（精益改善项目清单中对SAP项目进度的KPI仅为"上线"这一结果性指标）</li>
-<li style="margin-bottom:3px;line-height:1.65">无数据质量KPI（参见《数据治理总结报告》）</li>
-<li style="margin-bottom:3px;line-height:1.65">无IT服务水平协议（SLA）</li>
-</ul>
-<p style="margin-bottom:9px;color:var(--text2)"><strong>Act（优化）—— 无基础</strong></p>
-<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
-<li style="margin-bottom:3px;line-height:1.65">当前IT人力无法承担上线后的持续优化工作</li>
-<li style="margin-bottom:3px;line-height:1.65">无专职SAP CoE（Center of Excellence，卓越中心）</li>
-</ul>
+<p style="margin-bottom:9px;color:var(--text2)">工信部指南要求遵循"规划-实施-评估-优化"（PDCA）循环推进数字化转型。以下图示呈现佛照在各环节的组织准备状态，并在环外详细说明关键问题。</p>
+
+<!-- PDCA 循环图 + 详情卡片 -->
+<div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;margin:16px 0">
+
+  <!-- SVG PDCA Wheel -->
+  <div style="flex:0 0 300px">
+    <svg viewBox="0 0 300 300" width="300" height="300" xmlns="http://www.w3.org/2000/svg"
+         style="font-family:'Microsoft YaHei',Arial,sans-serif;display:block;cursor:default">
+      <!-- Background circle -->
+      <circle cx="150" cy="150" r="130" fill="#EBF4FF" stroke="#D0E4F7" stroke-width="1"/>
+
+      <!-- PLAN arc (top-right, 0°→90°, 较好 = green) -->
+      <path d="M150,150 L280,150 A130,130 0 0,0 150,20 Z" fill="#27AE60" opacity="0.85"/>
+      <!-- DO arc (bottom-right, 90°→180°, 最薄弱 = red) -->
+      <path d="M150,150 L150,280 A130,130 0 0,0 280,150 Z" fill="#C0392B" opacity="0.85"/>
+      <!-- CHECK arc (bottom-left, 180°→270°, 几乎缺失 = amber) -->
+      <path d="M150,150 L20,150 A130,130 0 0,0 150,280 Z" fill="#E67E22" opacity="0.85"/>
+      <!-- ACT arc (top-left, 270°→360°, 无基础 = dark) -->
+      <path d="M150,150 L150,20 A130,130 0 0,0 20,150 Z" fill="#4A6FA5" opacity="0.85"/>
+
+      <!-- Divider lines -->
+      <line x1="150" y1="20" x2="150" y2="280" stroke="white" stroke-width="2.5"/>
+      <line x1="20"  y1="150" x2="280" y2="150" stroke="white" stroke-width="2.5"/>
+
+      <!-- White center circle -->
+      <circle cx="150" cy="150" r="52" fill="white" stroke="#D0E4F7" stroke-width="1.5"/>
+      <text x="150" y="142" text-anchor="middle" font-size="13" font-weight="800" fill="#1B3A6B">PDCA</text>
+      <text x="150" y="158" text-anchor="middle" font-size="11" fill="#6B8CB8">组织准备度</text>
+      <text x="150" y="172" text-anchor="middle" font-size="10" fill="#6B8CB8">工信部指南要求</text>
+
+      <!-- PLAN label -->
+      <text x="218" y="88" text-anchor="middle" font-size="14" font-weight="800" fill="white">P</text>
+      <text x="218" y="103" text-anchor="middle" font-size="10" font-weight="700" fill="white">PLAN</text>
+      <text x="218" y="116" text-anchor="middle" font-size="9" fill="rgba(255,255,255,.9)">规划</text>
+      <!-- Status badge PLAN -->
+      <rect x="185" y="120" width="66" height="17" rx="8" fill="rgba(255,255,255,.3)"/>
+      <text x="218" y="132" text-anchor="middle" font-size="9" font-weight="700" fill="white">✓ 较好</text>
+
+      <!-- DO label -->
+      <text x="218" y="195" text-anchor="middle" font-size="14" font-weight="800" fill="white">D</text>
+      <text x="218" y="210" text-anchor="middle" font-size="10" font-weight="700" fill="white">DO</text>
+      <text x="218" y="223" text-anchor="middle" font-size="9" fill="rgba(255,255,255,.9)">实施</text>
+      <!-- Status badge DO -->
+      <rect x="172" y="227" width="92" height="17" rx="8" fill="rgba(255,255,255,.3)"/>
+      <text x="218" y="239" text-anchor="middle" font-size="9" font-weight="700" fill="white">⚠ 最薄弱·高风险</text>
+
+      <!-- CHECK label -->
+      <text x="82" y="195" text-anchor="middle" font-size="14" font-weight="800" fill="white">C</text>
+      <text x="82" y="210" text-anchor="middle" font-size="10" font-weight="700" fill="white">CHECK</text>
+      <text x="82" y="223" text-anchor="middle" font-size="9" fill="rgba(255,255,255,.9)">评估</text>
+      <!-- Status badge CHECK -->
+      <rect x="48" y="227" width="68" height="17" rx="8" fill="rgba(255,255,255,.3)"/>
+      <text x="82" y="239" text-anchor="middle" font-size="9" font-weight="700" fill="white">✗ 几乎缺失</text>
+
+      <!-- ACT label -->
+      <text x="82" y="88" text-anchor="middle" font-size="14" font-weight="800" fill="white">A</text>
+      <text x="82" y="103" text-anchor="middle" font-size="10" font-weight="700" fill="white">ACT</text>
+      <text x="82" y="116" text-anchor="middle" font-size="9" fill="rgba(255,255,255,.9)">优化</text>
+      <!-- Status badge ACT -->
+      <rect x="48" y="120" width="68" height="17" rx="8" fill="rgba(255,255,255,.3)"/>
+      <text x="82" y="132" text-anchor="middle" font-size="9" font-weight="700" fill="white">✗ 无基础</text>
+
+      <!-- Circular arrow hint -->
+      <path d="M220,60 Q260,100 260,150" stroke="white" stroke-width="2" fill="none"
+            stroke-dasharray="4,3" marker-end="url(#arr)" opacity="0.6"/>
+      <defs>
+        <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="white" opacity="0.6"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- Detail cards (right side) -->
+  <div style="flex:1;min-width:220px;display:flex;flex-direction:column;gap:10px">
+
+    <div style="background:var(--white);border-radius:8px;padding:13px 16px;border-left:4px solid #27AE60">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
+        <span style="background:#27AE60;color:#fff;font-size:11px;font-weight:800;padding:2px 9px;border-radius:10px">P · PLAN 规划</span>
+        <span style="font-size:11px;font-weight:700;color:#27AE60">✓ 较好</span>
+      </div>
+      <ul style="margin:0 0 0 14px;padding:0;font-size:12px;color:var(--text2);line-height:1.75">
+        <li>十五五战略规划已明确数字化转型目标，各事业部有精益改善项目配合</li>
+        <li>本次S/4HANA项目采用专业SI（艾维登）+咨询顾问组合</li>
+        <li>建议补充专项《数字化组织建设规划》（即本报告的核心价值）</li>
+      </ul>
+    </div>
+
+    <div style="background:var(--white);border-radius:8px;padding:13px 16px;border-left:4px solid #C0392B">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
+        <span style="background:#C0392B;color:#fff;font-size:11px;font-weight:800;padding:2px 9px;border-radius:10px">D · DO 实施</span>
+        <span style="font-size:11px;font-weight:700;color:#C0392B">⚠ 最薄弱，风险最高</span>
+      </div>
+      <ul style="margin:0 0 0 14px;padding:0;font-size:12px;color:var(--text2);line-height:1.75">
+        <li>数智化部<strong>16人</strong>需同时支撑SAP实施（与艾维登60+人配合）+现有运维（20+套系统）+日常支持</li>
+        <li>没有专职变革管理团队支撑业务部门系统接受和流程变革</li>
+        <li>各业务部门没有Super User体系，上线培训缺乏系统规划</li>
+      </ul>
+    </div>
+
+    <div style="background:var(--white);border-radius:8px;padding:13px 16px;border-left:4px solid #E67E22">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
+        <span style="background:#E67E22;color:#fff;font-size:11px;font-weight:800;padding:2px 9px;border-radius:10px">C · CHECK 评估</span>
+        <span style="font-size:11px;font-weight:700;color:#E67E22">✗ 几乎缺失</span>
+      </div>
+      <ul style="margin:0 0 0 14px;padding:0;font-size:12px;color:var(--text2);line-height:1.75">
+        <li>无数字化绩效考核体系（KPI仅为"上线"这一结果性指标）</li>
+        <li>无数据质量KPI（参见《数据治理总结报告》）</li>
+        <li>无IT服务水平协议（SLA）</li>
+      </ul>
+    </div>
+
+    <div style="background:var(--white);border-radius:8px;padding:13px 16px;border-left:4px solid #4A6FA5">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
+        <span style="background:#4A6FA5;color:#fff;font-size:11px;font-weight:800;padding:2px 9px;border-radius:10px">A · ACT 优化</span>
+        <span style="font-size:11px;font-weight:700;color:#4A6FA5">✗ 无基础</span>
+      </div>
+      <ul style="margin:0 0 0 14px;padding:0;font-size:12px;color:var(--text2);line-height:1.75">
+        <li>当前IT人力无法承担上线后的持续优化工作</li>
+        <li>无专职SAP CoE（Center of Excellence，卓越中心）</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+<!-- Summary strip -->
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:4px">
+  <div style="background:#D1FAE5;border-radius:6px;padding:8px 10px;text-align:center"><div style="font-size:16px;font-weight:800;color:#065F46">✓</div><div style="font-size:11px;font-weight:700;color:#065F46">P · 规划</div><div style="font-size:10px;color:var(--muted)">战略方向明确</div></div>
+  <div style="background:#FDECEA;border-radius:6px;padding:8px 10px;text-align:center;border:2px solid #F5C6C6"><div style="font-size:16px;font-weight:800;color:#C0392B">⚠</div><div style="font-size:11px;font-weight:700;color:#C0392B">D · 实施</div><div style="font-size:10px;color:var(--muted)">最大风险所在</div></div>
+  <div style="background:#FEF3C7;border-radius:6px;padding:8px 10px;text-align:center"><div style="font-size:16px;font-weight:800;color:#B7950B">✗</div><div style="font-size:11px;font-weight:700;color:#B7950B">C · 评估</div><div style="font-size:10px;color:var(--muted)">几乎无考核机制</div></div>
+  <div style="background:#EBF4FF;border-radius:6px;padding:8px 10px;text-align:center"><div style="font-size:16px;font-weight:800;color:#4A6FA5">✗</div><div style="font-size:11px;font-weight:700;color:#4A6FA5">A · 优化</div><div style="font-size:10px;color:var(--muted)">无CoE，无优化能力</div></div>
+</div>
 </div><!-- /sec -->
 <div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 3.3 指南"分类推进"对佛照的适用判断</div>
 <p style="margin-bottom:9px;color:var(--text2)">指南将企业分为龙头企业、大型企业、中小企业三类，佛照属于<strong>大型企业</strong>类别。指南对大型企业的要求是：</p>
