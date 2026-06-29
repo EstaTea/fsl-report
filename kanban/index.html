@@ -1398,7 +1398,8 @@ function applyGanttStructure(){
   // Remove ALL tasks from all phases (we'll re-add them per saved structure)
   GANTT_PHASES.forEach(function(ph){ ph.tasks=[]; });
 
-  // Rebuild GANTT_PHASES tasks from saved structure
+  // Rebuild GANTT_PHASES tasks from saved structure — deduplicate by id
+  var placedIds={};
   var reordered=[];
   saved.forEach(function(sph){
     var ph=GANTT_PHASES.find(function(p){return p.id===sph.id;});
@@ -1406,8 +1407,10 @@ function applyGanttStructure(){
     function buildTasks(savedTasks){
       var result=[];
       savedTasks.forEach(function(st){
+        if(placedIds[st.id]) return; // deduplicate
         var t=allTasksById[st.id];
-        if(!t) return; // task no longer exists
+        if(!t) return;
+        placedIds[st.id]=true;
         t.children=st.children&&st.children.length ? buildTasks(st.children) : (t.children||[]);
         result.push(t);
       });
@@ -1423,24 +1426,10 @@ function applyGanttStructure(){
   });
 
   // Append any tasks that weren't placed (newly added tasks not yet in structure)
-  var placedIds={};
-  reordered.forEach(function(ph){
-    function markPlaced(tasks){ tasks.forEach(function(t){ placedIds[t.id]=true; if(t.children) markPlaced(t.children); }); }
-    markPlaced(ph.tasks);
-  });
   Object.keys(allTasksById).forEach(function(id){
     if(!placedIds[id]){
       var t=allTasksById[id];
-      // Add to first phase that had it originally (find by issueNum or id prefix)
-      var added=false;
-      reordered.forEach(function(ph){
-        if(!added){
-          // heuristic: add to phase matching id prefix
-          var taskPhId=id.split('_')[0]; // e.g. 'c1' → consulting
-          // Just add to last phase as fallback
-        }
-      });
-      if(!added && reordered.length) reordered[0].tasks.push(t);
+      if(reordered.length) reordered[0].tasks.push(t);
     }
   });
 
