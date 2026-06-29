@@ -1,0 +1,732 @@
+{
+  "nodes": [
+    {
+      "id": "cap-l0-core",
+      "name": "Core Business Operations",
+      "type": "capability",
+      "parent": null,
+      "level": 0,
+      "category": "core",
+      "metadata": {
+        "maturity": 4,
+        "status": "active",
+        "description": "核心业务运营能力域",
+        "owner": "",
+        "tags": []
+      }
+    },
+    {
+      "id": "cap-l0-support",
+      "name": "Supporting Services",
+      "type": "capability",
+      "parent": null,
+      "level": 0,
+      "category": "supporting",
+      "metadata": {
+        "maturity": 3,
+        "status": "active",
+        "description": "支撑服务能力域",
+        "owner": "",
+        "tags": []
+      }
+    },
+    {
+      "id": "cap-l0-digital",
+      "name": "Digital & Innovation",
+      "type": "capability",
+      "parent": null,
+      "level": 0,
+      "category": "strategic",
+      "metadata": {
+        "maturity": 2,
+        "status": "planned",
+        "description": "数字化与创新域",
+        "owner": "",
+        "tags": []
+      }
+    },
+    {
+      "id": "cap-l1-scm",
+      "name": "Supply Chain Mgmt",
+      "type": "capability",
+      "parent": "cap-l0-core",
+      "level": 1,
+      "category": "core",
+      "metadata": {
+        "maturity": 4,
+        "status": "active",
+        "owner": "",
+        "tags": []
+      }
+    },
+    {
+      "id": "cap-l1-finance",
+      "name": "Finance & Controlling",
+      "type": "capability",
+      "parent": "cap-l0-core",
+      "level": 1,
+      "category": "core",
+      "metadata": {
+        "maturity": 5,
+        "status": "active",
+        "owner": "",
+        "tags": []
+      }
+    },
+    {
+      "id": "cap-l1-sales",
+      "name": "Sales & Distribution",
+      "type": "capability",
+      "parent": "cap-l0-core",
+      "level": 1,
+      "category": "core",
+      "metadata": {
+        "maturity": 3,
+        "status": "active",
+        "owner": "",
+        "tags": []
+      }
+    },
+    {
+      "id": "cap-l1-hr",
+      "name": "Human Resources",
+      "type": "capability",
+      "parent": "cap-l0-support",
+      "level": 1,
+      "category": "supporting",
+      "metadata": {
+        "maturity": 4,
+        "status": "active",
+        "owner": "",
+        "tags": []
+      }
+    },
+    {
+      "id": "cap-l1-it",
+      "name": "IT Infrastructure",
+      "type": "capability",
+      "parent": "cap-l0-support",
+      "level": 1,
+      "category": "supporting",
+      "metadata": {
+        "maturity": 3,
+        "status": "active",
+        "owner": "",
+        "tags": []
+      }
+    },
+    {
+      "id": "cap-l1-analytics",
+      "name": "Analytics & AI",
+      "type": "capability",
+      "parent": "cap-l0-digital",
+      "level": 1,
+      "category": "strategic",
+      "metadata": {
+        "maturity": 2,
+        "status": "planned",
+        "owner": "",
+        "tags": []
+      }
+    },
+    {
+      "id": "cap-l2-procure",
+      "name": "Procurement",
+      "type": "capability",
+      "parent": "cap-l1-scm",
+      "level": 2,
+      "category": "core",
+      "metadata": {
+        "maturity": 5,
+        "status": "active",
+        "owner": "Supply Chain Team",
+        "tags": [
+          "SAP Ariba"
+        ]
+      }
+    },
+    {
+      "id": "cap-l2-inventory",
+      "name": "Inventory Mgmt",
+      "type": "capability",
+      "parent": "cap-l1-scm",
+      "level": 2,
+      "category": "core",
+      "metadata": {
+        "maturity": 4,
+        "status": "active",
+        "owner": "",
+        "tags": []
+      }
+    },
+    {
+      "id": "cap-l2-logistics",
+      "name": "Logistics & Fulfillment",
+      "type": "capability",
+      "parent": "cap-l1-scm",
+      "level": 2,
+      "category": "core",
+      "metadata": {
+        "maturity": 3,
+        "status": "active",
+        "owner": "",
+        "tags": []
+      }
+    },
+    {
+      "id": "cap-l2-supplier",
+      "name": "Supplier Management",
+      "type": "capability",
+      "parent": "cap-l1-scm",
+      "level": 2,
+      "category": "supporting",
+      "metadata": {
+        "maturity": 4,
+        "status": "active",
+        "owner": "",
+        "tags": []
+      }
+    },
+    {
+      "id": "cap-l2-ar",
+      "name": "Accounts Receivable",
+      "type": "capability",
+      "parent": "cap-l1-finance",
+      "level": 2,
+      "category": "core",
+      "metadata": {
+        "maturity": 5,
+        "status": "active",
+        "owner": "Finance Team",
+        "tags": []
+      }
+    },
+    {
+      "id": "cap-l2-ap",
+      "name": "Accounts Payable",
+      "type": "capability",
+      "parent": "cap-l1-finance",
+      "level": 2,
+      "category": "core",
+      "metadata": {
+        "maturity": 5,
+        "status": "active",
+        "owner": "Finance Team",
+        "tags": []
+      }
+    },
+    {
+      "id": "cap-l2-gl",
+      "name": "General Ledger",
+      "type": "capability",
+      "parent": "cap-l1-finance",
+      "level": 2,
+      "category": "core",
+      "metadata": {
+        "maturity": 5,
+        "status": "active",
+        "owner": "Finance Team",
+        "tags": []
+      }
+    },
+    {
+      "id": "cap-l2-co",
+      "name": "Controlling & Costing",
+      "type": "capability",
+      "parent": "cap-l1-finance",
+      "level": 2,
+      "category": "core",
+      "metadata": {
+        "maturity": 4,
+        "status": "active",
+        "owner": "",
+        "tags": []
+      }
+    },
+    {
+      "id": "cap-l2-crm",
+      "name": "CRM & Opportunity",
+      "type": "capability",
+      "parent": "cap-l1-sales",
+      "level": 2,
+      "category": "core",
+      "metadata": {
+        "maturity": 3,
+        "status": "active",
+        "owner": "Sales Ops",
+        "tags": [
+          "Salesforce"
+        ]
+      }
+    },
+    {
+      "id": "cap-l2-order",
+      "name": "Order Management",
+      "type": "capability",
+      "parent": "cap-l1-sales",
+      "level": 2,
+      "category": "core",
+      "metadata": {
+        "maturity": 4,
+        "status": "active",
+        "owner": "",
+        "tags": []
+      }
+    },
+    {
+      "id": "cap-l2-pricing",
+      "name": "Pricing & Rebates",
+      "type": "capability",
+      "parent": "cap-l1-sales",
+      "level": 2,
+      "category": "supporting",
+      "metadata": {
+        "maturity": 3,
+        "status": "planned",
+        "owner": "",
+        "tags": []
+      }
+    },
+    {
+      "id": "cap-l2-recruit",
+      "name": "Recruiting & Onboarding",
+      "type": "capability",
+      "parent": "cap-l1-hr",
+      "level": 2,
+      "category": "supporting",
+      "metadata": {
+        "maturity": 4,
+        "status": "active",
+        "owner": "HR Team",
+        "tags": [
+          "SuccessFactors"
+        ]
+      }
+    },
+    {
+      "id": "cap-l2-payroll",
+      "name": "Payroll & Benefits",
+      "type": "capability",
+      "parent": "cap-l1-hr",
+      "level": 2,
+      "category": "supporting",
+      "metadata": {
+        "maturity": 4,
+        "status": "active",
+        "owner": "HR Team",
+        "tags": []
+      }
+    },
+    {
+      "id": "cap-l2-talent",
+      "name": "Talent & Performance",
+      "type": "capability",
+      "parent": "cap-l1-hr",
+      "level": 2,
+      "category": "strategic",
+      "metadata": {
+        "maturity": 3,
+        "status": "active",
+        "owner": "",
+        "tags": []
+      }
+    },
+    {
+      "id": "cap-l2-reporting",
+      "name": "Enterprise Reporting",
+      "type": "capability",
+      "parent": "cap-l1-analytics",
+      "level": 2,
+      "category": "strategic",
+      "metadata": {
+        "maturity": 2,
+        "status": "planned",
+        "owner": "",
+        "tags": [
+          "SAP Analytics Cloud"
+        ]
+      }
+    },
+    {
+      "id": "cap-l2-aiml",
+      "name": "AI / ML Platform",
+      "type": "capability",
+      "parent": "cap-l1-analytics",
+      "level": 2,
+      "category": "strategic",
+      "metadata": {
+        "maturity": 1,
+        "status": "planned",
+        "owner": "",
+        "tags": []
+      }
+    },
+    {
+      "id": "app-s4",
+      "name": "SAP S/4HANA",
+      "type": "application",
+      "parent": null,
+      "level": null,
+      "category": "core",
+      "metadata": {
+        "vendor": "SAP",
+        "version": "2023",
+        "status": "active",
+        "description": "Core ERP: Finance, SCM, Sales & Distribution",
+        "owner": "IT Architecture",
+        "tags": [
+          "ERP",
+          "Core",
+          "SAP"
+        ]
+      }
+    },
+    {
+      "id": "app-sf",
+      "name": "SAP SuccessFactors",
+      "type": "application",
+      "parent": null,
+      "level": null,
+      "category": "supporting",
+      "metadata": {
+        "vendor": "SAP",
+        "version": "H1 2024",
+        "status": "active",
+        "description": "HCM Cloud Suite",
+        "owner": "HR IT",
+        "tags": [
+          "HR",
+          "Cloud",
+          "SAP"
+        ]
+      }
+    },
+    {
+      "id": "app-ariba",
+      "name": "SAP Ariba",
+      "type": "application",
+      "parent": null,
+      "level": null,
+      "category": "core",
+      "metadata": {
+        "vendor": "SAP",
+        "version": "2024",
+        "status": "active",
+        "description": "Procurement & Supply Chain Network",
+        "owner": "Procurement",
+        "tags": [
+          "Procurement",
+          "Cloud"
+        ]
+      }
+    },
+    {
+      "id": "app-btp",
+      "name": "SAP BTP",
+      "type": "application",
+      "parent": null,
+      "level": null,
+      "category": "strategic",
+      "metadata": {
+        "vendor": "SAP",
+        "version": "CF",
+        "status": "active",
+        "description": "Business Technology Platform: Integration & Extension",
+        "owner": "IT Architecture",
+        "tags": [
+          "Platform",
+          "Integration",
+          "SAP"
+        ]
+      }
+    },
+    {
+      "id": "app-salesforce",
+      "name": "Salesforce CRM",
+      "type": "application",
+      "parent": null,
+      "level": null,
+      "category": "core",
+      "metadata": {
+        "vendor": "Salesforce",
+        "version": "Spring 2024",
+        "status": "active",
+        "description": "Customer Relationship Management",
+        "owner": "Sales Ops",
+        "tags": [
+          "CRM",
+          "Cloud"
+        ]
+      }
+    },
+    {
+      "id": "app-sac",
+      "name": "SAP Analytics Cloud",
+      "type": "application",
+      "parent": null,
+      "level": null,
+      "category": "strategic",
+      "metadata": {
+        "vendor": "SAP",
+        "version": "2024.Q1",
+        "status": "active",
+        "description": "BI, Planning & Predictive Analytics",
+        "owner": "Finance",
+        "tags": [
+          "Analytics",
+          "BI",
+          "SAP"
+        ]
+      }
+    },
+    {
+      "id": "app-signavio",
+      "name": "SAP Signavio",
+      "type": "application",
+      "parent": null,
+      "level": null,
+      "category": "supporting",
+      "metadata": {
+        "vendor": "SAP",
+        "version": "2024",
+        "status": "active",
+        "description": "Business Process Intelligence & Mining",
+        "owner": "COE",
+        "tags": [
+          "BPM",
+          "Process Mining"
+        ]
+      }
+    },
+    {
+      "id": "tech-hana",
+      "name": "SAP HANA DB",
+      "type": "technology",
+      "parent": null,
+      "level": null,
+      "category": "core",
+      "metadata": {
+        "vendor": "SAP",
+        "version": "2.0 SPS07",
+        "status": "active",
+        "description": "In-Memory Relational Database",
+        "owner": "Basis Team",
+        "tags": [
+          "Database"
+        ]
+      }
+    },
+    {
+      "id": "tech-iflow",
+      "name": "SAP Integration Suite",
+      "type": "technology",
+      "parent": null,
+      "level": null,
+      "category": "core",
+      "metadata": {
+        "vendor": "SAP",
+        "version": "CF",
+        "status": "active",
+        "description": "iPaaS on BTP: CPI, API Mgmt, Event Mesh",
+        "owner": "Integration Team",
+        "tags": [
+          "iPaaS",
+          "Middleware"
+        ]
+      }
+    },
+    {
+      "id": "tech-mq",
+      "name": "RabbitMQ",
+      "type": "technology",
+      "parent": null,
+      "level": null,
+      "category": "supporting",
+      "metadata": {
+        "vendor": "VMware",
+        "version": "3.12",
+        "status": "active",
+        "description": "Message Queue Middleware",
+        "owner": "IT Infra",
+        "tags": [
+          "MQ",
+          "Middleware"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "int-001",
+      "source": "app-s4",
+      "target": "app-sf",
+      "type": "integration",
+      "protocol": "REST",
+      "direction": "bi",
+      "metadata": {
+        "description": "Employee Master Data & Org Structure Sync",
+        "frequency": "real-time",
+        "criticality": "high",
+        "dataEntities": [
+          "Employee",
+          "OrgUnit",
+          "CostCenter"
+        ]
+      }
+    },
+    {
+      "id": "int-002",
+      "source": "app-s4",
+      "target": "app-salesforce",
+      "type": "integration",
+      "protocol": "REST",
+      "direction": "bi",
+      "metadata": {
+        "description": "Customer, Order & Invoice Sync via BTP",
+        "frequency": "real-time",
+        "criticality": "high",
+        "dataEntities": [
+          "Customer",
+          "SalesOrder",
+          "Invoice"
+        ]
+      }
+    },
+    {
+      "id": "int-003",
+      "source": "app-ariba",
+      "target": "app-s4",
+      "type": "integration",
+      "protocol": "REST",
+      "direction": "uni",
+      "metadata": {
+        "description": "Purchase Order & Invoice Confirmation",
+        "frequency": "real-time",
+        "criticality": "high",
+        "dataEntities": [
+          "PurchaseOrder",
+          "Invoice"
+        ]
+      }
+    },
+    {
+      "id": "int-004",
+      "source": "app-s4",
+      "target": "app-sac",
+      "type": "integration",
+      "protocol": "DB",
+      "direction": "uni",
+      "metadata": {
+        "description": "Financial Actuals for Planning & Reporting",
+        "frequency": "batch",
+        "criticality": "medium",
+        "dataEntities": [
+          "GLBalance",
+          "CostCenter",
+          "ProfitCenter"
+        ]
+      }
+    },
+    {
+      "id": "int-005",
+      "source": "app-sf",
+      "target": "app-sac",
+      "type": "integration",
+      "protocol": "REST",
+      "direction": "uni",
+      "metadata": {
+        "description": "Headcount & Talent Analytics",
+        "frequency": "batch",
+        "criticality": "low",
+        "dataEntities": [
+          "Headcount",
+          "Performance",
+          "Turnover"
+        ]
+      }
+    },
+    {
+      "id": "int-006",
+      "source": "app-salesforce",
+      "target": "app-btp",
+      "type": "integration",
+      "protocol": "REST",
+      "direction": "uni",
+      "metadata": {
+        "description": "CRM Events to BTP Event Mesh",
+        "frequency": "event",
+        "criticality": "medium",
+        "dataEntities": [
+          "OpportunityEvent",
+          "QuoteEvent"
+        ]
+      }
+    },
+    {
+      "id": "int-007",
+      "source": "app-btp",
+      "target": "app-s4",
+      "type": "integration",
+      "protocol": "REST",
+      "direction": "uni",
+      "metadata": {
+        "description": "BTP Integration Suite Inbound APIs to S/4",
+        "frequency": "real-time",
+        "criticality": "high",
+        "dataEntities": [
+          "Various"
+        ]
+      }
+    },
+    {
+      "id": "int-008",
+      "source": "app-signavio",
+      "target": "app-s4",
+      "type": "integration",
+      "protocol": "DB",
+      "direction": "uni",
+      "metadata": {
+        "description": "Process Mining Data Extraction",
+        "frequency": "batch",
+        "criticality": "low",
+        "dataEntities": [
+          "ProcessLogs",
+          "Events"
+        ]
+      }
+    },
+    {
+      "id": "int-009",
+      "source": "app-s4",
+      "target": "tech-iflow",
+      "type": "integration",
+      "protocol": "MQ",
+      "direction": "uni",
+      "metadata": {
+        "description": "Business Events Publishing via Event Mesh",
+        "frequency": "event",
+        "criticality": "high",
+        "dataEntities": [
+          "BusinessEvent"
+        ]
+      }
+    },
+    {
+      "id": "int-010",
+      "source": "app-ariba",
+      "target": "app-btp",
+      "type": "integration",
+      "protocol": "REST",
+      "direction": "bi",
+      "metadata": {
+        "description": "Ariba Network ↔ BTP Integration for Supplier Portal",
+        "frequency": "real-time",
+        "criticality": "medium",
+        "dataEntities": [
+          "SupplierCatalog",
+          "RFQ"
+        ]
+      }
+    }
+  ]
+}
