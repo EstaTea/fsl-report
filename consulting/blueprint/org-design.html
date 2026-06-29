@@ -425,9 +425,9 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 
 <div class="status-switcher" id="statusSwitcher">
   <span class="ss-label">文档状态</span>
-  <button class="ss-btn" id="ss-todo" onclick="setDocStatus('todo')">⏳ 待开始</button>
-  <button class="ss-btn" id="ss-wip"  onclick="setDocStatus('wip')">🔄 进行中</button>
-  <button class="ss-btn" id="ss-done" onclick="setDocStatus('done')">✅ 已完成</button>
+  <button class="ss-btn" id="ss-todo" onclick="setDocStatus(&quot;todo&quot;)">⏳ 待开始</button>
+  <button class="ss-btn" id="ss-wip"  onclick="setDocStatus(&quot;wip&quot;)">⟳ 进行中</button>
+  <button class="ss-btn" id="ss-done" onclick="setDocStatus(&quot;done&quot;)">✅ 已完成</button>
   <div class="ss-indicator-wrap">
     <div class="ss-indicator-dot" id="ss-dot"></div>
     <span class="ss-indicator-text" id="ss-indicator">—</span>
@@ -445,31 +445,41 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
     <div class="sb-ch">导航</div>
     <a href="#cover">封面 &amp; 核心主张</a>
     <a href="#exec">执行摘要</a>
-    <div class="sb-ch">背景与方法论</div>
+    <div class="sb-ch">第一部分：背景与方法论</div>
     <a href="#ch1">一、总则与背景</a>
-    <a href="#ch3">二、工信部指南框架</a>
-    <div class="sb-ch">现状诊断</div>
-    <a href="#diag-ba">三、组织现状诊断（4A）</a>
-    <a href="#diag-ba" class="sub">BA组织全景268节点</a>
-    <a href="#diag-ba" class="sub">AA IT建设历程/失败分析</a>
-    <a href="#diag-ba" class="sub">DA主数据权责 · TA人力缺口</a>
-    <div class="sb-ch">深度分析</div>
-    <a href="#problems">四、五大核心组织问题</a>
-    <a href="#problems" class="sub">定位模糊 · 人力超载 · 流程缺位</a>
+    <a href="#ch1" class="sub">三个核心主张 · 调研数据来源</a>
+    <a href="#ch3">二、工信部指南框架映射</a>
+    <a href="#ch3" class="sub">PDCA要求 · 分类推进</a>
+    <div class="sb-ch">第二部分：现状诊断</div>
+    <a href="#diag-ba">三、业务架构（BA）诊断</a>
+    <a href="#diag-ba" class="sub">组织全景268节点 · 权责边界</a>
+    <a href="#diag-ba" class="sub">高明公司 · 燎旺 · IT建设</a>
+    <a href="#diag-da">四、数据+技术架构（DA/TA）诊断</a>
+    <a href="#diag-da" class="sub">主数据权责真空 · IT人力缺口</a>
+    <div class="sb-ch">第三部分：深度分析</div>
+    <a href="#problems">五、五大核心组织问题</a>
+    <a href="#problems" class="sub">定位模糊 · 人力不足 · 流程缺位</a>
     <a href="#problems" class="sub">Owner缺失 · 历史失败根因</a>
-    <div class="sb-ch">目标设计</div>
-    <a href="#target-org">五、目标组织架构</a>
+    <div class="sb-ch">第四部分：目标设计</div>
+    <a href="#target-org">六、目标组织架构</a>
     <a href="#target-org" class="sub">数智化部TO-BE · MDM Office</a>
     <a href="#target-org" class="sub">CIO/CDO方案 · 保障委员会</a>
     <a href="#target-org" class="sub">21名联络员体系</a>
-    <a href="#mechanism">六、IT与业务协同机制</a>
-    <a href="#talent">七、人才结构与能力规划</a>
-    <a href="#ocm">八、变革管理行动计划</a>
-    <a href="#roadmap">九、组织转型路线图</a>
-    <a href="#risk">十、实施保障与风险管理</a>
-    <div class="sb-ch">对标与时序</div>
+    <a href="#mechanism">七、IT与业务协同机制</a>
+    <a href="#mechanism" class="sub">需求管理 · 项目分级 · KPI</a>
+    <a href="#talent">八、人才结构与能力规划</a>
+    <a href="#talent" class="sub">Super User体系 · 关键岗位</a>
+    <a href="#talent" class="sub">三阶段人才发展</a>
+    <a href="#ocm">九、变革管理行动计划</a>
+    <a href="#ocm" class="sub">阻力分析 · Kotter 8步</a>
+    <a href="#roadmap">十、组织转型路线图</a>
+    <a href="#roadmap" class="sub">20个里程碑 · 2026-2030</a>
+    <a href="#risk">十一、实施保障与风险管理</a>
+    <div class="sb-ch">第五部分：对标与时序</div>
     <a href="#benchmark">十二、行业对标</a>
-    <a href="#ch13">十三、SAP时序协同</a>
+    <a href="#benchmark" class="sub">欧普 · 阳光 · 华为/美的</a>
+    <a href="#ch13">十三、时序协同</a>
+    <a href="#ch13" class="sub">Greenfield五阶段同步</a>
     <div class="sb-ch">数据治理三部曲</div>
     <a href="/fsl-report/consulting/blueprint/data-survey.html">★4 数字化现状分析报告</a>
     <a href="/fsl-report/consulting/blueprint/data-governance.html">★4 数据规划及管理办法</a>
@@ -478,15 +488,16 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
     <a href="/fsl-report/consulting/blueprint/ea-report.html">★5 企业架构设计报告</a>
     <a href="/fsl-report/consulting/blueprint/">← 返回蓝图阶段</a>
   </div>
-</nav><main id="main">
+</nav>
+<main id="main">
 <section class="cover" id="cover">
-  <div class="cover-tag">★4（可选）· 数字化保障组织设计报告 · 探索阶段交付物 · 保密</div>
+  <div class="cover-tag">★4（可选）· 数字化保障组织设计报告 · 探索阶段交付物 · 保密咨询文件</div>
   <h1>佛山照明数字化保障组织设计报告</h1>
   <div class="sub">TOGAF ADM 4A · 工信部数字化转型实施指南（2024）· Kotter 8步变革管理 | 13章 · 约3万字</div>
   <div class="cover-meta">
     <div class="cover-meta-item"><div class="lbl">版本</div><div class="val">v1.0 · 2026-06-29</div></div>
     <div class="cover-meta-item"><div class="lbl">方法论</div><div class="val">TOGAF 4A · 工信部指南 · Kotter OCM</div></div>
-    <div class="cover-meta-item"><div class="lbl">数据来源</div><div class="val">D1-D5 17场访谈 · 数智化部PPT · 268节点组织架构</div></div>
+    <div class="cover-meta-item"><div class="lbl">数据来源</div><div class="val">D1-D5访谈 · 数智化部PPT · 268节点组织架构</div></div>
     <div class="cover-meta-item"><div class="lbl">主责顾问</div><div class="val">达维咨询 组织设计团队</div></div>
     <div class="cover-meta-item"><div class="lbl">最终验收</div><div class="val">李泽华（分管副总）/ 吴梓填（数智化部）</div></div>
   </div>
@@ -500,7 +511,6 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
   </div>
 </section>
 <div class="content">
-
 <div class="chapter" id="exec">
   <div class="ch-header"><div class="ch-num">0</div><h2>执行摘要 · 三个核心主张</h2></div>
   <div class="ch-body">
@@ -513,15 +523,18 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
       </div>
     </div>
   </div>
-</div><div class="chapter" id="ch1">
+</div>
+<div class="chapter" id="ch1">
   <div class="ch-header"><div class="ch-num">1</div><h2>总则与背景</h2></div>
   <div class="ch-body">
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 1.1 报告编制背景</div>
-<p>佛山电器照明股份有限公司（股票代码：000541，以下简称"佛山照明"或"FSL"）于2026年5月29日正式启动SAP S/4HANA PCE Greenfield全新实施项目（SI：艾维登/Eviden，中标金额950万元）。本次升级是佛照自2008年首次上线SAP ECC以来最大规模的信息化变革，也是践行"十五五"战略规划中"数智化转型"核心目标的关键里程碑工程。</p>
-<p>然而，探索阶段（2026年6月22日-26日）的深度调研揭示：<strong>佛照当前数字化组织能力与SAP Greenfield实施的要求之间存在根本性差距</strong>。这一差距不仅体现在技术层面（系统配置、数据质量），更深刻地体现在组织层面——IT部门定位不清、人力严重不足、流程治理几乎空白、业务部门参与度低、历史项目屡屡失败。</p>
-<p>数字化转型的核心命题是：<strong>系统能做什么，取决于组织能担什么</strong>。没有合理的组织设计作为保障，再先进的ERP系统也难以在佛照扎根并持续创造价值。</p>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 1.2 调研数据来源</div>
-<p>本报告基于以下调研资料编制：</p>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 1.1 报告编制背景</div>
+<p style="margin-bottom:9px;color:var(--text2)">佛山电器照明股份有限公司（股票代码：000541，以下简称"佛山照明"或"FSL"）于2026年5月29日正式启动SAP S/4HANA PCE Greenfield全新实施项目（SI：艾维登/Eviden，中标金额950万元）。本次升级是佛照自2008年首次上线SAP ECC以来最大规模的信息化变革，也是践行"十五五"战略规划中"数智化转型"核心目标的关键里程碑工程。</p>
+<p style="margin-bottom:9px;color:var(--text2)">然而，探索阶段（2026年6月22日-26日）的深度调研揭示：<strong>佛照当前数字化组织能力与SAP Greenfield实施的要求之间存在根本性差距</strong>。这一差距不仅体现在技术层面（系统配置、数据质量），更深刻地体现在组织层面——IT部门定位不清、人力严重不足、流程治理几乎空白、业务部门参与度低、历史项目屡屡失败。</p>
+<p style="margin-bottom:9px;color:var(--text2)">数字化转型的核心命题是：<strong>系统能做什么，取决于组织能担什么</strong>。没有合理的组织设计作为保障，再先进的ERP系统也难以在佛照扎根并持续创造价值。</p>
+</div><!-- /sec -->
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 1.2 调研数据来源</div>
+<p style="margin-bottom:9px;color:var(--text2)">本报告基于以下调研资料编制：</p>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>数据来源</th><th>内容</th><th>调研时间</th></tr>
@@ -536,24 +549,25 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 <tr><td>十五五战略规划（修订稿）</td><td>数字化战略目标、人才发展规划</td><td>2026年最新修订版</td></tr>
 <tr><td>2026年精益改善项目清单（4月14日定稿）</td><td>组织优化、人员精简、流程优化目标</td><td>2026年4月</td></tr>
 </tbody></table>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 1.3 报告核心主张</div>
-<p>基于上述调研，本报告提出以下三个核心主张：</p>
-<p><strong>主张一：数字化组织能力建设是SAP项目成功的前置条件，而非可选项。</strong></p>
-<p>历史4次数字化项目失败（APS、数字化车间、财务共享、营销平台，累计损失600+万元）的共同根因是：业务部门不担责、基础数据差、流程不细化——这些都是组织能力问题，而非技术问题。在组织能力未到位的情况下，再好的ERP配置都难以成功落地。</p>
-<p><strong>主张二：S/4HANA上线后佛照IT组织需要扩张，而非维持现状。</strong></p>
-<p>当前数智化部16-23人支持8,000+员工，IT人员/员工比约0.2%，而行业标准为1-1.5%，缺口约4-5倍。S/4HANA上线后系统复杂度大幅提升（从ECC的5个模块扩展到19家法人、8个模块、12套保留系统集成），在人力不增加的情况下维持系统稳定运行和持续优化是不现实的。</p>
-<p><strong>主张三：数字化转型的本质是业务变革，IT部门只能是推动者，不能是独自承担者。</strong></p>
-<p>李泽华副总经理在6月23日的调研访谈中明确指出："部门的负责人一定要参加，数字化不是说IT部门往前推就可以完事的，他们必须要来做改变。"这句话高度精准地定义了佛照数字化转型的核心难题，也指明了组织设计的方向：<strong>数字化保障组织必须是横跨IT和业务的联合体</strong>，而非单纯的IT组织。</p>
-<hr style="border:none;border-top:1px solid var(--pale);margin:16px 0">
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 1.3 报告核心主张</div>
+<p style="margin-bottom:9px;color:var(--text2)">基于上述调研，本报告提出以下三个核心主张：</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>主张一：数字化组织能力建设是SAP项目成功的前置条件，而非可选项。</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">历史4次数字化项目失败（APS、数字化车间、财务共享、营销平台，累计损失600+万元）的共同根因是：业务部门不担责、基础数据差、流程不细化——这些都是组织能力问题，而非技术问题。在组织能力未到位的情况下，再好的ERP配置都难以成功落地。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>主张二：S/4HANA上线后佛照IT组织需要扩张，而非维持现状。</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">当前数智化部16-23人支持8,000+员工，IT人员/员工比约0.2%，而行业标准为1-1.5%，缺口约4-5倍。S/4HANA上线后系统复杂度大幅提升（从ECC的5个模块扩展到19家法人、8个模块、12套保留系统集成），在人力不增加的情况下维持系统稳定运行和持续优化是不现实的。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>主张三：数字化转型的本质是业务变革，IT部门只能是推动者，不能是独自承担者。</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">李泽华副总经理在6月23日的调研访谈中明确指出："部门的负责人一定要参加，数字化不是说IT部门往前推就可以完事的，他们必须要来做改变。"这句话高度精准地定义了佛照数字化转型的核心难题，也指明了组织设计的方向：<strong>数字化保障组织必须是横跨IT和业务的联合体</strong>，而非单纯的IT组织。</p>
+</div><!-- /sec -->
   </div>
 </div>
 <div class="chapter" id="diag-ba">
   <div class="ch-header"><div class="ch-num">2</div><h2>组织现状诊断（TOGAF 4A视角）</h2></div>
   <div class="ch-body">
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 2.1 业务架构视角（BA）：组织结构与职责边界</div>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 2.1 业务架构视角（BA）：组织结构与职责边界</div>
 <div class="sec-sub">2.1.1 集团组织全景</div>
-<p>佛山照明集团截至2026年6月最新组织架构包含<strong>268个组织节点、约3,570名员工</strong>，跨越19家法人实体。从数字化组织的视角来看，集团呈现以下格局：</p>
-<p><strong>本部核心部门（与数字化直接相关，涉及2026年SAP项目的部门）：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">佛山照明集团截至2026年6月最新组织架构包含<strong>268个组织节点、约3,570名员工</strong>，跨越19家法人实体。从数字化组织的视角来看，集团呈现以下格局：</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>本部核心部门（与数字化直接相关，涉及2026年SAP项目的部门）：</strong></p>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>部门名称</th><th>人数</th><th>数字化相关职责</th><th>与SAP的关系</th></tr>
@@ -568,7 +582,7 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 <tr><td>质量与客服中心</td><td>73人</td><td>质量检验、客户服务</td><td>SAP QM模块主要用户</td></tr>
 <tr><td>党群与人力资源部</td><td>15人</td><td>人才管理、组织优化、薪酬绩效</td><td>HR系统（i人事）主要用户，间接数字化</td></tr>
 </tbody></table>
-<p><strong>各事业部（销售/生产相关，SAP SD/PP主要用户）：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>各事业部（销售/生产相关，SAP SD/PP主要用户）：</strong></p>
 <table>
 <thead>
 <tr><th>事业部/公司</th><th>人数</th><th>核心数字化诉求</th></tr>
@@ -581,10 +595,10 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 <tr><td>电商事业部</td><td>100人</td><td>五大系统断点、退货手工、报表超时</td></tr>
 <tr><td>招投标中心</td><td>24人</td><td>供应商合同联动、独家供应商管控</td></tr>
 </tbody></table>
-<p><strong>关键发现：数字化职责高度集中在数智化部（23人），而各业务部门的数字化配合岗位几乎为零。</strong> 以供应链中心（13人）为例，13人中无人专职负责SAP数据维护——但实际上供应商主数据、采购信息记录（PIR）的维护工作大量落到了数智化部，形成典型的"IT背锅、业务甩手"模式。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>关键发现：数字化职责高度集中在数智化部（23人），而各业务部门的数字化配合岗位几乎为零。</strong> 以供应链中心（13人）为例，13人中无人专职负责SAP数据维护——但实际上供应商主数据、采购信息记录（PIR）的维护工作大量落到了数智化部，形成典型的"IT背锅、业务甩手"模式。</p>
 <div class="sec-sub">2.1.2 高明公司组织结构（第二大生产基地）</div>
-<p>高明公司（393人，佛照第二大生产基地）的组织架构与本部平行，包含：</p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)">高明公司（393人，佛照第二大生产基地）的组织架构与本部平行，包含：</p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">高明管理层（11人）</li>
 <li style="margin-bottom:3px;line-height:1.65">财务部（24人）</li>
 <li style="margin-bottom:3px;line-height:1.65">高明环保安全中心（8人）</li>
@@ -596,10 +610,10 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 <li style="margin-bottom:3px;line-height:1.65">佛山泰美时代灯具有限公司（FZ06，归属高明）</li>
 <li style="margin-bottom:3px;line-height:1.65">佛山照明禅昌光电有限公司（FZ05，归属高明，是当前SAP FZ05工厂数据所在地）</li>
 </ul>
-<p><strong>关键发现：高明公司是当前ECC数据最完整的生产基地（FZ05工厂代码），但其IT支持完全依赖本部数智化部，本地无独立IT支持岗位。</strong> 在S/4HANA上线后，高明公司的SAP用户规模将大幅增加（新增PP/CO/QM全模块），但本地IT支持人员为零，这是运维能力的重大盲区。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>关键发现：高明公司是当前ECC数据最完整的生产基地（FZ05工厂代码），但其IT支持完全依赖本部数智化部，本地无独立IT支持岗位。</strong> 在S/4HANA上线后，高明公司的SAP用户规模将大幅增加（新增PP/CO/QM全模块），但本地IT支持人员为零，这是运维能力的重大盲区。</p>
 <div class="sec-sub">2.1.3 南宁燎旺车灯（最大子公司，独立管控）</div>
-<p>南宁燎旺车灯股份有限公司（1,123人，独立上市子公司）是集团规模最大的子公司，组织结构高度独立：</p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)">南宁燎旺车灯股份有限公司（1,123人，独立上市子公司）是集团规模最大的子公司，组织结构高度独立：</p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">燎旺本部（341人）</li>
 <li style="margin-bottom:3px;line-height:1.65">上海分公司（78人）</li>
 <li style="margin-bottom:3px;line-height:1.65">佛山分公司（14人）</li>
@@ -609,43 +623,43 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 <li style="margin-bottom:3px;line-height:1.65">重庆桂诺光电（266人）</li>
 <li style="margin-bottom:3px;line-height:1.65">燎旺车灯（苏州）（19人）</li>
 </ul>
-<p><strong>关键发现：燎旺车灯有自己的信息部（约5人），独立于佛照数智化部体系。</strong> 本次SAP Greenfield项目中，燎旺是否完全纳入与佛照共用同一S/4HANA实例，是一个重大架构决策。基于其独立上市的特殊性，建议将其作为二期分批上线对象，本期仅做集团合并报表（GR模块）的数据对接。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>关键发现：燎旺车灯有自己的信息部（约5人），独立于佛照数智化部体系。</strong> 本次SAP Greenfield项目中，燎旺是否完全纳入与佛照共用同一S/4HANA实例，是一个重大架构决策。基于其独立上市的特殊性，建议将其作为二期分批上线对象，本期仅做集团合并报表（GR模块）的数据对接。</p>
 <div class="sec-sub">2.1.4 组织职责边界的核心问题</div>
-<p>在探索阶段调研中，以下三个职责边界模糊问题反复出现：</p>
-<p><strong>边界问题一：IT "代维"业务数据的权责争议</strong></p>
-<p>供应链中心调研（2026-06-25）：</p>
+<p style="margin-bottom:9px;color:var(--text2)">在探索阶段调研中，以下三个职责边界模糊问题反复出现：</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>边界问题一：IT "代维"业务数据的权责争议</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">供应链中心调研（2026-06-25）：</p>
 <div class="box guide"><p>"SRM审批完成后，仍需人工复制整理再二次维护价格及会计视图。"</p></div>
-<p>数字化系统讨论（2026-06-24）：</p>
+<p style="margin-bottom:9px;color:var(--text2)">数字化系统讨论（2026-06-24）：</p>
 <div class="box guide"><p>"目前没有专职做数据、架构的人员。"</p></div>
-<p><strong>根因</strong>：数智化部在IT系统运维过程中，由于业务部门无人主动维护数据，逐渐"被迫"承担了大量业务数据录入工作（如价格录入、物料建档）。这种权责错位不是个人问题，而是<strong>组织设计缺陷</strong>——没有明确规定"谁的数据谁负责"，也没有绩效机制约束。</p>
-<p><strong>边界问题二：企管部与数智化部的数字化协同分工</strong></p>
-<p>企管部（企业管理部/品牌管理部）主要职责为流程管理、制度制定、绩效考核，但在数字化项目中，流程设计（TO-BE流程）本应是企管部主导、数智化部支持，实际情况是：</p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>根因</strong>：数智化部在IT系统运维过程中，由于业务部门无人主动维护数据，逐渐"被迫"承担了大量业务数据录入工作（如价格录入、物料建档）。这种权责错位不是个人问题，而是<strong>组织设计缺陷</strong>——没有明确规定"谁的数据谁负责"，也没有绩效机制约束。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>边界问题二：企管部与数智化部的数字化协同分工</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">企管部（企业管理部/品牌管理部）主要职责为流程管理、制度制定、绩效考核，但在数字化项目中，流程设计（TO-BE流程）本应是企管部主导、数智化部支持，实际情况是：</p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">企管部：全公司仅朱海英1名专职流程人员，且对SAP业务流程认知有限</li>
 <li style="margin-bottom:3px;line-height:1.65">数智化部：SAP实施推进中，流程确认工作大量压到数智化部的项目经理（吴梓填）</li>
 </ul>
-<p>这种"流程治理主责缺位、数字化被迫兜底"的模式，将直接导致S/4HANA蓝图阶段的TO-BE流程确认严重滞后。</p>
-<p><strong>边界问题三：各业务事业部与SAP项目的责任界定</strong></p>
-<p>精益改善项目清单第30项（党群与人力资源部负责）明确提出：</p>
+<p style="margin-bottom:9px;color:var(--text2)">这种"流程治理主责缺位、数字化被迫兜底"的模式，将直接导致S/4HANA蓝图阶段的TO-BE流程确认严重滞后。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>边界问题三：各业务事业部与SAP项目的责任界定</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">精益改善项目清单第30项（党群与人力资源部负责）明确提出：</p>
 <div class="box guide"><p>"总部部门人员精简20-30%，以前台市场化、中台专业化、后台精干化为导向。"</p></div>
-<p>这一目标与SAP项目推进之间存在潜在矛盾：如果在SAP上线前推进大规模人员精简，关键用户（Super User）可能在系统上线前离职，导致上线后无人运营系统；如果精简延后，SAP项目的降本效益将被推迟。这需要明确协调机制。</p>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 2.2 应用架构视角（AA）：IT支撑组织的能力现状</div>
+<p style="margin-bottom:9px;color:var(--text2)">这一目标与SAP项目推进之间存在潜在矛盾：如果在SAP上线前推进大规模人员精简，关键用户（Super User）可能在系统上线前离职，导致上线后无人运营系统；如果精简延后，SAP项目的降本效益将被推迟。这需要明确协调机制。</p>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 2.2 应用架构视角（AA）：IT支撑组织的能力现状</div>
 <div class="sec-sub">2.2.1 数智化部IT系统建设历程</div>
-<p>数智化部PPT（2025-08-08）揭示了一个清晰的IT建设演进历程：</p>
-<p><strong>2008-2019年（基础信息化期）：</strong></p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)">数智化部PPT（2025-08-08）揭示了一个清晰的IT建设演进历程：</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>2008-2019年（基础信息化期）：</strong></p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">2008年：SAP ECC上线（FI/PP/MM/QM/SD）、星源HR</li>
 <li style="margin-bottom:3px;line-height:1.65">2016年：佛照商城系统</li>
 <li style="margin-bottom:3px;line-height:1.65">2019年：OA（泛微E9）、SRM（SAAS版）</li>
 </ul>
-<p><strong>2019-2022年（信息化补课期）：</strong></p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>2019-2022年（信息化补课期）：</strong></p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">2020年：APS系统（2022年停用，损失约120万元）</li>
 <li style="margin-bottom:3px;line-height:1.65">2021年：PLM系统采购、5G+工业互联网</li>
 <li style="margin-bottom:3px;line-height:1.65">2021年：线路板车间MES（合同作废，损失89.93万元）</li>
 </ul>
-<p><strong>2022年-2024年（数字化建设加速期）：</strong></p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>2022年-2024年（数字化建设加速期）：</strong></p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">2022年：数字化车间项目（669.98万元，2025年2月完成）</li>
 <li style="margin-bottom:3px;line-height:1.65">2022年：网络安全建设（60万元）</li>
 <li style="margin-bottom:3px;line-height:1.65">2023年：高明分公司防窜货系统（32.9万元）</li>
@@ -655,15 +669,16 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 <li style="margin-bottom:3px;line-height:1.65">2024年：SAP ERP运维接口开发（联合外部顾问）</li>
 <li style="margin-bottom:3px;line-height:1.65">2024年：面向SAP财务数据的安全管控平台（48万元）</li>
 </ul>
-<p><strong>2025年在建项目：</strong></p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>2025年在建项目：</strong></p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">WMS系统（356万元，完成率80%）</li>
 <li style="margin-bottom:3px;line-height:1.65">CRM/数字化营销管理平台（完成率60%）</li>
 <li style="margin-bottom:3px;line-height:1.65">财务共享（已停止建设，改接广晟集团共享平台）</li>
 <li style="margin-bottom:3px;line-height:1.65">PLM二期（49.8万元）</li>
 <li style="margin-bottom:3px;line-height:1.65">线路板/车灯/立体库数字孪生（48.9万元）</li>
 </ul>
-<p><strong>IT建设投入规模估算（2022-2025年）：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>IT建设投入规模估算（2022-2025年）：</strong></p>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>类别</th><th>估算金额</th><th>主要项目</th></tr>
@@ -676,10 +691,10 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 <tr><td>SAP运维类</td><td>约50万元</td><td>外部运维支持</td></tr>
 <tr><td><strong>合计</strong></td><td><strong>约2,650万元</strong></td><td></td></tr>
 </tbody></table>
-<p><strong>重要发现：佛照2022-2025年IT建设投入约2,650万元，但核心SAP ECC的升级维护费用仅约50万元（外部运维）。大量投入分散在周边系统，形成了"外围系统多而杂、核心ERP老而旧"的局面，这也是当前系统孤岛严重的根因之一。</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>重要发现：佛照2022-2025年IT建设投入约2,650万元，但核心SAP ECC的升级维护费用仅约50万元（外部运维）。大量投入分散在周边系统，形成了"外围系统多而杂、核心ERP老而旧"的局面，这也是当前系统孤岛严重的根因之一。</strong></p>
 <div class="sec-sub">2.2.2 IT系统失败项目的组织分析</div>
-<p>根据数字化系统讨论会议纪要（2026-06-24），佛照经历了4个重大IT项目失败：</p>
-<p><strong>失败项目详细分析：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">根据数字化系统讨论会议纪要（2026-06-24），佛照经历了4个重大IT项目失败：</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>失败项目详细分析：</strong></p>
 <table>
 <thead>
 <tr><th>项目</th><th>失败阶段</th><th>主要失败原因</th><th>损失金额</th><th>组织根因</th></tr>
@@ -692,13 +707,13 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 <tr><td><strong>合计</strong></td><td></td><td></td><td><strong>约490万元</strong></td><td></td></tr>
 </tbody></table>
 <div class="box guide"><p><strong>注：</strong>另有数字化车间项目（LED车灯车间和线路板APS/MES/WMS/5G，移动实施）因纠纷和未达标准全部停止，已付约200万元，合计历史IT项目损失超600万元。</p></div>
-<p><strong>四次失败的组织根因共性模式：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>四次失败的组织根因共性模式：</strong></p>
 <pre>
 失败模式的组织结构成因：
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 根因1：业务部门不担责（最根本）
   → 项目立项和推进由数智化部主导
-  → 业务部门视数字化项目为&quot;IT的事&quot;
+  → 业务部门视数字化项目为"IT的事"
   → 出了问题归咎IT，不参与解决
   
 根因2：需求不清晰，缺少业务Owner
@@ -717,11 +732,12 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
   → 上线后员工不会用、不愿用
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 </pre>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 2.3 数据架构视角（DA）：数据治理的组织缺位</div>
-<p>数据治理的组织问题在《数据治理总结报告》（FSL-DA-2026-002）中已有系统分析。本节重点聚焦<strong>组织层面的数据治理缺失</strong>。</p>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 2.3 数据架构视角（DA）：数据治理的组织缺位</div>
+<p style="margin-bottom:9px;color:var(--text2)">数据治理的组织问题在《数据治理总结报告》（FSL-DA-2026-002）中已有系统分析。本节重点聚焦<strong>组织层面的数据治理缺失</strong>。</p>
 <div class="sec-sub">2.3.1 主数据治理的权责真空</div>
-<p>根据探索阶段对物料主数据（3,542条）、BOM（83行样本）、工艺路线（19条）的深度分析，以下组织缺失直接导致了数据质量极差：</p>
-<p><strong>物料主数据的权责归属混乱：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">根据探索阶段对物料主数据（3,542条）、BOM（83行样本）、工艺路线（19条）的深度分析，以下组织缺失直接导致了数据质量极差：</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>物料主数据的权责归属混乱：</strong></p>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>主数据类型</th><th>理论应由谁维护</th><th>实际谁在维护</th><th>问题</th></tr>
@@ -733,7 +749,7 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 <tr><td>BOM数据</td><td>产品及方案中心/研究院</td><td>研究院（研发BOM）+数智化部（导入）</td><td>研发BOM直接用于生产，无转换流程</td></tr>
 <tr><td>工艺路线</td><td>生产技术/工艺工程师</td><td>几乎无人维护（覆盖率<5%）</td><td>生产技术部门不知道SAP有工艺路线功能</td></tr>
 </tbody></table>
-<p><strong>关键数据缺失量化（体现组织责任缺失）：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>关键数据缺失量化（体现组织责任缺失）：</strong></p>
 <table>
 <thead>
 <tr><th>关键字段</th><th>缺失率</th><th>应由哪个部门负责</th><th>实际谁负责</th></tr>
@@ -745,10 +761,10 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 <tr><td>旧物料号（BISMT）</td><td>~100%缺失</td><td>数智化部/产品中心</td><td>无人负责</td></tr>
 <tr><td>主机图号（MHDRZ）</td><td>~100%缺失</td><td>研究院（产品工程师）</td><td>无人负责</td></tr>
 </tbody></table>
-<p>以上5个字段的共同特征是：<strong>没有任何组织角色被明确授权和考核负责这些字段的填写</strong>。这是典型的"没有主人的数据"，在当前组织架构下，没有任何人会感到"这个字段空着是我的责任"。</p>
+<p style="margin-bottom:9px;color:var(--text2)">以上5个字段的共同特征是：<strong>没有任何组织角色被明确授权和考核负责这些字段的填写</strong>。这是典型的"没有主人的数据"，在当前组织架构下，没有任何人会感到"这个字段空着是我的责任"。</p>
 <div class="sec-sub">2.3.2 流程治理的组织极度薄弱</div>
-<p>流程建设会议纪要（2026-06-25，朱海英访谈）揭示：</p>
-<p><strong>佛照流程治理的组织现状评估：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">流程建设会议纪要（2026-06-25，朱海英访谈）揭示：</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>佛照流程治理的组织现状评估：</strong></p>
 <table>
 <thead>
 <tr><th>流程治理维度</th><th>国际标杆企业（如华为/美的）</th><th>佛山照明当前</th><th>差距量化</th></tr>
@@ -760,29 +776,29 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 <tr><td>流程版本管理</td><td>严格版本控制，有效期明确</td><td>流程文档散落各部门</td><td>完全缺失</td></tr>
 <tr><td>流程绩效考核</td><td>流程KPI纳入Owner考核</td><td>无流程相关KPI</td><td>完全缺失</td></tr>
 </tbody></table>
-<p>朱海英原话（2026-06-25）：</p>
+<p style="margin-bottom:9px;color:var(--text2)">朱海英原话（2026-06-25）：</p>
 <div class="box guide"><p>"现在大家认知里的流程，基本就是OA审批流。"</p></div>
-<p>这句话深刻揭示了一个组织认知问题：在佛照，"流程"等于"审批流"。这意味着S/4HANA蓝图阶段需要做的TO-BE流程设计，在佛照几乎没有内部基础可以依托。</p>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 2.4 技术架构视角（TA）：IT人力资源评估</div>
+<p style="margin-bottom:9px;color:var(--text2)">这句话深刻揭示了一个组织认知问题：在佛照，"流程"等于"审批流"。这意味着S/4HANA蓝图阶段需要做的TO-BE流程设计，在佛照几乎没有内部基础可以依托。</p>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 2.4 技术架构视角（TA）：IT人力资源评估</div>
 <div class="sec-sub">2.4.1 数智化部人员配置现状</div>
-<p>根据数智化部PPT（2025-08-08）和访谈数据：</p>
-<p><strong>数智化部人员规模：</strong></p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)">根据数智化部PPT（2025-08-08）和访谈数据：</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>数智化部人员规模：</strong></p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">编制人数：16人（含一正一副两位负责人）</li>
 <li style="margin-bottom:3px;line-height:1.65">实际在岗：22人（含临时/外派人员）</li>
 <li style="margin-bottom:3px;line-height:1.65">部门负责人：苏大明（数智化部部长）</li>
 <li style="margin-bottom:3px;line-height:1.65">SAP项目甲方经理：吴梓填</li>
 </ul>
-<p><strong>学历与职称结构：</strong></p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>学历与职称结构：</strong></p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">本科及以上：100%（16人全部）</li>
 <li style="margin-bottom:3px;line-height:1.65">硕士及以上（含在读）：3人（约19%）</li>
 <li style="margin-bottom:3px;line-height:1.65">博士：1人</li>
 <li style="margin-bottom:3px;line-height:1.65">高级职称：1人</li>
 <li style="margin-bottom:3px;line-height:1.65">中级职称：约3人</li>
 </ul>
-<p><strong>SAP相关人员配置（最新调研确认）：</strong></p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>SAP相关人员配置（最新调研确认）：</strong></p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">内部SAP顾问：2人（MM/PP模块1人 + 开发顾问1人）</li>
 <li style="margin-bottom:3px;line-height:1.65">外包SAP顾问：2人（FICO + SD模块，来自外部运维机构）</li>
 <li style="margin-bottom:3px;line-height:1.65">无SAP专职MDM主数据管理人员</li>
@@ -790,7 +806,8 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 <li style="margin-bottom:3px;line-height:1.65">无专职流程分析师</li>
 </ul>
 <div class="sec-sub">2.4.2 IT人力缺口的量化分析</div>
-<p><strong>与行业标准和同类企业的对比：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>与行业标准和同类企业的对比：</strong></p>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>对比维度</th><th>行业参考标准</th><th>佛山照明现状</th><th>缺口比</th></tr>
@@ -804,7 +821,7 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 <tr><td>专职数据管理专员（MDM）</td><td>2-4人</td><td>0人</td><td>缺约2-4人</td></tr>
 <tr><td>流程分析师</td><td>3-5人</td><td>0人（企管部有1人，非IT）</td><td>缺约3-5人</td></tr>
 </tbody></table>
-<p><strong>各岗位缺口详情：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>各岗位缺口详情：</strong></p>
 <pre>
 数智化部岗位缺口一览（S/4HANA上线前后）
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -831,14 +848,14 @@ P1缺口合计：约7-10人（含2名MDM、1-2名CPI、1-2名变革管理、1名
 P2缺口合计：约5-8人
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 </pre>
-<hr style="border:none;border-top:1px solid var(--pale);margin:16px 0">
   </div>
 </div>
 <div class="chapter" id="ch3">
   <div class="ch-header"><div class="ch-num">3</div><h2>工信部数字化转型指南框架映射</h2></div>
   <div class="ch-body">
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 3.1 指南对组织建设的要求</div>
-<p>工业和信息化部等三部委《制造业企业数字化转型实施指南》（2024年）对大型制造企业的数字化组织建设有明确要求：</p>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 3.1 指南对组织建设的要求</div>
+<p style="margin-bottom:9px;color:var(--text2)">工业和信息化部等三部委《制造业企业数字化转型实施指南》（2024年）对大型制造企业的数字化组织建设有明确要求：</p>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>指南要求</th><th>原文表述</th><th>佛照当前状态</th><th>差距</th></tr>
@@ -851,50 +868,52 @@ P2缺口合计：约5-8人
 <tr><td>高标准项目监督</td><td>"深度介入外包开发过程，强化过程监督、质量管控"</td><td>历史外包项目质量管控弱</td><td>监督机制欠缺</td></tr>
 <tr><td>分类推进</td><td>大型企业：全流程、全场景、全链条数字化转型</td><td>仅2/19法人在SAP，数字化覆盖率10.5%</td><td>距离"全链条"差距极大</td></tr>
 </tbody></table>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 3.2 指南"组织落地实施"的PDCA要求</div>
-<p>指南提出"规划-实施-评估-优化"（PDCA）循环，佛照当前在各环节的组织准备状态：</p>
-<p><strong>Plan（规划）—— 较好</strong></p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 3.2 指南"组织落地实施"的PDCA要求</div>
+<p style="margin-bottom:9px;color:var(--text2)">指南提出"规划-实施-评估-优化"（PDCA）循环，佛照当前在各环节的组织准备状态：</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>Plan（规划）—— 较好</strong></p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">十五五战略规划已明确数字化转型目标，各事业部有精益改善项目配合</li>
 <li style="margin-bottom:3px;line-height:1.65">本次S/4HANA项目采用专业SI（艾维登）+咨询顾问（达维）组合</li>
 <li style="margin-bottom:3px;line-height:1.65">建议在此基础上补充专项《数字化组织建设规划》（即本报告的核心价值）</li>
 </ul>
-<p><strong>Do（实施）—— 最薄弱，风险最高</strong></p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>Do（实施）—— 最薄弱，风险最高</strong></p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">数智化部16人需同时支撑SAP实施（与艾维登60+人团队配合）、现有系统运维（20+套系统）、日常IT支持</li>
 <li style="margin-bottom:3px;line-height:1.65">没有专职的变革管理团队支撑业务部门的系统接受和流程变革</li>
 <li style="margin-bottom:3px;line-height:1.65">各业务部门没有关键用户（Super User）体系，上线培训缺乏系统规划</li>
 </ul>
-<p><strong>Check（评估）—— 几乎缺失</strong></p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>Check（评估）—— 几乎缺失</strong></p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">无数字化绩效考核体系（精益改善项目清单中对SAP项目进度的KPI仅为"上线"这一结果性指标）</li>
 <li style="margin-bottom:3px;line-height:1.65">无数据质量KPI（参见《数据治理总结报告》）</li>
 <li style="margin-bottom:3px;line-height:1.65">无IT服务水平协议（SLA）</li>
 </ul>
-<p><strong>Act（优化）—— 无基础</strong></p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>Act（优化）—— 无基础</strong></p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">当前IT人力无法承担上线后的持续优化工作</li>
 <li style="margin-bottom:3px;line-height:1.65">无专职SAP CoE（Center of Excellence，卓越中心）</li>
 </ul>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 3.3 指南"分类推进"对佛照的适用判断</div>
-<p>指南将企业分为龙头企业、大型企业、中小企业三类，佛照属于<strong>大型企业</strong>类别。指南对大型企业的要求是：</p>
+</div><!-- /sec -->
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 3.3 指南"分类推进"对佛照的适用判断</div>
+<p style="margin-bottom:9px;color:var(--text2)">指南将企业分为龙头企业、大型企业、中小企业三类，佛照属于<strong>大型企业</strong>类别。指南对大型企业的要求是：</p>
 <div class="box guide"><p>"大型企业坚持系统思维、创新引领，制定转型整体规划，推进<strong>全流程、全场景、全链条</strong>数字化转型……建设工业互联网平台，提升数据采集、知识沉淀、业务打通、生态搭建等能力，实现数据驱动的智能生产决策和运营深度优化……创新组织管理模式，推动管理架构从科层制向柔性组织转变。"</p></div>
-<p><strong>对佛照的具体启示：</strong></p>
-<ol style="margin:6px 0 8px 20px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>对佛照的具体启示：</strong></p>
+<ol style="margin:6px 0 10px 20px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65"><strong>全流程：</strong> 当前O2C/P2P/PP三大流程各有10+个断点，"全流程"目标要求在组织层面设置流程Owner，推动端到端业务流程重构</li>
 <li style="margin-bottom:3px;line-height:1.65"><strong>全场景：</strong> 当前IT覆盖仅限于部分SAP场景，MES/WMS/CRM/AI均处于断点或早期阶段，需要专职数字化场景规划团队</li>
 <li style="margin-bottom:3px;line-height:1.65"><strong>全链条：</strong> 19家法人中只有2家在SAP体系，"全链条"目标要求规划各法人数字化纳入路线图，并配置相应组织保障</li>
-</ul>
-<hr style="border:none;border-top:1px solid var(--pale);margin:16px 0">
+</ol>
+</div><!-- /sec -->
   </div>
 </div>
 <div class="chapter" id="problems">
-  <div class="ch-header"><div class="ch-num">4</div><h2>数字化组织诊断——五大核心问题深度分析</h2></div>
+  <div class="ch-header"><div class="ch-num">4</div><h2>数字化组织诊断——五大核心问题</h2></div>
   <div class="ch-body">
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 4.1 问题一：数智化部定位模糊，权责边界不清</div>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 4.1 问题一：数智化部定位模糊，权责边界不清</div>
 <div class="sec-sub">4.1.1 问题描述</div>
-<p>数智化部在2022年成立（将IT与数字化独立出来），定位是"推动公司数字化转型"。然而，在实际运行中，数智化部承担的角色高度混合、边界模糊：</p>
-<p><strong>数智化部当前实际承担的角色（按消耗精力估算）：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">数智化部在2022年成立（将IT与数字化独立出来），定位是"推动公司数字化转型"。然而，在实际运行中，数智化部承担的角色高度混合、边界模糊：</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>数智化部当前实际承担的角色（按消耗精力估算）：</strong></p>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>角色类型</th><th>估算精力占比</th><th>理论上应由谁承担</th></tr>
@@ -907,41 +926,42 @@ P2缺口合计：约5-8人
 <tr><td>新系统建设（WMS/CRM/AI等）</td><td>~10%</td><td>数智化部（合理，但资源不足）</td></tr>
 <tr><td>数据治理（MDM，主数据管理）</td><td>~5%不到</td><td>应设专职MDM团队（严重缺位）</td></tr>
 </tbody></table>
-<p>这种角色混合导致：数智化部处于"救火"状态，缺乏战略性数字化规划和数据治理能力建设的精力。</p>
+<p style="margin-bottom:9px;color:var(--text2)">这种角色混合导致：数智化部处于"救火"状态，缺乏战略性数字化规划和数据治理能力建设的精力。</p>
 <div class="sec-sub">4.1.2 "IT代维业务数据"的具体案例</div>
-<p><strong>案例一：SRM价格→SAP PIR断点</strong></p>
-<p>当前流程：</p>
-<ol style="margin:6px 0 8px 20px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>案例一：SRM价格→SAP PIR断点</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">当前流程：</p>
+<ol style="margin:6px 0 10px 20px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">供应链中心采购专员在SRM中发起询报价→审批通过</li>
 <li style="margin-bottom:3px;line-height:1.65"><strong>数智化部接到通知</strong>（或自行发现）→手工将SRM中的审批价格复制到SAP采购信息记录（PIR）</li>
 <li style="margin-bottom:3px;line-height:1.65">这一步骤由数智化部代劳，供应链中心无需（且无人会）在SAP中操作</li>
-</ul>
-<p>问题：</p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+</ol>
+<p style="margin-bottom:9px;color:var(--text2)">问题：</p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">数智化部不了解价格背后的商业判断（为什么这个价格，对应什么供应商条款）</li>
 <li style="margin-bottom:3px;line-height:1.65">数智化部录入时可能产生格式错误（如单价/千件vs单价/件）</li>
 <li style="margin-bottom:3px;line-height:1.65">数智化部的人力时间被浪费在无附加值的数据搬运上</li>
 </ul>
-<p><strong>正确做法（S/4HANA目标）：</strong></p>
-<p>SRM审批后通过CPI接口<strong>自动同步</strong>到S/4HANA PIR，供应链中心采购专员在SRM中的操作同时触发SAP的更新，数智化部无需介入。</p>
-<p><strong>案例二：物料主数据关键字段缺失</strong></p>
-<p>当前物料主数据3,542条中，技术要求/69码/旧物料号/跨工厂状态等关键字段几乎100%缺失。根因是：</p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>正确做法（S/4HANA目标）：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">SRM审批后通过CPI接口<strong>自动同步</strong>到S/4HANA PIR，供应链中心采购专员在SRM中的操作同时触发SAP的更新，数智化部无需介入。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>案例二：物料主数据关键字段缺失</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">当前物料主数据3,542条中，技术要求/69码/旧物料号/跨工厂状态等关键字段几乎100%缺失。根因是：</p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">产品中心填写物料申请单时，只填"能让系统通过"的最少字段</li>
 <li style="margin-bottom:3px;line-height:1.65">数智化部在SAP中激活物料时，采用"宽松"配置（非必填字段不强制）</li>
 <li style="margin-bottom:3px;line-height:1.65">没有任何人被考核"为什么这些字段空着"</li>
 </ul>
-<p><strong>这不是技术问题，而是权责设计问题。</strong> 在没有明确字段Owner和绩效约束的情况下，任何字段都会被"能省则省"。</p>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 4.2 问题二：IT人力严重不足，能力结构失衡</div>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>这不是技术问题，而是权责设计问题。</strong> 在没有明确字段Owner和绩效约束的情况下，任何字段都会被"能省则省"。</p>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 4.2 问题二：IT人力严重不足，能力结构失衡</div>
 <div class="sec-sub">4.2.1 量化缺口</div>
-<p>基于前述分析，数智化部在S/4HANA上线前后面临的能力缺口是多维度的：</p>
-<p><strong>人数缺口：</strong></p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)">基于前述分析，数智化部在S/4HANA上线前后面临的能力缺口是多维度的：</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>人数缺口：</strong></p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">当前：16人编制（22人实际）</li>
 <li style="margin-bottom:3px;line-height:1.65">SAP上线后合理需求：约30-40人（甲方侧）</li>
 <li style="margin-bottom:3px;line-height:1.65">缺口：约8-18人</li>
 </ul>
-<p><strong>技能缺口（模块覆盖）：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>技能缺口（模块覆盖）：</strong></p>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>SAP模块</th><th>S/4HANA目标覆盖（19家法人）</th><th>当前内部顾问</th><th>缺口</th></tr>
@@ -959,7 +979,7 @@ P2缺口合计：约5-8人
 <tr><td>GR（集团合并）</td><td>19家</td><td>0</td><td>需1名（可外包）</td></tr>
 </tbody></table>
 <div class="sec-sub">4.2.2 S/4HANA实施期间的人力压力测算</div>
-<p>数智化部在SAP项目实施期间（2026年6月-2027年1月，约7个月）需要同时承担：</p>
+<p style="margin-bottom:9px;color:var(--text2)">数智化部在SAP项目实施期间（2026年6月-2027年1月，约7个月）需要同时承担：</p>
 <table>
 <thead>
 <tr><th>工作类型</th><th>工作量估算（人月）</th><th>需要的人力数量</th></tr>
@@ -973,33 +993,34 @@ P2缺口合计：约5-8人
 <tr><td>Mock迁移执行</td><td>约10人月</td><td>约2人</td></tr>
 <tr><td><strong>合计</strong></td><td><strong>约165人月</strong></td><td><strong>约23-26人（甲方侧）</strong></td></tr>
 </tbody></table>
-<p><strong>结论：当前数智化部22人中，还需承担日常IT运维（约4人）和非SAP项目（WMS/CRM/AI等，约4人），实际能投入SAP项目的人力约14人，而需求约23-26人，缺口约9-12人。这将是SAP项目推进的最大瓶颈。</strong></p>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 4.3 问题三：流程治理组织严重缺位</div>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>结论：当前数智化部22人中，还需承担日常IT运维（约4人）和非SAP项目（WMS/CRM/AI等，约4人），实际能投入SAP项目的人力约14人，而需求约23-26人，缺口约9-12人。这将是SAP项目推进的最大瓶颈。</strong></p>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 4.3 问题三：流程治理组织严重缺位</div>
 <div class="sec-sub">4.3.1 全公司1名专职流程人员的深层影响</div>
-<p>朱海英是<strong>全公司唯一专职流程人员</strong>（企业管理部）。这在多维度上形成严重风险：</p>
-<p><strong>风险一：SAP蓝图阶段TO-BE流程确认延迟</strong></p>
-<p>SAP Greenfield实施的蓝图阶段（Blueprinting，预计2026年9月-11月）需要客户确认数百条TO-BE业务流程（从L1/L2到L4/L5级别）。在没有充足流程人员的情况下，这一确认工作将面临：</p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)">朱海英是<strong>全公司唯一专职流程人员</strong>（企业管理部）。这在多维度上形成严重风险：</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>风险一：SAP蓝图阶段TO-BE流程确认延迟</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">SAP Greenfield实施的蓝图阶段（Blueprinting，预计2026年9月-11月）需要客户确认数百条TO-BE业务流程（从L1/L2到L4/L5级别）。在没有充足流程人员的情况下，这一确认工作将面临：</p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">每条流程需要业务Owner参与讨论并签字</li>
 <li style="margin-bottom:3px;line-height:1.65">艾维登顾问团队约40人等待客户决策的"空档期"</li>
 <li style="margin-bottom:3px;line-height:1.65">决策延迟将导致项目关键路径偏移</li>
 </ul>
-<p>保守估算：蓝图阶段需确认的核心流程数量约150-200条（覆盖SD/MM/PP/FI/CO/QM/MDG），如果每条流程平均讨论2小时，需要300-400小时的业务侧确认工作。以1人处理全部流程确认，不计其他工作，至少需要75-100个工作日，远超出蓝图阶段约60天的时间窗口。</p>
-<p><strong>风险二：流程文档质量无法保障</strong></p>
-<p>蓝图阶段输出的TO-BE流程文档将成为：</p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)">保守估算：蓝图阶段需确认的核心流程数量约150-200条（覆盖SD/MM/PP/FI/CO/QM/MDG），如果每条流程平均讨论2小时，需要300-400小时的业务侧确认工作。以1人处理全部流程确认，不计其他工作，至少需要75-100个工作日，远超出蓝图阶段约60天的时间窗口。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>风险二：流程文档质量无法保障</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">蓝图阶段输出的TO-BE流程文档将成为：</p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">SAP配置的依据</li>
 <li style="margin-bottom:3px;line-height:1.65">用户培训材料的基础</li>
 <li style="margin-bottom:3px;line-height:1.65">上线后流程稽查的标准</li>
 <li style="margin-bottom:3px;line-height:1.65">未来优化迭代的基线</li>
 </ul>
-<p>如果流程文档由缺乏SAP经验的单一人员（或完全由顾问团队）撰写，将导致业务人员"看不懂"或"确认了但没真正理解"，上线后发现与实际业务不符时无法快速定位根因。</p>
-<p><strong>风险三：运营期无人维护流程资产</strong></p>
-<p>SAP系统的最佳实践是建立"流程+系统"的双重维护机制：系统配置变更时，对应的流程文档同步更新；流程优化时，系统配置相应调整。这需要专职的流程资产管理人员，而1人无法承载这一工作。</p>
+<p style="margin-bottom:9px;color:var(--text2)">如果流程文档由缺乏SAP经验的单一人员（或完全由顾问团队）撰写，将导致业务人员"看不懂"或"确认了但没真正理解"，上线后发现与实际业务不符时无法快速定位根因。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>风险三：运营期无人维护流程资产</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">SAP系统的最佳实践是建立"流程+系统"的双重维护机制：系统配置变更时，对应的流程文档同步更新；流程优化时，系统配置相应调整。这需要专职的流程资产管理人员，而1人无法承载这一工作。</p>
 <div class="sec-sub">4.3.2 企管部与数智化部的分工协作重设计</div>
-<p>会议纪要（2026-06-25）明确指出：</p>
+<p style="margin-bottom:9px;color:var(--text2)">会议纪要（2026-06-25）明确指出：</p>
 <div class="box guide"><p>"佛照当前流程建设仍处于较初级阶段，业务部门对'流程'的认知大多停留在OA审批流层面。"</p></div>
-<p>对此，建议重新设计企管部与数智化部在数字化中的分工：</p>
+<p style="margin-bottom:9px;color:var(--text2)">对此，建议重新设计企管部与数智化部在数字化中的分工：</p>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>职责领域</th><th>现状</th><th>建议TO-BE</th></tr>
@@ -1011,10 +1032,10 @@ P2缺口合计：约5-8人
 <tr><td>流程考核与绩效牵引</td><td>无流程KPI</td><td>企管部设计流程绩效指标，纳入各部门KPI体系</td></tr>
 <tr><td>流程培训</td><td>无</td><td>数智化部+企管部联合，建立Super User体系</td></tr>
 </tbody></table>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 4.4 问题四：数据Owner制度缺失，责任链断裂</div>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 4.4 问题四：数据Owner制度缺失，责任链断裂</div>
 <div class="sec-sub">4.4.1 数据责任的完整断裂链</div>
-<p>当前佛照的主数据问题，本质上是一个<strong>"无主之地"问题</strong>——每条数据从创建到停用，没有任何角色被明确指定为Owner，没有绩效机制追责，没有质量审核流程。</p>
-<p>以物料编码规则总表（2022年版，1,571条）为例：</p>
+<p style="margin-bottom:9px;color:var(--text2)">当前佛照的主数据问题，本质上是一个<strong>"无主之地"问题</strong>——每条数据从创建到停用，没有任何角色被明确指定为Owner，没有绩效机制追责，没有质量审核流程。</p>
+<p style="margin-bottom:9px;color:var(--text2)">以物料编码规则总表（2022年版，1,571条）为例：</p>
 <pre>
 物料编码规则的责任链（当前 vs 目标）：
 
@@ -1024,7 +1045,7 @@ P2缺口合计：约5-8人
 谁检查合规？ → 无人检查
 谁更新规则？ → 4年未更新（2022-2026）
                 → 新赛道（航空/海洋照明）无对应编码规则
-                → 已导致大量&quot;特殊编码&quot;绕过规则体系
+                → 已导致大量"特殊编码"绕过规则体系
 
 目标状态（完整）：
 产品中心（规则制定Owner）
@@ -1039,21 +1060,23 @@ MDM办公室（质量监督）
     ↓ 产品中心编码合规率纳入季度KPI
 </pre>
 <div class="sec-sub">4.4.2 数据Owner缺失对SAP项目的量化影响</div>
-<p><strong>影响一：数据清洗工作无法推进</strong></p>
-<p>数据清洗的最大瓶颈不是技术，而是"谁来确认这个数据对不对"。物料主数据3,542条中，关键字段缺失率接近100%，补录这些字段需要：</p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>影响一：数据清洗工作无法推进</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">数据清洗的最大瓶颈不是技术，而是"谁来确认这个数据对不对"。物料主数据3,542条中，关键字段缺失率接近100%，补录这些字段需要：</p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">69码（EAN条形码）：产品及方案中心确认，约1,159条成品 × 0.5小时/条 = 约580小时工作量</li>
 <li style="margin-bottom:3px;line-height:1.65">跨工厂物料状态：计划部门确认，3,542条 × 0.1小时/条 = 约354小时</li>
 <li style="margin-bottom:3px;line-height:1.65">采购提前期：供应链中心采购专员确认，约689条原材料 × 0.5小时/条 = 约345小时</li>
 </ul>
-<p><strong>在当前无Owner制度下，没有任何部门会主动承担这约1,279小时的工作量</strong>，只能继续由数智化部"代维"，但数智化部不具备业务判断能力，只能录入而无法确认准确性。</p>
-<p><strong>影响二：Mock迁移验证无业务签字</strong></p>
-<p>SAP Greenfield最佳实践要求：试迁移（Mock 1/Mock 2）后，每个主数据域需要业务Owner签字确认数据准确性。在无Owner制度下，没有人愿意/应该签字，这将导致Go/No-Go决策无法形成共识。</p>
-<p><strong>影响三：上线后数据质量将持续恶化</strong></p>
-<p>即使上线前通过强制清洗达到迁移标准，在无Owner制度和绩效约束的情况下，上线后的日常数据维护将重回"谁方便谁录，录错了没人负责"的模式，数据质量将在6-12个月内退化到ECC水准。</p>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 4.5 问题五：历史项目失败的组织根因分析</div>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>在当前无Owner制度下，没有任何部门会主动承担这约1,279小时的工作量</strong>，只能继续由数智化部"代维"，但数智化部不具备业务判断能力，只能录入而无法确认准确性。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>影响二：Mock迁移验证无业务签字</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">SAP Greenfield最佳实践要求：试迁移（Mock 1/Mock 2）后，每个主数据域需要业务Owner签字确认数据准确性。在无Owner制度下，没有人愿意/应该签字，这将导致Go/No-Go决策无法形成共识。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>影响三：上线后数据质量将持续恶化</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">即使上线前通过强制清洗达到迁移标准，在无Owner制度和绩效约束的情况下，上线后的日常数据维护将重回"谁方便谁录，录错了没人负责"的模式，数据质量将在6-12个月内退化到ECC水准。</p>
+</div><!-- /sec -->
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 4.5 问题五：历史项目失败的组织根因分析</div>
 <div class="sec-sub">4.5.1 失败根因的系统性归因</div>
-<p>将4个重大失败项目与组织设计因素进行交叉分析：</p>
+<p style="margin-bottom:9px;color:var(--text2)">将4个重大失败项目与组织设计因素进行交叉分析：</p>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>失败项目</th><th>需求方</th><th>是否有业务Owner</th><th>是否有Super User体系</th><th>是否有变革管理</th><th>是否有验收标准</th><th>结果</th></tr>
@@ -1064,34 +1087,34 @@ MDM办公室（质量监督）
 <tr><td>财务共享平台</td><td>财务管理部名义主导</td><td>⚠️ 有但不到位</td><td>❌ 无</td><td>❌ 无</td><td>⚠️ 模糊</td><td>停止，损失约180万</td></tr>
 <tr><td>营销管理平台</td><td>数智化部推动</td><td>❌ 无</td><td>❌ 无</td><td>❌ 无</td><td>❌ 无</td><td>蓝图未过，损失约100万</td></tr>
 </tbody></table>
-<p><strong>四次失败的共同特征：</strong></p>
-<ol style="margin:6px 0 8px 20px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>四次失败的共同特征：</strong></p>
+<ol style="margin:6px 0 10px 20px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">数智化部既是"甲方PM"又是"业务用户"，既推动项目又代替业务做决策</li>
 <li style="margin-bottom:3px;line-height:1.65">没有业务部门的Key User全程参与</li>
 <li style="margin-bottom:3px;line-height:1.65">没有验收标准在项目开始时明确定义</li>
 <li style="margin-bottom:3px;line-height:1.65">没有变革管理计划帮助用户从"旧方式"过渡到"新系统"</li>
-</ul>
+</ol>
 <div class="sec-sub">4.5.2 本次SAP项目避免重蹈覆辙的组织保障</div>
-<p>李泽华副总经理在6月23日的调研访谈中，对本次SAP项目提出了清晰的组织要求：</p>
-<p><strong>李泽华原话（6月23日访谈，关键引语）：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">李泽华副总经理在6月23日的调研访谈中，对本次SAP项目提出了清晰的组织要求：</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>李泽华原话（6月23日访谈，关键引语）：</strong></p>
 <div class="box guide"><p>"部门的负责人一定要参加，数字化不是说IT部门往前推就可以完事的，他们必须要来做改变。"</p></div>
 <div class="box guide"><p>"后续项目选型让业务部门与IT部门共同参与，综合双方意见，这是正确的思路。"</p></div>
 <div class="box guide"><p>"业务部门作为项目的所有者和责任者，自己负责项目实施过程中出现的问题。"</p></div>
-<p>这三句话实际上定义了本次SAP项目在组织上的核心要求：</p>
-<ol style="margin:6px 0 8px 20px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)">这三句话实际上定义了本次SAP项目在组织上的核心要求：</p>
+<ol style="margin:6px 0 10px 20px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65"><strong>业务部门负责人全程参与</strong>（不只是旁观者）</li>
 <li style="margin-bottom:3px;line-height:1.65"><strong>IT与业务联合决策</strong>（不是IT单方面推进）</li>
 <li style="margin-bottom:3px;line-height:1.65"><strong>业务部门对结果负责</strong>（不是IT兜底）</li>
-</ul>
-<p>要实现这三点，就需要系统性的组织设计——这正是本报告提出目标组织架构的核心价值。</p>
-<hr style="border:none;border-top:1px solid var(--pale);margin:16px 0">
+</ol>
+<p style="margin-bottom:9px;color:var(--text2)">要实现这三点，就需要系统性的组织设计——这正是本报告提出目标组织架构的核心价值。</p>
   </div>
 </div>
 <div class="chapter" id="target-org">
   <div class="ch-header"><div class="ch-num">5</div><h2>目标组织架构设计</h2></div>
   <div class="ch-body">
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 5.1 设计原则</div>
-<p>基于TOGAF ADM框架、工信部指南和佛照实际情况，本报告提出以下六项数字化保障组织设计原则：</p>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 5.1 设计原则</div>
+<p style="margin-bottom:9px;color:var(--text2)">基于TOGAF ADM框架、工信部指南和佛照实际情况，本报告提出以下六项数字化保障组织设计原则：</p>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>原则编号</th><th>原则名称</th><th>原则内容</th><th>设计依据</th></tr>
@@ -1104,7 +1127,7 @@ MDM办公室（质量监督）
 <tr><td>P5</td><td>分步实施原则</td><td>组织变革与SAP项目同步，分三阶段推进（实施期/稳定期/成熟期）</td><td>变革管理最佳实践</td></tr>
 <tr><td>P6</td><td>协同一体原则</td><td>数智化部与企管部在流程治理上深度协同，打破"IT管系统、企管管流程"的割裂格局</td><td>流程建设会议结论</td></tr>
 </tbody></table>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 5.2 数智化部目标组织架构</div>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 5.2 数智化部目标组织架构</div>
 <div class="sec-sub">5.2.1 当前组织架构（AS-IS）</div>
 <pre>
 数智化部（23人，苏大明部长）
@@ -1118,7 +1141,7 @@ MDM办公室（质量监督）
 └── 其他/行政（约5人）
 </pre>
 <div class="sec-sub">5.2.2 目标组织架构（TO-BE）</div>
-<p><strong>阶段一（2026年7月-2027年1月，SAP实施期）：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>阶段一（2026年7月-2027年1月，SAP实施期）：</strong></p>
 <pre>
 数智化部（目标约30人，含新增8人）
 │
@@ -1155,11 +1178,12 @@ MDM办公室（质量监督）
     ├── 变革管理专员（新增或借调）
     └── 培训协调员（新增或借调）
 </pre>
-<p><strong>阶段二（2027年Q1-Q4，SAP稳定运营期）：</strong></p>
-<p>SAP上线稳定后，CoE中的顾问逐步减少对艾维登支持的依赖，转向自主运营。变革管理团队解散，成员回归或转岗。MDM Office转入常态化运营。</p>
-<p><strong>阶段三（2028年+，数字化成熟期）：</strong></p>
-<p>建立完整的SAP卓越中心（CoE），覆盖所有已上线模块的内部技术支持能力。MDM Office扩展为数据治理中心，承担DCMM 2级认证工作。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>阶段二（2027年Q1-Q4，SAP稳定运营期）：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">SAP上线稳定后，CoE中的顾问逐步减少对艾维登支持的依赖，转向自主运营。变革管理团队解散，成员回归或转岗。MDM Office转入常态化运营。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>阶段三（2028年+，数字化成熟期）：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">建立完整的SAP卓越中心（CoE），覆盖所有已上线模块的内部技术支持能力。MDM Office扩展为数据治理中心，承担DCMM 2级认证工作。</p>
 <div class="sec-sub">5.2.3 编制调整建议</div>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>职位</th><th>类型</th><th>时间节点</th><th>预算影响（年，估）</th></tr>
@@ -1172,9 +1196,10 @@ MDM办公室（质量监督）
 <tr><td>变革管理专员</td><td>短期项目制（可借调或外聘）</td><td>2026年7月-2027年3月</td><td>约15-25万（合同制）</td></tr>
 <tr><td><strong>新增人力成本合计</strong></td><td></td><td></td><td><strong>约140-185万/年（峰值）</strong></td></tr>
 </tbody></table>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 5.3 主数据管理办公室（MDM Office）设置</div>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 5.3 主数据管理办公室（MDM Office）设置</div>
 <div class="sec-sub">5.3.1 MDM Office的职责定义</div>
-<p>MDM Office是数字化保障组织的核心新增职能单元，直属数智化部部长，职责范围：</p>
+<p style="margin-bottom:9px;color:var(--text2)">MDM Office是数字化保障组织的核心新增职能单元，直属数智化部部长，职责范围：</p>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>职责类别</th><th>具体职责</th><th>典型工作输出</th></tr>
@@ -1202,9 +1227,10 @@ MDM办公室（质量监督）
 <tr><td>科目表/成本中心</td><td>C</td><td>C</td><td><strong>R</strong>（确认）</td><td>C</td><td>C</td><td>C</td><td>R（系统操作）</td></tr>
 <tr><td>数据停用/归档</td><td>R（申请）</td><td>R（申请）</td><td>C</td><td>R（申请）</td><td>C</td><td><strong>A</strong>（审核+执行）</td><td>R（系统操作）</td></tr>
 </tbody></table>
-<p><em>R=执行责任，A=最终批准，C=咨询，I=知会</em></p>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 5.4 CIO/CDO岗位设置建议</div>
+<p style="margin-bottom:9px;color:var(--text2)"><em>R=执行责任，A=最终批准，C=咨询，I=知会</em></p>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 5.4 CIO/CDO岗位设置建议</div>
 <div class="sec-sub">5.4.1 当前高管层数字化角色</div>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>高管</th><th>当前角色</th><th>数字化关联</th><th>正式数字化头衔</th></tr>
@@ -1216,8 +1242,8 @@ MDM办公室（质量监督）
 <tr><td>苏大明（数智化部部长）</td><td>相当于CIO职能</td><td>全面负责IT建设与运营</td><td>部长，非C级称谓</td></tr>
 </tbody></table>
 <div class="sec-sub">5.4.2 CIO/CDO设置方案建议</div>
-<p>工信部指南明确建议设立CIO和CDO两个岗位，针对佛照实际情况，提供三种方案供管理层选择：</p>
-<p><strong>方案A（推荐）：李泽华副总经理兼任CIO，提升苏大明为CDO</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">工信部指南明确建议设立CIO和CDO两个岗位，针对佛照实际情况，提供三种方案供管理层选择：</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>方案A（推荐）：李泽华副总经理兼任CIO，提升苏大明为CDO</strong></p>
 <table>
 <thead>
 <tr><th>维度</th><th>内容</th></tr>
@@ -1229,7 +1255,7 @@ MDM办公室（质量监督）
 <tr><td>缺点</td><td>李泽华兼任，精力有限；苏大明升CDO后，数智化部日常管理需补充副部长</td></tr>
 <tr><td>适用时机</td><td>建议在SAP项目蓝图阶段开始（2026年8月）前正式宣布，以增强项目权威性</td></tr>
 </tbody></table>
-<p><strong>方案B：外部引进专职CIO/CDO</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>方案B：外部引进专职CIO/CDO</strong></p>
 <table>
 <thead>
 <tr><th>维度</th><th>内容</th></tr>
@@ -1241,7 +1267,7 @@ MDM办公室（质量监督）
 <tr><td>优点</td><td>带来外部最佳实践和视野</td></tr>
 <tr><td>缺点</td><td>引进周期长（6-12个月）；文化融合有风险</td></tr>
 </tbody></table>
-<p><strong>方案C：暂不设立，维持现有机制强化</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>方案C：暂不设立，维持现有机制强化</strong></p>
 <table>
 <thead>
 <tr><th>维度</th><th>内容</th></tr>
@@ -1252,11 +1278,12 @@ MDM办公室（质量监督）
 <tr><td>缺点</td><td>缺少统一的数字化战略话语权；当各部门利益冲突时，调解效率低</td></tr>
 <tr><td>适用条件</td><td>仅在SAP项目推进顺利、各部门高度配合的乐观场景下可行</td></tr>
 </tbody></table>
-<p><strong>综合建议：采用方案A，在2026年8月前通过内部文件正式确认李泽华为CIO职能角色、苏大明为CDO职能角色，并在SAP项目启动会上公开宣布。</strong> 这不需要薪酬调整，但可以显著提升项目决策效率和部门配合度。</p>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 5.5 数字化保障委员会（Digital Steering Committee）</div>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>综合建议：采用方案A，在2026年8月前通过内部文件正式确认李泽华为CIO职能角色、苏大明为CDO职能角色，并在SAP项目启动会上公开宣布。</strong> 这不需要薪酬调整，但可以显著提升项目决策效率和部门配合度。</p>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 5.5 数字化保障委员会（Digital Steering Committee）</div>
 <div class="sec-sub">5.5.1 委员会设置</div>
-<p><strong>成立依据：</strong> 李泽华副总在6月23日明确要求"建立问题日志、高优先级问题当周讨论出结果"，需要一个固定的跨部门决策平台。</p>
-<p><strong>委员会构成：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>成立依据：</strong> 李泽华副总在6月23日明确要求"建立问题日志、高优先级问题当周讨论出结果"，需要一个固定的跨部门决策平台。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>委员会构成：</strong></p>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>角色</th><th>担任人员</th><th>职责</th></tr>
@@ -1270,30 +1297,31 @@ MDM办公室（质量监督）
 <tr><td>常务委员（流程）</td><td>企业管理部负责人</td><td>流程治理监督，TO-BE流程确认</td></tr>
 <tr><td>列席委员（各事业部）</td><td>各事业部信息化负责人/数字化联络员</td><td>业务需求汇报，变革落地</td></tr>
 </tbody></table>
-<p><strong>工作机制：</strong></p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>工作机制：</strong></p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">月度例会（固定第二周周四下午）：2小时，议题包括SAP项目进度、问题决策、数据治理进展</li>
 <li style="margin-bottom:3px;line-height:1.65">紧急会议：当P0级问题出现（影响项目关键路径）时，24小时内召集</li>
 <li style="margin-bottom:3px;line-height:1.65">问题日志：共享平台维护，高/中/低优先级分类，高优先级问题当周必须有决策结论</li>
 <li style="margin-bottom:3px;line-height:1.65">决策记录：每次会议后72小时内发布《会议纪要》，明确每项决策的负责人和完成时间</li>
 </ul>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 5.6 各事业部/部门数字化联络员体系</div>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 5.6 各事业部/部门数字化联络员体系</div>
 <div class="sec-sub">5.6.1 联络员体系设计</div>
-<p>为解决"数字化是IT的事"的根本认知问题，参照SAP Super User（关键用户）最佳实践，建立覆盖所有核心部门的数字化联络员（Digital Champion）体系：</p>
-<p><strong>联络员职责（SAP项目期间）：</strong></p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)">为解决"数字化是IT的事"的根本认知问题，参照SAP Super User（关键用户）最佳实践，建立覆盖所有核心部门的数字化联络员（Digital Champion）体系：</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>联络员职责（SAP项目期间）：</strong></p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">参与本部门的SAP需求调研和TO-BE流程确认（必须参与，不可替代）</li>
 <li style="margin-bottom:3px;line-height:1.65">担任本部门的SAP超级用户（Super User），参与UAT（用户验收测试）</li>
 <li style="margin-bottom:3px;line-height:1.65">协助本部门同事的SAP培训和上线后操作指导</li>
 <li style="margin-bottom:3px;line-height:1.65">收集本部门的数字化痛点和需求，定期向数智化部或Digital Steering Committee汇报</li>
 </ul>
-<p><strong>联络员职责（SAP上线后）：</strong></p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>联络员职责（SAP上线后）：</strong></p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">本部门数据Owner：负责本部门维度的主数据质量</li>
 <li style="margin-bottom:3px;line-height:1.65">系统操作问题第一响应人（一线支持，避免所有问题直接冲向数智化部）</li>
 <li style="margin-bottom:3px;line-height:1.65">参与数字化保障委员会的季度业务需求汇报</li>
 </ul>
-<p><strong>各部门联络员配置建议：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>各部门联络员配置建议：</strong></p>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>部门/事业部</th><th>建议联络员人数</th><th>SAP模块关联</th><th>优先级</th></tr>
@@ -1314,30 +1342,29 @@ MDM办公室（质量监督）
 <tr><td>车灯事业部</td><td>1人</td><td>PP/QM/MES接口</td><td>P2</td></tr>
 <tr><td><strong>合计</strong></td><td><strong>约21人</strong></td><td></td><td></td></tr>
 </tbody></table>
-<p><strong>联络员激励机制：</strong></p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>联络员激励机制：</strong></p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">正式命名：在部门内部公示"SAP数字化联络员"身份，发放证书</li>
 <li style="margin-bottom:3px;line-height:1.65">绩效加分：联络员在SAP项目期间的参与质量纳入个人年度绩效考核（建议权重5-10%）</li>
 <li style="margin-bottom:3px;line-height:1.65">发展通道：优秀联络员优先推荐参加SAP HANA/S/4HANA高级培训，获得SAP证书资助</li>
 </ul>
-<hr style="border:none;border-top:1px solid var(--pale);margin:16px 0">
   </div>
 </div>
 <div class="chapter" id="mechanism">
   <div class="ch-header"><div class="ch-num">6</div><h2>IT与业务协同运作机制</h2></div>
   <div class="ch-body">
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 6.1 需求管理机制</div>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 6.1 需求管理机制</div>
 <div class="sec-sub">6.1.1 当前需求管理痛点</div>
-<p>数字化系统讨论会议（2026-06-24）揭示了当前IT需求管理的核心问题：</p>
-<p><strong>痛点一：需求提出者与决策者分离</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">数字化系统讨论会议（2026-06-24）揭示了当前IT需求管理的核心问题：</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>痛点一：需求提出者与决策者分离</strong></p>
 <div class="box guide"><p>数智化部会议记录："目前没有专职做数据、架构的人员。"</p></div>
-<p>业务部门提需求后，数智化部既要评估可行性，又要向管理层申请资源，还要推动业务部门参与实施——承担了不属于自己的角色，导致效率低下且责任不清。</p>
-<p><strong>痛点二：需求优先级无透明机制</strong></p>
-<p>各事业部、各部门同时向数智化部提出IT需求，数智化部缺乏透明的优先级评估标准，只能根据领导施压程度排序，真正价值高的需求可能长期等待。</p>
-<p><strong>痛点三：需求版本管理混乱</strong></p>
-<p>同一需求在调研、确认、开发过程中频繁变更，缺少正式的需求冻结机制，导致返工和超期。</p>
+<p style="margin-bottom:9px;color:var(--text2)">业务部门提需求后，数智化部既要评估可行性，又要向管理层申请资源，还要推动业务部门参与实施——承担了不属于自己的角色，导致效率低下且责任不清。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>痛点二：需求优先级无透明机制</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">各事业部、各部门同时向数智化部提出IT需求，数智化部缺乏透明的优先级评估标准，只能根据领导施压程度排序，真正价值高的需求可能长期等待。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>痛点三：需求版本管理混乱</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">同一需求在调研、确认、开发过程中频繁变更，缺少正式的需求冻结机制，导致返工和超期。</p>
 <div class="sec-sub">6.1.2 目标需求管理流程</div>
-<p>参照SAP项目最佳实践，建立以下需求管理流程：</p>
+<p style="margin-bottom:9px;color:var(--text2)">参照SAP项目最佳实践，建立以下需求管理流程：</p>
 <pre>
 IT需求管理流程（目标状态）：
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1372,9 +1399,11 @@ Step 6：运营与优化
   → 定期评估系统使用率和目标达成情况
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 </pre>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 6.2 项目管理机制</div>
+</div><!-- /sec -->
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 6.2 项目管理机制</div>
 <div class="sec-sub">6.2.1 IT项目分级管理</div>
-<p>借鉴精益改善项目管理经验，建立IT项目分级管理机制：</p>
+<p style="margin-bottom:9px;color:var(--text2)">借鉴精益改善项目管理经验，建立IT项目分级管理机制：</p>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>级别</th><th>定义</th><th>典型例子</th><th>立项审批</th><th>执行监督</th></tr>
@@ -1385,8 +1414,8 @@ Step 6：运营与优化
 <tr><td>C类（常规级）</td><td>合同金额<50万元或单部门IT优化</td><td>OA增值模块、小程序开发</td><td>数智化部部长批准</td><td>项目里程碑节点汇报</td></tr>
 </tbody></table>
 <div class="sec-sub">6.2.2 SAP项目专项治理框架</div>
-<p>针对本次SAP S/4HANA Greenfield项目（A类战略级）的特殊性，建立以下专项治理框架：</p>
-<p><strong>三层治理结构：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">针对本次SAP S/4HANA Greenfield项目（A类战略级）的特殊性，建立以下专项治理框架：</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>三层治理结构：</strong></p>
 <pre>
 层级1：指导委员会（战略决策层）
   成员：张学权（主席）+ 李泽华 + 艾维登总监（路建浩）+ SAP原厂CSM（陈宇峰）
@@ -1403,7 +1432,7 @@ Step 6：运营与优化
   职责：配置确认、数据清洗、测试执行、培训
   频率：每日站会（工作日10分钟）
 </pre>
-<p><strong>BPO（业务流程Owner）体系：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>BPO（业务流程Owner）体系：</strong></p>
 <table>
 <thead>
 <tr><th>SAP模块</th><th>BPO（业务Process Owner）</th><th>对应业务部门</th><th>责任范围</th></tr>
@@ -1418,18 +1447,19 @@ Step 6：运营与优化
 <tr><td>MDG（主数据治理）</td><td>产品及方案中心负责人</td><td>产品及方案中心</td><td>物料主数据标准、产品分类</td></tr>
 <tr><td>GR（集团合并）</td><td>财务管理部合并报表负责人</td><td>财务管理部</td><td>19家法人科目映射、内部交易消除</td></tr>
 </tbody></table>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 6.3 数字化绩效考核机制</div>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 6.3 数字化绩效考核机制</div>
 <div class="sec-sub">6.3.1 当前考核体系的缺陷</div>
-<p>精益改善项目清单中，与数字化相关的项目（如序号16 SAP优化升级项目）的KPI定义为：</p>
+<p style="margin-bottom:9px;color:var(--text2)">精益改善项目清单中，与数字化相关的项目（如序号16 SAP优化升级项目）的KPI定义为：</p>
 <div class="box guide"><p>"系统上线+主数据治理完成"</p></div>
-<p>这一定义存在两个问题：</p>
-<ol style="margin:6px 0 8px 20px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)">这一定义存在两个问题：</p>
+<ol style="margin:6px 0 10px 20px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65"><strong>结果性指标，无过程指标：</strong> 没有中间过程KPI，导致各部门不关注过程（如数据清洗进度、联络员参与度），只等看最终结果</li>
 <li style="margin-bottom:3px;line-height:1.65"><strong>IT单方面承担，业务不考核：</strong> 业务部门没有与数字化相关的KPI，因此没有动力配合</li>
-</ul>
+</ol>
 <div class="sec-sub">6.3.2 建议的数字化绩效考核框架</div>
-<p><strong>数字化绩效考核体系（2026-2027年SAP项目期）：</strong></p>
-<p><strong>一级KPI（高管层考核，数字化保障委员会级别）：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>数字化绩效考核体系（2026-2027年SAP项目期）：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>一级KPI（高管层考核，数字化保障委员会级别）：</strong></p>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>指标</th><th>定义</th><th>目标值</th><th>考核周期</th><th>责任人</th></tr>
@@ -1440,7 +1470,7 @@ Step 6：运营与优化
 <tr><td>业务部门参与度</td><td>BPO和联络员出席关键会议率</td><td>≥90%</td><td>季度</td><td>李泽华+各部门负责人</td></tr>
 <tr><td>变革管理满意度</td><td>上线后30天用户满意度调查</td><td>≥75%满意</td><td>上线后</td><td>苏大明+各联络员</td></tr>
 </tbody></table>
-<p><strong>二级KPI（部门负责人考核）：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>二级KPI（部门负责人考核）：</strong></p>
 <table>
 <thead>
 <tr><th>指标</th><th>考核对象</th><th>权重</th><th>目标</th></tr>
@@ -1451,7 +1481,7 @@ Step 6：运营与优化
 <tr><td>UAT测试通过率</td><td>各模块BPO</td><td>5%</td><td>本部门相关流程UAT一次通过率≥85%</td></tr>
 <tr><td>Super User培训完成率</td><td>各部门联络员</td><td>5%</td><td>本部门Super User培训100%完成（上线前）</td></tr>
 </tbody></table>
-<p><strong>三级KPI（个人/联络员考核）：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>三级KPI（个人/联络员考核）：</strong></p>
 <table>
 <thead>
 <tr><th>指标</th><th>考核对象</th><th>评分标准</th></tr>
@@ -1461,28 +1491,28 @@ Step 6：运营与优化
 <tr><td>需求质量</td><td>联络员</td><td>提交的需求申请表完整度（无缺项）+ 需求确认后变更率≤20%</td></tr>
 <tr><td>用户培训参与</td><td>联络员</td><td>参与本部门SAP培训课程出席率≥95%</td></tr>
 </tbody></table>
-<hr style="border:none;border-top:1px solid var(--pale);margin:16px 0">
   </div>
 </div>
 <div class="chapter" id="talent">
   <div class="ch-header"><div class="ch-num">7</div><h2>人才结构与能力规划</h2></div>
   <div class="ch-body">
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 7.1 现状人才结构分析</div>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 7.1 现状人才结构分析</div>
 <div class="sec-sub">7.1.1 数智化部人才结构现状</div>
-<p>根据数智化部PPT（2025-08-08）：</p>
-<p><strong>学历结构（16人编制）：</strong></p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)">根据数智化部PPT（2025-08-08）：</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>学历结构（16人编制）：</strong></p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">本科及以上：100%（16人）</li>
 <li style="margin-bottom:3px;line-height:1.65">硕士（含在读）：约19%（3人）</li>
 <li style="margin-bottom:3px;line-height:1.65">博士：6%（1人）</li>
 </ul>
-<p><strong>职称结构：</strong></p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>职称结构：</strong></p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">高级职称：6%（1人）</li>
 <li style="margin-bottom:3px;line-height:1.65">中级职称：约19%（约3人）</li>
 <li style="margin-bottom:3px;line-height:1.65">无职称：75%（约12人）</li>
 </ul>
-<p><strong>能力结构评估（基于调研）：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>能力结构评估（基于调研）：</strong></p>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>技能方向</th><th>当前人数（估）</th><th>水平评估</th><th>与SAP需求的匹配度</th></tr>
@@ -1513,9 +1543,10 @@ Step 6：运营与优化
 <tr><td>高明公司生产运营（140人）</td><td>中低（PP/QM基础使用）</td><td>低（工艺路线缺失）</td><td>低（生产数据标准化覆盖率待提升）</td><td>低（生产现场变革阻力大）</td></tr>
 <tr><td>电商事业部（100人）</td><td>低（SAP使用极少，主要用聚水潭等）</td><td>极低（五大系统各自独立）</td><td>极低（退货全手工）</td><td>中（电商部门年轻，接受度较高）</td></tr>
 </tbody></table>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 7.2 S/4HANA实施期间能力需求</div>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 7.2 S/4HANA实施期间能力需求</div>
 <div class="sec-sub">7.2.1 关键岗位能力需求详解</div>
-<p><strong>岗位一：MDM主任（最紧迫，P1，2026年9月前到位）</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>岗位一：MDM主任（最紧迫，P1，2026年9月前到位）</strong></p>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>维度</th><th>要求</th></tr>
@@ -1527,7 +1558,7 @@ Step 6：运营与优化
 <tr><td>优先来源</td><td>1) SAP实施服务商（艾维登体系）的MDM顾问转型；2) 制造业SAP甲方有MDG经验的人员</td></tr>
 <tr><td>薪酬区间</td><td>35-50万/年（深圳/广州制造业市场行情）</td></tr>
 </tbody></table>
-<p><strong>岗位二：CPI集成工程师（P1，2026年8月前到位）</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>岗位二：CPI集成工程师（P1，2026年8月前到位）</strong></p>
 <table>
 <thead>
 <tr><th>维度</th><th>要求</th></tr>
@@ -1539,7 +1570,7 @@ Step 6：运营与优化
 <tr><td>主要任务</td><td>SRM→S/4HANA价格同步、PLM→S/4HANA BOM同步、WMS↔S/4HANA库存同步、电商系统→S/4HANA订单集成（共12套保留系统接口）</td></tr>
 <tr><td>薪酬区间</td><td>30-45万/年</td></tr>
 </tbody></table>
-<p><strong>岗位三：变革管理专员（临时制，SAP项目期，2026年7月-2027年3月）</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>岗位三：变革管理专员（临时制，SAP项目期，2026年7月-2027年3月）</strong></p>
 <table>
 <thead>
 <tr><th>维度</th><th>要求</th></tr>
@@ -1551,8 +1582,8 @@ Step 6：运营与优化
 <tr><td>预算</td><td>约15-25万（7个月合同制）</td></tr>
 </tbody></table>
 <div class="sec-sub">7.2.2 Super User体系建设计划</div>
-<p>SAP Super User（关键用户/超级用户）体系是SAP上线成功的关键保障机制。Super User是分布在各业务部门的SAP"种子用户"，既接受SAP顾问团队的深度培训，又负责培训本部门的普通用户，并在上线后提供一线支持。</p>
-<p><strong>Super User培训计划（2026年10月-12月）：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">SAP Super User（关键用户/超级用户）体系是SAP上线成功的关键保障机制。Super User是分布在各业务部门的SAP"种子用户"，既接受SAP顾问团队的深度培训，又负责培训本部门的普通用户，并在上线后提供一线支持。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>Super User培训计划（2026年10月-12月）：</strong></p>
 <table>
 <thead>
 <tr><th>培训阶段</th><th>时间</th><th>内容</th><th>参与人员</th></tr>
@@ -1563,39 +1594,40 @@ Step 6：运营与优化
 <tr><td>第三期：综合测试</td><td>2026年12月</td><td>端到端场景测试（从询价到付款、从订单到收款）、上线前UAT</td><td>所有Super User+BPO</td></tr>
 <tr><td>第四期：培训师培训</td><td>2026年12月</td><td>如何培训本部门同事，培训材料制作</td><td>Super User全部参与</td></tr>
 </tbody></table>
-<p><strong>Super User考核标准（上线前）：</strong></p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>Super User考核标准（上线前）：</strong></p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">SAP操作考试：本模块核心操作通过率≥85%</li>
 <li style="margin-bottom:3px;line-height:1.65">培训材料：为本部门制作至少3个场景的操作手册</li>
 <li style="margin-bottom:3px;line-height:1.65">模拟演练：完成至少1次本部门全场景的系统演练</li>
 </ul>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 7.3 长期人才发展路线图</div>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 7.3 长期人才发展路线图</div>
 <div class="sec-sub">7.3.1 数智化部人才发展三阶段规划</div>
-<p><strong>阶段一（2026-2027，SAP实施期）：</strong></p>
-<p>目标：快速补强SAP实施能力缺口，建立Super User体系</p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>阶段一（2026-2027，SAP实施期）：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">目标：快速补强SAP实施能力缺口，建立Super User体系</p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">新增MDM专员2-3人（外招）</li>
 <li style="margin-bottom:3px;line-height:1.65">新增CPI集成工程师1-2人（外招或外包）</li>
 <li style="margin-bottom:3px;line-height:1.65">现有顾问通过参与实施完成模块能力升级（FI/CO/QM内部培养）</li>
 <li style="margin-bottom:3px;line-height:1.65">数智化部全体参加SAP S/4HANA基础认证培训（SAP官方C_TS410或C_S4CFI）</li>
 </ul>
-<p><strong>阶段二（2027-2028，稳定运营期）：</strong></p>
-<p>目标：建立自主SAP运营能力，减少外包依赖</p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>阶段二（2027-2028，稳定运营期）：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">目标：建立自主SAP运营能力，减少外包依赖</p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">SAP卓越中心（CoE）正式成立，覆盖所有已上线模块</li>
 <li style="margin-bottom:3px;line-height:1.65">外包顾问从4人逐步减少至2人（仅保留专项支持）</li>
 <li style="margin-bottom:3px;line-height:1.65">BI/数据分析能力从1人扩展至3人（承担SAC报表开发和经营分析大屏）</li>
 <li style="margin-bottom:3px;line-height:1.65">MDM Office进入常态化运营，月度数据质量报告制度化</li>
 </ul>
-<p><strong>阶段三（2028-2030，数字化成熟期）：</strong></p>
-<p>目标：建立面向AI的数据能力，推进DCMM 2-3级</p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>阶段三（2028-2030，数字化成熟期）：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">目标：建立面向AI的数据能力，推进DCMM 2-3级</p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">AI应用工程师团队从1人扩展至3人，支撑供应链/成本/销售的AI场景落地</li>
 <li style="margin-bottom:3px;line-height:1.65">数据治理中心建立（从MDM Office升级），申请DCMM 2级认证</li>
 <li style="margin-bottom:3px;line-height:1.65">专职数字化场景规划师1-2人，负责新赛道（车灯/海洋/航空照明）的数字化路线图</li>
 <li style="margin-bottom:3px;line-height:1.65">探索培养1-2名具备CIO潜力的中层干部</li>
 </ul>
 <div class="sec-sub">7.3.2 数智化部人员规模演进</div>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>时间节点</th><th>总人数（目标）</th><th>新增重点岗位</th><th>减少/转型</th></tr>
@@ -1605,8 +1637,9 @@ Step 6：运营与优化
 <tr><td>2027年底（上线1年）</td><td>约28-32人</td><td>BI分析师×1、SAP CoE内部升级</td><td>部分外包顾问退场</td></tr>
 <tr><td>2028年底（数字化成熟）</td><td>约30-35人</td><td>AI工程师×2、数据治理中心专员×1-2</td><td>基础设施运维优化</td></tr>
 </tbody></table>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 7.4 十五五战略中的人才目标对齐</div>
-<p>十五五战略规划（2026-2030）中的人才目标与数智化人才建设的对齐点：</p>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 7.4 十五五战略中的人才目标对齐</div>
+<p style="margin-bottom:9px;color:var(--text2)">十五五战略规划（2026-2030）中的人才目标与数智化人才建设的对齐点：</p>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>战略人才目标</th><th>与数智化的对齐点</th><th>具体行动</th></tr>
@@ -1618,50 +1651,52 @@ Step 6：运营与优化
 <tr><td>"谱光计划（中高层领导能力提升）"</td><td>苏大明（CDO候选）纳入领导力培养计划</td><td>推荐参加广晟集团数字化高管研修</td></tr>
 <tr><td>"晨光计划（新入职大学生）"</td><td>每年招募1-2名SAP方向应届硕士</td><td>与广东工业大学/华南理工大学建立校企合作</td></tr>
 </tbody></table>
-<hr style="border:none;border-top:1px solid var(--pale);margin:16px 0">
   </div>
 </div>
 <div class="chapter" id="ocm">
   <div class="ch-header"><div class="ch-num">8</div><h2>变革管理行动计划</h2></div>
   <div class="ch-body">
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 8.1 变革管理的战略重要性</div>
-<p>佛照历史上4次数字化项目失败，无一例外地涉及变革管理缺位。变革管理（Organizational Change Management, OCM）的核心价值是：<strong>提高人员对系统变革的接受度和使用意愿，从而将技术投资转化为实际业务价值</strong>。</p>
-<p>SAP研究数据表明：有效的变革管理可以将用户接受度提升约3倍，并使项目延期风险降低约60%。而对于佛照这样有历史失败"记忆"的组织，变革管理尤为关键——不做变革管理，不仅业务用户不配合，还可能遭遇主动抵制（"这次SAP肯定又是失败收场"）。</p>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 8.2 变革阻力分析（基于探索阶段调研）</div>
-<p>通过探索阶段17场访谈，识别出以下主要变革阻力来源：</p>
-<p><strong>阻力一：历史失败的组织创伤（高风险）</strong></p>
-<p>受访者反映：</p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 8.1 变革管理的战略重要性</div>
+<p style="margin-bottom:9px;color:var(--text2)">佛照历史上4次数字化项目失败，无一例外地涉及变革管理缺位。变革管理（Organizational Change Management, OCM）的核心价值是：<strong>提高人员对系统变革的接受度和使用意愿，从而将技术投资转化为实际业务价值</strong>。</p>
+<p style="margin-bottom:9px;color:var(--text2)">SAP研究数据表明：有效的变革管理可以将用户接受度提升约3倍，并使项目延期风险降低约60%。而对于佛照这样有历史失败"记忆"的组织，变革管理尤为关键——不做变革管理，不仅业务用户不配合，还可能遭遇主动抵制（"这次SAP肯定又是失败收场"）。</p>
+</div><!-- /sec -->
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 8.2 变革阻力分析（基于探索阶段调研）</div>
+<p style="margin-bottom:9px;color:var(--text2)">通过探索阶段17场访谈，识别出以下主要变革阻力来源：</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>阻力一：历史失败的组织创伤（高风险）</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">受访者反映：</p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">4次IT项目失败（APS、MES、财务共享、营销平台），累计损失600+万元</li>
 <li style="margin-bottom:3px;line-height:1.65">"大家对数字化项目已经不抱信心了"（数字化系统讨论会议，2026-06-24）</li>
 <li style="margin-bottom:3px;line-height:1.65">部分员工私下表示"这次SAP也会失败"</li>
 </ul>
-<p><strong>应对策略：</strong> 在项目初期主动承认历史失败，分析原因，并说明本次项目的不同之处（外部专业SI、咨询顾问、业务主导、分步实施等）。历史失败不是禁忌，而是变革管理的重要沟通素材。</p>
-<p><strong>阻力二："数字化是IT的事"的认知定势（高风险）</strong></p>
-<p>受访者反映：</p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>应对策略：</strong> 在项目初期主动承认历史失败，分析原因，并说明本次项目的不同之处（外部专业SI、咨询顾问、业务主导、分步实施等）。历史失败不是禁忌，而是变革管理的重要沟通素材。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>阻力二："数字化是IT的事"的认知定势（高风险）</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">受访者反映：</p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">多数部门认为SAP项目是数智化部推动的IT项目，不是自己的工作</li>
 <li style="margin-bottom:3px;line-height:1.65">当被要求参与数据清洗时，典型回应是"找IT吧"</li>
 <li style="margin-bottom:3px;line-height:1.65">业务部门联络员承担SAP参与工作没有绩效激励</li>
 </ul>
-<p><strong>应对策略：</strong> 李泽华副总经理在高层会议上明确宣布"业务部门是SAP项目的Owner，IT部门是技术支持方"，并将BPO和联络员参与度纳入绩效考核。</p>
-<p><strong>阻力三：生产一线的习惯惯性（中风险）</strong></p>
-<p>受访者反映：</p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>应对策略：</strong> 李泽华副总经理在高层会议上明确宣布"业务部门是SAP项目的Owner，IT部门是技术支持方"，并将BPO和联络员参与度纳入绩效考核。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>阻力三：生产一线的习惯惯性（中风险）</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">受访者反映：</p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">高明公司生产现场的工人和计划员习惯用Excel/白板排产，对系统有抵触</li>
 <li style="margin-bottom:3px;line-height:1.65">"我们之前APS用了几年都是摆设，SAP有什么用？"</li>
 </ul>
-<p><strong>应对策略：</strong> 对生产现场的Super User进行专项培训，着重演示SAP PP/MRP在数据准确情况下的实际效果（可以用面板灯产品族的完整BOM+工艺路线做演示），让用户看到"系统可信"的实际场景。</p>
-<p><strong>阻力四：销售人员的灵活性顾虑（中风险）</strong></p>
-<p>受访者反映：</p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>应对策略：</strong> 对生产现场的Super User进行专项培训，着重演示SAP PP/MRP在数据准确情况下的实际效果（可以用面板灯产品族的完整BOM+工艺路线做演示），让用户看到"系统可信"的实际场景。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>阻力四：销售人员的灵活性顾虑（中风险）</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">受访者反映：</p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">家用/商用事业部销售人员担心SAP的价格规则太死，无法支持临时折扣和大客户特价</li>
 <li style="margin-bottom:3px;line-height:1.65">"现在我可以随时改价，SAP上去了就灵活不了了"</li>
 </ul>
-<p><strong>应对策略：</strong> 在蓝图阶段设计支持灵活价格体系的配置（如按客户/物料组合的特殊价格条件），让销售人员看到S/4HANA比ECC更灵活（而非更死板），消除顾虑。</p>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 8.3 变革管理行动计划（8步行动，对标Kotter模型）</div>
-<p>参照Kotter 8步变革管理模型，制定佛照SAP项目变革管理行动计划：</p>
-<p><strong>Step 1：建立紧迫感（2026年7月，SAP项目启动会）</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>应对策略：</strong> 在蓝图阶段设计支持灵活价格体系的配置（如按客户/物料组合的特殊价格条件），让销售人员看到S/4HANA比ECC更灵活（而非更死板），消除顾虑。</p>
+</div><!-- /sec -->
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 8.3 变革管理行动计划（8步行动，对标Kotter模型）</div>
+<p style="margin-bottom:9px;color:var(--text2)">参照Kotter 8步变革管理模型，制定佛照SAP项目变革管理行动计划：</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>Step 1：建立紧迫感（2026年7月，SAP项目启动会）</strong></p>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>行动</th><th>内容</th><th>负责人</th></tr>
@@ -1671,7 +1706,7 @@ Step 6：运营与优化
 <tr><td>数字展示</td><td>展示竞争对手（欧普照明、阳光照明）的数字化成熟度对比，以及佛照当前数据质量问题的量化数据（DCMM 1级，BOM覆盖率<30%等）</td><td>达维咨询</td></tr>
 <tr><td>失败回顾</td><td>公开回顾4次项目失败原因，明确本次不同之处</td><td>李泽华+苏大明</td></tr>
 </tbody></table>
-<p><strong>Step 2：构建指导联盟（2026年7月-8月）</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>Step 2：构建指导联盟（2026年7月-8月）</strong></p>
 <table>
 <thead>
 <tr><th>行动</th><th>内容</th><th>负责人</th></tr>
@@ -1681,7 +1716,7 @@ Step 6：运营与优化
 <tr><td>建立联络员体系</td><td>21名数字化联络员的正式命名和授权（发布通知+颁发证书）</td><td>苏大明+各部门负责人</td></tr>
 <tr><td>高管走访</td><td>李泽华副总亲自走访各事业部，与部门负责人一对一沟通项目重要性</td><td>李泽华</td></tr>
 </tbody></table>
-<p><strong>Step 3：形成愿景与战略（2026年8月，蓝图设计阶段）</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>Step 3：形成愿景与战略（2026年8月，蓝图设计阶段）</strong></p>
 <table>
 <thead>
 <tr><th>行动</th><th>内容</th><th>负责人</th></tr>
@@ -1690,7 +1725,7 @@ Step 6：运营与优化
 <tr><td>发布《数字化愿景宣言》</td><td>一张简洁的"S/4HANA上线后的佛照将是什么样子"的愿景图（包含各部门的具体改变）</td><td>达维咨询+数智化部</td></tr>
 <tr><td>制作各部门专项"收益地图"</td><td>为每个主要部门制作一页"你的工作将改变什么"的可视化说明</td><td>达维咨询</td></tr>
 </tbody></table>
-<p><strong>Step 4：传播愿景（2026年8月-12月，贯穿整个实施阶段）</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>Step 4：传播愿景（2026年8月-12月，贯穿整个实施阶段）</strong></p>
 <table>
 <thead>
 <tr><th>行动</th><th>内容</th><th>频率</th><th>负责人</th></tr>
@@ -1700,7 +1735,7 @@ Step 6：运营与优化
 <tr><td>高管视频</td><td>每季度由李泽华录制3分钟视频，传达支持信号</td><td>季度</td><td>李泽华</td></tr>
 <tr><td>数字化看板</td><td>在公司官网/内部平台显示数据治理进度（物料清洗进度条、BOM确认数量等）</td><td>实时</td><td>数智化部</td></tr>
 </tbody></table>
-<p><strong>Step 5：授权员工行动（2026年9月-12月）</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>Step 5：授权员工行动（2026年9月-12月）</strong></p>
 <table>
 <thead>
 <tr><th>行动</th><th>内容</th><th>负责人</th></tr>
@@ -1710,7 +1745,7 @@ Step 6：运营与优化
 <tr><td>赋能培训</td><td>Super User培训计划（见7.2.2节），确保关键用户有能力独立操作</td><td>数智化部+艾维登</td></tr>
 <tr><td>流程重构参与</td><td>所有TO-BE流程确认会议，相关业务人员必须亲自参与，不可代理</td><td>吴梓填+企管部</td></tr>
 </tbody></table>
-<p><strong>Step 6：创造短期胜利（2026年11月-2027年1月）</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>Step 6：创造短期胜利（2026年11月-2027年1月）</strong></p>
 <table>
 <thead>
 <tr><th>行动</th><th>内容</th><th>负责人</th></tr>
@@ -1720,7 +1755,7 @@ Step 6：运营与优化
 <tr><td>快速胜利清单</td><td>识别3-5个在蓝图阶段可以快速解决的"旧痛点"（如ZD06折扣不再丢失），作为变革成效的证明</td><td>达维咨询</td></tr>
 <tr><td>联络员表彰</td><td>在月度项目会上公开表彰参与度最高的联络员</td><td>李泽华</td></tr>
 </tbody></table>
-<p><strong>Step 7：巩固成果（2027年Q1-Q2，上线后稳定期）</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>Step 7：巩固成果（2027年Q1-Q2，上线后稳定期）</strong></p>
 <table>
 <thead>
 <tr><th>行动</th><th>内容</th><th>负责人</th></tr>
@@ -1730,7 +1765,7 @@ Step 6：运营与优化
 <tr><td>30天回顾</td><td>上线后30天执行用户满意度调查，公布改善数据</td><td>变革管理专员</td></tr>
 <tr><td>固化新行为</td><td>将"按SAP系统操作"纳入各部门的日常工作规范，不再允许绕开系统的手工操作（关键流程）</td><td>企管部+各BPO</td></tr>
 </tbody></table>
-<p><strong>Step 8：将变革融入文化（2027年Q3及以后）</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>Step 8：将变革融入文化（2027年Q3及以后）</strong></p>
 <table>
 <thead>
 <tr><th>行动</th><th>内容</th><th>负责人</th></tr>
@@ -1740,13 +1775,12 @@ Step 6：运营与优化
 <tr><td>新人入职培训</td><td>将SAP基础操作纳入新员工入职培训，让"SAP是日常工作工具"成为入职即建立的认知</td><td>人力资源部+数智化部</td></tr>
 <tr><td>持续改进机制</td><td>建立"数字化改进建议箱"（在线），员工可随时提出系统优化建议，最优建议每季度实施一条</td><td>苏大明</td></tr>
 </tbody></table>
-<hr style="border:none;border-top:1px solid var(--pale);margin:16px 0">
   </div>
 </div>
 <div class="chapter" id="roadmap">
   <div class="ch-header"><div class="ch-num">9</div><h2>组织转型路线图与里程碑</h2></div>
   <div class="ch-body">
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 9.1 组织转型三阶段路线图</div>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 9.1 组织转型三阶段路线图</div>
 <pre>
 组织转型路线图（2026年6月 — 2030年）
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1786,7 +1820,9 @@ Step 6：运营与优化
   M-O20：2030年   —  DCMM 3级认证目标，数字化组织能力达到行业中上水平
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 </pre>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 9.2 关键组织转型决策时间表</div>
+</div><!-- /sec -->
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 9.2 关键组织转型决策时间表</div>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>决策事项</th><th>决策截止时间</th><th>决策人</th><th>选项</th></tr>
@@ -1799,54 +1835,55 @@ Step 6：运营与优化
 <tr><td>BPO制度是否纳入正式岗位说明书</td><td>2026年9月</td><td>人力资源部</td><td>建议：纳入，并在年度绩效中体现</td></tr>
 <tr><td>南宁燎旺是否纳入本期SAP数字化组织范围</td><td>2026年8月</td><td>张学权</td><td>建议：燎旺IT保持独立，仅参与GR模块联络</td></tr>
 </tbody></table>
-<hr style="border:none;border-top:1px solid var(--pale);margin:16px 0">
   </div>
 </div>
 <div class="chapter" id="risk">
   <div class="ch-header"><div class="ch-num">10</div><h2>实施保障与风险管理</h2></div>
   <div class="ch-body">
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 10.1 组织转型的主要风险</div>
-<p><strong>风险一：总部精简目标与数字化扩编的矛盾</strong></p>
-<p>精益改善项目清单第30项明确目标：总部人员精简20-30%。而本报告建议数智化部新增约8-10人，存在方向上的矛盾。</p>
-<p><strong>应对措施：</strong></p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 10.1 组织转型的主要风险</div>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>风险一：总部精简目标与数字化扩编的矛盾</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">精益改善项目清单第30项明确目标：总部人员精简20-30%。而本报告建议数智化部新增约8-10人，存在方向上的矛盾。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>应对措施：</strong></p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">明确数字化人才是"战略性岗位"，不在精简范围内（参考工信部指南对专业团队建设的要求）</li>
 <li style="margin-bottom:3px;line-height:1.65">同时，数智化部通过自动化（RPA/AI辅助）承接部分工作，使业务部门释放人力，实现"IT微增，业务大减"的净效果</li>
 <li style="margin-bottom:3px;line-height:1.65">建议人力资源部与数智化部联合制定"数字化转型期人力豁免方案"，提交李泽华批准</li>
 </ul>
-<p><strong>风险二：BPO和联络员无时间参与SAP项目（挤占业务工作）</strong></p>
-<p>业务部门的BPO和联络员有自己的业务工作量，要求他们每周投入5-10小时参与SAP项目，存在阻力。</p>
-<p><strong>应对措施：</strong></p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>风险二：BPO和联络员无时间参与SAP项目（挤占业务工作）</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">业务部门的BPO和联络员有自己的业务工作量，要求他们每周投入5-10小时参与SAP项目，存在阻力。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>应对措施：</strong></p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">在精益改善项目清单中明确：SAP项目参与是各部门的2026年度重点工作之一，不是额外负担</li>
 <li style="margin-bottom:3px;line-height:1.65">BPO和联络员在SAP项目期间（2026年7月-2027年1月）可向部门负责人申请减少20%的日常业务工作量</li>
 <li style="margin-bottom:3px;line-height:1.65">数字化保障委员会每月监控各联络员参与度，未达标时委员会主席直接介入</li>
 </ul>
-<p><strong>风险三：MDM主任等关键岗位招聘难度</strong></p>
-<p>广东制造业中具备SAP MDG+数据治理+跨部门协调能力的复合型人才稀缺，可能面临招聘延迟。</p>
-<p><strong>应对措施：</strong></p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>风险三：MDM主任等关键岗位招聘难度</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">广东制造业中具备SAP MDG+数据治理+跨部门协调能力的复合型人才稀缺，可能面临招聘延迟。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>应对措施：</strong></p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">提前启动招聘（7月上旬发布职位），不要等到组织架构正式批准后再招</li>
 <li style="margin-bottom:3px;line-height:1.65">考虑从艾维登或其他SAP实施服务商挖掘候选人（SAP实施经验+甲方意愿）</li>
 <li style="margin-bottom:3px;line-height:1.65">如7月底无合适候选人，可临时由艾维登MDG顾问提供外包MDM服务（以2个月为限）</li>
 </ul>
-<p><strong>风险四：企管部流程人员能力不匹配</strong></p>
-<p>即使为企管部新增2名流程分析师，如果他们没有SAP蓝图经验，在实践中仍难以承担TO-BE流程确认工作。</p>
-<p><strong>应对措施：</strong></p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>风险四：企管部流程人员能力不匹配</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">即使为企管部新增2名流程分析师，如果他们没有SAP蓝图经验，在实践中仍难以承担TO-BE流程确认工作。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>应对措施：</strong></p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">新增流程分析师的招聘要求中，必须包含"参与过SAP蓝图设计"的经验</li>
 <li style="margin-bottom:3px;line-height:1.65">艾维登顾问团队在蓝图阶段为企管部流程人员提供专项指导（"师傅带徒弟"模式）</li>
 <li style="margin-bottom:3px;line-height:1.65">在蓝图阶段初期（2026年9月），安排3天集中培训：TOGAF流程框架、SAP流程设计方法、TO-BE流程文档规范</li>
 </ul>
-<p><strong>风险五：变革管理资源不足</strong></p>
-<p>如果无法招到合适的变革管理专员，变革管理工作可能由吴梓填（甲方PM）兼任，导致项目管理和变革管理双线受压。</p>
-<p><strong>应对措施：</strong></p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>风险五：变革管理资源不足</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">如果无法招到合适的变革管理专员，变革管理工作可能由吴梓填（甲方PM）兼任，导致项目管理和变革管理双线受压。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>应对措施：</strong></p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">艾维登合同中是否包含变革管理服务，应在合同细化阶段（2026年7月）确认</li>
 <li style="margin-bottom:3px;line-height:1.65">如艾维登提供变革管理支持，则甲方变革管理专员可降级为协调员（减少1个编制需求）</li>
 <li style="margin-bottom:3px;line-height:1.65">最差情况：由HR部门（党群与人力资源部）的培训岗兼任，重点聚焦培训执行，轻量化运作</li>
 </ul>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 10.2 组织转型的关键成功因素</div>
+</div><!-- /sec -->
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 10.2 组织转型的关键成功因素</div>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>成功因素</th><th>量化标准</th><th>监控机制</th></tr>
@@ -1858,14 +1895,14 @@ Step 6：运营与优化
 <tr><td>联络员培训完成率</td><td>SAP培训出席率100%，考试通过率≥85%</td><td>数智化部培训记录</td></tr>
 <tr><td>需求冻结率</td><td>蓝图阶段冻结后变更率≤20%</td><td>吴梓填（变更管理日志）</td></tr>
 </tbody></table>
-<hr style="border:none;border-top:1px solid var(--pale);margin:16px 0">
   </div>
 </div>
 <div class="chapter" id="appendix">
   <div class="ch-header"><div class="ch-num">11</div><h2>附录</h2></div>
   <div class="ch-body">
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 附录A：数字化组织关键岗位说明书（简版）</div>
-<p><strong>岗位：MDM主任（Master Data Management Director）</strong></p>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 附录A：数字化组织关键岗位说明书（简版）</div>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>岗位：MDM主任（Master Data Management Director）</strong></p>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>项目</th><th>内容</th></tr>
@@ -1878,7 +1915,7 @@ Step 6：运营与优化
 <tr><td>薪酬范围</td><td>35-50万/年（基于佛山/广州制造业市场）</td></tr>
 <tr><td>招募优先级</td><td>P1，目标2026年9月前到岗</td></tr>
 </tbody></table>
-<p><strong>岗位：数字化联络员（Digital Champion）——各部门各1-2名</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>岗位：数字化联络员（Digital Champion）——各部门各1-2名</strong></p>
 <table>
 <thead>
 <tr><th>项目</th><th>内容</th></tr>
@@ -1890,7 +1927,8 @@ Step 6：运营与优化
 <tr><td>任职要求</td><td>了解本部门核心业务流程；具备一定的计算机操作能力；SAP基础经验优先（无经验者将获得专项培训）</td></tr>
 <tr><td>激励方式</td><td>参与度纳入年度绩效（建议5-10%权重）；优秀联络员获SAP培训证书资助（最高5,000元）</td></tr>
 </tbody></table>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 附录B：变革管理沟通计划模板</div>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 附录B：变革管理沟通计划模板</div>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>沟通内容</th><th>受众</th><th>频率</th><th>渠道</th><th>负责人</th></tr>
@@ -1904,7 +1942,8 @@ Step 6：运营与优化
 <tr><td>培训通知</td><td>Super User</td><td>按培训计划</td><td>OA培训系统+邮件</td><td>变革管理专员</td></tr>
 <tr><td>问题与风险</td><td>指导委员会</td><td>月度（随委员会会议）</td><td>月报</td><td>吴梓填</td></tr>
 </tbody></table>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 附录C：关键人物速查表</div>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 附录C：关键人物速查表</div>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>姓名</th><th>角色</th><th>数字化项目职责</th><th>联系方式</th></tr>
@@ -1920,7 +1959,8 @@ Step 6：运营与优化
 <tr><td>贾奋明</td><td>艾维登SAP架构师</td><td>S/4HANA架构设计，技术方案</td><td>—</td></tr>
 <tr><td>陈宇峰</td><td>SAP原厂CSM</td><td>SAP License和支持，关键升级决策</td><td>—</td></tr>
 </tbody></table>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 附录D：文件版本控制</div>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 附录D：文件版本控制</div>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>版本</th><th>日期</th><th>修改内容</th><th>修改人</th></tr>
@@ -1929,19 +1969,18 @@ Step 6：运营与优化
 <tr><td>V0.1</td><td>2026-06-29</td><td>初稿（基于D1-D5探索阶段调研数据）</td><td>达维咨询</td></tr>
 <tr><td>V1.0</td><td>2026-06-29</td><td>正式发布版</td><td>达维咨询</td></tr>
 </tbody></table>
-<hr style="border:none;border-top:1px solid var(--pale);margin:16px 0">
-<p><em>本文件由达维咨询编制，作为佛山照明SAP S/4HANA Greenfield升级项目探索阶段可选交付物。</em></p>
-<p><em>版权归佛山电器照明股份有限公司所有，未经授权不得对外传播。</em></p>
-<hr style="border:none;border-top:1px solid var(--pale);margin:16px 0">
+<p style="margin-bottom:9px;color:var(--text2)"><em>本文件由达维咨询编制，作为佛山照明SAP S/4HANA Greenfield升级项目探索阶段可选交付物。</em></p>
+<p style="margin-bottom:9px;color:var(--text2)"><em>版权归佛山电器照明股份有限公司所有，未经授权不得对外传播。</em></p>
   </div>
 </div>
 <div class="chapter" id="benchmark">
   <div class="ch-header"><div class="ch-num">12</div><h2>行业对标与最佳实践借鉴</h2></div>
   <div class="ch-body">
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 12.1 同类制造企业数字化组织对标</div>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 12.1 同类制造企业数字化组织对标</div>
 <div class="sec-sub">12.1.1 欧普照明数字化组织（对标企业一）</div>
-<p>欧普照明是佛照最直接的竞争对手，同为照明行业A股上市企业，2024年SAP S/4HANA已完成上线。其数字化组织建设对佛照具有极强参考价值：</p>
-<p><strong>欧普照明数字化组织特点：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">欧普照明是佛照最直接的竞争对手，同为照明行业A股上市企业，2024年SAP S/4HANA已完成上线。其数字化组织建设对佛照具有极强参考价值：</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>欧普照明数字化组织特点：</strong></p>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>维度</th><th>欧普照明（对标）</th><th>佛山照明（现状）</th><th>差距</th></tr>
@@ -1954,17 +1993,17 @@ Step 6：运营与优化
 <tr><td>Super User体系</td><td>按产品线/部门设置Super User约60人</td><td>无正式Super User体系</td><td>完全缺失</td></tr>
 <tr><td>变革管理</td><td>专职OCM团队（2-3人），SAP项目期间配合艾森哲顾问</td><td>无变革管理</td><td>完全缺失</td></tr>
 </tbody></table>
-<p><strong>欧普照明SAP S/4HANA成功关键因素（达维咨询来源）：</strong></p>
-<ol style="margin:6px 0 8px 20px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)"><strong>欧普照明SAP S/4HANA成功关键因素（达维咨询来源）：</strong></p>
+<ol style="margin:6px 0 10px 20px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65">CEO直接赞助项目，在全公司会议上多次强调数字化优先级</li>
 <li style="margin-bottom:3px;line-height:1.65">各大区/渠道经理被强制要求担任Super User，参与UAT</li>
 <li style="margin-bottom:3px;line-height:1.65">主数据清洗在项目开始时就成立了专项MDM团队，提前8个月启动</li>
 <li style="margin-bottom:3px;line-height:1.65">业务侧为系统变更愿意承担暂时的效率损失（1-3个月的"阵痛期"）</li>
-</ul>
-<p><strong>对佛照的启示：</strong> 欧普照明SAP成功的核心是高层强力推动+业务部门承担责任+数据提前治理，这与本报告的核心建议高度一致。佛照需要从欧普的成功路径中汲取经验，而不仅仅学习其最终的组织形态。</p>
+</ol>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>对佛照的启示：</strong> 欧普照明SAP成功的核心是高层强力推动+业务部门承担责任+数据提前治理，这与本报告的核心建议高度一致。佛照需要从欧普的成功路径中汲取经验，而不仅仅学习其最终的组织形态。</p>
 <div class="sec-sub">12.1.2 阳光照明数字化组织（对标企业二）</div>
-<p>阳光照明（浙江）是另一家照明行业上市企业，年营收约26亿元，已于2023年完成SAP S/4HANA实施。</p>
-<p><strong>阳光照明的差异化实践：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">阳光照明（浙江）是另一家照明行业上市企业，年营收约26亿元，已于2023年完成SAP S/4HANA实施。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>阳光照明的差异化实践：</strong></p>
 <table>
 <thead>
 <tr><th>实践</th><th>内容</th><th>佛照适用性</th></tr>
@@ -1975,37 +2014,38 @@ Step 6：运营与优化
 <tr><td>月度数字化委员会</td><td>由CEO主持，每月固定召开，所有事业部负责人参加</td><td>高度适用，对应本报告数字化保障委员会</td></tr>
 </tbody></table>
 <div class="sec-sub">12.1.3 华为/美的数字化组织（行业标杆参考）</div>
-<p>对于规模和复杂度远高于照明行业的标杆企业，本报告不主张直接照搬，而是提取3个可以在佛照规模下适用的实践：</p>
-<p><strong>可借鉴实践一：流程Owner制度（美的集团）</strong></p>
-<p>美的集团将每个L3/L4级别业务流程均指定一名流程Owner（通常是业务部门的中层管理者），每年评审一次流程适用性，流程变更必须由Owner发起审批。</p>
-<p>佛照适用方案：在企管部新增流程分析师后，对SAP覆盖的核心业务流程（约20-30条L3级）逐一指定Owner，并建立简版流程管理手册。</p>
-<p><strong>可借鉴实践二：关键用户双轨制（华为）</strong></p>
-<p>华为在ERP实施时，每个模块有两类关键用户：</p>
-<ul style="margin:6px 0 8px 18px;font-size:13px;color:var(--text2)">
+<p style="margin-bottom:9px;color:var(--text2)">对于规模和复杂度远高于照明行业的标杆企业，本报告不主张直接照搬，而是提取3个可以在佛照规模下适用的实践：</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>可借鉴实践一：流程Owner制度（美的集团）</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">美的集团将每个L3/L4级别业务流程均指定一名流程Owner（通常是业务部门的中层管理者），每年评审一次流程适用性，流程变更必须由Owner发起审批。</p>
+<p style="margin-bottom:9px;color:var(--text2)">佛照适用方案：在企管部新增流程分析师后，对SAP覆盖的核心业务流程（约20-30条L3级）逐一指定Owner，并建立简版流程管理手册。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>可借鉴实践二：关键用户双轨制（华为）</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">华为在ERP实施时，每个模块有两类关键用户：</p>
+<ul style="margin:6px 0 10px 18px;font-size:13px;color:var(--text2)">
 <li style="margin-bottom:3px;line-height:1.65"><strong>业务Super User</strong>：理解业务，负责需求确认和用户培训</li>
 <li style="margin-bottom:3px;line-height:1.65"><strong>技术Super User</strong>：理解系统，负责配置验证和问题排查</li>
 </ul>
-<p>佛照适用方案：在Super User培训中，对财务/SD等关键模块，识别1名"业务型Super User"（业务背景）和1名"技术型Super User"（系统操作背景），形成双保险。</p>
-<p><strong>可借鉴实践三：数字化绩效激励（美的集团）</strong></p>
-<p>美的集团将"数字化能力指标"纳入部门KPI，包括系统操作合规率、数据质量得分、数字化培训完成率，权重约10-15%。</p>
-<p>佛照适用方案：2026年年度绩效考核中（下半年），先在3个试点部门（财务/供应链/高明公司生产）引入数字化KPI，权重5%，2027年全面推广。</p>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 12.2 工信部推荐典型案例的组织经验</div>
-<p>工信部《制造业企业数字化转型实施指南》指出，在龙头企业和大型企业的数字化转型中，以下组织机制被反复验证有效：</p>
-<p><strong>机制一：CIO直接向CEO/总经理汇报</strong></p>
-<p>指南原文：</p>
+<p style="margin-bottom:9px;color:var(--text2)">佛照适用方案：在Super User培训中，对财务/SD等关键模块，识别1名"业务型Super User"（业务背景）和1名"技术型Super User"（系统操作背景），形成双保险。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>可借鉴实践三：数字化绩效激励（美的集团）</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">美的集团将"数字化能力指标"纳入部门KPI，包括系统操作合规率、数据质量得分、数字化培训完成率，权重约10-15%。</p>
+<p style="margin-bottom:9px;color:var(--text2)">佛照适用方案：2026年年度绩效考核中（下半年），先在3个试点部门（财务/供应链/高明公司生产）引入数字化KPI，权重5%，2027年全面推广。</p>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 12.2 工信部推荐典型案例的组织经验</div>
+<p style="margin-bottom:9px;color:var(--text2)">工信部《制造业企业数字化转型实施指南》指出，在龙头企业和大型企业的数字化转型中，以下组织机制被反复验证有效：</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>机制一：CIO直接向CEO/总经理汇报</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">指南原文：</p>
 <div class="box guide"><p>"建设工业互联网平台，提升数据采集、知识沉淀、业务打通、生态搭建等能力，实现数据驱动的智能生产决策和运营深度优化。"</p></div>
-<p>实现这一目标需要CIO能够统筹业务和IT资源，这要求CIO汇报层级足够高。建议佛照明确李泽华副总经理的CIO职能后，其在SAP项目上的决策权授权书应明确包括："可对任何部门提出数字化配合要求，相关部门不配合的，由总经理介入协调。"</p>
-<p><strong>机制二：数字化项目专项经费独立核算</strong></p>
-<p>部分成功案例中，企业将数字化转型专项经费从年度IT预算中独立出来，设立"数字化战略基金"，由数字化保障委员会管理，不受年度部门预算限制。</p>
-<p>建议佛照在2026年下半年预算中，单独设立"S/4HANA项目保障资金"科目（建议200-300万元，含MDM团队建设+Super User培训+变革管理），避免被混入普通IT运维预算而被削减。</p>
-<hr style="border:none;border-top:1px solid var(--pale);margin:16px 0">
+<p style="margin-bottom:9px;color:var(--text2)">实现这一目标需要CIO能够统筹业务和IT资源，这要求CIO汇报层级足够高。建议佛照明确李泽华副总经理的CIO职能后，其在SAP项目上的决策权授权书应明确包括："可对任何部门提出数字化配合要求，相关部门不配合的，由总经理介入协调。"</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>机制二：数字化项目专项经费独立核算</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)">部分成功案例中，企业将数字化转型专项经费从年度IT预算中独立出来，设立"数字化战略基金"，由数字化保障委员会管理，不受年度部门预算限制。</p>
+<p style="margin-bottom:9px;color:var(--text2)">建议佛照在2026年下半年预算中，单独设立"S/4HANA项目保障资金"科目（建议200-300万元，含MDM团队建设+Super User培训+变革管理），避免被混入普通IT运维预算而被削减。</p>
+</div><!-- /sec -->
   </div>
 </div>
 <div class="chapter" id="ch13">
   <div class="ch-header"><div class="ch-num">13</div><h2>数字化组织与SAP Greenfield实施的协同时序</h2></div>
   <div class="ch-body">
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 13.1 Greenfield实施阶段与组织建设的时序对齐</div>
-<p>SAP Activate方法论五阶段与组织建设工作的同步计划：</p>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 13.1 Greenfield实施阶段与组织建设的时序对齐</div>
+<p style="margin-bottom:9px;color:var(--text2)">SAP Activate方法论五阶段与组织建设工作的同步计划：</p>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>SAP实施阶段</th><th>时间窗口</th><th>组织建设关键任务</th></tr>
@@ -2017,8 +2057,9 @@ Step 6：运营与优化
 <tr><td>部署（Deploy）</td><td>2026年11-12月</td><td>Super User深度培训；Mock 1/Mock 2迁移；UAT业务签字；变革沟通密集期</td></tr>
 <tr><td>运营（Run）</td><td>2027年1月+</td><td>Go-Live；CoE稳定运营；MDM月报制度；30天/90天变革回顾</td></tr>
 </tbody></table>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 13.2 组织能力缺失对项目关键路径的影响分析</div>
-<p>当组织能力缺失时，SAP项目关键路径上的以下环节将面临延迟风险：</p>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 13.2 组织能力缺失对项目关键路径的影响分析</div>
+<p style="margin-bottom:9px;color:var(--text2)">当组织能力缺失时，SAP项目关键路径上的以下环节将面临延迟风险：</p>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>关键路径环节</th><th>正常完成所需组织能力</th><th>如果能力缺失的后果</th><th>延迟估计</th></tr>
@@ -2030,10 +2071,11 @@ Step 6：运营与优化
 <tr><td>Mock 1/Mock 2迁移</td><td>业务方迁移验证签字</td><td>无人愿意签字→Go/No-Go决策无法形成</td><td>1-2周</td></tr>
 <tr><td>Go-Live授权</td><td>全体BPO+甲方PM联合确认</td><td>某BPO缺席→上线授权受阻</td><td>可能导致延迟Go-Live日期</td></tr>
 </tbody></table>
-<p><strong>综合风险评估：</strong> 如果本报告提出的组织建设措施（MDM Office、联络员体系、Super User培训）未能在2026年8月底前到位，SAP项目将面临累积3-8周的进度延迟风险，从而威胁2027年1月1日的上线目标。</p>
-<div class="sec"><div class="sec-title"><i class="fas fa-angle-right"></i> 13.3 "组织准备度"评估模型</div>
-<p>建议在蓝图阶段开始前（2026年8月初），执行一次"组织准备度"（Organizational Readiness）评估，作为SAP项目启动的前置条件之一。</p>
-<p><strong>组织准备度评估矩阵（8项核心检查）：</strong></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>综合风险评估：</strong> 如果本报告提出的组织建设措施（MDM Office、联络员体系、Super User培训）未能在2026年8月底前到位，SAP项目将面临累积3-8周的进度延迟风险，从而威胁2027年1月1日的上线目标。</p>
+<div class="sec"><div class="sec-title"><i class="fas fa-circle-right"></i> 13.3 "组织准备度"评估模型</div>
+<p style="margin-bottom:9px;color:var(--text2)">建议在蓝图阶段开始前（2026年8月初），执行一次"组织准备度"（Organizational Readiness）评估，作为SAP项目启动的前置条件之一。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>组织准备度评估矩阵（8项核心检查）：</strong></p>
+</div><!-- /sec -->
 <table>
 <thead>
 <tr><th>检查项</th><th>评估标准</th><th>通过标准</th><th>2026年8月前目标状态</th></tr>
@@ -2048,17 +2090,19 @@ Step 6：运营与优化
 <tr><td>数字化KPI</td><td>各部门是否已有与SAP相关的绩效指标</td><td>至少3个部门的KPI中包含数字化指标</td><td>目标：√</td></tr>
 <tr><td>项目知识普及</td><td>全体员工是否知道SAP项目正在推进</td><td>全公司已收到至少1次正式沟通</td><td>目标：√</td></tr>
 </tbody></table>
-<p><strong>评估结论：</strong> 未通过的检查项（红色）应在蓝图阶段正式开始前修复。如果3项以上未通过，建议将蓝图阶段开始时间推迟2-4周，等待组织准备度达标后再启动。</p>
-<hr style="border:none;border-top:1px solid var(--pale);margin:16px 0">
-<p><em>[本报告正文至此结束，全文共13章，约3万字]</em></p>
-<p><em>版本：V1.0 | 编制日期：2026年6月29日 | 达维咨询</em></p>
-<p><em>版权归佛山电器照明股份有限公司所有</em></p>
+<p style="margin-bottom:9px;color:var(--text2)"><strong>评估结论：</strong> 未通过的检查项（红色）应在蓝图阶段正式开始前修复。如果3项以上未通过，建议将蓝图阶段开始时间推迟2-4周，等待组织准备度达标后再启动。</p>
+<p style="margin-bottom:9px;color:var(--text2)"><em>[本报告正文至此结束，全文共13章，约3万字]</em></p>
+<p style="margin-bottom:9px;color:var(--text2)"><em>版本：V1.0 | 编制日期：2026年6月29日 | 达维咨询</em></p>
+<p style="margin-bottom:9px;color:var(--text2)"><em>版权归佛山电器照明股份有限公司所有</em></p>
   </div>
-</div></div><!-- .content -->
+</div>
+</div><!-- .content -->
 </main>
+
 <footer style="background:#0B2D47;color:rgba(255,255,255,.35);text-align:center;padding:16px;font-size:11px;letter-spacing:.2px;margin-left:var(--nav-w)">
   佛山照明 SAP S/4HANA 升级项目工作台 · 机密文件 · 仅供项目组内部使用 · 2026
 </footer>
+
 <script>
 window.addEventListener('scroll',function(){
   var d=document.documentElement,b=document.body;
@@ -2069,7 +2113,8 @@ var links=document.querySelectorAll('#sidebar .sb-menu a[href^="#"]');
 window.addEventListener('scroll',function(){
   var pos=window.scrollY+80;
   links.forEach(function(a){
-    var id=a.getAttribute('href').slice(1),el=document.getElementById(id);
+    var id=a.getAttribute('href').slice(1);
+    var el=document.getElementById(id);
     if(el&&el.offsetTop<=pos&&el.offsetTop+el.offsetHeight>pos){
       links.forEach(function(x){x.classList.remove('active');});
       a.classList.add('active');
@@ -2078,16 +2123,18 @@ window.addEventListener('scroll',function(){
 });
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');}
 </script>
+
 <script id="statusSwitcherJS">
 (function(){
   var WORKER='https://fsl-status.283656314.workers.dev';
   var SF='https://api.github.com/repos/EstaTea/fsl-report/contents/status/doc-status.json';
   var DOCKEY=location.pathname.replace(/\.html$/,'').replace(/\/$/,'').replace(/^\/fsl-report/,'')||'/';
   function applyUI(s){
-    var L={todo:'待开始',wip:'进行中',done:'已完成'};
+    var L={todo:'\u5f85\u5f00\u59cb',wip:'\u8fdb\u884c\u4e2d',done:'\u5df2\u5b8c\u6210'};
+    var D={todo:'todo',wip:'wip',done:'done'};
     ['todo','wip','done'].forEach(function(k){var b=document.getElementById('ss-'+k);if(b)b.classList.toggle('active',k===s);});
     var ind=document.getElementById('ss-indicator');if(ind)ind.textContent=L[s]||s;
-    var dot=document.getElementById('ss-dot');if(dot)dot.className='ss-indicator-dot '+(s||'');
+    var dot=document.getElementById('ss-dot');if(dot)dot.className='ss-indicator-dot '+(D[s]||'');
   }
   function readStatus(cb){
     fetch(SF+'?ref=main&_='+Date.now())
@@ -2098,12 +2145,12 @@ function toggleSidebar(){document.getElementById('sidebar').classList.toggle('op
   window.setDocStatus=function(s){
     applyUI(s);
     var sw=document.getElementById('statusSwitcher');
-    if(sw){sw.style.outline='2px solid #F59E0B';sw.title='保存中...';}
+    if(sw){sw.style.outline='2px solid #F59E0B';sw.title='\u4fdd\u5b58\u4e2d...';}
     fetch(WORKER,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({doc_key:DOCKEY,status:s})})
       .then(function(r){return r.json().then(function(j){return {ok:r.ok,body:j};});})
       .then(function(res){
-        if(res.ok){if(sw){sw.style.outline='2px solid #22C55E';sw.title='已保存';setTimeout(function(){sw.style.outline='';sw.title='';},3000);}}
-        else{alert('保存失败: '+(res.body&&res.body.error||'unknown'));if(sw)sw.style.outline='2px solid #EF4444';}
+        if(res.ok){if(sw){sw.style.outline='2px solid #22C55E';sw.title='\u5df2\u4fdd\u5b58';setTimeout(function(){sw.style.outline='';sw.title='';},3000);}}
+        else{alert('\u4fdd\u5b58\u5931\u8d25: '+(res.body.error||'unknown'));if(sw)sw.style.outline='2px solid #EF4444';}
       }).catch(function(e){alert(e.message);if(sw)sw.style.outline='2px solid #EF4444';});
   };
   document.addEventListener('DOMContentLoaded',function(){readStatus(function(j){applyUI(j[DOCKEY]||'wip');});});
