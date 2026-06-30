@@ -3181,12 +3181,20 @@ function switchArchTab(tab){
   var panel = document.getElementById('archPanel'+tab.charAt(0).toUpperCase()+tab.slice(1));
   if(btn) btn.classList.add('active');
   if(panel) panel.classList.add('active');
-  // 懒加载 iframe：首次切换到该 Tab 时才真正加载
+  // 懒加载 iframe：首次切换到该 Tab 时才真正加载；已加载则通知内部重排
   if(tab === 'function' || tab === 'integration'){
     var iframeId = tab === 'function' ? 'iframeFunction' : 'iframeIntegration';
     var iframe = document.getElementById(iframeId);
-    if(iframe && iframe.src === 'about:blank'){
-      iframe.src = iframe.getAttribute('data-src');
+    if(iframe){
+      if(iframe.src === 'about:blank'){
+        // 首次加载
+        iframe.src = iframe.getAttribute('data-src');
+      } else {
+        // 已加载：等 iframe 可见后通知内部触发 fit+layout
+        setTimeout(function(){
+          try { iframe.contentWindow.postMessage('ea:fit', '*'); } catch(e){}
+        }, 120);
+      }
     }
     return;
   }
