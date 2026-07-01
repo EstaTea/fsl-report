@@ -553,6 +553,19 @@ select.dp-input{appearance:none;-webkit-appearance:none;
   font-size:12.5px;font-family:inherit;color:var(--text);}
 .cg-form-row input:focus,.cg-form-row select:focus,.cg-form-row textarea:focus{
   outline:none;border-color:var(--b500);}
+/* ── EA Architect Sidebar ── */
+.ea-stab{flex:1;padding:7px 6px;font-size:12px;font-weight:600;color:var(--muted);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;}
+.ea-stab.active{color:var(--b500);border-bottom-color:var(--b500);}
+.ea-stab:hover{color:var(--b500);}
+.ea-node-row{display:flex;align-items:center;gap:6px;padding:6px 10px;border-bottom:1px solid var(--pale);cursor:pointer;transition:background .12s;}
+.ea-node-row:hover{background:var(--b050);}
+.ea-node-type-badge{font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;flex-shrink:0;letter-spacing:.3px;}
+.ea-node-type-cap{background:#EBF4FF;color:var(--b500);}
+.ea-node-type-app{background:#D1FAE5;color:#065F46;}
+.ea-node-level{font-size:9px;color:var(--muted);flex-shrink:0;}
+.ea-edge-row{display:flex;align-items:flex-start;gap:6px;padding:6px 10px;border-bottom:1px solid var(--pale);cursor:pointer;transition:background .12s;}
+.ea-edge-row:hover{background:var(--b050);}
+.ea-maturity-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:4px;}
 
 </style>
 </head>
@@ -1055,13 +1068,160 @@ select.dp-input{appearance:none;-webkit-appearance:none;
       </div>
     </div>
     <!-- 功能架构 -->
-    <div id="archPanelFunction" class="arch-panel">
-      <iframe id="iframeFunction"
-        src="about:blank"
-        data-src="https://fsl-ea.netlify.app/"
-        style="width:100%;height:calc(100vh - 160px);border:none;display:block;flex:1;"
-        allowfullscreen>
-      </iframe>
+    <div id="archPanelFunction" class="arch-panel" style="flex-direction:row;">
+      <!-- iframe viewer -->
+      <div style="flex:1;min-width:0;position:relative;">
+        <iframe id="iframeFunction"
+          src="about:blank"
+          data-src="https://fsl-ea.netlify.app/"
+          style="width:100%;height:calc(100vh - 160px);border:none;display:block;"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <!-- EA edit sidebar -->
+      <div id="eaSidebar" style="width:300px;flex-shrink:0;border-left:1px solid var(--pale);background:var(--white);display:flex;flex-direction:column;overflow:hidden;">
+        <!-- sidebar header -->
+        <div style="padding:10px 14px;border-bottom:1px solid var(--pale);display:flex;align-items:center;justify-content:space-between;background:var(--b900);">
+          <span style="font-size:13px;font-weight:700;color:#fff;">✏️ 编辑架构数据</span>
+          <div style="display:flex;gap:6px;align-items:center;">
+            <button class="ct-btn" id="eaSaveBtn" onclick="eaSaveToGitHub()" style="background:var(--b500);color:#fff;border:none;padding:4px 10px;font-size:11px;">💾 保存</button>
+            <button onclick="eaToggleSidebar()" style="background:none;border:none;color:rgba(255,255,255,.6);font-size:18px;cursor:pointer;line-height:1;padding:0 2px;" title="收起">›</button>
+          </div>
+        </div>
+        <!-- status msg -->
+        <div id="eaStatusMsg" style="padding:4px 14px;font-size:11px;color:var(--b500);min-height:20px;"></div>
+        <!-- tabs: nodes / edges -->
+        <div style="display:flex;border-bottom:1px solid var(--pale);">
+          <button id="eaTabNodes" class="ea-stab active" onclick="eaSwitchTab('nodes')">能力 / 系统</button>
+          <button id="eaTabEdges" class="ea-stab" onclick="eaSwitchTab('edges')">集成关系</button>
+        </div>
+        <!-- search -->
+        <div style="padding:8px 10px;border-bottom:1px solid var(--pale);">
+          <input id="eaSearchInput" class="cg-form-input" placeholder="🔍 搜索节点名称…" oninput="eaRenderList()" style="width:100%;font-size:12px;">
+        </div>
+        <!-- node list -->
+        <div id="eaNodeListPanel" style="flex:1;overflow-y:auto;padding:4px 0;"></div>
+        <!-- edge list -->
+        <div id="eaEdgeListPanel" style="flex:1;overflow-y:auto;padding:4px 0;display:none;"></div>
+        <!-- add button row -->
+        <div style="padding:8px 10px;border-top:1px solid var(--pale);display:flex;gap:6px;">
+          <button class="ct-btn" id="eaAddNodeBtn" onclick="eaOpenAddNodeModal()" style="flex:1;font-size:12px;">+ 添加节点</button>
+          <button class="ct-btn" id="eaAddEdgeBtn" onclick="eaOpenAddEdgeModal()" style="flex:1;font-size:12px;display:none;">+ 添加连线</button>
+        </div>
+      </div>
+      <!-- sidebar collapsed toggle button -->
+      <button id="eaSidebarToggleBtn" onclick="eaToggleSidebar()" style="display:none;position:absolute;right:0;top:50%;transform:translateY(-50%);width:20px;height:48px;background:var(--b900);border:none;color:#fff;cursor:pointer;border-radius:4px 0 0 4px;font-size:14px;z-index:10;">‹</button>
+    </div>
+
+    <!-- EA Node Edit Modal -->
+    <div class="org-modal-overlay" id="eaNodeModal" style="display:none;">
+      <div class="org-modal" style="width:520px;max-width:96vw;max-height:88vh;overflow-y:auto;">
+        <h3 id="eaNodeModalTitle">编辑节点</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div class="cg-form-row" style="grid-column:1/-1;"><label class="cg-form-label">名称 *</label><input class="cg-form-input" id="eaNodeName"></div>
+          <div class="cg-form-row"><label class="cg-form-label">类型</label>
+            <select class="cg-form-input" id="eaNodeType">
+              <option value="capability">capability（能力）</option>
+              <option value="application">application（应用系统）</option>
+            </select>
+          </div>
+          <div class="cg-form-row"><label class="cg-form-label">层级 Level</label>
+            <select class="cg-form-input" id="eaNodeLevel">
+              <option value="">无（应用系统）</option>
+              <option value="0">L0 顶层分组</option>
+              <option value="1">L1 主要能力</option>
+              <option value="2">L2 子能力</option>
+            </select>
+          </div>
+          <div class="cg-form-row" style="grid-column:1/-1;"><label class="cg-form-label">父节点 Parent ID</label>
+            <select class="cg-form-input" id="eaNodeParent"><option value="">无（顶层）</option></select>
+          </div>
+          <div class="cg-form-row"><label class="cg-form-label">分类 Category</label>
+            <select class="cg-form-input" id="eaNodeCategory">
+              <option value="core">core（核心）</option>
+              <option value="supporting">supporting（支撑）</option>
+              <option value="strategic">strategic（战略）</option>
+            </select>
+          </div>
+          <div class="cg-form-row"><label class="cg-form-label">成熟度 Maturity</label>
+            <select class="cg-form-input" id="eaNodeMaturity">
+              <option value="1">1 - Initial（初始）</option>
+              <option value="2">2 - Managed（受管）</option>
+              <option value="3">3 - Defined（已定义）</option>
+              <option value="4">4 - Quantified（量化）</option>
+              <option value="5">5 - Optimized（优化）</option>
+            </select>
+          </div>
+          <div class="cg-form-row"><label class="cg-form-label">状态 Status</label>
+            <select class="cg-form-input" id="eaNodeStatus">
+              <option value="active">active（运行中）</option>
+              <option value="planned">planned（规划中）</option>
+              <option value="retiring">retiring（退役中）</option>
+            </select>
+          </div>
+          <div class="cg-form-row"><label class="cg-form-label">归属部门 Owner</label><input class="cg-form-input" id="eaNodeOwner" placeholder="如：数智化部"></div>
+          <div class="cg-form-row"><label class="cg-form-label">供应商 Vendor</label><input class="cg-form-input" id="eaNodeVendor" placeholder="如：SAP"></div>
+          <div class="cg-form-row"><label class="cg-form-label">版本 Version</label><input class="cg-form-input" id="eaNodeVersion" placeholder="如：S/4HANA 2023"></div>
+          <div class="cg-form-row" style="grid-column:1/-1;"><label class="cg-form-label">描述</label><textarea class="cg-form-input" id="eaNodeDesc" rows="2"></textarea></div>
+          <div class="cg-form-row" style="grid-column:1/-1;"><label class="cg-form-label">标签 Tags（逗号分隔）</label><input class="cg-form-input" id="eaNodeTags" placeholder="SAP, ERP, 核心"></div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:14px;">
+          <button class="ct-btn" id="eaNodeDeleteBtn" onclick="eaDeleteNode()" style="background:#FDECEA;color:var(--red);margin-right:auto;">🗑 删除</button>
+          <button class="ct-btn" onclick="eaCloseNodeModal()">取消</button>
+          <button class="ct-btn" onclick="eaSaveNodeModal()" style="background:var(--b500);color:#fff;">保存节点</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- EA Edge Edit Modal -->
+    <div class="org-modal-overlay" id="eaEdgeModal" style="display:none;">
+      <div class="org-modal" style="width:480px;max-width:96vw;">
+        <h3 id="eaEdgeModalTitle">编辑集成关系</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div class="cg-form-row"><label class="cg-form-label">源系统 Source *</label>
+            <select class="cg-form-input" id="eaEdgeSource"></select>
+          </div>
+          <div class="cg-form-row"><label class="cg-form-label">目标系统 Target *</label>
+            <select class="cg-form-input" id="eaEdgeTarget"></select>
+          </div>
+          <div class="cg-form-row"><label class="cg-form-label">协议 Protocol</label>
+            <select class="cg-form-input" id="eaEdgeProtocol">
+              <option value="REST">REST / API</option>
+              <option value="DB">DB（数据库）</option>
+              <option value="FILE">文件传输</option>
+              <option value="MQ">消息队列</option>
+              <option value="CPI">SAP CPI</option>
+            </select>
+          </div>
+          <div class="cg-form-row"><label class="cg-form-label">方向 Direction</label>
+            <select class="cg-form-input" id="eaEdgeDirection">
+              <option value="bi">双向（bi）</option>
+              <option value="uni">单向（uni）</option>
+            </select>
+          </div>
+          <div class="cg-form-row"><label class="cg-form-label">频率 Frequency</label>
+            <select class="cg-form-input" id="eaEdgeFreq">
+              <option value="real-time">实时</option>
+              <option value="batch">批量</option>
+              <option value="event">事件触发</option>
+            </select>
+          </div>
+          <div class="cg-form-row"><label class="cg-form-label">重要性 Criticality</label>
+            <select class="cg-form-input" id="eaEdgeCrit">
+              <option value="high">高</option>
+              <option value="medium">中</option>
+              <option value="low">低</option>
+            </select>
+          </div>
+          <div class="cg-form-row" style="grid-column:1/-1;"><label class="cg-form-label">描述</label><input class="cg-form-input" id="eaEdgeDesc" placeholder="如：BOM & 工程变更双向同步"></div>
+          <div class="cg-form-row" style="grid-column:1/-1;"><label class="cg-form-label">数据实体（逗号分隔）</label><input class="cg-form-input" id="eaEdgeEntities" placeholder="如：BOM, Material, Order"></div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:14px;">
+          <button class="ct-btn" id="eaEdgeDeleteBtn" onclick="eaDeleteEdge()" style="background:#FDECEA;color:var(--red);margin-right:auto;">🗑 删除</button>
+          <button class="ct-btn" onclick="eaCloseEdgeModal()">取消</button>
+          <button class="ct-btn" onclick="eaSaveEdgeModal()" style="background:var(--b500);color:#fff;">保存连线</button>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -3176,15 +3336,17 @@ function switchArchTab(tab){
     var iframe = document.getElementById('iframeFunction');
     if(iframe){
       if(iframe.src === 'about:blank'){
-        // 首次加载
+        // 首次加载 iframe
         iframe.src = iframe.getAttribute('data-src');
       } else {
-        // 已加载：等 iframe 可见后通知内部触发 fit+layout
+        // 已加载：通知内部触发 fit+layout
         setTimeout(function(){
           try { iframe.contentWindow.postMessage('ea:fit', '*'); } catch(e){}
         }, 120);
       }
     }
+    // 加载 architecture.json 用于侧边栏编辑（仅首次）
+    if(!EA_DATA && TOKEN){ eaLoadFromGitHub(); }
     return;
   }
   if(tab==='people'){
@@ -3487,6 +3649,322 @@ function deleteCompanyNode(){
   closeCompanyModal();
   if(COMP_VIEW==='list') renderCompanyList(); else renderCompanyTree();
 }
+
+// ══════════════════════════════════════════════════════════════════
+// EA ARCHITECT SIDEBAR — load / edit / save architecture.json
+// ══════════════════════════════════════════════════════════════════
+var EA_DATA = null;          // parsed architecture.json
+var EA_SHA  = '';            // GitHub file SHA for PUT
+var EA_TAB  = 'nodes';       // current sidebar tab
+var EA_EDITING_NODE_ID = null;
+var EA_EDITING_EDGE_ID = null;
+var EA_SIDEBAR_OPEN = true;
+
+function eaSetStatus(msg, ok){
+  var el = document.getElementById('eaStatusMsg');
+  if(!el) return;
+  el.textContent = msg;
+  el.style.color = ok ? 'var(--b500)' : (ok===false ? 'var(--red)' : 'var(--muted)');
+}
+
+// Load architecture.json from GitHub
+function eaLoadFromGitHub(cb){
+  if(!TOKEN){ eaSetStatus('请先登录 GitHub Token', false); return; }
+  eaSetStatus('加载中…');
+  fetch(API+'/contents/ea-architect/architecture.json', {headers: hdrs()})
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(!d.content){ eaSetStatus('加载失败', false); return; }
+      EA_SHA = d.sha;
+      var raw = atob(d.content.replace(/\n/g,''));
+      EA_DATA = JSON.parse(decodeURIComponent(escape(raw)));
+      eaSetStatus('已加载 ' + EA_DATA.nodes.length + ' 个节点，' + EA_DATA.edges.length + ' 条连线', true);
+      eaRenderList();
+      if(cb) cb();
+    })
+    .catch(function(){ eaSetStatus('加载失败，检查 Token 权限', false); });
+}
+
+// Save architecture.json to GitHub
+function eaSaveToGitHub(){
+  if(!TOKEN){ promptLoginThenDo(eaSaveToGitHub); return; }
+  if(!EA_DATA){ eaSetStatus('无数据可保存', false); return; }
+  eaSetStatus('保存中…');
+  var content = btoa(unescape(encodeURIComponent(JSON.stringify(EA_DATA, null, 2))));
+  var body = JSON.stringify({ message:'update: ea-architect/architecture.json', content: content, sha: EA_SHA });
+  fetch(API+'/contents/ea-architect/architecture.json', {
+    method:'PUT', headers: Object.assign({'Content-Type':'application/json'}, hdrs()), body: body
+  }).then(function(r){ return r.json(); })
+    .then(function(d){
+      if(d.content){ EA_SHA = d.content.sha; eaSetStatus('已保存 ✓', true); }
+      else { eaSetStatus('保存失败: '+(d.message||''), false); }
+      // Notify iframe to reload
+      try { document.getElementById('iframeFunction').contentWindow.postMessage('ea:reload', '*'); } catch(e){}
+    })
+    .catch(function(){ eaSetStatus('保存失败', false); });
+}
+
+// Toggle sidebar collapsed/expanded
+function eaToggleSidebar(){
+  var sb = document.getElementById('eaSidebar');
+  var tb = document.getElementById('eaSidebarToggleBtn');
+  EA_SIDEBAR_OPEN = !EA_SIDEBAR_OPEN;
+  if(sb) sb.style.display = EA_SIDEBAR_OPEN ? 'flex' : 'none';
+  if(tb) tb.style.display = EA_SIDEBAR_OPEN ? 'none' : 'block';
+}
+
+// Switch between nodes/edges tabs
+function eaSwitchTab(tab){
+  EA_TAB = tab;
+  document.getElementById('eaTabNodes').className = 'ea-stab' + (tab==='nodes'?' active':'');
+  document.getElementById('eaTabEdges').className = 'ea-stab' + (tab==='edges'?' active':'');
+  document.getElementById('eaNodeListPanel').style.display = tab==='nodes'?'block':'none';
+  document.getElementById('eaEdgeListPanel').style.display = tab==='edges'?'block':'none';
+  document.getElementById('eaAddNodeBtn').style.display = tab==='nodes'?'':'none';
+  document.getElementById('eaAddEdgeBtn').style.display = tab==='edges'?'':'none';
+  document.getElementById('eaSearchInput').placeholder = tab==='nodes'?'🔍 搜索节点名称…':'🔍 搜索连线…';
+  eaRenderList();
+}
+
+var MATURITY_COLORS = ['','#EF4444','#F97316','#EAB308','#3B82F6','#22C55E'];
+
+// Render node list
+function eaRenderList(){
+  if(!EA_DATA) return;
+  var q = (document.getElementById('eaSearchInput')||{}).value||'';
+  q = q.toLowerCase();
+
+  if(EA_TAB === 'nodes'){
+    var panel = document.getElementById('eaNodeListPanel'); if(!panel) return;
+    var nodes = EA_DATA.nodes.filter(function(n){ return !q || n.name.toLowerCase().indexOf(q)>=0; });
+    panel.innerHTML = nodes.map(function(n){
+      var typeCls = n.type==='application'?'ea-node-type-app':'ea-node-type-cap';
+      var typeLabel = n.type==='application'?'APP':'CAP';
+      var level = n.level!==null&&n.level!==undefined ? 'L'+n.level : '';
+      var mat = (n.metadata&&n.metadata.maturity)||1;
+      var dotColor = MATURITY_COLORS[mat]||'#ccc';
+      return '<div class="ea-node-row" onclick="eaEditNode(\''+n.id+'\')">'
+        +'<div class="ea-maturity-dot" style="background:'+dotColor+';" title="成熟度'+mat+'"></div>'
+        +'<span class="ea-node-type-badge '+typeCls+'">'+typeLabel+'</span>'
+        +(level?'<span class="ea-node-level">'+level+'</span>':'')
+        +'<span style="flex:1;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'+n.name+'</span>'
+        +'</div>';
+    }).join('');
+  } else {
+    var panel2 = document.getElementById('eaEdgeListPanel'); if(!panel2) return;
+    var edges = EA_DATA.edges.filter(function(e){
+      if(!q) return true;
+      var src = eaNodeName(e.source), tgt = eaNodeName(e.target);
+      return src.toLowerCase().indexOf(q)>=0 || tgt.toLowerCase().indexOf(q)>=0 || (e.metadata&&e.metadata.description||'').toLowerCase().indexOf(q)>=0;
+    });
+    panel2.innerHTML = edges.map(function(e){
+      var src = eaNodeName(e.source), tgt = eaNodeName(e.target);
+      var dir = e.direction==='bi'?'↔':'→';
+      var crit = {high:'🔴',medium:'🟡',low:'🟢'}[(e.metadata&&e.metadata.criticality)||'medium']||'🟡';
+      return '<div class="ea-edge-row" onclick="eaEditEdge(\''+e.id+'\')">'
+        +'<span style="font-size:13px;">'+crit+'</span>'
+        +'<div style="flex:1;min-width:0;">'
+        +'<div style="font-size:11.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+src+' '+dir+' '+tgt+'</div>'
+        +'<div style="font-size:10.5px;color:var(--muted);">'+(e.protocol||'')+' · '+(e.metadata&&e.metadata.description||'')+'</div>'
+        +'</div></div>';
+    }).join('');
+  }
+}
+
+function eaNodeName(id){
+  if(!EA_DATA) return id;
+  var n = EA_DATA.nodes.find(function(x){ return x.id===id; });
+  return n ? n.name : id;
+}
+
+// ── Node editing ──
+function eaEditNode(id){
+  if(!EA_DATA) return;
+  var n = EA_DATA.nodes.find(function(x){ return x.id===id; });
+  if(!n) return;
+  EA_EDITING_NODE_ID = id;
+  document.getElementById('eaNodeModalTitle').textContent = '编辑节点：'+n.name;
+  document.getElementById('eaNodeName').value = n.name||'';
+  document.getElementById('eaNodeType').value = n.type||'capability';
+  document.getElementById('eaNodeLevel').value = n.level!==null&&n.level!==undefined?String(n.level):'';
+  document.getElementById('eaNodeCategory').value = n.category||'supporting';
+  var meta = n.metadata||{};
+  document.getElementById('eaNodeMaturity').value = String(meta.maturity||2);
+  document.getElementById('eaNodeStatus').value = meta.status||'active';
+  document.getElementById('eaNodeOwner').value = meta.owner||'';
+  document.getElementById('eaNodeVendor').value = meta.vendor||'';
+  document.getElementById('eaNodeVersion').value = meta.version||'';
+  document.getElementById('eaNodeDesc').value = meta.description||'';
+  document.getElementById('eaNodeTags').value = (meta.tags||[]).join(', ');
+  eaFillParentSelect('eaNodeParent', id, n.parent||'');
+  document.getElementById('eaNodeDeleteBtn').style.display = '';
+  document.getElementById('eaNodeModal').style.display = 'flex';
+}
+
+function eaOpenAddNodeModal(){
+  EA_EDITING_NODE_ID = null;
+  document.getElementById('eaNodeModalTitle').textContent = '添加节点';
+  document.getElementById('eaNodeName').value='';
+  document.getElementById('eaNodeType').value='capability';
+  document.getElementById('eaNodeLevel').value='1';
+  document.getElementById('eaNodeCategory').value='supporting';
+  document.getElementById('eaNodeMaturity').value='2';
+  document.getElementById('eaNodeStatus').value='active';
+  document.getElementById('eaNodeOwner').value='';
+  document.getElementById('eaNodeVendor').value='';
+  document.getElementById('eaNodeVersion').value='';
+  document.getElementById('eaNodeDesc').value='';
+  document.getElementById('eaNodeTags').value='';
+  eaFillParentSelect('eaNodeParent', null, '');
+  document.getElementById('eaNodeDeleteBtn').style.display='none';
+  document.getElementById('eaNodeModal').style.display='flex';
+}
+
+function eaFillParentSelect(selId, excludeId, currentVal){
+  var sel = document.getElementById(selId); if(!sel||!EA_DATA) return;
+  sel.innerHTML = '<option value="">无（顶层）</option>';
+  EA_DATA.nodes.forEach(function(n){
+    if(n.id===excludeId) return;
+    var opt = document.createElement('option');
+    opt.value=n.id; opt.textContent = (n.level!==null&&n.level!==undefined?'L'+n.level+' ':'')+n.name;
+    if(n.id===currentVal) opt.selected=true;
+    sel.appendChild(opt);
+  });
+}
+
+function eaSaveNodeModal(){
+  if(!EA_DATA) return;
+  var name = document.getElementById('eaNodeName').value.trim();
+  if(!name){ alert('名称不能为空'); return; }
+  var levelVal = document.getElementById('eaNodeLevel').value;
+  var tags = document.getElementById('eaNodeTags').value.split(',').map(function(t){ return t.trim(); }).filter(Boolean);
+  var nodeData = {
+    name: name,
+    type: document.getElementById('eaNodeType').value,
+    parent: document.getElementById('eaNodeParent').value || null,
+    level: levelVal===''?null:parseInt(levelVal),
+    category: document.getElementById('eaNodeCategory').value,
+    metadata: {
+      maturity: parseInt(document.getElementById('eaNodeMaturity').value)||2,
+      status: document.getElementById('eaNodeStatus').value,
+      description: document.getElementById('eaNodeDesc').value.trim(),
+      owner: document.getElementById('eaNodeOwner').value.trim(),
+      vendor: document.getElementById('eaNodeVendor').value.trim(),
+      version: document.getElementById('eaNodeVersion').value.trim(),
+      tags: tags
+    }
+  };
+  if(EA_EDITING_NODE_ID){
+    var idx = EA_DATA.nodes.findIndex(function(x){ return x.id===EA_EDITING_NODE_ID; });
+    if(idx>=0){ nodeData.id=EA_EDITING_NODE_ID; EA_DATA.nodes[idx]=nodeData; }
+  } else {
+    nodeData.id = 'cap-'+Math.random().toString(36).slice(2,10);
+    EA_DATA.nodes.push(nodeData);
+  }
+  eaCloseNodeModal();
+  eaRenderList();
+  eaSetStatus('节点已修改，记得点"💾 保存"');
+}
+
+function eaDeleteNode(){
+  if(!EA_EDITING_NODE_ID||!EA_DATA) return;
+  if(!confirm('确认删除该节点？相关连线也会被删除。')) return;
+  EA_DATA.nodes = EA_DATA.nodes.filter(function(n){ return n.id!==EA_EDITING_NODE_ID; });
+  EA_DATA.edges = EA_DATA.edges.filter(function(e){ return e.source!==EA_EDITING_NODE_ID && e.target!==EA_EDITING_NODE_ID; });
+  eaCloseNodeModal();
+  eaRenderList();
+  eaSetStatus('节点已删除，记得点"💾 保存"');
+}
+
+function eaCloseNodeModal(){ document.getElementById('eaNodeModal').style.display='none'; }
+
+// ── Edge editing ──
+function eaEditEdge(id){
+  if(!EA_DATA) return;
+  var e = EA_DATA.edges.find(function(x){ return x.id===id; });
+  if(!e) return;
+  EA_EDITING_EDGE_ID = id;
+  document.getElementById('eaEdgeModalTitle').textContent = '编辑连线';
+  eaFillAppSelects(e.source, e.target);
+  document.getElementById('eaEdgeProtocol').value = e.protocol||'REST';
+  document.getElementById('eaEdgeDirection').value = e.direction||'bi';
+  var meta = e.metadata||{};
+  document.getElementById('eaEdgeFreq').value = meta.frequency||'real-time';
+  document.getElementById('eaEdgeCrit').value = meta.criticality||'medium';
+  document.getElementById('eaEdgeDesc').value = meta.description||'';
+  document.getElementById('eaEdgeEntities').value = (meta.dataEntities||[]).join(', ');
+  document.getElementById('eaEdgeDeleteBtn').style.display='';
+  document.getElementById('eaEdgeModal').style.display='flex';
+}
+
+function eaOpenAddEdgeModal(){
+  EA_EDITING_EDGE_ID = null;
+  document.getElementById('eaEdgeModalTitle').textContent = '添加集成连线';
+  eaFillAppSelects('','');
+  document.getElementById('eaEdgeProtocol').value='REST';
+  document.getElementById('eaEdgeDirection').value='bi';
+  document.getElementById('eaEdgeFreq').value='real-time';
+  document.getElementById('eaEdgeCrit').value='medium';
+  document.getElementById('eaEdgeDesc').value='';
+  document.getElementById('eaEdgeEntities').value='';
+  document.getElementById('eaEdgeDeleteBtn').style.display='none';
+  document.getElementById('eaEdgeModal').style.display='flex';
+}
+
+function eaFillAppSelects(srcVal, tgtVal){
+  if(!EA_DATA) return;
+  ['eaEdgeSource','eaEdgeTarget'].forEach(function(selId, si){
+    var sel = document.getElementById(selId); if(!sel) return;
+    sel.innerHTML='<option value="">— 选择系统 —</option>';
+    EA_DATA.nodes.forEach(function(n){
+      var opt=document.createElement('option');
+      opt.value=n.id; opt.textContent=n.name;
+      if(n.id===(si===0?srcVal:tgtVal)) opt.selected=true;
+      sel.appendChild(opt);
+    });
+  });
+}
+
+function eaSaveEdgeModal(){
+  if(!EA_DATA) return;
+  var src=document.getElementById('eaEdgeSource').value;
+  var tgt=document.getElementById('eaEdgeTarget').value;
+  if(!src||!tgt){ alert('请选择源系统和目标系统'); return; }
+  var entities=document.getElementById('eaEdgeEntities').value.split(',').map(function(t){ return t.trim(); }).filter(Boolean);
+  var edgeData={
+    source:src, target:tgt,
+    type:'integration',
+    protocol:document.getElementById('eaEdgeProtocol').value,
+    direction:document.getElementById('eaEdgeDirection').value,
+    metadata:{
+      description:document.getElementById('eaEdgeDesc').value.trim(),
+      frequency:document.getElementById('eaEdgeFreq').value,
+      criticality:document.getElementById('eaEdgeCrit').value,
+      dataEntities:entities
+    }
+  };
+  if(EA_EDITING_EDGE_ID){
+    var idx=EA_DATA.edges.findIndex(function(x){ return x.id===EA_EDITING_EDGE_ID; });
+    if(idx>=0){ edgeData.id=EA_EDITING_EDGE_ID; EA_DATA.edges[idx]=edgeData; }
+  } else {
+    edgeData.id='int-'+String(Date.now()).slice(-6);
+    EA_DATA.edges.push(edgeData);
+  }
+  eaCloseEdgeModal();
+  eaRenderList();
+  eaSetStatus('连线已修改，记得点"💾 保存"');
+}
+
+function eaDeleteEdge(){
+  if(!EA_EDITING_EDGE_ID||!EA_DATA) return;
+  if(!confirm('确认删除该连线？')) return;
+  EA_DATA.edges=EA_DATA.edges.filter(function(e){ return e.id!==EA_EDITING_EDGE_ID; });
+  eaCloseEdgeModal();
+  eaRenderList();
+  eaSetStatus('连线已删除，记得点"💾 保存"');
+}
+
+function eaCloseEdgeModal(){ document.getElementById('eaEdgeModal').style.display='none'; }
 
 // ── FUNCTION ARCHITECTURE (preset diagram) ────────────────────────────────────
 function renderFunctionArch(){
