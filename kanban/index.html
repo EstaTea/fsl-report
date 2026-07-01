@@ -1333,8 +1333,9 @@ function syncIssuesToGantt(issues){
     var meta = parseGanttMeta(issue.body);
 
     if(mapped[num]){
-      // Sync status/pct from issue
+      // Sync status/pct/title from issue
       mapped[num].pct = pct;
+      mapped[num].label = issue.title.replace(/^[【\[](咨询|SAP|探索|实现|上线|专项|里程碑|数据|接口|测试|风险|组织)[】\]]\s*/,'');
       if(meta){
         if(meta.start) mapped[num].start = meta.start;
         if(meta.end)   mapped[num].end   = meta.end;
@@ -2109,7 +2110,7 @@ function openTaskDetail(rowId){
         var body=(issue.body||'').replace(/<!--[\s\S]*?-->/g,'').trim();
         _task.desc = body;
         // Also sync title if changed
-        // _task.label = issue.title; // optional - uncomment to sync titles too
+        _task.label = issue.title.replace(/^[【\[](咨询|SAP|探索|实现|上线|专项|里程碑|数据|接口|测试|风险|组织)[】\]]\s*/,'');
         _openTaskDetailPanel(rowId);
       })
       .catch(function(){ _openTaskDetailPanel(rowId); });
