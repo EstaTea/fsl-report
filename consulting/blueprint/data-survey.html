@@ -274,7 +274,8 @@ footer-note{display:block;text-align:center;font-size:11px;color:var(--muted);ma
     <a href="#s3-3" class="sub">3.3 电商五大断点</a>
     <a href="#s4">四、数据架构（DA）· 案例分析</a>
     <a href="#s4-1" class="sub">4.1 主数据质量诊断</a>
-    <a href="#s4-2" class="sub">4.2 BOM深度案例</a>
+    <a href="#s4-2" class="sub">4.2 BOM案例一：面板灯（JMB151）</a>
+    <a href="#s4-2b" class="sub">4.2b BOM案例二：5.8G微波吸顶灯</a>
     <a href="#s4-3" class="sub">4.3 工艺路线分析</a>
     <a href="#s4-4" class="sub">4.4 根因分析</a>
     <a href="#s5">五、技术架构（TA）</a>
@@ -632,6 +633,248 @@ footer-note{display:block;text-align:center;font-size:11px;color:var(--muted);ma
           <tr style="background:#FFF5F5;"><td>2</td><td><b style="color:#C62828;">（空）</b></td><td><b style="color:#C62828;">G434A BC（材料规格备注）</b></td><td>1</td><td>—</td><td>❌ 规格备注写入BOM物料行</td></tr>
         </tbody>
       </table>
+    </div>
+
+
+    <div class="sec" id="s4-2b">
+      <div class="sec-title">4.2b BOM深度案例二：5.8G微波感应吸顶灯 A25XD506（降本款）</div>
+      <div class="box guide" style="margin-bottom:14px">
+        <b>数据来源：</b>探索阶段新收集——2_BOM文件目录（BOM清单.xlsx、试产总结、新产品开发总结）+
+        3_物料文件目录（LED灯珠/铝基板/电解电容/吸塑板采购联络单及验收报告），
+        涵盖3款产品（14W/18W/25W）共<b>33个文件</b>。
+        该产品已于2026年6月26日发布生产BOM，正式进入批量生产阶段，
+        是探索阶段获得的<b>最完整、最新鲜</b>的一手主数据材料。
+      </div>
+
+      <!-- 产品基本信息 -->
+      <div class="cb-title" style="margin-bottom:12px">
+        <span class="cb-tag">案例产品</span>
+        通用款5.8G微波感应吸顶灯（降本款）· 型号 A25XD506-1/2/3 · 工厂 FZ05（禅昌光电）·
+        <b style="color:#27AE60">2026-06-26 正式生产BOM发布</b>
+      </div>
+
+      <!-- 对比三款产品 -->
+      <div class="sec-sub">三款产品基本参数对比</div>
+      <table>
+        <thead><tr><th>型号</th><th>功率</th><th>直径</th><th>灯珠</th><th>串并联</th><th>BOM成品编码</th><th>电源组件编码</th><th>项目里程碑</th></tr></thead>
+        <tbody>
+          <tr><td><b>A25XD506-1</b></td><td>14W</td><td>Φ251mm</td><td>12颗 3528 银线</td><td>12S1P</td><td>SJXDA0000326</td><td>68AJXDA0004548</td><td>—</td></tr>
+          <tr><td><b>A25XD506-2</b></td><td>18W</td><td>Φ322mm</td><td>18颗 3528 银线</td><td>18S1P</td><td>SJXDA0000327</td><td>68AJXDA0004550</td><td>—</td></tr>
+          <tr style="background:#EBF4FF"><td><b>A25XD506-3</b> ⭐</td><td>25W</td><td>Φ350mm</td><td>24颗 2835 银线</td><td>12S2P</td><td>SJXDA0000325</td><td>68AJXDA0004549</td><td>立项→试产→结项共<b>5个月</b></td></tr>
+        </tbody>
+      </table>
+
+      <!-- BOM二层结构 -->
+      <div class="sec-sub" style="margin-top:14px">25W款（A25XD506-3）二层BOM结构</div>
+      <div class="grid-2">
+        <div>
+          <div style="font-size:12px;font-weight:700;color:#1B3A6B;margin-bottom:6px">第一层：整灯级（15种物料）</div>
+          <table>
+            <thead><tr><th>物料编码</th><th>描述</th><th>数量</th><th>单位</th><th>供应商</th></tr></thead>
+            <tbody>
+              <tr><td>SJXDA0000325</td><td><b>成品（顶层）</b></td><td>—</td><td>ZEA</td><td>自产</td></tr>
+              <tr><td>68AJXDA0004549</td><td>电源组件（自产半成品）</td><td>1</td><td>EA</td><td>自产</td></tr>
+              <tr><td>18X202300583等×4</td><td>LED灯珠 3528/2835 银线 4色温</td><td>24</td><td>EA</td><td><b style="color:#C62828">国星（唯一供应商）</b></td></tr>
+              <tr><td>18X452001829</td><td>铝基板 CXXDWB-12S2P-24W-A5</td><td>1</td><td>PCS</td><td>恒庆/领德辉/利德宝（3供）</td></tr>
+              <tr><td>18X713000016</td><td>LED透镜 24合一 Φ77 透明PC</td><td>1</td><td>PCS</td><td>莹嘉</td></tr>
+              <tr><td>18X801010254</td><td>吸塑板 375×355×1.5mm PS奶白</td><td>1</td><td>EA</td><td>笨鸟/德联</td></tr>
+              <tr><td>18X804010663</td><td>底盘 Φ350 铁 喷粉 佛照白</td><td>1</td><td>EA</td><td><b>自产</b></td></tr>
+              <tr><td>18X9H2020140</td><td>接地端子 锌合金镀镍</td><td>1</td><td>EA</td><td>通用</td></tr>
+              <tr><td>199Y09130000</td><td>配件包（自攻螺丝+胶粒3套）</td><td>1</td><td>EA</td><td>通用</td></tr>
+              <tr><td>其余螺丝×2、护线圈×1</td><td>标准配件</td><td>各1-9</td><td>EA/粒</td><td>通用/众勤</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:700;color:#1B3A6B;margin-bottom:6px">第二层：电源组件（26种电子物料）</div>
+          <table>
+            <thead><tr><th>类别</th><th>关键物料</th><th>指定供应商</th><th>备注</th></tr></thead>
+            <tbody>
+              <tr style="background:#FDECEA"><td>芯片IC</td><td>SDH7202S + SDH7251S（SOP-8）</td><td><b style="color:#C62828">士兰微（唯一指定）</b></td><td>关键元器件，无备选</td></tr>
+              <tr style="background:#FDECEA"><td>微波模块</td><td>EDC18F（易探）或 MW-0484AC（元盛）</td><td><b style="color:#C62828">易探/元盛（仅2家）</b></td><td>替代组B，有旧模块停产风险</td></tr>
+              <tr><td>LED灯珠</td><td>28TAF-0931M0 银线 ≥100lm/颗</td><td><b style="color:#C62828">国星（唯一定制）</b></td><td>联合定制，¥0.024/颗</td></tr>
+              <tr><td>铝基板</td><td>CXXDWB-12S2P-24W-A5（18X452001829）</td><td>恒庆/领德辉/利德宝</td><td>3家竞价，¥0.88/片</td></tr>
+              <tr><td>电解电容</td><td>3.3uF 500V（18X005011938）×2</td><td>艾华/黄宝石/和天</td><td>3家，¥0.15-0.226/颗</td></tr>
+              <tr><td>电源板PCB</td><td>XDD5.8G-7202S-V1.1（18X022040134）</td><td>金田/旭升</td><td>是关键元器件</td></tr>
+              <tr><td>其余电阻/电容/二极管</td><td>约16种，贴片类</td><td>国巨/风华（多供）</td><td>标准料</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 关键发现：数据质量问题 -->
+      <div class="sec-sub" style="margin-top:16px;color:#C62828">⚠ 数据质量深度诊断——6大发现</div>
+
+      <!-- Finding 1 -->
+      <div class="case-block" style="border-left:4px solid #C62828;background:#FFF5F5;margin-bottom:10px;padding:12px 16px;border-radius:0 8px 8px 0">
+        <div class="cb-title" style="color:#C62828;margin-bottom:8px">
+          <span class="cb-tag" style="background:#C62828">发现1</span>
+          计量单位混用：成品ZEA vs 子件EA，BOM展开时存在换算断点
+        </div>
+        <table>
+          <thead><tr><th>层级</th><th>物料</th><th>单位</th><th>问题说明</th></tr></thead>
+          <tbody>
+            <tr style="background:#FDECEA"><td>成品</td><td>SJXDA0000325（吸顶灯成品）</td><td><b style="color:#C62828">ZEA</b></td><td>佛照自定义单位，与EA重复定义</td></tr>
+            <tr><td>电源组件</td><td>68AJXDA0004549</td><td>EA</td><td>SAP标准单位</td></tr>
+            <tr><td>LED灯珠</td><td>18X202300583（4色温 ×4条）</td><td>EA</td><td>SAP标准</td></tr>
+            <tr><td>铝基板</td><td>18X452001829</td><td>PCS</td><td>⚠ PCS与EA语义相同，已混用</td></tr>
+          </tbody>
+        </table>
+        <div class="box warn" style="margin-top:8px;font-size:12px">
+          <b>量化影响：</b>3款产品（14W/18W/25W）均存在ZEA混用，25W款年产能40万只，MRP展开时
+          每次运行产生<b>约120万对</b>ZEA-EA数量关系需换算。换算关系未配置 → MRP需求量计算报错或产生虚假需求。
+        </div>
+      </div>
+
+      <!-- Finding 2 -->
+      <div class="case-block" style="border-left:4px solid #E65100;background:#FFF8E1;margin-bottom:10px;padding:12px 16px;border-radius:0 8px 8px 0">
+        <div class="cb-title" style="color:#E65100;margin-bottom:8px">
+          <span class="cb-tag" style="background:#E65100">发现2</span>
+          唯一供应商风险：LED灯珠、IC芯片、微波模块均为单一或极少来源
+        </div>
+        <table>
+          <thead><tr><th>物料类型</th><th>关键物料</th><th>供应商数</th><th>风险等级</th><th>潜在影响</th></tr></thead>
+          <tbody>
+            <tr style="background:#FDECEA"><td>LED灯珠</td><td>28TAF-0931M0 银线（国星联合定制）</td><td><b style="color:#C62828">1家</b></td><td>🔴 极高</td><td>停产→整线停工；年产160万只受影响</td></tr>
+            <tr style="background:#FDECEA"><td>主控IC</td><td>SDH7202S + SDH7251S（士兰微）</td><td><b style="color:#C62828">1家</b></td><td>🔴 极高</td><td>IC停产已触发本次项目（旧IC已停产）</td></tr>
+            <tr style="background:#FFF5F5"><td>微波模块</td><td>EDC18F（易探）/ MW-0484AC（元盛）</td><td><b style="color:#E65100">2家</b></td><td>🟡 高</td><td>旧模块已停产，新模块仍在验证期</td></tr>
+            <tr><td>吸塑板灯罩</td><td>18X801010254（笨鸟/德联）</td><td>2家</td><td>🟢 低</td><td>有竞价备选，风险可控</td></tr>
+          </tbody>
+        </table>
+        <div class="box warn" style="margin-top:8px;font-size:12px">
+          <b>SAP数据治理影响：</b>SAP MM中"独家供应商"标识字段（MARA-VPRSV）<b>未维护</b>，
+          供应链中心无法通过系统识别单供风险，只能依赖采购专员个人经验。这正是
+          <a href="/fsl-report/consulting/blueprint/data-survey.html#s2">第二章中记录的供应链断点</a>的根因之一。
+        </div>
+      </div>
+
+      <!-- Finding 3 -->
+      <div class="case-block" style="border-left:4px solid #E65100;background:#FFF8E1;margin-bottom:10px;padding:12px 16px;border-radius:0 8px 8px 0">
+        <div class="cb-title" style="color:#E65100;margin-bottom:8px">
+          <span class="cb-tag" style="background:#E65100">发现3</span>
+          BOM版本管理混乱：试产BOM与生产BOM并存，物料版本未清晰区分
+        </div>
+        <div class="grid-2">
+          <div>
+            <div style="font-size:12px;color:var(--text2);margin-bottom:6px">发现文件中的BOM版本信息：</div>
+            <table>
+              <thead><tr><th>文件</th><th>BOM版本</th><th>物料编码状态</th></tr></thead>
+              <tbody>
+                <tr><td>BOM清单.xlsx</td><td>C.4（待修订）</td><td>SJXDA0000325</td></tr>
+                <tr style="background:#FFF5F5"><td>试产总结（装配）</td><td>RD221版</td><td>SJXDA0000325/326/327</td></tr>
+                <tr style="background:#FFF5F5"><td>新产品开发总结</td><td>WT011版</td><td>同上，研发费用22.5万元</td></tr>
+                <tr style="background:#FDECEA"><td>生产BOM发布通知单</td><td>WT011版，<b style="color:#C62828">2026-06-26</b></td><td>正式生产BOM</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <div style="font-size:12px;color:var(--text2);margin-bottom:6px">版本冲突风险：</div>
+            <div class="box warn" style="font-size:12px">
+              ① BOM标注"<b>C.4 待修订</b>"，说明生产BOM仍处于待确认状态，但已发布通知单<br>
+              ② <b>RD221和WT011两个版本同时存在</b>，研发费用不同（22.48万 vs 22.5万），
+              说明存在两份平行开发记录，未在SAP中统一归档<br>
+              ③ PLM中的研发BOM版本与SAP生产BOM版本<b>无自动同步机制</b>，
+              如出现工程变更（ECO），生产现场可能继续使用旧版BOM
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Finding 4 -->
+      <div class="case-block" style="border-left:4px solid #1B3A6B;background:#EBF4FF;margin-bottom:10px;padding:12px 16px;border-radius:0 8px 8px 0">
+        <div class="cb-title" style="color:#1B3A6B;margin-bottom:8px">
+          <span class="cb-tag">发现4</span>
+          物料编码重用与物料类型混用：电源组件编码规则与成品编码规则不一致
+        </div>
+        <table>
+          <thead><tr><th>编码段</th><th>示例</th><th>当前规则</th><th>问题</th></tr></thead>
+          <tbody>
+            <tr><td>SJXDA0000325~327</td><td>成品编码</td><td>SJ+XD+A+流水号</td><td>规则清晰</td></tr>
+            <tr style="background:#FFF5F5"><td>68AJXDA0004548~550</td><td>电源组件半成品</td><td>68A+JXD+A+流水号</td><td>⚠ 与成品前缀体系不一致，属于线路板车间半成品（68X前缀系列）混入产品编码</td></tr>
+            <tr style="background:#FFF5F5"><td>18X202300583等</td><td>LED灯珠（4种色温）</td><td>18X+分类+流水</td><td>⚠ 4种色温灯珠各建一个编码，但均为同一物理封装的灯珠，差异仅色温——需确认是否有替代料配置</td></tr>
+            <tr><td>18X452001827/828/829</td><td>铝基板（3款规格）</td><td>18X+分类+流水</td><td>规则清晰，3款对应3个规格</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Finding 5: Transparency test fail -->
+      <div class="case-block" style="border-left:4px solid #C62828;background:#FFF5F5;margin-bottom:10px;padding:12px 16px;border-radius:0 8px 8px 0">
+        <div class="cb-title" style="color:#C62828;margin-bottom:8px">
+          <span class="cb-tag" style="background:#C62828">发现5</span>
+          物料验收数据缺失：吸塑板透光率测试不合格，但仍导入BOM——质量数据断点
+        </div>
+        <div class="grid-2">
+          <div>
+            <div style="font-size:12px;color:var(--text2);margin-bottom:6px">样品检验结果（佛山照明品管部，2024-04-18）：</div>
+            <table>
+              <thead><tr><th>检验项目</th><th>标准要求</th><th>实测结果</th><th>判定</th></tr></thead>
+              <tbody>
+                <tr><td>透光率</td><td>42%±3%（即39-45%）</td><td><b style="color:#C62828">36.36%</b></td><td>❌ 不合格</td></tr>
+                <tr><td>雾度</td><td>≥90%</td><td>98.41%</td><td>✅ 合格</td></tr>
+                <tr><td>外观</td><td>无变形/裂纹/色差</td><td>无不良</td><td>✅ 合格</td></tr>
+                <tr><td>阻燃</td><td>灼热丝阻燃</td><td>符合</td><td>✅ 合格</td></tr>
+                <tr><td>RoHS</td><td>限值</td><td>ND</td><td>✅ 合格</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <div class="box warn" style="font-size:12px">
+              <b>SAP数据治理视角：</b><br>
+              ① 透光率不合格（36.36% vs 标准≥39%），但检验结论备注"由车间吹罩确认，继续导入"<br>
+              ② SAP QM模块<b>未激活检验批</b>（技术要求字段~100%缺失），此类"经人工决策绕过"的质量豁免<b>在系统中没有任何记录</b><br>
+              ③ 如果SAP QM正常运作，透光率不合格应触发自动拦截，防止带缺陷物料进入BOM<br>
+              ④ 这正是<b>3,542条物料中技术要求字段100%缺失</b>的直接后果：QM形同虚设
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Finding 6: No routing -->
+      <div class="case-block" style="border-left:4px solid #E65100;background:#FFF8E1;margin-bottom:10px;padding:12px 16px;border-radius:0 8px 8px 0">
+        <div class="cb-title" style="color:#E65100;margin-bottom:8px">
+          <span class="cb-tag" style="background:#E65100">发现6</span>
+          工艺路线完全缺失：试产总结有详细工序描述，但SAP中无对应工艺路线记录
+        </div>
+        <table>
+          <thead><tr><th>工序</th><th>车间</th><th>试产文件中的工序描述</th><th>SAP工艺路线</th></tr></thead>
+          <tbody>
+            <tr><td>Step 1</td><td>线路板车间</td><td>铝基板贴片（24颗LED灯珠）</td><td style="color:#C62828"><b>无记录</b></td></tr>
+            <tr><td>Step 2</td><td>线路板车间</td><td>电源板贴片（B面，IC/电阻/电容）</td><td style="color:#C62828"><b>无记录</b></td></tr>
+            <tr><td>Step 3</td><td>线路板车间</td><td>电源板插件（T面，电感/电容/护套线）</td><td style="color:#C62828"><b>无记录</b></td></tr>
+            <tr><td>Step 4</td><td>线路板车间</td><td>波峰焊/手焊/剪脚</td><td style="color:#C62828"><b>无记录</b></td></tr>
+            <tr><td>Step 5</td><td>筒射吸顶灯车间</td><td>组装：底盘+铝基板+透镜+电源+灯罩</td><td style="color:#C62828"><b>无记录</b></td></tr>
+            <tr><td>Step 6</td><td>筒射吸顶灯车间</td><td>功能测试（微波感应距离/光敏/全亮灭）</td><td style="color:#C62828"><b>无记录</b></td></tr>
+            <tr><td>Step 7</td><td>筒射吸顶灯车间</td><td>OQC检验（光电参数+安全检测）</td><td style="color:#C62828"><b>无记录</b></td></tr>
+          </tbody>
+        </table>
+        <div class="box warn" style="margin-top:8px;font-size:12px">
+          <b>量化影响：</b>试产40只，生产周期约7道工序，
+          综合工时估算约2-3分钟/只（基于试产报告中"筒射吸顶灯车间"记录）。
+          年产160万只 × 2.5分钟/只 = <b>约6.7万小时</b>产能需求无法被SAP CRP（产能需求计划）捕获，
+          生产排程完全依赖车间主任经验，无数据支撑。
+        </div>
+      </div>
+
+      <!-- Summary metrics -->
+      <div class="sec-sub" style="margin-top:16px">案例二诊断摘要：与案例一（面板灯）对比</div>
+      <table>
+        <thead><tr><th>诊断维度</th><th>案例一：面板灯 JMB151A0000524</th><th>案例二：微波吸顶灯 A25XD506</th><th>共性问题</th></tr></thead>
+        <tbody>
+          <tr><td>BOM层次</td><td>4层，83行</td><td>2层，15+26行共41行</td><td>均有研发/生产BOM混用隐患</td></tr>
+          <tr style="background:#FDECEA"><td>计量单位</td><td style="color:#C62828">7种混用（ZEA/EA/BLK等）</td><td style="color:#C62828">ZEA/EA/PCS混用</td><td>✅ 确认：ZEA问题跨产品线普遍存在</td></tr>
+          <tr style="background:#FDECEA"><td>工艺路线</td><td style="color:#C62828">18条中44%无描述，39%工时=0</td><td style="color:#C62828">7道工序，SAP中完全无记录</td><td>✅ 确认：工艺路线覆盖率<5%</td></tr>
+          <tr style="background:#FFF5F5"><td>供应商标识</td><td>面板灯供应商未标识独家</td><td style="color:#C62828">3种关键物料唯一供应商，SAP中无独家标识</td><td>⚠ 新发现：独家供应商字段普遍缺失</td></tr>
+          <tr style="background:#FDECEA"><td>QM数据</td><td style="color:#C62828">技术要求字段~100%缺失</td><td style="color:#C62828">透光率不合格豁免，系统无记录</td><td>✅ 确认：QM模块形同虚设</td></tr>
+          <tr><td>BOM版本管理</td><td>研发BOM C25MB508-3用于生产</td><td style="color:#E65100">C.4"待修订"标注已发布生产</td><td>⚠ 新发现：版本管理规范缺失</td></tr>
+          <tr><td>物料降本数据</td><td>无降本过程数据</td><td style="color:#27AE60">有完整降本记录（金线→银线，¥0.024/颗）</td><td>✅ 佛照已有降本管理流程，但SAP未承载</td></tr>
+        </tbody>
+      </table>
+      <div class="grid-4" style="margin-top:14px;">
+        <div class="metric-card"><div class="mc-num red">3种</div><div class="mc-lbl">关键物料唯一供应商<br>（国星/士兰微/易探）</div></div>
+        <div class="metric-card"><div class="mc-num red">7道</div><div class="mc-lbl">工序完全缺失工艺路线<br>（SAP中零记录）</div></div>
+        <div class="metric-card"><div class="mc-num orange">2套</div><div class="mc-lbl">平行BOM版本<br>（RD221 vs WT011）</div></div>
+        <div class="metric-card"><div class="mc-num orange">1项</div><div class="mc-lbl">透光率不合格仍导入<br>（QM系统未拦截）</div></div>
+      </div>
     </div>
 
     <div class="sec" id="s4-3">
