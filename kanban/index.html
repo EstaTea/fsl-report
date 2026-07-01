@@ -963,6 +963,8 @@ select.dp-input{appearance:none;-webkit-appearance:none;
       <button class="arch-tab active" id="archTabPeople"      onclick="switchArchTab('people')">👥 人员架构</button>
       <button class="arch-tab"        id="archTabCompany"     onclick="switchArchTab('company')">🏢 公司架构</button>
       <button class="arch-tab"        id="archTabFunction"    onclick="switchArchTab('function')">⚙️ 功能 / 集成架构</button>
+      <button id="eaSaveBtnTab" onclick="eaSaveToGitHub()" style="display:none;margin-left:auto;margin-right:8px;padding:4px 12px;background:var(--b500);color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;">💾 保存</button>
+      <span id="eaStatusMsg" style="display:none;font-size:11.5px;color:var(--b500);margin-right:10px;align-self:center;"></span>
     </div>
 
     <!-- 人员架构 -->
@@ -1070,15 +1072,7 @@ select.dp-input{appearance:none;-webkit-appearance:none;
     </div>
     <!-- 功能架构 -->
     <div id="archPanelFunction" class="arch-panel" style="flex-direction:column;">
-      <!-- EA toolbar -->
-      <div style="display:flex;align-items:center;gap:8px;padding:7px 14px;background:var(--b050);border-bottom:1px solid var(--pale);flex-shrink:0;">
-        <button class="ct-btn" onclick="eaOpenEditor()" style="font-size:12px;">✏️ 编辑架构数据</button>
-        <button class="ct-btn" onclick="eaOpenAddNodeModal()" style="font-size:12px;">+ 添加节点</button>
-        <button class="ct-btn" onclick="eaOpenAddEdgeModal()" style="font-size:12px;">+ 添加连线</button>
-        <button class="ct-btn" onclick="eaSaveToGitHub()" style="font-size:12px;background:var(--b500);color:#fff;">💾 保存到 GitHub</button>
-        <span id="eaStatusMsg" style="font-size:11.5px;color:var(--b500);margin-left:4px;"></span>
-      </div>
-      <!-- full-width iframe -->
+      <!-- full-width iframe only, toolbar removed -->
       <div style="flex:1;position:relative;">
         <iframe id="iframeFunction"
           src="about:blank"
@@ -1097,7 +1091,7 @@ select.dp-input{appearance:none;-webkit-appearance:none;
           <span style="font-size:15px;font-weight:800;color:#fff;">✏️ 架构数据编辑器</span>
           <div style="display:flex;align-items:center;gap:10px;">
             <span id="eaEditorStatus" style="font-size:12px;color:rgba(255,255,255,.7);"></span>
-            <button class="ct-btn" onclick="eaSaveFromEditor()" style="background:var(--b500);color:#fff;font-size:12px;">💾 保存到 GitHub</button>
+            <button class="ct-btn" onclick="eaSaveFromEditor()" style="background:var(--b500);color:#fff;font-size:12px;">💾 保存</button>
             <button onclick="eaCloseEditor()" style="background:rgba(255,255,255,.15);border:none;color:#fff;font-size:20px;cursor:pointer;border-radius:4px;width:30px;height:30px;line-height:1;">×</button>
           </div>
         </div>
@@ -3337,6 +3331,11 @@ function switchArchTab(tab){
   var panel = document.getElementById('archPanel'+tab.charAt(0).toUpperCase()+tab.slice(1));
   if(btn) btn.classList.add('active');
   if(panel) panel.classList.add('active');
+  // Show/hide save button in tab bar
+  var saveTabBtn = document.getElementById('eaSaveBtnTab');
+  var statusTabEl = document.getElementById('eaStatusMsg');
+  if(saveTabBtn) saveTabBtn.style.display = tab==='function' ? '' : 'none';
+  if(statusTabEl) statusTabEl.style.display = tab==='function' ? '' : 'none';
   // 懒加载 iframe：首次切换到 function Tab 时才真正加载；已加载则通知内部重排
   if(tab === 'function'){
     var iframe = document.getElementById('iframeFunction');
@@ -3666,11 +3665,13 @@ var EA_EDITING_NODE_ID = null;
 var EA_EDITING_EDGE_ID = null;
 
 function eaSetStatus(msg, ok){
-  // Update both toolbar status and editor modal status
+  // Update both tab-bar status and editor modal status
+  var colors = { ok:'var(--b500)', err:'var(--red)', neutral:'var(--muted)' };
+  var color = ok===true ? colors.ok : ok===false ? colors.err : colors.neutral;
   ['eaStatusMsg','eaEditorStatus'].forEach(function(id){
     var el = document.getElementById(id); if(!el) return;
     el.textContent = msg;
-    el.style.color = ok ? '#A8C4E0' : (ok===false ? '#FCA5A5' : 'rgba(255,255,255,.55)');
+    el.style.color = color;
   });
 }
 
