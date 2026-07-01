@@ -553,19 +553,20 @@ select.dp-input{appearance:none;-webkit-appearance:none;
   font-size:12.5px;font-family:inherit;color:var(--text);}
 .cg-form-row input:focus,.cg-form-row select:focus,.cg-form-row textarea:focus{
   outline:none;border-color:var(--b500);}
-/* ── EA Architect Sidebar ── */
-.ea-stab{flex:1;padding:7px 6px;font-size:12px;font-weight:600;color:var(--muted);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;}
+/* ── EA Architect Editor ── */
+.ea-stab{padding:7px 6px;font-size:12px;font-weight:600;color:var(--muted);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;}
 .ea-stab.active{color:var(--b500);border-bottom-color:var(--b500);}
 .ea-stab:hover{color:var(--b500);}
-.ea-node-row{display:flex;align-items:center;gap:6px;padding:6px 10px;border-bottom:1px solid var(--pale);cursor:pointer;transition:background .12s;}
-.ea-node-row:hover{background:var(--b050);}
 .ea-node-type-badge{font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;flex-shrink:0;letter-spacing:.3px;}
 .ea-node-type-cap{background:#EBF4FF;color:var(--b500);}
 .ea-node-type-app{background:#D1FAE5;color:#065F46;}
-.ea-node-level{font-size:9px;color:var(--muted);flex-shrink:0;}
-.ea-edge-row{display:flex;align-items:flex-start;gap:6px;padding:6px 10px;border-bottom:1px solid var(--pale);cursor:pointer;transition:background .12s;}
-.ea-edge-row:hover{background:var(--b050);}
-.ea-maturity-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.ea-maturity-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.ea-tbl{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:10px;}
+.ea-tbl th{background:var(--b900);color:#fff;padding:8px 12px;text-align:left;font-weight:600;position:sticky;top:0;z-index:1;}
+.ea-tbl td{padding:7px 12px;border-bottom:1px solid var(--pale);vertical-align:middle;}
+.ea-tbl tr:hover td{background:var(--b050);cursor:pointer;}
+.ea-tbl tr:nth-child(even) td{background:#FAFCFF;}
+.ea-tbl tr:nth-child(even):hover td{background:var(--b050);}
 
 </style>
 </head>
@@ -659,7 +660,6 @@ select.dp-input{appearance:none;-webkit-appearance:none;
             <a href="/fsl-report/kanban/#org">🏗 项目架构</a>
             <a href="/fsl-report/kanban/survey-ar.html">💰 开票与应收调研</a>
             <a href="/fsl-report/kanban/survey-strategy.html">🏛 战略调研 · 董事会</a>
-            <a href="/fsl-report/kanban/survey-hr.html">👥 党群与人力资源部</a>
             <a href="/fsl-report/weekly/">📰 项目周报</a>
           </div>
         </div>
@@ -717,7 +717,6 @@ select.dp-input{appearance:none;-webkit-appearance:none;
         <div style="padding:5px 16px 3px;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.6px;text-transform:uppercase">现场 / 战略</div>
         <a href="/fsl-report/kanban/survey-gaoming.html">🏭 高明分公司实地调研</a>
         <a href="/fsl-report/kanban/survey-strategy.html">🏛 战略调研 · 董事会</a>
-            <a href="/fsl-report/kanban/survey-hr.html">👥 党群与人力资源部</a>
       </div>
     </div>
   </div>
@@ -1070,49 +1069,54 @@ select.dp-input{appearance:none;-webkit-appearance:none;
       </div>
     </div>
     <!-- 功能架构 -->
-    <div id="archPanelFunction" class="arch-panel" style="flex-direction:row;">
-      <!-- iframe viewer -->
-      <div style="flex:1;min-width:0;position:relative;">
+    <div id="archPanelFunction" class="arch-panel" style="flex-direction:column;">
+      <!-- EA toolbar -->
+      <div style="display:flex;align-items:center;gap:8px;padding:7px 14px;background:var(--b050);border-bottom:1px solid var(--pale);flex-shrink:0;">
+        <button class="ct-btn" onclick="eaOpenEditor()" style="font-size:12px;">✏️ 编辑架构数据</button>
+        <button class="ct-btn" onclick="eaOpenAddNodeModal()" style="font-size:12px;">+ 添加节点</button>
+        <button class="ct-btn" onclick="eaOpenAddEdgeModal()" style="font-size:12px;">+ 添加连线</button>
+        <button class="ct-btn" onclick="eaSaveToGitHub()" style="font-size:12px;background:var(--b500);color:#fff;">💾 保存到 GitHub</button>
+        <span id="eaStatusMsg" style="font-size:11.5px;color:var(--b500);margin-left:4px;"></span>
+      </div>
+      <!-- full-width iframe -->
+      <div style="flex:1;position:relative;">
         <iframe id="iframeFunction"
           src="about:blank"
           data-src="https://fsl-ea.netlify.app/"
-          style="width:100%;height:calc(100vh - 160px);border:none;display:block;"
+          style="width:100%;height:100%;border:none;display:block;"
           allowfullscreen>
         </iframe>
       </div>
-      <!-- EA edit sidebar -->
-      <div id="eaSidebar" style="width:300px;flex-shrink:0;border-left:1px solid var(--pale);background:var(--white);display:flex;flex-direction:column;overflow:hidden;">
-        <!-- sidebar header -->
-        <div style="padding:10px 14px;border-bottom:1px solid var(--pale);display:flex;align-items:center;justify-content:space-between;background:var(--b900);">
-          <span style="font-size:13px;font-weight:700;color:#fff;">✏️ 编辑架构数据</span>
-          <div style="display:flex;gap:6px;align-items:center;">
-            <button class="ct-btn" id="eaSaveBtn" onclick="eaSaveToGitHub()" style="background:var(--b500);color:#fff;border:none;padding:4px 10px;font-size:11px;">💾 保存</button>
-            <button onclick="eaToggleSidebar()" style="background:none;border:none;color:rgba(255,255,255,.6);font-size:18px;cursor:pointer;line-height:1;padding:0 2px;" title="收起">›</button>
+    </div>
+
+    <!-- EA Full-screen Editor Modal -->
+    <div class="org-modal-overlay" id="eaEditorModal" style="display:none;">
+      <div style="background:var(--white);border-radius:10px;width:92vw;max-width:1100px;height:86vh;display:flex;flex-direction:column;overflow:hidden;">
+        <!-- header -->
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--pale);background:var(--b900);flex-shrink:0;">
+          <span style="font-size:15px;font-weight:800;color:#fff;">✏️ 架构数据编辑器</span>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span id="eaEditorStatus" style="font-size:12px;color:rgba(255,255,255,.7);"></span>
+            <button class="ct-btn" onclick="eaSaveFromEditor()" style="background:var(--b500);color:#fff;font-size:12px;">💾 保存到 GitHub</button>
+            <button onclick="eaCloseEditor()" style="background:rgba(255,255,255,.15);border:none;color:#fff;font-size:20px;cursor:pointer;border-radius:4px;width:30px;height:30px;line-height:1;">×</button>
           </div>
         </div>
-        <!-- status msg -->
-        <div id="eaStatusMsg" style="padding:4px 14px;font-size:11px;color:var(--b500);min-height:20px;"></div>
-        <!-- tabs: nodes / edges -->
-        <div style="display:flex;border-bottom:1px solid var(--pale);">
-          <button id="eaTabNodes" class="ea-stab active" onclick="eaSwitchTab('nodes')">能力 / 系统</button>
-          <button id="eaTabEdges" class="ea-stab" onclick="eaSwitchTab('edges')">集成关系</button>
+        <!-- tabs -->
+        <div style="display:flex;border-bottom:1px solid var(--pale);flex-shrink:0;background:var(--white);">
+          <button id="eaEdTabNodes" class="ea-stab active" onclick="eaEditorSwitchTab('nodes')" style="padding:10px 20px;font-size:13px;">能力 &amp; 系统节点 <span id="eaEdNodeCount" style="font-size:11px;color:var(--muted);"></span></button>
+          <button id="eaEdTabEdges" class="ea-stab" onclick="eaEditorSwitchTab('edges')" style="padding:10px 20px;font-size:13px;">集成连线 <span id="eaEdEdgeCount" style="font-size:11px;color:var(--muted);"></span></button>
         </div>
-        <!-- search -->
-        <div style="padding:8px 10px;border-bottom:1px solid var(--pale);">
-          <input id="eaSearchInput" class="cg-form-input" placeholder="🔍 搜索节点名称…" oninput="eaRenderList()" style="width:100%;font-size:12px;">
+        <!-- toolbar -->
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 16px;border-bottom:1px solid var(--pale);flex-shrink:0;background:var(--b050);">
+          <input id="eaEdSearchInput" class="cg-form-input" placeholder="🔍 搜索…" oninput="eaEditorRenderTable()" style="width:220px;font-size:12px;">
+          <button class="ct-btn" id="eaEdAddBtn" onclick="eaOpenAddNodeModal()" style="font-size:12px;">+ 添加节点</button>
         </div>
-        <!-- node list -->
-        <div id="eaNodeListPanel" style="flex:1;overflow-y:auto;padding:4px 0;"></div>
-        <!-- edge list -->
-        <div id="eaEdgeListPanel" style="flex:1;overflow-y:auto;padding:4px 0;display:none;"></div>
-        <!-- add button row -->
-        <div style="padding:8px 10px;border-top:1px solid var(--pale);display:flex;gap:6px;">
-          <button class="ct-btn" id="eaAddNodeBtn" onclick="eaOpenAddNodeModal()" style="flex:1;font-size:12px;">+ 添加节点</button>
-          <button class="ct-btn" id="eaAddEdgeBtn" onclick="eaOpenAddEdgeModal()" style="flex:1;font-size:12px;display:none;">+ 添加连线</button>
+        <!-- table area -->
+        <div style="flex:1;overflow-y:auto;padding:0 16px 16px;">
+          <div id="eaEditorNodeTable"></div>
+          <div id="eaEditorEdgeTable" style="display:none;"></div>
         </div>
       </div>
-      <!-- sidebar collapsed toggle button -->
-      <button id="eaSidebarToggleBtn" onclick="eaToggleSidebar()" style="display:none;position:absolute;right:0;top:50%;transform:translateY(-50%);width:20px;height:48px;background:var(--b900);border:none;color:#fff;cursor:pointer;border-radius:4px 0 0 4px;font-size:14px;z-index:10;">‹</button>
     </div>
 
     <!-- EA Node Edit Modal -->
@@ -3660,13 +3664,14 @@ var EA_SHA  = '';            // GitHub file SHA for PUT
 var EA_TAB  = 'nodes';       // current sidebar tab
 var EA_EDITING_NODE_ID = null;
 var EA_EDITING_EDGE_ID = null;
-var EA_SIDEBAR_OPEN = true;
 
 function eaSetStatus(msg, ok){
-  var el = document.getElementById('eaStatusMsg');
-  if(!el) return;
-  el.textContent = msg;
-  el.style.color = ok ? 'var(--b500)' : (ok===false ? 'var(--red)' : 'var(--muted)');
+  // Update both toolbar status and editor modal status
+  ['eaStatusMsg','eaEditorStatus'].forEach(function(id){
+    var el = document.getElementById(id); if(!el) return;
+    el.textContent = msg;
+    el.style.color = ok ? '#A8C4E0' : (ok===false ? '#FCA5A5' : 'rgba(255,255,255,.55)');
+  });
 }
 
 // Load architecture.json from GitHub
@@ -3704,73 +3709,6 @@ function eaSaveToGitHub(){
       try { document.getElementById('iframeFunction').contentWindow.postMessage('ea:reload', '*'); } catch(e){}
     })
     .catch(function(){ eaSetStatus('保存失败', false); });
-}
-
-// Toggle sidebar collapsed/expanded
-function eaToggleSidebar(){
-  var sb = document.getElementById('eaSidebar');
-  var tb = document.getElementById('eaSidebarToggleBtn');
-  EA_SIDEBAR_OPEN = !EA_SIDEBAR_OPEN;
-  if(sb) sb.style.display = EA_SIDEBAR_OPEN ? 'flex' : 'none';
-  if(tb) tb.style.display = EA_SIDEBAR_OPEN ? 'none' : 'block';
-}
-
-// Switch between nodes/edges tabs
-function eaSwitchTab(tab){
-  EA_TAB = tab;
-  document.getElementById('eaTabNodes').className = 'ea-stab' + (tab==='nodes'?' active':'');
-  document.getElementById('eaTabEdges').className = 'ea-stab' + (tab==='edges'?' active':'');
-  document.getElementById('eaNodeListPanel').style.display = tab==='nodes'?'block':'none';
-  document.getElementById('eaEdgeListPanel').style.display = tab==='edges'?'block':'none';
-  document.getElementById('eaAddNodeBtn').style.display = tab==='nodes'?'':'none';
-  document.getElementById('eaAddEdgeBtn').style.display = tab==='edges'?'':'none';
-  document.getElementById('eaSearchInput').placeholder = tab==='nodes'?'🔍 搜索节点名称…':'🔍 搜索连线…';
-  eaRenderList();
-}
-
-var MATURITY_COLORS = ['','#EF4444','#F97316','#EAB308','#3B82F6','#22C55E'];
-
-// Render node list
-function eaRenderList(){
-  if(!EA_DATA) return;
-  var q = (document.getElementById('eaSearchInput')||{}).value||'';
-  q = q.toLowerCase();
-
-  if(EA_TAB === 'nodes'){
-    var panel = document.getElementById('eaNodeListPanel'); if(!panel) return;
-    var nodes = EA_DATA.nodes.filter(function(n){ return !q || n.name.toLowerCase().indexOf(q)>=0; });
-    panel.innerHTML = nodes.map(function(n){
-      var typeCls = n.type==='application'?'ea-node-type-app':'ea-node-type-cap';
-      var typeLabel = n.type==='application'?'APP':'CAP';
-      var level = n.level!==null&&n.level!==undefined ? 'L'+n.level : '';
-      var mat = (n.metadata&&n.metadata.maturity)||1;
-      var dotColor = MATURITY_COLORS[mat]||'#ccc';
-      return '<div class="ea-node-row" onclick="eaEditNode(\''+n.id+'\')">'
-        +'<div class="ea-maturity-dot" style="background:'+dotColor+';" title="成熟度'+mat+'"></div>'
-        +'<span class="ea-node-type-badge '+typeCls+'">'+typeLabel+'</span>'
-        +(level?'<span class="ea-node-level">'+level+'</span>':'')
-        +'<span style="flex:1;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'+n.name+'</span>'
-        +'</div>';
-    }).join('');
-  } else {
-    var panel2 = document.getElementById('eaEdgeListPanel'); if(!panel2) return;
-    var edges = EA_DATA.edges.filter(function(e){
-      if(!q) return true;
-      var src = eaNodeName(e.source), tgt = eaNodeName(e.target);
-      return src.toLowerCase().indexOf(q)>=0 || tgt.toLowerCase().indexOf(q)>=0 || (e.metadata&&e.metadata.description||'').toLowerCase().indexOf(q)>=0;
-    });
-    panel2.innerHTML = edges.map(function(e){
-      var src = eaNodeName(e.source), tgt = eaNodeName(e.target);
-      var dir = e.direction==='bi'?'↔':'→';
-      var crit = {high:'🔴',medium:'🟡',low:'🟢'}[(e.metadata&&e.metadata.criticality)||'medium']||'🟡';
-      return '<div class="ea-edge-row" onclick="eaEditEdge(\''+e.id+'\')">'
-        +'<span style="font-size:13px;">'+crit+'</span>'
-        +'<div style="flex:1;min-width:0;">'
-        +'<div style="font-size:11.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+src+' '+dir+' '+tgt+'</div>'
-        +'<div style="font-size:10.5px;color:var(--muted);">'+(e.protocol||'')+' · '+(e.metadata&&e.metadata.description||'')+'</div>'
-        +'</div></div>';
-    }).join('');
-  }
 }
 
 function eaNodeName(id){
