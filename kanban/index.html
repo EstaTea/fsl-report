@@ -948,8 +948,7 @@ select.dp-input{appearance:none;-webkit-appearance:none;
     <div class="arch-tabs">
       <button class="arch-tab active" id="archTabPeople"      onclick="switchArchTab('people')">👥 人员架构</button>
       <button class="arch-tab"        id="archTabCompany"     onclick="switchArchTab('company')">🏢 公司架构</button>
-      <button class="arch-tab"        id="archTabFunction"    onclick="switchArchTab('function')">⚙️ 功能架构</button>
-      <button class="arch-tab"        id="archTabIntegration" onclick="switchArchTab('integration')">🔗 集成架构</button>
+      <button class="arch-tab"        id="archTabFunction"    onclick="switchArchTab('function')">⚙️ 功能 / 集成架构</button>
     </div>
 
     <!-- 人员架构 -->
@@ -1059,17 +1058,7 @@ select.dp-input{appearance:none;-webkit-appearance:none;
     <div id="archPanelFunction" class="arch-panel">
       <iframe id="iframeFunction"
         src="about:blank"
-        data-src="https://fsl-ea.netlify.app/?view=capability"
-        style="width:100%;height:calc(100vh - 160px);border:none;display:block;flex:1;"
-        allowfullscreen>
-      </iframe>
-    </div>
-
-    <!-- 集成架构 -->
-    <div id="archPanelIntegration" class="arch-panel">
-      <iframe id="iframeIntegration"
-        src="about:blank"
-        data-src="https://fsl-ea.netlify.app/?view=integration"
+        data-src="https://fsl-ea.netlify.app/"
         style="width:100%;height:calc(100vh - 160px);border:none;display:block;flex:1;"
         allowfullscreen>
       </iframe>
@@ -3182,10 +3171,9 @@ function switchArchTab(tab){
   var panel = document.getElementById('archPanel'+tab.charAt(0).toUpperCase()+tab.slice(1));
   if(btn) btn.classList.add('active');
   if(panel) panel.classList.add('active');
-  // 懒加载 iframe：首次切换到该 Tab 时才真正加载；已加载则通知内部重排
-  if(tab === 'function' || tab === 'integration'){
-    var iframeId = tab === 'function' ? 'iframeFunction' : 'iframeIntegration';
-    var iframe = document.getElementById(iframeId);
+  // 懒加载 iframe：首次切换到 function Tab 时才真正加载；已加载则通知内部重排
+  if(tab === 'function'){
+    var iframe = document.getElementById('iframeFunction');
     if(iframe){
       if(iframe.src === 'about:blank'){
         // 首次加载
