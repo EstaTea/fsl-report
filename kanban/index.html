@@ -660,7 +660,6 @@ select.dp-input{appearance:none;-webkit-appearance:none;
             <a href="/fsl-report/kanban/#org">🏗 项目架构</a>
             <a href="/fsl-report/kanban/survey-ar.html">💰 开票与应收调研</a>
             <a href="/fsl-report/kanban/survey-strategy.html">🏛 战略调研 · 董事会</a>
-            <a href="/fsl-report/kanban/survey-hr.html">👥 党群与人力资源部</a>
             <a href="/fsl-report/weekly/">📰 项目周报</a>
           </div>
         </div>
@@ -695,7 +694,7 @@ select.dp-input{appearance:none;-webkit-appearance:none;
     <div class="mod-tab" data-panel="stats" onclick="switchTab(this,'stats')">📊 <span class="label-text">统计</span></div>
     <div class="mod-tab" data-panel="org" onclick="switchTab(this,'org')">🏗 <span class="label-text">项目架构</span></div>
     <div class="mod-tab-dd" id="surveyTabDd">
-      <div class="mod-tab" style="cursor:pointer" onclick="toggleSurveyDd(event)">📋 <span class="label-text">调研访谈</span><span class="new-badge">13</span><span style="font-size:8px;margin-left:2px;opacity:.6">▾</span></div>
+      <div class="mod-tab" style="cursor:pointer" onclick="toggleSurveyDd(event)">📋 <span class="label-text">调研访谈</span><span class="new-badge">12</span><span style="font-size:8px;margin-left:2px;opacity:.6">▾</span></div>
       <div class="mod-tab-dd-panel" id="survey-dropdown">
         <div style="padding:5px 16px 3px;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.6px;text-transform:uppercase">财务</div>
         <a href="/fsl-report/kanban/survey-ar.html">💰 开票与应收全流程</a>
@@ -3907,6 +3906,147 @@ function eaDeleteEdge(){
 }
 
 function eaCloseEdgeModal(){ document.getElementById('eaEdgeModal').style.display='none'; }
+
+// ══════════════════════════════════════════════════════════════════
+// EA FULL-SCREEN EDITOR (nodes table + L0 reorder + edges table)
+// ══════════════════════════════════════════════════════════════════
+var MATURITY_COLORS = ['','#EF4444','#F97316','#EAB308','#3B82F6','#22C55E'];
+var MATURITY_LABELS = ['','Initial','Managed','Defined','Quantified','Optimized'];
+var EA_EDITOR_TAB = 'nodes';
+
+function eaOpenEditor(){
+  if(!EA_DATA && TOKEN){ eaLoadFromGitHub(function(){ eaOpenEditor(); }); return; }
+  if(!EA_DATA){ eaSetStatus('请先登录 GitHub Token', false); return; }
+  document.getElementById('eaEditorModal').style.display='flex';
+  document.getElementById('eaEdSearchInput').value='';
+  eaEditorSwitchTab('nodes');
+}
+function eaCloseEditor(){ document.getElementById('eaEditorModal').style.display='none'; }
+function eaSaveFromEditor(){ eaCloseEditor(); eaSaveToGitHub(); }
+
+function eaEditorSwitchTab(tab){
+  EA_EDITOR_TAB = tab;
+  document.getElementById('eaEdTabNodes').className='ea-stab'+(tab==='nodes'?' active':'');
+  document.getElementById('eaEdTabEdges').className='ea-stab'+(tab==='edges'?' active':'');
+  document.getElementById('eaEditorNodeTable').style.display=tab==='nodes'?'':'none';
+  document.getElementById('eaEditorEdgeTable').style.display=tab==='edges'?'':'none';
+  document.getElementById('eaEdAddBtn').textContent=tab==='nodes'?'+ 添加节点':'+ 添加连线';
+  document.getElementById('eaEdAddBtn').onclick=tab==='nodes'?eaOpenAddNodeModal:eaOpenAddEdgeModal;
+  eaEditorRenderTable();
+}
+
+// Move a node in the nodes array (for reordering L0 groups)
+function eaMoveNode(id, dir){
+  if(!EA_DATA) return;
+  var arr = EA_DATA.nodes;
+  var idx = arr.findIndex(function(n){ return n.id===id; });
+  if(idx<0) return;
+  var newIdx = idx+dir;
+  if(newIdx<0||newIdx>=arr.length) return;
+  var tmp=arr[idx]; arr[idx]=arr[newIdx]; arr[newIdx]=tmp;
+  eaEditorRenderTable();
+  eaSetStatus('顺序已调整，记得点"💾 保存"');
+}
+
+function eaEditorRenderTable(){
+  if(!EA_DATA) return;
+  var q = ((document.getElementById('eaEdSearchInput')||{}).value||'').toLowerCase();
+
+  if(EA_EDITOR_TAB==='nodes'){
+    var nodes = EA_DATA.nodes.filter(function(n){ return !q||n.name.toLowerCase().indexOf(q)>=0; });
+    document.getElementById('eaEdNodeCount').textContent='('+nodes.length+')';
+
+    // Separator: L0 groups shown first with reorder buttons, then others
+    var l0 = nodes.filter(function(n){ return !n.parent && n.type==='capability'; });
+    var others = nodes.filter(function(n){ return n.parent || n.type!=='capability'; });
+    var allSorted = l0.concat(others);
+
+    var rows = allSorted.map(function(n, i){
+      var isL0 = !n.parent && n.type==='capability';
+      var mat=(n.metadata&&n.metadata.maturity)||1;
+      var dotColor = MATURITY_COLORS[mat]||'#ccc';
+      var dots=''; for(var k=1;k<=5;k++) dots+='<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+(k<=mat?MATURITY_COLORS[mat]:'#e2e8f0')+';margin-right:1px;"></span>';
+      var statusColor={active:'#065F46',planned:'#1e40af',retiring:'#9a3412'}[(n.metadata&&n.metadata.status)||'active']||'#666';
+      var typeCls=n.type==='application'?'ea-node-type-app':'ea-node-type-cap';
+      var pname=n.parent?eaNodeName(n.parent):'—';
+
+      // Reorder buttons: only for L0 nodes when no search query
+      var reorderBtns = '';
+      if(isL0 && !q){
+        var realIdx = EA_DATA.nodes.findIndex(function(x){ return x.id===n.id; });
+        var isFirst = EA_DATA.nodes.slice(0, realIdx).filter(function(x){ return !x.parent && x.type==='capability'; }).length === 0;
+        var isLast  = EA_DATA.nodes.slice(realIdx+1).filter(function(x){ return !x.parent && x.type==='capability'; }).length === 0;
+        reorderBtns = '<div style="display:flex;flex-direction:column;gap:1px;flex-shrink:0;">'
+          +'<button onclick="event.stopPropagation();eaMoveNode(''+n.id+'',-1)" title="上移" '+(isFirst?'disabled':'')
+          +' style="width:20px;height:14px;border:1px solid var(--pale);background:var(--b050);border-radius:3px;cursor:'+(isFirst?'not-allowed':'pointer')+';color:'+(isFirst?'#ccc':'var(--b500)')+';font-size:10px;line-height:1;padding:0;">▲</button>'
+          +'<button onclick="event.stopPropagation();eaMoveNode(''+n.id+'',1)" title="下移" '+(isLast?'disabled':'')
+          +' style="width:20px;height:14px;border:1px solid var(--pale);background:var(--b050);border-radius:3px;cursor:'+(isLast?'not-allowed':'pointer')+';color:'+(isLast?'#ccc':'var(--b500)')+';font-size:10px;line-height:1;padding:0;">▼</button>'
+          +'</div>';
+      } else {
+        reorderBtns = '<div style="width:20px;flex-shrink:0;"></div>';
+      }
+
+      var rowBg = isL0 ? 'background:#F0F6FF;' : '';
+      var nameStyle = isL0 ? 'font-weight:800;color:var(--b700);' : 'font-weight:600;';
+
+      return '<tr onclick="eaEditNode(''+n.id+'')" title="点击编辑" style="cursor:pointer;'+rowBg+'">'
+        +'<td style="padding:7px 8px;width:30px;">'
+          +'<div style="display:flex;align-items:center;gap:4px;">'
+          +reorderBtns
+          +'<span class="ea-maturity-dot" style="background:'+dotColor+'"></span>'
+          +'</div></td>'
+        +'<td style="padding:7px 10px;'+nameStyle+'">'+n.name+'</td>'
+        +'<td style="padding:7px 8px;"><span class="ea-node-type-badge '+typeCls+'">'+(n.type==='application'?'APP':'CAP')+'</span></td>'
+        +'<td style="padding:7px 8px;color:var(--muted);text-align:center;">'+(n.level!==null&&n.level!==undefined?'L'+n.level:'—')+'</td>'
+        +'<td style="padding:7px 8px;font-size:11.5px;color:var(--muted);">'+pname+'</td>'
+        +'<td style="padding:7px 8px;">'+dots+'<span style="font-size:10px;color:var(--muted);margin-left:4px;">'+MATURITY_LABELS[mat]+'</span></td>'
+        +'<td style="padding:7px 8px;font-size:10.5px;font-weight:600;color:'+statusColor+';">'+(n.metadata&&n.metadata.status||'active')+'</td>'
+        +'<td style="padding:7px 8px;font-size:11.5px;color:var(--muted);">'+(n.metadata&&n.metadata.owner||'—')+'</td>'
+        +'<td style="padding:7px 8px;font-size:11.5px;color:var(--muted);">'+(n.metadata&&n.metadata.vendor||'—')+'</td>'
+        +'</tr>';
+    }).join('');
+
+    // Header hint
+    var hint = !q ? '<div style="font-size:11px;color:var(--b500);padding:8px 10px;background:#EBF4FF;border-radius:5px;margin-bottom:8px;">💡 <b>L0 顶层分组</b>（蓝色高亮行）支持 ▲▼ 调整顺序，顺序即为 Capability Map 的列顺序</div>' : '';
+
+    document.getElementById('eaEditorNodeTable').innerHTML = hint
+      +'<table class="ea-tbl"><thead><tr>'
+      +'<th style="width:46px;"></th><th>名称</th><th style="width:55px;">类型</th>'
+      +'<th style="width:40px;">层级</th><th>父节点</th>'
+      +'<th style="width:100px;">成熟度</th><th style="width:80px;">状态</th>'
+      +'<th>Owner</th><th>供应商</th>'
+      +'</tr></thead><tbody>'+rows+'</tbody></table>';
+
+  } else {
+    var edges=EA_DATA.edges.filter(function(e){
+      if(!q) return true;
+      return eaNodeName(e.source).toLowerCase().indexOf(q)>=0||eaNodeName(e.target).toLowerCase().indexOf(q)>=0||(e.metadata&&e.metadata.description||'').toLowerCase().indexOf(q)>=0;
+    });
+    document.getElementById('eaEdEdgeCount').textContent='('+edges.length+')';
+    document.getElementById('eaEditorEdgeTable').innerHTML =
+      '<table class="ea-tbl"><thead><tr>'
+      +'<th>源系统</th><th style="width:30px;">方向</th><th>目标系统</th>'
+      +'<th style="width:80px;">协议</th><th style="width:70px;">重要性</th>'
+      +'<th style="width:80px;">频率</th><th>描述</th>'
+      +'</tr></thead><tbody>'
+      +edges.map(function(e){
+        var critColor={high:'#C0392B',medium:'#E67E22',low:'#27AE60'}[(e.metadata&&e.metadata.criticality)||'medium'];
+        var dir=e.direction==='bi'?'↔':'→';
+        return '<tr onclick="eaEditEdge(''+e.id+'')" title="点击编辑" style="cursor:pointer;">'
+          +'<td style="padding:7px 10px;font-weight:600;">'+eaNodeName(e.source)+'</td>'
+          +'<td style="text-align:center;font-size:14px;color:var(--muted);">'+dir+'</td>'
+          +'<td style="padding:7px 10px;font-weight:600;">'+eaNodeName(e.target)+'</td>'
+          +'<td style="padding:7px 8px;"><span style="background:var(--b050);padding:1px 6px;border-radius:3px;font-size:11px;">'+(e.protocol||'—')+'</span></td>'
+          +'<td style="padding:7px 8px;font-weight:700;color:'+critColor+';">'+(e.metadata&&e.metadata.criticality||'medium')+'</td>'
+          +'<td style="padding:7px 8px;font-size:11px;color:var(--muted);">'+(e.metadata&&e.metadata.frequency||'—')+'</td>'
+          +'<td style="padding:7px 8px;font-size:11.5px;color:var(--muted);">'+(e.metadata&&e.metadata.description||'—')+'</td>'
+          +'</tr>';
+      }).join('')
+      +'</tbody></table>';
+  }
+}
+
+function eaRenderList(){ if(document.getElementById('eaEditorModal')&&document.getElementById('eaEditorModal').style.display!=='none') eaEditorRenderTable(); }
 
 // ── FUNCTION ARCHITECTURE (preset diagram) ────────────────────────────────────
 function renderFunctionArch(){
