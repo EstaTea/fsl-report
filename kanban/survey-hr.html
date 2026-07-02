@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>质量与客服中心全面访谈 | 佛照SAP升级项目</title>
+<link rel="icon" type="image/x-icon" href="/fsl-report/favicon.ico">
+<style>
+:root{--b900:#0B2D47;--b700:#1A4F73;--b500:#2374A3;--b300:#5EA4CE;--b100:#C7E2F2;--b050:#EBF5FB;--bg:#F2F7FB;--text:#0F2233;--muted:#5B7A91;--rule:#D6E8F2;--navy:#0B2D47;--dark:#1A4F73;--primary:#2374A3;--mid:#3D8FC4;--steel:#5B7A91;--pale:#D6E8F2;--white:#fff;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:13px;line-height:1.6;display:flex;flex-direction:column;min-height:100vh}
+a{color:inherit;text-decoration:none}
+nav{background:var(--b900);height:54px;display:flex;align-items:center;padding:0 32px;gap:20px;flex-shrink:0;z-index:300;overflow:visible!important;box-shadow:0 2px 10px rgba(11,45,71,.5)}
+.nav-logo-link{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.nav-divider{width:1px;height:18px;background:rgba(255,255,255,.15);flex-shrink:0}
+.nav-project{color:rgba(255,255,255,.55);font-size:12px;white-space:nowrap}
+.nav-links{display:flex;flex:1;gap:0;overflow:visible!important}
+.nav-links a{color:rgba(255,255,255,.55);font-size:12px;padding:0 11px;height:54px;display:flex;align-items:center;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s}
+.nav-links a:hover{color:#fff}
+.nav-links a.active{color:#fff;border-bottom-color:var(--b300)}
+.nav-dropdown{position:relative;display:inline-flex;align-items:center}
+.nav-dropdown>a{padding:0 11px;color:rgba(255,255,255,.55);font-size:12px;height:54px;display:flex;align-items:center;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s;cursor:pointer}
+.nav-dropdown>a:hover,.nav-dropdown:hover>a{color:#fff}
+.nav-arrow{font-size:10px;margin-left:3px;opacity:.7}
+.nav-dropdown-panel{display:none;position:absolute;top:54px;left:0;z-index:400;background:var(--b900);border:1px solid rgba(255,255,255,.1);border-top:2px solid var(--b300);border-radius:0 0 6px 6px;padding:16px 20px;min-width:480px;box-shadow:0 8px 24px rgba(11,45,71,.6)}
+.nav-dropdown:hover .nav-dropdown-panel{display:block}
+.nav-dd-row{display:flex;gap:0}
+.nav-dd-col{flex:1;padding:0 16px 0 0}
+.nav-dd-col:last-child{padding-right:0}
+.nav-dd-col+.nav-dd-col{border-left:1px solid rgba(255,255,255,.08);padding-left:16px}
+.nav-dd-group-title{font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--b300);margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid rgba(255,255,255,.08)}
+.nav-dd-panel a{display:block;padding:5px 0;color:rgba(255,255,255,.65);font-size:12.5px;transition:color .12s}
+.nav-dd-panel a:hover{color:#fff}
+.nav-dd-research{margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08)}
+.nav-dd-research-links{display:flex;gap:12px}
+.nav-dd-research-links a{color:rgba(255,255,255,.65);font-size:12.5px;padding:3px 0;transition:color .12s}
+.nav-dd-research-links a:hover{color:#fff}
+.nav-right{display:flex;align-items:center;gap:8px;margin-left:auto}
+.btn-ghost{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);padding:5px 12px;border-radius:5px;font-size:11.5px;cursor:pointer;font-family:inherit}
+.btn-ghost:hover{background:rgba(255,255,255,.2)}
+.proj-header{background:linear-gradient(135deg,var(--b900),var(--b700));border-bottom:3px solid var(--b500);padding:0 32px;display:flex;flex-direction:column;flex-shrink:0;color:#fff}
+.proj-title-row{display:flex;align-items:center;gap:10px;padding:11px 0 0}
+.proj-icon{font-size:20px}
+.proj-name{font-size:16px;font-weight:800;color:#fff;letter-spacing:-.2px}
+.proj-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);padding:2px 10px;border-radius:10px;font-size:11px;color:rgba(255,255,255,.8);margin-left:8px}
+.mod-tabs{display:flex;gap:0;overflow-x:auto;margin-top:0}
+.mod-tabs::-webkit-scrollbar{height:3px}
+.mod-tab{padding:9px 14px;font-size:12.5px;color:rgba(255,255,255,.55);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:5px;transition:color .15s;text-decoration:none}
+.mod-tab:hover{color:var(--b500)}
+.mod-tab.active{color:var(--b500);border-bottom-color:var(--b500);font-weight:700}
+.mod-tab .new-badge{font-size:9px;background:var(--primary);color:#fff;padding:1px 4px;border-radius:3px;font-weight:700}
+.page-hero{background:linear-gradient(135deg,var(--b900),var(--b700));color:#fff;padding:16px 32px 14px;border-bottom:2px solid rgba(255,255,255,.12)}
+.hero-title{font-size:17px;font-weight:800}
+.hero-meta{margin-top:5px;font-size:11.5px;color:rgba(255,255,255,.6);display:flex;gap:20px;flex-wrap:wrap}
+.hero-bg{margin-top:8px;background:rgba(255,255,255,.08);border-left:3px solid var(--b300);padding:7px 12px;border-radius:0 4px 4px 0;font-size:11px;color:rgba(255,255,255,.75);line-height:1.5}
+.q-toolbar{background:#fff;border-bottom:1px solid var(--rule);padding:8px 32px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(11,45,71,.06)}
+.q-progress-row{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--muted);margin-left:auto}
+.pbar-wrap{background:var(--rule);border-radius:4px;height:7px;width:100px}
+.pbar{background:var(--b500);border-radius:4px;height:7px;transition:width .3s}
+.q-btn{padding:5px 13px;border:none;border-radius:5px;font-size:11.5px;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:4px}
+.q-btn-p{background:var(--b500);color:#fff}.q-btn-p:hover{background:var(--b700)}
+.q-btn-o{background:#fff;color:var(--b500);border:1px solid var(--b300)}.q-btn-o:hover{background:var(--b050)}
+.q-btn-d{background:#fff;color:#c62828;border:1px solid #ef9a9a}
+.tag{display:inline-block;background:var(--b050);color:var(--b700);border-radius:4px;padding:2px 8px;font-size:11px;margin:1px}
+/* GitHub save */
+.gh-save-btn{background:var(--b700);color:#fff;border:none;padding:5px 14px;border-radius:5px;font-size:11.5px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:5px;font-family:inherit;transition:background .15s}
+.gh-save-btn:hover{background:var(--b900)}
+.gh-save-btn.saving{opacity:.65;pointer-events:none}
+.gh-token-bar{background:var(--b050);border:1px solid var(--b100);border-radius:8px;padding:10px 18px;margin-bottom:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.gh-token-bar label{font-size:11.5px;font-weight:700;color:var(--dark);white-space:nowrap}
+.gh-token-input{padding:5px 10px;border:1px solid var(--pale);border-radius:5px;font-size:12px;font-family:inherit;color:var(--text);flex:1;min-width:200px;max-width:320px}
+.gh-token-input:focus{outline:none;border-color:var(--b300)}
+.gh-save-status{font-size:11px;color:var(--muted)}
+.gh-save-status.ok{color:#2E7D32;font-weight:700}
+.gh-save-status.err{color:#C62828;font-weight:700}
+.save-banner{display:none;position:fixed;bottom:24px;right:28px;z-index:500;background:var(--b700);color:#fff;padding:11px 22px;border-radius:8px;font-size:12.5px;font-weight:700;box-shadow:0 4px 16px rgba(11,45,71,.3);animation:slideUp .3s ease}
+.save-banner.show{display:block}
+.save-banner.err-b{background:#C62828}
+@keyframes slideUp{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
+/* survey */
+.main{padding:18px 32px 48px;max-width:1080px;margin:0 auto;width:100%}
+.q-section{margin-bottom:18px;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(11,45,71,.07)}
+.q-sec-title{background:var(--b700);color:#fff;padding:9px 18px;font-size:12.5px;font-weight:700;display:flex;align-items:center;gap:8px}
+.q-sec-title .bdg{background:rgba(255,255,255,.18);padding:1px 7px;border-radius:10px;font-size:10.5px;font-weight:400}
+.q-item{background:#fff;border-bottom:1px solid var(--rule);padding:13px 18px 11px}
+.q-item:last-child{border-bottom:none}
+.q-item:nth-child(even){background:#f8fbfd}
+.q-head{display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.q-id{background:var(--b700);color:#fff;border-radius:4px;padding:2px 8px;font-size:10.5px;font-weight:700;flex-shrink:0}
+.q-label{background:var(--b050);color:var(--b700);border-radius:4px;padding:2px 8px;font-size:10.5px}
+.q-p0{background:#fff3e0;color:#e65100;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700}
+.q-text{font-size:12.5px;line-height:1.65;margin-bottom:6px;color:var(--text)}
+.q-bg{font-size:11px;color:var(--muted);border-left:3px solid var(--b100);padding:5px 10px;border-radius:0 4px 4px 0;background:var(--b050);margin-bottom:8px;line-height:1.5}
+.q-answer{width:100%;min-height:62px;border:1px solid var(--rule);border-radius:5px;padding:7px 10px;font-size:12px;color:var(--text);font-family:inherit;resize:vertical;background:#fafdff;transition:border-color .15s}
+.q-answer:focus{outline:none;border-color:var(--b300);background:#fff}
+.q-sr{display:flex;gap:12px;margin-top:6px;flex-wrap:wrap}
+.q-radio{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--muted);cursor:pointer}
+.q-radio input{accent-color:var(--b500)}
+.sum-card{background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(11,45,71,.07);padding:18px 22px;margin-bottom:20px}
+.sum-card h3{font-size:13px;font-weight:700;color:var(--b700);border-bottom:1px solid var(--rule);padding-bottom:8px;margin-bottom:10px}
+.kv{display:flex;gap:6px;margin-bottom:6px;font-size:12px}
+.kv .k{color:var(--b300);font-weight:700;min-width:80px;flex-shrink:0}
+.hbox{background:var(--b050);border-left:3px solid var(--b300);border-radius:0 5px 5px 0;padding:8px 12px;font-size:11.5px;color:var(--b700);line-height:1.55;margin-top:8px}
+@media print{nav,.proj-header,.q-toolbar,.gh-token-bar{display:none!important}.main{padding:10px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/fsl-report/" class="nav-logo-link">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 36" height="26">
+      <rect x="0" y="3" width="4" height="30" fill="#F06000"/>
+      <rect x="0" y="3" width="18" height="4" fill="#F06000"/>
+      <rect x="0" y="16" width="13" height="4" fill="#F06000"/>
+      <path d="M22 3h14v4h-9v6h9v4h-9v7h10v4H22v-9h9v-3h-9z" fill="#F06000"/>
+      <rect x="42" y="3" width="4" height="30" fill="#F06000"/>
+      <rect x="42" y="29" width="16" height="4" fill="#F06000"/>
+      <text x="66" y="26" font-family="Microsoft YaHei,PingFang SC,sans-serif" font-size="14" font-weight="700" fill="rgba(255,255,255,0.92)" letter-spacing="1">佛山照明</text>
+    </svg>
+  </a>
+  <div class="nav-divider"></div>
+  <span class="nav-project">数字化转型项目工作台</span>
+  <div class="nav-links">
+    <a href="/fsl-report/">首页</a>
+    <div class="nav-dropdown">
+      <a href="/fsl-report/deliverables/">交付物 <span class="nav-arrow">▾</span></a>
+      <div class="nav-dropdown-panel">
+        <div class="nav-dd-row">
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">管理咨询交付</div>
+            <a href="/fsl-report/consulting/diagnosis/">现状分析与诊断</a>
+            <a href="/fsl-report/consulting/blueprint/">蓝图及架构设计</a>
+            <a href="/fsl-report/consulting/solutions/">专项方案设计</a>
+            <a href="/fsl-report/consulting/roadmap/">实施路径规划</a>
+          </div>
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">SAP 实施交付</div>
+            <a href="/fsl-report/sap/prepare/">项目准备阶段</a>
+            <a href="/fsl-report/sap/blueprint/">蓝图方案设计</a>
+            <a href="/fsl-report/sap/realize/">系统实现阶段</a>
+            <a href="/fsl-report/sap/deploy/">上线切换阶段</a>
+          </div>
+        </div>
+        <div class="nav-dd-research">
+          <div class="nav-dd-group-title">行业研究</div>
+          <div class="nav-dd-research-links"><a href="/fsl-report/research/">照明行业对标研究</a></div>
+        </div>
+      </div>
+    </div>
+    <a href="/fsl-report/weekly/">项目周报</a>
+    <a href="/fsl-report/kanban/" class="active">任务看板</a>
+  </div>
+  <div class="nav-right">
+    <a href="/fsl-report/kanban/" class="btn-ghost">← 返回看板</a>
+  </div>
+</nav>
+
+<div class="proj-header">
+  <div class="proj-title-row">
+    <span class="proj-icon">📋</span>
+    <span class="proj-name">佛照 SAP S/4HANA 升级项目</span>
+    <span class="proj-badge">任务看板 · 调研问卷</span>
+  </div>
+    <div class="mod-tabs">
+    <a href="/fsl-report/kanban/" class="mod-tab">📋 <span class="label-text">看板</span></a>
+    <a href="/fsl-report/kanban/#milestone" class="mod-tab">🎯 <span class="label-text">里程碑</span></a>
+    <a href="/fsl-report/kanban/#tasklist" class="mod-tab">☑ <span class="label-text">任务</span></a>
+    <a href="/fsl-report/kanban/#gantt" class="mod-tab">📅 <span class="label-text">甘特图</span></a>
+    <a href="/fsl-report/kanban/#risk" class="mod-tab">⚠️ <span class="label-text">风险</span></a>
+    <a href="/fsl-report/kanban/#deliverable" class="mod-tab">📦 <span class="label-text">交付物</span></a>
+    <a href="/fsl-report/kanban/#stats" class="mod-tab">📊 <span class="label-text">统计</span></a>
+    <a href="/fsl-report/kanban/#org" class="mod-tab">🏗 <span class="label-text">项目架构</span></a>
+    <div class="mod-tab" onclick="toggleSD(event)" style="cursor:pointer" id="sdBtn">📋 <span class="label-text">调研访谈</span><span style="font-size:9px;background:#2374A3;color:#fff;padding:1px 4px;border-radius:3px;font-weight:700;margin-left:4px">13</span><span style="font-size:8px;margin-left:3px;opacity:.6">▾</span></div>
+    </div>
+  </div></div>
+</div>
+
+<div id="sdPanel" style="display:none;position:fixed;z-index:9999;background:#0B2D47;border:1px solid rgba(255,255,255,.12);border-top:2px solid #5EA4CE;border-radius:0 6px 6px 6px;min-width:210px;padding:6px 0;box-shadow:0 6px 20px rgba(11,45,71,.5)"><div style="padding:5px 14px 3px;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.5px;text-transform:uppercase">财务</div><a href="/fsl-report/kanban/survey-ar.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">💰 开票与应收全流程</a><a href="/fsl-report/kanban/survey-mdg.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">🗃 财务主数据与MDG规划</a><div style="height:1px;background:rgba(255,255,255,.08);margin:3px 0"></div><div style="padding:5px 14px 3px;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.5px;text-transform:uppercase">销售/电商</div><a href="/fsl-report/kanban/survey-ecommerce.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">🛒 电商与产品规划</a><a href="/fsl-report/kanban/survey-intl.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">🌍 国际业务+外汇合规</a><a href="/fsl-report/kanban/survey-newbiz.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">🚀 新业务拓展中心</a><div style="height:1px;background:rgba(255,255,255,.08);margin:3px 0"></div><div style="padding:5px 14px 3px;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.5px;text-transform:uppercase">生产/质量</div><a href="/fsl-report/kanban/survey-carlamp.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">🚗 车灯事业部全面访谈</a><a href="/fsl-report/kanban/survey-quality.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">✅ 质量与客服中心</a><a href="/fsl-report/kanban/survey-pp.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">⚙️ 生产计划+MES+BOM</a><div style="height:1px;background:rgba(255,255,255,.08);margin:3px 0"></div><div style="padding:5px 14px 3px;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.5px;text-transform:uppercase">技术/数据</div><a href="/fsl-report/kanban/survey-plm.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">📐 PLM与SAP集成</a><a href="/fsl-report/kanban/survey-masterdata.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">📊 主数据质量研讨</a><div style="height:1px;background:rgba(255,255,255,.08);margin:3px 0"></div><div style="padding:5px 14px 3px;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.5px;text-transform:uppercase">现场/战略</div><a href="/fsl-report/kanban/survey-gaoming.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">🏭 高明分公司实地调研</a><a href="/fsl-report/kanban/survey-strategy.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">🏛 战略调研·董事会</a><div style="height:1px;background:rgba(255,255,255,.08);margin:3px 0"></div><div style="padding:5px 14px 3px;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.5px;text-transform:uppercase">组织/HR</div><a href="/fsl-report/kanban/survey-hr.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:#fff;font-size:12.5px;text-decoration:none;font-weight:700;border-left:2px solid #5EA4CE;padding-left:12px" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">👥 党群与人力资源部</a><div style="height:1px;background:rgba(255,255,255,.08);margin:3px 0"></div></div>
+
+<div class="page-hero">
+  <div class="hero-title">👥 调研问卷 — 党群与人力资源部</div>
+  <div class="hero-meta">
+    <span>👤 苏厚旭（部长）· 罗昊（联系人）</span>
+    <span>⏱ 建议时长：60分钟</span>
+    <span>🔗 关联：★5 组织设计报告 · 变革管理 · Super User计划</span>
+  </div>
+  <div class="hero-bg"><b>背景：</b>全公司约8000+人 · 数智化部仅16人（缺口约4倍）· 历史4次项目失败含变革阻力因素 · SAP升级需50-80名Super User · 十五五人才战略制定中</div>
+</div>
+<div class="q-toolbar">
+  <span class="tag">苏厚旭（党群与人力资源部长）</span>
+  <span class="tag">罗昊（联系人）</span>
+  <div class="q-progress-row">
+    <span><b id="q-done">0</b>/<b id="q-total">16</b> 题已填写</span>
+    <div class="pbar-wrap"><div class="pbar" id="q-pbar" style="width:0%"></div></div>
+    <button class="gh-save-btn" onclick="saveToGitHub()">💾 保存</button>
+    <button class="q-btn q-btn-p" onclick="exportQA()">📄 导出纪要</button>
+    <button class="q-btn q-btn-o" onclick="window.print()">🖨 打印</button>
+    <button class="q-btn q-btn-d" onclick="clearAll()">🗑 清空</button>
+  </div>
+</div>
+<div class="main" style="padding-top:16px">
+
+<div class="q-section">
+  <div class="q-sec-title">A. 组织架构与人员现状 <span class="bdg">A1–A4</span></div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">A1</span><span class="q-label">全公司人员结构</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">佛照集团目前总人数约多少？请描述主要用工形式的分布：正式员工/劳务派遣/外包各占比例？<br>各主要法人（总部、高明分公司、智达电工、海南、茂名）的人员规模大概是多少？<br>过去3年人员总规模的变化趋势（扩张/收缩/稳定）？</div>
+    <div class="q-bg">组织架构文件显示共268个节点：高明393人、国际357人、研究院200人；数智化部16人（IT人力缺口约4倍）；总人数估算约8000+人</div>
+    <textarea class="q-answer" data-qid="A1" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr"><label class="q-radio"><input type="radio" name="s-A1" value="完整" onchange="updateProgress()">✅ 已完整记录</label><label class="q-radio"><input type="radio" name="s-A1" value="待补充" onchange="updateProgress()">🔵 待补充</label><label class="q-radio"><input type="radio" name="s-A1" value="跳过" onchange="updateProgress()">⬜ 跳过</label></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">A2</span><span class="q-label">HR系统现状</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">目前使用什么HR信息系统管理人事、薪资、考勤、绩效？（自研/用友/SAP HCM/金蝶/其他）<br>HR系统与SAP ECC目前有没有集成？组织架构主数据（部门/岗位/人员编号）是在HR系统维护还是在SAP中维护？<br>HR系统数据是否可以作为SAP S/4HANA升级的组织主数据来源？</div>
+    <div class="q-bg">招标文件：HR系统是12个CPI集成系统之一；S/4HANA升级后需重新设计HR-SAP接口；组织主数据（Org Structure）是MDG治理对象</div>
+    <textarea class="q-answer" data-qid="A2" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr"><label class="q-radio"><input type="radio" name="s-A2" value="完整" onchange="updateProgress()">✅ 已完整记录</label><label class="q-radio"><input type="radio" name="s-A2" value="待补充" onchange="updateProgress()">🔵 待补充</label><label class="q-radio"><input type="radio" name="s-A2" value="跳过" onchange="updateProgress()">⬜ 跳过</label></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">A3</span><span class="q-label">岗位编制管理</span></div>
+    <div class="q-text">公司是否有规范的岗位体系（岗位说明书/岗位编码）？岗位与SAP中的职位（Position）如何对应？<br>编制管理是HR部门统一审批还是各部门自行决定？当前空编率大概是多少？<br>本次SAP升级中，IT相关岗位（数智化部）的编制扩充已经提报了吗？进展如何？</div>
+    <div class="q-bg">数字化保障组织设计报告发现：数智化部缺约40-70人（5倍缺口）；建议设立MDM Office（主任+专员2人）；21名联络员体系待落地</div>
+    <textarea class="q-answer" data-qid="A3" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr"><label class="q-radio"><input type="radio" name="s-A3" value="完整" onchange="updateProgress()">✅ 已完整记录</label><label class="q-radio"><input type="radio" name="s-A3" value="待补充" onchange="updateProgress()">🔵 待补充</label><label class="q-radio"><input type="radio" name="s-A3" value="跳过" onchange="updateProgress()">⬜ 跳过</label></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">A4</span><span class="q-label">组织架构变更频率</span></div>
+    <div class="q-text">公司组织架构调整的频率大概是多少次/年？每次调整后SAP中的组织数据（成本中心/利润中心/公司代码）需要多长时间同步更新？<br>历史上是否出现过组织架构已调整但SAP数据未同步，导致成本归属错误的情况？<br>S/4HANA升级后，希望组织架构变更的系统同步时间缩短到多少？</div>
+    <div class="q-bg">已知痛点：成本中心体系设计与组织架构匹配度低；75个研发成本中心（E类）存在历史积累未关闭风险；高明分公司0名IT本地支持</div>
+    <textarea class="q-answer" data-qid="A4" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr"><label class="q-radio"><input type="radio" name="s-A4" value="完整" onchange="updateProgress()">✅ 已完整记录</label><label class="q-radio"><input type="radio" name="s-A4" value="待补充" onchange="updateProgress()">🔵 待补充</label><label class="q-radio"><input type="radio" name="s-A4" value="跳过" onchange="updateProgress()">⬜ 跳过</label></div>
+  </div>
+</div>
+
+<div class="q-section">
+  <div class="q-sec-title">B. 招聘与人才发展 <span class="bdg">B1–B3</span></div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">B1</span><span class="q-label">关键岗位招聘难点</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">目前招聘最困难的岗位类型是哪些？（如：车灯研发/IATF工程师、SAP顾问/IT架构师、新能源方向工程师）<br>高明分公司的人才招聘比总部更难吗？原因是什么？<br>SAP升级后，公司对SAP操作能力的人才需求会大幅增加——HR部门是否已经在考虑相关招聘和培训计划？</div>
+    <div class="q-bg">数字化组织设计报告建议：Super User培训4期计划；关键岗位含MDM主任/CPI工程师/变革管理专员；数智化部需从16人扩至30+人</div>
+    <textarea class="q-answer" data-qid="B1" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr"><label class="q-radio"><input type="radio" name="s-B1" value="完整" onchange="updateProgress()">✅ 已完整记录</label><label class="q-radio"><input type="radio" name="s-B1" value="待补充" onchange="updateProgress()">🔵 待补充</label><label class="q-radio"><input type="radio" name="s-B1" value="跳过" onchange="updateProgress()">⬜ 跳过</label></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">B2</span><span class="q-label">SAP项目培训计划</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">本次SAP S/4HANA升级涉及约8000+名最终用户的操作方式改变。HR部门是否已参与制定培训计划？<br>最终用户培训预算由谁负责？HR统筹还是数智化部？<br>历史上SAP培训效果不好的原因是什么？（如2022年数字化车间项目失败原因之一）这次如何避免？</div>
+    <div class="q-bg">4次历史项目失败（APS/MES/财务共享/营销平台）总损失约490万；变革管理是Greenfield成功关键；招标文件要求乙方提供培训计划与签到表</div>
+    <textarea class="q-answer" data-qid="B2" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr"><label class="q-radio"><input type="radio" name="s-B2" value="完整" onchange="updateProgress()">✅ 已完整记录</label><label class="q-radio"><input type="radio" name="s-B2" value="待补充" onchange="updateProgress()">🔵 待补充</label><label class="q-radio"><input type="radio" name="s-B2" value="跳过" onchange="updateProgress()">⬜ 跳过</label></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">B3</span><span class="q-label">十五五人才战略</span></div>
+    <div class="q-text">十五五期间（2026-2030），佛照的人才战略重点是什么？（车灯/新能源技术人才、数字化人才、国际化人才）<br>对于新能源汽车照明方向的人才储备，目前进展如何？<br>公司是否有与高校/科研机构的产学研合作来解决研发人才短缺问题？</div>
+    <div class="q-bg">2025年车灯业务收入22.3亿（+5.63%）成为增长引擎；研究院200人；公司有IATF 16949认证；新能源汽车占比持续提升</div>
+    <textarea class="q-answer" data-qid="B3" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr"><label class="q-radio"><input type="radio" name="s-B3" value="完整" onchange="updateProgress()">✅ 已完整记录</label><label class="q-radio"><input type="radio" name="s-B3" value="待补充" onchange="updateProgress()">🔵 待补充</label><label class="q-radio"><input type="radio" name="s-B3" value="跳过" onchange="updateProgress()">⬜ 跳过</label></div>
+  </div>
+</div>
+
+<div class="q-section">
+  <div class="q-sec-title">C. 薪酬绩效与劳动关系 <span class="bdg">C1–C3</span></div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">C1</span><span class="q-label">薪酬核算流程</span></div>
+    <div class="q-text">薪酬核算目前用什么系统？工时数据从哪里来（MES/考勤系统/手工录入）？<br>计件工资、计时工资、销售提成三类薪酬的核算是否都已系统化？还是部分依赖Excel？<br>薪酬数据最终如何进入SAP做成本核算（工资费用分摊到成本中心）？这个过程是自动的还是手工的？</div>
+    <div class="q-bg">已知痛点：工时数据从MES回流SAP影响成本核算准确性；生产不良品未单独核算；工资费用分摊路径不清晰</div>
+    <textarea class="q-answer" data-qid="C1" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr"><label class="q-radio"><input type="radio" name="s-C1" value="完整" onchange="updateProgress()">✅ 已完整记录</label><label class="q-radio"><input type="radio" name="s-C1" value="待补充" onchange="updateProgress()">🔵 待补充</label><label class="q-radio"><input type="radio" name="s-C1" value="跳过" onchange="updateProgress()">⬜ 跳过</label></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">C2</span><span class="q-label">绩效考核体系</span></div>
+    <div class="q-text">公司当前绩效考核体系的主要框架是什么（KPI/OKR/平衡计分卡）？考核周期是月度还是年度？<br>数字化相关KPI（如系统上线率、数据准确率、关键用户配合度）有没有纳入各部门考核？<br>本次SAP项目能否将"关键用户积极参与项目"纳入考核指标，以保障项目推进？</div>
+    <div class="q-bg">历史项目失败根因之一：业务部门配合度低、关键用户参与不足；李泽华副总经理签字的关键用户承诺书已要求，但HR层面的考核绑定更有效</div>
+    <textarea class="q-answer" data-qid="C2" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr"><label class="q-radio"><input type="radio" name="s-C2" value="完整" onchange="updateProgress()">✅ 已完整记录</label><label class="q-radio"><input type="radio" name="s-C2" value="待补充" onchange="updateProgress()">🔵 待补充</label><label class="q-radio"><input type="radio" name="s-C2" value="跳过" onchange="updateProgress()">⬜ 跳过</label></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">C3</span><span class="q-label">劳动关系与流失率</span></div>
+    <div class="q-text">过去一年公司员工整体离职率大约是多少？哪类岗位流失最严重（生产工人/技术研发/销售/IT）？<br>高明分公司393人中，技术骨干的稳定性如何？是否有因系统操作不便导致的抱怨？<br>工厂一线员工对数字化系统（MES/SAP）的接受度和操作能力如何评估？</div>
+    <div class="q-bg">SAP升级上线后最终用户操作体验是稳定运行的关键；Fiori界面设计需适配一线操作习惯；高明分公司现有0名IT支持人员</div>
+    <textarea class="q-answer" data-qid="C3" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr"><label class="q-radio"><input type="radio" name="s-C3" value="完整" onchange="updateProgress()">✅ 已完整记录</label><label class="q-radio"><input type="radio" name="s-C3" value="待补充" onchange="updateProgress()">🔵 待补充</label><label class="q-radio"><input type="radio" name="s-C3" value="跳过" onchange="updateProgress()">⬜ 跳过</label></div>
+  </div>
+</div>
+
+<div class="q-section">
+  <div class="q-sec-title">D. 变革管理与SAP项目协同 <span class="bdg">D1–D3</span></div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">D1</span><span class="q-label">变革阻力预判</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">从HR视角，您认为本次SAP升级的变革阻力最大的群体是哪些？（生产一线/财务/销售/采购）原因是什么？<br>公司过去4次数字化项目失败，员工心理上是否已存在"数字化疲劳"或抵触情绪？如何感知？<br>HR部门可以在哪些方面支持变革管理？（如：沟通机制、激励政策、培训资源协调）</div>
+    <div class="q-bg">4类变革阻力已识别：历史创伤（490万损失）/认知定势（IT=成本中心）/生产惯性（一线操作习惯）/销售顾虑（客情影响）；Kotter 8步变革管理已在组织设计报告中规划</div>
+    <textarea class="q-answer" data-qid="D1" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr"><label class="q-radio"><input type="radio" name="s-D1" value="完整" onchange="updateProgress()">✅ 已完整记录</label><label class="q-radio"><input type="radio" name="s-D1" value="待补充" onchange="updateProgress()">🔵 待补充</label><label class="q-radio"><input type="radio" name="s-D1" value="跳过" onchange="updateProgress()">⬜ 跳过</label></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">D2</span><span class="q-label">Super User 机制</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">Super User（超级用户/关键用户）制度的建立，HR部门是否参与激励设计？<br>成为SAP Super User对员工的职业发展有没有明确的激励（薪酬加成/晋升优先/证书）？<br>Super User培训期间（预计每期2-3天）的工时如何安排？HR会协助协调业务部门的排班吗？</div>
+    <div class="q-bg">组织设计报告规划：Super User培训4期（2026.08/10、2027.01/03）；各业务域至少1名；预计总培训人次约50-80人；需HR配合协调排班和激励</div>
+    <textarea class="q-answer" data-qid="D2" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr"><label class="q-radio"><input type="radio" name="s-D2" value="完整" onchange="updateProgress()">✅ 已完整记录</label><label class="q-radio"><input type="radio" name="s-D2" value="待补充" onchange="updateProgress()">🔵 待补充</label><label class="q-radio"><input type="radio" name="s-D2" value="跳过" onchange="updateProgress()">⬜ 跳过</label></div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">D3</span><span class="q-label">开放性问题</span></div>
+    <div class="q-text">从党群工作角度，如何借助党建机制推动SAP项目落地？（如：党员带头使用新系统、党支部结对帮扶难点部门）<br>HR部门对本次SAP升级有什么具体的期望或担忧？<br>苏部长认为HR信息化本身（招聘/薪资/绩效数字化）是否也有优化空间，是否可以作为二期商机讨论？</div>
+    <div class="q-bg">佛照党委书记余中民兼董事长；党建与数字化结合是国企项目落地的有效机制；SAP SuccessFactors是可能的HR二期商机</div>
+    <textarea class="q-answer" data-qid="D3" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr"><label class="q-radio"><input type="radio" name="s-D3" value="完整" onchange="updateProgress()">✅ 已完整记录</label><label class="q-radio"><input type="radio" name="s-D3" value="待补充" onchange="updateProgress()">🔵 待补充</label><label class="q-radio"><input type="radio" name="s-D3" value="跳过" onchange="updateProgress()">⬜ 跳过</label></div>
+  </div>
+</div>
+
+<div class="sum-card">
+  <h3>📎 访谈收尾</h3>
+  <div class="kv"><span class="k">资料收集</span><span class="v">① 组织架构图（最新版，含各部门人数）② HR系统名称和版本 ③ 数智化部编制扩充申请进度 ④ Super User激励政策草案（如有）</span></div>
+  <div class="kv"><span class="k">关键决策</span><span class="v">Super User 考核绑定方案需HR与李泽华副总共同确认；数智化部招聘计划需HR提供时间表</span></div>
+  <div class="kv"><span class="k">关联交付物</span><span class="v">★5《数字化保障组织设计报告》· ★6《数字化转型路线图》· 变革管理计划 · Super User培训计划</span></div>
+  <div class="hbox">⚡ 访谈纪要须于访谈结束后 <b>T+1日内</b>完成，点击「💾 保存」同步至项目仓库。</div>
+  <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+    <button class="gh-save-btn" onclick="saveToGitHub()" style="font-size:13px;padding:8px 22px">💾 保存</button>
+    <button class="q-btn q-btn-p" onclick="exportQA()" style="padding:7px 18px;font-size:12.5px">📄 导出访谈纪要</button>
+    <button class="q-btn q-btn-o" onclick="window.print()" style="padding:7px 18px;font-size:12.5px">🖨 打印</button>
+    <a href="/fsl-report/kanban/" class="q-btn q-btn-o" style="padding:7px 18px;font-size:12.5px">← 返回看板</a>
+  </div>
+</div>
+
+</div>
+<div class="save-banner" id="saveBanner"></div>
+<script>
+var TOTAL=16, LKEY='fsl-survey-hr';
+var REPO='EstaTea/fsl-report', SAVE_PATH='kanban/survey-hr-data.json';
+document.getElementById('q-total').textContent=TOTAL;
+function updateProgress(){
+  var f=0;
+  document.querySelectorAll('.q-answer').forEach(function(a){if(a.value&&a.value.trim().length>3)f++;});
+  document.getElementById('q-done').textContent=f;
+  document.getElementById('q-pbar').style.width=Math.round(f/TOTAL*100)+'%';
+}
+document.querySelectorAll('.q-answer').forEach(function(a){
+  var key=LKEY+'-'+a.getAttribute('data-qid');
+  if(localStorage.getItem(key))a.value=localStorage.getItem(key);
+  a.addEventListener('input',function(){localStorage.setItem(key,a.value);updateProgress();});
+});
+document.querySelectorAll('.q-sr input[type=radio]').forEach(function(r){
+  var key=LKEY+'-radio-'+r.name+'-'+r.value;
+  if(localStorage.getItem(key)==='1')r.checked=true;
+  r.addEventListener('change',function(){
+    if(r.checked)localStorage.setItem(key,'1');else localStorage.removeItem(key);
+    updateProgress();
+  });
+});
+updateProgress();
+function collectAnswers(){
+  var data={meta:{survey:'hr',interviewee:'苏厚旭',org:'党群与人力资源部',date:new Date().toISOString().slice(0,10),savedAt:new Date().toLocaleString('zh-CN')},answers:{}};
+  document.querySelectorAll('.q-answer').forEach(function(a){
+    var qid=a.getAttribute('data-qid');
+    var radio=document.querySelector('input[name="s-'+qid+'"]:checked');
+    data.answers[qid]={text:a.value.trim(),status:radio?radio.value:''};
+  });
+  return data;
+}
+async function saveToGitHub(){
+  var data=collectAnswers();
+  var btns=document.querySelectorAll('.gh-save-btn');
+  btns.forEach(function(b){b.classList.add('saving');b.textContent='保存中…';});
+  try{
+    var r=await fetch('https://fsl-survey-proxy.283656314.workers.dev/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({slug:'hr',data:data})});
+    var result=await r.json();
+    if(r.ok&&result.ok){showBanner('✅ 已保存到云端','');}
+    else{throw new Error(result.error||('HTTP '+r.status));}
+  }catch(e){showBanner('❌ 保存失败：'+e.message,'err-b');}
+  finally{btns.forEach(function(b){b.classList.remove('saving');b.textContent='💾 保存';});}
+}
+function showBanner(msg,cls){
+  var b=document.getElementById('saveBanner');
+  b.textContent=msg;b.className='save-banner show'+(cls?' '+cls:'');
+  setTimeout(function(){b.className='save-banner';},4000);
+}
+function exportQA(){
+  var lines=['佛照SAP升级项目 — 党群与人力资源部访谈纪要','导出时间：'+new Date().toLocaleString('zh-CN'),'='.repeat(60),''];
+  document.querySelectorAll('.q-answer').forEach(function(a){
+    var qid=a.getAttribute('data-qid');
+    var radio=document.querySelector('input[name="s-'+qid+'"]:checked');
+    lines.push('['+qid+'] 状态：'+(radio?radio.value:'未标注'));
+    lines.push(a.value.trim()||'（未填写）');lines.push('');
+  });
+  var blob=new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'});
+  var url=URL.createObjectURL(blob);
+  var link=document.createElement('a');link.href=url;link.download='佛照_HR人力资源_访谈纪要.txt';link.click();URL.revokeObjectURL(url);
+}
+function clearAll(){
+  if(!confirm('确认清空所有填写内容？'))return;
+  document.querySelectorAll('.q-answer').forEach(function(a){a.value='';localStorage.removeItem(LKEY+'-'+a.getAttribute('data-qid'));});
+  document.querySelectorAll('.q-sr input').forEach(function(r){r.checked=false;});updateProgress();
+}
+</script>
+<script>function toggleSD(e){e.stopPropagation();var p=document.getElementById("sdPanel"),b=document.getElementById("sdBtn");if(!p||!b)return;if(p.style.display==="block"){p.style.display="none";return;}var r=b.getBoundingClientRect();p.style.top=(r.bottom+2)+"px";p.style.left=r.left+"px";p.style.display="block";}document.addEventListener("click",function(){var p=document.getElementById("sdPanel");if(p)p.style.display="none";});</script>
+</body>
+</html>
