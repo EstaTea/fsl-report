@@ -12,8 +12,157 @@
         "status": "active",
         "description": "驱动佛照核心制造与销售业务的系统",
         "owner": "",
-        "tags": []
-      }
+        "tags": [],
+        "mapLayout": {
+          "row": 1,
+          "col": 0
+        }
+      },
+      "children": [
+        {
+          "id": "cap-l1-erp",
+          "name": "ERP 核心 SAP S/4HANA",
+          "type": "capability",
+          "category": "core",
+          "parent": "cap-l0-core",
+          "level": 1,
+          "metadata": {
+            "status": "active",
+            "maturity": 4,
+            "owner": "IT部门",
+            "description": "",
+            "vendor": "",
+            "version": "",
+            "tags": [
+              "SAP"
+            ]
+          },
+          "children": [
+            {
+              "id": "cap-l2-fico",
+              "name": "财务会计 FICO",
+              "type": "capability",
+              "parent": "cap-l1-erp",
+              "level": 2,
+              "category": "core",
+              "metadata": {
+                "maturity": 4,
+                "status": "active",
+                "owner": "财务部门",
+                "tags": [
+                  "S/4HANA PCE"
+                ]
+              },
+              "children": []
+            },
+            {
+              "id": "cap-l2-sd",
+              "name": "销售与分销 SD",
+              "type": "capability",
+              "parent": "cap-l1-erp",
+              "level": 2,
+              "category": "core",
+              "metadata": {
+                "maturity": 4,
+                "status": "active",
+                "owner": "销售部门",
+                "tags": [
+                  "S/4HANA PCE"
+                ]
+              },
+              "children": []
+            },
+            {
+              "id": "cap-l2-mm",
+              "name": "物料管理 MM",
+              "type": "capability",
+              "parent": "cap-l1-erp",
+              "level": 2,
+              "category": "core",
+              "metadata": {
+                "maturity": 4,
+                "status": "active",
+                "owner": "采购部门",
+                "tags": [
+                  "S/4HANA PCE"
+                ]
+              },
+              "children": []
+            },
+            {
+              "id": "cap-l2-pp",
+              "name": "生产计划 PP",
+              "type": "capability",
+              "parent": "cap-l1-erp",
+              "level": 2,
+              "category": "core",
+              "metadata": {
+                "maturity": 3,
+                "status": "active",
+                "owner": "生产部门",
+                "tags": [
+                  "S/4HANA PCE"
+                ]
+              },
+              "children": []
+            },
+            {
+              "id": "cap-l2-qm",
+              "name": "质量管理 QM",
+              "type": "capability",
+              "parent": "cap-l1-erp",
+              "level": 2,
+              "category": "supporting",
+              "metadata": {
+                "maturity": 3,
+                "status": "active",
+                "owner": "质量部门",
+                "tags": [
+                  "S/4HANA PCE"
+                ]
+              },
+              "children": []
+            },
+            {
+              "id": "cap-l2-ewm",
+              "name": "扩展仓储 EWM",
+              "type": "capability",
+              "parent": "cap-l1-erp",
+              "level": 2,
+              "category": "supporting",
+              "metadata": {
+                "maturity": 3,
+                "status": "active",
+                "owner": "仓储部门",
+                "tags": [
+                  "S/4HANA PCE"
+                ]
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "cap-mqzgsz0p",
+          "name": "Group Reporting",
+          "type": "capability",
+          "category": "core",
+          "parent": "cap-l0-core",
+          "level": 1,
+          "metadata": {
+            "status": "active",
+            "maturity": 4,
+            "owner": "",
+            "description": "",
+            "vendor": "",
+            "version": "",
+            "tags": []
+          },
+          "children": []
+        }
+      ],
+      "_row": 0,
+      "_col": 0
     },
     {
       "id": "cap-l0-ops",
