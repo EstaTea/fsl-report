@@ -23,19 +23,12 @@ jobs:
         run: |
           FILE="kanban/survey-${SURVEY_SLUG}-data.json"
           mkdir -p kanban
-          echo "$SURVEY_DATA" | python3 -c "
-import sys, json
-raw = sys.stdin.read().strip()
-# parse and pretty-print
-data = json.loads(raw)
-print(json.dumps(data, ensure_ascii=False, indent=2))
-" > "$FILE"
+          printf '%s' "$SURVEY_DATA" | python3 -m json.tool --indent 2 > "$FILE"
           echo "Saved to $FILE"
-          cat "$FILE" | head -20
 
       - name: Commit and push
         run: |
-          git config user.name  "FSL Survey Bot"
+          git config user.name "FSL Survey Bot"
           git config user.email "survey-bot@fsl-report.github.io"
           FILE="kanban/survey-${{ github.event.client_payload.slug }}-data.json"
           git add "$FILE"
