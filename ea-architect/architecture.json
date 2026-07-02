@@ -17,7 +17,150 @@
           "row": 1,
           "col": 2
         }
-      }
+      },
+      "children": [
+        {
+          "id": "cap-l1-erp",
+          "name": "ERP 核心 SAP S/4HANA",
+          "type": "capability",
+          "category": "core",
+          "parent": "cap-l0-core",
+          "level": 1,
+          "metadata": {
+            "status": "active",
+            "maturity": 4,
+            "owner": "IT部门",
+            "description": "",
+            "vendor": "",
+            "version": "",
+            "tags": [
+              "SAP"
+            ]
+          },
+          "children": [
+            {
+              "id": "cap-l2-fico",
+              "name": "财务会计 FICO",
+              "type": "capability",
+              "parent": "cap-l1-erp",
+              "level": 2,
+              "category": "core",
+              "metadata": {
+                "maturity": 4,
+                "status": "active",
+                "owner": "财务部门",
+                "tags": [
+                  "S/4HANA PCE"
+                ]
+              },
+              "children": []
+            },
+            {
+              "id": "cap-l2-sd",
+              "name": "销售与分销 SD",
+              "type": "capability",
+              "parent": "cap-l1-erp",
+              "level": 2,
+              "category": "core",
+              "metadata": {
+                "maturity": 4,
+                "status": "active",
+                "owner": "销售部门",
+                "tags": [
+                  "S/4HANA PCE"
+                ]
+              },
+              "children": []
+            },
+            {
+              "id": "cap-l2-mm",
+              "name": "物料管理 MM",
+              "type": "capability",
+              "parent": "cap-l1-erp",
+              "level": 2,
+              "category": "core",
+              "metadata": {
+                "maturity": 4,
+                "status": "active",
+                "owner": "采购部门",
+                "tags": [
+                  "S/4HANA PCE"
+                ]
+              },
+              "children": []
+            },
+            {
+              "id": "cap-l2-pp",
+              "name": "生产计划 PP",
+              "type": "capability",
+              "parent": "cap-l1-erp",
+              "level": 2,
+              "category": "core",
+              "metadata": {
+                "maturity": 3,
+                "status": "active",
+                "owner": "生产部门",
+                "tags": [
+                  "S/4HANA PCE"
+                ]
+              },
+              "children": []
+            },
+            {
+              "id": "cap-l2-qm",
+              "name": "质量管理 QM",
+              "type": "capability",
+              "parent": "cap-l1-erp",
+              "level": 2,
+              "category": "supporting",
+              "metadata": {
+                "maturity": 3,
+                "status": "active",
+                "owner": "质量部门",
+                "tags": [
+                  "S/4HANA PCE"
+                ]
+              },
+              "children": []
+            },
+            {
+              "id": "cap-l2-ewm",
+              "name": "扩展仓储 EWM",
+              "type": "capability",
+              "parent": "cap-l1-erp",
+              "level": 2,
+              "category": "supporting",
+              "metadata": {
+                "maturity": 3,
+                "status": "active",
+                "owner": "仓储部门",
+                "tags": [
+                  "S/4HANA PCE"
+                ]
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "cap-mqzgsz0p",
+          "name": "Group Reporting",
+          "type": "capability",
+          "category": "core",
+          "parent": "cap-l0-core",
+          "level": 1,
+          "metadata": {
+            "status": "active",
+            "maturity": 4,
+            "owner": "",
+            "description": "",
+            "vendor": "",
+            "version": "",
+            "tags": []
+          },
+          "children": []
+        }
+      ]
     },
     {
       "id": "cap-l0-ops",
@@ -36,7 +179,105 @@
           "row": 1,
           "col": 3
         }
-      }
+      },
+      "children": [
+        {
+          "id": "cap-l1-mfg",
+          "name": "MES-制造执行",
+          "type": "capability",
+          "category": "supporting",
+          "parent": "cap-l0-ops",
+          "level": 1,
+          "metadata": {
+            "status": "active",
+            "maturity": 3,
+            "owner": "生产部门",
+            "description": "",
+            "vendor": "",
+            "version": "",
+            "tags": [
+              "MES"
+            ]
+          },
+          "children": [
+            {
+              "id": "cap-l2-mes-exec",
+              "name": "生产执行监控",
+              "type": "capability",
+              "parent": "cap-l1-mfg",
+              "level": 2,
+              "category": "supporting",
+              "metadata": {
+                "maturity": 3,
+                "status": "active",
+                "owner": "生产部门",
+                "tags": [
+                  "MES"
+                ]
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "cap-l1-wms",
+          "name": "WMS-仓储管理",
+          "type": "capability",
+          "category": "supporting",
+          "parent": "cap-l0-ops",
+          "level": 1,
+          "metadata": {
+            "status": "active",
+            "maturity": 4,
+            "owner": "供应链部门",
+            "description": "",
+            "vendor": "",
+            "version": "",
+            "tags": [
+              "WMS"
+            ]
+          },
+          "children": [
+            {
+              "id": "cap-l2-wms-in",
+              "name": "入库 & 出库管理",
+              "type": "capability",
+              "parent": "cap-l1-wms",
+              "level": 2,
+              "category": "supporting",
+              "metadata": {
+                "maturity": 4,
+                "status": "active",
+                "owner": "仓储部门",
+                "tags": [
+                  "WMS 2025上线"
+                ]
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "cap-l1-aps",
+          "name": "APS-高级计划排程",
+          "type": "capability",
+          "category": "supporting",
+          "parent": "cap-l0-ops",
+          "level": 1,
+          "metadata": {
+            "status": "retiring",
+            "maturity": 1,
+            "owner": "",
+            "description": "",
+            "vendor": "",
+            "version": "",
+            "tags": [
+              "APS"
+            ]
+          },
+          "children": []
+        }
+      ]
     },
     {
       "id": "cap-l0-sales",
@@ -72,9 +313,80 @@
         "tags": [],
         "mapLayout": {
           "row": 1,
-          "col": 0
+          "col": 1
         }
-      }
+      },
+      "children": [
+        {
+          "id": "cap-l1-oa",
+          "name": "办公协同",
+          "type": "capability",
+          "parent": "cap-l0-mgmt",
+          "level": 1,
+          "category": "supporting",
+          "metadata": {
+            "maturity": 3,
+            "status": "active",
+            "owner": "行政部门",
+            "tags": [
+              "OA"
+            ]
+          },
+          "children": []
+        },
+        {
+          "id": "cap-l1-hr",
+          "name": "人力资源管理",
+          "type": "capability",
+          "parent": "cap-l0-mgmt",
+          "level": 1,
+          "category": "supporting",
+          "metadata": {
+            "maturity": 3,
+            "status": "active",
+            "owner": "HR部门",
+            "tags": [
+              "HR"
+            ]
+          },
+          "children": []
+        },
+        {
+          "id": "cap-l1-ai",
+          "name": "AI 平台",
+          "type": "capability",
+          "parent": "cap-l0-mgmt",
+          "level": 1,
+          "category": "strategic",
+          "metadata": {
+            "maturity": 2,
+            "status": "active",
+            "owner": "IT部门",
+            "tags": [
+              "RAG",
+              "私有化"
+            ]
+          },
+          "children": []
+        },
+        {
+          "id": "cap-l1-bi",
+          "name": "经营分析与报表",
+          "type": "capability",
+          "parent": "cap-l0-mgmt",
+          "level": 1,
+          "category": "strategic",
+          "metadata": {
+            "maturity": 2,
+            "status": "active",
+            "owner": "财务部门",
+            "tags": [
+              "BI"
+            ]
+          },
+          "children": []
+        }
+      ]
     },
     {
       "id": "cap-l1-erp",
