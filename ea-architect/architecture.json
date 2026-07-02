@@ -296,7 +296,104 @@
           "row": 1,
           "col": 4
         }
-      }
+      },
+      "children": [
+        {
+          "id": "cap-l1-crm",
+          "name": "CRM-客户关系管理",
+          "type": "capability",
+          "category": "core",
+          "parent": "cap-l0-sales",
+          "level": 1,
+          "metadata": {
+            "status": "active",
+            "maturity": 3,
+            "owner": "销售部门",
+            "description": "",
+            "vendor": "",
+            "version": "",
+            "tags": [
+              "CRM"
+            ]
+          },
+          "children": [
+            {
+              "id": "cap-l2-crm-op",
+              "name": "客户服务 & 跟进",
+              "type": "capability",
+              "parent": "cap-l1-crm",
+              "level": 2,
+              "category": "core",
+              "metadata": {
+                "maturity": 3,
+                "status": "active",
+                "owner": "销售部门",
+                "tags": [
+                  "CRM 2026上线"
+                ]
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "cap-l1-ec",
+          "name": "电商平台",
+          "type": "capability",
+          "parent": "cap-l0-sales",
+          "level": 1,
+          "category": "core",
+          "metadata": {
+            "maturity": 3,
+            "status": "active",
+            "owner": "电商部门",
+            "tags": [
+              "天猫",
+              "京东"
+            ]
+          },
+          "children": [
+            {
+              "id": "cap-l2-ec-tmall",
+              "name": "天猫 / 京东店铺",
+              "type": "capability",
+              "parent": "cap-l1-ec",
+              "level": 2,
+              "category": "core",
+              "metadata": {
+                "maturity": 3,
+                "status": "active",
+                "owner": "电商部门",
+                "tags": [
+                  "佛照商城",
+                  "聚水潭"
+                ]
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "cap-l1-srm",
+          "name": "SRM-供应商关系管理",
+          "type": "capability",
+          "category": "supporting",
+          "parent": "cap-l0-sales",
+          "level": 1,
+          "metadata": {
+            "status": "active",
+            "maturity": 3,
+            "owner": "采购部门",
+            "description": "",
+            "vendor": "",
+            "version": "",
+            "tags": [
+              "SRM"
+            ]
+          },
+          "children": []
+        }
+      ]
     },
     {
       "id": "cap-l0-mgmt",
@@ -428,7 +525,60 @@
           "row": 2,
           "col": 0
         }
-      }
+      },
+      "children": [
+        {
+          "id": "cap-l2-bom",
+          "name": "BOM 管理",
+          "type": "capability",
+          "parent": "cap-l1-plm",
+          "level": 2,
+          "category": "core",
+          "metadata": {
+            "maturity": 4,
+            "status": "active",
+            "owner": "研发部门",
+            "tags": [
+              "SAP PLM"
+            ]
+          },
+          "children": []
+        },
+        {
+          "id": "cap-l2-plm-doc",
+          "name": "产品文档管理",
+          "type": "capability",
+          "parent": "cap-l1-plm",
+          "level": 2,
+          "category": "supporting",
+          "metadata": {
+            "maturity": 3,
+            "status": "active",
+            "owner": "研发部门",
+            "tags": [
+              "SAP PLM"
+            ]
+          },
+          "children": []
+        },
+        {
+          "id": "cap-l2-plm-chg",
+          "name": "工程变更管理 ECM",
+          "type": "capability",
+          "parent": "cap-l1-plm",
+          "level": 2,
+          "category": "supporting",
+          "metadata": {
+            "maturity": 3,
+            "status": "active",
+            "owner": "研发部门",
+            "tags": [
+              "SAP PLM"
+            ]
+          },
+          "children": []
+        }
+      ]
     },
     {
       "id": "cap-l1-mfg",
