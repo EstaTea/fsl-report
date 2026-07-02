@@ -806,6 +806,720 @@
         "version": "",
         "tags": []
       }
+    },
+    {
+      "id": "cap-l2-gr-entity",
+      "name": "法人报表整合",
+      "type": "capability",
+      "category": "core",
+      "parent": "cap-mqzgsz0p",
+      "level": 2,
+      "metadata": {
+        "status": "planned",
+        "maturity": 3,
+        "owner": "",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["Group Reporting"]
+      }
+    },
+    {
+      "id": "cap-l2-gr-elim",
+      "name": "跨法人内部抵消",
+      "type": "capability",
+      "category": "core",
+      "parent": "cap-mqzgsz0p",
+      "level": 2,
+      "metadata": {
+        "status": "planned",
+        "maturity": 2,
+        "owner": "",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["Group Reporting"]
+      }
+    },
+    {
+      "id": "cap-l2-gr-consol",
+      "name": "合并财务报表",
+      "type": "capability",
+      "category": "core",
+      "parent": "cap-mqzgsz0p",
+      "level": 2,
+      "metadata": {
+        "status": "planned",
+        "maturity": 2,
+        "owner": "",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["Group Reporting"]
+      }
+    },
+    {
+      "id": "cap-l1-mdg-mat",
+      "name": "物料主数据",
+      "type": "capability",
+      "category": "core",
+      "parent": "cap-mqzgqq50",
+      "level": 1,
+      "metadata": {
+        "status": "planned",
+        "maturity": 3,
+        "owner": "",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["MDG"]
+      }
+    },
+    {
+      "id": "cap-l1-mdg-cust",
+      "name": "客户主数据",
+      "type": "capability",
+      "category": "core",
+      "parent": "cap-mqzgqq50",
+      "level": 1,
+      "metadata": {
+        "status": "planned",
+        "maturity": 2,
+        "owner": "",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["MDG"]
+      }
+    },
+    {
+      "id": "cap-l1-mdg-vend",
+      "name": "供应商主数据",
+      "type": "capability",
+      "category": "core",
+      "parent": "cap-mqzgqq50",
+      "level": 1,
+      "metadata": {
+        "status": "planned",
+        "maturity": 2,
+        "owner": "",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["MDG"]
+      }
+    },
+    {
+      "id": "cap-l1-mdg-fin",
+      "name": "财务主数据",
+      "type": "capability",
+      "category": "core",
+      "parent": "cap-mqzgqq50",
+      "level": 1,
+      "metadata": {
+        "status": "planned",
+        "maturity": 3,
+        "owner": "",
+        "description": "科目/利润中心",
+        "vendor": "",
+        "version": "",
+        "tags": ["MDG"]
+      }
+    },
+    {
+      "id": "cap-l1-car-sales",
+      "name": "销售活动分析",
+      "type": "capability",
+      "category": "core",
+      "parent": "cap-mr1i7bxm",
+      "level": 1,
+      "metadata": {
+        "status": "planned",
+        "maturity": 1,
+        "owner": "",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["CAR"]
+      }
+    },
+    {
+      "id": "cap-l1-car-cust",
+      "name": "客户行为洞察",
+      "type": "capability",
+      "category": "core",
+      "parent": "cap-mr1i7bxm",
+      "level": 1,
+      "metadata": {
+        "status": "planned",
+        "maturity": 1,
+        "owner": "",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["CAR"]
+      }
+    },
+    {
+      "id": "cap-l2-mes-order",
+      "name": "工单调度与管理",
+      "type": "capability",
+      "category": "supporting",
+      "parent": "cap-l1-mfg",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 3,
+        "owner": "生产部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["MES"]
+      }
+    },
+    {
+      "id": "cap-l2-mes-qc",
+      "name": "在线质检",
+      "type": "capability",
+      "category": "supporting",
+      "parent": "cap-l1-mfg",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 2,
+        "owner": "质量部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["MES"]
+      }
+    },
+    {
+      "id": "cap-l2-mes-equip",
+      "name": "设备运维管理",
+      "type": "capability",
+      "category": "supporting",
+      "parent": "cap-l1-mfg",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 2,
+        "owner": "生产部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["MES"]
+      }
+    },
+    {
+      "id": "cap-l2-wms-loc",
+      "name": "库位管理",
+      "type": "capability",
+      "category": "supporting",
+      "parent": "cap-l1-wms",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 4,
+        "owner": "仓储部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["WMS"]
+      }
+    },
+    {
+      "id": "cap-l2-wms-inv",
+      "name": "库存盘点",
+      "type": "capability",
+      "category": "supporting",
+      "parent": "cap-l1-wms",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 4,
+        "owner": "仓储部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["WMS"]
+      }
+    },
+    {
+      "id": "cap-l2-wms-pick",
+      "name": "拣货配货",
+      "type": "capability",
+      "category": "supporting",
+      "parent": "cap-l1-wms",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 3,
+        "owner": "仓储部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["WMS"]
+      }
+    },
+    {
+      "id": "cap-l2-aps-mps",
+      "name": "主生产计划 MPS",
+      "type": "capability",
+      "category": "supporting",
+      "parent": "cap-l1-aps",
+      "level": 2,
+      "metadata": {
+        "status": "sunset",
+        "maturity": 1,
+        "owner": "",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["APS"]
+      }
+    },
+    {
+      "id": "cap-l2-aps-dp",
+      "name": "需求计划",
+      "type": "capability",
+      "category": "supporting",
+      "parent": "cap-l1-aps",
+      "level": 2,
+      "metadata": {
+        "status": "sunset",
+        "maturity": 1,
+        "owner": "",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["APS"]
+      }
+    },
+    {
+      "id": "cap-l2-crm-lead",
+      "name": "线索与商机管理",
+      "type": "capability",
+      "category": "core",
+      "parent": "cap-l1-crm",
+      "level": 2,
+      "metadata": {
+        "status": "planned",
+        "maturity": 2,
+        "owner": "销售部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["CRM"]
+      }
+    },
+    {
+      "id": "cap-l2-crm-contract",
+      "name": "合同管理",
+      "type": "capability",
+      "category": "core",
+      "parent": "cap-l1-crm",
+      "level": 2,
+      "metadata": {
+        "status": "planned",
+        "maturity": 2,
+        "owner": "销售部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["CRM"]
+      }
+    },
+    {
+      "id": "cap-l2-crm-data",
+      "name": "客户主数据",
+      "type": "capability",
+      "category": "core",
+      "parent": "cap-l1-crm",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 3,
+        "owner": "销售部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["CRM"]
+      }
+    },
+    {
+      "id": "cap-l2-ec-b2b",
+      "name": "佛照商城 B2B",
+      "type": "capability",
+      "category": "core",
+      "parent": "cap-l1-ec",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 3,
+        "owner": "电商部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["电商"]
+      }
+    },
+    {
+      "id": "cap-l2-ec-oms",
+      "name": "聚水潭 OMS",
+      "type": "capability",
+      "category": "core",
+      "parent": "cap-l1-ec",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 3,
+        "owner": "电商部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["电商"]
+      }
+    },
+    {
+      "id": "cap-l2-ec-fulfill",
+      "name": "订单履行",
+      "type": "capability",
+      "category": "core",
+      "parent": "cap-l1-ec",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 3,
+        "owner": "电商部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["电商"]
+      }
+    },
+    {
+      "id": "cap-l2-srm-vendor",
+      "name": "供应商档案管理",
+      "type": "capability",
+      "category": "supporting",
+      "parent": "cap-l1-srm",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 3,
+        "owner": "采购部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["SRM"]
+      }
+    },
+    {
+      "id": "cap-l2-srm-rfq",
+      "name": "询报价管理",
+      "type": "capability",
+      "category": "supporting",
+      "parent": "cap-l1-srm",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 3,
+        "owner": "采购部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["SRM"]
+      }
+    },
+    {
+      "id": "cap-l2-srm-po",
+      "name": "采购订单协同",
+      "type": "capability",
+      "category": "supporting",
+      "parent": "cap-l1-srm",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 3,
+        "owner": "采购部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["SRM"]
+      }
+    },
+    {
+      "id": "cap-l2-srm-contract",
+      "name": "供应商合同管理",
+      "type": "capability",
+      "category": "supporting",
+      "parent": "cap-l1-srm",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 3,
+        "owner": "采购部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["SRM"]
+      }
+    },
+    {
+      "id": "cap-l2-oa-flow",
+      "name": "审批工作流",
+      "type": "capability",
+      "category": "supporting",
+      "parent": "cap-l1-oa",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 3,
+        "owner": "行政部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["OA"]
+      }
+    },
+    {
+      "id": "cap-l2-oa-doc",
+      "name": "公文管理",
+      "type": "capability",
+      "category": "supporting",
+      "parent": "cap-l1-oa",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 3,
+        "owner": "行政部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["OA"]
+      }
+    },
+    {
+      "id": "cap-l2-oa-meeting",
+      "name": "会议管理",
+      "type": "capability",
+      "category": "supporting",
+      "parent": "cap-l1-oa",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 2,
+        "owner": "行政部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["OA"]
+      }
+    },
+    {
+      "id": "cap-l2-oa-portal",
+      "name": "员工门户",
+      "type": "capability",
+      "category": "supporting",
+      "parent": "cap-l1-oa",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 3,
+        "owner": "行政部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["OA"]
+      }
+    },
+    {
+      "id": "cap-l2-hr-personnel",
+      "name": "人事档案管理",
+      "type": "capability",
+      "category": "supporting",
+      "parent": "cap-l1-hr",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 3,
+        "owner": "HR部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["HR"]
+      }
+    },
+    {
+      "id": "cap-l2-hr-payroll",
+      "name": "薪酬核算",
+      "type": "capability",
+      "category": "supporting",
+      "parent": "cap-l1-hr",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 3,
+        "owner": "HR部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["HR"]
+      }
+    },
+    {
+      "id": "cap-l2-hr-attend",
+      "name": "考勤管理",
+      "type": "capability",
+      "category": "supporting",
+      "parent": "cap-l1-hr",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 3,
+        "owner": "HR部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["HR"]
+      }
+    },
+    {
+      "id": "cap-l2-hr-recruit",
+      "name": "招聘管理",
+      "type": "capability",
+      "category": "supporting",
+      "parent": "cap-l1-hr",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 2,
+        "owner": "HR部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["HR"]
+      }
+    },
+    {
+      "id": "cap-l2-ai-rag",
+      "name": "私有化 RAG 问答",
+      "type": "capability",
+      "category": "strategic",
+      "parent": "cap-l1-ai",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 2,
+        "owner": "IT部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["AI", "RAG"]
+      }
+    },
+    {
+      "id": "cap-l2-ai-multi",
+      "name": "多模态分析",
+      "type": "capability",
+      "category": "strategic",
+      "parent": "cap-l1-ai",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 2,
+        "owner": "IT部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["AI"]
+      }
+    },
+    {
+      "id": "cap-l2-ai-flow",
+      "name": "智能工作流自动化",
+      "type": "capability",
+      "category": "strategic",
+      "parent": "cap-l1-ai",
+      "level": 2,
+      "metadata": {
+        "status": "planned",
+        "maturity": 1,
+        "owner": "IT部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["AI"]
+      }
+    },
+    {
+      "id": "cap-l2-bi-dashboard",
+      "name": "管理驾驶舱",
+      "type": "capability",
+      "category": "strategic",
+      "parent": "cap-l1-bi",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 2,
+        "owner": "财务部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["BI"]
+      }
+    },
+    {
+      "id": "cap-l2-bi-fin",
+      "name": "财务分析",
+      "type": "capability",
+      "category": "strategic",
+      "parent": "cap-l1-bi",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 3,
+        "owner": "财务部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["BI"]
+      }
+    },
+    {
+      "id": "cap-l2-bi-sales",
+      "name": "销售分析",
+      "type": "capability",
+      "category": "strategic",
+      "parent": "cap-l1-bi",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 3,
+        "owner": "财务部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["BI"]
+      }
+    },
+    {
+      "id": "cap-l2-bi-scm",
+      "name": "供应链分析",
+      "type": "capability",
+      "category": "strategic",
+      "parent": "cap-l1-bi",
+      "level": 2,
+      "metadata": {
+        "status": "active",
+        "maturity": 2,
+        "owner": "供应链部门",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": ["BI"]
+      }
     }
   ],
   "edges": [
