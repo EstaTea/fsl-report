@@ -176,8 +176,112 @@
         "status": "active",
         "description": "制造执行、仓储、计划排程",
         "owner": "",
-        "tags": []
-      }
+        "tags": [],
+        "mapLayout": {
+          "row": 0,
+          "col": 0
+        }
+      },
+      "children": [
+        {
+          "id": "cap-l1-mfg",
+          "name": "MES-制造执行",
+          "type": "capability",
+          "category": "supporting",
+          "parent": "cap-l0-ops",
+          "level": 1,
+          "metadata": {
+            "status": "active",
+            "maturity": 3,
+            "owner": "生产部门",
+            "description": "",
+            "vendor": "",
+            "version": "",
+            "tags": [
+              "MES"
+            ]
+          },
+          "children": [
+            {
+              "id": "cap-l2-mes-exec",
+              "name": "生产执行监控",
+              "type": "capability",
+              "parent": "cap-l1-mfg",
+              "level": 2,
+              "category": "supporting",
+              "metadata": {
+                "maturity": 3,
+                "status": "active",
+                "owner": "生产部门",
+                "tags": [
+                  "MES"
+                ]
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "cap-l1-wms",
+          "name": "WMS-仓储管理",
+          "type": "capability",
+          "category": "supporting",
+          "parent": "cap-l0-ops",
+          "level": 1,
+          "metadata": {
+            "status": "active",
+            "maturity": 4,
+            "owner": "供应链部门",
+            "description": "",
+            "vendor": "",
+            "version": "",
+            "tags": [
+              "WMS"
+            ]
+          },
+          "children": [
+            {
+              "id": "cap-l2-wms-in",
+              "name": "入库 & 出库管理",
+              "type": "capability",
+              "parent": "cap-l1-wms",
+              "level": 2,
+              "category": "supporting",
+              "metadata": {
+                "maturity": 4,
+                "status": "active",
+                "owner": "仓储部门",
+                "tags": [
+                  "WMS 2025上线"
+                ]
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "cap-l1-aps",
+          "name": "APS-高级计划排程",
+          "type": "capability",
+          "category": "supporting",
+          "parent": "cap-l0-ops",
+          "level": 1,
+          "metadata": {
+            "status": "retiring",
+            "maturity": 1,
+            "owner": "",
+            "description": "",
+            "vendor": "",
+            "version": "",
+            "tags": [
+              "APS"
+            ]
+          },
+          "children": []
+        }
+      ],
+      "_row": 0,
+      "_col": 1
     },
     {
       "id": "cap-l0-sales",
