@@ -967,8 +967,7 @@ select.dp-input{appearance:none;-webkit-appearance:none;
       <button class="arch-tab active" id="archTabPeople"      onclick="switchArchTab('people')">👥 人员架构</button>
       <button class="arch-tab"        id="archTabCompany"     onclick="switchArchTab('company')">🏢 公司架构</button>
       <button class="arch-tab"        id="archTabFunction"    onclick="switchArchTab('function')">⚙️ 功能 / 集成架构</button>
-      <button id="eaSaveBtnTab" onclick="eaSaveToGitHub()" style="display:none;margin-left:auto;margin-right:8px;padding:4px 12px;background:var(--b500);color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;">💾 保存</button>
-      <span id="eaStatusMsg" style="display:none;font-size:11.5px;color:var(--b500);margin-right:10px;align-self:center;"></span>
+      <span id="eaStatusMsg" style="display:none;font-size:11.5px;color:var(--b500);margin-right:10px;align-self:center;margin-left:auto;"></span>
     </div>
 
     <!-- 人员架构 -->
@@ -3336,9 +3335,7 @@ function switchArchTab(tab){
   if(btn) btn.classList.add('active');
   if(panel) panel.classList.add('active');
   // Show/hide save button in tab bar
-  var saveTabBtn = document.getElementById('eaSaveBtnTab');
   var statusTabEl = document.getElementById('eaStatusMsg');
-  if(saveTabBtn) saveTabBtn.style.display = tab==='function' ? '' : 'none';
   if(statusTabEl) statusTabEl.style.display = tab==='function' ? '' : 'none';
   // 懒加载 iframe：首次切换到 function Tab 时才真正加载；已加载则通知内部重排
   if(tab === 'function'){
@@ -3697,30 +3694,23 @@ function eaLoadFromGitHub(cb){
     .catch(function(){ eaSetStatus('加载失败，检查 Token 权限', false); });
 }
 
-// Save architecture.json to GitHub (always fetch fresh SHA to avoid 409 conflict)
+// Save architecture.json to GitHub
 function eaSaveToGitHub(){
   if(!TOKEN){ promptLoginThenDo(eaSaveToGitHub); return; }
   if(!EA_DATA){ eaSetStatus('无数据可保存', false); return; }
   eaSetStatus('保存中…');
-  // Step 1: get the latest SHA from GitHub to avoid stale-SHA conflict
-  fetch(API+'/contents/ea-architect/architecture.json', {headers: hdrs()})
-    .then(function(r){ return r.json(); })
-    .then(function(meta){
-      var freshSha = meta.sha || EA_SHA;
-      EA_SHA = freshSha;
-      var fileContent = btoa(unescape(encodeURIComponent(JSON.stringify(EA_DATA, null, 2))));
-      var body = JSON.stringify({ message:'update: ea-architect/architecture.json', content: fileContent, sha: freshSha });
-      // Step 2: write with the fresh SHA
-      return fetch(API+'/contents/ea-architect/architecture.json', {
-        method:'PUT', headers: Object.assign({'Content-Type':'application/json'}, hdrs()), body: body
-      }).then(function(r){ return r.json(); });
-    })
+  var content = btoa(unescape(encodeURIComponent(JSON.stringify(EA_DATA, null, 2))));
+  var body = JSON.stringify({ message:'update: ea-architect/architecture.json', content: content, sha: EA_SHA });
+  fetch(API+'/contents/ea-architect/architecture.json', {
+    method:'PUT', headers: Object.assign({'Content-Type':'application/json'}, hdrs()), body: body
+  }).then(function(r){ return r.json(); })
     .then(function(d){
       if(d.content){ EA_SHA = d.content.sha; eaSetStatus('已保存 ✓', true); }
-      else { eaSetStatus('保存失败: '+(d.message||JSON.stringify(d)), false); }
+      else { eaSetStatus('保存失败: '+(d.message||''), false); }
+      // Notify iframe to reload
       try { document.getElementById('iframeFunction').contentWindow.postMessage('ea:reload', '*'); } catch(e){}
     })
-    .catch(function(e){ eaSetStatus('保存失败: '+e.message, false); });
+    .catch(function(){ eaSetStatus('保存失败', false); });
 }
 
 function eaNodeName(id){
