@@ -25,7 +25,6 @@ nav{background:var(--b900);padding:0 32px;display:flex;align-items:center;gap:20
              transition:color .15s;border-bottom:2px solid transparent;}
 .nav-links a:hover{color:rgba(255,255,255,.9);}
 .nav-links a.active{color:#fff;border-bottom-color:#5EA4CE;}
-
 .nav-dropdown{position:relative;display:inline-flex;align-items:center;}
 .nav-dropdown>a{padding:0 14px;color:rgba(255,255,255,.6);font-size:12.5px;
   height:54px;display:flex;align-items:center;white-space:nowrap;
@@ -45,8 +44,7 @@ nav{background:var(--b900);padding:0 32px;display:flex;align-items:center;gap:20
 .nav-dd-group-title{font-size:10px;font-weight:800;letter-spacing:.8px;
   text-transform:uppercase;color:#5EA4CE;margin-bottom:8px;padding-bottom:4px;
   border-bottom:1px solid rgba(255,255,255,.08);}
-.nav-dd-panel a{display:block;padding:5px 0;color:rgba(255,255,255,.65);
-  font-size:12.5px;transition:color .12s;}
+.nav-dd-panel a{display:block;padding:5px 0;color:rgba(255,255,255,.65);font-size:12.5px;transition:color .12s;}
 .nav-dd-panel a:hover{color:#fff;}
 .nav-dd-research{margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);}
 .nav-dd-research-links{display:flex;gap:20px;}
@@ -66,14 +64,12 @@ nav{background:var(--b900);padding:0 32px;display:flex;align-items:center;gap:20
 .bc{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted);margin-bottom:22px;}
 .bc a{color:var(--b500);}.bc a:hover{color:var(--b700);}.bc .sep{color:var(--b100);}
 
-/* status */
 .top-row{display:grid;grid-template-columns:160px 260px 1fr;gap:12px;margin-bottom:14px;}
 @media(max-width:1000px){.top-row{grid-template-columns:1fr 1fr;}}
 @media(max-width:640px){.top-row{grid-template-columns:1fr;}}
 .card{background:#fff;border:1px solid var(--rule);border-radius:var(--r);padding:18px 20px;
       box-shadow:0 1px 3px rgba(35,116,163,.05);}
-.card-title{font-size:12px;font-weight:800;color:var(--b900);text-decoration:underline;
-            margin-bottom:10px;letter-spacing:.1px;}
+.card-title{font-size:12px;font-weight:800;color:var(--b900);text-decoration:underline;margin-bottom:10px;}
 .status-center{text-align:center;}
 .status-dot{width:52px;height:52px;border-radius:50%;margin:6px auto;}
 .s-green{background:#43A047;}.s-yellow{background:#FB8C00;}.s-red{background:#E53935;}
@@ -85,8 +81,6 @@ nav{background:var(--b900);padding:0 32px;display:flex;align-items:center;gap:20
 .det-ind{width:20px;height:20px;border-radius:50%;flex-shrink:0;}
 .pbar-wrap{background:var(--b050);border-radius:3px;height:7px;flex:1;max-width:90px;}
 .pbar{height:100%;border-radius:3px;background:#43A047;}
-
-/* gantt */
 .gantt-wrap{overflow-x:auto;}
 .gantt{width:100%;border-collapse:collapse;font-size:11px;}
 .gantt th{background:var(--b700);color:#fff;padding:4px 6px;text-align:center;
@@ -96,8 +90,6 @@ nav{background:var(--b900);padding:0 32px;display:flex;align-items:center;gap:20
 .bar{border-radius:2px;height:13px;display:inline-block;vertical-align:middle;}
 .b-done{background:var(--b700);}.b-now{background:var(--b500);}.b-plan{background:var(--b100);}
 .gantt-note{font-size:10.5px;color:var(--b500);margin-top:5px;font-style:italic;}
-
-/* 4 cards */
 .cards-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px;}
 @media(max-width:1100px){.cards-row{grid-template-columns:1fr 1fr;}}
 @media(max-width:640px){.cards-row{grid-template-columns:1fr;}}
@@ -113,7 +105,7 @@ ul.cl li{font-size:12.5px;line-height:1.65;margin-bottom:3px;}
 .ri-g{background:#43A047;}.ri-y{background:#FB8C00;}.ri-r{background:#E53935;}
 .ri-txt{font-size:12px;line-height:1.5;flex:1;}
 .bdg{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;
-     border-radius:3px;margin-left:3px;letter-spacing:.2px;}
+     border-radius:3px;margin-left:3px;}
 .bdg-g{background:#E8F5E9;color:#2E7D32;}
 .bdg-y{background:#FFF8E1;color:#F57F17;}
 .bdg-r{background:#FFEBEE;color:#C62828;}
@@ -125,20 +117,21 @@ ul.cl li{font-size:12.5px;line-height:1.65;margin-bottom:3px;}
 .mc-val{font-size:12px;font-weight:800;color:var(--b900);}
 .sum-box{background:var(--b050);border-left:3px solid var(--b500);
          border-radius:0 4px 4px 0;padding:8px 12px;margin-top:10px;font-size:12px;}
-
-/* findings table */
 .ftable{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px;}
 .ftable th{background:var(--b700);color:#fff;padding:6px 10px;text-align:left;
            font-size:11px;font-weight:700;border:1px solid var(--b900);}
 .ftable td{border:1px solid var(--rule);padding:7px 10px;vertical-align:top;}
 .ftable tr:nth-child(even) td{background:var(--b050);}
 .ftable tr:hover td{background:#e0f0fa;}
-.tag-r{display:inline-block;background:#FFEBEE;color:#C62828;font-size:10px;
-       font-weight:700;padding:1px 6px;border-radius:3px;}
-.tag-y{display:inline-block;background:#FFF8E1;color:#F57F17;font-size:10px;
-       font-weight:700;padding:1px 6px;border-radius:3px;}
-.tag-b{display:inline-block;background:var(--b050);color:var(--b700);font-size:10px;
-       font-weight:700;padding:1px 6px;border-radius:3px;}
+.req-domain{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px;}
+@media(max-width:900px){.req-domain{grid-template-columns:1fr 1fr;}}
+.req-card{background:var(--b050);border:1px solid var(--b100);border-radius:var(--r);
+          padding:12px 14px;border-left:3px solid var(--b500);}
+.req-card-title{font-size:11.5px;font-weight:800;color:var(--b900);margin-bottom:6px;}
+.req-card-count{font-size:18px;font-weight:800;color:var(--b700);display:inline-block;margin-right:4px;}
+.req-card-sub{font-size:10.5px;color:var(--muted);margin-bottom:6px;}
+ul.req-list{padding-left:14px;}
+ul.req-list li{font-size:11.5px;line-height:1.6;color:var(--text);}
 
 footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
        padding:18px;font-size:11px;margin-top:48px;letter-spacing:.2px;}
@@ -224,14 +217,15 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
 </nav>
 
 <div class="hero">
-  <div class="hero-meta">探索阶段第2周 · 版本 V1.0 · 2026-07-02</div>
+  <div class="hero-meta">探索阶段第2周（终版）· V2.0 · 2026-07-03</div>
   <h1>项目周报 — W2（2026-06-29 ~ 07-04）</h1>
-  <p>业务调研全面铺开：涵盖制造/供应链/国际/研发/财务/法务等14个领域，D9高明基地实地完成</p>
+  <p>D1–D10全部收官，466条需求完成收集，27个业务单元全覆盖，D11调研总结汇报07-06举行</p>
   <div class="hero-chips">
     <span class="chip">探索阶段</span>
-    <span class="chip">W2 当前</span>
-    <span class="chip">D6–D10</span>
-    <span class="chip">调研覆盖 25+ 业务域</span>
+    <span class="chip">W2 完成</span>
+    <span class="chip">D6–D10 全部✅</span>
+    <span class="chip">466条需求</span>
+    <span class="chip">D11汇报 07-06</span>
   </div>
 </div>
 
@@ -244,40 +238,37 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
     <span>W2</span>
   </div>
 
-  <!-- ── Top status row ── -->
+  <!-- ── 状态行 ── -->
   <div class="top-row">
 
-    <!-- 整体状态 -->
     <div class="card">
       <div class="card-title">整体状态</div>
       <div class="status-center">
-        <div class="status-dot s-yellow"></div>
-        <div class="s-label">整体黄色</div>
+        <div class="status-dot s-green"></div>
+        <div class="s-label">整体绿色</div>
         <div class="s-week">2026-06-29 ~ 07-04</div>
-        <div class="s-phase">探索阶段 · 第 W2 周</div>
+        <div class="s-phase">探索阶段 · W2 已收官</div>
       </div>
     </div>
 
-    <!-- 详细状态 -->
     <div class="card">
       <div class="card-title">详细状态</div>
       <div class="det-row">
-        <span class="det-text">进度：18%</span>
-        <div class="pbar-wrap"><div class="pbar" style="width:18%;"></div></div>
+        <span class="det-text">进度：20%</span>
+        <div class="pbar-wrap"><div class="pbar" style="width:20%;"></div></div>
         <div class="det-ind" style="background:#43A047;"></div>
       </div>
       <div class="det-row">
-        <span class="det-text">风险：高 <b style="color:#d32f2f;">2</b> &nbsp;中 <b style="color:#e8a900;">4</b> &nbsp;低 2</span>
-        <div class="det-ind" style="background:#FB8C00;"></div>
+        <span class="det-text">风险：高 <b style="color:#d32f2f;">2</b> &nbsp;中 <b style="color:#e8a900;">3</b> &nbsp;低 2</span>
+        <div class="det-ind" style="background:#43A047;"></div>
       </div>
       <div class="det-row">
-        <span class="det-text">问题：高 <b style="color:#d32f2f;">1</b> &nbsp;中 <b style="color:#e8a900;">5</b> &nbsp;低 9</span>
-        <div class="det-ind" style="background:#FB8C00;"></div>
+        <span class="det-text">需求收集：<b style="color:#1a4f73;">466条</b> 完成</span>
+        <div class="det-ind" style="background:#43A047;"></div>
       </div>
-      <div class="sum-box">⚡ 调研深度超预期，新增接口范围与系统边界决策项明显增加，需尽快在蓝图阶段收口</div>
+      <div class="sum-box">✅ D1–D10全部收官，需求整理V3完成，D11（07-06）总结汇报签字后触发第1笔款</div>
     </div>
 
-    <!-- 甘特 mini -->
     <div class="card">
       <div class="card-title">本周调研进度（D6–D10）</div>
       <div class="gantt-wrap">
@@ -295,166 +286,176 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
               <td style="text-align:center"><span class="bar b-done" style="width:36px;"></span></td>
               <td style="text-align:center"><span class="bar b-done" style="width:36px;"></span></td>
               <td style="text-align:center"><span class="bar b-done" style="width:36px;"></span></td>
-              <td style="text-align:center"><span class="bar b-plan" style="width:36px;"></span></td>
+              <td style="text-align:center"><span class="bar b-done" style="width:36px;"></span></td>
             </tr>
             <tr>
               <td class="tn">纪要产出</td>
               <td style="text-align:center"><span class="bar b-done" style="width:36px;"></span></td>
               <td style="text-align:center"><span class="bar b-done" style="width:36px;"></span></td>
               <td style="text-align:center"><span class="bar b-done" style="width:36px;"></span></td>
-              <td style="text-align:center"><span class="bar b-now"  style="width:36px;"></span></td>
-              <td></td>
+              <td style="text-align:center"><span class="bar b-done" style="width:36px;"></span></td>
+              <td style="text-align:center"><span class="bar b-done" style="width:36px;"></span></td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div class="gantt-note">■深蓝=已完成 ■中蓝=进行中 ■浅蓝=计划中 &nbsp;｜&nbsp; D9=高明基地全天实地（7/2）</div>
+      <div class="gantt-note">■深蓝=已完成 &nbsp;｜&nbsp; D9=高明全天实地 · D10=质量/外汇/主数据取样/需求收口</div>
     </div>
 
-  </div><!-- /top-row -->
+  </div>
 
-  <!-- ── 4 content cards ── -->
+  <!-- ── 4 cards ── -->
   <div class="cards-row">
 
-    <!-- 本周主要成果 -->
+    <!-- 本周成果 -->
     <div class="card">
       <div class="card-hd">本周主要成果</div>
-      <div class="sec">■ D6（06-29）PLM/研究院/车灯/财务</div>
+      <div class="sec">■ D6 PLM/车灯/财务（06-29）</div>
       <ul class="cl">
-        <li>PLM/PM系统两期功能全面摸底（编码、研发BOM、项目资料），研发BOM→工程BOM→制造BOM <b>三阶段断点</b>确认</li>
-        <li>车灯事业部（南宁燎旺）独立泛微OA，与集团系统边界需专项设计</li>
-        <li>财务共享与资产模块：OA验收流程 + SAP固定资产卡片割裂，设备生命周期无系统闭环</li>
+        <li>PLM研发BOM→工程BOM→制造BOM <b>三阶段断点确认</b>，物料供应商/价格审批后需二次录入SAP</li>
+        <li>车灯（南宁燎旺）独立泛微OA，与集团系统边界需专项</li>
+        <li>财务共享/资产：OA验收流程与SAP固定资产卡片割裂，设备生命周期无闭环</li>
       </ul>
-      <div class="sec">■ D7（06-30）供应链/国际/电商/研究院/司库</div>
+      <div class="sec">■ D7 供应链/国际/电商/研究院/司库（06-30）</div>
       <ul class="cl">
-        <li>供应链中心（王志宏主持）：SRM→OA→SAP价格链人工中转断点确认，外购成品无结构化核价机制</li>
-        <li>国际事业部：领星ERP（跨境电商）与SAP完全未打通；皓徕特/泰国/德国多主体转移定价专题需纳入蓝图</li>
-        <li>电商（叶荣/廖建祖）：业务规模1亿→4亿，目标8–10亿；每月30万张发票人工开票，<b>自动开票是最高价值场景</b></li>
-        <li>研究院：产品ID/研发BOM/生产BOM/销售物料映射关系全部靠人工，研发费用归集无系统闭环</li>
-        <li>司库：广晟集团监管驱动，SAP/SRM/财务共享/广晟共享/司库/九恒星之间无最新完整架构图</li>
+        <li>供应链（王志宏）：SRM→OA→SAP价格链人工中转，无结构化核价机制</li>
+        <li>国际：领星ERP（跨境电商）<b>与SAP完全未打通</b>；泰国/德国转移定价专题必须纳入蓝图</li>
+        <li>电商：业务目标8–10亿，每月<b>30万张发票人工开票</b>，自动开票是最高价值场景</li>
+        <li>司库：SAP/SRM/财务共享/广晟共享/司库/九恒星无最新完整架构图</li>
       </ul>
-      <div class="sec">■ D8（07-01）OA/企管/HR/法务</div>
+      <div class="sec">■ D8 OA/流程/HR/法务（07-01）</div>
       <ul class="cl">
-        <li>OA（泛微）覆盖全公司审批入口，但审批完成后SAP/SRM仍需人工录入，集成仅停留在待办推送层</li>
+        <li>OA审批完成后SAP/SRM仍需人工录入，集成仅停留在待办推送层</li>
         <li>HR主系统缺失：OA/广晟/i人事/星源/Excel并行；薪酬依赖Excel计算</li>
-        <li>法务：AI合同审查已试用但未入流程，合同履约追踪（收付款/验收）与OA完全脱钩</li>
+        <li>法务：AI合同审查试用中，合同履约追踪与OA完全脱钩</li>
       </ul>
-      <div class="sec">■ D9（07-02）高明基地实地全天</div>
+      <div class="sec">■ D9 高明基地实地（07-02）</div>
       <ul class="cl">
-        <li>高明基地：佛照照明制造核心，<b>0名本地IT支持</b>，全赖总部远程</li>
-        <li>季度预测/月度调整机制在推进但颗粒度不足，交付压力集中爆发</li>
-        <li>内部转卖成本（半成品跨法人加价）导致销售报价成本虚高，需多口径成本视图</li>
+        <li><b>0名本地IT</b>，全赖总部远程；交付压力集中爆发（预测/产能协同不足）</li>
+        <li>内部转卖成本（半成品跨法人加价）导致报价成本虚高</li>
+      </ul>
+      <div class="sec">■ D10 质量/外汇/需求收口（07-03）</div>
+      <ul class="cl">
+        <li>质量与客服：检验数据录入/同批次自动放库/合格率统计报表为高优先级需求</li>
+        <li>国际外汇合规：外币汇兑损益按季度计提，无法匹配单客户/单订单</li>
+        <li><b>需求整理V3全量收口：466条需求，27个业务单元，高优先级142条</b></li>
       </ul>
     </div>
 
-    <!-- 下一步计划 -->
+    <!-- 需求摘要 -->
     <div class="card">
-      <div class="card-hd">下一步计划</div>
-      <div class="sec">■ D10（07-03）待完成</div>
-      <ul class="cl">
-        <li>质量管理与客服中心全面访谈（杨辉/窦登富）</li>
-        <li>外汇管理与国际合规专项（国际事业部+财务）</li>
-        <li>主数据取样分析（物料1000条/客户500条）— <b style="color:#d32f2f;">关键风险评估节点</b></li>
-        <li>乙方内部封闭汇总分析（两周调研结论整合）</li>
-      </ul>
-      <div class="sec">■ D11（07-06）★调研总结汇报</div>
-      <ul class="cl">
-        <li>两周调研初步发现汇报（甲方：李一帜/苏大明/钟吟出席）</li>
-        <li>调研成果确认签字（数智化部负责人苏大明）— <b>触发后续交付物评审流程</b></li>
-        <li>乙方Rehearsal + Z程序扫描结果确认</li>
-      </ul>
-      <div class="sec">■ W3（07-07起）重点任务</div>
-      <ul class="cl">
-        <li>启动现状诊断报告（★1）初稿撰写</li>
-        <li>企业架构EA蓝图（★2）框架搭建</li>
-        <li>专项方案（★3，8个方向）分工确认</li>
-        <li>Z程序扫描报告输出</li>
-      </ul>
-      <div class="sec" style="color:#2c5f8a;">⚡ 管理层支持需求</div>
-      <ul class="cl">
-        <li><b>李泽华</b> 组织D11汇报会，确保各业务部门代表出席签字</li>
-        <li><b>苏大明</b> 提供第1笔款付款时间节点确认（合同后30工作日≈7月中旬）</li>
-        <li><b>各模块负责人</b> D10前提交主数据取样配合（物料清单/客户档案）</li>
-      </ul>
+      <div class="card-hd">需求整理 V3 — 总体摘要</div>
+      <div style="display:flex;gap:14px;margin-bottom:14px;flex-wrap:wrap;">
+        <div style="text-align:center;min-width:60px;">
+          <div style="font-size:26px;font-weight:800;color:var(--b700);">466</div>
+          <div style="font-size:10.5px;color:var(--muted);">总需求条数</div>
+        </div>
+        <div style="text-align:center;min-width:60px;">
+          <div style="font-size:26px;font-weight:800;color:#C62828;">142</div>
+          <div style="font-size:10.5px;color:var(--muted);">高优先级</div>
+        </div>
+        <div style="text-align:center;min-width:60px;">
+          <div style="font-size:26px;font-weight:800;color:#F57F17;">195</div>
+          <div style="font-size:10.5px;color:var(--muted);">中优先级</div>
+        </div>
+        <div style="text-align:center;min-width:60px;">
+          <div style="font-size:26px;font-weight:800;color:#2E7D32;">41</div>
+          <div style="font-size:10.5px;color:var(--muted);">低优先级</div>
+        </div>
+        <div style="text-align:center;min-width:60px;">
+          <div style="font-size:26px;font-weight:800;color:var(--b900);">27</div>
+          <div style="font-size:10.5px;color:var(--muted);">业务单元</div>
+        </div>
+      </div>
+
+      <div class="sec">■ 高优先级需求 Top 业务域</div>
+      <table class="ftable" style="font-size:11.5px;">
+        <thead>
+          <tr><th>业务域</th><th style="width:50px;text-align:center;">高优先</th><th>代表性需求主题</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b>财务(FI/CO)</b></td><td style="text-align:center;"><b style="color:#C62828;">38</b></td><td>信用管理前置、自动开票、税务金税对接、合并报表、成本追溯</td></tr>
+          <tr><td><b>国际事业部</b></td><td style="text-align:center;"><b style="color:#C62828;">25</b></td><td>端到端流程闭环、泰国转移定价双成本、海外法人SAP模板</td></tr>
+          <tr><td><b>电商事业部</b></td><td style="text-align:center;"><b style="color:#C62828;">14</b></td><td>库存同步、折扣买赠、SAP/SRM订单联动</td></tr>
+          <tr><td><b>家用事业部</b></td><td style="text-align:center;"><b style="color:#C62828;">12</b></td><td>促销管理、拆单升级、跨工厂转卖、销售看板</td></tr>
+          <tr><td><b>HR（人力资源）</b></td><td style="text-align:center;"><b style="color:#C62828;">11</b></td><td>薪酬核算联动、绩效模块、考勤→薪酬自动化</td></tr>
+          <tr><td><b>商用事业部</b></td><td style="text-align:center;"><b style="color:#C62828;">9</b></td><td>折扣回冲BUG、返利机制、交期确认、库存报表</td></tr>
+          <tr><td><b>车灯事业部</b></td><td style="text-align:center;"><b style="color:#C62828;">8</b></td><td>跨月关单成本失真、PLM-SAP全链路、项目周期管理</td></tr>
+          <tr><td><b>法律与风控</b></td><td style="text-align:center;"><b style="color:#C62828;">7</b></td><td>合同履约闭环、AI合同预审、逾期应收预警</td></tr>
+          <tr><td><b>研究院/PLM</b></td><td style="text-align:center;"><b style="color:#C62828;">6</b></td><td>RD号→成品全链路追溯、研发费用归集、PLM→SAP自动同步</td></tr>
+          <tr><td><b>质量(QM)</b></td><td style="text-align:center;"><b style="color:#C62828;">2</b></td><td>检验数据录入优化、同批次自动放库</td></tr>
+        </tbody>
+      </table>
+
+      <div class="sum-box" style="margin-top:10px;">
+        <b>横向共性主题：</b>主数据治理（研究院/国际/企管/商用/家用均提及）· 跨系统接口断点 · 报表自动化 · 信用/应收管控
+      </div>
     </div>
 
-    <!-- 主要风险 -->
+    <!-- 风险 -->
     <div class="card">
-      <div class="card-hd">主要风险</div>
-
+      <div class="card-hd">主要风险（更新）</div>
       <div class="ri">
         <div class="ri-dot ri-r"></div>
-        <div class="ri-txt"><b>领星ERP完全未接入SAP</b><span class="bdg bdg-r">高</span><br>
-        国际跨境电商（亚马逊）订单/库存/对账全部人工，是W1未识别的新增接口范围，CPI工作量显著增加</div>
+        <div class="ri-txt"><b>领星ERP本期集成方案未定</b><span class="bdg bdg-r">高</span><br>
+        国际跨境电商（亚马逊）与SAP完全未打通，国际事业部25条高优先级需求中多条依赖此集成</div>
       </div>
       <div class="ri">
         <div class="ri-dot ri-r"></div>
-        <div class="ri-txt"><b>电商自动开票方案未定</b><span class="bdg bdg-r">高</span><br>
-        每月30万张发票人工开票，财务合规+红冲重开+异常处理规则未确定，是上线关键路径风险</div>
+        <div class="ri-txt"><b>自动开票架构待决</b><span class="bdg bdg-r">高</span><br>
+        财务部38条高优先级需求，多条涉及出库拆单→自动开票→金税对接链路，财务合规规则未锁定</div>
       </div>
       <div class="ri">
         <div class="ri-dot ri-y"></div>
         <div class="ri-txt"><b>研发BOM与制造BOM双系统断点</b><span class="bdg bdg-y">中</span><br>
-        PLM工程BOM→SAP制造BOM分工清晰但数据不自动同步，ECN变更流程需在蓝图专项决策</div>
+        PLM→SAP工程BOM→制造BOM三阶段，ECN变更流程需蓝图专项决策；研究院6条高优先级均涉及</div>
       </div>
       <div class="ri">
         <div class="ri-dot ri-y"></div>
         <div class="ri-txt"><b>高明基地0名本地IT</b><span class="bdg bdg-y">中</span><br>
-        照明制造核心基地无IT支持，上线切换和UAT测试风险高，需提前规划驻场资源</div>
+        高明基地提交68条需求（全部门最多），本地无IT支持，上线切换/UAT测试风险高</div>
       </div>
       <div class="ri">
         <div class="ri-dot ri-y"></div>
-        <div class="ri-txt"><b>多法人/多系统接口边界膨胀</b><span class="bdg bdg-y">中</span><br>
-        W2新增识别：领星/司库/广晟共享/HR多系统/燎旺独立OA，接口清单需在蓝图前锁定范围</div>
+        <div class="ri-txt"><b>HR主系统未定影响成本分摊</b><span class="bdg bdg-y">中</span><br>
+        11条高优先级均依赖HR主系统，广晟平台集团规划未落地，影响FI/CO人工成本分配</div>
       </div>
       <div class="ri">
-        <div class="ri-dot ri-y"></div>
-        <div class="ri-txt"><b>HR主系统未确定影响人员主数据</b><span class="bdg bdg-y">中</span><br>
-        广晟平台/i人事/星源并行，薪酬依赖Excel，若本期需集成需提前明确SuccessFactors或其他方案</div>
+        <div class="ri-dot ri-g"></div>
+        <div class="ri-txt"><b>D11签字风险</b><span class="bdg bdg-g">低</span><br>
+        调研覆盖全面（27个业务单元），发现汇报质量充足，甲方满意度预估高，签字风险低</div>
       </div>
-
       <div style="margin-top:10px;font-size:11px;font-weight:700;color:var(--b900);">
-        风险摘要 &nbsp; 高 <b style="color:#d32f2f;">2</b> &nbsp;｜&nbsp; 中 <b style="color:#e8a900;">4</b> &nbsp;｜&nbsp; 低 <b style="color:#22a01a;">2</b>
+        风险摘要 &nbsp; 高 <b style="color:#d32f2f;">2</b> &nbsp;｜&nbsp; 中 <b style="color:#e8a900;">3</b> &nbsp;｜&nbsp; 低 <b style="color:#22a01a;">2</b>
       </div>
     </div>
 
-    <!-- 待确认问题 -->
+    <!-- 下一步 -->
     <div class="card">
-      <div class="card-hd">待确认问题</div>
-      <div class="mini-chart">
-        <div class="mc-col"><span class="mc-val">15</span><div class="mc-b" style="height:60px;background:#3a7fc1;"></div><span class="mc-lbl">总计</span></div>
-        <div class="mc-col"><span class="mc-val">0</span><div class="mc-b" style="height:4px;background:#1a5276;"></div><span class="mc-lbl">已解答</span></div>
-        <div class="mc-col"><span class="mc-val">6</span><div class="mc-b" style="height:24px;background:#2980b9;"></div><span class="mc-lbl">进行中</span></div>
-        <div class="mc-col"><span class="mc-val">9</span><div class="mc-b" style="height:36px;background:#a8cce8;"></div><span class="mc-lbl">待处理</span></div>
+      <div class="card-hd">下一步计划</div>
+      <div class="sec">■ D11（07-06）★调研总结汇报</div>
+      <ul class="cl">
+        <li>两周调研初步发现汇报（甲方：李一帜/苏大明/钟吟出席）</li>
+        <li><b>调研成果确认签字</b>（数智化部苏大明）— 触发后续交付物评审流程</li>
+        <li>乙方Rehearsal + Z程序扫描结果确认</li>
+      </ul>
+      <div class="sec">■ W3起（07-07）诊断阶段启动</div>
+      <ul class="cl">
+        <li>现状诊断报告（★1）初稿撰写</li>
+        <li>企业架构EA蓝图（★2）框架搭建，基于466条需求优先级排序</li>
+        <li>8个专项方案（★3）方向分工确认</li>
+        <li>Z程序自定义代码扫描报告输出（1个月周期，R02风险管控）</li>
+      </ul>
+      <div class="sec" style="color:#2c5f8a;">⚡ 关键行动项</div>
+      <ul class="cl">
+        <li><b>李泽华</b> 确保D11各业务部门负责人出席并配合签字</li>
+        <li><b>苏大明</b> 确认第1笔款触发时间节点（合同后30工作日≈7月中旬）</li>
+        <li><b>顾问团队</b> 将466条需求按SAP模块归集，输出优先级矩阵</li>
+        <li><b>数智化部</b> 协调领星ERP技术团队，准备集成预研资料</li>
+      </ul>
+      <div class="sum-box">
+        D11签字完成后，探索阶段（18周中的前2周）正式收官，W3进入分析与报告阶段
       </div>
-
-      <div class="ri">
-        <div class="ri-dot ri-r"></div>
-        <div class="ri-txt"><b>领星ERP本期是否纳入CPI集成？</b><span class="bdg bdg-r">高</span><br>
-        国际事业部强烈需要，但领星是第三方SaaS，集成方案与工作量未评估</div>
-      </div>
-      <div class="ri">
-        <div class="ri-dot ri-y"></div>
-        <div class="ri-txt"><b>燎旺车灯独立OA如何纳入集成边界？</b><span class="bdg bdg-y">中</span><br>
-        南宁燎旺使用独立泛微，与总部OA非同一系统，本期SAP实施如何覆盖</div>
-      </div>
-      <div class="ri">
-        <div class="ri-dot ri-y"></div>
-        <div class="ri-txt"><b>司库与财务共享接口边界如何划定？</b><span class="bdg bdg-y">中</span><br>
-        票据、应收应付、客商主数据权威来源待三方（SAP/共享/司库）联合确认</div>
-      </div>
-      <div class="ri">
-        <div class="ri-dot ri-y"></div>
-        <div class="ri-txt"><b>泰国/德国法人本地化方案何时决策？</b><span class="bdg bdg-y">中</span><br>
-        国际事业部访谈已确认需求，但本期实施范围和工期影响待管理层定案</div>
-      </div>
-      <div class="ri">
-        <div class="ri-dot ri-y"></div>
-        <div class="ri-txt"><b>HR主系统选型何时确定？</b><span class="bdg bdg-y">中</span><br>
-        广晟集团规划中，若本期需要人员主数据集成需提前明确，否则影响FI/CO成本分摊</div>
-      </div>
-
-      <div style="font-size:10.5px;color:#5a9fd4;margin-top:8px;">* 完整问题清单见任务看板"待确认问题"</div>
     </div>
 
   </div><!-- /cards-row -->
@@ -475,123 +476,73 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
           </tr>
         </thead>
         <tbody>
-          <!-- D6 -->
           <tr>
             <td style="font-weight:700;color:var(--b700);">D6</td>
             <td style="white-space:nowrap;">06-29（周一）</td>
             <td>生产计划MRP + BOM体系 + PLM集成 + 车灯主机厂EDI</td>
-            <td>
-              ✅ PLM/PM系统功能及物料数据管理（研究院+数智化部）<br>
-              ✅ 车灯事业部数字化现状调研（李传勤/倪雨和/刘嘉琪）<br>
-              ✅ 董事会办公室/战略投资部调研<br>
-              ✅ 财务部财务共享与资产模块讨论
-            </td>
-            <td style="color:#E65100;font-size:11px;">
-              MRP/生产计划调整至D9高明实地；新增董事会办公室/战略投资部场次；财务共享提前访谈
-            </td>
-            <td style="text-align:center;">
-              <span style="background:#FFF8E1;color:#F57F17;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">部分调整</span>
-            </td>
+            <td>✅ PLM/PM系统+物料数据（研究院+数智化部）<br>✅ 车灯事业部数字化现状（李传勤/倪雨和/刘嘉琪）<br>✅ 董事会办公室/战略投资部<br>✅ 财务部财务共享与资产模块</td>
+            <td style="color:#E65100;font-size:11px;">MRP/生产计划调整至D9高明实地；新增董事会/战略投资部和财务共享场次</td>
+            <td style="text-align:center;"><span style="background:#FFF8E1;color:#F57F17;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">部分调整</span></td>
           </tr>
-          <!-- D7 -->
           <tr>
             <td style="font-weight:700;color:var(--b700);">D7</td>
             <td style="white-space:nowrap;">06-30（周二）</td>
             <td>质量管理（车灯专项）+ 车灯成本 + 车灯供应链JIT</td>
-            <td>
-              ✅ 供应链中心业务调研（王志宏主持，外购/ODM核价专项）<br>
-              ✅ 国际事业部业务调研（赵俊杰，海外全程流程）<br>
-              ✅ 新业务拓展中心业务调研（汪大凯）<br>
-              ✅ 电商与产品数字化规划（叶荣/廖建祖，V2.2）<br>
-              ✅ 研究院业务调研（PLM-SAP协同、研发投入产出）<br>
-              ✅ 财务部司库系统专项调研
-            </td>
-            <td style="color:#E65100;font-size:11px;">
-              质量/车灯JIT调整至D10；D7新增司库、新业务拓展中心、国际深度三场；场次密度明显高于计划
-            </td>
-            <td style="text-align:center;">
-              <span style="background:#FFF8E1;color:#F57F17;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">调整扩充</span>
-            </td>
+            <td>✅ 供应链中心（王志宏主持）<br>✅ 国际事业部（赵俊杰，海外全程）<br>✅ 新业务拓展中心（汪大凯）<br>✅ 电商与产品数字化规划（叶荣/廖建祖，V2.2）<br>✅ 研究院业务调研（PLM-SAP协同）<br>✅ 财务部司库专项</td>
+            <td style="color:#E65100;font-size:11px;">质量/车灯JIT调至D10；D7新增6场，密度超计划；全部为核心业务域</td>
+            <td style="text-align:center;"><span style="background:#FFF8E1;color:#F57F17;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">调整扩充</span></td>
           </tr>
-          <!-- D8 -->
           <tr>
             <td style="font-weight:700;color:var(--b700);">D8</td>
             <td style="white-space:nowrap;">07-01（周三）</td>
-            <td>高明实地调研（管理层+生产+EWM仓储+LED车间+财务），原定全天</td>
-            <td>
-              ✅ OA系统演示及流程集成调研（泛微，数智化部）<br>
-              ✅ 企业管理部流程与组织治理调研（朱海英等）<br>
-              ✅ 党群与人力资源部HR系统调研<br>
-              ✅ 法律与风控事务部数字化与风控管理调研
-            </td>
-            <td style="color:#E65100;font-size:11px;">
-              高明实地调整至D9（07-02）；D8改为OA/流程/HR/法务集中访谈，均为W1遗留场次
-            </td>
-            <td style="text-align:center;">
-              <span style="background:#FFF8E1;color:#F57F17;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">顺序调整</span>
-            </td>
+            <td>高明实地调研全天（管理层+生产+EWM+LED车间+财务）</td>
+            <td>✅ OA系统演示+流程集成（泛微，数智化部）<br>✅ 企业管理部流程与组织治理（朱海英等）<br>✅ 党群与人力资源部HR系统<br>✅ 法律与风控事务部</td>
+            <td style="color:#E65100;font-size:11px;">高明实地改至D9；D8改为OA/流程/HR/法务集中补充（均为W1遗留场次）</td>
+            <td style="text-align:center;"><span style="background:#FFF8E1;color:#F57F17;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">顺序调整</span></td>
           </tr>
-          <!-- D9 -->
           <tr>
             <td style="font-weight:700;color:var(--b700);">D9</td>
             <td style="white-space:nowrap;">07-02（周四）</td>
             <td>质量/客服 + 外汇合规 + 主数据取样 + 新业务拓展中心</td>
-            <td>
-              ✅ 高明基地数字化建设需求调研（张修波+各骨干，全天实地）<br>
-              &nbsp;&nbsp;&nbsp; 覆盖：生产运营/MRP/BOM变更/EWM仓储/LED车间/成本
-            </td>
-            <td style="color:#E65100;font-size:11px;">
-              高明实地从D8移入，全天；质量/外汇/主数据取样顺延至D10
-            </td>
-            <td style="text-align:center;">
-              <span style="background:#E8F5E9;color:#2E7D32;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">完成</span>
-            </td>
+            <td>✅ 高明基地全天实地（张修波+各骨干）<br>&nbsp;&nbsp;覆盖：生产/MRP/BOM变更/EWM/LED车间/成本</td>
+            <td style="color:#E65100;font-size:11px;">高明实地从D8移入，质量/外汇/主数据顺延至D10</td>
+            <td style="text-align:center;"><span style="background:#E8F5E9;color:#2E7D32;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">完成</span></td>
           </tr>
-          <!-- D10 -->
           <tr>
             <td style="font-weight:700;color:var(--b700);">D10</td>
             <td style="white-space:nowrap;">07-03（周五）</td>
-            <td>财务主数据/MDG规划 + 主数据质量研讨 + 乙方内部封闭汇总</td>
-            <td>
-              ⬜ 质量与客服中心全面访谈（杨辉/窦登富）<br>
-              ⬜ 国际业务外汇合规专项（国际事业部+财务）<br>
-              ⬜ 主数据取样分析（物料1000条/客户500条）<br>
-              ⬜ 乙方内部封闭汇总（两周调研结论整合）
-            </td>
-            <td style="color:var(--muted);font-size:11px;">待执行（07-03），含W2最关键主数据质量评估</td>
-            <td style="text-align:center;">
-              <span style="background:var(--b050);color:var(--b700);font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">待进行</span>
-            </td>
+            <td>财务主数据/MDG规划 + 主数据质量研讨 + 乙方封闭汇总</td>
+            <td>✅ 质量与客服中心（杨辉/窦登富）<br>✅ 国际外汇合规专项（国际事业部+财务）<br>✅ 主数据取样分析（物料1000/客户500）<br>✅ 需求整理V3最终收口（466条）<br>✅ 乙方内部封闭汇总分析</td>
+            <td style="color:var(--muted);font-size:11px;">顺序微调，全部内容完成，需求收口是本日核心</td>
+            <td style="text-align:center;"><span style="background:#E8F5E9;color:#2E7D32;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">完成</span></td>
           </tr>
         </tbody>
       </table>
     </div>
-
-    <!-- 覆盖度统计 -->
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
       <div style="flex:1;min-width:150px;background:var(--b050);border-radius:var(--r);padding:10px 14px;border-left:3px solid #43A047;">
-        <div style="font-size:11px;font-weight:800;color:#2E7D32;margin-bottom:4px;">✅ W2已完成场次</div>
-        <div style="font-size:20px;font-weight:800;color:var(--b900);">16</div>
-        <div style="font-size:10.5px;color:var(--muted);">D6–D9，覆盖14个业务域</div>
+        <div style="font-size:11px;font-weight:800;color:#2E7D32;margin-bottom:4px;">✅ W2全部完成</div>
+        <div style="font-size:20px;font-weight:800;color:var(--b900);">D6–D10</div>
+        <div style="font-size:10.5px;color:var(--muted);">5天，16+场访谈</div>
       </div>
-      <div style="flex:1;min-width:150px;background:var(--b050);border-radius:var(--r);padding:10px 14px;border-left:3px solid #FB8C00;">
-        <div style="font-size:11px;font-weight:800;color:#E65100;margin-bottom:4px;">⬜ D10待完成</div>
-        <div style="font-size:20px;font-weight:800;color:var(--b900);">4</div>
-        <div style="font-size:10.5px;color:var(--muted);">质量/外汇/主数据取样/封闭汇总</div>
+      <div style="flex:1;min-width:150px;background:var(--b050);border-radius:var(--r);padding:10px 14px;border-left:3px solid #43A047;">
+        <div style="font-size:11px;font-weight:800;color:#2E7D32;margin-bottom:4px;">✅ 需求收集完成</div>
+        <div style="font-size:20px;font-weight:800;color:var(--b900);">466条</div>
+        <div style="font-size:10.5px;color:var(--muted);">27个业务单元，高优先142条</div>
       </div>
       <div style="flex:1;min-width:150px;background:var(--b050);border-radius:var(--r);padding:10px 14px;border-left:3px solid var(--b500);">
-        <div style="font-size:11px;font-weight:800;color:var(--b700);margin-bottom:4px;">📋 累计访谈场次（W1+W2）</div>
-        <div style="font-size:20px;font-weight:800;color:var(--b900);">27+</div>
-        <div style="font-size:10.5px;color:var(--muted);">覆盖25+ 业务领域</div>
+        <div style="font-size:11px;font-weight:800;color:var(--b700);margin-bottom:4px;">📋 W1+W2累计</div>
+        <div style="font-size:20px;font-weight:800;color:var(--b900);">27+场</div>
+        <div style="font-size:10.5px;color:var(--muted);">覆盖全公司25+业务领域</div>
       </div>
-      <div style="flex:2;min-width:220px;background:var(--b050);border-radius:var(--r);padding:10px 14px;border-left:3px solid var(--b300);">
-        <div style="font-size:11px;font-weight:800;color:var(--b700);margin-bottom:4px;">📌 调整原因汇总</div>
+      <div style="flex:2;min-width:220px;background:#E8F5E9;border-radius:var(--r);padding:10px 14px;border-left:3px solid #43A047;">
+        <div style="font-size:11px;font-weight:800;color:#2E7D32;margin-bottom:4px;">✅ W2收官总结</div>
         <div style="font-size:11.5px;color:var(--text);line-height:1.6;">
-          ① 高明实地场次密度大（全天），从D8移至D9独立安排；② D7密度超预期（6场），质量/车灯JIT顺延D10；③ HR/法务/OA等W1遗留场次在D8集中补充完成
+          探索阶段调研全部完成，466条需求覆盖全公司。D11（07-06）调研总结汇报后，咨询阶段将进入分析与报告输出阶段（W3起）。
         </div>
       </div>
     </div>
-  </div><!-- /调研计划详情 -->
+  </div>
 
   <!-- 进度表入口 -->
   <div style="margin-top:14px;text-align:center;">
@@ -610,7 +561,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
     </a>
   </div>
 
-</div><!-- /container -->
+</div>
 
 <footer>佛山照明 SAP S/4HANA 升级项目工作台 · 机密文件 · 仅供项目组内部使用 · 2026</footer>
 </body>
