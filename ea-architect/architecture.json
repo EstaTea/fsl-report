@@ -4,18 +4,20 @@
       "id": "cap-l0-core",
       "name": "核心业务系统",
       "type": "capability",
+      "category": "core",
       "parent": null,
       "level": 0,
-      "category": "core",
       "metadata": {
-        "maturity": 4,
         "status": "active",
-        "description": "驱动佛照核心制造与销售业务的系统",
+        "maturity": 4,
         "owner": "",
+        "description": "驱动佛照核心制造与销售业务的系统。",
+        "vendor": "",
+        "version": "",
         "tags": [],
         "mapLayout": {
           "row": 1,
-          "col": 3
+          "col": 5
         }
       }
     },
@@ -33,7 +35,11 @@
         "description": "制造执行、仓储、计划排程",
         "vendor": "",
         "version": "",
-        "tags": []
+        "tags": [],
+        "mapLayout": {
+          "row": 1,
+          "col": 4
+        }
       }
     },
     {
@@ -50,7 +56,11 @@
         "description": "CRM、电商、供应商关系管理",
         "vendor": "",
         "version": "",
-        "tags": []
+        "tags": [],
+        "mapLayout": {
+          "row": 2,
+          "col": 1
+        }
       }
     },
     {
@@ -729,7 +739,7 @@
         "mapLayout": {
           "row": 0,
           "col": 0,
-          "w": 560
+          "w": 600
         }
       }
     },
@@ -798,10 +808,12 @@
         "description": "",
         "vendor": "",
         "version": "",
-        "tags": [],
+        "tags": [
+          "CAR"
+        ],
         "mapLayout": {
-          "row": 3,
-          "col": 0
+          "row": 1,
+          "col": 3
         }
       }
     },
@@ -1761,7 +1773,8 @@
         "tags": [],
         "mapLayout": {
           "row": 1,
-          "col": 0
+          "col": 0,
+          "h": 280
         }
       }
     },
@@ -1771,6 +1784,40 @@
       "type": "capability",
       "category": "core",
       "parent": "cap-mr1oh579",
+      "level": 1,
+      "metadata": {
+        "status": "active",
+        "maturity": 3,
+        "owner": "",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": []
+      }
+    },
+    {
+      "id": "cap-mr4lo3ep",
+      "name": "BOM主数据",
+      "type": "capability",
+      "category": "core",
+      "parent": "cap-mqzgqq50",
+      "level": 1,
+      "metadata": {
+        "status": "active",
+        "maturity": 3,
+        "owner": "",
+        "description": "",
+        "vendor": "",
+        "version": "",
+        "tags": []
+      }
+    },
+    {
+      "id": "cap-mr4lp79g",
+      "name": "工艺路线主数据",
+      "type": "capability",
+      "category": "core",
+      "parent": "cap-mqzgqq50",
       "level": 1,
       "metadata": {
         "status": "active",
