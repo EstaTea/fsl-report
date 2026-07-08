@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head>
 <meta charset="UTF-8">
+<meta name="gh-sha" content="62d0d7ea1e40a5a51993618d6d4ac026a8fe1ccc">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>探索阶段总结 2026-07-09 | 佛照 SAP 升级项目</title>
 <style>
@@ -768,9 +769,12 @@ footer{background:var(--b900);color:rgba(255,255,255,.3);text-align:center;
   var FILE_PATH = 'weekly/phase-report-explore.html';
   var API = 'https://api.github.com/repos/' + REPO + '/contents/' + FILE_PATH;
   var editing = false;
-  var ghToken = sessionStorage.getItem('fsl_gh_token') || '';
-  // 수집: {selector -> [innerHTML, ...]}
-  var originals = {};
+  var originals = {};  // key -> original innerHTML
+
+  function getPageSha(){
+    var m = document.querySelector('meta[name="gh-sha"]');
+    return m ? m.content : '';
+  }
 
   function createUI(){
     var editBtn = document.createElement('button');
@@ -787,6 +791,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.3);text-align:center;
     statusEl.id = 'pageEditStatus';
     document.body.appendChild(statusEl);
 
+    // 可编辑区块标记
     var sels = [
       '.hero p','.hero h1','.callout',
       '.finding-title','.finding-body',
@@ -797,8 +802,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.3);text-align:center;
       '.who-tag','.chip'
     ];
     sels.forEach(function(sel){
-      var els = document.querySelectorAll(sel);
-      els.forEach(function(el, idx){
+      document.querySelectorAll(sel).forEach(function(el, idx){
         var key = sel + '::' + idx;
         el.classList.add('editable-region');
         el.dataset.editKey = key;
@@ -829,59 +833,48 @@ footer{background:var(--b900);color:rgba(255,255,255,.3);text-align:center;
   }
 
   function saveToGitHub(){
-    var t = prompt('GitHub Personal Access Token（contents:write 权限）：');
-    if(t && t.trim()){ ghToken = t.trim(); sessionStorage.setItem('fsl_gh_token', ghToken); }
-    if(!ghToken){ setStatus('✗ 未输入 Token','#EF4444'); return; }
+    var sha = getPageSha();
+    if(!sha){ setStatus('✗ 无法获取文件版本，请刷新页面','#EF4444'); return; }
 
-    // 收集本次修改的 {key: newHTML} 只保存真正改变的
+    var token = prompt('GitHub Personal Access Token（contents:write 权限）：');
+    if(!token || !token.trim()){ setStatus('✗ 未输入 Token','#EF4444'); return; }
+    token = token.trim();
+
+    // 仅收集修改过的区块
     var changes = {};
     document.querySelectorAll('.editable-region').forEach(function(el){
       var key = el.dataset.editKey;
-      if(key && el.innerHTML !== originals[key]){
-        changes[key] = el.innerHTML;
-      }
+      if(key && el.innerHTML !== originals[key]) changes[key] = el.innerHTML;
     });
     if(Object.keys(changes).length === 0){
-      setStatus('ℹ 没有内容被修改','rgba(255,255,255,.5)');
-      return;
+      setStatus('ℹ 没有内容被修改','rgba(255,255,255,.5)'); return;
     }
 
     var saveBtn = document.getElementById('pageSaveBtn');
     saveBtn.disabled = true; saveBtn.textContent = '保存中…';
-    setStatus('获取原文件…');
+    setStatus('准备内容…');
 
-    fetch(API, {headers:{'Authorization':'token '+ghToken,'Accept':'application/vnd.github+json'}})
-      .then(function(r){
-        if(r.status===401){ ghToken=''; sessionStorage.removeItem('fsl_gh_token'); throw new Error('Token 无效1401）'); }
-        if(!r.ok) throw new Error('获取失败 '+r.status);
-        return r.json();
-      })
-      .then(function(meta){
-        var sha = meta.sha;
-        // GitHub 원본 HTML 디코드
-        var b64clean = meta.content.replace(/
-/g,'');
-        var bytes = Uint8Array.from(atob(b64clean), function(c){ return c.charCodeAt(0); });
-        var originalHtml = new TextDecoder('utf-8').decode(bytes);
-
-        // 변경사항을 원본 HTML에 직접 패치 (DOM 파싱 없이 문자열 치환)
-        var newHtml = originalHtml;
-        document.querySelectorAll('.editable-region').forEach(function(el){
-          var key = el.dataset.editKey;
-          if(!changes[key]) return;
-          var old = originals[key];
-          var nw  = el.innerHTML;
-          // 원본 HTML에서 해당 텍스트를 찾아 교체
-          if(old && newHtml.includes(old)){
-            newHtml = newHtml.replace(old, nw);
-            originals[key] = nw; // 저장 후 원본 갱신
-          }
+    // 异步处理编码，避免 UI 冻结
+    setTimeout(function(){
+      try{
+        // 读取页面原始 HTML（不含动态创建的编辑按钮）
+        // 用 meta sha + 原始快照做 patch
+        // 获取当前 <html> 内容，移除动态按钮
+        var clone = document.documentElement.cloneNode(true);
+        ['pageEditBtn','pageSaveBtn','pageEditStatus'].forEach(function(id){
+          var el = clone.getElementById(id);
+          if(el) el.parentNode.removeChild(el);
         });
+        // 还原 contentEditable
+        clone.querySelectorAll('.editable-region').forEach(function(el){
+          el.contentEditable = 'false';
+        });
+        var newHtml = '<!DOCTYPE html>
+' + clone.outerHTML;
 
-        // UTF-8 인코딩
+        // UTF-8 → base64
         var enc = new TextEncoder();
         var encoded = enc.encode(newHtml);
-        // Uint8Array → base64 (청크 방식)
         var CHUNK = 4096;
         var binary = '';
         for(var i=0; i<encoded.length; i+=CHUNK){
@@ -890,23 +883,48 @@ footer{background:var(--b900);color:rgba(255,255,255,.3);text-align:center;
         var content = btoa(binary);
 
         setStatus('写入 GitHub…');
-        return fetch(API,{
-          method:'PUT',
-          headers:{'Authorization':'token '+ghToken,'Content-Type':'application/json','Accept':'application/vnd.github+json'},
-          body: JSON.stringify({message:'content: manual edit',sha:sha,content:content})
-        });
-      })
-      .then(function(r){
-        if(r.status===401){ ghToken=''; sessionStorage.removeItem('fsl_gh_token'); throw new Error('Token 无效1401）'); }
-        if(!r.ok) return r.json().then(function(e){ throw new Error(e.message||r.status); });
-        setStatus('✓ 已保存','#22C55E');
-        setTimeout(function(){ setStatus('继续编辑中…'); },3000);
-      })
-      .catch(function(e){ setStatus('✗ '+e.message,'#EF4444'); console.error(e); })
-      .finally(function(){ saveBtn.disabled=false; saveBtn.textContent='💾 保存'; });
+        fetch(API, {
+          method: 'PUT',
+          headers: {
+            'Authorization': 'token ' + token,
+            'Content-Type': 'application/json',
+            'Accept': 'application/vnd.github+json'
+          },
+          body: JSON.stringify({
+            message: 'content: manual edit via in-page editor',
+            sha: sha,
+            content: content
+          })
+        })
+        .then(function(r){
+          if(r.status === 401) throw new Error('Token 无效（401），请检查 Token 权限');
+          if(r.status === 409) throw new Error('版本冲突（409），请刷新页面后重试');
+          if(!r.ok) return r.json().then(function(e){ throw new Error(e.message || r.status); });
+          return r.json();
+        })
+        .then(function(result){
+          // 更新页面内 SHA，避免下次保存 409
+          var m = document.querySelector('meta[name="gh-sha"]');
+          if(m && result.content && result.content.sha) m.content = result.content.sha;
+          // 更新 originals 快照
+          document.querySelectorAll('.editable-region').forEach(function(el){
+            var key = el.dataset.editKey;
+            if(key) originals[key] = el.innerHTML;
+          });
+          setStatus('✓ 已保存到 GitHub','#22C55E');
+          setTimeout(function(){ setStatus('继续编辑中…'); }, 3000);
+        })
+        .catch(function(e){ setStatus('✗ ' + e.message,'#EF4444'); console.error(e); })
+        .finally(function(){ saveBtn.disabled=false; saveBtn.textContent='💾 保存'; });
+
+      } catch(e){
+        setStatus('✗ 编码失败：' + e.message,'#EF4444');
+        saveBtn.disabled=false; saveBtn.textContent='💾 保存';
+      }
+    }, 50);
   }
 
-  if(document.readyState==='loading'){
+  if(document.readyState === 'loading'){
     document.addEventListener('DOMContentLoaded', createUI);
   } else { createUI(); }
 })();
