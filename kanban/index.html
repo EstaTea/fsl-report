@@ -663,6 +663,7 @@ select.dp-input{appearance:none;-webkit-appearance:none;
             <a href="/fsl-report/weekly/">📰 项目周报</a>
             <a href="https://estatea.github.io/mdg-course/" target="_blank">🎓 MDG案例学习</a>
             <a href="https://estatea.github.io/drc-course/" target="_blank">📋 DRC案例学习</a>
+            <a href="https://estatea.github.io/si-course/" target="_blank">🔗 SI案例学习</a>
           </div>
         </div>
       </div>
@@ -765,6 +766,29 @@ select.dp-input{appearance:none;-webkit-appearance:none;
         <a href="https://estatea.github.io/drc-course/week2/day12.html" target="_blank">🔧 Day 12 · 上线验收与项目总结</a>
         <div style="height:1px;background:rgba(255,255,255,.1);margin:4px 0"></div>
         <a href="https://estatea.github.io/drc-course/" target="_blank" style="color:var(--light);font-weight:700">🏠 课程首页（总览）</a>
+      </div>
+    </div>
+    <!-- SI学习 下拉 Tab -->
+    <div class="mod-tab-dd" id="siTabDd">
+      <div class="mod-tab" style="cursor:pointer" onclick="toggleSiDd(event)">🔗 <span class="label-text">SI案例</span><span style="font-size:8px;margin-left:2px;opacity:.6">▾</span></div>
+      <div class="mod-tab-dd-panel" id="si-dropdown">
+        <div style="padding:6px 16px 4px;font-size:10px;font-weight:700;color:var(--light);letter-spacing:.08em;text-transform:uppercase">第一周 · 理论学习</div>
+        <a href="https://estatea.github.io/si-course/week1/day1.html" target="_blank">📖 Day 1 · 什么是SI？</a>
+        <a href="https://estatea.github.io/si-course/week1/day2.html" target="_blank">📖 Day 2 · SI架构与核心组件</a>
+        <a href="https://estatea.github.io/si-course/week1/day3.html" target="_blank">📖 Day 3 · iFlow设计基础</a>
+        <a href="https://estatea.github.io/si-course/week1/day4.html" target="_blank">📖 Day 4 · 消息映射与转换</a>
+        <a href="https://estatea.github.io/si-course/week1/day5.html" target="_blank">📖 Day 5 · 连接器与适配器</a>
+        <a href="https://estatea.github.io/si-course/week1/day6.html" target="_blank">📖 Day 6 · 异常处理与监控</a>
+        <a href="https://estatea.github.io/si-course/week1/day7.html" target="_blank">📖 Day 7 · 安全与API管理</a>
+        <div style="height:1px;background:rgba(255,255,255,.1);margin:4px 0"></div>
+        <div style="padding:6px 16px 4px;font-size:10px;font-weight:700;color:var(--light);letter-spacing:.08em;text-transform:uppercase">第二周 · 佛照12系统集成实战</div>
+        <a href="https://estatea.github.io/si-course/week2/day8.html" target="_blank">🔧 Day 8 · 案例介绍：华照集团</a>
+        <a href="https://estatea.github.io/si-course/week2/day9.html" target="_blank">🔧 Day 9 · OMS订单集成实战</a>
+        <a href="https://estatea.github.io/si-course/week2/day10.html" target="_blank">🔧 Day 10 · MES生产集成实战</a>
+        <a href="https://estatea.github.io/si-course/week2/day11.html" target="_blank">🔧 Day 11 · PLM主数据集成实战</a>
+        <a href="https://estatea.github.io/si-course/week2/day12.html" target="_blank">🔧 Day 12 · 上线验收与运维总结</a>
+        <div style="height:1px;background:rgba(255,255,255,.1);margin:4px 0"></div>
+        <a href="https://estatea.github.io/si-course/" target="_blank" style="color:var(--light);font-weight:700">🏠 课程首页（总览）</a>
       </div>
     </div>
   </div>
@@ -4741,6 +4765,19 @@ function toggleMdgDd(e){
 function toggleDrcDd(e){
   e.stopPropagation();
   var panel=document.getElementById('drc-dropdown');
+  var btn=e.currentTarget;
+  var rect=btn.getBoundingClientRect();
+  var isOpen=panel.classList.contains('dd-open');
+  document.querySelectorAll('.mod-tab-dd-panel').forEach(function(p){p.classList.remove('dd-open');});
+  if(!isOpen){
+    panel.style.top=(rect.bottom+2)+'px';
+    panel.style.left=rect.left+'px';
+    panel.classList.add('dd-open');
+  }
+}
+function toggleSiDd(e){
+  e.stopPropagation();
+  var panel=document.getElementById('si-dropdown');
   var btn=e.currentTarget;
   var rect=btn.getBoundingClientRect();
   var isOpen=panel.classList.contains('dd-open');
