@@ -661,6 +661,7 @@ select.dp-input{appearance:none;-webkit-appearance:none;
             <a href="/fsl-report/kanban/survey-ar.html">💰 开票与应收调研</a>
             <a href="/fsl-report/kanban/survey-strategy.html">🏛 战略调研 · 董事会</a>
             <a href="/fsl-report/weekly/">📰 项目周报</a>
+            <a href="https://estatea.github.io/mdg-course/" target="_blank">🎓 MDG案例学习</a>
           </div>
         </div>
       </div>
@@ -717,6 +718,29 @@ select.dp-input{appearance:none;-webkit-appearance:none;
         <div style="padding:5px 16px 3px;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.6px;text-transform:uppercase">现场 / 战略</div>
         <a href="/fsl-report/kanban/survey-gaoming.html">🏭 高明分公司实地调研</a>
         <a href="/fsl-report/kanban/survey-strategy.html">🏛 战略调研 · 董事会</a>
+      </div>
+    </div>
+    <!-- MDG学习 下拉 Tab -->
+    <div class="mod-tab-dd" id="mdgTabDd">
+      <div class="mod-tab" style="cursor:pointer" onclick="toggleMdgDd(event)">🎓 <span class="label-text">MDG案例</span><span style="font-size:8px;margin-left:2px;opacity:.6">▾</span></div>
+      <div class="mod-tab-dd-panel" id="mdg-dropdown">
+        <div style="padding:6px 16px 4px;font-size:10px;font-weight:700;color:var(--light);letter-spacing:.08em;text-transform:uppercase">第一周 · 理论学习</div>
+        <a href="https://estatea.github.io/mdg-course/week1/day1.html" target="_blank">📖 Day 1 · 什么是MDG？</a>
+        <a href="https://estatea.github.io/mdg-course/week1/day2.html" target="_blank">📖 Day 2 · MDG架构与部署</a>
+        <a href="https://estatea.github.io/mdg-course/week1/day3.html" target="_blank">📖 Day 3 · MDG-M 物料主数据</a>
+        <a href="https://estatea.github.io/mdg-course/week1/day4.html" target="_blank">📖 Day 4 · MDG-BP 业务伙伴</a>
+        <a href="https://estatea.github.io/mdg-course/week1/day5.html" target="_blank">📖 Day 5 · MDG-G 财务主数据</a>
+        <a href="https://estatea.github.io/mdg-course/week1/day6.html" target="_blank">📖 Day 6 · 工作流与审批设计</a>
+        <a href="https://estatea.github.io/mdg-course/week1/day7.html" target="_blank">📖 Day 7 · DRF数据复制框架</a>
+        <div style="height:1px;background:rgba(255,255,255,.1);margin:4px 0"></div>
+        <div style="padding:6px 16px 4px;font-size:10px;font-weight:700;color:var(--light);letter-spacing:.08em;text-transform:uppercase">第二周 · 案例模拟</div>
+        <a href="https://estatea.github.io/mdg-course/week2/day8.html" target="_blank">🔧 Day 8 · 案例介绍与环境准备</a>
+        <a href="https://estatea.github.io/mdg-course/week2/day9.html" target="_blank">🔧 Day 9 · 物料主数据配置实战</a>
+        <a href="https://estatea.github.io/mdg-course/week2/day10.html" target="_blank">🔧 Day 10 · BP主数据配置实战</a>
+        <a href="https://estatea.github.io/mdg-course/week2/day11.html" target="_blank">🔧 Day 11 · 工作流配置实战</a>
+        <a href="https://estatea.github.io/mdg-course/week2/day12.html" target="_blank">🔧 Day 12 · 迁移验收与项目总结</a>
+        <div style="height:1px;background:rgba(255,255,255,.1);margin:4px 0"></div>
+        <a href="https://estatea.github.io/mdg-course/" target="_blank" style="color:var(--light);font-weight:700">🏠 课程首页（总览）</a>
       </div>
     </div>
   </div>
@@ -4670,6 +4694,19 @@ function toggleSurveyDd(e){
   var rect=btn.getBoundingClientRect();
   var isOpen=panel.classList.contains('dd-open');
   // close any open dropdowns first
+  document.querySelectorAll('.mod-tab-dd-panel').forEach(function(p){p.classList.remove('dd-open');});
+  if(!isOpen){
+    panel.style.top=(rect.bottom+2)+'px';
+    panel.style.left=rect.left+'px';
+    panel.classList.add('dd-open');
+  }
+}
+function toggleMdgDd(e){
+  e.stopPropagation();
+  var panel=document.getElementById('mdg-dropdown');
+  var btn=e.currentTarget;
+  var rect=btn.getBoundingClientRect();
+  var isOpen=panel.classList.contains('dd-open');
   document.querySelectorAll('.mod-tab-dd-panel').forEach(function(p){p.classList.remove('dd-open');});
   if(!isOpen){
     panel.style.top=(rect.bottom+2)+'px';
