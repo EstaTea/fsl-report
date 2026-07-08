@@ -807,79 +807,79 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 <script>
-const REPO = 'EstaTea/fsl-report';
-const FILE_PATH = 'weekly/w1.html';
-const API_BASE = 'https://api.github.com';
-let editing = false;
-let ghToken = sessionStorage.getItem('fsl_gh_token') || '';
+var REPO = 'EstaTea/fsl-report';
+var FILE_PATH = 'weekly/w1.html';
+var API = 'https://api.github.com/repos/' + REPO + '/contents/' + FILE_PATH;
+var editing = false;
+var ghToken = sessionStorage.getItem('fsl_gh_token') || '';
 
-function toggleEdit(){
+function toggleEdit() {
   editing = !editing;
-  document.querySelectorAll('.editable-region').forEach(el=>{
+  document.querySelectorAll('.editable-region').forEach(function(el) {
     el.contentEditable = editing ? 'true' : 'false';
   });
-  const btn = document.getElementById('editToggleBtn');
-  const saveBtn = document.getElementById('saveToDiskBtn');
+  var btn = document.getElementById('editToggleBtn');
+  var saveBtn = document.getElementById('saveToDiskBtn');
   btn.textContent = editing ? '✎ 编辑中' : '✎ 编辑';
   btn.className = 'edit-toggle ' + (editing ? 'on' : 'off');
   saveBtn.style.display = editing ? 'inline-block' : 'none';
-  if(editing && !ghToken){
-    const t = prompt('请输入 GitHub Personal Access Token（contents:write）：');
-    if(t){ ghToken = t.trim(); sessionStorage.setItem('fsl_gh_token', ghToken); }
+  if (editing && !ghToken) {
+    var t = prompt('请输入 GitHub Personal Access Token（contents:write 权限）：');
+    if (t) { ghToken = t.trim(); sessionStorage.setItem('fsl_gh_token', ghToken); }
   }
   setStatus(editing ? '点击蓝色虚线区域开始编辑' : '');
 }
 
-function setStatus(msg, color){
-  const el = document.getElementById('editStatusMsg');
+function setStatus(msg, color) {
+  var el = document.getElementById('editStatusMsg');
+  if (!el) return;
   el.textContent = msg;
   el.style.color = color || 'rgba(255,255,255,.55)';
 }
 
-async function saveToGitHub(){
-  if(!ghToken){ alert('请先点击编辑并输入 Token'); return; }
-  const btn = document.getElementById('saveToDiskBtn');
+function saveToGitHub() {
+  if (!ghToken) { alert('请先点击「编辑」并输入 GitHub Token'); return; }
+  var btn = document.getElementById('saveToDiskBtn');
   btn.disabled = true; btn.textContent = '保存中…';
   setStatus('获取最新版本…');
-  try{
-    const metaResp = await fetch(API_BASE+'/repos/'+REPO+'/contents/'+FILE_PATH,
-      {headers:{Authorization:'token '+ghToken,Accept:'application/vnd.github+json'}});
-    if(!metaResp.ok) throw new Error('获取文件失败 '+metaResp.status);
-    const meta = await metaResp.json();
-    const sha = meta.sha;
-    const currentHtml = decodeURIComponent(escape(atob(meta.content.replace(/
-/g,''))));
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(currentHtml,'text/html');
-    doc.body.innerHTML = document.body.innerHTML;
-    const newHtml = '<!DOCTYPE html>
+  fetch(API, { headers: { 'Authorization': 'token ' + ghToken, 'Accept': 'application/vnd.github+json' } })
+    .then(function(r) { if (!r.ok) throw new Error('获取失败 ' + r.status); return r.json(); })
+    .then(function(meta) {
+      var sha = meta.sha;
+      var currentHtml = decodeURIComponent(escape(atob(meta.content.replace(/
+/g, ''))));
+      var parser = new DOMParser();
+      var doc = parser.parseFromString(currentHtml, 'text/html');
+      doc.body.innerHTML = document.body.innerHTML;
+      var newHtml = '<!DOCTYPE html>
 ' + doc.documentElement.outerHTML;
-    const encoder = new TextEncoder();
-    const bytes = encoder.encode(newHtml);
-    let b64 = '';
-    for(let i=0;i<bytes.length;i+=8192) b64 += String.fromCharCode(...bytes.slice(i,i+8192));
-    setStatus('保存到 GitHub…');
-    const putResp = await fetch(API_BASE+'/repos/'+REPO+'/contents/'+FILE_PATH,{
-      method:'PUT',
-      headers:{Authorization:'token '+ghToken,'Content-Type':'application/json',Accept:'application/vnd.github+json'},
-      body: JSON.stringify({message:'content: manual edit',sha,content:btoa(b64)})
-    });
-    if(!putResp.ok){ const err=await putResp.json(); throw new Error(err.message); }
-    setStatus('✓ 已保存', '#22C55E');
-    setTimeout(()=>setStatus('继续编辑中…'), 3000);
-  } catch(e){
-    setStatus('✗ 失败：'+e.message,'#EF4444');
-  }
-  btn.disabled=false; btn.textContent='💾 保存到 GitHub';
+      var bytes = new TextEncoder().encode(newHtml);
+      var b64 = '';
+      for (var i = 0; i < bytes.length; i += 8192) b64 += String.fromCharCode.apply(null, bytes.slice(i, i + 8192));
+      var content = btoa(b64);
+      setStatus('保存到 GitHub…');
+      return fetch(API, {
+        method: 'PUT',
+        headers: { 'Authorization': 'token ' + ghToken, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github+json' },
+        body: JSON.stringify({ message: 'content: manual edit', sha: sha, content: content })
+      });
+    })
+    .then(function(r) {
+      if (!r.ok) return r.json().then(function(e) { throw new Error(e.message); });
+      setStatus('✓ 已保存', '#22C55E');
+      setTimeout(function() { setStatus('继续编辑中…'); }, 3000);
+    })
+    .catch(function(e) { setStatus('✗ 失败：' + e.message, '#EF4444'); })
+    .finally(function() { btn.disabled = false; btn.textContent = '💾 保存到 GitHub'; });
 }
 
-document.addEventListener('DOMContentLoaded',()=>{
+document.addEventListener('DOMContentLoaded', function() {
   ['.hero p','.hero h1','.card-hd','.card-title','.sum-box',
-   '.ri-txt','.sec','ul.cl li','ul.cl','ul.req-list li',
-   '.det-text','.s-label','.s-week','.s-phase','.gantt-note'].forEach(sel=>{
-    document.querySelectorAll(sel).forEach((el,i)=>{
+   '.ri-txt','.det-text','.s-label','.s-week','.s-phase','.gantt-note',
+   '.card ul.cl li'].forEach(function(sel) {
+    document.querySelectorAll(sel).forEach(function(el) {
       el.classList.add('editable-region');
-      el.contentEditable='false';
+      el.contentEditable = 'false';
     });
   });
 });
