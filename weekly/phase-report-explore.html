@@ -738,107 +738,96 @@ body{padding-bottom:56px;}
 <footer>佛山照明 SAP S/4HANA 升级项目工作台 · 机密文件 · 仅供项目组内部使用 · 2026</footer>
 
 <script>
-const REPO = 'EstaTea/fsl-report';
-const FILE_PATH = 'weekly/phase-report-explore.html';
-const API_BASE = 'https://api.github.com';
+var REPO = 'EstaTea/fsl-report';
+var FILE_PATH = 'weekly/phase-report-explore.html';
+var API = 'https://api.github.com/repos/' + REPO + '/contents/' + FILE_PATH;
+var editing = false;
+var ghToken = sessionStorage.getItem('fsl_gh_token') || '';
 
-let editing = false;
-let ghToken = sessionStorage.getItem('fsl_gh_token') || '';
-
-function toggleEdit(){
+function toggleEdit() {
   editing = !editing;
-  document.body.classList.toggle('editing-mode', editing);
-  document.querySelectorAll('.editable-region').forEach(el=>{
+  document.querySelectorAll('.editable-region').forEach(function(el) {
     el.contentEditable = editing ? 'true' : 'false';
   });
-  const btn = document.getElementById('editToggleBtn');
-  const saveBtn = document.getElementById('saveToDiskBtn');
+  var btn = document.getElementById('editToggleBtn');
+  var saveBtn = document.getElementById('saveToDiskBtn');
   btn.textContent = editing ? '✎ 编辑中' : '✎ 编辑';
   btn.className = 'edit-toggle ' + (editing ? 'on' : 'off');
   saveBtn.style.display = editing ? 'inline-block' : 'none';
-  if(editing && !ghToken){
-    const t = prompt('请输入 GitHub Personal Access Token（需 contents:write 权限）：');
-    if(t){ ghToken = t.trim(); sessionStorage.setItem('fsl_gh_token', ghToken); }
+  if (editing && !ghToken) {
+    var t = prompt('请输入 GitHub Personal Access Token（contents:write 权限）：');
+    if (t) { ghToken = t.trim(); sessionStorage.setItem('fsl_gh_token', ghToken); }
   }
-  setStatus(editing ? '点击任意蓝色虚线区域开始编辑' : '');
+  setStatus(editing ? '点击蓝色虚线区域开始编辑' : '');
 }
 
-function setStatus(msg, color){
-  const el = document.getElementById('editStatusMsg');
+function setStatus(msg, color) {
+  var el = document.getElementById('editStatusMsg');
+  if (!el) return;
   el.textContent = msg;
   el.style.color = color || 'rgba(255,255,255,.55)';
 }
 
-async function saveToGitHub(){
-  if(!ghToken){ alert('请先点击"编辑"并输入 GitHub Token'); return; }
-  const btn = document.getElementById('saveToDiskBtn');
+function saveToGitHub() {
+  if (!ghToken) { alert('请先点击「编辑」并输入 GitHub Token'); return; }
+  var btn = document.getElementById('saveToDiskBtn');
   btn.disabled = true; btn.textContent = '保存中…';
-  setStatus('正在获取最新版本…');
-  try{
-    // 1. 获取当前 SHA
-    const metaResp = await fetch(\`\${API_BASE}/repos/\${REPO}/contents/\${FILE_PATH}\`,
-      {headers:{Authorization:'token '+ghToken,'Accept':'application/vnd.github+json'}});
-    if(!metaResp.ok) throw new Error('获取文件信息失败: ' + metaResp.status);
-    const meta = await metaResp.json();
-    const sha = meta.sha;
-    // 2. 获取当前 HTML，替换 body 内容
-    const currentB64 = meta.content;
-    const currentHtml = decodeURIComponent(escape(atob(currentB64.replace(/\n/g,''))));
-    // 用当前 DOM 的 body innerHTML 替换
-    const newBody = document.body.innerHTML;
-    // 重建完整 HTML
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(currentHtml, 'text/html');
-    doc.body.innerHTML = newBody;
-    const newHtml = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
-    // 3. Base64 encode（UTF-8）
-    const encoder = new TextEncoder();
-    const bytes = encoder.encode(newHtml);
-    let b64 = '';
-    const chunkSize = 8192;
-    for(let i=0;i<bytes.length;i+=chunkSize){
-      b64 += String.fromCharCode(...bytes.slice(i,i+chunkSize));
-    }
-    const content = btoa(b64);
-    // 4. PUT to GitHub
-    setStatus('正在保存到 GitHub…');
-    const putResp = await fetch(\`\${API_BASE}/repos/\${REPO}/contents/\${FILE_PATH}\`,{
-      method:'PUT',
-      headers:{Authorization:'token '+ghToken,'Content-Type':'application/json','Accept':'application/vnd.github+json'},
-      body: JSON.stringify({message:'content: manual edit via in-page editor',sha,content})
+  setStatus('获取最新版本…');
+
+  fetch(API, { headers: { 'Authorization': 'token ' + ghToken, 'Accept': 'application/vnd.github+json' } })
+    .then(function(r) {
+      if (!r.ok) throw new Error('获取文件失败 ' + r.status);
+      return r.json();
+    })
+    .then(function(meta) {
+      var sha = meta.sha;
+      // 用当前 DOM body 替换文件内容
+      var currentHtml = decodeURIComponent(escape(atob(meta.content.replace(/
+/g, ''))));
+      var parser = new DOMParser();
+      var doc = parser.parseFromString(currentHtml, 'text/html');
+      doc.body.innerHTML = document.body.innerHTML;
+      var newHtml = '<!DOCTYPE html>
+' + doc.documentElement.outerHTML;
+      // UTF-8 → base64
+      var bytes = new TextEncoder().encode(newHtml);
+      var b64 = '';
+      for (var i = 0; i < bytes.length; i += 8192) {
+        b64 += String.fromCharCode.apply(null, bytes.slice(i, i + 8192));
+      }
+      var content = btoa(b64);
+      setStatus('保存到 GitHub…');
+      return fetch(API, {
+        method: 'PUT',
+        headers: { 'Authorization': 'token ' + ghToken, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github+json' },
+        body: JSON.stringify({ message: 'content: manual edit via in-page editor', sha: sha, content: content })
+      });
+    })
+    .then(function(r) {
+      if (!r.ok) return r.json().then(function(e) { throw new Error(e.message || r.status); });
+      setStatus('✓ 已保存到 GitHub', '#22C55E');
+      setTimeout(function() { setStatus('继续编辑中…'); }, 3000);
+    })
+    .catch(function(e) {
+      setStatus('✗ 保存失败：' + e.message, '#EF4444');
+      console.error(e);
+    })
+    .finally(function() {
+      btn.disabled = false; btn.textContent = '💾 保存到 GitHub';
     });
-    if(!putResp.ok){
-      const err = await putResp.json();
-      throw new Error(err.message || putResp.status);
-    }
-    const result = await putResp.json();
-    // 更新 sha 缓存（避免下次 conflict）
-    setStatus('✓ 已保存到 GitHub', '#22C55E');
-    setTimeout(()=>setStatus('点击任意蓝色虚线区域继续编辑'), 3000);
-  } catch(e){
-    setStatus('✗ 保存失败：'+e.message, '#EF4444');
-    console.error(e);
-  }
-  btn.disabled = false; btn.textContent = '💾 保存到 GitHub';
 }
 
-// 给可编辑区块标记 — 段落内容、card内容等
-document.addEventListener('DOMContentLoaded', ()=>{
-  const selectors = [
-    '.hero p', '.hero h1',
-    '.callout',
+document.addEventListener('DOMContentLoaded', function() {
+  var selectors = [
+    '.hero p', '.hero h1', '.callout',
     '.finding-title', '.finding-body',
     '.action-title', '.action-detail',
-    '.card-hd',
-    '.stat-lbl', '.stat-sub',
-    '.del-table td',
-    '.section-hd h2', '.section-hd .sub',
+    '.card-hd', '.stat-lbl', '.stat-sub',
+    '.del-table td', '.section-hd h2', '.section-hd .sub'
   ];
-  let idx = 0;
-  selectors.forEach(sel=>{
-    document.querySelectorAll(sel).forEach(el=>{
+  selectors.forEach(function(sel) {
+    document.querySelectorAll(sel).forEach(function(el) {
       el.classList.add('editable-region');
-      el.dataset.eid = 'e'+(idx++);
       el.contentEditable = 'false';
     });
   });
