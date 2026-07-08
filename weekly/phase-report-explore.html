@@ -176,26 +176,41 @@ footer{background:var(--b900);color:rgba(255,255,255,.3);text-align:center;
        padding:20px;font-size:11px;margin-top:60px;letter-spacing:.3px;
        position:relative;z-index:1;}
 
-/* ── Inline editor ── */
-.edit-bar{position:fixed;bottom:0;left:0;right:0;background:var(--b900);
-  display:flex;align-items:center;gap:12px;padding:0 24px;height:48px;z-index:9999;pointer-events:all;
-  box-shadow:0 -2px 12px rgba(11,45,71,.5);}
-.edit-bar-label{color:rgba(255,255,255,.5);font-size:12px;}
-.edit-toggle{padding:6px 18px;border-radius:4px;border:none;cursor:pointer;
-  font-size:12.5px;font-weight:700;transition:all .15s;}
-.edit-toggle.off{background:rgba(255,255,255,.12);color:rgba(255,255,255,.7);}
-.edit-toggle.on{background:#3B82F6;color:#fff;}
-.save-btn{padding:6px 20px;border-radius:4px;border:none;cursor:pointer;
-  font-size:12.5px;font-weight:700;background:#22C55E;color:#fff;display:none;}
-.save-btn:disabled{background:#6B7280;cursor:not-allowed;}
-.edit-status{font-size:11.5px;color:rgba(255,255,255,.55);min-width:160px;}
+
+
+/* ── Page Editor ── */
+#pageEditBtn{
+  position:fixed;top:11px;right:16px;z-index:9999;
+  display:flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
+  color:rgba(255,255,255,.8);border-radius:4px;padding:5px 14px;
+  font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;
+  transition:all .15s;
+}
+#pageEditBtn:hover{background:rgba(255,255,255,.2);color:#fff;}
+#pageEditBtn.on{background:#3B82F6;border-color:#3B82F6;color:#fff;}
+#pageSaveBtn{
+  position:fixed;top:11px;right:120px;z-index:9999;
+  display:none;align-items:center;gap:6px;
+  background:#22C55E;border:none;color:#fff;
+  border-radius:4px;padding:5px 14px;
+  font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;
+}
+#pageSaveBtn:disabled{background:#6B7280;cursor:not-allowed;}
+#pageEditStatus{
+  position:fixed;top:14px;right:250px;z-index:9999;
+  font-size:11px;color:rgba(255,255,255,.6);
+  pointer-events:none;
+}
 .editable-region[contenteditable="true"]{
-  outline:2px dashed #3B82F6;border-radius:3px;
-  background:rgba(59,130,246,.04);min-height:1em;cursor:text;padding:2px 4px;}
+  outline:2px dashed #60A5FA !important;
+  border-radius:2px;background:rgba(96,165,250,.06) !important;
+  cursor:text;
+}
 .editable-region[contenteditable="true"]:focus{
-  outline:2px solid #3B82F6;background:rgba(59,130,246,.07);}
-body.editing-mode .editable-region{cursor:text;}
-body{padding-bottom:56px;}
+  outline:2px solid #3B82F6 !important;
+  background:rgba(96,165,250,.1) !important;
+}
 </style>
 </head>
 <body>
@@ -745,110 +760,116 @@ body{padding-bottom:56px;}
 
 </div>
 
-<div class="edit-bar">
-  <span class="edit-bar-label">🖊 页面编辑器</span>
-  <button class="edit-toggle off" id="editToggleBtn" onclick="toggleEdit()">✎ 编辑</button>
-  <button class="save-btn" id="saveToDiskBtn" onclick="saveToGitHub()">💾 保存到 GitHub</button>
-  <span class="edit-status" id="editStatusMsg"></span>
-  <span style="margin-left:auto;color:rgba(255,255,255,.3);font-size:11px;">仅限内部使用</span>
-</div>
 <footer>佛山照明 SAP S/4HANA 升级项目工作台 · 机密文件 · 仅供项目组内部使用 · 2026</footer>
 
+
+
+
 <script>
-var REPO = 'EstaTea/fsl-report';
-var FILE_PATH = 'weekly/phase-report-explore.html';
-var API = 'https://api.github.com/repos/' + REPO + '/contents/' + FILE_PATH;
-var editing = false;
-var ghToken = sessionStorage.getItem('fsl_gh_token') || '';
+(function(){
+  var REPO = 'EstaTea/fsl-report';
+  var FILE_PATH = 'weekly/phase-report-explore.html';
+  var API = 'https://api.github.com/repos/' + REPO + '/contents/' + FILE_PATH;
+  var editing = false;
+  var ghToken = sessionStorage.getItem('fsl_gh_token') || '';
 
-function toggleEdit() {
-  editing = !editing;
-  document.querySelectorAll('.editable-region').forEach(function(el) {
-    el.contentEditable = editing ? 'true' : 'false';
-  });
-  var btn = document.getElementById('editToggleBtn');
-  var saveBtn = document.getElementById('saveToDiskBtn');
-  btn.textContent = editing ? '✎ 编辑中' : '✎ 编辑';
-  btn.className = 'edit-toggle ' + (editing ? 'on' : 'off');
-  saveBtn.style.display = editing ? 'inline-block' : 'none';
-  if (editing && !ghToken) {
-    var t = prompt('请输入 GitHub Personal Access Token（contents:write 权限）：');
-    if (t) { ghToken = t.trim(); sessionStorage.setItem('fsl_gh_token', ghToken); }
-  }
-  setStatus(editing ? '点击蓝色虚线区域开始编辑' : '');
-}
+  // 버튼 직접 생성 (nav에 묻히지 않도록)
+  function createUI(){
+    var editBtn = document.createElement('button');
+    editBtn.id = 'pageEditBtn';
+    editBtn.textContent = '✎ 编辑';
+    editBtn.onclick = toggleEdit;
+    document.body.appendChild(editBtn);
 
-function setStatus(msg, color) {
-  var el = document.getElementById('editStatusMsg');
-  if (!el) return;
-  el.textContent = msg;
-  el.style.color = color || 'rgba(255,255,255,.55)';
-}
+    var saveBtn = document.createElement('button');
+    saveBtn.id = 'pageSaveBtn';
+    saveBtn.textContent = '💾 保存';
+    saveBtn.onclick = saveToGitHub;
+    document.body.appendChild(saveBtn);
 
-function saveToGitHub() {
-  if (!ghToken) { alert('请先点击「编辑」并输入 GitHub Token'); return; }
-  var btn = document.getElementById('saveToDiskBtn');
-  btn.disabled = true; btn.textContent = '保存中…';
-  setStatus('获取最新版本…');
+    var statusEl = document.createElement('span');
+    statusEl.id = 'pageEditStatus';
+    document.body.appendChild(statusEl);
 
-  fetch(API, { headers: { 'Authorization': 'token ' + ghToken, 'Accept': 'application/vnd.github+json' } })
-    .then(function(r) {
-      if (!r.ok) throw new Error('获取文件失败 ' + r.status);
-      return r.json();
-    })
-    .then(function(meta) {
-      var sha = meta.sha;
-      // 用当前 DOM body 替换文件内容
-      var currentHtml = decodeURIComponent(escape(atob(meta.content.replace(/
-/g, ''))));
-      var parser = new DOMParser();
-      var doc = parser.parseFromString(currentHtml, 'text/html');
-      doc.body.innerHTML = document.body.innerHTML;
-      var newHtml = '<!DOCTYPE html>
-' + doc.documentElement.outerHTML;
-      // UTF-8 → base64
-      var bytes = new TextEncoder().encode(newHtml);
-      var b64 = '';
-      for (var i = 0; i < bytes.length; i += 8192) {
-        b64 += String.fromCharCode.apply(null, bytes.slice(i, i + 8192));
-      }
-      var content = btoa(b64);
-      setStatus('保存到 GitHub…');
-      return fetch(API, {
-        method: 'PUT',
-        headers: { 'Authorization': 'token ' + ghToken, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github+json' },
-        body: JSON.stringify({ message: 'content: manual edit via in-page editor', sha: sha, content: content })
+    // 可编辑区域 标记
+    var sels = [
+      '.hero p','.hero h1','.callout',
+      '.finding-title','.finding-body',
+      '.action-title','.action-detail',
+      '.card-hd','.stat-lbl','.stat-sub',
+      '.del-table td','.section-hd h2','.section-hd .sub'
+    ];
+    sels.forEach(function(sel){
+      document.querySelectorAll(sel).forEach(function(el){
+        el.classList.add('editable-region');
+        el.contentEditable = 'false';
       });
-    })
-    .then(function(r) {
-      if (!r.ok) return r.json().then(function(e) { throw new Error(e.message || r.status); });
-      setStatus('✓ 已保存到 GitHub', '#22C55E');
-      setTimeout(function() { setStatus('继续编辑中…'); }, 3000);
-    })
-    .catch(function(e) {
-      setStatus('✗ 保存失败：' + e.message, '#EF4444');
-      console.error(e);
-    })
-    .finally(function() {
-      btn.disabled = false; btn.textContent = '💾 保存到 GitHub';
     });
-}
+  }
 
-document.addEventListener('DOMContentLoaded', function() {
-  var selectors = [
-    '.hero p', '.hero h1', '.callout',
-    '.finding-title', '.finding-body',
-    '.action-title', '.action-detail',
-    '.card-hd', '.stat-lbl', '.stat-sub',
-    '.del-table td', '.section-hd h2', '.section-hd .sub'
-  ];
-  selectors.forEach(function(sel) {
-    document.querySelectorAll(sel).forEach(function(el) {
-      el.classList.add('editable-region');
-      el.contentEditable = 'false';
+  function toggleEdit(){
+    editing = !editing;
+    document.querySelectorAll('.editable-region').forEach(function(el){
+      el.contentEditable = editing ? 'true' : 'false';
     });
-  });
-});
+    var editBtn = document.getElementById('pageEditBtn');
+    var saveBtn = document.getElementById('pageSaveBtn');
+    editBtn.textContent = editing ? '✎ 编辑中' : '✎ 编辑';
+    editBtn.className = editing ? 'on' : '';
+    saveBtn.style.display = editing ? 'flex' : 'none';
+    if(editing && !ghToken){
+      var t = prompt('GitHub Personal Access Token（contents:write）：');
+      if(t){ ghToken = t.trim(); sessionStorage.setItem('fsl_gh_token', ghToken); }
+    }
+    setStatus(editing ? '点击蓝色虚线区域编辑' : '');
+  }
+
+  function setStatus(msg, color){
+    var el = document.getElementById('pageEditStatus');
+    if(!el) return;
+    el.textContent = msg;
+    el.style.color = color || 'rgba(255,255,255,.65)';
+  }
+
+  function saveToGitHub(){
+    if(!ghToken){ alert('请先点击「编辑」并输入 Token'); return; }
+    var saveBtn = document.getElementById('pageSaveBtn');
+    saveBtn.disabled = true; saveBtn.textContent = '保存中…';
+    setStatus('获取版本…');
+    fetch(API, {headers:{'Authorization':'token '+ghToken,'Accept':'application/vnd.github+json'}})
+      .then(function(r){ if(!r.ok) throw new Error('获取失败 '+r.status); return r.json(); })
+      .then(function(meta){
+        var sha = meta.sha;
+        var html = decodeURIComponent(escape(atob(meta.content.replace(/\n/g,''))));
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(html,'text/html');
+        doc.body.innerHTML = document.body.innerHTML;
+        var newHtml = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
+        var bytes = new TextEncoder().encode(newHtml);
+        var b64 = '';
+        for(var i=0;i<bytes.length;i+=8192) b64 += String.fromCharCode.apply(null, bytes.slice(i,i+8192));
+        setStatus('写入 GitHub…');
+        return fetch(API,{
+          method:'PUT',
+          headers:{'Authorization':'token '+ghToken,'Content-Type':'application/json','Accept':'application/vnd.github+json'},
+          body: JSON.stringify({message:'content: manual edit',sha:sha,content:btoa(b64)})
+        });
+      })
+      .then(function(r){
+        if(!r.ok) return r.json().then(function(e){ throw new Error(e.message); });
+        setStatus('✓ 已保存','#22C55E');
+        setTimeout(function(){ setStatus('继续编辑中…'); },3000);
+      })
+      .catch(function(e){ setStatus('✗ '+e.message,'#EF4444'); })
+      .finally(function(){ saveBtn.disabled=false; saveBtn.textContent='💾 保存'; });
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', createUI);
+  } else {
+    createUI();
+  }
+})();
 </script>
 
 </body>
