@@ -662,6 +662,7 @@ select.dp-input{appearance:none;-webkit-appearance:none;
             <a href="/fsl-report/kanban/survey-strategy.html">🏛 战略调研 · 董事会</a>
             <a href="/fsl-report/weekly/">📰 项目周报</a>
             <a href="https://estatea.github.io/mdg-course/" target="_blank">🎓 MDG案例学习</a>
+            <a href="https://estatea.github.io/drc-course/" target="_blank">📋 DRC案例学习</a>
           </div>
         </div>
       </div>
@@ -741,6 +742,29 @@ select.dp-input{appearance:none;-webkit-appearance:none;
         <a href="https://estatea.github.io/mdg-course/week2/day12.html" target="_blank">🔧 Day 12 · 迁移验收与项目总结</a>
         <div style="height:1px;background:rgba(255,255,255,.1);margin:4px 0"></div>
         <a href="https://estatea.github.io/mdg-course/" target="_blank" style="color:var(--light);font-weight:700">🏠 课程首页（总览）</a>
+      </div>
+    </div>
+    <!-- DRC学习 下拉 Tab -->
+    <div class="mod-tab-dd" id="drcTabDd">
+      <div class="mod-tab" style="cursor:pointer" onclick="toggleDrcDd(event)">📋 <span class="label-text">DRC案例</span><span style="font-size:8px;margin-left:2px;opacity:.6">▾</span></div>
+      <div class="mod-tab-dd-panel" id="drc-dropdown">
+        <div style="padding:6px 16px 4px;font-size:10px;font-weight:700;color:var(--light);letter-spacing:.08em;text-transform:uppercase">第一周 · 理论学习</div>
+        <a href="https://estatea.github.io/drc-course/week1/day1.html" target="_blank">📖 Day 1 · 什么是DRC？</a>
+        <a href="https://estatea.github.io/drc-course/week1/day2.html" target="_blank">📖 Day 2 · DRC架构与部署模式</a>
+        <a href="https://estatea.github.io/drc-course/week1/day3.html" target="_blank">📖 Day 3 · 电子文件合规（E-Document）</a>
+        <a href="https://estatea.github.io/drc-course/week1/day4.html" target="_blank">📖 Day 4 · 法定报告合规</a>
+        <a href="https://estatea.github.io/drc-course/week1/day5.html" target="_blank">📖 Day 5 · 泰国e-Tax Invoice合规</a>
+        <a href="https://estatea.github.io/drc-course/week1/day6.html" target="_blank">📖 Day 6 · 德国XRechnung/ZUGFeRD</a>
+        <a href="https://estatea.github.io/drc-course/week1/day7.html" target="_blank">📖 Day 7 · DRC配置框架总览</a>
+        <div style="height:1px;background:rgba(255,255,255,.1);margin:4px 0"></div>
+        <div style="padding:6px 16px 4px;font-size:10px;font-weight:700;color:var(--light);letter-spacing:.08em;text-transform:uppercase">第二周 · 案例模拟（泰国+德国）</div>
+        <a href="https://estatea.github.io/drc-course/week2/day8.html" target="_blank">🔧 Day 8 · 案例介绍：华照集团</a>
+        <a href="https://estatea.github.io/drc-course/week2/day9.html" target="_blank">🔧 Day 9 · 泰国DRC配置实战</a>
+        <a href="https://estatea.github.io/drc-course/week2/day10.html" target="_blank">🔧 Day 10 · 德国DRC配置实战</a>
+        <a href="https://estatea.github.io/drc-course/week2/day11.html" target="_blank">🔧 Day 11 · 监控、错误处理与审计</a>
+        <a href="https://estatea.github.io/drc-course/week2/day12.html" target="_blank">🔧 Day 12 · 上线验收与项目总结</a>
+        <div style="height:1px;background:rgba(255,255,255,.1);margin:4px 0"></div>
+        <a href="https://estatea.github.io/drc-course/" target="_blank" style="color:var(--light);font-weight:700">🏠 课程首页（总览）</a>
       </div>
     </div>
   </div>
@@ -4704,6 +4728,19 @@ function toggleSurveyDd(e){
 function toggleMdgDd(e){
   e.stopPropagation();
   var panel=document.getElementById('mdg-dropdown');
+  var btn=e.currentTarget;
+  var rect=btn.getBoundingClientRect();
+  var isOpen=panel.classList.contains('dd-open');
+  document.querySelectorAll('.mod-tab-dd-panel').forEach(function(p){p.classList.remove('dd-open');});
+  if(!isOpen){
+    panel.style.top=(rect.bottom+2)+'px';
+    panel.style.left=rect.left+'px';
+    panel.classList.add('dd-open');
+  }
+}
+function toggleDrcDd(e){
+  e.stopPropagation();
+  var panel=document.getElementById('drc-dropdown');
   var btn=e.currentTarget;
   var rect=btn.getBoundingClientRect();
   var isOpen=panel.classList.contains('dd-open');
