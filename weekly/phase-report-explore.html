@@ -173,11 +173,12 @@ nav{background:var(--b900);padding:0 40px;display:flex;align-items:center;gap:20
 .pay-trigger{font-size:11px;margin-top:3px;color:var(--muted);}
 
 footer{background:var(--b900);color:rgba(255,255,255,.3);text-align:center;
-       padding:20px;font-size:11px;margin-top:60px;letter-spacing:.3px;}
+       padding:20px;font-size:11px;margin-top:60px;letter-spacing:.3px;
+       position:relative;z-index:1;}
 
 /* ── Inline editor ── */
 .edit-bar{position:fixed;bottom:0;left:0;right:0;background:var(--b900);
-  display:flex;align-items:center;gap:12px;padding:0 24px;height:48px;z-index:500;
+  display:flex;align-items:center;gap:12px;padding:0 24px;height:48px;z-index:9999;pointer-events:all;
   box-shadow:0 -2px 12px rgba(11,45,71,.5);}
 .edit-bar-label{color:rgba(255,255,255,.5);font-size:12px;}
 .edit-toggle{padding:6px 18px;border-radius:4px;border:none;cursor:pointer;
@@ -414,9 +415,47 @@ body{padding-bottom:56px;}
   </div>
 
   <!-- ══════════════════════════════════════════
-       §3 交付物进度 — 暗示完成
+       §3 关键业务发现（AS-IS 摘要）
   ══════════════════════════════════════════ -->
-  <div class="section-hd"><h2>三、咨询交付物进度</h2><span class="sub">对标合同第一期交付计划</span></div>
+  <div class="section-hd"><h2>三、关键业务发现（AS-IS 摘要）</h2><span class="sub">TOGAF Phase B 现状架构核心差距</span></div>
+
+  <div class="finding-grid">
+    <div class="finding critical">
+      <div class="finding-domain">财务 FI/CO</div>
+      <div class="finding-title">合并报表与成本链路全手工</div>
+      <div class="finding-body">29家法人，合并报表依赖Excel；每月30万张发票人工开票；SAP与金税每月手工逐笔对碰；汇兑损益无法追溯到单笔订单。<br><br><strong style="color:var(--green)">进展：</strong>07-07专题会已锁定GR合并架构、科目标准化规则、固定资产边界，蓝图设计可执行。</div>
+    </div>
+    <div class="finding critical">
+      <div class="finding-domain">国际 / 多法人</div>
+      <div class="finding-title">跨境系统孤岛与转移定价两套口径</div>
+      <div class="finding-body">领星ERP（跨境电商）与SAP完全未打通；泰国/德国转移定价报关价≠内部考核成本；多法人内部转卖成本还原全手工。</div>
+    </div>
+    <div class="finding critical">
+      <div class="finding-domain">自开发代码</div>
+      <div class="finding-title">675条Z程序迁移评估待完成</div>
+      <div class="finding-body">ECC现有675条自开发程序（Z-TCODE），Greenfield实施需逐一评估迁移vs重开发vs废弃。SCMON+SUSG扫描已启动，1个月内完成（对应风险R02）。</div>
+    </div>
+    <div class="finding major">
+      <div class="finding-domain">数据治理</div>
+      <div class="finding-title">主数据质量严重不达标</div>
+      <div class="finding-body">物料主数据3542条，跨工厂状态99.9%缺失；BOM 12%为问题行；工艺路线工时39%为零；主数据归口分散，研究院/产品/供应链各自维护。</div>
+    </div>
+    <div class="finding major">
+      <div class="finding-domain">制造 / 生产</div>
+      <div class="finding-title">PLM-SAP三阶段BOM断点</div>
+      <div class="finding-body">研发BOM（PLM）→工程BOM（SAP）→制造BOM（车间）三阶段数据不自动同步；ECN变更通知流程缺失；高明基地0名本地IT支撑。</div>
+    </div>
+    <div class="finding opportunity">
+      <div class="finding-domain">Clean Core</div>
+      <div class="finding-title">RISE附赠资产尚未激活</div>
+      <div class="finding-body">SAP Build（Work Zone + RPA）、SAC Planning、Group Reporting均已随RISE合约附赠，当前未激活使用。CPI集成套件建议尽快确认购买版本，支撑20+接口规范开发。</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       §4 交付物进度 — 暗示完成
+  ══════════════════════════════════════════ -->
+  <div class="section-hd"><h2>四、咨询交付物进度</h2><span class="sub">对标合同第一期交付计划</span></div>
 
   <div class="callout gold" style="margin-bottom:16px;">
     <strong>付款里程碑提示：</strong>第一期第2笔款（20%）触发条件为《诊断报告》+《架构报告》+《专项方案》+《数据治理三件套》
@@ -526,44 +565,6 @@ body{padding-bottom:56px;}
         <div style="font-size:11.5px;font-weight:700;color:var(--muted);margin-top:2px;">第4笔 — 待到期</div>
         <div class="pay-trigger">SAP实施上线稳定<br>运行6个月后</div>
       </div>
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════════════
-       §4 关键业务发现（AS-IS 摘要）
-  ══════════════════════════════════════════ -->
-  <div class="section-hd"><h2>四、关键业务发现（AS-IS 摘要）</h2><span class="sub">TOGAF Phase B 现状架构核心差距</span></div>
-
-  <div class="finding-grid">
-    <div class="finding critical">
-      <div class="finding-domain">财务 FI/CO</div>
-      <div class="finding-title">合并报表与成本链路全手工</div>
-      <div class="finding-body">29家法人，合并报表依赖Excel；每月30万张发票人工开票；SAP与金税每月手工逐笔对碰；汇兑损益无法追溯到单笔订单。<br><br><strong style="color:var(--green)">进展：</strong>07-07专题会已锁定GR合并架构、科目标准化规则、固定资产边界，蓝图设计可执行。</div>
-    </div>
-    <div class="finding critical">
-      <div class="finding-domain">国际 / 多法人</div>
-      <div class="finding-title">跨境系统孤岛与转移定价两套口径</div>
-      <div class="finding-body">领星ERP（跨境电商）与SAP完全未打通；泰国/德国转移定价报关价≠内部考核成本；多法人内部转卖成本还原全手工。</div>
-    </div>
-    <div class="finding critical">
-      <div class="finding-domain">自开发代码</div>
-      <div class="finding-title">675条Z程序迁移评估待完成</div>
-      <div class="finding-body">ECC现有675条自开发程序（Z-TCODE），Greenfield实施需逐一评估迁移vs重开发vs废弃。SCMON+SUSG扫描已启动，1个月内完成（对应风险R02）。</div>
-    </div>
-    <div class="finding major">
-      <div class="finding-domain">数据治理</div>
-      <div class="finding-title">主数据质量严重不达标</div>
-      <div class="finding-body">物料主数据3542条，跨工厂状态99.9%缺失；BOM 12%为问题行；工艺路线工时39%为零；主数据归口分散，研究院/产品/供应链各自维护。</div>
-    </div>
-    <div class="finding major">
-      <div class="finding-domain">制造 / 生产</div>
-      <div class="finding-title">PLM-SAP三阶段BOM断点</div>
-      <div class="finding-body">研发BOM（PLM）→工程BOM（SAP）→制造BOM（车间）三阶段数据不自动同步；ECN变更通知流程缺失；高明基地0名本地IT支撑。</div>
-    </div>
-    <div class="finding opportunity">
-      <div class="finding-domain">Clean Core</div>
-      <div class="finding-title">RISE附赠资产尚未激活</div>
-      <div class="finding-body">SAP Build（Work Zone + RPA）、SAC Planning、Group Reporting均已随RISE合约附赠，当前未激活使用。CPI集成套件建议尽快确认购买版本，支撑20+接口规范开发。</div>
     </div>
   </div>
 
