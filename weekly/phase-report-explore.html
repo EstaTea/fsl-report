@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>阶段汇报 | 佛照 SAP 升级项目</title>
+<style>
+:root{
+  --b900:#0B2D47;--b800:#0F3A5C;--b700:#1A4F73;--b600:#1E5F8A;
+  --b500:#2374A3;--b300:#5EA4CE;--b100:#C7E2F2;--b050:#EBF5FB;
+  --bg:#F2F7FB;--text:#0F2233;--muted:#5B7A91;--rule:#D6E8F2;--r:6px;
+  --gold:#C8962A;--green:#2E7D32;--red:#C62828;--orange:#E65100;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;
+     background:var(--bg);color:var(--text);font-size:14px;line-height:1.8;}
+a{color:inherit;text-decoration:none;}
+
+/* ── Nav ── */
+nav{background:var(--b900);padding:0 40px;display:flex;align-items:center;gap:20px;
+    height:54px;position:sticky;top:0;z-index:100;
+    box-shadow:0 2px 12px rgba(11,45,71,.6);}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.nav-div{width:1px;height:22px;background:rgba(255,255,255,.18);}
+.nav-title{color:rgba(255,255,255,.55);font-size:12px;}
+.nav-links{display:flex;flex:1;gap:4px;}
+.nav-links a{padding:0 13px;color:rgba(255,255,255,.6);font-size:12.5px;
+             height:54px;display:flex;align-items:center;white-space:nowrap;
+             border-bottom:2px solid transparent;transition:color .14s;}
+.nav-links a:hover{color:#fff;}
+.nav-links a.active{color:#fff;border-bottom-color:#5EA4CE;}
+
+/* ── Hero ── */
+.hero{background:linear-gradient(148deg,var(--b900) 0%,#0D3D62 60%,var(--b700) 100%);
+      color:#fff;padding:52px 60px 44px;border-bottom:3px solid var(--b500);
+      position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-80px;top:-60px;
+  width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(circle,rgba(35,116,163,.18) 0%,transparent 70%);pointer-events:none;}
+.hero-meta{font-size:11px;opacity:.5;letter-spacing:.6px;text-transform:uppercase;margin-bottom:10px;}
+.hero h1{font-size:26px;font-weight:800;letter-spacing:-.3px;margin-bottom:8px;line-height:1.3;}
+.hero p{font-size:13.5px;opacity:.75;max-width:680px;line-height:1.7;}
+.hero-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px;}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);
+      border-radius:3px;padding:3px 14px;font-size:11px;letter-spacing:.3px;}
+.chip.hl{background:rgba(200,150,42,.25);border-color:rgba(200,150,42,.4);}
+
+/* ── Layout ── */
+.container{max-width:1200px;margin:0 auto;padding:36px 40px 60px;}
+.bc{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted);margin-bottom:28px;}
+.bc a{color:var(--b500);}.bc a:hover{color:var(--b700);}.bc .sep{color:var(--b100);}
+
+/* ── Section headers ── */
+.section-hd{display:flex;align-items:center;gap:12px;margin:40px 0 18px;}
+.section-hd::before{content:'';display:block;width:4px;height:22px;
+  background:var(--b500);border-radius:2px;flex-shrink:0;}
+.section-hd h2{font-size:17px;font-weight:800;color:var(--b900);}
+.section-hd .sub{font-size:12px;color:var(--muted);margin-left:4px;}
+.section-hd:first-child{margin-top:0;}
+
+/* ── Cards ── */
+.card{background:#fff;border:1px solid var(--rule);border-radius:var(--r);
+      padding:20px 22px;box-shadow:0 1px 4px rgba(35,116,163,.06);}
+.card-hd{font-size:13px;font-weight:800;color:var(--b900);
+         border-bottom:2px solid var(--b050);padding-bottom:9px;margin-bottom:14px;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+@media(max-width:1000px){.grid-3{grid-template-columns:1fr 1fr;}.grid-4{grid-template-columns:1fr 1fr;}}
+@media(max-width:640px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}}
+
+/* ── KV stat tiles ── */
+.stat-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:18px;}
+@media(max-width:900px){.stat-row{grid-template-columns:repeat(3,1fr);}}
+.stat{background:#fff;border:1px solid var(--rule);border-radius:var(--r);
+      padding:16px 18px;text-align:center;box-shadow:0 1px 3px rgba(35,116,163,.05);}
+.stat-val{font-size:28px;font-weight:800;color:var(--b700);line-height:1;}
+.stat-val.gold{color:var(--gold);}
+.stat-val.green{color:var(--green);}
+.stat-val.red{color:var(--red);}
+.stat-lbl{font-size:11px;color:var(--muted);margin-top:4px;white-space:nowrap;}
+.stat-sub{font-size:10.5px;color:var(--b300);margin-top:2px;}
+
+/* ── TOGAF phase timeline ── */
+.togaf-strip{display:grid;grid-template-columns:repeat(6,1fr);gap:0;
+             border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;margin-bottom:14px;}
+.togaf-phase{padding:12px 14px;text-align:center;border-right:1px solid var(--rule);}
+.togaf-phase:last-child{border-right:none;}
+.togaf-phase.done{background:var(--b700);color:#fff;}
+.togaf-phase.active{background:var(--b500);color:#fff;position:relative;}
+.togaf-phase.active::after{content:'▼';position:absolute;bottom:-8px;left:50%;
+  transform:translateX(-50%);font-size:10px;color:var(--b500);}
+.togaf-phase.next{background:var(--b050);color:var(--b700);}
+.togaf-phase.future{background:#f8f9fb;color:var(--muted);}
+.togaf-phase-name{font-size:11.5px;font-weight:800;margin-bottom:2px;}
+.togaf-phase-en{font-size:10px;opacity:.7;}
+.togaf-phase-pct{font-size:18px;font-weight:800;margin-top:4px;}
+
+/* ── Deliverable table ── */
+.del-table{width:100%;border-collapse:collapse;font-size:12.5px;}
+.del-table th{background:var(--b700);color:#fff;padding:8px 12px;text-align:left;
+              font-size:11.5px;font-weight:700;border:1px solid var(--b800);}
+.del-table td{border:1px solid var(--rule);padding:8px 12px;vertical-align:top;}
+.del-table tr:nth-child(even) td{background:var(--b050);}
+.del-table tr:hover td{background:#e2f0f9;}
+.tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;
+     border-radius:3px;white-space:nowrap;}
+.tag-done{background:#E8F5E9;color:var(--green);}
+.tag-prog{background:#FFF8E1;color:#F57F17;}
+.tag-plan{background:var(--b050);color:var(--b700);}
+.tag-risk{background:#FFEBEE;color:var(--red);}
+.tag-pay{background:rgba(200,150,42,.15);color:var(--gold);border:1px solid rgba(200,150,42,.3);}
+
+/* ── Finding cards ── */
+.finding-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+@media(max-width:900px){.finding-grid{grid-template-columns:1fr 1fr;}}
+.finding{background:#fff;border:1px solid var(--rule);border-radius:var(--r);
+         padding:14px 16px;border-left:3px solid var(--b500);}
+.finding.critical{border-left-color:var(--red);}
+.finding.major{border-left-color:var(--orange);}
+.finding.opportunity{border-left-color:var(--green);}
+.finding-domain{font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;
+                color:var(--muted);margin-bottom:4px;}
+.finding-title{font-size:13px;font-weight:800;color:var(--b900);margin-bottom:6px;}
+.finding-body{font-size:11.5px;color:var(--text);line-height:1.6;}
+
+/* ── Risk table ── */
+.risk-table{width:100%;border-collapse:collapse;font-size:12px;}
+.risk-table th{background:var(--b700);color:#fff;padding:7px 10px;text-align:left;
+               font-size:11px;font-weight:700;border:1px solid var(--b800);}
+.risk-table td{border:1px solid var(--rule);padding:7px 10px;vertical-align:top;}
+.risk-table tr:nth-child(even) td{background:var(--b050);}
+.rdot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px;vertical-align:middle;}
+.r-h{background:var(--red);}.r-m{background:var(--orange);}.r-l{background:#43A047;}
+
+/* ── Next steps ── */
+.action-list{display:flex;flex-direction:column;gap:8px;}
+.action{display:flex;gap:12px;align-items:flex-start;background:#fff;
+        border:1px solid var(--rule);border-radius:var(--r);padding:12px 14px;}
+.action-num{width:26px;height:26px;border-radius:50%;background:var(--b500);
+            color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;
+            justify-content:center;flex-shrink:0;margin-top:1px;}
+.action-body{flex:1;}
+.action-title{font-size:13px;font-weight:700;color:var(--b900);}
+.action-detail{font-size:12px;color:var(--muted);margin-top:2px;}
+.action-who{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;}
+.who-tag{background:var(--b050);color:var(--b700);border:1px solid var(--b100);
+         border-radius:3px;padding:2px 8px;font-size:10.5px;font-weight:700;}
+.who-tag.eviden{background:#e8f5e9;color:#2E7D32;border-color:#a5d6a7;}
+.who-tag.fsl{background:#fff8e1;color:#F57F17;border-color:#ffe082;}
+.who-tag.sap{background:#e3f2fd;color:var(--b700);border-color:var(--b100);}
+
+/* ── Callout box ── */
+.callout{background:var(--b050);border-left:4px solid var(--b500);
+         border-radius:0 var(--r) var(--r) 0;padding:14px 18px;font-size:13px;
+         line-height:1.65;margin-top:12px;}
+.callout strong{color:var(--b700);}
+.callout.gold{background:#fffbf0;border-left-color:var(--gold);}
+.callout.green{background:#f1f8f1;border-left-color:var(--green);}
+
+/* ── Payment milestone ── */
+.pay-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+           border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;}
+.pay-item{padding:14px 16px;border-right:1px solid var(--rule);text-align:center;}
+.pay-item:last-child{border-right:none;}
+.pay-item.triggered{background:#f1f8f1;}
+.pay-item.upcoming{background:#fffbf0;}
+.pay-pct{font-size:22px;font-weight:800;}
+.pay-pct.g{color:var(--green);}
+.pay-pct.o{color:var(--gold);}
+.pay-pct.m{color:var(--muted);}
+.pay-trigger{font-size:11px;margin-top:3px;color:var(--muted);}
+
+footer{background:var(--b900);color:rgba(255,255,255,.3);text-align:center;
+       padding:20px;font-size:11px;margin-top:60px;letter-spacing:.3px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/fsl-report/" class="nav-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 36" height="24">
+      <rect x="0" y="3" width="4" height="30" fill="#F06000"/>
+      <rect x="0" y="3" width="18" height="4" fill="#F06000"/>
+      <rect x="0" y="16" width="13" height="4" fill="#F06000"/>
+      <path d="M22 3 h14 v4 h-9 v6 h9 v4 h-9 v7 h10 v4 h-15 v-9 h9 v-3 h-9 z" fill="#F06000"/>
+      <rect x="42" y="3" width="4" height="30" fill="#F06000"/>
+      <rect x="42" y="29" width="16" height="4" fill="#F06000"/>
+      <text x="66" y="26" font-family="Microsoft YaHei,PingFang SC,sans-serif"
+            font-size="14" font-weight="700" fill="rgba(255,255,255,0.9)" letter-spacing="1">佛山照明</text>
+    </svg>
+  </a>
+  <div class="nav-div"></div>
+  <span class="nav-title">数字化转型项目工作台</span>
+  <div class="nav-links">
+    <a href="/fsl-report/">工作台首页</a>
+    <a href="/fsl-report/weekly/" class="active">项目周报</a>
+    <a href="/fsl-report/kanban/">任务看板</a>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<div class="hero">
+  <div class="hero-meta">阶段性汇报 · 2026-07-08 · 李泽华副总经理专场</div>
+  <h1>佛照 SAP S/4HANA 升级项目<br>探索阶段总结汇报</h1>
+  <p>
+    基于 TOGAF ADM 方法论，项目已完成探索阶段（Phase A/B：架构愿景 + 业务架构）全部调研任务。
+    两周内覆盖 27 个业务单元、完成 466 条需求收集，同步启动财务蓝图专题，
+    项目整体进展如期，正式进入分析与报告产出阶段。
+  </p>
+  <div class="hero-chips">
+    <span class="chip">探索阶段收官</span>
+    <span class="chip">D1–D10 全部完成</span>
+    <span class="chip hl">466条需求</span>
+    <span class="chip hl">蓝图专题已启动</span>
+    <span class="chip">D11 签字确认 07-06</span>
+  </div>
+</div>
+
+<div class="container">
+  <div class="bc">
+    <a href="/fsl-report/">工作台首页</a><span class="sep">›</span>
+    <a href="/fsl-report/weekly/">项目周报</a><span class="sep">›</span>
+    <span>探索阶段总结汇报</span>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       §1 TOGAF方法论定位
+  ══════════════════════════════════════════ -->
+  <div class="section-hd"><h2>一、TOGAF ADM 阶段定位</h2><span class="sub">当前所处阶段与下一步路径</span></div>
+
+  <div class="togaf-strip">
+    <div class="togaf-phase done">
+      <div class="togaf-phase-name">准备阶段</div>
+      <div class="togaf-phase-en">Preliminary</div>
+      <div class="togaf-phase-pct">✓</div>
+    </div>
+    <div class="togaf-phase done">
+      <div class="togaf-phase-name">架构愿景</div>
+      <div class="togaf-phase-en">Phase A</div>
+      <div class="togaf-phase-pct">✓</div>
+    </div>
+    <div class="togaf-phase active">
+      <div class="togaf-phase-name">业务架构</div>
+      <div class="togaf-phase-en">Phase B ← 当前</div>
+      <div class="togaf-phase-pct">85%</div>
+    </div>
+    <div class="togaf-phase next">
+      <div class="togaf-phase-name">信息系统架构</div>
+      <div class="togaf-phase-en">Phase C — 下一步</div>
+      <div class="togaf-phase-pct">0%</div>
+    </div>
+    <div class="togaf-phase future">
+      <div class="togaf-phase-name">技术架构</div>
+      <div class="togaf-phase-en">Phase D</div>
+      <div class="togaf-phase-pct">—</div>
+    </div>
+    <div class="togaf-phase future">
+      <div class="togaf-phase-name">机会与解决方案</div>
+      <div class="togaf-phase-en">Phase E</div>
+      <div class="togaf-phase-pct">—</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>阶段说明：</strong>探索阶段对应 TOGAF Phase A（架构愿景）+Phase B（业务架构 AS-IS）。
+    现状调研、业务痛点识别、需求收集均已完成，正式进入 <strong>Phase B → Phase C</strong> 过渡——即从"现状描述"转向"目标架构设计（TO-BE）"，
+    也就是项目合同定义的<strong>蓝图设计阶段</strong>启动。
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       §2 阶段成果总览
+  ══════════════════════════════════════════ -->
+  <div class="section-hd"><h2>二、探索阶段成果总览</h2><span class="sub">量化指标 · 2026-06-22 ~ 07-06</span></div>
+
+  <div class="stat-row">
+    <div class="stat">
+      <div class="stat-val green">10</div>
+      <div class="stat-lbl">调研天数</div>
+      <div class="stat-sub">D1–D10 全部完成</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">27</div>
+      <div class="stat-lbl">覆盖业务单元</div>
+      <div class="stat-sub">全公司100%覆盖</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val gold">466</div>
+      <div class="stat-lbl">需求条数</div>
+      <div class="stat-sub">高优先级 142 条</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">675</div>
+      <div class="stat-lbl">Z程序清单</div>
+      <div class="stat-sub">自开发迁移评估中</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val green">4</div>
+      <div class="stat-lbl">咨询交付物</div>
+      <div class="stat-sub">已完成初稿输出</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <!-- 需求分布 -->
+    <div class="card">
+      <div class="card-hd">需求优先级分布（466条）</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
+        <div style="flex:1;min-width:80px;text-align:center;background:#FFEBEE;border-radius:var(--r);padding:10px;">
+          <div style="font-size:22px;font-weight:800;color:var(--red);">142</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px;">高优先级</div>
+        </div>
+        <div style="flex:1;min-width:80px;text-align:center;background:#FFF8E1;border-radius:var(--r);padding:10px;">
+          <div style="font-size:22px;font-weight:800;color:#F57F17;">195</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px;">中优先级</div>
+        </div>
+        <div style="flex:1;min-width:80px;text-align:center;background:#E8F5E9;border-radius:var(--r);padding:10px;">
+          <div style="font-size:22px;font-weight:800;color:var(--green);">41</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px;">低优先级</div>
+        </div>
+        <div style="flex:1;min-width:80px;text-align:center;background:var(--b050);border-radius:var(--r);padding:10px;">
+          <div style="font-size:22px;font-weight:800;color:var(--muted);">88</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px;">待定级</div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--b700);font-weight:700;margin-bottom:6px;">高优先级TOP业务域</div>
+      <table style="width:100%;border-collapse:collapse;font-size:12px;">
+        <tr style="background:var(--b700);color:#fff;">
+          <th style="padding:5px 8px;text-align:left;">业务域</th>
+          <th style="padding:5px 8px;text-align:center;width:60px;">高优先</th>
+          <th style="padding:5px 8px;text-align:left;">核心主题</th>
+        </tr>
+        <tr><td style="padding:5px 8px;border:1px solid var(--rule);">财务(FI/CO)</td><td style="padding:5px 8px;border:1px solid var(--rule);text-align:center;color:var(--red);font-weight:700;">38</td><td style="padding:5px 8px;border:1px solid var(--rule);font-size:11px;">信用管理、自动开票、金税对接、合并报表</td></tr>
+        <tr style="background:var(--b050);"><td style="padding:5px 8px;border:1px solid var(--rule);">国际事业部</td><td style="padding:5px 8px;border:1px solid var(--rule);text-align:center;color:var(--red);font-weight:700;">25</td><td style="padding:5px 8px;border:1px solid var(--rule);font-size:11px;">端到端流程、泰国转移定价、海外法人模板</td></tr>
+        <tr><td style="padding:5px 8px;border:1px solid var(--rule);">电商事业部</td><td style="padding:5px 8px;border:1px solid var(--rule);text-align:center;color:var(--orange);font-weight:700;">14</td><td style="padding:5px 8px;border:1px solid var(--rule);font-size:11px;">库存同步、自动开票（30万张/月）</td></tr>
+        <tr style="background:var(--b050);"><td style="padding:5px 8px;border:1px solid var(--rule);">家用事业部</td><td style="padding:5px 8px;border:1px solid var(--rule);text-align:center;color:var(--orange);font-weight:700;">12</td><td style="padding:5px 8px;border:1px solid var(--rule);font-size:11px;">促销管理、拆单、跨工厂转卖</td></tr>
+        <tr><td style="padding:5px 8px;border:1px solid var(--rule);">HR人力资源</td><td style="padding:5px 8px;border:1px solid var(--rule);text-align:center;color:var(--orange);font-weight:700;">11</td><td style="padding:5px 8px;border:1px solid var(--rule);font-size:11px;">薪酬核算联动、绩效模块</td></tr>
+      </table>
+      <div style="font-size:11px;color:var(--muted);margin-top:8px;">* 主数据治理跨研究院/国际/企管/商用/家用多部门交叉出现，是蓝图横向主线</div>
+    </div>
+
+    <!-- 调研覆盖 -->
+    <div class="card">
+      <div class="card-hd">调研覆盖范围（D1–D10）</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;">
+        <div style="background:var(--b050);border-radius:4px;padding:8px 10px;">
+          <div style="font-weight:700;color:var(--b700);margin-bottom:4px;">销售与客户</div>
+          <div>家用事业部 · 商用事业部</div>
+          <div>电商事业部 · 国际事业部</div>
+          <div>产品及方案中心</div>
+        </div>
+        <div style="background:var(--b050);border-radius:4px;padding:8px 10px;">
+          <div style="font-weight:700;color:var(--b700);margin-bottom:4px;">制造与供应链</div>
+          <div>高明基地（全天实地）</div>
+          <div>供应链中心 · 招投标中心</div>
+          <div>研究院 · PLM/PM系统</div>
+        </div>
+        <div style="background:var(--b050);border-radius:4px;padding:8px 10px;">
+          <div style="font-weight:700;color:var(--b700);margin-bottom:4px;">财务与合规</div>
+          <div>财务管理部 · 司库系统</div>
+          <div>财务共享与资产模块</div>
+          <div>法律与风控事务部</div>
+        </div>
+        <div style="background:var(--b050);border-radius:4px;padding:8px 10px;">
+          <div style="font-weight:700;color:var(--b700);margin-bottom:4px;">管理与职能</div>
+          <div>数智化部 · 企业管理部</div>
+          <div>HR党群人力资源部</div>
+          <div>OA/流程 · 战略投资部</div>
+        </div>
+        <div style="background:var(--b050);border-radius:4px;padding:8px 10px;">
+          <div style="font-weight:700;color:var(--b700);margin-bottom:4px;">质量与客服</div>
+          <div>质量与客服中心（杨辉/窦登富）</div>
+          <div>新业务拓展中心</div>
+        </div>
+        <div style="background:var(--b050);border-radius:4px;padding:8px 10px;">
+          <div style="font-weight:700;color:var(--b700);margin-bottom:4px;">分子公司</div>
+          <div>高明分公司（68条需求）</div>
+          <div>海南/茂名/沪乐/航信</div>
+        </div>
+      </div>
+      <div class="callout green" style="margin-top:10px;font-size:12px;">
+        <strong>07-06 D11汇报：</strong>两周调研初步发现已向甲方汇报，苏大明/数智化部完成签字确认，探索阶段正式收官。
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       §3 交付物进度 — 暗示完成
+  ══════════════════════════════════════════ -->
+  <div class="section-hd"><h2>三、咨询交付物进度</h2><span class="sub">对标合同第一期交付计划</span></div>
+
+  <div class="callout gold" style="margin-bottom:16px;">
+    <strong>付款里程碑提示：</strong>第一期第2笔款（20%）触发条件为《诊断报告》+《架构报告》+《专项方案》+《数据治理三件套》
+    通过评审。当前探索阶段调研全部完成，分析报告进入撰写阶段，<strong>预计W5前可提请评审</strong>。
+  </div>
+
+  <table class="del-table">
+    <thead>
+      <tr>
+        <th style="width:40px;">序</th>
+        <th>交付物名称</th>
+        <th style="width:100px;">TOGAF对应</th>
+        <th style="width:80px;">状态</th>
+        <th style="width:120px;">关联付款</th>
+        <th>当前进展</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="text-align:center;font-weight:700;">★1</td>
+        <td><b>现状诊断报告</b></td>
+        <td style="font-size:11px;">Phase B AS-IS</td>
+        <td style="text-align:center;"><span class="tag tag-prog">撰写中</span></td>
+        <td><span class="tag tag-pay">第2笔 20%</span></td>
+        <td style="font-size:11.5px;">基于466条需求+27场访谈，初稿框架已确定，W3启动正式撰写</td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">★2</td>
+        <td><b>企业架构设计报告（EA蓝图）</b></td>
+        <td style="font-size:11px;">Phase C TO-BE</td>
+        <td style="text-align:center;"><span class="tag tag-prog">框架中</span></td>
+        <td><span class="tag tag-pay">第2笔 20%</span></td>
+        <td style="font-size:11.5px;">4A架构（BA/AA/DA/TA）TO-BE框架搭建中；数字化现状分析报告v2.0已输出为基础</td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">★3</td>
+        <td><b>专项方案设计报告（8个场景）</b></td>
+        <td style="font-size:11px;">Phase E 机会方案</td>
+        <td style="text-align:center;"><span class="tag tag-plan">规划中</span></td>
+        <td><span class="tag tag-pay">第2笔 20%</span></td>
+        <td style="font-size:11.5px;">8个高价值场景方向已基于需求优先级初步确定；关键用户名单确认中</td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">★4.1</td>
+        <td><b>数据调研分析报告</b></td>
+        <td style="font-size:11px;">Phase B 数据架构</td>
+        <td style="text-align:center;"><span class="tag tag-done">✓ 完成</span></td>
+        <td><span class="tag tag-pay">第2笔 20%</span></td>
+        <td style="font-size:11.5px;">TOGAF 4A分析报告v2.0已完成，含真实主数据（物料3542条/BOM 83行）深度案例</td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">★4.2</td>
+        <td><b>数据规划及管理办法</b></td>
+        <td style="font-size:11px;">Phase B 数据架构</td>
+        <td style="text-align:center;"><span class="tag tag-done">✓ 完成</span></td>
+        <td><span class="tag tag-pay">第2笔 20%</span></td>
+        <td style="font-size:11.5px;">含MDM组织架构、RACI矩阵、数据迁移三阶段方案，v1.0已输出</td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">★4.3</td>
+        <td><b>数据治理总结报告</b></td>
+        <td style="font-size:11px;">Phase B 数据架构</td>
+        <td style="text-align:center;"><span class="tag tag-done">✓ 完成</span></td>
+        <td><span class="tag tag-pay">第2笔 20%</span></td>
+        <td style="font-size:11.5px;">汇总性交付物，3年ROI约179%，17章+5附录，v1.0已输出</td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">★5</td>
+        <td><b>数字化保障组织设计报告</b></td>
+        <td style="font-size:11px;">Phase A 架构愿景</td>
+        <td style="text-align:center;"><span class="tag tag-done">✓ 完成</span></td>
+        <td><span class="tag tag-pay">第2笔 20%</span></td>
+        <td style="font-size:11.5px;">含CIO/CDO方案A/B/C比较、3阶段组织演进、Kotter变革计划，v1.0已输出</td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">★6</td>
+        <td><b>数字化转型路径规划</b></td>
+        <td style="font-size:11px;">Phase E 路线图</td>
+        <td style="text-align:center;"><span class="tag tag-plan">待启动</span></td>
+        <td><span class="tag tag-pay">第3笔 45%</span></td>
+        <td style="font-size:11.5px;">依赖★1-5完成后整合，W5前提交草稿</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 付款进度 -->
+  <div style="margin-top:18px;">
+    <div style="font-size:12.5px;font-weight:700;color:var(--b900);margin-bottom:10px;">付款里程碑进度</div>
+    <div class="pay-strip">
+      <div class="pay-item">
+        <div class="pay-pct g">20%</div>
+        <div style="font-size:11.5px;font-weight:700;color:var(--green);margin-top:2px;">第1笔 — 已触发</div>
+        <div class="pay-trigger">合同签订后30工作日<br>≈ 2026年7月中旬到账</div>
+      </div>
+      <div class="pay-item upcoming">
+        <div class="pay-pct o">20%</div>
+        <div style="font-size:11.5px;font-weight:700;color:var(--gold);margin-top:2px;">第2笔 — 准备中</div>
+        <div class="pay-trigger">诊断/架构/专项/数据治理<br>全套交付物评审通过</div>
+      </div>
+      <div class="pay-item">
+        <div class="pay-pct m">45%</div>
+        <div style="font-size:11.5px;font-weight:700;color:var(--muted);margin-top:2px;">第3笔 — 待到期</div>
+        <div class="pay-trigger">全部交付物最终验收<br>（路径规划完成）</div>
+      </div>
+      <div class="pay-item">
+        <div class="pay-pct m">15%</div>
+        <div style="font-size:11.5px;font-weight:700;color:var(--muted);margin-top:2px;">第4笔 — 待到期</div>
+        <div class="pay-trigger">SAP实施上线稳定<br>运行6个月后</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       §4 关键业务发现（AS-IS 摘要）
+  ══════════════════════════════════════════ -->
+  <div class="section-hd"><h2>四、关键业务发现（AS-IS 摘要）</h2><span class="sub">TOGAF Phase B 现状架构核心差距</span></div>
+
+  <div class="finding-grid">
+    <div class="finding critical">
+      <div class="finding-domain">财务 FI/CO</div>
+      <div class="finding-title">合并报表与成本链路全手工</div>
+      <div class="finding-body">29家法人，合并报表依赖Excel；每月30万张发票人工开票；SAP与金税每月手工逐笔对碰；汇兑损益无法追溯到单笔订单。<br><br><strong style="color:var(--green)">进展：</strong>07-07专题会已锁定GR合并架构、科目标准化规则、固定资产边界，蓝图设计可执行。</div>
+    </div>
+    <div class="finding critical">
+      <div class="finding-domain">国际 / 多法人</div>
+      <div class="finding-title">跨境系统孤岛与转移定价两套口径</div>
+      <div class="finding-body">领星ERP（跨境电商）与SAP完全未打通；泰国/德国转移定价报关价≠内部考核成本；多法人内部转卖成本还原全手工。</div>
+    </div>
+    <div class="finding critical">
+      <div class="finding-domain">自开发代码</div>
+      <div class="finding-title">675条Z程序迁移评估待完成</div>
+      <div class="finding-body">ECC现有675条自开发程序（Z-TCODE），Greenfield实施需逐一评估迁移vs重开发vs废弃。SCMON+SUSG扫描已启动，1个月内完成（对应风险R02）。</div>
+    </div>
+    <div class="finding major">
+      <div class="finding-domain">数据治理</div>
+      <div class="finding-title">主数据质量严重不达标</div>
+      <div class="finding-body">物料主数据3542条，跨工厂状态99.9%缺失；BOM 12%为问题行；工艺路线工时39%为零；主数据归口分散，研究院/产品/供应链各自维护。</div>
+    </div>
+    <div class="finding major">
+      <div class="finding-domain">制造 / 生产</div>
+      <div class="finding-title">PLM-SAP三阶段BOM断点</div>
+      <div class="finding-body">研发BOM（PLM）→工程BOM（SAP）→制造BOM（车间）三阶段数据不自动同步；ECN变更通知流程缺失；高明基地0名本地IT支撑。</div>
+    </div>
+    <div class="finding opportunity">
+      <div class="finding-domain">Clean Core</div>
+      <div class="finding-title">RISE附赠资产尚未激活</div>
+      <div class="finding-body">SAP Build（Work Zone + RPA）、SAC Planning、Group Reporting均已随RISE合约附赠，当前未激活使用。CPI集成套件建议尽快确认购买版本，支撑20+接口规范开发。</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       §5 主要风险
+  ══════════════════════════════════════════ -->
+  <div class="section-hd"><h2>五、主要风险与建议措施</h2></div>
+
+  <table class="risk-table">
+    <thead>
+      <tr>
+        <th style="width:30px;">级别</th>
+        <th>风险描述</th>
+        <th style="width:140px;">影响</th>
+        <th>缓解措施</th>
+        <th style="width:80px;">责任方</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="rdot r-h"></span>高</td>
+        <td><b>固定资产接口商务变更</b> — FA双向接口（SAP⟷用友共享）工作量新增，需重新洽谈合同范围与报价</td>
+        <td style="font-size:11px;">可能影响项目工期和预算</td>
+        <td style="font-size:11.5px;">尽快组织艾维登+用友共享+财务三方专项会，锁定接口开发范围，2周内完成商务谈判</td>
+        <td style="font-size:11.5px;">项目总协调</td>
+      </tr>
+      <tr>
+        <td><span class="rdot r-h"></span>高</td>
+        <td><b>675条Z程序评估周期压缩</b> — 原计划3个月压至1个月，SUSG工具需打补丁，遗漏风险高</td>
+        <td style="font-size:11px;">影响蓝图阶段开发决策</td>
+        <td style="font-size:11.5px;">优先完成高频使用（TOP100）程序评估；Z程序报告作为蓝图前置输入</td>
+        <td style="font-size:11.5px;">艾维登技术</td>
+      </tr>
+      <tr>
+        <td><span class="rdot r-m"></span>中</td>
+        <td><b>主数据治理复杂度超预期</b> — 物料/BOM问题比例远高于行业均值，Greenfield迁移底层风险</td>
+        <td style="font-size:11px;">影响数据迁移周期</td>
+        <td style="font-size:11.5px;">启动主数据专项治理小组，MDM Office建议由曾肖静副总牵头，9月前完成物料主数据清洗第一轮</td>
+        <td style="font-size:11.5px;">数智化部+各业务部门</td>
+      </tr>
+      <tr>
+        <td><span class="rdot r-m"></span>中</td>
+        <td><b>高明基地0名本地IT</b> — 制造核心基地无现场支撑，上线切换和UAT风险高</td>
+        <td style="font-size:11px;">影响上线切换质量</td>
+        <td style="font-size:11.5px;">建议李泽华总经理推动数智化部向高明基地配置至少1名专职IT；蓝图阶段提前规划驻场资源</td>
+        <td style="font-size:11.5px;">数智化部</td>
+      </tr>
+      <tr>
+        <td><span class="rdot r-m"></span>中</td>
+        <td><b>领星ERP集成范围未定</b> — 国际跨境电商系统与SAP完全脱节，接口工作量未评估</td>
+        <td style="font-size:11px;">影响CPI接口总工作量</td>
+        <td style="font-size:11.5px;">蓝图前与领星ERP技术团队确认API能力；评估本期纳入vs后期扩展决策</td>
+        <td style="font-size:11.5px;">国际事业部+数智化部</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ══════════════════════════════════════════
+       §6 蓝图阶段专题进展（亮点）
+  ══════════════════════════════════════════ -->
+  <div class="section-hd"><h2>六、蓝图阶段专题会进展（超前启动）</h2><span class="sub">探索阶段结束前已提前进入蓝图需求锁定</span></div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-hd">07-06 SAP RISE启动服务与Clean Core培训</div>
+      <ul style="padding-left:16px;font-size:12.5px;line-height:1.8;">
+        <li>RISE"2+1"质量关口机制正式启动</li>
+        <li>免费附赠确认：SAP Build、SAC Planning、Group Reporting（≤50法人）、Cloud ALM</li>
+        <li><b>Clean Core</b>开发分级（Level A/B/C/D）对项目Z程序改造策略有直接指导意义</li>
+        <li>CPI集成套件一对一培训待安排（影响20+接口开发方式）</li>
+      </ul>
+      <div class="callout" style="margin-top:10px;font-size:11.5px;">
+        建议：尽快确认CPI版本，并将Clean Core Level A/B作为所有新开发的硬性标准，避免重蹈ECC自开发的维护困境。
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-hd">07-07 FICO/GR合并报表专题会 — 6大议题全部形成决议</div>
+      <ul style="padding-left:16px;font-size:12.5px;line-height:1.8;">
+        <li>✅ <b>固定资产边界</b>：SAP保留完整FA模块，用友共享仅做合同/租赁台账</li>
+        <li>✅ <b>利润中心</b>：五大事业部全面启用，支持管理口合并报表</li>
+        <li>✅ <b>GR合并</b>：29家法人，15家上线SAP，股权3级，3家少数股东</li>
+        <li>✅ <b>科目标准化</b>：在用保留/废弃冻结/新增必须MDG线上审批</li>
+        <li>✅ <b>附注开发</b>：仅3大核心附注，次要手工，避免项目延期</li>
+        <li>✅ <b>电子档案</b>：用友电子档案月末批量推送，取消纸质归档</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       §7 下一步行动
+  ══════════════════════════════════════════ -->
+  <div class="section-hd"><h2>七、下一步行动计划</h2><span class="sub">W3（07-07起）核心任务</span></div>
+
+  <div class="action-list">
+    <div class="action">
+      <div class="action-num">1</div>
+      <div class="action-body">
+        <div class="action-title">启动现状诊断报告（★1）正式撰写</div>
+        <div class="action-detail">基于466条需求+全部访谈纪要，按TOGAF 4A架构组织AS-IS现状；预计W4完成初稿，W5提请甲方评审</div>
+        <div class="action-who">
+          <span class="who-tag eviden">艾维登咨询PM 陈宇清</span>
+          <span class="who-tag fsl">甲方 吴梓填</span>
+        </div>
+      </div>
+    </div>
+    <div class="action">
+      <div class="action-num">2</div>
+      <div class="action-body">
+        <div class="action-title">组织固定资产接口三方专项蓝图会（紧急）</div>
+        <div class="action-detail">艾维登实施 + 用友财务共享 + 佛照财务，锁定FA双向接口开发范围，完成商务合同变更谈判</div>
+        <div class="action-who">
+          <span class="who-tag fsl">项目总协调</span>
+          <span class="who-tag eviden">艾维登实施</span>
+          <span class="who-tag fsl">财务管理部</span>
+        </div>
+      </div>
+    </div>
+    <div class="action">
+      <div class="action-num">3</div>
+      <div class="action-body">
+        <div class="action-title">启动主数据治理专项小组</div>
+        <div class="action-detail">建议由曾肖静副总牵头，数智化部+研究院+供应链+财务共同参与；8月前完成物料主数据清洗规则制定；9月前完成第一轮清洗</div>
+        <div class="action-who">
+          <span class="who-tag fsl">曾肖静副总（建议牵头）</span>
+          <span class="who-tag fsl">数智化部 苏大明</span>
+          <span class="who-tag eviden">艾维登MDG顾问</span>
+        </div>
+      </div>
+    </div>
+    <div class="action">
+      <div class="action-num">4</div>
+      <div class="action-body">
+        <div class="action-title">确认高明基地IT保障资源</div>
+        <div class="action-detail">高明基地现无本地IT人员，上线切换风险高；建议李泽华副总协调数智化部安排至少1名专职IT常驻或近距离响应</div>
+        <div class="action-who">
+          <span class="who-tag fsl">李泽华副总（请示）</span>
+          <span class="who-tag fsl">数智化部 苏大明</span>
+        </div>
+      </div>
+    </div>
+    <div class="action">
+      <div class="action-num">5</div>
+      <div class="action-body">
+        <div class="action-title">确认CPI版本并安排BTP一对一培训</div>
+        <div class="action-detail">20+接口开发方式（CPI vs 自研）直接影响蓝图设计，需在蓝图启动前锁定；同步激活RISE附赠的SAP Build和SAC Planning</div>
+        <div class="action-who">
+          <span class="who-tag sap">SAP CSM 陈宇峰/大卫</span>
+          <span class="who-tag fsl">数智化部</span>
+          <span class="who-tag eviden">艾维登 贾奋明</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout green" style="margin-top:24px;font-size:13px;">
+    <strong>总体判断：</strong>项目整体按计划推进，探索阶段如期收官。蓝图阶段已有两个专题会超前启动，
+    财务核心架构决策已落地。当前最需要甲方管理层推动的是：
+    <strong>主数据治理专项组织落地</strong>、<strong>固定资产接口商务谈判</strong>和<strong>高明基地IT保障</strong>——
+    这三项若未能在W4前推进，将成为制约10月结项的关键路径。
+  </div>
+
+</div>
+
+<footer>佛山照明 SAP S/4HANA 升级项目工作台 · 机密文件 · 仅供项目组内部使用 · 2026</footer>
+</body>
+</html>
