@@ -137,6 +137,23 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
        padding:18px;font-size:11px;margin-top:48px;letter-spacing:.2px;}
 @media(max-width:768px){.hero{padding:22px 20px;}.container{padding:20px 16px;}
   nav{padding:0 16px;}.nav-project{display:none;}}
+
+.edit-bar{position:fixed;bottom:0;left:0;right:0;background:#0B2D47;
+  display:flex;align-items:center;gap:12px;padding:0 24px;height:48px;z-index:500;
+  box-shadow:0 -2px 12px rgba(11,45,71,.5);}
+.edit-bar-label{color:rgba(255,255,255,.5);font-size:12px;}
+.edit-toggle{padding:6px 18px;border-radius:4px;border:none;cursor:pointer;
+  font-size:12.5px;font-weight:700;transition:all .15s;}
+.edit-toggle.off{background:rgba(255,255,255,.12);color:rgba(255,255,255,.7);}
+.edit-toggle.on{background:#3B82F6;color:#fff;}
+.save-btn{padding:6px 20px;border-radius:4px;border:none;cursor:pointer;
+  font-size:12.5px;font-weight:700;background:#22C55E;color:#fff;display:none;}
+.save-btn:disabled{background:#6B7280;cursor:not-allowed;}
+.edit-status{font-size:11.5px;color:rgba(255,255,255,.55);min-width:160px;}
+.editable-region[contenteditable="true"]{outline:2px dashed #3B82F6;border-radius:3px;
+  background:rgba(59,130,246,.04);cursor:text;padding:2px 4px;}
+.editable-region[contenteditable="true"]:focus{outline:2px solid #3B82F6;}
+body{padding-bottom:56px;}
 </style>
 </head>
 <body>
@@ -563,6 +580,91 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
 
 </div>
 
+<div class="edit-bar">
+  <span class="edit-bar-label">🖊 页面编辑器</span>
+  <button class="edit-toggle off" id="editToggleBtn" onclick="toggleEdit()">✎ 编辑</button>
+  <button class="save-btn" id="saveToDiskBtn" onclick="saveToGitHub()">💾 保存到 GitHub</button>
+  <span class="edit-status" id="editStatusMsg"></span>
+  <span style="margin-left:auto;color:rgba(255,255,255,.3);font-size:11px;">仅限内部使用</span>
+</div>
 <footer>佛山照明 SAP S/4HANA 升级项目工作台 · 机密文件 · 仅供项目组内部使用 · 2026</footer>
+<script>
+const REPO = 'EstaTea/fsl-report';
+const FILE_PATH = 'weekly/w2.html';
+const API_BASE = 'https://api.github.com';
+let editing = false;
+let ghToken = sessionStorage.getItem('fsl_gh_token') || '';
+
+function toggleEdit(){
+  editing = !editing;
+  document.querySelectorAll('.editable-region').forEach(el=>{
+    el.contentEditable = editing ? 'true' : 'false';
+  });
+  const btn = document.getElementById('editToggleBtn');
+  const saveBtn = document.getElementById('saveToDiskBtn');
+  btn.textContent = editing ? '✎ 编辑中' : '✎ 编辑';
+  btn.className = 'edit-toggle ' + (editing ? 'on' : 'off');
+  saveBtn.style.display = editing ? 'inline-block' : 'none';
+  if(editing && !ghToken){
+    const t = prompt('请输入 GitHub Personal Access Token（contents:write）：');
+    if(t){ ghToken = t.trim(); sessionStorage.setItem('fsl_gh_token', ghToken); }
+  }
+  setStatus(editing ? '点击蓝色虚线区域开始编辑' : '');
+}
+
+function setStatus(msg, color){
+  const el = document.getElementById('editStatusMsg');
+  el.textContent = msg;
+  el.style.color = color || 'rgba(255,255,255,.55)';
+}
+
+async function saveToGitHub(){
+  if(!ghToken){ alert('请先点击编辑并输入 Token'); return; }
+  const btn = document.getElementById('saveToDiskBtn');
+  btn.disabled = true; btn.textContent = '保存中…';
+  setStatus('获取最新版本…');
+  try{
+    const metaResp = await fetch(API_BASE+'/repos/'+REPO+'/contents/'+FILE_PATH,
+      {headers:{Authorization:'token '+ghToken,Accept:'application/vnd.github+json'}});
+    if(!metaResp.ok) throw new Error('获取文件失败 '+metaResp.status);
+    const meta = await metaResp.json();
+    const sha = meta.sha;
+    const currentHtml = decodeURIComponent(escape(atob(meta.content.replace(/
+/g,''))));
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(currentHtml,'text/html');
+    doc.body.innerHTML = document.body.innerHTML;
+    const newHtml = '<!DOCTYPE html>
+' + doc.documentElement.outerHTML;
+    const encoder = new TextEncoder();
+    const bytes = encoder.encode(newHtml);
+    let b64 = '';
+    for(let i=0;i<bytes.length;i+=8192) b64 += String.fromCharCode(...bytes.slice(i,i+8192));
+    setStatus('保存到 GitHub…');
+    const putResp = await fetch(API_BASE+'/repos/'+REPO+'/contents/'+FILE_PATH,{
+      method:'PUT',
+      headers:{Authorization:'token '+ghToken,'Content-Type':'application/json',Accept:'application/vnd.github+json'},
+      body: JSON.stringify({message:'content: manual edit',sha,content:btoa(b64)})
+    });
+    if(!putResp.ok){ const err=await putResp.json(); throw new Error(err.message); }
+    setStatus('✓ 已保存', '#22C55E');
+    setTimeout(()=>setStatus('继续编辑中…'), 3000);
+  } catch(e){
+    setStatus('✗ 失败：'+e.message,'#EF4444');
+  }
+  btn.disabled=false; btn.textContent='💾 保存到 GitHub';
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  ['.hero p','.hero h1','.card-hd','.card-title','.sum-box',
+   '.ri-txt','.sec','ul.cl li','ul.cl','ul.req-list li',
+   '.det-text','.s-label','.s-week','.s-phase','.gantt-note'].forEach(sel=>{
+    document.querySelectorAll(sel).forEach((el,i)=>{
+      el.classList.add('editable-region');
+      el.contentEditable='false';
+    });
+  });
+});
+</script>
 </body>
 </html>
