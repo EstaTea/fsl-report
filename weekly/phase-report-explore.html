@@ -421,9 +421,14 @@ body{padding-bottom:56px;}
 
   <div class="finding-grid">
     <div class="finding critical">
-      <div class="finding-domain">财务 FI/CO</div>
+      <div class="finding-domain">财务 FI/CO — 合并报表</div>
       <div class="finding-title">合并报表与成本链路全手工</div>
       <div class="finding-body">29家法人，合并报表依赖Excel；每月30万张发票人工开票；SAP与金税每月手工逐笔对碰；汇兑损益无法追溯到单笔订单。<br><br><strong style="color:var(--green)">进展：</strong>07-07专题会已锁定GR合并架构、科目标准化规则、固定资产边界，蓝图设计可执行。</div>
+    </div>
+    <div class="finding critical">
+      <div class="finding-domain">财务 FI/CO — 成本核算</div>
+      <div class="finding-title">成本精细化核算与分析体系缺失</div>
+      <div class="finding-body">物料估价和标准价格确定、采购相关费用核算、生产费用分摊与分配尚未系统化。缺少成本中心/事业部维度分析报表、成本还原类报表、材料价差量差分析报表；研发费用核算需兼顾三类研发类型，并满足高新项目数据追溯要求。</div>
     </div>
     <div class="finding critical">
       <div class="finding-domain">国际 / 多法人</div>
@@ -437,18 +442,28 @@ body{padding-bottom:56px;}
     </div>
     <div class="finding major">
       <div class="finding-domain">数据治理</div>
-      <div class="finding-title">主数据质量严重不达标</div>
-      <div class="finding-body">物料主数据3542条，跨工厂状态99.9%缺失；BOM 12%为问题行；工艺路线工时39%为零；主数据归口分散，研究院/产品/供应链各自维护。</div>
+      <div class="finding-title">主数据治理基础薄弱，多系统口径不一致</div>
+      <div class="finding-body">物料、BOM、客商、财务科目等主数据分散在销售、研发、生产、出口、车灯等条线分别维护，缺少统一归口审核机制；一物多码、物料描述规则执行不一致问题突出，直接导致MRP长期无法正常运行，计划依赖Excel人工处理。</div>
+    </div>
+    <div class="finding major">
+      <div class="finding-domain">流程管理</div>
+      <div class="finding-title">端到端业务流程横向拉通不足</div>
+      <div class="finding-body">多数部门将"流程"理解为OA审批流，跨部门端到端流程（订单到收款、采购到付款、生产到成本）缺少系统化梳理。研产销协同存在明显断点：销售预测、生产计划、物料齐套、采购到货之间缺少联动机制；全公司仅1名专职流程人员。</div>
     </div>
     <div class="finding major">
       <div class="finding-domain">制造 / 生产</div>
-      <div class="finding-title">PLM-SAP三阶段BOM断点</div>
-      <div class="finding-body">研发BOM（PLM）→工程BOM（SAP）→制造BOM（车间）三阶段数据不自动同步；ECN变更通知流程缺失；高明基地0名本地IT支撑。</div>
+      <div class="finding-title">MRP未运行，计划依赖人工；质量数据分散</div>
+      <div class="finding-body">主生产计划需系统化实现MTO与MTS两种模式相结合，驱动MRP运算；当前因BOM、库存、在途数据不准确，MRP长期未运行，计划完全依赖Excel。<br>质量维度：合格率、让步收货率、退货率、及时率、光电合格率等关键指标缺少自动统计分析，质量水平无法实时监控。</div>
     </div>
-    <div class="finding opportunity">
-      <div class="finding-domain">Clean Core</div>
-      <div class="finding-title">RISE附赠资产尚未激活</div>
-      <div class="finding-body">SAP Build（Work Zone + RPA）、SAC Planning、Group Reporting均已随RISE合约附赠，当前未激活使用。CPI集成套件建议尽快确认购买版本，支撑20+接口规范开发。</div>
+    <div class="finding major">
+      <div class="finding-domain">供应链</div>
+      <div class="finding-title">供应商管理和物料颗粒度不满足业务要求</div>
+      <div class="finding-body">供应商全生命周期管理未实现，评级/绩效/授权周期依赖人工；物料管理颗粒度不足，同一物料编码对应多个供应商、多个品牌，导致采购核价、质量追溯困难，齐套分析失准。</div>
+    </div>
+    <div class="finding major">
+      <div class="finding-domain">制造 / 生产 — PLM</div>
+      <div class="finding-title">PLM-SAP三阶段BOM断点</div>
+      <div class="finding-body">研发BOM（PLM）→工程BOM（SAP）→制造BOM（车间）三阶段数据不自动同步；ECN变更通知流程缺失，替代料信息传递不及时，影响生产排产和成本准确性。</div>
     </div>
   </div>
 
@@ -584,13 +599,7 @@ body{padding-bottom:56px;}
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td><span class="rdot r-h"></span>高</td>
-        <td><b>固定资产接口商务变更</b> — FA双向接口（SAP⟷用友共享）工作量新增，需重新洽谈合同范围与报价</td>
-        <td style="font-size:11px;">可能影响项目工期和预算</td>
-        <td style="font-size:11.5px;">尽快组织艾维登+用友共享+财务三方专项会，锁定接口开发范围，2周内完成商务谈判</td>
-        <td style="font-size:11.5px;">项目总协调</td>
-      </tr>
+
       <tr>
         <td><span class="rdot r-h"></span>高</td>
         <td><b>675条Z程序评估周期压缩</b> — 原计划3个月压至1个月，SUSG工具需打补丁，遗漏风险高</td>
@@ -606,11 +615,18 @@ body{padding-bottom:56px;}
         <td style="font-size:11.5px;">数智化部+各业务部门</td>
       </tr>
       <tr>
-        <td><span class="rdot r-m"></span>中</td>
-        <td><b>高明基地0名本地IT</b> — 制造核心基地无现场支撑，上线切换和UAT风险高</td>
-        <td style="font-size:11px;">影响上线切换质量</td>
-        <td style="font-size:11.5px;">建议李泽华总经理推动数智化部向高明基地配置至少1名专职IT；蓝图阶段提前规划驻场资源</td>
-        <td style="font-size:11.5px;">数智化部</td>
+        <td><span class="rdot r-h"></span>高</td>
+        <td><b>主数据清洗工作量可能被低估，导致上线延期</b> — 物料、BOM、客商、财务科目等主数据分散多条线维护，一物多码、编码规则不一致问题突出；历史数据（未清业务单据、主数据及财务凭证）需全面清洗、校验与迁移</td>
+        <td style="font-size:11px;">直接影响系统配置、测试和上线切换进度</td>
+        <td style="font-size:11.5px;">主数据治理专项小组须在7月17日前完成清洗规则制定，7月31日前完成第一轮清洗；将主数据清洗纳入关键路径管理，每周向李泽华副总汇报进度</td>
+        <td style="font-size:11.5px;">数智化部+各业务部门</td>
+      </tr>
+      <tr>
+        <td><span class="rdot r-h"></span>高</td>
+        <td><b>外围系统接口改造责任和范围待明确</b> — 需与PLM、MES、WMS、SRM、CRM/OMS、财务共享、OA等核心系统实现双向实时/准实时集成；各外围系统由不同供应商负责，边界不清，可能导致集成测试阶段问题集中爆发</td>
+        <td style="font-size:11px;">影响CPI接口总工作量及集成测试周期</td>
+        <td style="font-size:11.5px;">完成接口全量梳理（当前行动项5），明确每条接口的技术方案、改造责任方及工作量；蓝图前锁定接口清单并与各供应商签署配合承诺</td>
+        <td style="font-size:11.5px;">数智化部+艾维登+各外围系统供应商</td>
       </tr>
       <tr>
         <td><span class="rdot r-m"></span>中</td>
