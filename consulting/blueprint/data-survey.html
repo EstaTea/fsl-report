@@ -494,23 +494,23 @@ footer-note{display:block;text-align:center;font-size:11px;color:var(--muted);ma
     <div class="sec" id="s3-2">
       <div class="sec-title">3.2 SAP法人覆盖缺口</div>
       <p>招标文件（第四章·四）明确，本期SAP实施建设的组织范围共 <b>19家法人</b>（见下表），涵盖从FZ01到FZ40的佛照体系各法人实体，按功能深度分为"全功能"与"仅FI+GR"两类。<br>
-      <b>现状（AS-IS）：</b>SAP ECC 6.0 当前仅运行于本部（FZ01）和高明分公司（FZ13），数据来源：现状材料收集 · 佛照系统清单及功能模块收集表.xlsx。<br>
+      <b>现状（AS-IS）：</b>SAP ECC 6.0 已覆盖<b>全部19家法人实体</b>（含FZ05/06/18/19/22/25/29/36/38/40等，均已在ECC内运行），各法人模块深度差异悬殊——本部（FZ01）和高明分公司（FZ13）为全功能，其余多数法人仅有FI基础模块。本期S/4HANA将在此基础上深化各法人的模块覆盖深度，数据来源：现状材料收集 · 佛照系统清单及功能模块收集表.xlsx。<br>
       <b>注意：</b>南宁燎旺车灯股份有限公司（1,123人，占集团营收约25.3%）<b>明确不在本期项目范围之内</b>，招标文件19家法人名单中不含燎旺车灯，其数据整合需另行规划。</p>
       <table>
         <thead><tr><th>公司代码</th><th>法人单位（脱敏）</th><th>属地</th><th>SD</th><th>MM</th><th>PP</th><th>QM</th><th>FI</th><th>CO</th><th>MDG</th><th>GR</th><th>ECC现状</th></tr></thead>
         <tbody>
           <tr style="background:#EBF4FF;"><td>FZ01</td><td><b>本部（母公司）</b></td><td>佛山·禅城</td><td>√</td><td>√</td><td>—</td><td>√</td><td>√</td><td>—</td><td>√</td><td>√</td><td><span class="badge done">✓ 已上线</span></td></tr>
           <tr style="background:#EBF4FF;"><td>FZ13</td><td><b>高明分公司</b></td><td>佛山·高明</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge done">✓ 已上线</span></td></tr>
-          <tr><td>FZ05</td><td>禅昌光电有限公司</td><td>佛山·高明</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge high">✗ 本期新增</span></td></tr>
-          <tr><td>FZ06</td><td>泰美时代灯具有限公司</td><td>佛山·高明</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge high">✗ 本期新增</span></td></tr>
-          <tr><td>FZ18</td><td>（新乡）灯光有限公司</td><td>新乡</td><td>—</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge high">✗ 本期新增</span></td></tr>
-          <tr><td>FZ19</td><td>佛照智城科技有限公司</td><td>佛山·禅城</td><td>√</td><td>√</td><td>—</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge high">✗ 本期新增</span></td></tr>
-          <tr><td>FZ22</td><td>智达电工科技有限公司</td><td>佛山·高明</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge high">✗ 本期新增</span></td></tr>
-          <tr><td>FZ25</td><td>皓徕特光电（本部）</td><td>佛山·高明</td><td>√</td><td>√</td><td>—</td><td>—</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge high">✗ 本期新增</span></td></tr>
-          <tr><td>FZ29</td><td>（海南）科技有限公司</td><td>海口</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge high">✗ 本期新增</span></td></tr>
-          <tr><td>FZ36</td><td>华光（茂名）科技有限公司</td><td>茂名</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge high">✗ 本期新增</span></td></tr>
-          <tr><td>FZ38</td><td>北京航信助航科技有限公司</td><td>广州·花都</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge high">✗ 本期新增</span></td></tr>
-          <tr><td>FZ40</td><td><b>（泰国）光电科技 FSL OPTOTECH</b></td><td>泰国·北榄府</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge high">✗ 本期新增</span></td></tr>
+          <tr style="background:#EBF4FF;"><td>FZ05</td><td>禅昌光电有限公司</td><td>佛山·高明</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge done">✓ 已在ECC</span></td></tr>
+          <tr style="background:#EBF4FF;"><td>FZ06</td><td>泰美时代灯具有限公司</td><td>佛山·高明</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge done">✓ 已在ECC</span></td></tr>
+          <tr style="background:#EBF4FF;"><td>FZ18</td><td>（新乡）灯光有限公司</td><td>新乡</td><td>—</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge done">✓ 已在ECC</span></td></tr>
+          <tr style="background:#EBF4FF;"><td>FZ19</td><td>佛照智城科技有限公司</td><td>佛山·禅城</td><td>√</td><td>√</td><td>—</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge done">✓ 已在ECC</span></td></tr>
+          <tr style="background:#EBF4FF;"><td>FZ22</td><td>智达电工科技有限公司</td><td>佛山·高明</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge done">✓ 已在ECC</span></td></tr>
+          <tr style="background:#EBF4FF;"><td>FZ25</td><td>皓徕特光电（本部）</td><td>佛山·高明</td><td>√</td><td>√</td><td>—</td><td>—</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge done">✓ 已在ECC</span></td></tr>
+          <tr style="background:#EBF4FF;"><td>FZ29</td><td>（海南）科技有限公司</td><td>海口</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge done">✓ 已在ECC</span></td></tr>
+          <tr style="background:#EBF4FF;"><td>FZ36</td><td>华光（茂名）科技有限公司</td><td>茂名</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge done">✓ 已在ECC</span></td></tr>
+          <tr style="background:#EBF4FF;"><td>FZ38</td><td>北京航信助航科技有限公司</td><td>广州·花都</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge done">✓ 已在ECC</span></td></tr>
+          <tr style="background:#EBF4FF;"><td>FZ40</td><td><b>（泰国）光电科技 FSL OPTOTECH</b></td><td>泰国·北榄府</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td>√</td><td><span class="badge done">✓ 已在ECC</span></td></tr>
           <tr style="background:#f8f8f8;"><td>FZ14/FZ23/FZ11<br>FZ28/FZ33/FZ30<br>FZ35</td><td>高明灯具分/南海务庄/南京佛照<br>皓徕特禅城/国星光电德国<br>科联新能源/西格玛投资</td><td>各地</td><td>—</td><td>—</td><td>—</td><td>—</td><td>√</td><td>—</td><td>—</td><td>√</td><td><span class="badge high">✗ 本期新增</span></td></tr>
         </tbody>
       </table>
