@@ -252,10 +252,10 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
       </div>
     </div>
  
-  <div style="display:flex;align-items:center;gap:8px;margin-left:auto;padding-right:4px;">
+  <div style="display:flex;align-items:center;gap:8px;margin-left:auto;padding-right:4px;position:relative;z-index:300;flex-shrink:0;">
     <span id="pes"></span>
-    <button id="psb" onclick="doSave()">&#x1F4BE; 保存</button>
-    <button id="peb" onclick="toggle()">&#x270E; 编辑</button>
+    <button id="psb" onclick="fslDoSave()">&#x1F4BE; 保存</button>
+    <button id="peb" onclick="fslToggle()">&#x270E; 编辑</button>
   </div>
 </nav>
 
@@ -623,7 +623,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
       });
     });
   }
-  function toggle(){
+  function fslToggle(){
     editing=!editing;
     document.querySelectorAll('._ed').forEach(function(el){ el.contentEditable=editing?'true':'false'; });
     var eb=document.getElementById('peb'), sb=document.getElementById('psb');
@@ -631,7 +631,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
     sb.style.display=editing?'flex':'none';
     st(editing?'点击蓝色虚线区域编辑':'');
   }
-  function doSave(){
+  function fslDoSave(){
     var token=sessionStorage.getItem('fsl_gh_token');
     if(!token){
       token=prompt('GitHub Personal Access Token（repo 权限）：');
@@ -700,8 +700,8 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
   else init();
-  window.toggle=toggle;
-  window.doSave=doSave;
+  window.fslToggle=fslToggle;
+  window.fslDoSave=fslDoSave;
 })();
 </script>
 </body>
