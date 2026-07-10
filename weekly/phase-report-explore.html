@@ -180,29 +180,23 @@ footer{background:var(--b900);color:rgba(255,255,255,.3);text-align:center;
 
 /* ── Page Editor ── */
 #peb{
-  position:fixed;top:62px;right:16px;z-index:9999;
-  display:flex;align-items:center;gap:8px;
-  background:#1A4F73;border:1px solid #2374A3;
-  color:#fff;border-radius:4px;padding:6px 16px;
+  padding:5px 16px;border-radius:4px;border:1px solid rgba(255,255,255,.25);
+  background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);
   font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;
-  transition:all .15s;box-shadow:0 2px 8px rgba(11,45,71,.35);
+  transition:all .15s;white-space:nowrap;flex-shrink:0;
 }
 #peb:hover{background:rgba(255,255,255,.2);color:#fff;}
 #peb.on{background:#3B82F6;border-color:#3B82F6;color:#fff;}
 #psb{
-  position:fixed;top:62px;right:110px;z-index:9999;
-  display:none;align-items:center;gap:6px;
-  background:#22C55E;border:none;color:#fff;
-  border-radius:4px;padding:6px 16px;
+  padding:5px 16px;border-radius:4px;border:none;
+  background:#22C55E;color:#fff;
   font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;
-  box-shadow:0 2px 8px rgba(11,45,71,.35);
+  white-space:nowrap;flex-shrink:0;display:none;
 }
 #psb:disabled{background:#6B7280;cursor:not-allowed;}
 #pes{
-  position:fixed;top:68px;right:240px;z-index:9999;
-  font-size:11px;color:#1A4F73;font-weight:600;
-  pointer-events:none;background:#fff;padding:2px 8px;border-radius:3px;
-  box-shadow:0 1px 4px rgba(11,45,71,.15);
+  font-size:11px;color:rgba(255,255,255,.6);
+  pointer-events:none;white-space:nowrap;
 }
 ._ed[contenteditable="true"]{
   outline:2px dashed #60A5FA !important;
@@ -235,6 +229,11 @@ footer{background:var(--b900);color:rgba(255,255,255,.3);text-align:center;
     <a href="/fsl-report/">工作台首页</a>
     <a href="/fsl-report/weekly/" class="active">项目周报</a>
     <a href="/fsl-report/kanban/">任务看板</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;margin-left:auto;padding-right:4px;">
+    <span id="pes"></span>
+    <button id="psb" onclick="doSave()">💾 保存</button>
+    <button id="peb" onclick="toggle()">✎ 编辑</button>
   </div>
 </nav>
 
@@ -879,9 +878,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.3);text-align:center;
   function st(msg,c){ var e=document.getElementById('pes'); if(e){e.textContent=msg;e.style.color=c||'rgba(255,255,255,.65)';} }
 
   function init(){
-    var eb=mk('button','peb','✎ 编辑'); eb.onclick=toggle; document.body.appendChild(eb);
-    var sb=mk('button','psb','💾 保存'); sb.style.display='none'; sb.onclick=doSave; document.body.appendChild(sb);
-    document.body.appendChild(mk('span','pes',''));
+    // buttons are static in HTML
     var sels=['.hero p','.hero h1','.callout',
       '.finding-title','.finding-body','.action-title','.action-detail',
       '.card-hd','.stat-lbl','.stat-sub',
