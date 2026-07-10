@@ -124,22 +124,43 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
 @media(max-width:768px){.hero{padding:22px 20px;}.container{padding:20px 16px;}
   nav{padding:0 16px;}.nav-project{display:none;}}
 
-.edit-bar{position:fixed;bottom:0;left:0;right:0;background:#0B2D47;
-  display:flex;align-items:center;gap:12px;padding:0 24px;height:48px;z-index:500;
-  box-shadow:0 -2px 12px rgba(11,45,71,.5);}
-.edit-bar-label{color:rgba(255,255,255,.5);font-size:12px;}
-.edit-toggle{padding:6px 18px;border-radius:4px;border:none;cursor:pointer;
-  font-size:12.5px;font-weight:700;transition:all .15s;}
-.edit-toggle.off{background:rgba(255,255,255,.12);color:rgba(255,255,255,.7);}
-.edit-toggle.on{background:#3B82F6;color:#fff;}
-.save-btn{padding:6px 20px;border-radius:4px;border:none;cursor:pointer;
-  font-size:12.5px;font-weight:700;background:#22C55E;color:#fff;display:none;}
-.save-btn:disabled{background:#6B7280;cursor:not-allowed;}
-.edit-status{font-size:11.5px;color:rgba(255,255,255,.55);min-width:160px;}
-.editable-region[contenteditable="true"]{outline:2px dashed #3B82F6;border-radius:3px;
-  background:rgba(59,130,246,.04);cursor:text;padding:2px 4px;}
-.editable-region[contenteditable="true"]:focus{outline:2px solid #3B82F6;}
-body{padding-bottom:56px;}
+
+
+
+
+
+
+
+
+
+
+
+
+#peb{
+  padding:5px 16px;border-radius:4px;
+  border:1px solid rgba(255,255,255,.25);
+  background:rgba(255,255,255,.1);color:rgba(255,255,255,.85);
+  font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;
+  transition:all .15s;white-space:nowrap;flex-shrink:0;
+}
+#peb:hover{background:rgba(255,255,255,.2);color:#fff;}
+#peb.on{background:#3B82F6;border-color:#3B82F6;color:#fff;}
+#psb{
+  padding:5px 16px;border-radius:4px;border:none;
+  background:#22C55E;color:#fff;
+  font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;
+  white-space:nowrap;flex-shrink:0;display:none;
+}
+#psb:disabled{background:#6B7280;cursor:not-allowed;}
+#pes{font-size:11px;color:rgba(255,255,255,.6);pointer-events:none;white-space:nowrap;}
+._ed[contenteditable="true"]{
+  outline:2px dashed #60A5FA !important;
+  border-radius:2px;background:rgba(96,165,250,.06) !important;cursor:text;
+}
+._ed[contenteditable="true"]:focus{
+  outline:2px solid #3B82F6 !important;
+  background:rgba(96,165,250,.1) !important;
+}
 </style>
 </head>
 <body>
@@ -216,6 +237,11 @@ body{padding-bottom:56px;}
         </div>
       </div>
     </div>
+ 
+  <div style="display:flex;align-items:center;gap:8px;margin-left:auto;padding-right:4px;">
+    <span id="pes"></span>
+    <button id="psb" onclick="doSave()">&#x1F4BE; 保存</button>
+    <button id="peb" onclick="toggle()">&#x270E; 编辑</button>
   </div>
 </nav>
 
@@ -631,93 +657,103 @@ body{padding-bottom:56px;}
 
 </div>
 
-<div class="edit-bar">
-  <span class="edit-bar-label">🖊 页面编辑器</span>
-  <button class="edit-toggle off" id="editToggleBtn" onclick="toggleEdit()">✎ 编辑</button>
-  <button class="save-btn" id="saveToDiskBtn" onclick="saveToGitHub()">💾 保存到 GitHub</button>
-  <span class="edit-status" id="editStatusMsg"></span>
-  <span style="margin-left:auto;color:rgba(255,255,255,.3);font-size:11px;">仅限内部使用</span>
-</div>
 <footer>佛山照明 SAP S/4HANA 升级项目工作台 · 机密文件 · 仅供项目组内部使用 · 2026</footer>
 <script>
-var REPO = 'EstaTea/fsl-report';
-var FILE_PATH = 'weekly/w3.html';
-var API = 'https://api.github.com/repos/' + REPO + '/contents/' + FILE_PATH;
-var editing = false;
-var ghToken = sessionStorage.getItem('fsl_gh_token') || '';
-
-function toggleEdit() {
-  editing = !editing;
-  document.querySelectorAll('.editable-region').forEach(function(el) {
-    el.contentEditable = editing ? 'true' : 'false';
-  });
-  var btn = document.getElementById('editToggleBtn');
-  var saveBtn = document.getElementById('saveToDiskBtn');
-  btn.textContent = editing ? '✎ 编辑中' : '✎ 编辑';
-  btn.className = 'edit-toggle ' + (editing ? 'on' : 'off');
-  saveBtn.style.display = editing ? 'inline-block' : 'none';
-  if (editing && !ghToken) {
-    var t = prompt('请输入 GitHub Personal Access Token（contents:write 权限）：');
-    if (t) { ghToken = t.trim(); sessionStorage.setItem('fsl_gh_token', ghToken); }
+(function(){
+  var API='https://api.github.com/repos/EstaTea/fsl-report/contents/weekly/w3.html';
+  var editing=false, snaps={}, ghToken='';
+  function st(msg,c){ var e=document.getElementById('pes'); if(e){e.textContent=msg;e.style.color=c||'rgba(255,255,255,.65)';} }
+  function init(){
+    var sels=['.hero p','.hero h1','.card-hd','.card-title','.sum-box',
+      '.ri-txt','.det-text','.s-label','.s-week','.s-phase','.gantt-note',
+      '.card ul.cl li'];
+    sels.forEach(function(sel){
+      document.querySelectorAll(sel).forEach(function(el,i){
+        var k=sel+'::'+i; el.classList.add('_ed'); el.dataset.ek=k;
+        snaps[k]=el.innerHTML; el.contentEditable='false';
+      });
+    });
   }
-  setStatus(editing ? '点击蓝色虚线区域开始编辑' : '');
-}
-
-function setStatus(msg, color) {
-  var el = document.getElementById('editStatusMsg');
-  if (!el) return;
-  el.textContent = msg;
-  el.style.color = color || 'rgba(255,255,255,.55)';
-}
-
-function saveToGitHub() {
-  if (!ghToken) { alert('请先点击「编辑」并输入 GitHub Token'); return; }
-  var btn = document.getElementById('saveToDiskBtn');
-  btn.disabled = true; btn.textContent = '保存中…';
-  setStatus('获取最新版本…');
-  fetch(API, { headers: { 'Authorization': 'token ' + ghToken, 'Accept': 'application/vnd.github+json' } })
-    .then(function(r) {
-      if (r.status === 404) {
-        return { sha: null };
+  function toggle(){
+    editing=!editing;
+    document.querySelectorAll('._ed').forEach(function(el){ el.contentEditable=editing?'true':'false'; });
+    var eb=document.getElementById('peb'), sb=document.getElementById('psb');
+    eb.textContent=editing?'✎ 编辑中':'✎ 编辑'; eb.className=editing?'on':'';
+    sb.style.display=editing?'flex':'none';
+    st(editing?'点击蓝色虚线区域编辑':'');
+  }
+  function doSave(){
+    var token=sessionStorage.getItem('fsl_gh_token');
+    if(!token){
+      token=prompt('GitHub Personal Access Token（repo 权限）：');
+      if(!token||!token.trim()){ st('✗ 未输入 Token','#EF4444'); return; }
+      sessionStorage.setItem('fsl_gh_token',token.trim());
+    }
+    ghToken=token.trim();
+    var changes=[];
+    document.querySelectorAll('._ed').forEach(function(el){
+      var k=el.dataset.ek;
+      if(k && el.innerHTML!==snaps[k]){
+        var parts=k.split('::');
+        changes.push({sel:parts[0],idx:parseInt(parts[1]||0),newHtml:el.innerHTML});
+        snaps[k]=el.innerHTML;
       }
-      if (!r.ok) throw new Error('获取失败 ' + r.status);
+    });
+    if(!changes.length){ st('ℹ 无修改'); return; }
+    var sb=document.getElementById('psb'); sb.disabled=true; sb.textContent='读取中…';
+    st('从 GitHub 读取最新版本…');
+    fetch(API,{headers:{'Authorization':'token '+ghToken,'Accept':'application/vnd.github+json'}})
+    .then(function(r){
+      if(r.status===401) throw new Error('Token无效(401)');
+      if(!r.ok) throw new Error('读取失败 '+r.status);
       return r.json();
     })
-    .then(function(meta) {
-      var sha = meta.sha || null;
-      var newHtml = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
-      var bytes = new TextEncoder().encode(newHtml);
-      var b64 = '';
-      for (var i = 0; i < bytes.length; i += 8192) b64 += String.fromCharCode.apply(null, bytes.slice(i, i + 8192));
-      var content = btoa(b64);
-      var body = { message: 'feat: add W3 weekly report', content: content };
-      if (sha) body.sha = sha;
-      setStatus('保存到 GitHub…');
-      return fetch(API, {
-        method: 'PUT',
-        headers: { 'Authorization': 'token ' + ghToken, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github+json' },
-        body: JSON.stringify(body)
+    .then(function(meta){
+      var sha=meta.sha;
+      var bytes=Uint8Array.from(atob(meta.content.replace(/
+/g,'')),function(c){return c.charCodeAt(0);});
+      var srcHtml=new TextDecoder('utf-8').decode(bytes);
+      st('替换内容…');
+      var parser=new DOMParser();
+      var srcDoc=parser.parseFromString(srcHtml,'text/html');
+      var modified=false;
+      changes.forEach(function(c){
+        var els=srcDoc.querySelectorAll(c.sel);
+        if(els&&els[c.idx]){ els[c.idx].innerHTML=c.newHtml; modified=true; }
       });
+      if(!modified){ st('✗ 未找到匹配元素','#EF4444'); throw new Error('no match'); }
+      var newHtml='<!DOCTYPE html>
+'+srcDoc.documentElement.outerHTML;
+      var encoded=new TextEncoder().encode(newHtml);
+      var bin='',C=4096;
+      for(var i=0;i<encoded.length;i+=C) bin+=String.fromCharCode.apply(null,encoded.subarray(i,i+C));
+      var content=btoa(bin);
+      st('写入 GitHub…');
+      return fetch(API,{method:'PUT',
+        headers:{'Authorization':'token '+ghToken,'Content-Type':'application/json','Accept':'application/vnd.github+json'},
+        body:JSON.stringify({message:'content: manual edit',sha:sha,content:content})});
     })
-    .then(function(r) {
-      if (!r.ok) return r.json().then(function(e) { throw new Error(e.message); });
-      setStatus('✓ 已保存', '#22C55E');
-      setTimeout(function() { setStatus('继续编辑中…'); }, 3000);
+    .then(function(r){
+      if(r.status===401) throw new Error('Token无效(401)');
+      if(r.status===409) throw new Error('版本冲突(409)');
+      if(!r.ok) return r.json().then(function(e){throw new Error(e.message||r.status);});
+      return r.json();
     })
-    .catch(function(e) { setStatus('✗ 失败：' + e.message, '#EF4444'); })
-    .finally(function() { btn.disabled = false; btn.textContent = '💾 保存到 GitHub'; });
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-  ['.hero p','.hero h1','.card-hd','.card-title','.sum-box',
-   '.ri-txt','.det-text','.s-label','.s-week','.s-phase','.gantt-note',
-   '.card ul.cl li'].forEach(function(sel) {
-    document.querySelectorAll(sel).forEach(function(el) {
-      el.classList.add('editable-region');
-      el.contentEditable = 'false';
-    });
-  });
-});
+    .then(function(){
+      st('✓ 已保存到 GitHub','#22C55E');
+      setTimeout(function(){st('继续编辑中…');},3000);
+    })
+    .catch(function(e){
+      if(e.message!=='no match') st('✗ '+e.message,'#EF4444');
+      console.error(e);
+    })
+    .finally(function(){ sb.disabled=false; sb.textContent='💾 保存'; });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
+  else init();
+  window.toggle=toggle;
+  window.doSave=doSave;
+})();
 </script>
 </body>
 </html>
