@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>周报 W3 | FSL 工作台</title>
+<style>
+:root{--b900:#0B2D47;--b700:#1A4F73;--b500:#2374A3;--b300:#5EA4CE;
+      --b100:#C7E2F2;--b050:#EBF5FB;--bg:#F2F7FB;--text:#0F2233;
+      --muted:#5B7A91;--rule:#D6E8F2;--r:6px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;
+     background:var(--bg);color:var(--text);font-size:14px;line-height:1.8;}
+a{color:inherit;text-decoration:none;}
+
+nav{background:var(--b900);padding:0 32px;display:flex;align-items:center;gap:20px;
+    height:54px;position:sticky;top:0;z-index:100;overflow:visible;
+    box-shadow:0 2px 10px rgba(11,45,71,.5);}
+.nav-logo-link{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.nav-divider{width:1px;height:24px;background:rgba(255,255,255,.15);flex-shrink:0;}
+.nav-project{color:rgba(255,255,255,.55);font-size:12px;letter-spacing:.2px;white-space:nowrap;}
+.nav-links{display:flex;flex:1;overflow:visible;position:relative;}
+.nav-links a{padding:0 14px;color:rgba(255,255,255,.6);font-size:12.5px;
+             height:54px;display:flex;align-items:center;white-space:nowrap;
+             transition:color .15s;border-bottom:2px solid transparent;}
+.nav-links a:hover{color:rgba(255,255,255,.9);}
+.nav-links a.active{color:#fff;border-bottom-color:#5EA4CE;}
+.nav-dropdown{position:relative;display:inline-flex;align-items:center;}
+.nav-dropdown>a{padding:0 14px;color:rgba(255,255,255,.6);font-size:12.5px;
+  height:54px;display:flex;align-items:center;white-space:nowrap;
+  transition:color .15s;border-bottom:2px solid transparent;cursor:pointer;}
+.nav-dropdown>a:hover,.nav-dropdown:hover>a{color:#fff;}
+.nav-dropdown>a.active{color:#fff;border-bottom-color:#5EA4CE;}
+.nav-arrow{font-size:10px;margin-left:3px;opacity:.7;}
+.nav-dropdown-panel{display:none;position:absolute;top:54px;left:0;z-index:200;
+  background:var(--b900);border:1px solid rgba(255,255,255,.1);
+  border-top:2px solid #5EA4CE;border-radius:0 0 6px 6px;
+  padding:16px 20px;min-width:540px;box-shadow:0 8px 24px rgba(11,45,71,.6);}
+.nav-dropdown:hover .nav-dropdown-panel{display:block;}
+.nav-dd-row{display:flex;gap:0;}
+.nav-dd-col{flex:1;padding:0 16px 0 0;}
+.nav-dd-col:last-child{padding-right:0;}
+.nav-dd-col+.nav-dd-col{border-left:1px solid rgba(255,255,255,.08);padding-left:16px;}
+.nav-dd-group-title{font-size:10px;font-weight:800;letter-spacing:.8px;
+  text-transform:uppercase;color:#5EA4CE;margin-bottom:8px;padding-bottom:4px;
+  border-bottom:1px solid rgba(255,255,255,.08);}
+.nav-dd-panel a{display:block;padding:5px 0;color:rgba(255,255,255,.65);font-size:12.5px;transition:color .12s;}
+.nav-dd-panel a:hover{color:#fff;}
+.nav-dd-research{margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);}
+.nav-dd-research-links{display:flex;gap:20px;}
+.nav-dd-research-links a{color:rgba(255,255,255,.65);font-size:12.5px;padding:3px 0;}
+.nav-dd-research-links a:hover{color:#fff;}
+
+.hero{background:linear-gradient(155deg,var(--b900) 0%,var(--b700) 100%);
+      color:#fff;padding:36px 48px 32px;border-bottom:3px solid var(--b500);}
+.hero-meta{font-size:11.5px;opacity:.6;margin-bottom:8px;letter-spacing:.3px;text-transform:uppercase;}
+.hero h1{font-size:22px;font-weight:800;margin-bottom:6px;}
+.hero p{font-size:13px;opacity:.72;max-width:700px;}
+.hero-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);
+      border-radius:3px;padding:3px 12px;font-size:11px;letter-spacing:.4px;text-transform:uppercase;}
+
+.container{max-width:1280px;margin:0 auto;padding:30px 32px;}
+.bc{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted);margin-bottom:22px;}
+.bc a{color:var(--b500);}.bc a:hover{color:var(--b700);}.bc .sep{color:var(--b100);}
+
+.top-row{display:grid;grid-template-columns:160px 260px 1fr;gap:12px;margin-bottom:14px;}
+@media(max-width:1000px){.top-row{grid-template-columns:1fr 1fr;}}
+@media(max-width:640px){.top-row{grid-template-columns:1fr;}}
+.card{background:#fff;border:1px solid var(--rule);border-radius:var(--r);padding:18px 20px;
+      box-shadow:0 1px 3px rgba(35,116,163,.05);}
+.card-title{font-size:12px;font-weight:800;color:var(--b900);text-decoration:underline;margin-bottom:10px;}
+.status-center{text-align:center;}
+.status-dot{width:52px;height:52px;border-radius:50%;margin:6px auto;}
+.s-green{background:#43A047;}.s-yellow{background:#FB8C00;}.s-red{background:#E53935;}
+.s-label{font-size:12.5px;font-weight:800;color:var(--b900);margin-top:6px;}
+.s-week{font-size:11px;color:var(--muted);margin-top:3px;}
+.s-phase{font-size:11.5px;font-weight:700;color:var(--b700);margin-top:4px;}
+.det-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.det-text{font-size:13.5px;font-weight:700;flex:1;}
+.det-ind{width:20px;height:20px;border-radius:50%;flex-shrink:0;}
+.pbar-wrap{background:var(--b050);border-radius:3px;height:7px;flex:1;max-width:90px;}
+.pbar{height:100%;border-radius:3px;background:#43A047;}
+.gantt-wrap{overflow-x:auto;}
+.gantt{width:100%;border-collapse:collapse;font-size:11px;}
+.gantt th{background:var(--b700);color:#fff;padding:4px 6px;text-align:center;
+          white-space:nowrap;font-size:10px;border:1px solid var(--b900);}
+.gantt td{border:1px solid var(--rule);padding:3px 5px;white-space:nowrap;}
+.gantt .tn{background:var(--b050);min-width:130px;color:var(--b900);font-weight:600;}
+.bar{border-radius:2px;height:13px;display:inline-block;vertical-align:middle;}
+.b-done{background:var(--b700);}.b-now{background:var(--b500);}.b-plan{background:var(--b100);}
+.gantt-note{font-size:10.5px;color:var(--b500);margin-top:5px;font-style:italic;}
+.cards-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px;}
+@media(max-width:1100px){.cards-row{grid-template-columns:1fr 1fr;}}
+@media(max-width:640px){.cards-row{grid-template-columns:1fr;}}
+.card-hd{font-size:13px;font-weight:800;color:var(--b900);
+         border-bottom:2px solid var(--b050);padding-bottom:8px;margin-bottom:12px;}
+.sec{font-size:11px;font-weight:800;color:var(--b700);
+     text-transform:uppercase;letter-spacing:.5px;margin:10px 0 5px;}
+.sec:first-child{margin-top:0;}
+ul.cl{padding-left:15px;}
+ul.cl li{font-size:12.5px;line-height:1.65;margin-bottom:3px;}
+.ri{display:flex;gap:8px;margin-bottom:9px;align-items:flex-start;}
+.ri-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.ri-txt{font-size:12px;line-height:1.5;flex:1;}
+.ri-g{background:#43A047;}.ri-y{background:#FB8C00;}.ri-r{background:#E53935;}
+.bdg{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;
+     border-radius:3px;margin-left:3px;}
+.bdg-g{background:#E8F5E9;color:#2E7D32;}
+.bdg-y{background:#FFF8E1;color:#F57F17;}
+.bdg-r{background:#FFEBEE;color:#C62828;}
+.bdg-b{background:var(--b050);color:var(--b700);}
+.sum-box{background:var(--b050);border-left:3px solid var(--b500);
+         border-radius:0 4px 4px 0;padding:8px 12px;margin-top:10px;font-size:12px;}
+.ftable{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px;}
+.ftable th{background:var(--b700);color:#fff;padding:6px 10px;text-align:left;
+           font-size:11px;font-weight:700;border:1px solid var(--b900);}
+.ftable td{border:1px solid var(--rule);padding:7px 10px;vertical-align:top;}
+.ftable tr:nth-child(even) td{background:var(--b050);}
+.ftable tr:hover td{background:#e0f0fa;}
+
+footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
+       padding:18px;font-size:11px;margin-top:48px;letter-spacing:.2px;}
+@media(max-width:768px){.hero{padding:22px 20px;}.container{padding:20px 16px;}
+  nav{padding:0 16px;}.nav-project{display:none;}}
+
+.edit-bar{position:fixed;bottom:0;left:0;right:0;background:#0B2D47;
+  display:flex;align-items:center;gap:12px;padding:0 24px;height:48px;z-index:500;
+  box-shadow:0 -2px 12px rgba(11,45,71,.5);}
+.edit-bar-label{color:rgba(255,255,255,.5);font-size:12px;}
+.edit-toggle{padding:6px 18px;border-radius:4px;border:none;cursor:pointer;
+  font-size:12.5px;font-weight:700;transition:all .15s;}
+.edit-toggle.off{background:rgba(255,255,255,.12);color:rgba(255,255,255,.7);}
+.edit-toggle.on{background:#3B82F6;color:#fff;}
+.save-btn{padding:6px 20px;border-radius:4px;border:none;cursor:pointer;
+  font-size:12.5px;font-weight:700;background:#22C55E;color:#fff;display:none;}
+.save-btn:disabled{background:#6B7280;cursor:not-allowed;}
+.edit-status{font-size:11.5px;color:rgba(255,255,255,.55);min-width:160px;}
+.editable-region[contenteditable="true"]{outline:2px dashed #3B82F6;border-radius:3px;
+  background:rgba(59,130,246,.04);cursor:text;padding:2px 4px;}
+.editable-region[contenteditable="true"]:focus{outline:2px solid #3B82F6;}
+body{padding-bottom:56px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/fsl-report/" class="nav-logo-link">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 36" height="26" aria-label="FSL 佛山照明">
+      <rect x="0" y="3" width="4" height="30" fill="#F06000"/>
+      <rect x="0" y="3" width="18" height="4" fill="#F06000"/>
+      <rect x="0" y="16" width="13" height="4" fill="#F06000"/>
+      <path d="M22 3 h14 v4 h-9 v6 h9 v4 h-9 v7 h10 v4 h-15 v-9 h9 v-3 h-9 z" fill="#F06000"/>
+      <rect x="42" y="3" width="4" height="30" fill="#F06000"/>
+      <rect x="42" y="29" width="16" height="4" fill="#F06000"/>
+      <text x="66" y="26" font-family="Microsoft YaHei,PingFang SC,sans-serif"
+            font-size="14" font-weight="700" fill="rgba(255,255,255,0.92)" letter-spacing="1">佛山照明</text>
+    </svg>
+  </a>
+  <div class="nav-divider"></div>
+  <span class="nav-project">数字化转型项目工作台</span>
+  <div class="nav-links">
+    <a href="/fsl-report/">工作台首页</a>
+    <div class="nav-dropdown">
+      <a href="/fsl-report/deliverables/">交付物 <span class="nav-arrow">▾</span></a>
+      <div class="nav-dropdown-panel">
+        <div class="nav-dd-row">
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">管理咨询交付</div>
+            <a href="/fsl-report/consulting/diagnosis/report-01.html">1. 现状诊断报告</a>
+            <a href="/fsl-report/consulting/blueprint/ea-report.html">2. 企业架构设计报告</a>
+            <a href="/fsl-report/consulting/solutions/">3. 专项方案设计报告</a>
+            <a href="/fsl-report/consulting/blueprint/data-survey.html">4.1 数据调研分析报告</a>
+            <a href="/fsl-report/consulting/blueprint/data-governance.html">4.2 数据规划及管理办法</a>
+            <a href="/fsl-report/consulting/blueprint/data-summary.html">4.3 数据治理总结报告</a>
+            <a href="/fsl-report/consulting/blueprint/org-design.html">5. 组织设计报告</a>
+            <a href="/fsl-report/consulting/roadmap/roadmap-report.html">6. 数字化转型路径规划</a>
+          </div>
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">SAP 实施交付</div>
+            <a href="/fsl-report/sap/prepare/">项目准备阶段</a>
+            <a href="/fsl-report/sap/blueprint/">蓝图方案设计</a>
+            <a href="/fsl-report/sap/realize/">系统实现阶段</a>
+            <a href="/fsl-report/sap/deploy/">上线切换阶段</a>
+          </div>
+        </div>
+        <div class="nav-dd-research">
+          <div class="nav-dd-group-title">行业研究</div>
+          <div class="nav-dd-research-links">
+            <a href="/fsl-report/research/">照明行业对标研究</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="/fsl-report/weekly/" class="active">项目周报</a>
+    <div class="nav-dropdown">
+      <a href="/fsl-report/kanban/">任务看板 <span class="nav-arrow">▾</span></a>
+      <div class="nav-dropdown-panel">
+        <div class="nav-dd-row">
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">看板视图</div>
+            <a href="/fsl-report/kanban/#kanban">📋 看板</a>
+            <a href="/fsl-report/kanban/#milestone">🎯 里程碑</a>
+            <a href="/fsl-report/kanban/#tasklist">☑ 任务列表</a>
+            <a href="/fsl-report/kanban/#gantt">📅 甘特图</a>
+            <a href="/fsl-report/kanban/#risk">⚠️ 风险</a>
+          </div>
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">分析与管理</div>
+            <a href="/fsl-report/kanban/#deliverable">📦 交付物追踪</a>
+            <a href="/fsl-report/kanban/#stats">📊 统计</a>
+            <a href="/fsl-report/kanban/#org">🏗 项目架构</a>
+            <a href="/fsl-report/kanban/survey-ar.html">📝 调研问卷</a>
+            <a href="/fsl-report/weekly/">📰 项目周报</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-meta">探索阶段第3周（进行中）· V1.0 · 2026-07-10</div>
+  <h1 class="editable-region">项目周报 — W3（2026-07-07 ~ 07-11）</h1>
+  <p class="editable-region">探索阶段收口——初步发现报告评审 · 高明生产/QM深度调研 · 领星&聚水潭集成专项 · 李泽华总汇报完成 · ★1交付物准备</p>
+  <div class="hero-chips">
+    <span class="chip">探索阶段</span>
+    <span class="chip">W3 进行中</span>
+    <span class="chip">李泽华汇报✅</span>
+    <span class="chip">高明QM调研</span>
+    <span class="chip">★1交付物准备</span>
+  </div>
+</div>
+
+<div class="container">
+  <div class="bc">
+    <a href="/fsl-report/">工作台首页</a>
+    <span class="sep">›</span>
+    <a href="/fsl-report/weekly/">项目周报</a>
+    <span class="sep">›</span>
+    <span>W3</span>
+  </div>
+
+  <!-- ── 状态行 ── -->
+  <div class="top-row">
+
+    <div class="card">
+      <div class="card-title">整体状态</div>
+      <div class="status-center">
+        <div class="status-dot s-green"></div>
+        <div class="s-label editable-region">整体绿色</div>
+        <div class="s-week editable-region">2026-07-07 ~ 07-11</div>
+        <div class="s-phase editable-region">探索阶段 · W3 进行中</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">详细状态</div>
+      <div class="det-row">
+        <span class="det-text editable-region">进度：25%</span>
+        <div class="pbar-wrap"><div class="pbar" style="width:25%;"></div></div>
+        <div class="det-ind" style="background:#43A047;"></div>
+      </div>
+      <div class="det-row">
+        <span class="det-text editable-region">风险：高 <b style="color:#d32f2f;">2</b> &nbsp;中 <b style="color:#e8a900;">4</b> &nbsp;低 1</span>
+        <div class="det-ind" style="background:#FB8C00;"></div>
+      </div>
+      <div class="det-row">
+        <span class="det-text editable-region">需求收集：<b style="color:#1a4f73;">532条</b>（含W3补充）</span>
+        <div class="det-ind" style="background:#43A047;"></div>
+      </div>
+      <div class="sum-box editable-region">✅ 李泽华总汇报完成（07-09），接口专项（领星/聚水潭）收官，高明QM/PP深度调研完成；★1现状诊断报告初稿准备中</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">本周工作进度（D11–D15）</div>
+      <div class="gantt-wrap">
+        <table class="gantt">
+          <thead>
+            <tr>
+              <th style="min-width:80px;">工作日</th>
+              <th>7/7(一)</th><th>7/8(二)</th><th>7/9(三)</th><th>7/10(四)</th><th>7/11(五)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="tn">接口专项会议</td>
+              <td style="text-align:center"><span class="bar b-done" style="width:36px;"></span></td>
+              <td style="text-align:center"><span class="bar b-done" style="width:36px;"></span></td>
+              <td style="text-align:center"><span class="bar b-plan" style="width:36px;"></span></td>
+              <td style="text-align:center"><span class="bar b-plan" style="width:36px;"></span></td>
+              <td style="text-align:center"><span class="bar b-plan" style="width:36px;"></span></td>
+            </tr>
+            <tr>
+              <td class="tn">高明深度调研</td>
+              <td style="text-align:center"><span class="bar b-plan" style="width:36px;"></span></td>
+              <td style="text-align:center"><span class="bar b-plan" style="width:36px;"></span></td>
+              <td style="text-align:center"><span class="bar b-done" style="width:36px;"></span></td>
+              <td style="text-align:center"><span class="bar b-plan" style="width:36px;"></span></td>
+              <td style="text-align:center"><span class="bar b-plan" style="width:36px;"></span></td>
+            </tr>
+            <tr>
+              <td class="tn">李泽华汇报</td>
+              <td style="text-align:center"><span class="bar b-plan" style="width:36px;"></span></td>
+              <td style="text-align:center"><span class="bar b-plan" style="width:36px;"></span></td>
+              <td style="text-align:center"><span class="bar b-done" style="width:36px;"></span></td>
+              <td style="text-align:center"><span class="bar b-plan" style="width:36px;"></span></td>
+              <td style="text-align:center"><span class="bar b-plan" style="width:36px;"></span></td>
+            </tr>
+            <tr>
+              <td class="tn">★1诊断报告撰写</td>
+              <td style="text-align:center"><span class="bar b-plan" style="width:36px;"></span></td>
+              <td style="text-align:center"><span class="bar b-plan" style="width:36px;"></span></td>
+              <td style="text-align:center"><span class="bar b-plan" style="width:36px;"></span></td>
+              <td style="text-align:center"><span class="bar b-now" style="width:36px;"></span></td>
+              <td style="text-align:center"><span class="bar b-now" style="width:36px;"></span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="gantt-note editable-region">■深蓝=已完成 ■中蓝=进行中 ■浅蓝=计划中 · 07-09为关键节点（李泽华汇报+高明QM）</div>
+    </div>
+
+  </div>
+
+  <!-- ── 4 cards ── -->
+  <div class="cards-row">
+
+    <!-- 本周成果 -->
+    <div class="card">
+      <div class="card-hd">本周主要成果</div>
+
+      <div class="sec">■ D11 领星ERP集成专项（07-07）</div>
+      <ul class="cl">
+        <li>领星ERP（跨境电商）系统现状全面梳理：产品/订单/海外仓库存/采购/成本/广告全模块在用</li>
+        <li>确认领星为SaaS云端系统，不可数据库直连；<b>接口开发责任由SAP实施方承担</b>，领星仅提供API文档</li>
+        <li>端到端集成方向确定：SKU映射→采购需求传递→入库回传→发货调拨→销售应收→费用回款→退货处理</li>
+        <li>决策：SAP/主数据平台为主数据底座，领星侧承接物料编码映射关系</li>
+      </ul>
+
+      <div class="sec">■ D12 FICO/固定资产/SAP BTP集成培训（07-07~08）</div>
+      <ul class="cl">
+        <li>FICO GR合并报表详细需求完成沟通：固定资产优先放SAP处理（卡片/折旧/转移/处置），使用权资产保留财务共享</li>
+        <li>SAP与财务共享固定资产及使用权资产集成方案完成沟通（07-08）</li>
+        <li>SAP BTP集成套件环境配置培训完成（07-09），为后续接口建设打基础</li>
+      </ul>
+
+      <div class="sec">■ D13 聚水潭系统集成专项（07-07）</div>
+      <ul class="cl">
+        <li>国内电商聚水潭现状摸底：日均7000单，全主流平台接入，联通WMS正向顺丰百川WMS切换中</li>
+        <li>关键设计点：出库扫描节点前置问题影响SAP接口时点，需在接口设计中消除时间差</li>
+        <li>SAP定位为"结果型系统"（开票后承接），聚水潭为"前端作战系统"，分层设计方向确定</li>
+        <li>聚水潭SaaS继续使用为优选策略，咨询组出具未来3-5年系统策略建议</li>
+      </ul>
+
+      <div class="sec">■ D14 高明QM+PP深度调研（07-09）</div>
+      <ul class="cl">
+        <li><b>QM需求（20+条）</b>：合格率/让步率/退货率统计报表、积分球光电参数接口导入、检验批颜色预警看板、3C BOM变更流程管控、检验报告客户化输出</li>
+        <li>来料检验三类型确认：01来料 / 03 IPQC / 04完工；免检条件（贴片电阻等通用电子料）已有规则</li>
+        <li>SAP QM与MES/WMS质量数据接口需求明确（避免信息孤岛）</li>
+        <li><b>PP生产计划需求</b>：215产能区间固化（±15%）、缺料预警、套料查询优化、跨工厂半成品需求传递、生产进度跟踪（成品-半成品-中间体）</li>
+        <li>排产节奏：月度计划每月7号发布；以销定产，插单随时发生；1+2月滚动计划模式</li>
+      </ul>
+
+      <div class="sec">■ D15 李泽华总阶段进展汇报（07-09）</div>
+      <ul class="cl">
+        <li>汇报：TOGAF ADM方法论下已收集<b>532条需求/问题线索</b>，初步梳理288条</li>
+        <li>李泽华总明确要求：<b>主数据治理列最高优先级</b>；汇报要呈现从问题池到重点专题的筛选归并过程</li>
+        <li>确认9大重点专题方向：主数据治理、成本精细化、合并报表自动化、自开发治理/Clean Core、研产销拉通、MRP有效运行、信用管理、商城/SAP打通、预进仓特殊业务</li>
+        <li>要求下周形成业务诊断报告初稿，并组织现状确认会让各部门当面确认</li>
+      </ul>
+    </div>
+
+    <!-- 需求与专题进展 -->
+    <div class="card">
+      <div class="card-hd">W3 需求与专题进展</div>
+      <div style="display:flex;gap:14px;margin-bottom:14px;flex-wrap:wrap;">
+        <div style="text-align:center;min-width:60px;">
+          <div style="font-size:26px;font-weight:800;color:var(--b700);">532</div>
+          <div style="font-size:10.5px;color:var(--muted);">总需求/问题线索</div>
+        </div>
+        <div style="text-align:center;min-width:60px;">
+          <div style="font-size:26px;font-weight:800;color:#C62828;">288</div>
+          <div style="font-size:10.5px;color:var(--muted);">已梳理完成</div>
+        </div>
+        <div style="text-align:center;min-width:60px;">
+          <div style="font-size:26px;font-weight:800;color:#F57F17;">51</div>
+          <div style="font-size:10.5px;color:var(--muted);">企业级问题</div>
+        </div>
+        <div style="text-align:center;min-width:60px;">
+          <div style="font-size:26px;font-weight:800;color:var(--b900);">9</div>
+          <div style="font-size:10.5px;color:var(--muted);">重点专题方向</div>
+        </div>
+      </div>
+
+      <div class="sec">■ W3新增接口专项成果</div>
+      <table class="ftable" style="font-size:11.5px;">
+        <thead>
+          <tr><th>外围系统</th><th style="width:70px;text-align:center;">集成状态</th><th>关键结论</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b>领星ERP（跨境）</b></td><td style="text-align:center;"><span style="background:#FFF8E1;color:#F57F17;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;">方案确定</span></td><td>SaaS API对接，SAP实施方承担开发，端到端6大场景映射完成</td></tr>
+          <tr><td><b>聚水潭（国内电商）</b></td><td style="text-align:center;"><span style="background:#FFF8E1;color:#F57F17;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;">架构确定</span></td><td>聚水潭前端+SAP后端分层设计，WMS切换边界待明确</td></tr>
+          <tr><td><b>SAP BTP集成套件</b></td><td style="text-align:center;"><span style="background:#E8F5E9;color:#2E7D32;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;">环境就绪</span></td><td>BTP环境配置培训完成，为CPI集成接口建设打基础</td></tr>
+          <tr><td><b>财务共享/固定资产</b></td><td style="text-align:center;"><span style="background:#E8F5E9;color:#2E7D32;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;">边界确认</span></td><td>固定资产核心处理归SAP，使用权资产保留财务共享系统</td></tr>
+        </tbody>
+      </table>
+
+      <div class="sec" style="margin-top:12px;">■ 9大重点专题方向（李泽华总确认）</div>
+      <table class="ftable" style="font-size:11px;">
+        <thead>
+          <tr><th>专题</th><th style="width:55px;">优先级</th><th>核心问题</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b>主数据治理</b></td><td style="text-align:center;"><span class="bdg bdg-r">最高</span></td><td>物料/BOM/客商数据规则不统一，编码多头维护</td></tr>
+          <tr><td><b>成本精细化/成本穿透</b></td><td style="text-align:center;"><span class="bdg bdg-r">高</span></td><td>半成品跨法人加价导致成本虚高，口径争议</td></tr>
+          <tr><td><b>研产销端到端拉通</b></td><td style="text-align:center;"><span class="bdg bdg-r">高</span></td><td>横向流程断点，研发/生产/销售仍依赖人工衔接</td></tr>
+          <tr><td><b>MRP有效运行</b></td><td style="text-align:center;"><span class="bdg bdg-y">中高</span></td><td>预测不准、BOM不全、物料编码未及时建立</td></tr>
+          <tr><td><b>自开发治理/Clean Core</b></td><td style="text-align:center;"><span class="bdg bdg-y">中高</span></td><td>近700条自开发，本期大幅压缩目标</td></tr>
+          <tr><td><b>合并报表自动化</b></td><td style="text-align:center;"><span class="bdg bdg-y">中</span></td><td>合并报表仍依赖手工，SAP与财务共享边界待定</td></tr>
+          <tr><td><b>信用管理</b></td><td style="text-align:center;"><span class="bdg bdg-y">中</span></td><td>信用模块未启用，授信/应收可视需求突出</td></tr>
+          <tr><td><b>商城/SAP打通</b></td><td style="text-align:center;"><span class="bdg bdg-y">中</span></td><td>销售端库存可见性、报价折扣、返利计算依赖集成</td></tr>
+          <tr><td><b>预进仓特殊业务</b></td><td style="text-align:center;"><span class="bdg bdg-b">待评估</span></td><td>影响MRP/成本/供应链逻辑，需折中方案</td></tr>
+        </tbody>
+      </table>
+
+      <div class="sum-box" style="margin-top:10px;">
+        <b>外围接口全貌：</b>已识别约19个系统涉及集成（领星✅ 聚水潭✅ BTP✅ 财务共享✅ MES/WMS/SRM/OA/PLM等待规划）
+      </div>
+    </div>
+
+    <!-- 风险 -->
+    <div class="card">
+      <div class="card-hd">主要风险（W3更新）</div>
+      <div class="ri">
+        <div class="ri-dot ri-r"></div>
+        <div class="ri-txt editable-region"><b>接口开发责任未完全落定</b><span class="bdg bdg-r">高</span><br>
+        领星/聚水潭均明确由SAP实施方承担接口开发，约19个外围系统接口边界、商务边界和联调排期尚未完全明确，需在本阶段内一次性列清</div>
+      </div>
+      <div class="ri">
+        <div class="ri-dot ri-r"></div>
+        <div class="ri-txt editable-region"><b>532条需求梳理仍有244条待处理</b><span class="bdg bdg-r">高</span><br>
+        已梳理288条（54%），剩余244条须本周内完成分类。下周需形成诊断报告初稿，进度压力大</div>
+      </div>
+      <div class="ri">
+        <div class="ri-dot ri-y"></div>
+        <div class="ri-txt editable-region"><b>高明基地QM/PP需求量大，实施风险高</b><span class="bdg bdg-y">中</span><br>
+        高明QM单次调研产出20+条需求，MES/WMS接口需求叠加，高明无本地IT，上线时QM/PP测试风险突出</div>
+      </div>
+      <div class="ri">
+        <div class="ri-dot ri-y"></div>
+        <div class="ri-txt editable-region"><b>现状确认会组织难度</b><span class="bdg bdg-y">中</span><br>
+        李泽华总要求召开各部门当面确认会（现状诊断+问题是否提全），各部门负责人出席率和配合度待确认</div>
+      </div>
+      <div class="ri">
+        <div class="ri-dot ri-y"></div>
+        <div class="ri-txt editable-region"><b>聚水潭WMS切换边界未定</b><span class="bdg bdg-y">中</span><br>
+        联通WMS→顺丰百川WMS切换进行中，切换时间和业务覆盖未确认，影响SAP接口接入点和测试计划</div>
+      </div>
+      <div class="ri">
+        <div class="ri-dot ri-y"></div>
+        <div class="ri-txt editable-region"><b>关键用户团队尚未组建</b><span class="bdg bdg-y">中</span><br>
+        李泽华总要求下下周前形成关键用户团队，各部门关键用户、板块组长和数智化部对接人配置尚未落地</div>
+      </div>
+      <div class="ri">
+        <div class="ri-dot ri-g"></div>
+        <div class="ri-txt editable-region"><b>BTP集成环境就绪</b><span class="bdg bdg-g">低</span><br>
+        SAP BTP环境配置培训已完成，后续CPI接口建设可按计划推进，该项技术风险已降低</div>
+      </div>
+      <div style="margin-top:10px;font-size:11px;font-weight:700;color:var(--b900);">
+        风险摘要 &nbsp; 高 <b style="color:#d32f2f;">2</b> &nbsp;｜&nbsp; 中 <b style="color:#e8a900;">4</b> &nbsp;｜&nbsp; 低 <b style="color:#22a01a;">1</b>
+      </div>
+    </div>
+
+    <!-- 下一步 -->
+    <div class="card">
+      <div class="card-hd">下一步计划（W4）</div>
+      <div class="sec">■ ★1交付物（现状诊断报告）</div>
+      <ul class="cl">
+        <li>完成532条需求全量梳理（分类：业务/流程/系统/管理维度）</li>
+        <li>形成现状诊断报告<b>可讨论版本</b>，呈现从问题池到9大专题的筛选归并过程</li>
+        <li>每个专题拆解二级/三级问题，标注来源部门、优先级、是否纳入本期</li>
+      </ul>
+      <div class="sec">■ 现状诊断确认会（李泽华总牵头）</div>
+      <ul class="cl">
+        <li>召集各部门负责人集中确认：问题是否提全、描述是否准确</li>
+        <li>形成部门确认记录，非数字化问题给出管理建议</li>
+      </ul>
+      <div class="sec">■ 组织专题拉通会</div>
+      <ul class="cl">
+        <li>按主数据/成本/MRP研产销/信用/商城打通等维度，组织2-3场专题拉通会</li>
+        <li>让业务骨干、顾问专家、数智化部当面碰撞，形成可执行方案</li>
+      </ul>
+      <div class="sec">■ 关键行动项</div>
+      <ul class="cl">
+        <li><b>顾问团队</b> 本周内完成需求全量梳理，输出多维度分类框架</li>
+        <li><b>PMO</b> 启动关键用户团队组建，下下周前完成名单确认</li>
+        <li><b>技术团队</b> 启动外围系统接口全量梳理（19个系统），每个接口评估开发量和商务影响</li>
+        <li><b>数智化部</b> 安排董事长/薛总/萧总管理层补充访谈</li>
+        <li><b>李泽华总</b> 确认现状诊断确认会的组织方式和各部门负责人出席要求</li>
+      </ul>
+      <div class="sum-box">
+        W3探索阶段收口，W4进入分析报告撰写 + 专题拉通 + 诊断确认三线并行；★1现状诊断报告评审通过后触发第2笔款流程
+      </div>
+    </div>
+
+  </div><!-- /cards-row -->
+
+  <!-- ── W3 关键会议与调研明细 ── -->
+  <div class="card" style="margin-top:14px;">
+    <div class="card-hd">W3 关键会议与调研明细（07-07 ~ 07-11）</div>
+    <div style="overflow-x:auto;">
+      <table class="ftable">
+        <thead>
+          <tr>
+            <th style="width:80px;">日期</th>
+            <th style="width:180px;">会议/活动</th>
+            <th>主要内容</th>
+            <th style="width:160px;">关键结论</th>
+            <th style="width:70px;">状态</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="white-space:nowrap;font-weight:700;color:var(--b700);">07-07（周一）</td>
+            <td><b>领星ERP集成专项</b></td>
+            <td>跨境电商领星现状摸底；集成场景（SKU映射/采购/入库/发货/应收/费用/退货）梳理；接口开发责任确认</td>
+            <td style="color:#E65100;font-size:11px;">SaaS不可直连；接口由实施方开发；领星提供API文档</td>
+            <td style="text-align:center;"><span style="background:#E8F5E9;color:#2E7D32;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">完成</span></td>
+          </tr>
+          <tr>
+            <td style="white-space:nowrap;font-weight:700;color:var(--b700);">07-07（周一）</td>
+            <td><b>SAP RISE嵌入式启动服务 &amp; Clean Core培训</b></td>
+            <td>SAP Clean Core原则培训，嵌入式启动服务规范，自开发程序治理方向</td>
+            <td style="color:#E65100;font-size:11px;">本期目标：大幅压缩近700条自开发，推Side-by-Side扩展</td>
+            <td style="text-align:center;"><span style="background:#E8F5E9;color:#2E7D32;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">完成</span></td>
+          </tr>
+          <tr>
+            <td style="white-space:nowrap;font-weight:700;color:var(--b700);">07-07（周二）</td>
+            <td><b>聚水潭集成专项</b></td>
+            <td>国内电商聚水潭日均7000单现状；联通WMS→顺丰百川WMS切换进展；SAP"结果型系统"定位确认；出库扫描前置问题</td>
+            <td style="color:#E65100;font-size:11px;">聚水潭继续SaaS；接口边界需先明确再设计；新开票功能7-8月上线须重新验证链路</td>
+            <td style="text-align:center;"><span style="background:#E8F5E9;color:#2E7D32;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">完成</span></td>
+          </tr>
+          <tr>
+            <td style="white-space:nowrap;font-weight:700;color:var(--b700);">07-07~08</td>
+            <td><b>FICO GR合并报表 + 固定资产/财务共享集成</b></td>
+            <td>合并报表GR详细需求沟通；SAP与财务共享固定资产集成方案（固定资产归SAP，使用权资产保财务共享）；电子档案需求</td>
+            <td style="color:#E65100;font-size:11px;">固定资产/折旧/转移/处置归SAP；使用权资产=财务共享；商务变更需提前识别</td>
+            <td style="text-align:center;"><span style="background:#E8F5E9;color:#2E7D32;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">完成</span></td>
+          </tr>
+          <tr>
+            <td style="white-space:nowrap;font-weight:700;color:var(--b700);">07-09（周三）</td>
+            <td><b>高明QM质量管理深度调研</b></td>
+            <td>三类检验（01来料/03 IPQC/04完工）；免检条件；QM20+条需求（积分球接口/看板/3C BOM管控/合格率报表）；供应商评估报表；WMS/MES数据互通</td>
+            <td style="color:#E65100;font-size:11px;">QM接口（光电参数/图纸）需要外部设备对接；SAP QM手机提醒和颜色看板需开发；历史QM数据留旧系统</td>
+            <td style="text-align:center;"><span style="background:#E8F5E9;color:#2E7D32;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">完成</span></td>
+          </tr>
+          <tr>
+            <td style="white-space:nowrap;font-weight:700;color:var(--b700);">07-09（周三）</td>
+            <td><b>高明PP生产计划与执行深度调研</b></td>
+            <td>215产能区间（±15%）；以销定产；BOM完整性（辅料/包装未在系统）；MRP未有效运行根因；缺料预警/套料查询/跨工厂需求传递；半成品进度跟踪</td>
+            <td style="color:#E65100;font-size:11px;">BOM未完整=MRP无法运行的根因之一；ECN工程变更未启用；先接单后建物料的流程需规范化</td>
+            <td style="text-align:center;"><span style="background:#E8F5E9;color:#2E7D32;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">完成</span></td>
+          </tr>
+          <tr>
+            <td style="white-space:nowrap;font-weight:700;color:var(--b700);">07-09（周三）</td>
+            <td><b>★ 李泽华总阶段进展汇报</b></td>
+            <td>532条需求梳理进展汇报；9大专题方向确认；领导要求主数据最高优先级+下周诊断报告+专题拉通会+关键用户组建</td>
+            <td style="color:#C62828;font-size:11px;font-weight:700;">主数据最高优先级；汇报要呈现归并过程；下周业务诊断报告初稿；现状确认会各部门当面确认</td>
+            <td style="text-align:center;"><span style="background:#E8F5E9;color:#2E7D32;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">完成</span></td>
+          </tr>
+          <tr>
+            <td style="white-space:nowrap;font-weight:700;color:var(--b700);">07-09（周三）</td>
+            <td><b>SAP BTP集成套件环境配置培训</b></td>
+            <td>BTP集成套件环境配置，为后续CPI集成建设做技术准备</td>
+            <td style="color:var(--muted);font-size:11px;">环境配置完成，接口开发条件具备</td>
+            <td style="text-align:center;"><span style="background:#E8F5E9;color:#2E7D32;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">完成</span></td>
+          </tr>
+          <tr>
+            <td style="white-space:nowrap;font-weight:700;color:var(--b700);">07-10~11</td>
+            <td><b>★1诊断报告初稿撰写</b></td>
+            <td>基于532条需求，输出现状诊断报告可讨论版本</td>
+            <td style="color:var(--muted);font-size:11px;">本周末前完成初稿</td>
+            <td style="text-align:center;"><span style="background:var(--b050);color:var(--b700);font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">进行中</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
+      <div style="flex:1;min-width:150px;background:var(--b050);border-radius:var(--r);padding:10px 14px;border-left:3px solid #43A047;">
+        <div style="font-size:11px;font-weight:800;color:#2E7D32;margin-bottom:4px;">✅ 接口专项 2/2</div>
+        <div style="font-size:20px;font-weight:800;color:var(--b900);">领星 + 聚水潭</div>
+        <div style="font-size:10.5px;color:var(--muted);">跨境+国内电商集成架构确定</div>
+      </div>
+      <div style="flex:1;min-width:150px;background:var(--b050);border-radius:var(--r);padding:10px 14px;border-left:3px solid #43A047;">
+        <div style="font-size:11px;font-weight:800;color:#2E7D32;margin-bottom:4px;">✅ 高明深度调研</div>
+        <div style="font-size:20px;font-weight:800;color:var(--b900);">QM + PP</div>
+        <div style="font-size:10.5px;color:var(--muted);">20+条QM需求 + 生产计划全流程</div>
+      </div>
+      <div style="flex:1;min-width:150px;background:var(--b050);border-radius:var(--r);padding:10px 14px;border-left:3px solid var(--b500);">
+        <div style="font-size:11px;font-weight:800;color:var(--b700);margin-bottom:4px;">✅ 管理层汇报</div>
+        <div style="font-size:20px;font-weight:800;color:var(--b900);">李泽华总</div>
+        <div style="font-size:10.5px;color:var(--muted);">532条需求，9大专题确认</div>
+      </div>
+      <div style="flex:2;min-width:220px;background:#E8F5E9;border-radius:var(--r);padding:10px 14px;border-left:3px solid #43A047;">
+        <div style="font-size:11px;font-weight:800;color:#2E7D32;margin-bottom:4px;">W3收官总结</div>
+        <div style="font-size:11.5px;color:var(--text);line-height:1.6;">
+          探索阶段调研全部收口，接口架构和管理层关注点明确。W4核心目标：现状诊断报告初稿评审 + 现状确认会 + 专题拉通会同步启动。★1交付物评审通过后触发★2（企业架构报告）撰写。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 导航按钮 -->
+  <div style="margin-top:14px;text-align:center;">
+    <a href="/fsl-report/weekly/schedule.html"
+       style="display:inline-flex;align-items:center;gap:8px;background:var(--b700);color:#fff;
+              padding:10px 24px;border-radius:var(--r);font-size:13px;font-weight:700;
+              text-decoration:none;box-shadow:0 2px 8px rgba(11,45,71,.25);">
+      📊 查看项目总体进度甘特图 →
+    </a>
+    &nbsp;&nbsp;
+    <a href="/fsl-report/weekly/w2.html"
+       style="display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--b700);
+              border:1.5px solid var(--b300);padding:10px 24px;border-radius:var(--r);
+              font-size:13px;font-weight:700;text-decoration:none;">
+      ← W2 周报
+    </a>
+  </div>
+
+</div>
+
+<div class="edit-bar">
+  <span class="edit-bar-label">🖊 页面编辑器</span>
+  <button class="edit-toggle off" id="editToggleBtn" onclick="toggleEdit()">✎ 编辑</button>
+  <button class="save-btn" id="saveToDiskBtn" onclick="saveToGitHub()">💾 保存到 GitHub</button>
+  <span class="edit-status" id="editStatusMsg"></span>
+  <span style="margin-left:auto;color:rgba(255,255,255,.3);font-size:11px;">仅限内部使用</span>
+</div>
+<footer>佛山照明 SAP S/4HANA 升级项目工作台 · 机密文件 · 仅供项目组内部使用 · 2026</footer>
+<script>
+var REPO = 'EstaTea/fsl-report';
+var FILE_PATH = 'weekly/w3.html';
+var API = 'https://api.github.com/repos/' + REPO + '/contents/' + FILE_PATH;
+var editing = false;
+var ghToken = sessionStorage.getItem('fsl_gh_token') || '';
+
+function toggleEdit() {
+  editing = !editing;
+  document.querySelectorAll('.editable-region').forEach(function(el) {
+    el.contentEditable = editing ? 'true' : 'false';
+  });
+  var btn = document.getElementById('editToggleBtn');
+  var saveBtn = document.getElementById('saveToDiskBtn');
+  btn.textContent = editing ? '✎ 编辑中' : '✎ 编辑';
+  btn.className = 'edit-toggle ' + (editing ? 'on' : 'off');
+  saveBtn.style.display = editing ? 'inline-block' : 'none';
+  if (editing && !ghToken) {
+    var t = prompt('请输入 GitHub Personal Access Token（contents:write 权限）：');
+    if (t) { ghToken = t.trim(); sessionStorage.setItem('fsl_gh_token', ghToken); }
+  }
+  setStatus(editing ? '点击蓝色虚线区域开始编辑' : '');
+}
+
+function setStatus(msg, color) {
+  var el = document.getElementById('editStatusMsg');
+  if (!el) return;
+  el.textContent = msg;
+  el.style.color = color || 'rgba(255,255,255,.55)';
+}
+
+function saveToGitHub() {
+  if (!ghToken) { alert('请先点击「编辑」并输入 GitHub Token'); return; }
+  var btn = document.getElementById('saveToDiskBtn');
+  btn.disabled = true; btn.textContent = '保存中…';
+  setStatus('获取最新版本…');
+  fetch(API, { headers: { 'Authorization': 'token ' + ghToken, 'Accept': 'application/vnd.github+json' } })
+    .then(function(r) {
+      if (r.status === 404) {
+        return { sha: null };
+      }
+      if (!r.ok) throw new Error('获取失败 ' + r.status);
+      return r.json();
+    })
+    .then(function(meta) {
+      var sha = meta.sha || null;
+      var newHtml = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      var bytes = new TextEncoder().encode(newHtml);
+      var b64 = '';
+      for (var i = 0; i < bytes.length; i += 8192) b64 += String.fromCharCode.apply(null, bytes.slice(i, i + 8192));
+      var content = btoa(b64);
+      var body = { message: 'feat: add W3 weekly report', content: content };
+      if (sha) body.sha = sha;
+      setStatus('保存到 GitHub…');
+      return fetch(API, {
+        method: 'PUT',
+        headers: { 'Authorization': 'token ' + ghToken, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github+json' },
+        body: JSON.stringify(body)
+      });
+    })
+    .then(function(r) {
+      if (!r.ok) return r.json().then(function(e) { throw new Error(e.message); });
+      setStatus('✓ 已保存', '#22C55E');
+      setTimeout(function() { setStatus('继续编辑中…'); }, 3000);
+    })
+    .catch(function(e) { setStatus('✗ 失败：' + e.message, '#EF4444'); })
+    .finally(function() { btn.disabled = false; btn.textContent = '💾 保存到 GitHub'; });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  ['.hero p','.hero h1','.card-hd','.card-title','.sum-box',
+   '.ri-txt','.det-text','.s-label','.s-week','.s-phase','.gantt-note',
+   '.card ul.cl li'].forEach(function(sel) {
+    document.querySelectorAll(sel).forEach(function(el) {
+      el.classList.add('editable-region');
+      el.contentEditable = 'false';
+    });
+  });
+});
+</script>
+</body>
+</html>
