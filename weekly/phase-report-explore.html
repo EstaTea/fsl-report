@@ -870,6 +870,8 @@ footer{background:var(--b900);color:rgba(255,255,255,.3);text-align:center;
 
 <script>
 (function(){
+  // expose to global for onclick
+  var _self = this;
   var API='https://api.github.com/repos/EstaTea/fsl-report/contents/weekly/phase-report-explore.html';
   var editing=false, snaps={}, ghToken='';
 
@@ -927,8 +929,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.3);text-align:center;
     .then(function(meta){
       var sha=meta.sha;
       // base64 → 원본 HTML
-      var bytes=Uint8Array.from(atob(meta.content.replace(/
-/g,'')),function(c){return c.charCodeAt(0);});
+      var bytes=Uint8Array.from(atob(meta.content.replace(/\n/g,'')),function(c){return c.charCodeAt(0);});
       var src=new TextDecoder('utf-8').decode(bytes);
 
       // 변경사항 적용
@@ -974,6 +975,9 @@ footer{background:var(--b900);color:rgba(255,255,255,.3);text-align:center;
 
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
   else init();
+  // expose functions globally for onclick attributes
+  window.toggle=toggle;
+  window.doSave=doSave;
 })();
 </script>
 </body></html>
