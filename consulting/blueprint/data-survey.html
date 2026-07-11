@@ -324,32 +324,93 @@ footer-note{display:block;text-align:center;font-size:11px;color:var(--muted);ma
   <div class="ch-header"><div class="ch-num" style="background:var(--primary)">▶</div><h2>主数据治理概览讲解视频</h2></div>
   <div class="ch-body">
     <div style="background:var(--b700);border-radius:10px;padding:20px 24px;margin-bottom:0">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+
+      <!-- 切换按钮 -->
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap">
         <div style="background:var(--primary);border-radius:6px;padding:4px 12px;font-size:12px;color:#fff;font-weight:700">动画视频</div>
         <div style="font-size:13px;color:var(--b300)">时长约1分50秒 · 覆盖九大数据域 · 质量六维评估 · P1清洗工作包</div>
+        <div style="margin-left:auto;display:flex;gap:8px">
+          <button onclick="switchPlayer('mp4')" id="btn-mp4"
+            style="background:var(--primary);color:#fff;border:none;border-radius:6px;padding:5px 14px;font-size:12px;cursor:pointer;font-family:inherit">
+            🎬 MP4视频
+          </button>
+          <button onclick="switchPlayer('player')" id="btn-player"
+            style="background:rgba(255,255,255,0.15);color:var(--b300);border:none;border-radius:6px;padding:5px 14px;font-size:12px;cursor:pointer;font-family:inherit">
+            ⚡ 动态播放器
+          </button>
+        </div>
       </div>
-      <div style="position:relative;width:100%;padding-bottom:56.25%;background:#0B2D47;border-radius:8px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.4)">
+
+      <!-- MP4 播放器 -->
+      <div id="panel-mp4" style="position:relative;width:100%;padding-bottom:56.25%;background:#0B2D47;border-radius:8px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.4)">
         <video
           controls
           style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;background:#0B2D47"
-          poster=""
         >
           <source src="data-survey-video.mp4" type="video/mp4">
-          <p style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#A8C4E0;font-size:14px;text-align:center">
-            视频文件尚未上传。<br>请将渲染好的 MP4 放入同目录并命名为 <code>data-survey-video.mp4</code>
-          </p>
         </video>
       </div>
+
+      <!-- Remotion Player（iframe，按需加载） -->
+      <div id="panel-player" style="display:none;position:relative;width:100%;padding-bottom:56.25%;background:#0B2D47;border-radius:8px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.4)">
+        <iframe
+          id="remotion-iframe"
+          src=""
+          data-src="https://estatea.github.io/fsl-data-video/"
+          style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:8px"
+          allow="autoplay; fullscreen"
+          title="FSL主数据治理讲解 · Remotion Player"
+        ></iframe>
+        <div id="player-loading" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#A8C4E0;font-size:14px;text-align:center">
+          ⏳ 加载动态播放器中...
+        </div>
+      </div>
+
       <div style="display:flex;gap:16px;margin-top:14px;flex-wrap:wrap">
         <div style="font-size:12px;color:var(--b300)">📦 九大数据域全景</div>
         <div style="font-size:12px;color:var(--b300)">📊 主数据规模统计</div>
         <div style="font-size:12px;color:var(--b300)">🎯 六维质量雷达图</div>
         <div style="font-size:12px;color:var(--b300)">⚠️ P1/P2/P3优先级矩阵</div>
         <div style="font-size:12px;color:var(--b300)">🧹 数据清洗五步法</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.3);margin-left:auto">
+          动态播放器：实时渲染，修改即更新，无需重新导出视频
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+function switchPlayer(mode) {
+  var mp4 = document.getElementById('panel-mp4');
+  var player = document.getElementById('panel-player');
+  var btnMp4 = document.getElementById('btn-mp4');
+  var btnPlayer = document.getElementById('btn-player');
+  if (mode === 'mp4') {
+    mp4.style.display = 'block';
+    player.style.display = 'none';
+    btnMp4.style.background = 'var(--primary)';
+    btnMp4.style.color = '#fff';
+    btnPlayer.style.background = 'rgba(255,255,255,0.15)';
+    btnPlayer.style.color = 'var(--b300)';
+  } else {
+    mp4.style.display = 'none';
+    player.style.display = 'block';
+    btnMp4.style.background = 'rgba(255,255,255,0.15)';
+    btnMp4.style.color = 'var(--b300)';
+    btnPlayer.style.background = 'var(--primary)';
+    btnPlayer.style.color = '#fff';
+    // 懒加载：第一次切换才加载 iframe
+    var iframe = document.getElementById('remotion-iframe');
+    if (!iframe.src) {
+      iframe.src = iframe.getAttribute('data-src');
+      iframe.onload = function() {
+        document.getElementById('player-loading').style.display = 'none';
+      };
+    }
+  }
+}
+</script>
 
 <!-- 执行摘要 -->
 <div class="chapter" id="s0">
