@@ -402,7 +402,9 @@ function switchPlayer(mode) {
     btnPlayer.style.color = '#fff';
     // 懒加载：第一次切换才加载 iframe
     var iframe = document.getElementById('remotion-iframe');
-    if (!iframe.src) {
+    var loaded = iframe.getAttribute('data-loaded');
+    if (!loaded) {
+      iframe.setAttribute('data-loaded', '1');
       iframe.src = iframe.getAttribute('data-src');
       iframe.onload = function() {
         document.getElementById('player-loading').style.display = 'none';
