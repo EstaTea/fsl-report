@@ -659,7 +659,7 @@ select.dp-input{appearance:none;-webkit-appearance:none;
             <a href="/fsl-report/kanban/#stats">📊 统计</a>
             <a href="/fsl-report/kanban/#org">🏗 项目架构</a>
             <a href="/fsl-report/kanban/survey-ar.html">💰 开票与应收调研</a>
-            <a href="/fsl-report/kanban/survey-strategy.html">🏛 战略调研 · 董事会</a>
+            <a href="/fsl-report/kanban/survey-strategy.html">战略调研 · 董事会</a>
             <a href="/fsl-report/weekly/">📰 项目周报</a>
           </div>
         </div>
@@ -717,7 +717,7 @@ select.dp-input{appearance:none;-webkit-appearance:none;
         <div style="height:1px;background:rgba(255,255,255,.08);margin:4px 0"></div>
         <div style="padding:5px 16px 3px;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.6px;text-transform:uppercase">现场 / 战略</div>
         <a href="/fsl-report/kanban/survey-gaoming.html">🏭 高明分公司实地调研</a>
-        <a href="/fsl-report/kanban/survey-strategy.html">🏛 战略调研 · 董事会</a>
+        <a href="/fsl-report/kanban/survey-strategy.html">战略调研 · 董事会</a>
       </div>
     </div>
   </div>
@@ -3506,7 +3506,7 @@ function renderCompanyTree(){
       +' oncontextmenu="event.preventDefault();loadCompanyData(function(){editCompanyNode(\''+nid+'\');})"'
       +' style="padding-left:'+(8+depth*18)+'px">'
       +(ch.length?'<span class="ct-toggle" onclick="event.stopPropagation();ctToggle(\''+nid+'\')" id="ctt_'+nid+'">'+(collapsed[nid]?'▶':'▼')+'</span>':'<span class="ct-toggle"></span>')
-      +'<span class="ct-icon">'+({'集团':'🏛','子公司':'🏢','分公司':'🏬','事业部':'📦','部门':'👤'}[n.type]||'🏢')+'</span>'
+      +'<span class="ct-icon">'+({'集团':'','子公司':'🏢','分公司':'🏬','事业部':'📦','部门':'👤'}[n.type]||'🏢')+'</span>'
       +'<span class="ct-name">'+n.name+'</span>'
       +(n.code?'<span class="ct-code">'+n.code+'</span>':'')
       +'<span class="ct-type" style="color:'+tc+';background:'+tc+'18;">'+n.type+'</span>'
