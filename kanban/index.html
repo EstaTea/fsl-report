@@ -2351,9 +2351,17 @@ function _openTaskDetailPanel(rowId){
   var task = isPhase ? found.ph : found.task;
   var ph = isPhase ? found.ph : found.ph;
 
-  var statusOpts = ['未开始','进行中','待评审','已完成'].map(function(s){
-    var sel = (task.pct===100&&s==='已完成')||(task.pct>0&&task.pct<100&&s==='进行中')||(task.pct===0&&s==='未开始');
-    return '<option value="'+s+'" '+(sel?'selected':'')+'>'+s+'</option>';
+  // Derive current status from the linked GitHub issue (single source of truth)
+  var linkedIssue = task.issueNum ? allIssues.find(function(i){ return i.number===task.issueNum; }) : null;
+  var currentStatus = linkedIssue ? getStatus(linkedIssue) : (task.pct===100?'status:已完成':task.pct>0?'status:进行中':'status:待办');
+  var statusDefs = [
+    {val:'status:待办',   lbl:'待办'},
+    {val:'status:进行中', lbl:'进行中'},
+    {val:'status:待评审', lbl:'待评审'},
+    {val:'status:已完成', lbl:'已完成'}
+  ];
+  var statusOpts = statusDefs.map(function(s){
+    return '<option value="'+s.val+'" '+(currentStatus===s.val?'selected':'')+'>'+s.lbl+'</option>';
   }).join('');
 
   var parentInfo = '';
@@ -2384,7 +2392,7 @@ function _openTaskDetailPanel(rowId){
         '</div>'+
       '</div>'+
       '<div class="dp-field-row"><span class="dp-label">状态</span>'+
-        '<select class="dp-input" id="dpStatus" onchange="var m={\'未开始\':0,\'进行中\':50,\'待评审\':80,\'已完成\':100};var v=m[this.value];if(v!=null){document.getElementById(\'dpPct\').value=v;document.getElementById(\'dpPctVal\').textContent=v+\'%\';}">'+statusOpts+'</select>'+
+        '<select class="dp-input" id="dpStatus" onchange="var m={\'status:待办\':0,\'status:进行中\':50,\'status:待评审\':80,\'status:已完成\':100};var v=m[this.value];if(v!=null){document.getElementById(\'dpPct\').value=v;document.getElementById(\'dpPctVal\').textContent=v+\'%\';}">'+statusOpts+'</select>'+
       '</div>'+
       '<div class="dp-field-row"><span class="dp-label">完成度</span>'+
         '<div style="display:flex;align-items:center;gap:8px">'+
@@ -2415,6 +2423,7 @@ function saveTaskDetail(rowId){
   var ownerEl=document.getElementById('dpOwner'); var newOwner=ownerEl?ownerEl.value:'';
   var newPct=parseInt(document.getElementById('dpPct').value);
   var newDesc=document.getElementById('dpDesc').value;
+  var newStatus=document.getElementById('dpStatus').value; // e.g. 'status:已完成'
   if(new Date(newEnd)<new Date(newStart)){ alert('结束日期不能早于开始日期'); return; }
   task.start=newStart; task.end=newEnd; task.owner=newOwner; task.pct=newPct; task.desc=newDesc;
   // bubble pct up to phase
@@ -2423,18 +2432,41 @@ function saveTaskDetail(rowId){
   var nonMilestone=allTasks.filter(function(t){return !t.milestone;});
   if(nonMilestone.length) ph.pct=Math.round(nonMilestone.reduce(function(s,t){return s+(t.pct||0);},0)/nonMilestone.length);
   renderGantt();
-  // Store override
+  // Store override (no status — derived from GitHub)
   GANTT_OVERRIDES[rowId] = {start:task.start, end:task.end, pct:task.pct, owner:task.owner, desc:task.desc};
-  // Save to GitHub (async, show indicator)
   var btn=document.querySelector('#taskDetailPanel button');
   if(btn){ btn.textContent='保存中…'; btn.disabled=true; }
-  saveGanttOverrides(function(){
+
+  function onSaved(){
     if(btn){ btn.textContent='✅ 已保存'; btn.style.background='var(--steel)'; btn.disabled=false;
       setTimeout(function(){btn.textContent='💾 保存';btn.style.background='var(--primary)';},1500); }
-  });
-  if(!TOKEN){
-    if(btn){ btn.textContent='✅ 本地已保存'; btn.style.background='var(--steel)';
-      setTimeout(function(){btn.textContent='💾 保存';btn.style.background='var(--primary)';},1500); }
+  }
+
+  // If linked to a GitHub issue, sync status back to GitHub
+  if(task.issueNum && TOKEN){
+    var iss=allIssues.find(function(i){return i.number===task.issueNum;});
+    if(iss){
+      var oldLabels=iss.labels.map(function(l){return l.name;});
+      var newLabels=oldLabels.filter(function(l){return !l.startsWith('status:');}).concat([newStatus]);
+      var newState=newStatus==='status:已完成'?'closed':'open';
+      // Optimistic update in memory
+      iss.labels=newLabels.map(function(n){return {name:n};});
+      iss.state=newState;
+      fetch(API+'/issues/'+task.issueNum,{
+        method:'PATCH',
+        headers:Object.assign({'Content-Type':'application/json'},hdrs()),
+        body:JSON.stringify({labels:newLabels, state:newState})
+      }).then(function(){ saveGanttOverrides(onSaved); })
+        .catch(function(){ saveGanttOverrides(onSaved); });
+    } else {
+      saveGanttOverrides(onSaved);
+    }
+  } else {
+    saveGanttOverrides(onSaved);
+    if(!TOKEN){
+      if(btn){ btn.textContent='✅ 本地已保存'; btn.style.background='var(--steel)';
+        setTimeout(function(){btn.textContent='💾 保存';btn.style.background='var(--primary)';},1500); }
+    }
   }
 }
 
