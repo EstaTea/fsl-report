@@ -80,15 +80,16 @@
             <a href="/fsl-report/kanban/#deliverable">📦 交付物追踪</a>
             <a href="/fsl-report/kanban/#stats">📊 统计</a>
             <a href="/fsl-report/kanban/#org">🏗 项目架构</a>
-            <a href="/fsl-report/kanban/survey-ar.html">💰 开票与应收调研</a>
-            <a href="/fsl-report/kanban/survey-strategy.html">战略调研 · 董事会</a>
+            <a href="/fsl-report/kanban/#survey">📋 调研访谈</a>
             <a href="/fsl-report/weekly/">📰 项目周报</a>
           </div>
         </div>
         <div class="nav-dd-research">
-          <div class="nav-dd-group-title">操作</div>
+          <div class="nav-dd-group-title">案例</div>
           <div class="nav-dd-research-links">
-            <a href="#" onclick="event.preventDefault();if(typeof openNewIssue==='function')openNewIssue();else window.location='/fsl-report/kanban/';" style="background:var(--b500);color:#fff;padding:4px 14px;border-radius:5px;font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:4px;">＋ 新建任务</a>
+            <a href="https://estatea.github.io/mdg-course/" target="_blank">🎓 MDG案例</a>
+            <a href="https://estatea.github.io/drc-course/" target="_blank">📋 DRC案例</a>
+            <a href="https://estatea.github.io/si-course/" target="_blank">🔗 SI案例</a>
           </div>
         </div>
       </div>
