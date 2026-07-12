@@ -85,12 +85,16 @@
             <a href="/fsl-report/weekly/">📰 项目周报</a>
           </div>
         </div>
+        <div class="nav-dd-research">
+          <div class="nav-dd-group-title">操作</div>
+          <div class="nav-dd-research-links">
+            <a href="#" onclick="event.preventDefault();if(typeof openNewIssue==='function')openNewIssue();else window.location='/fsl-report/kanban/';" style="background:var(--b500);color:#fff;padding:4px 14px;border-radius:5px;font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:4px;">＋ 新建任务</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
   <div class="nav-right">
-    <button class="btn btn-ghost" onclick="openNewIssue()" id="newTaskBtn">＋ 新建任务</button>
-    <button class="btn btn-ghost" onclick="refreshAll()" title="刷新">↻</button>
     <div id="userBadge" style="display:none;align-items:center;gap:8px;padding:0 4px">
       <img id="userAvatar" src="" alt="" style="width:28px;height:28px;border-radius:50%;border:2px solid rgba(255,255,255,.2)">
       <span id="userName" style="font-size:12px;color:rgba(255,255,255,.75);max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
