@@ -80,7 +80,7 @@
             <a href="/fsl-report/kanban/#deliverable">📦 交付物追踪</a>
             <a href="/fsl-report/kanban/#stats">📊 统计</a>
             <a href="/fsl-report/kanban/#org">🏗 项目架构</a>
-            <a href="/fsl-report/kanban/#survey">📋 调研访谈</a>
+            <a href="/fsl-report/kanban/">📋 调研访谈</a>
             <a href="/fsl-report/weekly/">📰 项目周报</a>
           </div>
         </div>
