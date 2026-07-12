@@ -1721,7 +1721,7 @@ function render(){
   safeRun('kanban',    function(){ renderKanban(issues); });
   safeRun('milestone', function(){ renderMilestones(); });
   safeRun('tasklist',  function(){ renderTaskList(issues); });
-  safeRun('gantt',     function(){ applyGanttOverrides(); syncIssuesToGantt(allIssues); renderGantt(); });
+  safeRun('gantt',     function(){ syncIssuesToGantt(allIssues); applyGanttOverrides(); renderGantt(); });
   safeRun('risk',      function(){ renderRisk(issues); });
   safeRun('deliverable',function(){ renderDeliverables(); });
   safeRun('stats',     function(){ renderStats(issues); });
@@ -2384,7 +2384,7 @@ function _openTaskDetailPanel(rowId){
         '</div>'+
       '</div>'+
       '<div class="dp-field-row"><span class="dp-label">状态</span>'+
-        '<select class="dp-input" id="dpStatus">'+statusOpts+'</select>'+
+        '<select class="dp-input" id="dpStatus" onchange="var m={\'未开始\':0,\'进行中\':50,\'待评审\':80,\'已完成\':100};var v=m[this.value];if(v!=null){document.getElementById(\'dpPct\').value=v;document.getElementById(\'dpPctVal\').textContent=v+\'%\';}">'+statusOpts+'</select>'+
       '</div>'+
       '<div class="dp-field-row"><span class="dp-label">完成度</span>'+
         '<div style="display:flex;align-items:center;gap:8px">'+
@@ -2740,7 +2740,7 @@ function switchTab(el, panel){
   var emptyLbl=document.getElementById('tb-empty-label');
   if(emptyLbl) emptyLbl.textContent=EMPTY_LABELS[panel]||'';
   // Lazy-render org chart only when tab is activated
-  if(panel==='gantt'){ applyGanttOverrides(); syncIssuesToGantt(allIssues); renderGantt(); }
+  if(panel==='gantt'){ syncIssuesToGantt(allIssues); applyGanttOverrides(); renderGantt(); }
   if(panel==='org'){
     // Delegate to sub-tab system; default to 'people' on first open
     switchArchTab(ARCH_CURRENT||'people');
