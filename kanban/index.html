@@ -1626,12 +1626,13 @@ function applyGanttStructure(){
   if(!GANTT_OVERRIDES||!GANTT_OVERRIDES['__structure']) return;
   var saved=GANTT_OVERRIDES['__structure'];
 
-  // Build a flat map of ALL tasks across ALL phases by id
-  var allTasksById={};
+  // Build a flat map of ALL tasks by id AND by issueNum (for dynamically-added gh_N tasks)
+  var allTasksById={}, allTasksByIssue={};
   GANTT_PHASES.forEach(function(ph){
     function indexTasks(tasks){
       tasks.forEach(function(t){
         allTasksById[t.id]=t;
+        if(t.issueNum) allTasksByIssue[t.issueNum]=t;
         if(t.children) indexTasks(t.children);
       });
     }
@@ -1651,7 +1652,8 @@ function applyGanttStructure(){
       var result=[];
       savedTasks.forEach(function(st){
         if(placedIds[st.id]) return; // deduplicate
-        var t=allTasksById[st.id];
+        // Look up by id first, then by issueNum (covers gh_N dynamic tasks)
+        var t=allTasksById[st.id]||(st.issueNum?allTasksByIssue[st.issueNum]:null);
         if(!t) return;
         placedIds[st.id]=true;
         t.children=st.children&&st.children.length ? buildTasks(st.children) : (t.children||[]);
@@ -2157,7 +2159,8 @@ function saveGanttStructure(){
   });
   // Merge into GANTT_OVERRIDES under special key
   GANTT_OVERRIDES['__structure'] = structure;
-  saveGanttOverrides(null);
+  // Pass a no-op callback so saveGanttOverrides waits for the PUT and updates SHA before any subsequent save
+  saveGanttOverrides(function(){});
 }
 
 function renderGantt(){
@@ -2922,8 +2925,15 @@ function loadOrgDataFromGitHub(callback){
   });
 }
 
+var _ganttSaving = false;
+var _ganttSaveQueue = null; // holds {callback} of the latest pending save
+
 function saveGanttOverrides(callback){
-  if(!TOKEN) return;
+  if(!TOKEN){ if(callback) callback(); return; }
+  // Queue: if a save is already in-flight, remember only the latest callback;
+  // the in-flight save will re-run with the latest GANTT_OVERRIDES when it finishes.
+  if(_ganttSaving){ _ganttSaveQueue = {callback:callback}; return; }
+  _ganttSaving = true;
   var body=JSON.stringify({
     message:'update: gantt task data',
     content:btoa(unescape(encodeURIComponent(JSON.stringify({tasks:GANTT_OVERRIDES},null,2)))),
@@ -2936,7 +2946,14 @@ function saveGanttOverrides(callback){
   }).then(function(r){return r.json();}).then(function(d){
     if(d.content) GANTT_OVERRIDES_SHA=d.content.sha;
     if(callback) callback();
-  }).catch(function(){ if(callback) callback(); });
+    _ganttSaving = false;
+    // If another save was queued while we were in-flight, run it now with fresh SHA
+    if(_ganttSaveQueue){ var q=_ganttSaveQueue; _ganttSaveQueue=null; saveGanttOverrides(q.callback); }
+  }).catch(function(){
+    if(callback) callback();
+    _ganttSaving = false;
+    if(_ganttSaveQueue){ var q=_ganttSaveQueue; _ganttSaveQueue=null; saveGanttOverrides(q.callback); }
+  });
 }
 
 function promptLoginThenDo(callback){
