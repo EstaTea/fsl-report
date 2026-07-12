@@ -661,17 +661,12 @@ select.dp-input{appearance:none;-webkit-appearance:none;
             <a href="/fsl-report/kanban/survey-ar.html">💰 开票与应收调研</a>
             <a href="/fsl-report/kanban/survey-strategy.html">🏛 战略调研 · 董事会</a>
             <a href="/fsl-report/weekly/">📰 项目周报</a>
-            <a href="https://estatea.github.io/mdg-course/" target="_blank">🎓 MDG案例学习</a>
-            <a href="https://estatea.github.io/drc-course/" target="_blank">📋 DRC案例学习</a>
-            <a href="https://estatea.github.io/si-course/" target="_blank">🔗 SI案例学习</a>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
-    <a href="/fsl-report/togaf/" style="padding:0 14px;color:rgba(255,255,255,.75);font-size:12.5px;height:54px;display:flex;align-items:center;white-space:nowrap;font-weight:600;border-left:2px solid rgba(94,164,206,.6);background:rgba(94,164,206,.1);">🏛 TOGAF</a>
-    <div class="nav-right">
+  <div class="nav-right">
     <button class="btn btn-ghost" onclick="openNewIssue()" id="newTaskBtn">＋ 新建任务</button>
     <button class="btn btn-ghost" onclick="refreshAll()" title="刷新">↻</button>
     <div id="userBadge" style="display:none;align-items:center;gap:8px;padding:0 4px">
@@ -681,6 +676,7 @@ select.dp-input{appearance:none;-webkit-appearance:none;
     </div>
     <button onclick="goLogin()" class="btn btn-ghost" id="loginNavBtn" style="display:none;font-size:11.5px">🔑 登录</button>
   </div>
+    <a href="/fsl-report/togaf/" style="padding:0 14px;color:rgba(255,255,255,.75);font-size:12.5px;height:54px;display:flex;align-items:center;white-space:nowrap;font-weight:600;">TOGAF</a>
 </nav>
 
 <div class="proj-header">
@@ -699,7 +695,7 @@ select.dp-input{appearance:none;-webkit-appearance:none;
     <div class="mod-tab" data-panel="stats" onclick="switchTab(this,'stats')">📊 <span class="label-text">统计</span></div>
     <div class="mod-tab" data-panel="org" onclick="switchTab(this,'org')">🏗 <span class="label-text">项目架构</span></div>
     <div class="mod-tab-dd" id="surveyTabDd">
-      <div class="mod-tab" style="cursor:pointer" onclick="toggleSurveyDd(event)">📋 <span class="label-text">调研访谈</span><span class="new-badge">14</span><span style="font-size:8px;margin-left:2px;opacity:.6">▾</span></div>
+      <div class="mod-tab" style="cursor:pointer" onclick="toggleSurveyDd(event)">📋 <span class="label-text">调研访谈</span><span class="new-badge">12</span><span style="font-size:8px;margin-left:2px;opacity:.6">▾</span></div>
       <div class="mod-tab-dd-panel" id="survey-dropdown">
         <div style="padding:5px 16px 3px;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.6px;text-transform:uppercase">财务</div>
         <a href="/fsl-report/kanban/survey-ar.html">💰 开票与应收全流程</a>
@@ -722,76 +718,6 @@ select.dp-input{appearance:none;-webkit-appearance:none;
         <div style="padding:5px 16px 3px;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.6px;text-transform:uppercase">现场 / 战略</div>
         <a href="/fsl-report/kanban/survey-gaoming.html">🏭 高明分公司实地调研</a>
         <a href="/fsl-report/kanban/survey-strategy.html">🏛 战略调研 · 董事会</a>
-        <a href="/fsl-report/kanban/survey-executives.html" style="font-weight:700;color:#fff;border-left:2px solid #5EA4CE;padding-left:14px">👔 管理层专访 · 董事长/总经理/财务副总</a>
-      </div>
-    </div>
-    <!-- MDG学习 下拉 Tab -->
-    <div class="mod-tab-dd" id="mdgTabDd">
-      <div class="mod-tab" style="cursor:pointer" onclick="toggleMdgDd(event)">🎓 <span class="label-text">MDG案例</span><span style="font-size:8px;margin-left:2px;opacity:.6">▾</span></div>
-      <div class="mod-tab-dd-panel" id="mdg-dropdown">
-        <div style="padding:6px 16px 4px;font-size:10px;font-weight:700;color:var(--light);letter-spacing:.08em;text-transform:uppercase">第一周 · 理论学习</div>
-        <a href="https://estatea.github.io/mdg-course/week1/day1.html" target="_blank">📖 Day 1 · 什么是MDG？</a>
-        <a href="https://estatea.github.io/mdg-course/week1/day2.html" target="_blank">📖 Day 2 · MDG架构与部署</a>
-        <a href="https://estatea.github.io/mdg-course/week1/day3.html" target="_blank">📖 Day 3 · MDG-M 物料主数据</a>
-        <a href="https://estatea.github.io/mdg-course/week1/day4.html" target="_blank">📖 Day 4 · MDG-BP 业务伙伴</a>
-        <a href="https://estatea.github.io/mdg-course/week1/day5.html" target="_blank">📖 Day 5 · MDG-G 财务主数据</a>
-        <a href="https://estatea.github.io/mdg-course/week1/day6.html" target="_blank">📖 Day 6 · 工作流与审批设计</a>
-        <a href="https://estatea.github.io/mdg-course/week1/day7.html" target="_blank">📖 Day 7 · DRF数据复制框架</a>
-        <div style="height:1px;background:rgba(255,255,255,.1);margin:4px 0"></div>
-        <div style="padding:6px 16px 4px;font-size:10px;font-weight:700;color:var(--light);letter-spacing:.08em;text-transform:uppercase">第二周 · 案例模拟</div>
-        <a href="https://estatea.github.io/mdg-course/week2/day8.html" target="_blank">🔧 Day 8 · 案例介绍与环境准备</a>
-        <a href="https://estatea.github.io/mdg-course/week2/day9.html" target="_blank">🔧 Day 9 · 物料主数据配置实战</a>
-        <a href="https://estatea.github.io/mdg-course/week2/day10.html" target="_blank">🔧 Day 10 · BP主数据配置实战</a>
-        <a href="https://estatea.github.io/mdg-course/week2/day11.html" target="_blank">🔧 Day 11 · 工作流配置实战</a>
-        <a href="https://estatea.github.io/mdg-course/week2/day12.html" target="_blank">🔧 Day 12 · 迁移验收与项目总结</a>
-        <div style="height:1px;background:rgba(255,255,255,.1);margin:4px 0"></div>
-        <a href="https://estatea.github.io/mdg-course/" target="_blank" style="color:var(--light);font-weight:700">🏠 课程首页（总览）</a>
-      </div>
-    </div>
-    <!-- DRC学习 下拉 Tab -->
-    <div class="mod-tab-dd" id="drcTabDd">
-      <div class="mod-tab" style="cursor:pointer" onclick="toggleDrcDd(event)">📋 <span class="label-text">DRC案例</span><span style="font-size:8px;margin-left:2px;opacity:.6">▾</span></div>
-      <div class="mod-tab-dd-panel" id="drc-dropdown">
-        <div style="padding:6px 16px 4px;font-size:10px;font-weight:700;color:var(--light);letter-spacing:.08em;text-transform:uppercase">第一周 · 理论学习</div>
-        <a href="https://estatea.github.io/drc-course/week1/day1.html" target="_blank">📖 Day 1 · 什么是DRC？</a>
-        <a href="https://estatea.github.io/drc-course/week1/day2.html" target="_blank">📖 Day 2 · DRC架构与部署模式</a>
-        <a href="https://estatea.github.io/drc-course/week1/day3.html" target="_blank">📖 Day 3 · 电子文件合规（E-Document）</a>
-        <a href="https://estatea.github.io/drc-course/week1/day4.html" target="_blank">📖 Day 4 · 法定报告合规</a>
-        <a href="https://estatea.github.io/drc-course/week1/day5.html" target="_blank">📖 Day 5 · 泰国e-Tax Invoice合规</a>
-        <a href="https://estatea.github.io/drc-course/week1/day6.html" target="_blank">📖 Day 6 · 德国XRechnung/ZUGFeRD</a>
-        <a href="https://estatea.github.io/drc-course/week1/day7.html" target="_blank">📖 Day 7 · DRC配置框架总览</a>
-        <div style="height:1px;background:rgba(255,255,255,.1);margin:4px 0"></div>
-        <div style="padding:6px 16px 4px;font-size:10px;font-weight:700;color:var(--light);letter-spacing:.08em;text-transform:uppercase">第二周 · 案例模拟（泰国+德国）</div>
-        <a href="https://estatea.github.io/drc-course/week2/day8.html" target="_blank">🔧 Day 8 · 案例介绍：华照集团</a>
-        <a href="https://estatea.github.io/drc-course/week2/day9.html" target="_blank">🔧 Day 9 · 泰国DRC配置实战</a>
-        <a href="https://estatea.github.io/drc-course/week2/day10.html" target="_blank">🔧 Day 10 · 德国DRC配置实战</a>
-        <a href="https://estatea.github.io/drc-course/week2/day11.html" target="_blank">🔧 Day 11 · 监控、错误处理与审计</a>
-        <a href="https://estatea.github.io/drc-course/week2/day12.html" target="_blank">🔧 Day 12 · 上线验收与项目总结</a>
-        <div style="height:1px;background:rgba(255,255,255,.1);margin:4px 0"></div>
-        <a href="https://estatea.github.io/drc-course/" target="_blank" style="color:var(--light);font-weight:700">🏠 课程首页（总览）</a>
-      </div>
-    </div>
-    <!-- SI学习 下拉 Tab -->
-    <div class="mod-tab-dd" id="siTabDd">
-      <div class="mod-tab" style="cursor:pointer" onclick="toggleSiDd(event)">🔗 <span class="label-text">SI案例</span><span style="font-size:8px;margin-left:2px;opacity:.6">▾</span></div>
-      <div class="mod-tab-dd-panel" id="si-dropdown">
-        <div style="padding:6px 16px 4px;font-size:10px;font-weight:700;color:var(--light);letter-spacing:.08em;text-transform:uppercase">第一周 · 理论学习</div>
-        <a href="https://estatea.github.io/si-course/week1/day1.html" target="_blank">📖 Day 1 · 什么是SI？</a>
-        <a href="https://estatea.github.io/si-course/week1/day2.html" target="_blank">📖 Day 2 · SI架构与核心组件</a>
-        <a href="https://estatea.github.io/si-course/week1/day3.html" target="_blank">📖 Day 3 · iFlow设计基础</a>
-        <a href="https://estatea.github.io/si-course/week1/day4.html" target="_blank">📖 Day 4 · 消息映射与转换</a>
-        <a href="https://estatea.github.io/si-course/week1/day5.html" target="_blank">📖 Day 5 · 连接器与适配器</a>
-        <a href="https://estatea.github.io/si-course/week1/day6.html" target="_blank">📖 Day 6 · 异常处理与监控</a>
-        <a href="https://estatea.github.io/si-course/week1/day7.html" target="_blank">📖 Day 7 · 安全与API管理</a>
-        <div style="height:1px;background:rgba(255,255,255,.1);margin:4px 0"></div>
-        <div style="padding:6px 16px 4px;font-size:10px;font-weight:700;color:var(--light);letter-spacing:.08em;text-transform:uppercase">第二周 · 佛照12系统集成实战</div>
-        <a href="https://estatea.github.io/si-course/week2/day8.html" target="_blank">🔧 Day 8 · 案例介绍：华照集团</a>
-        <a href="https://estatea.github.io/si-course/week2/day9.html" target="_blank">🔧 Day 9 · OMS订单集成实战</a>
-        <a href="https://estatea.github.io/si-course/week2/day10.html" target="_blank">🔧 Day 10 · MES生产集成实战</a>
-        <a href="https://estatea.github.io/si-course/week2/day11.html" target="_blank">🔧 Day 11 · PLM主数据集成实战</a>
-        <a href="https://estatea.github.io/si-course/week2/day12.html" target="_blank">🔧 Day 12 · 上线验收与运维总结</a>
-        <div style="height:1px;background:rgba(255,255,255,.1);margin:4px 0"></div>
-        <a href="https://estatea.github.io/si-course/" target="_blank" style="color:var(--light);font-weight:700">🏠 课程首页（总览）</a>
       </div>
     </div>
   </div>
@@ -1151,7 +1077,7 @@ select.dp-input{appearance:none;-webkit-appearance:none;
       <div style="flex:1;position:relative;">
         <iframe id="iframeFunction"
           src="about:blank"
-          data-src="https://estatea.github.io/ea-architect/"
+          data-src="https://fsl-ea.netlify.app/"
           style="width:100%;height:100%;border:none;display:block;"
           allowfullscreen>
         </iframe>
@@ -1466,8 +1392,6 @@ async function init(){
     }
   }catch(e){
     console.warn('GitHub API unavailable, using demo data:', e.message);
-    if(!allIssues.length) useDemoData();
-    hideLoading();
   }
 }
 
@@ -1626,7 +1550,7 @@ function applyGanttStructure(){
   if(!GANTT_OVERRIDES||!GANTT_OVERRIDES['__structure']) return;
   var saved=GANTT_OVERRIDES['__structure'];
 
-  // Build a flat map of ALL tasks by id AND by issueNum (for dynamically-added gh_N tasks)
+  // Build a flat map of ALL tasks by id AND by issueNum (covers gh_N dynamic tasks)
   var allTasksById={}, allTasksByIssue={};
   GANTT_PHASES.forEach(function(ph){
     function indexTasks(tasks){
@@ -1725,7 +1649,7 @@ function render(){
   safeRun('kanban',    function(){ renderKanban(issues); });
   safeRun('milestone', function(){ renderMilestones(); });
   safeRun('tasklist',  function(){ renderTaskList(issues); });
-  safeRun('gantt',     function(){ syncIssuesToGantt(allIssues); applyGanttOverrides(); renderGantt(); });
+  safeRun('gantt',     function(){ applyGanttOverrides(); syncIssuesToGantt(allIssues); renderGantt(); });
   safeRun('risk',      function(){ renderRisk(issues); });
   safeRun('deliverable',function(){ renderDeliverables(); });
   safeRun('stats',     function(){ renderStats(issues); });
@@ -2159,7 +2083,7 @@ function saveGanttStructure(){
   });
   // Merge into GANTT_OVERRIDES under special key
   GANTT_OVERRIDES['__structure'] = structure;
-  // Pass a no-op callback so saveGanttOverrides waits for the PUT and updates SHA before any subsequent save
+  // Pass a no-op callback so saveGanttOverrides waits for PUT and updates SHA before any subsequent save
   saveGanttOverrides(function(){});
 }
 
@@ -2356,17 +2280,9 @@ function _openTaskDetailPanel(rowId){
   var task = isPhase ? found.ph : found.task;
   var ph = isPhase ? found.ph : found.ph;
 
-  // Derive current status from the linked GitHub issue (single source of truth)
-  var linkedIssue = task.issueNum ? allIssues.find(function(i){ return i.number===task.issueNum; }) : null;
-  var currentStatus = linkedIssue ? getStatus(linkedIssue) : (task.pct===100?'status:已完成':task.pct>0?'status:进行中':'status:待办');
-  var statusDefs = [
-    {val:'status:待办',   lbl:'待办'},
-    {val:'status:进行中', lbl:'进行中'},
-    {val:'status:待评审', lbl:'待评审'},
-    {val:'status:已完成', lbl:'已完成'}
-  ];
-  var statusOpts = statusDefs.map(function(s){
-    return '<option value="'+s.val+'" '+(currentStatus===s.val?'selected':'')+'>'+s.lbl+'</option>';
+  var statusOpts = ['未开始','进行中','待评审','已完成'].map(function(s){
+    var sel = (task.pct===100&&s==='已完成')||(task.pct>0&&task.pct<100&&s==='进行中')||(task.pct===0&&s==='未开始');
+    return '<option value="'+s+'" '+(sel?'selected':'')+'>'+s+'</option>';
   }).join('');
 
   var parentInfo = '';
@@ -2397,7 +2313,7 @@ function _openTaskDetailPanel(rowId){
         '</div>'+
       '</div>'+
       '<div class="dp-field-row"><span class="dp-label">状态</span>'+
-        '<select class="dp-input" id="dpStatus" onchange="var m={\'status:待办\':0,\'status:进行中\':50,\'status:待评审\':80,\'status:已完成\':100};var v=m[this.value];if(v!=null){document.getElementById(\'dpPct\').value=v;document.getElementById(\'dpPctVal\').textContent=v+\'%\';}">'+statusOpts+'</select>'+
+        '<select class="dp-input" id="dpStatus">'+statusOpts+'</select>'+
       '</div>'+
       '<div class="dp-field-row"><span class="dp-label">完成度</span>'+
         '<div style="display:flex;align-items:center;gap:8px">'+
@@ -2428,7 +2344,6 @@ function saveTaskDetail(rowId){
   var ownerEl=document.getElementById('dpOwner'); var newOwner=ownerEl?ownerEl.value:'';
   var newPct=parseInt(document.getElementById('dpPct').value);
   var newDesc=document.getElementById('dpDesc').value;
-  var newStatus=document.getElementById('dpStatus').value; // e.g. 'status:已完成'
   if(new Date(newEnd)<new Date(newStart)){ alert('结束日期不能早于开始日期'); return; }
   task.start=newStart; task.end=newEnd; task.owner=newOwner; task.pct=newPct; task.desc=newDesc;
   // bubble pct up to phase
@@ -2437,41 +2352,18 @@ function saveTaskDetail(rowId){
   var nonMilestone=allTasks.filter(function(t){return !t.milestone;});
   if(nonMilestone.length) ph.pct=Math.round(nonMilestone.reduce(function(s,t){return s+(t.pct||0);},0)/nonMilestone.length);
   renderGantt();
-  // Store override (no status — derived from GitHub)
+  // Store override
   GANTT_OVERRIDES[rowId] = {start:task.start, end:task.end, pct:task.pct, owner:task.owner, desc:task.desc};
+  // Save to GitHub (async, show indicator)
   var btn=document.querySelector('#taskDetailPanel button');
   if(btn){ btn.textContent='保存中…'; btn.disabled=true; }
-
-  function onSaved(){
+  saveGanttOverrides(function(){
     if(btn){ btn.textContent='✅ 已保存'; btn.style.background='var(--steel)'; btn.disabled=false;
       setTimeout(function(){btn.textContent='💾 保存';btn.style.background='var(--primary)';},1500); }
-  }
-
-  // If linked to a GitHub issue, sync status back to GitHub
-  if(task.issueNum && TOKEN){
-    var iss=allIssues.find(function(i){return i.number===task.issueNum;});
-    if(iss){
-      var oldLabels=iss.labels.map(function(l){return l.name;});
-      var newLabels=oldLabels.filter(function(l){return !l.startsWith('status:');}).concat([newStatus]);
-      var newState=newStatus==='status:已完成'?'closed':'open';
-      // Optimistic update in memory
-      iss.labels=newLabels.map(function(n){return {name:n};});
-      iss.state=newState;
-      fetch(API+'/issues/'+task.issueNum,{
-        method:'PATCH',
-        headers:Object.assign({'Content-Type':'application/json'},hdrs()),
-        body:JSON.stringify({labels:newLabels, state:newState})
-      }).then(function(){ saveGanttOverrides(onSaved); })
-        .catch(function(){ saveGanttOverrides(onSaved); });
-    } else {
-      saveGanttOverrides(onSaved);
-    }
-  } else {
-    saveGanttOverrides(onSaved);
-    if(!TOKEN){
-      if(btn){ btn.textContent='✅ 本地已保存'; btn.style.background='var(--steel)';
-        setTimeout(function(){btn.textContent='💾 保存';btn.style.background='var(--primary)';},1500); }
-    }
+  });
+  if(!TOKEN){
+    if(btn){ btn.textContent='✅ 本地已保存'; btn.style.background='var(--steel)';
+      setTimeout(function(){btn.textContent='💾 保存';btn.style.background='var(--primary)';},1500); }
   }
 }
 
@@ -2777,7 +2669,7 @@ function switchTab(el, panel){
   var emptyLbl=document.getElementById('tb-empty-label');
   if(emptyLbl) emptyLbl.textContent=EMPTY_LABELS[panel]||'';
   // Lazy-render org chart only when tab is activated
-  if(panel==='gantt'){ syncIssuesToGantt(allIssues); applyGanttOverrides(); renderGantt(); }
+  if(panel==='gantt'){ applyGanttOverrides(); syncIssuesToGantt(allIssues); renderGantt(); }
   if(panel==='org'){
     // Delegate to sub-tab system; default to 'people' on first open
     switchArchTab(ARCH_CURRENT||'people');
@@ -2926,12 +2818,10 @@ function loadOrgDataFromGitHub(callback){
 }
 
 var _ganttSaving = false;
-var _ganttSaveQueue = null; // holds {callback} of the latest pending save
+var _ganttSaveQueue = null;
 
 function saveGanttOverrides(callback){
   if(!TOKEN){ if(callback) callback(); return; }
-  // Queue: if a save is already in-flight, remember only the latest callback;
-  // the in-flight save will re-run with the latest GANTT_OVERRIDES when it finishes.
   if(_ganttSaving){ _ganttSaveQueue = {callback:callback}; return; }
   _ganttSaving = true;
   var body=JSON.stringify({
@@ -2947,7 +2837,6 @@ function saveGanttOverrides(callback){
     if(d.content) GANTT_OVERRIDES_SHA=d.content.sha;
     if(callback) callback();
     _ganttSaving = false;
-    // If another save was queued while we were in-flight, run it now with fresh SHA
     if(_ganttSaveQueue){ var q=_ganttSaveQueue; _ganttSaveQueue=null; saveGanttOverrides(q.callback); }
   }).catch(function(){
     if(callback) callback();
@@ -4103,9 +3992,9 @@ function eaEditorRenderTable(){
         var isFirst = EA_DATA.nodes.slice(0, realIdx).filter(function(x){ return !x.parent && x.type==='capability'; }).length === 0;
         var isLast  = EA_DATA.nodes.slice(realIdx+1).filter(function(x){ return !x.parent && x.type==='capability'; }).length === 0;
         reorderBtns = '<div style="display:flex;flex-direction:column;gap:1px;flex-shrink:0;">'
-          +'<button onclick="event.stopPropagation();eaMoveNode(\''+n.id+'\',-1)" title="上移" '+(isFirst?'disabled':'')
+          +'<button onclick="event.stopPropagation();eaMoveNode(''+n.id+'',-1)" title="上移" '+(isFirst?'disabled':'')
           +' style="width:20px;height:14px;border:1px solid var(--pale);background:var(--b050);border-radius:3px;cursor:'+(isFirst?'not-allowed':'pointer')+';color:'+(isFirst?'#ccc':'var(--b500)')+';font-size:10px;line-height:1;padding:0;">▲</button>'
-          +'<button onclick="event.stopPropagation();eaMoveNode(\''+n.id+'\',1)" title="下移" '+(isLast?'disabled':'')
+          +'<button onclick="event.stopPropagation();eaMoveNode(''+n.id+'',1)" title="下移" '+(isLast?'disabled':'')
           +' style="width:20px;height:14px;border:1px solid var(--pale);background:var(--b050);border-radius:3px;cursor:'+(isLast?'not-allowed':'pointer')+';color:'+(isLast?'#ccc':'var(--b500)')+';font-size:10px;line-height:1;padding:0;">▼</button>'
           +'</div>';
       } else {
@@ -4115,7 +4004,7 @@ function eaEditorRenderTable(){
       var rowBg = isL0 ? 'background:#F0F6FF;' : '';
       var nameStyle = isL0 ? 'font-weight:800;color:var(--b700);' : 'font-weight:600;';
 
-      return '<tr onclick="eaEditNode(\''+n.id+'\')" title="点击编辑" style="cursor:pointer;'+rowBg+'">'
+      return '<tr onclick="eaEditNode(''+n.id+'')" title="点击编辑" style="cursor:pointer;'+rowBg+'">'
         +'<td style="padding:7px 8px;width:30px;">'
           +'<div style="display:flex;align-items:center;gap:4px;">'
           +reorderBtns
@@ -4158,7 +4047,7 @@ function eaEditorRenderTable(){
       +edges.map(function(e){
         var critColor={high:'#C0392B',medium:'#E67E22',low:'#27AE60'}[(e.metadata&&e.metadata.criticality)||'medium'];
         var dir=e.direction==='bi'?'↔':'→';
-        return '<tr onclick="eaEditEdge(\''+e.id+'\')" title="点击编辑" style="cursor:pointer;">'
+        return '<tr onclick="eaEditEdge(''+e.id+'')" title="点击编辑" style="cursor:pointer;">'
           +'<td style="padding:7px 10px;font-weight:600;">'+eaNodeName(e.source)+'</td>'
           +'<td style="text-align:center;font-size:14px;color:var(--muted);">'+dir+'</td>'
           +'<td style="padding:7px 10px;font-weight:600;">'+eaNodeName(e.target)+'</td>'
@@ -4794,45 +4683,6 @@ function toggleSurveyDd(e){
   var rect=btn.getBoundingClientRect();
   var isOpen=panel.classList.contains('dd-open');
   // close any open dropdowns first
-  document.querySelectorAll('.mod-tab-dd-panel').forEach(function(p){p.classList.remove('dd-open');});
-  if(!isOpen){
-    panel.style.top=(rect.bottom+2)+'px';
-    panel.style.left=rect.left+'px';
-    panel.classList.add('dd-open');
-  }
-}
-function toggleMdgDd(e){
-  e.stopPropagation();
-  var panel=document.getElementById('mdg-dropdown');
-  var btn=e.currentTarget;
-  var rect=btn.getBoundingClientRect();
-  var isOpen=panel.classList.contains('dd-open');
-  document.querySelectorAll('.mod-tab-dd-panel').forEach(function(p){p.classList.remove('dd-open');});
-  if(!isOpen){
-    panel.style.top=(rect.bottom+2)+'px';
-    panel.style.left=rect.left+'px';
-    panel.classList.add('dd-open');
-  }
-}
-function toggleDrcDd(e){
-  e.stopPropagation();
-  var panel=document.getElementById('drc-dropdown');
-  var btn=e.currentTarget;
-  var rect=btn.getBoundingClientRect();
-  var isOpen=panel.classList.contains('dd-open');
-  document.querySelectorAll('.mod-tab-dd-panel').forEach(function(p){p.classList.remove('dd-open');});
-  if(!isOpen){
-    panel.style.top=(rect.bottom+2)+'px';
-    panel.style.left=rect.left+'px';
-    panel.classList.add('dd-open');
-  }
-}
-function toggleSiDd(e){
-  e.stopPropagation();
-  var panel=document.getElementById('si-dropdown');
-  var btn=e.currentTarget;
-  var rect=btn.getBoundingClientRect();
-  var isOpen=panel.classList.contains('dd-open');
   document.querySelectorAll('.mod-tab-dd-panel').forEach(function(p){p.classList.remove('dd-open');});
   if(!isOpen){
     panel.style.top=(rect.bottom+2)+'px';
