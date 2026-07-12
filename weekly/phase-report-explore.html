@@ -17,18 +17,8 @@ body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;
 a{color:inherit;text-decoration:none;}
 
 /* ── Nav ── */
-nav{background:var(--b900);padding:0 40px;display:flex;align-items:center;gap:20px;
-    height:54px;position:sticky;top:0;z-index:100;
-    box-shadow:0 2px 12px rgba(11,45,71,.6);}
-.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;}
 .nav-div{width:1px;height:22px;background:rgba(255,255,255,.18);}
 .nav-title{color:rgba(255,255,255,.55);font-size:12px;}
-.nav-links{display:flex;flex:1;gap:4px;}
-.nav-links a{padding:0 13px;color:rgba(255,255,255,.6);font-size:12.5px;
-             height:54px;display:flex;align-items:center;white-space:nowrap;
-             border-bottom:2px solid transparent;transition:color .14s;}
-.nav-links a:hover{color:#fff;}
-.nav-links a.active{color:#fff;border-bottom-color:#5EA4CE;}
 
 /* ── Hero ── */
 .hero{background:linear-gradient(148deg,var(--b900) 0%,#0D3D62 60%,var(--b700) 100%);
@@ -211,32 +201,8 @@ footer{background:var(--b900);color:rgba(255,255,255,.3);text-align:center;
 </head>
 <body>
 
-<nav>
-  <a href="/fsl-report/" class="nav-logo">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 36" height="24">
-      <rect x="0" y="3" width="4" height="30" fill="#F06000"></rect>
-      <rect x="0" y="3" width="18" height="4" fill="#F06000"></rect>
-      <rect x="0" y="16" width="13" height="4" fill="#F06000"></rect>
-      <path d="M22 3 h14 v4 h-9 v6 h9 v4 h-9 v7 h10 v4 h-15 v-9 h9 v-3 h-9 z" fill="#F06000"></path>
-      <rect x="42" y="3" width="4" height="30" fill="#F06000"></rect>
-      <rect x="42" y="29" width="16" height="4" fill="#F06000"></rect>
-      <text x="66" y="26" font-family="Microsoft YaHei,PingFang SC,sans-serif" font-size="14" font-weight="700" fill="rgba(255,255,255,0.9)" letter-spacing="1">佛山照明</text>
-    </svg>
-  </a>
-  <div class="nav-div"></div>
-  <span class="nav-title">数字化转型项目工作台</span>
-  <div class="nav-links">
-    <a href="/fsl-report/">工作台首页</a>
-    <a href="/fsl-report/weekly/" class="active">项目周报</a>
-    <a href="/fsl-report/kanban/">任务看板</a>
-  </div>
-  <div style="display:flex;align-items:center;gap:8px;margin-left:auto;padding-right:4px;">
-    <span id="pes"></span>
-    <button id="psb" onclick="doSave()">💾 保存</button>
-    <button id="peb" onclick="toggle()">✎ 编辑</button>
-  </div>
-    <a href="/fsl-report/togaf/" style="padding:0 14px;color:rgba(255,255,255,.75);font-size:12.5px;height:54px;display:flex;align-items:center;white-space:nowrap;font-weight:600;">TOGAF</a>
-</nav>
+<div id="site-nav"></div>
+<script src="../nav.js"></script>
 
 <!-- ── Hero ── -->
 <div class="hero">
