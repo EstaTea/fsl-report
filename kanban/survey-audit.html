@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>审计与内控调研问卷 | 任务看板 | 佛照SAP升级项目</title>
+<style>
+:root{
+  --navy:   #0B2D47;  --dark:   #1B3A6B;  --primary:#005EB8;
+  --mid:    #1F70C1;  --steel:  #4A6FA5;  --muted:  #6B8CB8;
+  --light:  #A8C4E0;  --pale:   #D0E4F7;  --bg:     #EBF4FF;
+  --white:  #FFFFFF;  --text:   #0D1B2A;  --text2:  #2C3E50;
+  --b900:var(--navy);  --b700:var(--dark);  --b500:var(--primary);
+  --b300:var(--light); --b100:var(--pale);  --b050:var(--bg);
+  --rule:var(--pale);  --r:6px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Microsoft YaHei","Helvetica Neue",system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:13px;line-height:1.6;display:flex;flex-direction:column;min-height:100vh}
+a{color:inherit;text-decoration:none}
+.btn{padding:5px 12px;border-radius:5px;font-size:11.5px;cursor:pointer;border:none;font-family:inherit;display:inline-flex;align-items:center;gap:4px;text-decoration:none;white-space:nowrap}
+.btn-ghost{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2)}.btn-ghost:hover{background:rgba(255,255,255,.2)}
+.proj-header{background:linear-gradient(135deg,var(--navy) 0%,var(--dark) 100%);border-bottom:3px solid var(--primary);padding:0 32px;display:flex;flex-direction:column;flex-shrink:0;color:#fff}
+.proj-title-row{display:flex;align-items:center;gap:10px;padding:11px 0 0}
+.proj-icon{font-size:20px}
+.proj-name{font-size:16px;font-weight:800;color:#fff;letter-spacing:-.2px}
+.proj-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);padding:2px 10px;border-radius:10px;font-size:11px;color:rgba(255,255,255,.8);margin-left:8px}
+.mod-tabs{display:flex;gap:0;overflow-x:auto;margin-top:0}
+.mod-tabs::-webkit-scrollbar{height:3px}
+.mod-tab{padding:9px 14px;font-size:12.5px;color:rgba(255,255,255,.55);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:5px;transition:color .15s;text-decoration:none}
+.mod-tab:hover{color:var(--b500)}
+.mod-tab.active{color:var(--b500);border-bottom-color:var(--b500);font-weight:700}
+.mod-tab .new-badge{font-size:9px;background:var(--primary);color:#fff;padding:1px 4px;border-radius:3px;font-weight:700}
+.q-toolbar{background:#fff;border-bottom:1px solid var(--rule);padding:8px 32px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(11,45,71,.06)}
+.q-progress-row{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--muted);margin-left:auto}
+.pbar-wrap{background:var(--rule);border-radius:4px;height:7px;width:120px}
+.pbar{background:var(--b500);border-radius:4px;height:7px;transition:width .3s}
+.q-btn{padding:5px 14px;border:none;border-radius:5px;font-size:11.5px;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:4px}
+.q-btn-p{background:var(--b500);color:#fff}.q-btn-p:hover{background:var(--b700)}
+.q-btn-o{background:#fff;color:var(--b500);border:1px solid var(--b300)}.q-btn-o:hover{background:var(--b050)}
+.q-btn-d{background:#fff;color:#c62828;border:1px solid #ef9a9a}.q-btn-d:hover{background:#ffebee}
+.tag{display:inline-block;background:var(--b050);color:var(--b700);border-radius:4px;padding:2px 8px;font-size:11px;margin:1px}
+.page-hero{background:linear-gradient(135deg,var(--navy) 0%,var(--dark) 100%);color:#fff;padding:16px 32px 14px;border-bottom:2px solid rgba(255,255,255,.12)}
+.hero-title{font-size:17px;font-weight:800}
+.hero-meta{margin-top:5px;font-size:11.5px;color:rgba(255,255,255,.6);display:flex;gap:20px;flex-wrap:wrap}
+.hero-bg{margin-top:8px;background:rgba(255,255,255,.08);border-left:3px solid var(--b300);padding:7px 12px;border-radius:0 4px 4px 0;font-size:11px;color:rgba(255,255,255,.75);line-height:1.5}
+.main{padding:20px 32px 48px;max-width:1080px;margin:0 auto;width:100%}
+.q-section{margin-bottom:18px;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(11,45,71,.07)}
+.q-sec-title{background:var(--b700);color:#fff;padding:9px 18px;font-size:12.5px;font-weight:700;display:flex;align-items:center;gap:8px}
+.q-sec-title .bdg{background:rgba(255,255,255,.18);padding:1px 7px;border-radius:10px;font-size:10.5px;font-weight:400}
+.q-item{background:#fff;border-bottom:1px solid var(--rule);padding:13px 18px 11px}
+.q-item:last-child{border-bottom:none}
+.q-item:nth-child(even){background:#f8fbfd}
+.q-head{display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.q-id{background:var(--b700);color:#fff;border-radius:4px;padding:2px 8px;font-size:10.5px;font-weight:700;flex-shrink:0}
+.q-label{background:var(--b050);color:var(--b700);border-radius:4px;padding:2px 8px;font-size:10.5px}
+.q-p0{background:#fff3e0;color:#e65100;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700}
+.q-text{font-size:12.5px;line-height:1.6;margin-bottom:6px}
+.q-bg{font-size:11px;color:var(--muted);border-left:3px solid var(--b100);padding:5px 10px;border-radius:0 4px 4px 0;background:var(--b050);margin-bottom:8px;line-height:1.5}
+.q-answer{width:100%;min-height:58px;border:1px solid var(--rule);border-radius:5px;padding:7px 10px;font-size:12px;color:var(--text);font-family:inherit;resize:vertical;background:#fafdff;transition:border-color .15s}
+.q-answer:focus{outline:none;border-color:var(--b300);background:#fff}
+.q-sr{display:flex;gap:12px;margin-top:6px;flex-wrap:wrap}
+.q-radio{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--muted);cursor:pointer}
+.q-radio input{accent-color:var(--b500)}
+.sum-card{background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(11,45,71,.07);padding:16px 20px;margin-bottom:20px}
+.sum-card h3{font-size:13px;font-weight:700;color:var(--b700);border-bottom:1px solid var(--rule);padding-bottom:8px;margin-bottom:10px}
+.kv{display:flex;gap:6px;margin-bottom:6px;font-size:12px}
+.kv .k{color:var(--b300);font-weight:700;min-width:80px;flex-shrink:0}
+.hbox{background:var(--b050);border-left:3px solid var(--b300);border-radius:0 5px 5px 0;padding:8px 12px;font-size:11.5px;color:var(--b700);line-height:1.55;margin-top:8px}
+@media print{nav,.proj-header,.q-toolbar{display:none!important}.main{padding:10px}}
+</style>
+</head>
+<body>
+<div id="site-nav"></div>
+<script src="../nav.js"></script>
+
+<div class="proj-header">
+  <div class="proj-title-row">
+    <span class="proj-icon">📋</span>
+    <span class="proj-name">佛照 SAP S/4HANA 升级项目</span>
+    <span class="proj-badge">任务看板 · 调研问卷</span>
+  </div>
+  <div class="mod-tabs">
+    <a href="/fsl-report/kanban/" class="mod-tab">📋 <span class="label-text">看板</span></a>
+    <a href="/fsl-report/kanban/#milestone" class="mod-tab">🎯 <span class="label-text">里程碑</span></a>
+    <a href="/fsl-report/kanban/#tasklist" class="mod-tab">☑ <span class="label-text">任务</span></a>
+    <a href="/fsl-report/kanban/#gantt" class="mod-tab">📅 <span class="label-text">甘特图</span></a>
+    <a href="/fsl-report/kanban/#risk" class="mod-tab">⚠️ <span class="label-text">风险</span></a>
+    <a href="/fsl-report/kanban/#deliverable" class="mod-tab">📦 <span class="label-text">交付物</span></a>
+    <a href="/fsl-report/kanban/#stats" class="mod-tab">📊 <span class="label-text">统计</span></a>
+    <a href="/fsl-report/kanban/#org" class="mod-tab">🏗 <span class="label-text">项目架构</span></a>
+    <div class="mod-tab-dd" id="mdgTabDd" style="display:inline-flex;align-items:stretch">
+      <div class="mod-tab" style="cursor:pointer" onclick="toggleMdgDd(event)">🎓 <span class="label-text">MDG案例</span><span style="font-size:8px;margin-left:2px;opacity:.6">▾</span></div>
+      <div class="mod-tab-dd-panel" id="mdg-dropdown">
+        <a href="https://estatea.github.io/mdg-course/" target="_blank" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">🏠 MDG课程首页</a>
+        <a href="https://estatea.github.io/mdg-course/week1/day1.html" target="_blank" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">📖 Day 1 · 什么是MDG？</a>
+        <a href="https://estatea.github.io/mdg-course/week2/day9.html" target="_blank" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">🔧 Day 9 · 物料主数据配置实战</a>
+      </div>
+    </div>
+    <div class="mod-tab-dd" id="drcTabDd" style="display:inline-flex;align-items:stretch">
+      <div class="mod-tab" style="cursor:pointer" onclick="toggleDrcDd(event)">📋 <span class="label-text">DRC案例</span><span style="font-size:8px;margin-left:2px;opacity:.6">▾</span></div>
+      <div class="mod-tab-dd-panel" id="drc-dropdown">
+        <a href="https://estatea.github.io/drc-course/" target="_blank" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">🏠 DRC课程首页</a>
+        <a href="https://estatea.github.io/drc-course/week1/day1.html" target="_blank" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">📖 Day 1 · 什么是DRC？</a>
+      </div>
+    </div>
+    <div class="mod-tab-dd" id="siTabDd" style="display:inline-flex;align-items:stretch">
+      <div class="mod-tab" style="cursor:pointer" onclick="toggleSiDd(event)">🔗 <span class="label-text">SI案例</span><span style="font-size:8px;margin-left:2px;opacity:.6">▾</span></div>
+      <div class="mod-tab-dd-panel" id="si-dropdown">
+        <a href="https://estatea.github.io/si-course/" target="_blank" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">🏠 SI课程首页</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-hero">
+  <div class="hero-title">🔍 调研问卷 — 审计部 · 内部审计与内控合规</div>
+  <div class="hero-meta">
+    <span>🔍 审计部 · 审计负责人及骨干</span>
+    <span>📅 访谈日：2026-07-16</span>
+    <span>⏱ 建议时长：90分钟</span>
+    <span>🔗 关联：★1 痛点清单 · ★5 内控合规专项</span>
+  </div>
+  <div class="hero-bg"><b>背景：</b>佛照集团含19家法人实体｜内部关联交易复杂（跨法人转卖/内部定价）｜675条Z自定义程序（迁移决策全空）｜ECC审计日志与权限管控能力有限｜S/4HANA升级为审计数字化和职责分离重构提供窗口期</div>
+</div>
+
+<div class="q-toolbar">
+  <span class="tag">审计部负责人</span>
+  <span class="tag">内审骨干 1-2人</span>
+  <div class="q-progress-row">
+    <span><b id="q-done">0</b>/<b id="q-total">20</b> 题已填写</span>
+    <div class="pbar-wrap"><div class="pbar" id="q-pbar" style="width:0%"></div></div>
+    <button class="q-btn q-btn-p" onclick="exportQA()">📄 导出纪要</button>
+    <button class="q-btn q-btn-o" onclick="window.print()">🖨 打印</button>
+    <button class="q-btn q-btn-d" onclick="clearAll()">🗑 清空</button>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- A. 审计覆盖范围与计划 -->
+<div class="q-section">
+  <div class="q-sec-title">A. 审计覆盖范围与年度计划 <span class="bdg">A1–A4</span></div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">A1</span><span class="q-label">审计范围</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">内部审计部门目前的审计范围涵盖哪些法人实体和业务领域？<br>19家法人中有哪些是常规审计对象？高明分公司、泰国FZ40、德国FZ33等分/子公司是否纳入年度审计计划？<br>年均完成多少个审计项目？</div>
+    <div class="q-bg">佛照集团19家法人实体（含泰国FZ40、德国FZ33），分布广，SAP模块深度各异；高明分公司0名本地IT，审计支持依赖总部远程</div>
+    <textarea class="q-answer" data-qid="A1" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-A1" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-A1" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-A1" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">A2</span><span class="q-label">审计数据获取</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">目前开展审计工作时，从SAP ECC获取数据的方式是什么？<br>是直接查询SAP报表、导出Excel后分析，还是有专用审计工具（如ACL/IDEA/Teammate）？<br>数据提取通常需要IT部门配合还是审计人员可以自助？平均等待数据需要多长时间？</div>
+    <div class="q-bg">ECC数据提取效率是审计部的核心痛点；S/4HANA基于HANA内存数据库可大幅提升查询速度，同时支持审计信息系统（AIS）直接调用</div>
+    <textarea class="q-answer" data-qid="A2" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-A2" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-A2" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-A2" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">A3</span><span class="q-label">高风险审计领域</span></div>
+    <div class="q-text">近三年内部审计中，哪些业务领域发现问题最多、风险最高？<br>（例如：采购回扣、费用报销违规、库存盘差、关联交易定价不公允、固定资产流失等）<br>是否有典型案例可以分享（可脱敏）？</div>
+    <div class="q-bg">了解审计历史发现，有助于评估S/4HANA控制点覆盖是否充分，并确定权限设计优先级</div>
+    <textarea class="q-answer" data-qid="A3" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-A3" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-A3" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-A3" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">A4</span><span class="q-label">审计发现整改跟踪</span></div>
+    <div class="q-text">审计发现的整改落实情况如何追踪？目前用OA、电子表格还是专用审计管理系统？<br>整改期限通常设定多长？整改率（按期完成比例）大概是多少？<br>未按期整改的情况会上报到什么层级？</div>
+    <div class="q-bg">整改追踪闭环是内审效能的关键指标；S/4HANA升级后，审计整改若能与系统控制点挂钩，整改率可望显著提升</div>
+    <textarea class="q-answer" data-qid="A4" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-A4" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-A4" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-A4" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+</div>
+
+<!-- B. 职责分离与SAP权限 -->
+<div class="q-section">
+  <div class="q-sec-title">B. 职责分离（SoD）与SAP权限管控 <span class="bdg">B1–B4</span></div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">B1</span><span class="q-label">现有SoD冲突</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">目前SAP ECC中是否做过系统级的职责分离（SoD）检查？<br>发现过哪些高风险权限冲突？例如：同一人能创建供应商又能付款、能录入采购订单又能收货等。<br>解决冲突的方式是减少权限、还是设置补偿控制（事后审批）？</div>
+    <div class="q-bg">Greenfield重新实施是重新设计角色权限的最佳窗口；若ECC遗留SoD问题不在蓝图中明确处理，会被直接带入S/4HANA</div>
+    <textarea class="q-answer" data-qid="B1" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-B1" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-B1" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-B1" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">B2</span><span class="q-label">超级用户管控</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">目前SAP系统中超级用户（SAP_ALL权限）有多少个？日常操作是否也使用超级账户？<br>超级用户操作是否有日志记录和定期审查？<br>S/4HANA上线后，审计部对超级用户管控有什么要求？</div>
+    <div class="q-bg">超级用户滥用是审计中最常见的高风险控制缺陷；S/4HANA的SAP Basis应建立超级用户申请-审批-登录全流程管控</div>
+    <textarea class="q-answer" data-qid="B2" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-B2" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-B2" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-B2" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">B3</span><span class="q-label">审计日志完整性</span></div>
+    <div class="q-text">ECC系统的变更日志（Change Document、SM20安全审计日志）目前是否开启并定期检查？<br>日志保存多长时间？审计人员可以直接查阅日志还是需要Basis开权限？<br>是否发生过日志记录不完整、关键操作无法追溯的情况？</div>
+    <div class="q-bg">S/4HANA提供增强的审计日志功能（SAP Audit Management、Change Document History），升级是完善日志体系的契机</div>
+    <textarea class="q-answer" data-qid="B3" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-B3" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-B3" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-B3" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">B4</span><span class="q-label">权限重新设计参与</span></div>
+    <div class="q-text">在S/4HANA蓝图阶段，审计部门是否已被纳入权限角色设计讨论？<br>审计部希望在权限设计中提出哪些要求？（如：强制职责分离规则、审计只读账户范围、关键操作双重审批等）<br>是否有计划引入GRC工具（SAP Access Control）来实现自动化SoD监控？</div>
+    <div class="q-bg">权限蓝图是S/4HANA内控基础；若审计部未参与蓝图，上线后权限问题会成为第一批审计发现</div>
+    <textarea class="q-answer" data-qid="B4" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-B4" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-B4" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-B4" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+</div>
+
+<!-- C. 关联交易与内部控制 -->
+<div class="q-section">
+  <div class="q-sec-title">C. 关联交易审计与内部定价管控 <span class="bdg">C1–C4</span></div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">C1</span><span class="q-label">关联交易审计流程</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">19家法人之间的关联交易（内部销售、资金拆借、服务费分摊）如何进行审计？<br>目前能否在SAP中直接识别和提取关联交易数据？还是需要在Excel中手工筛选标记？<br>审计发现的关联交易定价不公允问题，通常如何处理？</div>
+    <div class="q-bg">已知痛点：内部关联交易税务核算复杂，19家法人跨法人转卖导致成本失真；Group Reporting需实现关联交易自动抵消——但抵消前必须先确保数据准确</div>
+    <textarea class="q-answer" data-qid="C1" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-C1" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-C1" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-C1" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">C2</span><span class="q-label">采购合规审计</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">采购审计中，最常见的合规问题是什么？<br>（独家供应商集中度过高、合同金额拆分规避审批、无合同采购、验收不实等）<br>当前采购订单与合同的匹配是否有系统控制，还是依赖人工核查？每月未按合同采购的比例大概多少？</div>
+    <div class="q-bg">已知痛点：独家供应商已出现供货中断；SRM→OA审批→SAP采购信息记录之间存在人工中转断点；招投标中心访谈显示合同与下单无联动</div>
+    <textarea class="q-answer" data-qid="C2" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-C2" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-C2" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-C2" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">C3</span><span class="q-label">固定资产审计</span></div>
+    <div class="q-text">固定资产审计中，主要问题是资产实物盘点差异、折旧计算错误、还是资产报废/处置未及时注销？<br>每年固定资产盘点覆盖多少比例？发现账实不符的处置流程是什么？<br>S/4HANA将保留完整FA模块（固定资产模块），对审计工作有何期望？</div>
+    <div class="q-bg">07-07 FICO专题确认：SAP S/4HANA保留完整FA模块（卡片/折旧/多折旧范围），用友财务共享仅负责合同台账+租赁资产登记；固定资产双向接口是新增风险点</div>
+    <textarea class="q-answer" data-qid="C3" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-C3" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-C3" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-C3" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">C4</span><span class="q-label">费用报销合规</span></div>
+    <div class="q-text">费用报销审计目前由审计部门还是财务部门主导？<br>差旅、业务招待、项目费用等类别，哪类超标/违规最普遍？<br>OA系统的报销审批流程与SAP的财务凭证之间是否全面对账，还是存在未勾稽的情况？</div>
+    <div class="q-bg">OA（泛微）审批流与SAP主数据/凭证割裂是已知系统问题；OA审批完成后SAP仍需人工录入，存在"绕过系统"操作风险</div>
+    <textarea class="q-answer" data-qid="C4" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-C4" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-C4" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-C4" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+</div>
+
+<!-- D. 合规与外部审计协同 -->
+<div class="q-section">
+  <div class="q-sec-title">D. 合规要求与外部审计协同 <span class="bdg">D1–D4</span></div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">D1</span><span class="q-label">外部审计配合效率</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">年度外部审计（会计师事务所）通常需要从SAP提取哪些数据？<br>现在从SAP导出审计所需数据平均需要多长时间、需要几个人参与？<br>外部审计期间是否因数据获取困难而出现过审计进度延迟的情况？</div>
+    <div class="q-bg">S/4HANA的Universal Journal（统一日记账）和ACDOCA表结构可大幅提升外部审计数据提取效率；合并报表GR模块的启用也将简化集团合并报表审计</div>
+    <textarea class="q-answer" data-qid="D1" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-D1" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-D1" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-D1" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">D2</span><span class="q-label">广晟集团合规要求</span></div>
+    <div class="q-text">作为广晟集团旗下上市公司，佛照在内部审计和内控方面需要满足广晟集团哪些具体要求？<br>广晟集团是否有统一的内控框架或审计底稿模板要求？<br>S/4HANA系统数据是否需要向广晟集团上报，上报频率和方式是什么？</div>
+    <div class="q-bg">佛照是广晟集团旗下上市公司（A股600541）；司库系统受广晟集团监管要求驱动；广晟共享与SAP存在客商主数据链路</div>
+    <textarea class="q-answer" data-qid="D2" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-D2" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-D2" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-D2" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">D3</span><span class="q-label">上市公司合规（SOX类）</span></div>
+    <div class="q-text">作为A股上市公司，佛照是否建立了类SOX的内控自我评估（内控报告）体系？<br>内控缺陷的认定标准是什么？（重大缺陷/重要缺陷/一般缺陷）<br>近三年年报是否披露了内控缺陷？主要集中在哪些控制领域？</div>
+    <div class="q-bg">A股上市公司须按《企业内部控制基本规范》（内控五要素）披露内控评价报告；SAP系统控制是IT一般控制（ITGC）的重要组成</div>
+    <textarea class="q-answer" data-qid="D3" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-D3" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-D3" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-D3" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">D4</span><span class="q-label">海外合规风险</span></div>
+    <div class="q-text">泰国子公司（FZ40）和德国子公司（FZ33）的审计和合规工作如何开展？<br>是否委托当地会计师事务所？内审是否覆盖海外法人？<br>美国贸易战背景下，出口合规（如反倾销/关税分类）是否已纳入审计关注范围？</div>
+    <div class="q-bg">国际事业部25条高优先级需求含海外法人SAP模板；美国贸易战背景下佛照泰国扩产策略涉及转移定价合规风险；欧盟CBAM（碳边境税）已在二期商机中标注为GTS触发点</div>
+    <textarea class="q-answer" data-qid="D4" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-D4" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-D4" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-D4" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+</div>
+
+<!-- E. S/4HANA升级对审计的影响与期望 -->
+<div class="q-section">
+  <div class="q-sec-title">E. S/4HANA升级对审计工作的影响与期望 <span class="bdg">E1–E4</span></div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">E1</span><span class="q-label">数据迁移审计</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">S/4HANA Greenfield实施需要迁移主数据和未清业务数据，审计部门计划如何参与数据迁移审核？<br>对迁移数据的准确性和完整性有哪些审计要求？<br>cut-over前是否需要审计部门签字确认？</div>
+    <div class="q-bg">项目验收硬性门槛：静态数据迁移准确率100%，财务期初账账相符、账实相符；审计部门的参与将是迁移验证的重要保障</div>
+    <textarea class="q-answer" data-qid="E1" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-E1" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-E1" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-E1" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">E2</span><span class="q-label">Z程序自定义代码风险</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">ECC系统中存在675条Z自定义程序，其中部分是绕过标准控制流程的自定义逻辑。<br>审计部门是否了解这些Z程序的存在？是否有过因Z程序被滥用或出错导致审计问题的案例？<br>对S/4HANA中如何处理这些Z程序（保留/重写/废弃），审计部门有何立场？</div>
+    <div class="q-bg">675条Z程序（迁移决策全空），为项目风险R02；部分Z程序可能存在绕过SAP标准授权检查的安全隐患；Clean Core策略（Level C/D禁用）要求尽量减少Z程序</div>
+    <textarea class="q-answer" data-qid="E2" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-E2" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-E2" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-E2" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">E3</span><span class="q-label">审计数字化愿景</span></div>
+    <div class="q-text">S/4HANA上线后，审计部门期望如何利用新系统提升审计工作效率？<br>例如：实时连续审计（持续监控关键指标）、自动化异常交易预警、无纸化审计底稿等。<br>是否有引入数据分析工具（Python/BI/IDEA）开展数字化审计的计划？</div>
+    <div class="q-bg">S/4HANA提供SAP Audit Management模块；HANA实时数据库支持连续审计；佛照AI平台已私有化部署（3台服务器），可探索AI辅助审计场景</div>
+    <textarea class="q-answer" data-qid="E3" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-E3" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-E3" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-E3" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+  <div class="q-item">
+    <div class="q-head"><span class="q-id">E4</span><span class="q-label">最优先改善场景</span><span class="q-p0">P0核心</span></div>
+    <div class="q-text">在审计与内控领域，如果S/4HANA升级只能优先解决一个问题，您最希望解决哪个？<br>请描述：① 当前状态（AS-IS）：<br>② 期望状态（TO-BE）：<br>③ 量化价值（如：节省X人×Y天/年、降低审计风险等级等）：</div>
+    <div class="q-bg">★1痛点清单核心输入；请引导受访者给出具体场景和量化估算</div>
+    <textarea class="q-answer" data-qid="E4" rows="3" placeholder="记录受访者回答..." oninput="updateProgress()"></textarea>
+    <div class="q-sr">
+      <label class="q-radio"><input type="radio" name="s-E4" value="完整" onchange="updateProgress()">✅ 已完整记录</label>
+      <label class="q-radio"><input type="radio" name="s-E4" value="待补充" onchange="updateProgress()">🔵 待补充</label>
+      <label class="q-radio"><input type="radio" name="s-E4" value="跳过" onchange="updateProgress()">⬜ 跳过</label>
+    </div>
+  </div>
+</div>
+
+<!-- 访谈收尾 -->
+<div class="sum-card">
+  <h3>📎 访谈收尾</h3>
+  <div class="kv"><span class="k">资料收集</span><span class="v">① 年度审计计划（可脱敏）② SoD检查结论/权限冲突清单 ③ 近一年内控评价报告中IT控制相关章节 ④ 外部审计数据需求清单</span></div>
+  <div class="kv"><span class="k">待确认问题</span><span class="v">Q-AUD1：审计部是否已被纳入蓝图权限设计小组？Q-AUD2：Z程序安全风险评估工作由谁主导（审计/数智化/Basis）？Q-AUD3：广晟集团是否有统一内控平台要求SAP数据接入？</span></div>
+  <div class="kv"><span class="k">关联交付物</span><span class="v">★1《痛点清单》审计/内控分类 · D3《组织设计报告》第6章IT-业务协同机制 · S/4HANA蓝图权限角色设计章节</span></div>
+  <div class="hbox">⚡ 访谈纪要须于访谈结束后 <b>T+1日内</b>完成，发送甲方参与人确认签字。审计部调研发现需同步更新至★1痛点清单"审计/内控"分类。</div>
+  <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+    <button class="q-btn q-btn-p" onclick="exportQA()" style="padding:7px 18px;font-size:12.5px">📄 导出访谈纪要</button>
+    <button class="q-btn q-btn-o" onclick="window.print()" style="padding:7px 18px;font-size:12.5px">🖨 打印问卷</button>
+    <a href="/fsl-report/kanban/" class="q-btn q-btn-o" style="padding:7px 18px;font-size:12.5px">← 返回看板</a>
+    <div class="mod-tab" onclick="toggleSD(event)" style="cursor:pointer" id="sdBtn">📋 <span class="label-text">调研访谈</span><span style="font-size:9px;background:#2374A3;color:#fff;padding:1px 4px;border-radius:3px;font-weight:700;margin-left:4px">15</span><span style="font-size:8px;margin-left:3px;opacity:.6">▾</span></div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<!-- 浮动导航面板 -->
+<div id="sdPanel" style="display:none;position:fixed;z-index:9999;background:#0B2D47;border:1px solid rgba(255,255,255,.12);border-top:2px solid #5EA4CE;border-radius:0 6px 6px 6px;min-width:220px;padding:6px 0;box-shadow:0 6px 20px rgba(11,45,71,.5)">
+  <div style="padding:5px 14px 3px;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.5px;text-transform:uppercase">财务</div>
+  <a href="/fsl-report/kanban/survey-ar.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">💰 开票与应收全流程</a>
+  <a href="/fsl-report/kanban/survey-mdg.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">🗃 财务主数据与MDG规划</a>
+  <div style="height:1px;background:rgba(255,255,255,.08);margin:3px 0"></div>
+  <div style="padding:5px 14px 3px;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.5px;text-transform:uppercase">销售/电商</div>
+  <a href="/fsl-report/kanban/survey-ecommerce.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">🛒 电商与产品规划</a>
+  <a href="/fsl-report/kanban/survey-intl.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">🌍 国际业务+外汇合规</a>
+  <a href="/fsl-report/kanban/survey-newbiz.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">🚀 新业务拓展中心</a>
+  <div style="height:1px;background:rgba(255,255,255,.08);margin:3px 0"></div>
+  <div style="padding:5px 14px 3px;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.5px;text-transform:uppercase">生产/质量</div>
+  <a href="/fsl-report/kanban/survey-carlamp.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">🚗 车灯事业部全面访谈</a>
+  <a href="/fsl-report/kanban/survey-quality.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">✅ 质量与客服中心</a>
+  <a href="/fsl-report/kanban/survey-pp.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">⚙️ 生产计划+MES+BOM</a>
+  <div style="height:1px;background:rgba(255,255,255,.08);margin:3px 0"></div>
+  <div style="padding:5px 14px 3px;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.5px;text-transform:uppercase">技术/数据</div>
+  <a href="/fsl-report/kanban/survey-plm.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">📐 PLM与SAP集成</a>
+  <a href="/fsl-report/kanban/survey-masterdata.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">📊 主数据质量研讨</a>
+  <div style="height:1px;background:rgba(255,255,255,.08);margin:3px 0"></div>
+  <div style="padding:5px 14px 3px;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.5px;text-transform:uppercase">现场/战略</div>
+  <a href="/fsl-report/kanban/survey-gaoming.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">🏭 高明分公司实地调研</a>
+  <a href="/fsl-report/kanban/survey-strategy.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">🏛 战略调研·董事会</a>
+  <a href="/fsl-report/kanban/survey-executives.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;font-weight:700;border-left:2px solid #5EA4CE;padding-left:12px" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">👔 管理层专访·董事长/总经理/财务副总</a>
+  <div style="height:1px;background:rgba(255,255,255,.08);margin:3px 0"></div>
+  <div style="padding:5px 14px 3px;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.5px;text-transform:uppercase">组织/HR</div>
+  <a href="/fsl-report/kanban/survey-hr.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background=''">👥 党群与人力资源部</a>
+  <div style="height:1px;background:rgba(255,255,255,.08);margin:3px 0"></div>
+  <div style="padding:5px 14px 3px;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.5px;text-transform:uppercase">合规/审计</div>
+  <a href="/fsl-report/kanban/survey-audit.html" style="display:flex;align-items:center;gap:7px;padding:7px 14px;color:#fff;font-size:12.5px;text-decoration:none;font-weight:700;border-left:2px solid #5EA4CE;padding-left:12px">🔍 审计部·内部审计与内控合规</a>
+</div>
+
+<script>
+var TOTAL = 20;
+document.getElementById('q-total').textContent = TOTAL;
+function updateProgress() {
+  var f = 0;
+  document.querySelectorAll('.q-answer').forEach(function(a) {
+    if (a.value && a.value.trim().length > 3) f++;
+  });
+  document.getElementById('q-done').textContent = f;
+  document.getElementById('q-pbar').style.width = Math.round(f / TOTAL * 100) + '%';
+}
+function exportQA() {
+  var lines = ['佛照SAP升级项目 — 审计部·内部审计与内控合规 访谈纪要', '导出时间：' + new Date().toLocaleString('zh-CN'), '='.repeat(60), ''];
+  document.querySelectorAll('.q-answer').forEach(function(a) {
+    var qid = a.getAttribute('data-qid');
+    var radio = document.querySelector('input[name="s-' + qid + '"]:checked');
+    lines.push('[' + qid + '] 状态：' + (radio ? radio.value : '未标注'));
+    lines.push(a.value.trim() || '（未填写）');
+    lines.push('');
+  });
+  var blob = new Blob([lines.join('\n')], {type: 'text/plain;charset=utf-8'});
+  var url = URL.createObjectURL(blob);
+  var link = document.createElement('a');
+  link.href = url;
+  link.download = '佛照_审计部_访谈纪要.txt';
+  link.click();
+  URL.revokeObjectURL(url);
+}
+function clearAll() {
+  if (!confirm('确认清空所有填写内容？')) return;
+  document.querySelectorAll('.q-answer').forEach(function(a) { a.value = ''; });
+  document.querySelectorAll('.q-sr input').forEach(function(r) { r.checked = false; });
+  updateProgress();
+}
+function toggleSD(e) {
+  e.stopPropagation();
+  var p = document.getElementById('sdPanel');
+  var b = document.getElementById('sdBtn');
+  if (!p || !b) return;
+  if (p.style.display === 'block') { p.style.display = 'none'; return; }
+  var r = b.getBoundingClientRect();
+  p.style.top = (r.bottom + 2) + 'px';
+  p.style.left = r.left + 'px';
+  p.style.display = 'block';
+}
+document.addEventListener('click', function() {
+  var p = document.getElementById('sdPanel');
+  if (p) p.style.display = 'none';
+});
+updateProgress();
+</script>
+</body>
+</html>
