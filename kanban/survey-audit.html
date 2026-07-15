@@ -67,6 +67,14 @@ a{color:inherit;text-decoration:none}
 .kv .k{color:var(--b300);font-weight:700;min-width:80px;flex-shrink:0}
 .hbox{background:var(--b050);border-left:3px solid var(--b300);border-radius:0 5px 5px 0;padding:8px 12px;font-size:11.5px;color:var(--b700);line-height:1.55;margin-top:8px}
 @media print{nav,.proj-header,.q-toolbar{display:none!important}.main{padding:10px}}
+/* GitHub save */
+.gh-save-btn{background:var(--b700);color:#fff;border:none;padding:5px 14px;border-radius:5px;font-size:11.5px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:5px;font-family:inherit;transition:background .15s}
+.gh-save-btn:hover{background:var(--b900)}
+.gh-save-btn.saving{opacity:.65;pointer-events:none}
+.save-banner{display:none;position:fixed;bottom:24px;right:28px;z-index:500;background:var(--b700);color:#fff;padding:11px 22px;border-radius:8px;font-size:12.5px;font-weight:700;box-shadow:0 4px 16px rgba(11,45,71,.3);animation:slideUp .3s ease}
+.save-banner.show{display:block}
+.save-banner.err-b{background:#C62828}
+@keyframes slideUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -129,6 +137,7 @@ a{color:inherit;text-decoration:none}
   <div class="q-progress-row">
     <span><b id="q-done">0</b>/<b id="q-total">20</b> 题已填写</span>
     <div class="pbar-wrap"><div class="pbar" id="q-pbar" style="width:0%"></div></div>
+    <button class="gh-save-btn" onclick="saveToGitHub()">💾 保存</button>
     <button class="q-btn q-btn-p" onclick="exportQA()">📄 导出纪要</button>
     <button class="q-btn q-btn-o" onclick="window.print()">🖨 打印</button>
     <button class="q-btn q-btn-d" onclick="clearAll()">🗑 清空</button>
@@ -390,6 +399,7 @@ a{color:inherit;text-decoration:none}
   <div class="kv"><span class="k">关联交付物</span><span class="v">★1《痛点清单》审计/内控分类 · D3《组织设计报告》第6章IT-业务协同机制 · S/4HANA蓝图权限角色设计章节</span></div>
   <div class="hbox">⚡ 访谈纪要须于访谈结束后 <b>T+1日内</b>完成，发送甲方参与人确认签字。审计部调研发现需同步更新至★1痛点清单"审计/内控"分类。</div>
   <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+    <button class="gh-save-btn" onclick="saveToGitHub()" style="padding:7px 18px;font-size:12.5px">💾 保存到云端</button>
     <button class="q-btn q-btn-p" onclick="exportQA()" style="padding:7px 18px;font-size:12.5px">📄 导出访谈纪要</button>
     <button class="q-btn q-btn-o" onclick="window.print()" style="padding:7px 18px;font-size:12.5px">🖨 打印问卷</button>
     <a href="/fsl-report/kanban/" class="q-btn q-btn-o" style="padding:7px 18px;font-size:12.5px">← 返回看板</a>
@@ -398,6 +408,7 @@ a{color:inherit;text-decoration:none}
 </div>
 
 </div><!-- /main -->
+<div class="save-banner" id="saveBanner"></div>
 
 <!-- 浮动导航面板 -->
 <div id="sdPanel" style="display:none;position:fixed;z-index:9999;background:#0B2D47;border:1px solid rgba(255,255,255,.12);border-top:2px solid #5EA4CE;border-radius:0 6px 6px 6px;min-width:220px;padding:6px 0;box-shadow:0 6px 20px rgba(11,45,71,.5)">
@@ -433,7 +444,9 @@ a{color:inherit;text-decoration:none}
 
 <script>
 var TOTAL = 20;
+var LKEY = 'fsl-survey-audit';
 document.getElementById('q-total').textContent = TOTAL;
+
 function updateProgress() {
   var f = 0;
   document.querySelectorAll('.q-answer').forEach(function(a) {
@@ -442,6 +455,85 @@ function updateProgress() {
   document.getElementById('q-done').textContent = f;
   document.getElementById('q-pbar').style.width = Math.round(f / TOTAL * 100) + '%';
 }
+
+// 自动本地草稿（localStorage）
+document.querySelectorAll('.q-answer').forEach(function(a) {
+  var key = LKEY + '-' + a.getAttribute('data-qid');
+  if (localStorage.getItem(key)) a.value = localStorage.getItem(key);
+  a.addEventListener('input', function() { localStorage.setItem(key, a.value); updateProgress(); });
+});
+document.querySelectorAll('.q-sr input[type=radio]').forEach(function(r) {
+  var key = LKEY + '-radio-' + r.name + '-' + r.value;
+  if (localStorage.getItem(key) === '1') r.checked = true;
+  r.addEventListener('change', function() {
+    if (r.checked) localStorage.setItem(key, '1');
+    else localStorage.removeItem(key);
+    updateProgress();
+  });
+});
+
+// 页面加载时从 GitHub data.json 恢复（云端优先）
+(function loadFromGitHub() {
+  fetch('/fsl-report/kanban/survey-audit-data.json?_=' + Date.now())
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(data) {
+      if (!data || !data.answers) return;
+      Object.keys(data.answers).forEach(function(qid) {
+        var ans = data.answers[qid];
+        var el = document.querySelector('[data-qid="' + qid + '"]');
+        if (el && ans.text) { el.value = ans.text; localStorage.setItem(LKEY + '-' + qid, ans.text); }
+        if (ans.status) {
+          var radio = document.querySelector('input[name="s-' + qid + '"][value="' + ans.status + '"]');
+          if (radio) { radio.checked = true; localStorage.setItem(LKEY + '-radio-s-' + qid + '-' + ans.status, '1'); }
+        }
+      });
+      updateProgress();
+      showBanner('☁️ 已从云端恢复上次保存内容', '');
+    })
+    .catch(function() {}); // 无 data.json 时静默忽略
+})();
+
+updateProgress();
+
+function collectAnswers() {
+  var data = {
+    meta: { survey: 'audit', interviewee: '梁越斐（审计部长）', org: '审计工作部', date: new Date().toISOString().slice(0, 10), savedAt: new Date().toLocaleString('zh-CN') },
+    answers: {}
+  };
+  document.querySelectorAll('.q-answer').forEach(function(a) {
+    var qid = a.getAttribute('data-qid');
+    var radio = document.querySelector('input[name="s-' + qid + '"]:checked');
+    data.answers[qid] = { text: a.value.trim(), status: radio ? radio.value : '' };
+  });
+  return data;
+}
+
+async function saveToGitHub() {
+  var data = collectAnswers();
+  var btns = document.querySelectorAll('.gh-save-btn');
+  btns.forEach(function(b) { b.classList.add('saving'); b.textContent = '保存中…'; });
+  try {
+    var r = await fetch('https://fsl-survey-proxy.283656314.workers.dev/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug: 'audit', data: data })
+    });
+    var result = await r.json();
+    if (r.ok && result.ok) { showBanner('✅ 已保存到云端', ''); }
+    else { throw new Error(result.error || ('HTTP ' + r.status)); }
+  } catch(e) {
+    showBanner('❌ 保存失败：' + e.message, 'err-b');
+  } finally {
+    btns.forEach(function(b) { b.classList.remove('saving'); b.textContent = '💾 保存'; });
+  }
+}
+
+function showBanner(msg, cls) {
+  var b = document.getElementById('saveBanner');
+  b.textContent = msg; b.className = 'save-banner show' + (cls ? ' ' + cls : '');
+  setTimeout(function() { b.className = 'save-banner'; }, 4000);
+}
+
 function exportQA() {
   var lines = ['佛照SAP升级项目 — 审计部·内部审计与内控合规 访谈纪要', '导出时间：' + new Date().toLocaleString('zh-CN'), '='.repeat(60), ''];
   document.querySelectorAll('.q-answer').forEach(function(a) {
@@ -455,16 +547,21 @@ function exportQA() {
   var url = URL.createObjectURL(blob);
   var link = document.createElement('a');
   link.href = url;
-  link.download = '佛照_审计部_访谈纪要.txt';
+  link.download = '佛照_审计部_访谈纪要_' + new Date().toISOString().slice(0, 10) + '.txt';
   link.click();
   URL.revokeObjectURL(url);
 }
+
 function clearAll() {
   if (!confirm('确认清空所有填写内容？')) return;
-  document.querySelectorAll('.q-answer').forEach(function(a) { a.value = ''; });
+  document.querySelectorAll('.q-answer').forEach(function(a) {
+    a.value = '';
+    localStorage.removeItem(LKEY + '-' + a.getAttribute('data-qid'));
+  });
   document.querySelectorAll('.q-sr input').forEach(function(r) { r.checked = false; });
   updateProgress();
 }
+
 function toggleSD(e) {
   e.stopPropagation();
   var p = document.getElementById('sdPanel');
@@ -480,7 +577,6 @@ document.addEventListener('click', function() {
   var p = document.getElementById('sdPanel');
   if (p) p.style.display = 'none';
 });
-updateProgress();
 </script>
 </body>
 </html>
