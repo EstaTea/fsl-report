@@ -509,18 +509,28 @@ function collectAnswers() {
 }
 
 async function saveToGitHub() {
+  var token = localStorage.getItem('gh_token_fsl');
+  if (!token) {
+    showBanner('❌ 请先登录（右上角）后再保存', 'err-b');
+    return;
+  }
   var data = collectAnswers();
   var btns = document.querySelectorAll('.gh-save-btn');
   btns.forEach(function(b) { b.classList.add('saving'); b.textContent = '保存中…'; });
   try {
-    var r = await fetch('https://fsl-survey-proxy.283656314.workers.dev/save', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ slug: 'audit', data: data })
-    });
-    var result = await r.json();
-    if (r.ok && result.ok) { showBanner('✅ 已保存到云端', ''); }
-    else { throw new Error(result.error || ('HTTP ' + r.status)); }
+    var filePath = 'kanban/survey-audit-data.json';
+    var apiUrl = 'https://api.github.com/repos/EstaTea/fsl-report/contents/' + filePath;
+    var headers = { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json' };
+    // 先取 sha（文件已存在时更新需要）
+    var sha = null;
+    var getR = await fetch(apiUrl, { headers: headers });
+    if (getR.ok) { var meta = await getR.json(); sha = meta.sha; }
+    var content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+    var body = { message: 'survey: 保存审计部访谈记录 ' + data.meta.savedAt, content: content };
+    if (sha) body.sha = sha;
+    var putR = await fetch(apiUrl, { method: 'PUT', headers: headers, body: JSON.stringify(body) });
+    if (putR.ok) { showBanner('✅ 已保存到云端', ''); }
+    else { var err = await putR.json(); throw new Error(err.message || ('HTTP ' + putR.status)); }
   } catch(e) {
     showBanner('❌ 保存失败：' + e.message, 'err-b');
   } finally {
