@@ -171,9 +171,15 @@ a{color:inherit;text-decoration:none}
       依据国家标准 GB/T 36073—2025（DCMM），通过多角色协同评估，为佛山照明数据管理现状提供客观诊断，并给出针对性改进建议。<br>
       <strong>评估范围</strong>：8个能力域 · 29个能力项 · 预计完成时间 15~20 分钟
     </p>
-    <div class="name-row">
-      <div class="name-label">您的姓名（或代号）</div>
-      <input id="inp-name" class="name-input" type="text" placeholder="例：张三 / 数据部-匿名001" maxlength="30">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;text-align:left">
+      <div>
+        <div class="name-label">您的姓名（或代号）</div>
+        <input id="inp-name" class="name-input" type="text" placeholder="例：张三 / 匿名001" maxlength="30">
+      </div>
+      <div>
+        <div class="name-label">所在部门</div>
+        <input id="inp-dept" class="name-input" type="text" placeholder="例：数智化部 / 财务部" maxlength="30">
+      </div>
     </div>
     <div class="name-row">
       <div class="name-label">请选择您的角色</div>
@@ -397,6 +403,7 @@ var SUGGESTIONS = {
 // ============================================================
 var state = {
   name: '',
+  dept: '',
   role: '',
   scores: {},  // {capId: 1-5}
   notes: {}    // {capId: text}
@@ -416,12 +423,16 @@ document.getElementById('inp-name').addEventListener('input', function(){
   state.name = this.value.trim();
   checkStart();
 });
+document.getElementById('inp-dept').addEventListener('input', function(){
+  state.dept = this.value.trim();
+});
 function checkStart(){
   document.getElementById('start-btn').disabled = !(state.name && state.role);
 }
 
 function startSurvey(){
   state.name = document.getElementById('inp-name').value.trim();
+  state.dept = document.getElementById('inp-dept').value.trim();
   buildSurvey();
   showScreen('screen-survey');
 }
@@ -433,7 +444,7 @@ function buildSurvey(){
   var s = document.getElementById('s-avatar');
   s.textContent = state.name.charAt(0) || '?';
   document.getElementById('s-whoname').textContent = state.name;
-  document.getElementById('s-whorole').textContent = ROLE_NAMES[state.role] || state.role;
+  document.getElementById('s-whorole').textContent = (state.dept ? state.dept + ' · ' : '') + (ROLE_NAMES[state.role] || state.role);
 
   var navHtml = '';
   DOMAINS.forEach(function(d, di){
@@ -570,7 +581,7 @@ function showResults(){
     '<div class="result-level-badge">L' + level + '</div>'
     + '<div class="result-level-text">'
     + '<div class="result-level-name">' + LEVEL_NAMES[level] + '</div>'
-    + '<div class="result-level-sub">综合得分：<span class="result-score-big">' + totalAvg + ' / 5.0</span> &nbsp;|&nbsp; 评估人：' + state.name + ' (' + ROLE_NAMES[state.role] + ')<br>' + LEVEL_DESC[level] + '</div>'
+    + '<div class="result-level-sub">综合得分：<span class="result-score-big">' + totalAvg + ' / 5.0</span> &nbsp;|&nbsp; 评估人：' + state.name + (state.dept ? ' (' + state.dept + ')' : '') + ' · ' + ROLE_NAMES[state.role] + '<br>' + LEVEL_DESC[level] + '</div>'
     + '</div>';
 
   // Domain scores list
@@ -682,6 +693,7 @@ async function saveToGitHub(){
     // 合并提交（同名+角色替换，否则追加）
     var newEntry = {
       name: state.name,
+      dept: state.dept,
       role: state.role,
       roleName: ROLE_NAMES[state.role],
       savedAt: new Date().toLocaleString('zh-CN'),
@@ -730,12 +742,12 @@ function renderAllSubmissions(subs){
     });
   });
 
-  var html = '<table class="sub-table"><thead><tr><th>姓名</th><th>角色</th><th>提交时间</th>';
+  var html = '<table class="sub-table"><thead><tr><th>姓名</th><th>部门</th><th>角色</th><th>提交时间</th>';
   DOMAINS.forEach(function(d){ html += '<th>'+d.name+'</th>'; });
   html += '<th>综合</th></tr></thead><tbody>';
 
   subs.forEach(function(s){
-    html += '<tr><td>'+s.name+'</td><td>'+s.roleName+'</td><td>'+s.savedAt+'</td>';
+    html += '<tr><td>'+s.name+'</td><td>'+(s.dept||'-')+'</td><td>'+s.roleName+'</td><td>'+s.savedAt+'</td>';
     DOMAINS.forEach(function(d){
       var dscores = d.items.map(function(i){ return s.scores[i.id]; }).filter(Boolean);
       var avg = dscores.length ? (dscores.reduce(function(a,b){return a+b},0)/dscores.length).toFixed(1) : '-';
