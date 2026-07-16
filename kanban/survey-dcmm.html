@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DCMM数据管理成熟度评估 | 佛照SAP升级项目</title>
+<link rel="icon" type="image/x-icon" href="/fsl-report/favicon.ico">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --b900:#0B2D47;--b700:#1A4F73;--b500:#2374A3;--b300:#5EA4CE;--b100:#C7E2F2;--b050:#EBF5FB;
+  --bg:#F2F7FB;--text:#0F2233;--muted:#5B7A91;--rule:#D6E8F2;
+  --star-on:#F59E0B;--star-off:#D1D5DB;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:13px;line-height:1.6;min-height:100vh}
+a{color:inherit;text-decoration:none}
+/* Header */
+.proj-header{background:linear-gradient(135deg,var(--b900),var(--b700));border-bottom:3px solid var(--b500);padding:0 32px;color:#fff}
+.proj-title-row{display:flex;align-items:center;gap:10px;padding:11px 0 0}
+.proj-name{font-size:16px;font-weight:800;color:#fff;letter-spacing:-.2px}
+.proj-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);padding:2px 10px;border-radius:10px;font-size:11px;color:rgba(255,255,255,.8);margin-left:8px}
+.mod-tabs{display:flex;gap:0;overflow-x:auto;margin-top:0}
+.mod-tab{padding:9px 14px;font-size:12.5px;color:rgba(255,255,255,.55);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:5px;transition:color .15s;text-decoration:none}
+.mod-tab:hover{color:var(--b500)}
+.mod-tab.active{color:var(--b500);border-bottom-color:var(--b500);font-weight:700}
+/* Screen layout */
+.screen{display:none}
+.screen.active{display:block}
+/* Welcome / Role screen */
+.welcome-wrap{max-width:760px;margin:0 auto;padding:40px 24px}
+.welcome-card{background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(11,45,71,.1);padding:36px 40px;text-align:center}
+.welcome-icon{font-size:48px;margin-bottom:16px}
+.welcome-title{font-size:22px;font-weight:800;color:var(--b900);margin-bottom:8px}
+.welcome-desc{font-size:13px;color:var(--muted);line-height:1.8;max-width:540px;margin:0 auto 28px}
+.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px;text-align:left}
+.role-card{border:2px solid var(--rule);border-radius:8px;padding:14px 16px;cursor:pointer;transition:all .15s;background:#fff}
+.role-card:hover{border-color:var(--b300);background:var(--b050)}
+.role-card.selected{border-color:var(--b500);background:var(--b050);box-shadow:0 0 0 3px rgba(35,116,163,.12)}
+.role-emoji{font-size:20px;margin-bottom:6px}
+.role-name{font-size:13px;font-weight:700;color:var(--b900)}
+.role-desc{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.5}
+.name-row{margin-bottom:20px;text-align:left}
+.name-label{font-size:12px;font-weight:700;color:var(--b700);margin-bottom:6px}
+.name-input{width:100%;border:1px solid var(--rule);border-radius:6px;padding:8px 12px;font-size:13px;font-family:inherit;color:var(--text);background:#fafdff;transition:border-color .15s}
+.name-input:focus{outline:none;border-color:var(--b300)}
+.start-btn{background:var(--b500);color:#fff;border:none;padding:11px 36px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s}
+.start-btn:hover{background:var(--b700)}
+.start-btn:disabled{opacity:.5;cursor:not-allowed}
+/* Survey screen */
+.survey-layout{display:flex;min-height:calc(100vh - 80px)}
+.sidebar{width:220px;flex-shrink:0;background:#fff;border-right:1px solid var(--rule);padding:20px 0;position:sticky;top:0;height:calc(100vh - 80px);overflow-y:auto}
+.sidebar-title{padding:0 16px 12px;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--rule);margin-bottom:8px}
+.nav-domain{padding:6px 16px;cursor:pointer;border-left:3px solid transparent;font-size:12px;color:var(--muted);transition:all .12s;line-height:1.4}
+.nav-domain:hover{background:var(--b050);color:var(--b700)}
+.nav-domain.active{border-left-color:var(--b500);background:var(--b050);color:var(--b700);font-weight:700}
+.nav-domain .nav-score{float:right;font-size:10.5px;font-weight:700;color:var(--b500)}
+.survey-main{flex:1;padding:24px 32px;max-width:900px}
+/* Survey toolbar */
+.s-toolbar{background:#fff;border:1px solid var(--rule);border-radius:8px;padding:11px 18px;margin-bottom:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;box-shadow:0 1px 4px rgba(11,45,71,.05)}
+.s-whobox{display:flex;align-items:center;gap:8px}
+.s-avatar{width:30px;height:30px;border-radius:50%;background:var(--b700);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0}
+.s-whoname{font-size:12.5px;font-weight:700;color:var(--b900)}
+.s-whorole{font-size:11px;color:var(--muted)}
+.s-progress-wrap{margin-left:auto;display:flex;align-items:center;gap:10px}
+.s-pbar-bg{background:var(--rule);border-radius:4px;height:7px;width:120px}
+.s-pbar{background:var(--b500);border-radius:4px;height:7px;transition:width .3s}
+.s-pct{font-size:11px;color:var(--muted)}
+.gh-save-btn{background:var(--b700);color:#fff;border:none;padding:6px 16px;border-radius:6px;font-size:11.5px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s;display:inline-flex;align-items:center;gap:5px}
+.gh-save-btn:hover{background:var(--b900)}
+.gh-save-btn.saving{opacity:.65;pointer-events:none}
+.result-btn{background:var(--b500);color:#fff;border:none;padding:6px 16px;border-radius:6px;font-size:11.5px;font-weight:700;cursor:pointer;font-family:inherit;display:none}
+.result-btn:hover{background:var(--b700)}
+/* Domain section */
+.domain-section{margin-bottom:28px;scroll-margin-top:20px}
+.domain-header{background:linear-gradient(90deg,var(--b900),var(--b700));color:#fff;padding:11px 18px;border-radius:8px 8px 0 0;display:flex;align-items:center;gap:10px}
+.domain-num{background:rgba(255,255,255,.18);width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0}
+.domain-title{font-size:14px;font-weight:800}
+.domain-desc{font-size:11px;color:rgba(255,255,255,.7);margin-left:auto;max-width:360px;text-align:right}
+/* Capability item */
+.cap-item{background:#fff;border:1px solid var(--rule);border-top:none;padding:14px 18px;transition:background .1s}
+.cap-item:last-child{border-radius:0 0 8px 8px}
+.cap-item:hover{background:var(--b050)}
+.cap-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px}
+.cap-id{background:var(--b700);color:#fff;border-radius:4px;padding:2px 9px;font-size:10.5px;font-weight:700;flex-shrink:0;margin-top:1px}
+.cap-name{font-size:12.5px;font-weight:700;color:var(--b900);flex:1}
+.cap-body{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.cap-levels{flex:1;min-width:280px}
+.cap-level-desc{font-size:11px;color:var(--muted);margin-bottom:8px;line-height:1.6;background:var(--b050);border-left:3px solid var(--b100);padding:6px 10px;border-radius:0 4px 4px 0}
+.cap-right{width:260px;flex-shrink:0}
+/* Star rating */
+.star-row{display:flex;align-items:center;gap:6px;margin-bottom:10px}
+.star-label{font-size:11px;color:var(--muted);font-weight:700;white-space:nowrap}
+.stars{display:flex;gap:3px}
+.star{font-size:22px;cursor:pointer;color:var(--star-off);transition:color .1s;line-height:1;user-select:none}
+.star:hover,.star.on{color:var(--star-on)}
+.score-text{font-size:11px;color:var(--b500);font-weight:700;min-width:100px}
+/* Score level badge */
+.level-badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:10.5px;font-weight:700;margin-left:6px}
+.lv1{background:#FEE2E2;color:#B91C1C}
+.lv2{background:#FEF3C7;color:#92400E}
+.lv3{background:#D1FAE5;color:#065F46}
+.lv4{background:#DBEAFE;color:#1E40AF}
+.lv5{background:#EDE9FE;color:#5B21B6}
+/* Text area */
+.cap-note{width:100%;min-height:52px;border:1px solid var(--rule);border-radius:5px;padding:6px 9px;font-size:11.5px;color:var(--text);font-family:inherit;resize:vertical;background:#fafdff}
+.cap-note:focus{outline:none;border-color:var(--b300)}
+.cap-note-label{font-size:10.5px;color:var(--muted);margin-bottom:4px}
+/* Results screen */
+.result-wrap{max-width:960px;margin:0 auto;padding:28px 24px}
+.result-hero{background:linear-gradient(135deg,var(--b900),var(--b700));color:#fff;border-radius:12px;padding:28px 32px;margin-bottom:24px;display:flex;align-items:center;gap:24px}
+.result-level-badge{font-size:56px;font-weight:900;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.3);flex-shrink:0}
+.result-level-text{flex:1}
+.result-level-name{font-size:22px;font-weight:800;margin-bottom:6px}
+.result-level-sub{font-size:13px;color:rgba(255,255,255,.75);line-height:1.7}
+.result-score-big{font-size:20px;font-weight:800;color:#FB8C00}
+.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
+.result-chart-card{background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(11,45,71,.08);padding:22px}
+.result-card-title{font-size:13px;font-weight:800;color:var(--b900);margin-bottom:16px;display:flex;align-items:center;gap:6px}
+.radar-wrap{position:relative;height:280px}
+.domain-scores-list{list-style:none}
+.domain-score-item{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--rule)}
+.domain-score-item:last-child{border:none}
+.ds-name{flex:1;font-size:12px;color:var(--text)}
+.ds-bar-bg{width:120px;background:var(--rule);border-radius:4px;height:7px}
+.ds-bar{background:var(--b500);border-radius:4px;height:7px;transition:width .5s}
+.ds-score{font-size:12px;font-weight:700;color:var(--b500);width:36px;text-align:right}
+.suggestions-card{background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(11,45,71,.08);padding:22px;margin-bottom:24px}
+.sug-domain{margin-bottom:18px}
+.sug-domain-title{font-size:12.5px;font-weight:800;color:var(--b700);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.sug-items{list-style:none}
+.sug-items li{font-size:12px;color:var(--text);line-height:1.7;padding:4px 0 4px 20px;position:relative;border-bottom:1px dashed var(--rule)}
+.sug-items li:last-child{border:none}
+.sug-items li::before{content:"→";position:absolute;left:0;color:var(--b500);font-weight:700}
+.all-submissions{background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(11,45,71,.08);padding:22px;margin-bottom:24px}
+.sub-table{width:100%;border-collapse:collapse;font-size:11.5px}
+.sub-table th{background:var(--b700);color:#fff;padding:8px 12px;text-align:left;font-weight:700}
+.sub-table td{padding:8px 12px;border-bottom:1px solid var(--rule);color:var(--text)}
+.sub-table tr:hover td{background:var(--b050)}
+.save-banner{display:none;position:fixed;bottom:24px;right:28px;z-index:500;background:var(--b700);color:#fff;padding:11px 22px;border-radius:8px;font-size:12.5px;font-weight:700;box-shadow:0 4px 16px rgba(11,45,71,.3);animation:slideUp .3s ease}
+.save-banner.show{display:block}
+.save-banner.err-b{background:#C62828}
+@keyframes slideUp{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
+.btn-back{background:#fff;color:var(--b500);border:1px solid var(--b300);padding:7px 18px;border-radius:7px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-back:hover{background:var(--b050)}
+@media(max-width:680px){.role-grid{grid-template-columns:1fr}.survey-layout{flex-direction:column}.sidebar{width:100%;height:auto;position:relative}.result-grid{grid-template-columns:1fr}.result-hero{flex-direction:column;text-align:center}}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="proj-header">
+  <div class="proj-title-row">
+    <span class="proj-name">佛照 S/4HANA 升级项目</span>
+    <span class="proj-badge">数据管理成熟度评估</span>
+  </div>
+  <nav class="mod-tabs">
+    <a class="mod-tab" href="/fsl-report/kanban/">📋 看板</a>
+    <a class="mod-tab active" href="#">📊 DCMM评估</a>
+    <a class="mod-tab" href="/fsl-report/index.html">🏠 首页</a>
+  </nav>
+</div>
+
+<!-- Screen 1: Welcome & Role -->
+<div id="screen-welcome" class="screen active">
+<div class="welcome-wrap">
+  <div class="welcome-card">
+    <div class="welcome-icon">📊</div>
+    <h1 class="welcome-title">数据管理能力成熟度评估</h1>
+    <p class="welcome-desc">
+      依据国家标准 GB/T 36073—2025（DCMM），通过多角色协同评估，为佛山照明数据管理现状提供客观诊断，并给出针对性改进建议。<br>
+      <strong>评估范围</strong>：8个能力域 · 29个能力项 · 预计完成时间 15~20 分钟
+    </p>
+    <div class="name-row">
+      <div class="name-label">您的姓名（或代号）</div>
+      <input id="inp-name" class="name-input" type="text" placeholder="例：张三 / 数据部-匿名001" maxlength="30">
+    </div>
+    <div class="name-row">
+      <div class="name-label">请选择您的角色</div>
+      <div class="role-grid" id="role-grid">
+        <div class="role-card" data-role="exec" onclick="selectRole(this)">
+          <div class="role-emoji">👔</div>
+          <div class="role-name">高管 / 决策层</div>
+          <div class="role-desc">总经理、副总经理、CIO、数智化负责人</div>
+        </div>
+        <div class="role-card" data-role="data" onclick="selectRole(this)">
+          <div class="role-emoji">🗄️</div>
+          <div class="role-name">数据 / IT 团队</div>
+          <div class="role-desc">数智化部、数据治理、SAP顾问、Basis</div>
+        </div>
+        <div class="role-card" data-role="biz" onclick="selectRole(this)">
+          <div class="role-emoji">🏭</div>
+          <div class="role-name">业务部门</div>
+          <div class="role-desc">财务、供应链、生产、销售等业务骨干</div>
+        </div>
+        <div class="role-card" data-role="audit" onclick="selectRole(this)">
+          <div class="role-emoji">🔍</div>
+          <div class="role-name">审计 / 风控 / 合规</div>
+          <div class="role-desc">内审、合规、风险管理相关人员</div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:11px;color:var(--muted);margin-bottom:20px">* 每道题请根据佛照当前实际情况打分（1分=初始级，5分=优化级），并可补充文字说明。所有提交将汇总分析，结果仅供项目内部使用。</p>
+    <button class="start-btn" id="start-btn" onclick="startSurvey()" disabled>开始评估 →</button>
+  </div>
+</div>
+</div>
+
+<!-- Screen 2: Survey -->
+<div id="screen-survey" class="screen">
+<div class="survey-layout">
+  <aside class="sidebar">
+    <div class="sidebar-title">评估进度</div>
+    <div id="nav-domains"></div>
+  </aside>
+  <div class="survey-main">
+    <div class="s-toolbar">
+      <div class="s-whobox">
+        <div class="s-avatar" id="s-avatar">?</div>
+        <div>
+          <div class="s-whoname" id="s-whoname">-</div>
+          <div class="s-whorole" id="s-whorole">-</div>
+        </div>
+      </div>
+      <div class="s-progress-wrap">
+        <div class="s-pbar-bg"><div class="s-pbar" id="s-pbar" style="width:0%"></div></div>
+        <span class="s-pct" id="s-pct">0%</span>
+      </div>
+      <button class="gh-save-btn" id="save-btn" onclick="saveToGitHub()">💾 保存</button>
+      <button class="result-btn" id="result-btn" onclick="showResults()">📊 查看结果</button>
+    </div>
+    <div id="survey-content"></div>
+  </div>
+</div>
+</div>
+
+<!-- Screen 3: Results -->
+<div id="screen-results" class="screen">
+<div class="result-wrap">
+  <div id="result-hero-box" class="result-hero"></div>
+  <div class="result-grid">
+    <div class="result-chart-card">
+      <div class="result-card-title">📡 能力域雷达图</div>
+      <div class="radar-wrap"><canvas id="radarChart"></canvas></div>
+    </div>
+    <div class="result-chart-card">
+      <div class="result-card-title">📋 各能力域得分</div>
+      <ul class="domain-scores-list" id="domain-scores-list"></ul>
+    </div>
+  </div>
+  <div class="suggestions-card">
+    <div class="result-card-title">💡 改进建议</div>
+    <div id="suggestions-content"></div>
+  </div>
+  <div class="all-submissions" id="all-submissions-box" style="display:none">
+    <div class="result-card-title">👥 所有提交汇总</div>
+    <div id="all-submissions-content"></div>
+  </div>
+  <div style="text-align:center;padding:16px 0 8px">
+    <button class="btn-back" onclick="backToSurvey()">← 返回修改</button>
+    &nbsp;
+    <button class="gh-save-btn" onclick="saveToGitHub()">💾 保存评估结果</button>
+  </div>
+</div>
+</div>
+
+<div class="save-banner" id="save-banner"></div>
+
+<script>
+// ============================================================
+// DCMM 数据结构 (GB/T 36073-2025)
+// ============================================================
+var DOMAINS = [
+  {
+    id:'d1', num:'01', name:'数据战略', icon:'🎯',
+    desc:'战略规划、实施与评估',
+    items:[
+      {id:'1.1', name:'数据战略规划',
+       levels:['无正式数据战略','部分业务有数据相关规划','企业级数据战略已制定，与业务战略对齐','战略定期评审优化，有量化目标','数据战略驱动业务创新，持续引领行业']},
+      {id:'1.2', name:'数据战略实施',
+       levels:['无明确实施计划','有初步实施安排但缺乏系统性','实施路径清晰，有专项预算和资源','战略实施有监控机制，偏差及时纠偏','实施敏捷迭代，与外部生态协同']},
+      {id:'1.3', name:'数据战略评估',
+       levels:['未进行战略评估','偶尔回顾数据相关成果','年度评估机制，有KPI考核','多维评估体系，驱动战略调整','评估结果支撑董事会决策，对外披露']}
+    ]
+  },
+  {
+    id:'d2', num:'02', name:'数据治理', icon:'🏛️',
+    desc:'治理组织、制度与文化',
+    items:[
+      {id:'2.1', name:'数据治理组织',
+       levels:['无专职数据治理角色','有兼职数据管理人员','设立专职数据治理岗位，职责明确','跨部门数据治理委员会运作成熟','数据治理嵌入公司治理体系，C级汇报']},
+      {id:'2.2', name:'数据制度建设',
+       levels:['无正式数据管理制度','少量零散数据规范','覆盖主要领域的数据管理制度体系','制度落地执行，有检查和考核','制度持续优化，与业务变化同步更新']},
+      {id:'2.3', name:'数据文化建设',
+       levels:['数据意识薄弱，依赖经验决策','部分团队具备数据意识','数据驱动理念得到管理层认可','全员数据素养培训体系完善','以数据为核心竞争力，文化深度内化']}
+    ]
+  },
+  {
+    id:'d3', num:'03', name:'数据架构', icon:'🏗️',
+    desc:'模型、分布、集成与元数据',
+    items:[
+      {id:'3.1', name:'数据模型',
+       levels:['无统一数据模型','业务系统有局部数据模型','企业级概念/逻辑数据模型已建立','模型与系统保持一致，版本受控','模型驱动架构演进，支持数字孪生']},
+      {id:'3.2', name:'数据分布',
+       levels:['不清楚数据分布情况','了解主要系统数据位置','建立数据分布地图，覆盖主要系统','全面数据资产地图，含非结构化数据','数据分布动态感知，支持实时决策']},
+      {id:'3.3', name:'数据集成与共享',
+       levels:['系统间数据孤岛严重','点对点集成，接口混乱','统一集成平台，标准API管理','数据共享目录，按需开放','数据生态开放，内外部协同共享']},
+      {id:'3.4', name:'元数据管理',
+       levels:['无元数据管理','关键业务元数据有记录','元数据仓库建立，覆盖主要数据资产','元数据自动采集，血缘关系可追溯','元数据驱动数据治理，支持智能发现']}
+    ]
+  },
+  {
+    id:'d4', num:'04', name:'数据资产', icon:'💎',
+    desc:'权属、价值评估与资产运营',
+    items:[
+      {id:'4.1', name:'权属管理',
+       levels:['数据权责不清','关键数据有负责人','建立数据所有权体系，职责清晰','权属管理嵌入业务流程','数据权属支持外部合规和资产交易']},
+      {id:'4.2', name:'价值评估',
+       levels:['未对数据价值进行评估','感知数据有价值但无量化','关键数据资产有价值评估方法','定期开展数据资产价值评估','数据资产价值纳入财务报告']},
+      {id:'4.3', name:'资产运营',
+       levels:['数据未作为资产管理','个别系统有数据目录','数据资产目录覆盖主要业务域','数据资产平台支持内部共享运营','数据产品化，支持内外部变现']}
+    ]
+  },
+  {
+    id:'d5', num:'05', name:'数据标准', icon:'📏',
+    desc:'业务术语、主数据、参考数据、数据元、指标',
+    items:[
+      {id:'5.1', name:'业务术语',
+       levels:['各部门术语自定义，无统一','有局部业务词汇表','企业级业务词汇表建立并维护','术语标准与系统配置绑定','术语支持行业交换和外部对标']},
+      {id:'5.2', name:'主数据',
+       levels:['主数据重复混乱','有主数据治理意识，局部清洗','主数据管理系统（MDM）上线','主数据黄金记录统一，质量可控','主数据驱动多法人/跨企业协同']},
+      {id:'5.3', name:'参考数据',
+       levels:['参考数据无统一管理','关键代码表有版本记录','参考数据统一管理，变更受控','参考数据与业务系统自动同步','参考数据支持跨机构对接标准']},
+      {id:'5.4', name:'数据元',
+       levels:['无数据元规范','关键字段有定义文档','数据元标准覆盖主要数据域','数据元标准与物理模型映射一致','数据元符合国家/行业标准，支持外报']},
+      {id:'5.5', name:'指标数据',
+       levels:['指标口径各系统不一致','核心指标有统一定义','指标体系覆盖主要业务域','指标平台统一发布，一致性保障','指标驱动经营决策，支持监管报送']}
+    ]
+  },
+  {
+    id:'d6', num:'06', name:'数据质量', icon:'✅',
+    desc:'需求、检查、分析与提升',
+    items:[
+      {id:'6.1', name:'数据质量需求',
+       levels:['无质量要求定义','业务部门有质量投诉','关键数据集有质量标准定义','全面质量需求管理，SLA约定','质量需求驱动系统和流程优化']},
+      {id:'6.2', name:'数据质量检查',
+       levels:['无质量检查机制','人工抽查，不系统','自动化质量规则，定期检查','实时质量监控，质量仪表板','预测性质量管理，提前预警']},
+      {id:'6.3', name:'数据质量分析',
+       levels:['质量问题不分析','事后分析，追责为主','根因分析，质量问题有归类','趋势分析，质量改进有量化目标','质量分析支持业务决策优化']},
+      {id:'6.4', name:'数据质量提升',
+       levels:['无质量提升计划','有临时修复，不可持续','质量改进项目定期开展','质量提升嵌入数据生命周期','质量文化驱动，持续卓越改进']}
+    ]
+  },
+  {
+    id:'d7', num:'07', name:'数据安全', icon:'🔐',
+    desc:'安全策略、管控与审计',
+    items:[
+      {id:'7.1', name:'数据安全策略',
+       levels:['无正式安全策略','有基础网络安全意识','数据安全分类分级策略完善','安全策略与业务风险挂钩','安全策略驱动合规和竞争优势']},
+      {id:'7.2', name:'数据安全管控',
+       levels:['访问控制薄弱','关键系统有账户管理','数据访问权限精细化管控','动态权限，最小化原则贯彻','零信任架构，自动化安全响应']},
+      {id:'7.3', name:'数据安全审计',
+       levels:['无安全审计','事后调查日志','定期安全审计机制','持续安全监控，异常实时告警','AI辅助安全态势感知']}
+    ]
+  },
+  {
+    id:'d8', num:'08', name:'数据应用', icon:'🚀',
+    desc:'数据分析、开放共享与数字化创新',
+    items:[
+      {id:'8.1', name:'数据分析与应用',
+       levels:['基本报表，手工导出','BI工具使用，但数据孤岛','自助分析平台，数据中台支撑','预测分析和AI应用场景落地','数据驱动业务模式创新']},
+      {id:'8.2', name:'数据开放与共享',
+       levels:['数据不开放，部门壁垒','内部申请共享，流程繁琐','内部数据共享平台，按需获取','数据API开放，内外部生态接入','数据市场，支持价值变现']},
+      {id:'8.3', name:'数字化创新',
+       levels:['未将数据用于创新','个别AI/数据项目探索','数据创新孵化机制建立','数字化创新规模化复制','数据驱动商业模式重构']}
+    ]
+  }
+];
+
+var ROLE_NAMES = {exec:'高管/决策层', data:'数据/IT团队', biz:'业务部门', audit:'审计/风控'};
+var LEVEL_NAMES = ['','初始级','受管理级','稳健级','量化管理级','优化级'];
+var LEVEL_DESC = ['','数据管理尚未规范化，依赖个人能力','数据管理已在部门层面受到关注，有初步规范','数据管理制度化，跨部门协调有效','基于量化指标管理数据，可预测可控','数据管理持续优化，驱动业务价值最大化'];
+
+var SUGGESTIONS = {
+  d1:['制定或更新企业级数据战略，明确3年目标','将数据战略纳入年度业务规划','建立数据战略执行仪表板','推动数据战略向董事会汇报机制'],
+  d2:['成立数据治理委员会，任命CDO或数据负责人','完善数据管理制度体系，涵盖全生命周期','开展全员数据素养培训','建立数据文化激励机制'],
+  d3:['建立企业级统一数据模型','绘制全域数据分布地图','推进SAP CPI统一集成架构','部署元数据管理工具（如SAP Information Steward）'],
+  d4:['明确数据所有权，建立数据资产台账','开展关键数据资产价值评估','建设内部数据资产目录','探索数据产品化和价值变现路径'],
+  d5:['启动企业业务词汇表项目','推进SAP MDG主数据治理实施','统一参考数据管理和变更流程','建立覆盖FICO/SD/MM的指标体系'],
+  d6:['定义关键数据域质量标准和SLA','部署SAP数据质量监控工具','建立质量问题根因分析机制','将数据质量KPI纳入部门考核'],
+  d7:['完成数据资产分类分级','推进数据访问精细化权限管控','建立数据安全审计机制','制定数据泄露应急响应预案'],
+  d8:['推进SAC自助分析平台落地','建立内部数据共享申请流程','探索AI/ML在供应链优化中的应用','规划数据中台架构支撑业务创新']
+};
+
+// ============================================================
+// State
+// ============================================================
+var state = {
+  name: '',
+  role: '',
+  scores: {},  // {capId: 1-5}
+  notes: {}    // {capId: text}
+};
+var radarChart = null;
+
+// ============================================================
+// Welcome screen
+// ============================================================
+function selectRole(el){
+  document.querySelectorAll('.role-card').forEach(function(c){c.classList.remove('selected')});
+  el.classList.add('selected');
+  state.role = el.getAttribute('data-role');
+  checkStart();
+}
+document.getElementById('inp-name').addEventListener('input', function(){
+  state.name = this.value.trim();
+  checkStart();
+});
+function checkStart(){
+  document.getElementById('start-btn').disabled = !(state.name && state.role);
+}
+
+function startSurvey(){
+  state.name = document.getElementById('inp-name').value.trim();
+  buildSurvey();
+  showScreen('screen-survey');
+}
+
+// ============================================================
+// Build survey UI
+// ============================================================
+function buildSurvey(){
+  var s = document.getElementById('s-avatar');
+  s.textContent = state.name.charAt(0) || '?';
+  document.getElementById('s-whoname').textContent = state.name;
+  document.getElementById('s-whorole').textContent = ROLE_NAMES[state.role] || state.role;
+
+  var navHtml = '';
+  DOMAINS.forEach(function(d, di){
+    navHtml += '<div class="nav-domain" id="nav-'+d.id+'" onclick="scrollToDomain(\'' + d.id + '\')">'
+      + d.icon + ' ' + d.name
+      + '<span class="nav-score" id="nav-score-'+d.id+'">-</span>'
+      + '</div>';
+  });
+  document.getElementById('nav-domains').innerHTML = navHtml;
+
+  var html = '';
+  DOMAINS.forEach(function(d){
+    html += '<div class="domain-section" id="sec-'+d.id+'">';
+    html += '<div class="domain-header">'
+      + '<div class="domain-num">' + d.num + '</div>'
+      + '<div class="domain-title">' + d.icon + ' ' + d.name + '</div>'
+      + '<div class="domain-desc">' + d.desc + '</div>'
+      + '</div>';
+    d.items.forEach(function(item){
+      html += '<div class="cap-item" id="cap-'+item.id+'">';
+      html += '<div class="cap-head"><span class="cap-id">' + item.id + '</span><span class="cap-name">' + item.name + '</span></div>';
+      html += '<div class="cap-body">';
+      html += '<div class="cap-levels">';
+      html += '<div class="cap-level-desc" id="desc-'+item.id+'">'
+        + '<span style="color:var(--b500);font-weight:700">选择适合的成熟度等级：</span><br>'
+        + item.levels.map(function(l,i){return '<span style="font-weight:700">L'+(i+1)+'</span> '+l}).join('<br>')
+        + '</div>';
+      html += '</div>';
+      html += '<div class="cap-right">';
+      html += '<div class="star-row">'
+        + '<span class="star-label">成熟度评分</span>'
+        + '<div class="stars" id="stars-'+item.id+'">';
+      for(var s=1;s<=5;s++){
+        html += '<span class="star" data-cap="'+item.id+'" data-val="'+s+'" onclick="setStar(\'' + item.id + '\',' + s + ')">★</span>';
+      }
+      html += '</div><span class="score-text" id="score-txt-'+item.id+'">未评分</span></div>';
+      html += '<div class="cap-note-label">补充说明（可选）</div>';
+      html += '<textarea class="cap-note" id="note-'+item.id+'" placeholder="请描述当前实际情况，或列举具体证据…" oninput="saveNote(\'' + item.id + '\')"></textarea>';
+      html += '</div></div></div>';
+    });
+    html += '</div>';
+  });
+  document.getElementById('survey-content').innerHTML = html;
+  updateProgress();
+  setupIntersection();
+}
+
+function setStar(capId, val){
+  state.scores[capId] = val;
+  var stars = document.querySelectorAll('#stars-'+capId+' .star');
+  stars.forEach(function(s, i){ s.classList.toggle('on', i < val); });
+  var names = ['','初始级','受管理级','稳健级','量化管理级','优化级'];
+  var colors = ['','#B91C1C','#92400E','#065F46','#1E40AF','#5B21B6'];
+  document.getElementById('score-txt-'+capId).innerHTML =
+    '<span style="font-weight:800;color:'+colors[val]+'">L'+val+' '+names[val]+'</span>';
+  updateProgress();
+  updateNavScore(capId);
+}
+
+function saveNote(capId){
+  state.notes[capId] = document.getElementById('note-'+capId).value;
+}
+
+function updateNavScore(capId){
+  var domainId = 'd' + capId.split('.')[0];
+  var d = DOMAINS.find(function(d){ return d.id === domainId; });
+  if(!d) return;
+  var sum=0, cnt=0;
+  d.items.forEach(function(item){
+    if(state.scores[item.id]){ sum+=state.scores[item.id]; cnt++; }
+  });
+  var el = document.getElementById('nav-score-'+domainId);
+  if(el) el.textContent = cnt ? (sum/cnt).toFixed(1) : '-';
+}
+
+function updateProgress(){
+  var total=0, done=0;
+  DOMAINS.forEach(function(d){
+    d.items.forEach(function(item){
+      total++;
+      if(state.scores[item.id]) done++;
+    });
+  });
+  var pct = total ? Math.round(done/total*100) : 0;
+  document.getElementById('s-pbar').style.width = pct+'%';
+  document.getElementById('s-pct').textContent = pct+'%';
+  var rb = document.getElementById('result-btn');
+  if(pct >= 80){ rb.style.display='inline-flex'; rb.textContent='📊 查看结果 ('+done+'/'+total+')'; }
+}
+
+function scrollToDomain(did){
+  var el = document.getElementById('sec-'+did);
+  if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function setupIntersection(){
+  if(!window.IntersectionObserver) return;
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        var id = e.target.id.replace('sec-','');
+        document.querySelectorAll('.nav-domain').forEach(function(n){ n.classList.remove('active'); });
+        var nav = document.getElementById('nav-'+id);
+        if(nav) nav.classList.add('active');
+      }
+    });
+  },{threshold:0.15});
+  DOMAINS.forEach(function(d){
+    var el = document.getElementById('sec-'+d.id);
+    if(el) obs.observe(el);
+  });
+}
+
+// ============================================================
+// Results
+// ============================================================
+function showResults(){
+  var domainScores = {};
+  DOMAINS.forEach(function(d){
+    var sum=0, cnt=0;
+    d.items.forEach(function(item){
+      if(state.scores[item.id]){ sum+=state.scores[item.id]; cnt++; }
+    });
+    domainScores[d.id] = cnt ? parseFloat((sum/cnt).toFixed(2)) : 0;
+  });
+
+  var allScores = Object.values(domainScores);
+  var totalAvg = allScores.length ? parseFloat((allScores.reduce(function(a,b){return a+b},0)/allScores.length).toFixed(2)) : 0;
+  var level = Math.max(1, Math.min(5, Math.round(totalAvg)));
+
+  // Hero
+  var levelColors = ['','#FEE2E2','#FEF3C7','#D1FAE5','#DBEAFE','#EDE9FE'];
+  document.getElementById('result-hero-box').innerHTML =
+    '<div class="result-level-badge">L' + level + '</div>'
+    + '<div class="result-level-text">'
+    + '<div class="result-level-name">' + LEVEL_NAMES[level] + '</div>'
+    + '<div class="result-level-sub">综合得分：<span class="result-score-big">' + totalAvg + ' / 5.0</span> &nbsp;|&nbsp; 评估人：' + state.name + ' (' + ROLE_NAMES[state.role] + ')<br>' + LEVEL_DESC[level] + '</div>'
+    + '</div>';
+
+  // Domain scores list
+  var listHtml = '';
+  DOMAINS.forEach(function(d){
+    var sc = domainScores[d.id];
+    listHtml += '<li class="domain-score-item">'
+      + '<span class="ds-name">' + d.icon + ' ' + d.name + '</span>'
+      + '<div class="ds-bar-bg"><div class="ds-bar" style="width:'+Math.round(sc/5*100)+'%"></div></div>'
+      + '<span class="ds-score">' + (sc||'-') + '</span></li>';
+  });
+  document.getElementById('domain-scores-list').innerHTML = listHtml;
+
+  // Radar chart
+  if(radarChart){ radarChart.destroy(); }
+  var ctx = document.getElementById('radarChart').getContext('2d');
+  radarChart = new Chart(ctx, {
+    type:'radar',
+    data:{
+      labels: DOMAINS.map(function(d){ return d.name; }),
+      datasets:[{
+        label:'成熟度评分',
+        data: DOMAINS.map(function(d){ return domainScores[d.id] || 0; }),
+        backgroundColor:'rgba(35,116,163,0.18)',
+        borderColor:'rgba(35,116,163,0.85)',
+        borderWidth:2,
+        pointBackgroundColor:'#2374A3',
+        pointRadius:4
+      }]
+    },
+    options:{
+      responsive:true,
+      maintainAspectRatio:false,
+      scales:{r:{min:0,max:5,ticks:{stepSize:1,font:{size:10}},pointLabels:{font:{size:11}}}},
+      plugins:{legend:{display:false}}
+    }
+  });
+
+  // Suggestions
+  var sugHtml = '';
+  var sorted = DOMAINS.slice().sort(function(a,b){ return (domainScores[a.id]||0)-(domainScores[b.id]||0); });
+  sorted.forEach(function(d){
+    var sc = domainScores[d.id];
+    if(sc < 3){
+      sugHtml += '<div class="sug-domain">'
+        + '<div class="sug-domain-title">' + d.icon + ' ' + d.name
+        + ' <span class="level-badge lv'+Math.max(1,Math.round(sc||1))+'">L'+(Math.max(1,Math.round(sc||1)))+' '+LEVEL_NAMES[Math.max(1,Math.round(sc||1))]+'</span></div>'
+        + '<ul class="sug-items">';
+      (SUGGESTIONS[d.id]||[]).forEach(function(s){ sugHtml += '<li>'+s+'</li>'; });
+      sugHtml += '</ul></div>';
+    }
+  });
+  if(!sugHtml){
+    sugHtml = '<p style="color:var(--muted);font-size:12px;padding:8px 0">各能力域评分良好，建议持续保持并向量化管理级/优化级进阶。</p>';
+  }
+  document.getElementById('suggestions-content').innerHTML = sugHtml;
+
+  loadAllSubmissions();
+  showScreen('screen-results');
+}
+
+function backToSurvey(){
+  showScreen('screen-survey');
+}
+
+// ============================================================
+// GitHub save & load (direct API)
+// ============================================================
+var GH_REPO = 'EstaTea/fsl-report';
+var GH_FILE = 'kanban/survey-dcmm-data.json';
+var GH_API = 'https://api.github.com/repos/' + GH_REPO + '/contents/' + GH_FILE;
+
+function getToken(){
+  return localStorage.getItem('gh_token_fsl');
+}
+
+function collectData(){
+  return {
+    submissions: [{
+      name: state.name,
+      role: state.role,
+      roleName: ROLE_NAMES[state.role],
+      savedAt: new Date().toLocaleString('zh-CN'),
+      scores: JSON.parse(JSON.stringify(state.scores)),
+      notes: JSON.parse(JSON.stringify(state.notes))
+    }]
+  };
+}
+
+async function saveToGitHub(){
+  var token = getToken();
+  if(!token){ showBanner('❌ 未登录，请先到登录页获取Token后再保存','err-b'); return; }
+
+  var btns = document.querySelectorAll('.gh-save-btn');
+  btns.forEach(function(b){ b.classList.add('saving'); b.textContent='保存中…'; });
+
+  try{
+    // 先读取已有内容
+    var headers = {'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json','Content-Type':'application/json'};
+    var getR = await fetch(GH_API, {headers:headers});
+    var existing = {submissions:[]};
+    var sha = null;
+    if(getR.ok){
+      var gdata = await getR.json();
+      sha = gdata.sha;
+      try{ existing = JSON.parse(atob(gdata.content.replace(/\n/g,''))); }catch(e){}
+    }
+
+    // 合并提交（同名+角色替换，否则追加）
+    var newEntry = {
+      name: state.name,
+      role: state.role,
+      roleName: ROLE_NAMES[state.role],
+      savedAt: new Date().toLocaleString('zh-CN'),
+      scores: JSON.parse(JSON.stringify(state.scores)),
+      notes: JSON.parse(JSON.stringify(state.notes))
+    };
+    var subs = existing.submissions || [];
+    var idx = subs.findIndex(function(s){ return s.name===state.name && s.role===state.role; });
+    if(idx >= 0) subs[idx] = newEntry; else subs.push(newEntry);
+    existing.submissions = subs;
+
+    var content = btoa(unescape(encodeURIComponent(JSON.stringify(existing, null, 2))));
+    var body = {message:'dcmm: 提交评估 '+state.name, content:content};
+    if(sha) body.sha = sha;
+    var putR = await fetch(GH_API, {method:'PUT', headers:headers, body:JSON.stringify(body)});
+    if(putR.ok) showBanner('✅ 评估结果已保存（'+state.name+'）','');
+    else{ var err=await putR.json(); throw new Error(err.message); }
+  }catch(e){
+    showBanner('❌ 保存失败：'+e.message,'err-b');
+  }finally{
+    btns.forEach(function(b){ b.classList.remove('saving'); b.textContent='💾 保存'; });
+  }
+}
+
+async function loadAllSubmissions(){
+  var headers = {'Accept':'application/vnd.github+json'};
+  var token = getToken();
+  if(token) headers['Authorization'] = 'Bearer '+token;
+  try{
+    var r = await fetch(GH_API+'?_='+Date.now(), {headers:headers});
+    if(!r.ok) return;
+    var data = await r.json();
+    var existing = JSON.parse(atob(data.content.replace(/\n/g,'')));
+    var subs = existing.submissions || [];
+    if(subs.length < 1) return;
+    renderAllSubmissions(subs);
+  }catch(e){}
+}
+
+function renderAllSubmissions(subs){
+  var avgScores = {};
+  DOMAINS.forEach(function(d){
+    d.items.forEach(function(item){
+      var vals = subs.map(function(s){ return s.scores[item.id]; }).filter(Boolean);
+      avgScores[item.id] = vals.length ? parseFloat((vals.reduce(function(a,b){return a+b},0)/vals.length).toFixed(1)) : null;
+    });
+  });
+
+  var html = '<table class="sub-table"><thead><tr><th>姓名</th><th>角色</th><th>提交时间</th>';
+  DOMAINS.forEach(function(d){ html += '<th>'+d.name+'</th>'; });
+  html += '<th>综合</th></tr></thead><tbody>';
+
+  subs.forEach(function(s){
+    html += '<tr><td>'+s.name+'</td><td>'+s.roleName+'</td><td>'+s.savedAt+'</td>';
+    DOMAINS.forEach(function(d){
+      var dscores = d.items.map(function(i){ return s.scores[i.id]; }).filter(Boolean);
+      var avg = dscores.length ? (dscores.reduce(function(a,b){return a+b},0)/dscores.length).toFixed(1) : '-';
+      html += '<td>'+avg+'</td>';
+    });
+    var all = Object.values(s.scores).filter(Boolean);
+    var total = all.length ? (all.reduce(function(a,b){return a+b},0)/all.length).toFixed(2) : '-';
+    html += '<td style="font-weight:800;color:var(--b500)">'+total+'</td></tr>';
+  });
+
+  // 平均行
+  html += '<tr style="background:var(--b050)"><td colspan="3" style="font-weight:700;color:var(--b700)">📊 各维度平均</td>';
+  DOMAINS.forEach(function(d){
+    var dItems = d.items.map(function(i){ return avgScores[i.id]; }).filter(function(v){ return v!==null; });
+    var avg = dItems.length ? (dItems.reduce(function(a,b){return a+b},0)/dItems.length).toFixed(1) : '-';
+    html += '<td style="font-weight:800;color:var(--b700)">'+avg+'</td>';
+  });
+  html += '<td></td></tr>';
+  html += '</tbody></table>';
+
+  document.getElementById('all-submissions-content').innerHTML = html;
+  document.getElementById('all-submissions-box').style.display = 'block';
+}
+
+// ============================================================
+// Utils
+// ============================================================
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+var bannerTimer = null;
+function showBanner(msg, cls){
+  var b = document.getElementById('save-banner');
+  b.textContent = msg;
+  b.className = 'save-banner show' + (cls ? ' '+cls : '');
+  if(bannerTimer) clearTimeout(bannerTimer);
+  bannerTimer = setTimeout(function(){ b.classList.remove('show'); }, 3500);
+}
+</script>
+</body>
+</html>
