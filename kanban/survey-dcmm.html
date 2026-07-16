@@ -145,6 +145,17 @@ a{color:inherit;text-decoration:none}
 .btn-back{background:#fff;color:var(--b500);border:1px solid var(--b300);padding:7px 18px;border-radius:7px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit}
 .btn-back:hover{background:var(--b050)}
 @media(max-width:680px){.role-grid{grid-template-columns:1fr}.survey-layout{flex-direction:column}.sidebar{width:100%;height:auto;position:relative}.result-grid{grid-template-columns:1fr}.result-hero{flex-direction:column;text-align:center}}
+
+/* Tooltip */
+.tip-wrap{position:relative;display:inline-flex;align-items:center;margin-left:6px;vertical-align:middle}
+.tip-icon{width:16px;height:16px;border-radius:50%;background:var(--b300);color:#fff;font-size:10px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;cursor:default;flex-shrink:0;line-height:1;user-select:none}
+.tip-icon:hover{background:var(--b500)}
+.tip-box{display:none;position:absolute;left:22px;top:50%;transform:translateY(-50%);z-index:300;background:#0B2D47;color:#fff;border-radius:8px;padding:12px 14px;width:300px;box-shadow:0 6px 24px rgba(11,45,71,.3);font-size:11.5px;line-height:1.65;pointer-events:none}
+.tip-box::before{content:"";position:absolute;left:-6px;top:50%;transform:translateY(-50%);border:6px solid transparent;border-right-color:#0B2D47;border-left:none}
+.tip-wrap:hover .tip-box{display:block}
+.tip-title{font-weight:800;color:#89D1FF;margin-bottom:5px;font-size:12px}
+.tip-section{margin-top:6px;font-size:10.5px;color:rgba(255,255,255,.7)}
+.tip-section strong{color:#C7E2F2}
 </style>
 </head>
 <body>
@@ -398,6 +409,97 @@ var SUGGESTIONS = {
   d8:['推进SAC自助分析平台落地','建立内部数据共享申请流程','探索AI/ML在供应链优化中的应用','规划数据中台架构支撑业务创新']
 };
 
+
+// ============================================================
+// Tooltip 评估指引 (每个能力项的评估要点 + 典型证据)
+// ============================================================
+var HINTS = {
+  '1.1':{q:'评估要点：企业是否制定了正式的、与业务战略对齐的数据战略？',
+    evidence:'L1-2：数据工作靠个人推动，无文件。L3：有数据战略文件，高管签发。L4：战略有量化KPI，年度回顾。L5：数据战略纳入董事会议程，驱动商业模式创新。',
+    clue:'询问：是否有数据战略规划文件？是否有高管主导？'},
+  '1.2':{q:'评估要点：数据战略是否有落地路径、专项预算和资源保障？',
+    evidence:'L1-2：战略停留在PPT，无预算。L3：有实施路线图，设专项预算。L4：有执行监控机制和偏差管理。L5：实施敏捷化，与生态伙伴协同。',
+    clue:'询问：数据管理有独立预算线吗？实施进度由谁跟踪？'},
+  '1.3':{q:'评估要点：是否定期评估数据战略执行效果并反馈到战略调整？',
+    evidence:'L1-2：无评估机制。L3：年度评估，有KPI。L4：多维评估，闭环调整。L5：评估结论对外披露，支撑董事决策。',
+    clue:'询问：去年数据管理的KPI完成情况是否被评审过？'},
+  '2.1':{q:'评估要点：是否有专职数据治理岗位和跨部门协调机制？',
+    evidence:'L1-2：IT兼管，无专职。L3：有数据治理岗/数据负责人。L4：数据治理委员会定期运作。L5：CDO直接向CEO汇报，纳入公司治理体系。',
+    clue:'佛照数智化部6名内部顾问是否承担数据治理职责？是否有跨部门数据协调会？'},
+  '2.2':{q:'评估要点：数据管理制度是否覆盖主要业务域并有效落地？',
+    evidence:'L1-2：无制度或仅有零散规定。L3：有制度体系文件，覆盖主要领域。L4：制度有执行考核，有检查机制。L5：制度随业务变化持续更新。',
+    clue:'询问：是否有《数据管理办法》《主数据管理规范》等正式文件？'},
+  '2.3':{q:'评估要点：员工是否具备数据素养，决策是否依赖数据而非经验？',
+    evidence:'L1-2：经验驱动决策为主，数据意识薄弱。L3：管理层认可数据驱动。L4：有全员数据素养培训体系。L5：数据文化深入组织基因。',
+    clue:'询问：业务会议中是否常用数据支撑决策？是否有数据素养培训？'},
+  '3.1':{q:'评估要点：是否建立了企业级统一数据模型，与实际系统保持一致？',
+    evidence:'L1-2：各系统自定义，无统一模型。L3：企业概念/逻辑模型已建立。L4：模型版本受控，与系统同步。L5：模型驱动架构演进。',
+    clue:'佛照19家法人实体是否有统一的数据模型？S/4HANA Greenfield是建立统一模型的窗口期。'},
+  '3.2':{q:'评估要点：是否清楚企业数据分布在哪些系统，包括非结构化数据？',
+    evidence:'L1-2：数据在哪里、有多少说不清楚。L3：有数据分布地图，覆盖主要系统。L4：全面数据资产地图含非结化数据。L5：数据分布动态感知。',
+    clue:'询问：是否有数据资产清单？SAP/PLM/MES/OA各存了什么数据？'},
+  '3.3':{q:'评估要点：系统间数据集成是否规范，是否有统一集成平台？',
+    evidence:'L1-2：点对点集成，接口混乱，数据孤岛。L3：统一集成平台（如SAP CPI），标准API。L4：数据共享目录，按需开放。L5：数据生态开放共享。',
+    clue:'佛照已规划SAP CPI做集成，CPI上线后集成状况会显著改善。当前如何？'},
+  '3.4':{q:'评估要点：是否管理数据资产的描述信息（元数据），是否可追溯数据来源？',
+    evidence:'L1-2：无元数据管理，字段含义靠口口相传。L3：元数据仓库建立，覆盖主要数据资产。L4：元数据自动采集，血缘可追溯。L5：元数据驱动智能发现。',
+    clue:'询问：新员工如何了解各报表字段的含义？是否有数据字典？'},
+  '4.1':{q:'评估要点：关键数据是否有明确的所有者，责任是否清晰到人？',
+    evidence:'L1-2：数据出问题找不到负责人。L3：数据所有权体系建立，职责清晰。L4：权属管理嵌入业务流程。L5：数据权属支持外部合规和资产交易。',
+    clue:'询问：客户数据、物料数据出错时谁来负责？是否有数据Owner制度？'},
+  '4.2':{q:'评估要点：是否对数据资产进行过价值量化评估？',
+    evidence:'L1-2：知道数据有价值，但从未量化。L3：关键数据有价值评估方法。L4：定期开展数据资产价值评估。L5：数据资产价值纳入财务报告。',
+    clue:'询问：是否做过数据资产盘点？是否评估过CRM客户数据或产品数据的价值？'},
+  '4.3':{q:'评估要点：是否有数据资产目录，是否支持内部数据共享和运营？',
+    evidence:'L1-2：无数据目录，各部门存各自的。L3：数据资产目录覆盖主要业务域。L4：数据资产平台支持内部共享。L5：数据产品化，支持内外部变现。',
+    clue:'询问：有没有可以查询公司有哪些数据资产的入口？'},
+  '5.1':{q:'评估要点：各部门使用同一个业务词汇时含义是否一致？',
+    evidence:'L1-2：同一指标各部门口径不同，争吵不休。L3：企业级业务词汇表建立维护。L4：术语标准与系统配置绑定。L5：术语支持行业交换和外部对标。',
+    clue:'经典问题：佛照的"客户"定义在销售、财务、MDG中是否一致？'},
+  '5.2':{q:'评估要点：主数据（客户、供应商、物料等）是否统一管理，质量是否可控？',
+    evidence:'L1-2：主数据重复、混乱，多系统不一致。L3：MDM主数据管理系统上线。L4：黄金记录统一，质量可控。L5：主数据驱动多法人/跨企业协同。',
+    clue:'佛照19家法人主数据统一是核心痛点。SAP MDG在本次实施范围内，当前是什么状态？'},
+  '5.3':{q:'评估要点：参考数据（代码表、枚举值）是否统一管理，变更是否受控？',
+    evidence:'L1-2：各系统代码表自己维护，互不一致。L3：参考数据统一管理，变更受控。L4：与业务系统自动同步。L5：支持跨机构标准对接。',
+    clue:'询问：物料分类代码、币种代码、部门代码在各系统是否一致？如何维护？'},
+  '5.4':{q:'评估要点：关键数据字段是否有统一的定义标准，与系统物理模型是否一致？',
+    evidence:'L1-2：字段定义全靠个人记忆，无文档。L3：数据元标准覆盖主要数据域。L4：数据元标准与物理模型映射一致。L5：符合国家/行业标准，支持外报。',
+    clue:'询问：是否有数据字典？字段长度、格式、编码规则是否有规范文档？'},
+  '5.5':{q:'评估要点：核心业务指标（收入、利润、库存周转等）口径是否统一？',
+    evidence:'L1-2：相同指标各报表数字不一致，领导不信任数据。L3：指标体系覆盖主要业务域。L4：指标平台统一发布。L5：指标驱动经营决策，支持监管报送。',
+    clue:'经典痛点：销售收入在SAP、SmartBI、各部门Excel中是否一致？为什么不一致？'},
+  '6.1':{q:'评估要点：是否明确定义了关键数据的质量标准（完整性/准确性/及时性等）？',
+    evidence:'L1-2：没人定义数据质量要求，出错才发现。L3：关键数据集有质量标准定义。L4：全面质量需求管理，有SLA约定。L5：质量需求驱动系统和流程优化。',
+    clue:'询问：物料主数据的完整性要求是多少？财务数据的及时性SLA是多少小时？'},
+  '6.2':{q:'评估要点：是否有自动化的数据质量检查机制，是否有质量仪表板？',
+    evidence:'L1-2：靠人工偶尔检查，问题发现滞后。L3：自动化质量规则，定期检查报告。L4：实时质量监控，质量仪表板。L5：预测性质量管理，提前预警。',
+    clue:'询问：是否有数据质量检查工具？每周/每月是否有质量报告输出？'},
+  '6.3':{q:'评估要点：数据质量问题是否进行根因分析并分类追踪？',
+    evidence:'L1-2：出问题修数据，不分析原因。L3：根因分析，问题有归类。L4：趋势分析，有量化改进目标。L5：质量分析支持业务决策优化。',
+    clue:'询问：过去一年最常见的数据质量问题是什么？是否分析过根因？'},
+  '6.4':{q:'评估要点：数据质量改进是否有系统性计划并嵌入日常流程？',
+    evidence:'L1-2：临时修复，修了又错。L3：质量改进项目定期开展。L4：质量提升嵌入数据生命周期管理。L5：质量文化驱动持续改进。',
+    clue:'询问：是否有专项数据质量整改项目？整改成果是否验收？'},
+  '7.1':{q:'评估要点：是否有覆盖数据全生命周期的安全策略，包括数据分类分级？',
+    evidence:'L1-2：只有IT网络安全，无数据安全专项策略。L3：数据安全分类分级策略完善。L4：安全策略与业务风险挂钩。L5：安全策略驱动合规和竞争优势。',
+    clue:'佛照有泰国/德国法人涉及跨境数据，是否有数据出境合规策略？'},
+  '7.2':{q:'评估要点：数据访问权限是否精细化管控，是否遵循最小权限原则？',
+    evidence:'L1-2：权限粗放，离职人员账号未及时清理。L3：精细化权限管控，角色清晰。L4：动态权限，最小化原则贯彻。L5：零信任架构，自动化安全响应。',
+    clue:'询问：SAP权限方案是否在蓝图中规划？离职员工账号多久停用？'},
+  '7.3':{q:'评估要点：是否有数据安全审计机制，是否能及时发现异常访问？',
+    evidence:'L1-2：无日志审计，出事后无法追溯。L3：定期安全审计机制建立。L4：持续安全监控，异常实时告警。L5：AI辅助安全态势感知。',
+    clue:'询问：SAP系统操作日志是否定期审查？是否有异常访问告警？'},
+  '8.1':{q:'评估要点：数据分析能力是否支撑业务决策，是否有自助分析能力？',
+    evidence:'L1-2：基本报表，手工导出Excel，数据孤岛严重。L3：BI工具普及，自助分析平台上线。L4：预测分析和AI应用落地。L5：数据驱动商业模式创新。',
+    clue:'佛照当前用SmartBI/BIP，SAC在二期考虑。当前业务人员能否自助取数？'},
+  '8.2':{q:'评估要点：数据是否能在部门间便捷共享，是否有数据共享申请流程？',
+    evidence:'L1-2：各部门数据壁垒严重，跨部门取数靠关系。L3：内部数据共享平台，按需获取。L4：数据API开放，内外部生态接入。L5：数据市场，支持价值变现。',
+    clue:'询问：业务部门需要其他系统数据时，流程是什么？需要多久？'},
+  '8.3':{q:'评估要点：是否在探索或落地AI/数字化创新应用，是否有孵化机制？',
+    evidence:'L1-2：数字化创新仅停留在口号层面。L3：数据创新孵化机制建立，有专项探索。L4：数字化创新规模化复制。L5：数据驱动商业模式重构。',
+    clue:'佛照有AICG项目（2025年启动），是否有其他AI/数字化创新项目在推进？'}
+};
+
 // ============================================================
 // State
 // ============================================================
@@ -465,7 +567,9 @@ function buildSurvey(){
       + '</div>';
     d.items.forEach(function(item){
       html += '<div class="cap-item" id="cap-'+item.id+'">';
-      html += '<div class="cap-head"><span class="cap-id">' + item.id + '</span><span class="cap-name">' + item.name + '</span></div>';
+      html += '<div class="cap-head"><span class="cap-id">' + item.id + '</span><span class="cap-name">' + item.name + '</span>'
+      + (HINTS[item.id] ? '<span class="tip-wrap"><span class="tip-icon">ℹ</span><div class="tip-box"><div class="tip-title">💡 ' + HINTS[item.id].q + '</div><div class="tip-section"><strong>等级参考：</strong><br>' + HINTS[item.id].evidence + '</div><div class="tip-section" style="margin-top:8px;color:#FB8C00"><strong>🔍 访谈切入：</strong><br>' + HINTS[item.id].clue + '</div></div></span>' : '')
+      + '</div>';
       html += '<div class="cap-body">';
       html += '<div class="cap-levels">';
       html += '<div class="cap-level-desc" id="desc-'+item.id+'">'
