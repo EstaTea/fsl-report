@@ -1352,7 +1352,16 @@ function updateCapDetail() {
   const detEl = document.getElementById('cap-detail-wrap');
   if (!detEl) return;
   const isDerived = Object.keys(derivedDomainAvgs).length > 0;
-  // 计算每个子域的汇总均值（当 derivedDomainAvgs 存在时用汇总，否则用本人打分）
+  // 0-1 归一化分 → 1-5 等级（maturity-tool 专用）
+  function normToLevel(s) {
+    if (s === null || s === undefined) return null;
+    if (s >= 0.96) return 5;
+    if (s >= 0.76) return 4;
+    if (s >= 0.56) return 3;
+    if (s >= 0.36) return 2;
+    if (s > 0) return 1;
+    return 0;
+  }
   function getSubScore(domainId, sub) {
     if (isDerived && allResponses.length > 0) {
       const vals = allResponses
@@ -1371,12 +1380,12 @@ function updateCapDetail() {
   DOMAINS.forEach(d => {
     d.subs.forEach((sub, ci) => {
       const sc = getSubScore(d.id, sub);
-      const lv = scoreToLevel(sc);
+      const lv = normToLevel(sc);
       html += '<tr>';
       if (ci === 0) html += `<td rowspan="${d.subs.length}" style="font-weight:600;vertical-align:top;padding-top:10px;color:var(--ink-1)">${d.label}</td>`;
       html += `<td style="font-family:var(--f-mono);font-size:11.5px">${sub}</td>`
         + `<td style="text-align:center;font-family:var(--f-mono);font-size:12px">${sc !== null ? sc.toFixed(2) : '—'}</td>`
-        + `<td style="text-align:center"><span class="level-badge lv${lv||1}">${lv||'?'}</span></td>`
+        + `<td style="text-align:center">${lv ? `<span class="level-badge lv${lv}">${lv}</span>` : '—'}</td>`
         + '</tr>';
     });
   });
