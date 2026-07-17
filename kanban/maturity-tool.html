@@ -1111,8 +1111,9 @@ function initScores() {
 // TAB SWITCHING
 // ══════════════════════════════════════════
 function switchTab(n) {
-  [1,2].forEach(i => {
-    document.getElementById('tab'+i).classList.toggle('active', i===n);
+  [1,2,3].forEach(i => {
+    const panel = document.getElementById('tab'+i);
+    if (panel) panel.classList.toggle('active', i===n);
     const btn = document.getElementById('btn'+i);
     if (btn) { btn.classList.toggle('active', i===n); btn.setAttribute('aria-selected', i===n ? 'true' : 'false'); }
   });
@@ -1782,8 +1783,14 @@ async function loadAllResponses() {
     const loaded = [];
     for (const f of jsonFiles) {
       try {
-        const fr = await fetch(f.download_url);
-        if (fr.ok) { const d = await fr.json(); loaded.push(d); }
+        const fr = await fetch(f.url, {
+          headers: { Authorization: `Bearer ${ghConfig.token}`, Accept: 'application/vnd.github.v3+json' }
+        });
+        if (fr.ok) {
+          const fd = await fr.json();
+          const content = JSON.parse(decodeURIComponent(escape(atob(fd.content.replace(/\n/g,'')))));
+          loaded.push(content);
+        }
       } catch(e) {}
     }
     allResponses = loaded;
