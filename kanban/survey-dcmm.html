@@ -1238,7 +1238,7 @@ async function loadAllSubmissions(){
     });
     if(!r.ok) return;
     var data=await r.json();
-    var existing=JSON.parse(atob(data.content.replace(/\n/g,'')));
+    var existing=JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\n/g,'')))));
     var subs=existing.submissions||[];
     if(subs.length<1) return;
     renderAllSubs(subs);
@@ -1247,7 +1247,7 @@ async function loadAllSubmissions(){
     var r=await fetch(GH_API+'?_='+Date.now(),{headers:headers});
     if(!r.ok) return;
     var data=await r.json();
-    var existing=JSON.parse(atob(data.content.replace(/\n/g,'')));
+    var existing=JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\n/g,'')))));
     var subs=existing.submissions||[];
     if(subs.length<1) return;
     renderAllSubs(subs);
