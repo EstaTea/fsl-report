@@ -591,12 +591,10 @@ table.resp-table tr:hover td{background:var(--panel-2)}
   <div class="brand-mark">数字化成熟度评估</div>
   <button class="tab-btn active" onclick="switchTab(1)" id="btn1" aria-selected="true">📊 评估报告</button>
   <button class="tab-btn" onclick="switchTab(2)" id="btn2" aria-selected="false">🎯 管理层提案</button>
-  <button class="tab-btn" onclick="switchTab(3)" id="btn3" aria-selected="false">📥 响应汇总</button>
   <div class="spacer"></div>
   <div class="nav-actions">
     <span id="github-status">未连接 GitHub</span>
     <button class="btn-sm" onclick="openSettings()">⚙ 设置</button>
-    <button class="btn-sm" onclick="loadFromGithub()">↓ 读取</button>
   </div>
 </nav>
 
@@ -1070,6 +1068,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (cached) {
       allResponses = JSON.parse(cached);
       renderAggregation();
+      _autoDerive();
     }
   } catch(e) {}
   // 若已配置 GitHub，自动同步最新响应
@@ -1089,11 +1088,10 @@ function initScores() {
 // TAB SWITCHING
 // ══════════════════════════════════════════
 function switchTab(n) {
-  [1,2,3].forEach(i => {
+  [1,2].forEach(i => {
     document.getElementById('tab'+i).classList.toggle('active', i===n);
     const btn = document.getElementById('btn'+i);
-    btn.classList.toggle('active', i===n);
-    btn.setAttribute('aria-selected', i===n ? 'true' : 'false');
+    if (btn) { btn.classList.toggle('active', i===n); btn.setAttribute('aria-selected', i===n ? 'true' : 'false'); }
   });
   if (n === 1 || n === 2) updateAll();
 }
@@ -1733,6 +1731,8 @@ async function loadAllResponses() {
     try { localStorage.setItem('fsl_responses_cache', JSON.stringify(loaded)); } catch(e) {}
     if (statusEl) statusEl.textContent = `✓ 已同步 ${loaded.length} 条 · ${new Date().toLocaleTimeString('zh-CN')}`;
     renderAggregation();
+    // 自动将汇总均值写入报告
+    if (loaded.length > 0) _autoDerive();
   } catch(e) {
     if (statusEl) statusEl.textContent = '网络错误：' + e.message;
   }
@@ -1859,19 +1859,20 @@ function calcDomainFromScores(scoresObj, domain) {
   return vals.length ? vals.reduce((a,b)=>a+b,0)/domain.subs.length : null;
 }
 
-function deriveToReport() {
+function _autoDerive() {
   if (!allResponses.length) return;
-  // 计算各域均值，存入 derivedDomainAvgs，calcDomainScore 优先读取
   derivedDomainAvgs = {};
   DOMAINS.forEach(d => {
     const vals = allResponses
       .map(r => r.domainAverages?.[d.id] ?? calcDomainFromScores(r.scores, d))
       .filter(v => v !== null && v !== undefined);
-    if (vals.length) {
-      derivedDomainAvgs[d.id] = vals.reduce((a,b)=>a+b,0) / vals.length;
-    }
+    if (vals.length) derivedDomainAvgs[d.id] = vals.reduce((a,b)=>a+b,0) / vals.length;
   });
   updateAll();
+}
+
+function deriveToReport() {
+  _autoDerive();
   switchTab(1);
 }
 
