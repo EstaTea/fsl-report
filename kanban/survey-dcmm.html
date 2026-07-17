@@ -608,25 +608,25 @@ button,input,textarea,select{font-family:inherit}
 
     <div class="section-label">请选择您的角色 <span class="field-req">*必填</span></div>
     <div class="role-grid" id="role-grid">
-      <div class="role-card" data-role="exec" onclick="selectRole(this)">
-        <div class="role-icon">👔</div>
-        <div class="role-name">高管 / 决策层</div>
-        <div class="role-consequence">总经理、副总经理、CIO、数智化负责人 — 评估战略与资源视角</div>
+      <div class="role-card" data-role="front" onclick="selectRole(this)">
+        <div class="role-icon">🏪</div>
+        <div class="role-name">前台</div>
+        <div class="role-consequence">商用、家用、国际（佛照光电）、电商、车灯、新业务 — 评估数据应用与客户视角</div>
       </div>
-      <div class="role-card" data-role="data" onclick="selectRole(this)">
-        <div class="role-icon">🗄️</div>
-        <div class="role-name">数据 / IT 团队</div>
-        <div class="role-consequence">数智化部、数据治理、SAP 顾问、Basis — 评估技术与执行视角</div>
+      <div class="role-card" data-role="mid" onclick="selectRole(this)">
+        <div class="role-icon">⚙️</div>
+        <div class="role-name">中台</div>
+        <div class="role-consequence">供应链、产品及方案、质量与客服、招投标、研究院 — 评估数据协同与质量视角</div>
       </div>
-      <div class="role-card" data-role="biz" onclick="selectRole(this)">
-        <div class="role-icon">🏭</div>
-        <div class="role-name">业务部门</div>
-        <div class="role-consequence">财务、供应链、生产、销售等业务骨干 — 评估应用与质量视角</div>
+      <div class="role-card" data-role="back" onclick="selectRole(this)">
+        <div class="role-icon">🏛️</div>
+        <div class="role-name">后台</div>
+        <div class="role-consequence">财务、人力、数智化、审计、法律风控、品牌管理 — 评估数据治理与安全视角</div>
       </div>
-      <div class="role-card" data-role="audit" onclick="selectRole(this)">
-        <div class="role-icon">🔍</div>
-        <div class="role-name">审计 / 风控 / 合规</div>
-        <div class="role-consequence">内审、合规、风险管理相关人员 — 评估安全与合规视角</div>
+      <div class="role-card" data-role="consultant" onclick="selectRole(this)">
+        <div class="role-icon">🔭</div>
+        <div class="role-name">外部顾问</div>
+        <div class="role-consequence">艾维登、SAP 顾问团队 — 评估实施与最佳实践视角</div>
       </div>
     </div>
 
@@ -781,7 +781,7 @@ var DOMAINS=[
   ]}
 ];
 
-var ROLE_NAMES={exec:'高管/决策层',data:'数据/IT团队',biz:'业务部门',audit:'审计/风控'};
+var ROLE_NAMES={front:'前台',mid:'中台',back:'后台',consultant:'外部顾问'};
 var LV_NAMES=['','初始级','受管理级','稳健级','量化管理级','优化级'];
 var LV_DESC=['','数据管理尚未规范化，依赖个人能力','数据管理已在部门层面受到关注，有初步规范','数据管理制度化，跨部门协调有效','基于量化指标管理数据，可预测可控','数据管理持续优化，驱动业务价值最大化'];
 
