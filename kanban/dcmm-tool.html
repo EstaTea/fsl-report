@@ -157,10 +157,13 @@ table.domain-table tr:hover td{background:var(--panel-2)}
 .lv3{background:#9ab8ee;color:#143884}
 .lv4{background:#5e8cd8;color:#fff}
 .lv5{background:#2D5BD8;color:#fff}
-.score-bar{
-  display:inline-block;height:4px;border-radius:2px;
-  background:var(--accent);min-width:2px;
+.gap-pill{
+  display:inline-flex;align-items:center;gap:3px;
+  padding:2px 8px;border-radius:99px;font-size:10.5px;font-weight:600;
 }
+.gap-high{background:rgba(192,69,60,.12);color:var(--down)}
+.gap-mid{background:rgba(183,122,22,.12);color:var(--warn)}
+.gap-low{background:rgba(47,122,85,.12);color:var(--up)}
 
 /* cap detail table */
 table.cap-table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px}
@@ -391,10 +394,10 @@ table.resp-table tr:hover td{background:var(--panel-2)}
       <div class="domain-table-wrap">
         <table class="domain-table" id="domain-table">
           <thead><tr>
-            <th style="width:100px">能力域</th>
-            <th style="width:60px">均分</th>
-            <th style="width:80px">成熟度等级</th>
-            <th>得分条</th>
+            <th style="width:90px">能力域</th>
+            <th>L1</th><th>L2</th><th>L3</th>
+            <th style="width:56px">综合</th>
+            <th style="width:80px">差距</th>
           </tr></thead>
           <tbody id="domain-tbody">
             <tr><td colspan="4"><div class="empty-state"><div class="empty-icon">📊</div><p>同步数据后自动显示</p></div></td></tr>
@@ -696,12 +699,18 @@ function renderTab1(da,ca,total,lv){
     tbody.innerHTML=DOMAINS.map(function(d){
       var sc=da[d.id];
       var dlv=scoreToLevel(sc);
-      var barW=sc?Math.round(sc/5*100):0;
+      var showSc=sc?sc.toFixed(2):'—';
+      var gap=sc!==null?3-sc:null;
+      var gapCls=gap===null?'':gap>1.5?'gap-high':gap>0.5?'gap-mid':'gap-low';
+      var gapLbl=gap===null?'—':gap>1.5?'大':gap>0.5?'中':'小';
+      var gapStr=gap!==null?'<span class="gap-pill '+gapCls+'">'+gapLbl+' ('+gap.toFixed(1)+')</span>':'—';
       return '<tr>'
         +'<td>'+d.name+'</td>'
-        +'<td class="score-cell">'+(sc?sc.toFixed(2):'—')+'</td>'
-        +'<td class="score-cell"><span class="level-badge lv'+dlv+'">'+(dlv?dlv:'—')+'</span> '+(dlv?LV_NAMES[dlv]:'')+'</td>'
-        +'<td><span class="score-bar" style="width:'+barW+'px;max-width:120px"></span></td>'
+        +'<td class="score-cell">'+showSc+'</td>'
+        +'<td class="score-cell">'+showSc+'</td>'
+        +'<td class="score-cell">'+showSc+'</td>'
+        +'<td class="score-cell">'+(dlv?'<span class="level-badge lv'+dlv+'">'+dlv+'</span>':'—')+'</td>'
+        +'<td class="score-cell">'+gapStr+'</td>'
         +'</tr>';
     }).join('');
   }
