@@ -7,404 +7,781 @@
 <link rel="icon" type="image/x-icon" href="/fsl-report/favicon.ico">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
+/* ── token contract (Cobalt Trust + Cool Slate, light) ── */
 :root{
-  --b900:#0B2D47;--b700:#1A4F73;--b500:#2374A3;--b300:#5EA4CE;--b100:#C7E2F2;--b050:#EBF5FB;
-  --bg:#F2F7FB;--text:#0F2233;--muted:#5B7A91;--rule:#D6E8F2;
-  --star-on:#F59E0B;--star-off:#D1D5DB;
+  /* Gartner-aligned palette — all-blue, no warm/green/purple accents */
+  --page:    #f0f4f8;
+  --bg:      #ffffff;
+  --panel-2: #f5f7fa;
+  --border:  rgba(11,45,71,.08);
+  --border-m:rgba(11,45,71,.15);
+
+  --ink-1:   #0b1f30;
+  --ink-2:   #2c4259;
+  --ink-3:   #5a7288;
+
+  --accent:       #005B99;  /* Gartner mid-blue */
+  --accent-dark:  #003B63;  /* Gartner deep navy */
+  --accent-light: #1878BC;
+  --accent-mid:   #2D8FC7;  /* lighter CTA hover */
+  --accent-soft:  rgba(0,91,153,.08);
+  --accent-ring:  rgba(0,91,153,.20);
+  --on-accent:    #ffffff;
+  --glow:         rgba(0,91,153,.24);
+
+  /* semantic — blue-family only, no red/green/amber */
+  --up:   #005B99;   /* positive delta reuses accent */
+  --down: #C0453C;   /* kept distinct for errors only */
+  --warn: #5a7288;
+
+  --shadow:    0 1px 3px rgba(11,45,71,.06);
+  --shadow-md: 0 3px 12px rgba(11,45,71,.09);
+  --shadow-lg: 0 20px 56px -12px rgba(11,45,71,.18);
+
+  /* Gartner uses sharper corners */
+  --r-sm: 4px;
+  --r:    6px;
+  --r-lg: 8px;
+
+  --step-done:    var(--accent);
+  --step-current: var(--accent-light);
+  --step-todo:    #b0c4d4;
 }
+
+/* ── reset ── */
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:13px;line-height:1.6;min-height:100vh}
+body{font-family:"Helvetica Neue","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+     background:var(--page);color:var(--ink-1);font-size:13px;line-height:1.6;min-height:100vh}
 a{color:inherit;text-decoration:none}
-/* Header */
-.proj-header{background:linear-gradient(135deg,var(--b900),var(--b700));border-bottom:3px solid var(--b500);padding:0 32px;color:#fff}
-.fsl-logo-mark{display:inline-flex;align-items:center;justify-content:center;background:#fff;color:#0B2D47;font-size:12px;font-weight:900;letter-spacing:1px;border-radius:4px;padding:3px 7px;flex-shrink:0;line-height:1}
-.proj-title-row{display:flex;align-items:center;gap:10px;padding:11px 0 0}
-.proj-name{font-size:16px;font-weight:800;color:#fff;letter-spacing:-.2px}
-.proj-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);padding:2px 10px;border-radius:10px;font-size:11px;color:rgba(255,255,255,.8);margin-left:8px}
-.mod-tabs{display:flex;gap:0;overflow-x:auto;margin-top:0}
-.mod-tab{padding:9px 14px;font-size:12.5px;color:rgba(255,255,255,.55);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:5px;transition:color .15s;text-decoration:none}
-.mod-tab:hover{color:var(--b500)}
-.mod-tab.active{color:var(--b500);border-bottom-color:var(--b500);font-weight:700}
-/* Screen layout */
+button,input,textarea,select{font-family:inherit}
+
+/* ── topbar ── */
+.topbar{
+  background:var(--accent-dark);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  padding:0 28px;
+  position:sticky;top:0;z-index:200;
+}
+.topbar-row1{display:flex;align-items:center;gap:12px;height:48px}
+.tb-logo{background:#fff;color:var(--accent-dark);font-size:11px;font-weight:900;
+         letter-spacing:1px;border-radius:5px;padding:3px 8px;line-height:1;flex-shrink:0}
+.tb-project{font-size:14px;font-weight:700;color:#fff;letter-spacing:-.2px}
+.tb-badge{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);
+          padding:2px 10px;border-radius:20px;font-size:11px;color:rgba(255,255,255,.75)}
+.tb-nav{display:flex;gap:0;margin-top:0}
+.tb-navlink{padding:8px 14px;font-size:12px;color:rgba(255,255,255,.5);
+            border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;
+            transition:color .15s;text-decoration:none}
+.tb-navlink:hover{color:rgba(255,255,255,.85)}
+.tb-navlink.active{color:#5EA4CE;border-bottom-color:#5EA4CE;font-weight:700}
+
+/* ── screens ── */
 .screen{display:none}
 .screen.active{display:block}
-/* Welcome / Role screen */
-.welcome-wrap{max-width:760px;margin:0 auto;padding:40px 24px}
-.welcome-card{background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(11,45,71,.1);padding:36px 40px;text-align:center}
-.welcome-icon{font-size:48px;margin-bottom:16px}
-.welcome-title{font-size:22px;font-weight:800;color:var(--b900);margin-bottom:8px}
-.welcome-desc{font-size:13px;color:var(--muted);line-height:1.8;max-width:540px;margin:0 auto 28px}
-.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px;text-align:left}
-.role-card{border:2px solid var(--rule);border-radius:8px;padding:14px 16px;cursor:pointer;transition:all .15s;background:#fff}
-.role-card:hover{border-color:var(--b300);background:var(--b050)}
-.role-card.selected{border-color:var(--b500);background:var(--b050);box-shadow:0 0 0 3px rgba(35,116,163,.12)}
-.role-emoji{font-size:20px;margin-bottom:6px}
-.role-name{font-size:13px;font-weight:700;color:var(--b900)}
-.role-desc{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.5}
-.name-row{margin-bottom:20px;text-align:left}
-.name-label{font-size:12px;font-weight:700;color:var(--b700);margin-bottom:6px}
-.name-input{width:100%;border:1px solid var(--rule);border-radius:6px;padding:8px 12px;font-size:13px;font-family:inherit;color:var(--text);background:#fafdff;transition:border-color .15s}
-.name-input:focus{outline:none;border-color:var(--b300)}
-.start-btn{background:var(--b500);color:#fff;border:none;padding:11px 36px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s}
-.start-btn:hover{background:var(--b700)}
-.start-btn:disabled{opacity:.5;cursor:not-allowed}
-/* Survey screen */
-.survey-layout{display:flex;min-height:calc(100vh - 80px)}
-.sidebar{width:220px;flex-shrink:0;background:#fff;border-right:1px solid var(--rule);padding:20px 0;position:sticky;top:0;height:calc(100vh - 80px);overflow-y:auto}
-.sidebar-title{padding:0 16px 12px;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--rule);margin-bottom:8px}
-.nav-domain{padding:6px 16px;cursor:pointer;border-left:3px solid transparent;font-size:12px;color:var(--muted);transition:all .12s;line-height:1.4}
-.nav-domain:hover{background:var(--b050);color:var(--b700)}
-.nav-domain.active{border-left-color:var(--b500);background:var(--b050);color:var(--b700);font-weight:700}
-.nav-domain .nav-score{float:right;font-size:10.5px;font-weight:700;color:var(--b500)}
-.survey-main{flex:1;padding:24px 32px;max-width:900px}
-/* Survey toolbar */
-.s-toolbar{background:#fff;border:1px solid var(--rule);border-radius:8px;padding:11px 18px;margin-bottom:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;box-shadow:0 1px 4px rgba(11,45,71,.05)}
-.s-whobox{display:flex;align-items:center;gap:8px}
-.s-avatar{width:30px;height:30px;border-radius:50%;background:var(--b700);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0}
-.s-whoname{font-size:12.5px;font-weight:700;color:var(--b900)}
-.s-whorole{font-size:11px;color:var(--muted)}
-.s-progress-wrap{margin-left:auto;display:flex;align-items:center;gap:10px}
-.s-pbar-bg{background:var(--rule);border-radius:4px;height:7px;width:120px}
-.s-pbar{background:var(--b500);border-radius:4px;height:7px;transition:width .3s}
-.s-pct{font-size:11px;color:var(--muted)}
-.gh-save-btn{background:var(--b700);color:#fff;border:none;padding:6px 16px;border-radius:6px;font-size:11.5px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s;display:inline-flex;align-items:center;gap:5px}
-.gh-save-btn:hover{background:var(--b900)}
-.gh-save-btn.saving{opacity:.65;pointer-events:none}
-.result-btn{background:var(--b500);color:#fff;border:none;padding:6px 16px;border-radius:6px;font-size:11.5px;font-weight:700;cursor:pointer;font-family:inherit;display:none}
-.result-btn:hover{background:var(--b700)}
-/* Domain section */
-.domain-section{margin-bottom:28px;scroll-margin-top:20px}
-.domain-header{background:linear-gradient(90deg,var(--b900),var(--b700));color:#fff;padding:11px 18px;border-radius:8px 8px 0 0;display:flex;align-items:center;gap:10px}
-.domain-num{background:rgba(255,255,255,.18);width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0}
-.domain-title{font-size:14px;font-weight:800}
-.domain-desc{font-size:11px;color:rgba(255,255,255,.7);margin-left:auto;max-width:360px;text-align:right}
-/* Capability item */
-.cap-item{background:#fff;border:1px solid var(--rule);border-top:none;padding:14px 18px;transition:background .1s}
-.cap-item:last-child{border-radius:0 0 8px 8px}
-.cap-item:hover{background:var(--b050)}
-.cap-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px}
-.cap-id{background:var(--b700);color:#fff;border-radius:4px;padding:2px 9px;font-size:10.5px;font-weight:700;flex-shrink:0;margin-top:1px}
-.cap-name{font-size:12.5px;font-weight:700;color:var(--b900);flex:1}
-.cap-body{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
-.cap-levels{flex:1;min-width:280px}
-.cap-level-desc{font-size:11px;color:var(--muted);margin-bottom:8px;line-height:1.6;background:var(--b050);border-left:3px solid var(--b100);padding:6px 10px;border-radius:0 4px 4px 0}
-.cap-right{width:260px;flex-shrink:0}
-/* Star rating */
-.star-row{display:flex;align-items:center;gap:6px;margin-bottom:10px}
-.star-label{font-size:11px;color:var(--muted);font-weight:700;white-space:nowrap}
-.stars{display:flex;gap:3px}
-.star{font-size:22px;cursor:pointer;color:var(--star-off);transition:color .1s;line-height:1;user-select:none}
-.star:hover,.star.on{color:var(--star-on)}
-.score-text{font-size:11px;color:var(--b500);font-weight:700;min-width:100px}
-/* Score level badge */
-.level-badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:10.5px;font-weight:700;margin-left:6px}
-.lv1{background:#FEE2E2;color:#B91C1C}
-.lv2{background:#FEF3C7;color:#92400E}
-.lv3{background:#D1FAE5;color:#065F46}
-.lv4{background:#DBEAFE;color:#1E40AF}
-.lv5{background:#EDE9FE;color:#5B21B6}
-/* Text area */
-.cap-note{width:100%;min-height:52px;border:1px solid var(--rule);border-radius:5px;padding:6px 9px;font-size:11.5px;color:var(--text);font-family:inherit;resize:vertical;background:#fafdff}
-.cap-note:focus{outline:none;border-color:var(--b300)}
-.cap-note-label{font-size:10.5px;color:var(--muted);margin-bottom:4px}
-/* Results screen */
-.result-wrap{max-width:960px;margin:0 auto;padding:28px 24px}
-.result-hero{background:linear-gradient(135deg,var(--b900),var(--b700));color:#fff;border-radius:12px;padding:28px 32px;margin-bottom:24px;display:flex;align-items:center;gap:24px}
-.result-level-badge{font-size:56px;font-weight:900;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.3);flex-shrink:0}
-.result-level-text{flex:1}
-.result-level-name{font-size:22px;font-weight:800;margin-bottom:6px}
-.result-level-sub{font-size:13px;color:rgba(255,255,255,.75);line-height:1.7}
-.result-score-big{font-size:20px;font-weight:800;color:#FB8C00}
-.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
-.result-chart-card{background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(11,45,71,.08);padding:22px}
-.result-card-title{font-size:13px;font-weight:800;color:var(--b900);margin-bottom:16px;display:flex;align-items:center;gap:6px}
-.radar-wrap{position:relative;height:280px}
-.domain-scores-list{list-style:none}
-.domain-score-item{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--rule)}
-.domain-score-item:last-child{border:none}
-.ds-name{flex:1;font-size:12px;color:var(--text)}
-.ds-bar-bg{width:120px;background:var(--rule);border-radius:4px;height:7px}
-.ds-bar{background:var(--b500);border-radius:4px;height:7px;transition:width .5s}
-.ds-score{font-size:12px;font-weight:700;color:var(--b500);width:36px;text-align:right}
-.suggestions-card{background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(11,45,71,.08);padding:22px;margin-bottom:24px}
-.sug-domain{margin-bottom:18px}
-.sug-domain-title{font-size:12.5px;font-weight:800;color:var(--b700);margin-bottom:8px;display:flex;align-items:center;gap:8px}
-.sug-items{list-style:none}
-.sug-items li{font-size:12px;color:var(--text);line-height:1.7;padding:4px 0 4px 20px;position:relative;border-bottom:1px dashed var(--rule)}
-.sug-items li:last-child{border:none}
-.sug-items li::before{content:"→";position:absolute;left:0;color:var(--b500);font-weight:700}
-.all-submissions{background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(11,45,71,.08);padding:22px;margin-bottom:24px}
-.sub-table{width:100%;border-collapse:collapse;font-size:11.5px}
-.sub-table th{background:var(--b700);color:#fff;padding:8px 12px;text-align:left;font-weight:700}
-.sub-table td{padding:8px 12px;border-bottom:1px solid var(--rule);color:var(--text)}
-.sub-table tr:hover td{background:var(--b050)}
-.save-banner{display:none;position:fixed;bottom:24px;right:28px;z-index:500;background:var(--b700);color:#fff;padding:11px 22px;border-radius:8px;font-size:12.5px;font-weight:700;box-shadow:0 4px 16px rgba(11,45,71,.3);animation:slideUp .3s ease}
-.save-banner.show{display:block}
-.save-banner.err-b{background:#C62828}
-@keyframes slideUp{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
-.btn-back{background:#fff;color:var(--b500);border:1px solid var(--b300);padding:7px 18px;border-radius:7px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit}
-.btn-back:hover{background:var(--b050)}
-@media(max-width:680px){.role-grid{grid-template-columns:1fr}.survey-layout{flex-direction:column}.sidebar{width:100%;height:auto;position:relative}.result-grid{grid-template-columns:1fr}.result-hero{flex-direction:column;text-align:center}}
 
-/* Tooltip */
+/* ══════════════════════════════════════════════
+   SCREEN 1 — WELCOME
+══════════════════════════════════════════════ */
+.welcome-outer{max-width:800px;margin:0 auto;padding:40px 24px 60px}
+
+.welcome-card{
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  border-left:4px solid var(--accent);
+  box-shadow:var(--shadow-md);
+  padding:36px 44px;
+}
+
+/* pill header inside card */
+.wc-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--accent-soft);border:1px solid var(--accent-ring);
+  border-radius:20px;padding:5px 14px;margin-bottom:20px;
+  font-size:11.5px;font-weight:700;color:var(--accent);letter-spacing:.2px
+}
+.wc-pill-dot{width:6px;height:6px;border-radius:50%;background:var(--accent-light)}
+
+.wc-title{font-size:21px;font-weight:800;color:var(--ink-1);letter-spacing:-.3px;margin-bottom:8px}
+.wc-sub{font-size:13px;color:var(--ink-3);line-height:1.75;margin-bottom:28px;max-width:560px}
+.wc-sub strong{color:var(--ink-2)}
+
+/* meta chips row */
+.wc-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.wc-chip{
+  display:inline-flex;align-items:center;gap:5px;
+  background:var(--panel-2);border:1px solid var(--border);
+  border-radius:20px;padding:4px 12px;
+  font-size:11.5px;color:var(--ink-2);
+}
+.wc-chip-icon{font-size:13px}
+
+/* divider */
+.wc-divider{height:1px;background:var(--border);margin:24px 0}
+
+/* identity fields */
+.wc-fields{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+.field-label{font-size:11.5px;font-weight:700;color:var(--ink-2);margin-bottom:6px;display:flex;align-items:center;gap:4px}
+.field-req{color:var(--down);font-size:10px}
+.field-input{
+  width:100%;
+  border:1px solid var(--border-m);
+  border-radius:var(--r-sm);
+  padding:9px 12px;
+  font-size:13px;
+  color:var(--ink-1);
+  background:var(--panel-2);
+  transition:border-color .15s,box-shadow .15s;
+}
+.field-input:focus{outline:none;border-color:var(--accent-light);box-shadow:0 0 0 3px var(--accent-ring)}
+
+/* role section label */
+.section-label{font-size:11.5px;font-weight:700;color:var(--ink-2);margin-bottom:10px}
+
+/* role grid → radio-card pattern */
+.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+.role-card{
+  border:1px solid var(--border-m);
+  border-left:3px solid transparent;
+  border-radius:var(--r);
+  padding:14px 16px;
+  cursor:pointer;
+  transition:border-color .15s,background .15s,box-shadow .15s;
+  background:var(--bg);
+  position:relative;
+}
+.role-card:hover{border-left-color:var(--accent-mid);background:var(--accent-soft)}
+.role-card.selected{
+  border-color:var(--border-m);
+  border-left-color:var(--accent);
+  background:var(--accent-soft);
+  box-shadow:var(--shadow);
+}
+.role-card.selected::after{
+  content:"✓";
+  position:absolute;top:10px;right:12px;
+  font-size:12px;font-weight:900;color:var(--accent);
+}
+.role-icon{font-size:18px;margin-bottom:6px}
+.role-name{font-size:12.5px;font-weight:700;color:var(--ink-1)}
+/* consequence line */
+.role-consequence{font-size:11px;color:var(--ink-3);margin-top:3px;line-height:1.5}
+
+.wc-hint{font-size:11px;color:var(--ink-3);line-height:1.7;margin-bottom:24px}
+
+/* start button */
+.btn-primary{
+  background:var(--accent);
+  color:var(--on-accent);
+  border:none;
+  padding:11px 32px;
+  border-radius:var(--r-sm);
+  font-size:13.5px;font-weight:700;
+  cursor:pointer;
+  transition:background .15s,box-shadow .15s;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.btn-primary:hover{background:var(--accent-dark);box-shadow:0 4px 12px var(--glow)}
+.btn-primary:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+
+/* resume banner */
+.resume-banner{
+  background:linear-gradient(90deg,var(--up),#25906b);
+  color:#fff;border-radius:var(--r-sm);
+  padding:11px 16px;margin-bottom:20px;
+  display:none;align-items:center;gap:10px;
+}
+.resume-banner.show{display:flex}
+.resume-banner-text{flex:1;font-size:12px;line-height:1.6}
+.resume-banner-btn{background:#fff;color:var(--up);border:none;padding:5px 14px;
+                   border-radius:5px;font-size:11.5px;font-weight:700;cursor:pointer}
+.resume-banner-dismiss{color:rgba(255,255,255,.6);font-size:18px;cursor:pointer;padding:0 4px}
+
+/* ══════════════════════════════════════════════
+   SCREEN 2 — SURVEY
+══════════════════════════════════════════════ */
+.survey-shell{display:flex;min-height:calc(100vh - 88px)}
+
+/* ── left rail ── */
+.s-rail{
+  width:220px;flex-shrink:0;
+  background:var(--bg);
+  border-right:1px solid var(--border);
+  padding:16px 0;
+  position:sticky;top:88px;
+  height:calc(100vh - 88px);
+  overflow-y:auto;
+}
+.rail-section{padding:0 12px 8px;font-size:10.5px;font-weight:700;
+              color:var(--ink-3);text-transform:uppercase;letter-spacing:.6px;
+              border-bottom:1px solid var(--border);margin-bottom:6px}
+.rail-item{
+  display:flex;align-items:center;gap:8px;
+  padding:7px 14px;
+  cursor:pointer;
+  border-left:3px solid transparent;
+  font-size:12px;color:var(--ink-3);
+  transition:all .12s;line-height:1.4;
+}
+.rail-item:hover{background:var(--accent-soft);color:var(--accent)}
+.rail-item.active{border-left-color:var(--accent);background:var(--accent-soft);
+                  color:var(--accent);font-weight:700}
+.rail-item.done{color:var(--accent)}
+.rail-item.done .rail-check{display:inline-flex}
+.rail-check{display:none;width:16px;height:16px;background:var(--accent);
+            border-radius:50%;color:#fff;font-size:9px;font-weight:900;
+            align-items:center;justify-content:center;flex-shrink:0;margin-left:auto}
+.rail-score{margin-left:auto;font-size:10.5px;font-weight:700;color:var(--accent)}
+.rail-item.done .rail-score{display:none}
+
+/* ── survey main ── */
+.s-main{flex:1;padding:20px 28px;min-width:0}
+.s-main-inner{max-width:820px}
+
+/* ── context bar (who + progress + actions) ── */
+.s-ctxbar{
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:12px 16px;
+  margin-bottom:20px;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  box-shadow:var(--shadow);
+}
+.ctx-who{display:flex;align-items:center;gap:10px}
+.ctx-avatar{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--accent);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:800;flex-shrink:0;
+}
+.ctx-name{font-size:13px;font-weight:700;color:var(--ink-1)}
+.ctx-meta{font-size:11px;color:var(--ink-3)}
+
+.ctx-progress{display:flex;align-items:center;gap:8px;margin-left:auto}
+.pbar-bg{background:var(--panel-2);border-radius:4px;height:6px;width:110px}
+.pbar-fill{background:var(--accent-light);border-radius:4px;height:6px;transition:width .35s}
+.pbar-pct{font-size:11px;color:var(--ink-3);min-width:30px}
+
+.btn-save{
+  background:var(--accent-dark);color:#fff;border:none;
+  padding:6px 14px;border-radius:var(--r-sm);
+  font-size:11.5px;font-weight:700;cursor:pointer;
+  transition:background .15s;display:inline-flex;align-items:center;gap:5px;
+}
+.btn-save:hover{background:#061e30}
+.btn-save.saving{opacity:.6;pointer-events:none}
+
+.btn-results{
+  background:var(--accent-light);color:#fff;border:none;
+  padding:6px 14px;border-radius:var(--r-sm);
+  font-size:11.5px;font-weight:700;cursor:pointer;
+  display:none;transition:background .15s;
+}
+.btn-results:hover{background:var(--accent)}
+
+/* ── domain section card ── */
+.domain-card{
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  margin-bottom:14px;
+  scroll-margin-top:24px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.domain-head{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 18px;
+  background:var(--accent-dark);
+  border-bottom:3px solid var(--accent-light);
+}
+.domain-badge{
+  width:26px;height:26px;border-radius:3px;
+  background:rgba(255,255,255,.15);
+  color:#fff;font-size:11px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  letter-spacing:.5px;
+}
+.domain-name{font-size:13px;font-weight:800;color:#fff;letter-spacing:.1px}
+.domain-tag{margin-left:auto;font-size:10.5px;color:rgba(255,255,255,.5);
+            background:rgba(255,255,255,.08);border-radius:3px;padding:2px 8px;letter-spacing:.2px}
+
+/* ── capability item ── */
+.cap-item{
+  padding:16px 18px 16px 20px;
+  border-bottom:1px solid var(--border);
+  border-left:3px solid transparent;
+  transition:border-left-color .12s,background .12s;
+}
+.cap-item:last-child{border-bottom:none}
+.cap-item:hover{border-left-color:var(--accent-mid);background:var(--panel-2)}
+
+.cap-head{display:flex;align-items:flex-start;gap:8px;margin-bottom:10px}
+.cap-id-badge{
+  background:var(--accent-soft);
+  color:var(--accent);
+  border:1px solid var(--accent-ring);
+  border-radius:5px;padding:2px 8px;
+  font-size:10px;font-weight:800;flex-shrink:0;margin-top:1px;
+  letter-spacing:.3px;
+}
+.cap-name{font-size:12.5px;font-weight:700;color:var(--ink-1);flex:1}
+
+/* ── tooltip ── */
 .tip-wrap{position:relative;display:inline-flex;align-items:center;margin-left:6px;vertical-align:middle}
-.tip-icon{width:16px;height:16px;border-radius:50%;background:var(--b300);color:#fff;font-size:10px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;cursor:default;flex-shrink:0;line-height:1;user-select:none}
-.tip-icon:hover{background:var(--b500)}
-.tip-box{display:none;position:absolute;left:22px;top:50%;transform:translateY(-50%);z-index:300;background:#0B2D47;color:#fff;border-radius:8px;padding:12px 14px;width:300px;box-shadow:0 6px 24px rgba(11,45,71,.3);font-size:11.5px;line-height:1.65;pointer-events:none}
-.tip-box::before{content:"";position:absolute;left:-6px;top:50%;transform:translateY(-50%);border:6px solid transparent;border-right-color:#0B2D47;border-left:none}
+.tip-icon{
+  width:16px;height:16px;border-radius:50%;
+  background:var(--panel-2);border:1px solid var(--border-m);
+  color:var(--ink-3);font-size:9px;font-weight:900;
+  display:inline-flex;align-items:center;justify-content:center;
+  cursor:default;flex-shrink:0;user-select:none;
+  transition:background .12s,color .12s;
+}
+.tip-icon:hover{background:var(--accent-soft);color:var(--accent)}
+.tip-box{
+  display:none;position:absolute;left:22px;top:50%;transform:translateY(-50%);
+  z-index:300;background:var(--accent-dark);color:#fff;
+  border-radius:var(--r);padding:13px 15px;width:300px;
+  box-shadow:var(--shadow-lg);font-size:11.5px;line-height:1.65;pointer-events:none;
+}
+.tip-box::before{content:"";position:absolute;left:-6px;top:50%;transform:translateY(-50%);
+                 border:6px solid transparent;border-right-color:var(--accent-dark);border-left:none}
 .tip-wrap:hover .tip-box{display:block}
 .tip-title{font-weight:800;color:#89D1FF;margin-bottom:5px;font-size:12px}
 .tip-section{margin-top:6px;font-size:10.5px;color:rgba(255,255,255,.7)}
 .tip-section strong{color:#C7E2F2}
 
-.resume-hint{background:linear-gradient(90deg,#065F46,#047857);color:#fff;border-radius:8px;padding:10px 16px;margin-bottom:20px;font-size:12px;display:none;align-items:center;gap:10px;text-align:left}
-.resume-hint-text{flex:1;line-height:1.6}
-.resume-hint-btn{background:#fff;color:#065F46;border:none;padding:5px 14px;border-radius:5px;font-size:11.5px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit}
-.resume-hint-btn:hover{background:#D1FAE5}
-.resume-hint-dismiss{color:rgba(255,255,255,.6);font-size:18px;cursor:pointer;line-height:1;padding:0 4px}
+/* ── capability body: level picker ── */
+.cap-body{display:flex;gap:16px;flex-wrap:wrap}
+.cap-levels-col{flex:1;min-width:280px}
+.cap-right-col{width:252px;flex-shrink:0}
+
+/* segmented level picker — replaces stars */
+.level-picker{display:flex;gap:5px;margin-bottom:10px;flex-wrap:wrap}
+.lp-btn{
+  flex:1;min-width:40px;
+  border:1.5px solid var(--border-m);
+  border-radius:var(--r-sm);
+  padding:7px 4px 5px;
+  cursor:pointer;
+  background:var(--panel-2);
+  text-align:center;
+  transition:all .14s;
+  position:relative;
+}
+.lp-btn:hover{border-color:var(--accent-light);background:var(--accent-soft)}
+.lp-btn.selected{
+  border-color:var(--accent);
+  background:var(--accent-soft);
+  box-shadow:0 0 0 2px var(--accent-ring);
+}
+.lp-num{font-size:13px;font-weight:800;color:var(--ink-2);line-height:1}
+.lp-btn.selected .lp-num{color:var(--accent)}
+.lp-label{font-size:9.5px;color:var(--ink-3);line-height:1.3;margin-top:3px}
+.lp-btn.selected .lp-label{color:var(--accent)}
+
+/* level descriptions */
+.level-desc-box{
+  background:var(--panel-2);
+  border-left:3px solid var(--accent-light);
+  border-radius:0 var(--r-sm) var(--r-sm) 0;
+  padding:8px 11px;
+  font-size:11px;color:var(--ink-3);line-height:1.7;
+  margin-bottom:10px;
+  min-height:48px;
+}
+.level-desc-box strong{color:var(--accent);font-weight:700}
+
+/* score status */
+.score-status{
+  display:flex;align-items:center;gap:6px;
+  font-size:11.5px;margin-bottom:12px;
+}
+.score-dot{width:8px;height:8px;border-radius:50%;background:var(--border-m);flex-shrink:0}
+.score-dot.rated{background:var(--accent-light)}
+.score-val{font-weight:800}
+
+/* level badge pill — all-blue scale, no rainbow */
+.lv-pill{display:inline-block;padding:2px 9px;border-radius:3px;font-size:10.5px;font-weight:700;margin-left:4px}
+.lv1{background:#dce8f5;color:#003B63}
+.lv2{background:#c0d9ef;color:#003B63}
+.lv3{background:#8fbfdf;color:#003B63}
+.lv4{background:#3d8fc0;color:#ffffff}
+.lv5{background:#005B99;color:#ffffff}
+
+/* textarea */
+.cap-note-label{font-size:10.5px;color:var(--ink-3);margin-bottom:5px}
+.cap-note{
+  width:100%;min-height:54px;
+  border:1px solid var(--border-m);
+  border-radius:var(--r-sm);
+  padding:7px 10px;
+  font-size:11.5px;color:var(--ink-1);
+  background:var(--panel-2);
+  resize:vertical;
+  transition:border-color .15s,box-shadow .15s;
+}
+.cap-note:focus{outline:none;border-color:var(--accent-light);box-shadow:0 0 0 3px var(--accent-ring)}
+
+/* ── sticky action bar ── */
+.action-bar{
+  position:sticky;bottom:0;
+  background:var(--bg);
+  border-top:1px solid var(--border);
+  backdrop-filter:blur(8px);
+  padding:12px 28px;
+  display:flex;align-items:center;gap:10px;
+  z-index:100;
+}
+.action-bar-left{font-size:11px;color:var(--ink-3)}
+.action-bar-right{margin-left:auto;display:flex;gap:8px;align-items:center}
+
+/* ══════════════════════════════════════════════
+   SCREEN 3 — RESULTS
+══════════════════════════════════════════════ */
+.result-outer{max-width:980px;margin:0 auto;padding:28px 24px 60px}
+
+/* hero result card */
+.result-hero{
+  background:var(--accent-dark);
+  border-radius:var(--r);
+  border-bottom:4px solid var(--accent-light);
+  padding:28px 32px;
+  margin-bottom:20px;
+  display:flex;align-items:center;gap:24px;
+  box-shadow:var(--shadow-lg);
+}
+.rh-level{font-size:52px;font-weight:900;color:#fff;line-height:1;flex-shrink:0}
+.rh-info{flex:1}
+.rh-name{font-size:20px;font-weight:800;color:#fff;margin-bottom:5px}
+.rh-meta{font-size:12.5px;color:rgba(255,255,255,.7);line-height:1.75}
+.rh-score{font-size:18px;font-weight:800;color:#7ec8f0}
+
+/* grid */
+.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+
+.r-card{
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-left:3px solid var(--accent);
+  border-radius:var(--r);
+  padding:22px;
+  box-shadow:var(--shadow);
+}
+.r-card-title{font-size:12.5px;font-weight:800;color:var(--ink-1);margin-bottom:16px;
+              display:flex;align-items:center;gap:6px}
+
+/* domain score list */
+.ds-list{list-style:none}
+.ds-item{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border)}
+.ds-item:last-child{border:none}
+.ds-name{flex:1;font-size:12px;color:var(--ink-2)}
+.ds-bar-bg{width:100px;background:var(--panel-2);border-radius:3px;height:6px}
+.ds-bar-fill{background:var(--accent);border-radius:3px;height:6px;transition:width .5s}
+.ds-score{font-size:12px;font-weight:700;color:var(--accent);width:32px;text-align:right}
+
+/* radar */
+.radar-wrap{position:relative;height:270px}
+
+/* suggestions */
+.sug-card{background:var(--bg);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--r);
+          padding:22px;margin-bottom:18px;box-shadow:var(--shadow)}
+.sug-domain{margin-bottom:18px}
+.sug-domain:last-child{margin-bottom:0}
+.sug-dtitle{font-size:12.5px;font-weight:800;color:var(--accent-dark);margin-bottom:8px;
+             display:flex;align-items:center;gap:8px}
+.sug-list{list-style:none}
+.sug-list li{font-size:12px;color:var(--ink-2);line-height:1.75;
+             padding:4px 0 4px 18px;position:relative;
+             border-bottom:1px dashed var(--border)}
+.sug-list li:last-child{border:none}
+.sug-list li::before{content:"→";position:absolute;left:0;color:var(--accent);font-weight:700}
+
+/* all submissions */
+.sub-card{background:var(--bg);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--r);
+          padding:22px;margin-bottom:18px;box-shadow:var(--shadow);overflow-x:auto}
+.sub-table{width:100%;border-collapse:collapse;font-size:11.5px}
+.sub-table th{background:var(--accent-dark);color:#fff;padding:8px 12px;text-align:left;font-weight:700}
+.sub-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--ink-2)}
+.sub-table tr:hover td{background:var(--accent-soft)}
+
+/* result actions */
+.result-actions{text-align:center;padding:12px 0 4px;display:flex;gap:10px;justify-content:center}
+.btn-outline{
+  background:var(--bg);color:var(--accent);
+  border:1.5px solid var(--accent-light);
+  padding:8px 20px;border-radius:var(--r-sm);
+  font-size:12.5px;font-weight:700;cursor:pointer;
+  transition:background .15s;
+}
+.btn-outline:hover{background:var(--accent-soft)}
+
+/* ── toast banner ── */
+.toast{
+  display:none;
+  position:fixed;bottom:24px;right:24px;z-index:600;
+  background:var(--accent-dark);color:#fff;
+  padding:11px 20px;border-radius:var(--r-sm);
+  font-size:12.5px;font-weight:700;
+  box-shadow:var(--shadow-lg);
+  animation:toastIn .25s ease;
+}
+.toast.show{display:block}
+.toast.err{background:#c62828}
+@keyframes toastIn{from{transform:translateY(12px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+/* ── reduced-motion ── */
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+
+/* ── mobile ── */
+@media(max-width:680px){
+  .wc-fields,.role-grid{grid-template-columns:1fr}
+  .survey-shell{flex-direction:column}
+  .s-rail{width:100%;height:auto;position:relative;top:0;border-right:none;border-bottom:1px solid var(--border)}
+  .result-grid{grid-template-columns:1fr}
+  .result-hero{flex-direction:column;text-align:center}
+  .welcome-card{padding:24px 20px}
+}
 </style>
 </head>
 <body>
 
-<!-- Header -->
-<div class="proj-header">
-  <div class="proj-title-row">
-    <span class="fsl-logo-mark">FSL</span>
-    <span class="proj-name">佛照 S/4HANA 升级项目</span>
-    <span class="proj-badge">数据管理成熟度评估</span>
+<!-- ── TOPBAR ── -->
+<div class="topbar">
+  <div class="topbar-row1">
+    <span class="tb-logo">FSL</span>
+    <span class="tb-project">佛照 S/4HANA 升级项目</span>
+    <span class="tb-badge">DCMM 评估</span>
   </div>
-  <nav class="mod-tabs">
-    <a class="mod-tab active" href="#">📊 DCMM评估</a>
+  <nav class="tb-nav">
+    <a class="tb-navlink active" href="#">📊 数据管理成熟度评估</a>
+    <a class="tb-navlink" href="/fsl-report/kanban/index.html">🗂 项目看板</a>
   </nav>
 </div>
 
-<!-- Screen 1: Welcome & Role -->
+<!-- ══════════════════════════════════════════════
+     SCREEN 1: WELCOME
+══════════════════════════════════════════════ -->
 <div id="screen-welcome" class="screen active">
-<div class="welcome-wrap">
+<div class="welcome-outer">
+  <div id="resume-banner" class="resume-banner">
+    <div class="resume-banner-text">
+      发现未完成的草稿 (<span id="rb-name"></span>，<span id="rb-age"></span>前保存)，可继续上次评估。
+    </div>
+    <button class="resume-banner-btn" onclick="resumeDraft()">继续填写</button>
+    <span class="resume-banner-dismiss" onclick="dismissResume()">×</span>
+  </div>
+
   <div class="welcome-card">
-    <div class="welcome-icon"><span style="display:inline-block;background:linear-gradient(135deg,#0B2D47,#1A4F73);color:#fff;font-size:28px;font-weight:900;letter-spacing:2px;border-radius:10px;padding:10px 20px;line-height:1">FSL</span></div>
-    <h1 class="welcome-title">「佛照」数据管理能力成熟度评估</h1>
-    <p class="welcome-desc">
-      依据国家标准 GB/T 36073—2025（DCMM），通过多角色协同评估，为佛山照明数据管理现状提供客观诊断，并给出针对性改进建议。<br>
-      <strong>评估范围</strong>：8个能力域 · 29个能力项 · 预计完成时间 15~20 分钟
+    <div class="wc-pill"><span class="wc-pill-dot"></span>GB/T 36073—2025 · DCMM</div>
+    <h1 class="wc-title">「佛照」数据管理能力成熟度评估</h1>
+    <p class="wc-sub">
+      依据国家标准 GB/T 36073—2025（DCMM），通过多角色协同评估，为佛山照明数据管理现状提供客观诊断，并给出针对性改进建议。
+      <br><strong>评估范围：</strong>8个能力域 · 29个能力项 · 预计完成时间 15~20 分钟
     </p>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;text-align:left">
+
+    <div class="wc-chips">
+      <span class="wc-chip"><span class="wc-chip-icon">🎯</span>8 个能力域</span>
+      <span class="wc-chip"><span class="wc-chip-icon">📋</span>29 个能力项</span>
+      <span class="wc-chip"><span class="wc-chip-icon">⏱</span>15~20 分钟</span>
+      <span class="wc-chip"><span class="wc-chip-icon">🔒</span>结果仅供项目内部使用</span>
+    </div>
+
+    <div class="wc-divider"></div>
+
+    <div class="wc-fields">
       <div>
-        <div class="name-label">您的姓名（或代号）</div>
-        <input id="inp-name" class="name-input" type="text" placeholder="例：张三 / 匿名001" maxlength="30">
+        <div class="field-label">您的姓名 <span class="field-req">*必填</span></div>
+        <input id="inp-name" class="field-input" type="text" placeholder="例：张三 / 匿名001" maxlength="30">
       </div>
       <div>
-        <div class="name-label">所在部门</div>
-        <input id="inp-dept" class="name-input" type="text" placeholder="例：数智化部 / 财务部" maxlength="30">
+        <div class="field-label">所在部门</div>
+        <input id="inp-dept" class="field-input" type="text" placeholder="例：数智化部 / 财务部" maxlength="30">
       </div>
     </div>
-    <div class="name-row">
-      <div class="name-label">请选择您的角色</div>
-      <div class="role-grid" id="role-grid">
-        <div class="role-card" data-role="exec" onclick="selectRole(this)">
-          <div class="role-emoji">👔</div>
-          <div class="role-name">高管 / 决策层</div>
-          <div class="role-desc">总经理、副总经理、CIO、数智化负责人</div>
-        </div>
-        <div class="role-card" data-role="data" onclick="selectRole(this)">
-          <div class="role-emoji">🗄️</div>
-          <div class="role-name">数据 / IT 团队</div>
-          <div class="role-desc">数智化部、数据治理、SAP顾问、Basis</div>
-        </div>
-        <div class="role-card" data-role="biz" onclick="selectRole(this)">
-          <div class="role-emoji">🏭</div>
-          <div class="role-name">业务部门</div>
-          <div class="role-desc">财务、供应链、生产、销售等业务骨干</div>
-        </div>
-        <div class="role-card" data-role="audit" onclick="selectRole(this)">
-          <div class="role-emoji">🔍</div>
-          <div class="role-name">审计 / 风控 / 合规</div>
-          <div class="role-desc">内审、合规、风险管理相关人员</div>
-        </div>
+
+    <div class="section-label">请选择您的角色 <span class="field-req">*必填</span></div>
+    <div class="role-grid" id="role-grid">
+      <div class="role-card" data-role="exec" onclick="selectRole(this)">
+        <div class="role-icon">👔</div>
+        <div class="role-name">高管 / 决策层</div>
+        <div class="role-consequence">总经理、副总经理、CIO、数智化负责人 — 评估战略与资源视角</div>
+      </div>
+      <div class="role-card" data-role="data" onclick="selectRole(this)">
+        <div class="role-icon">🗄️</div>
+        <div class="role-name">数据 / IT 团队</div>
+        <div class="role-consequence">数智化部、数据治理、SAP 顾问、Basis — 评估技术与执行视角</div>
+      </div>
+      <div class="role-card" data-role="biz" onclick="selectRole(this)">
+        <div class="role-icon">🏭</div>
+        <div class="role-name">业务部门</div>
+        <div class="role-consequence">财务、供应链、生产、销售等业务骨干 — 评估应用与质量视角</div>
+      </div>
+      <div class="role-card" data-role="audit" onclick="selectRole(this)">
+        <div class="role-icon">🔍</div>
+        <div class="role-name">审计 / 风控 / 合规</div>
+        <div class="role-consequence">内审、合规、风险管理相关人员 — 评估安全与合规视角</div>
       </div>
     </div>
-    <p style="font-size:11px;color:var(--muted);margin-bottom:20px">* 每道题请根据佛照当前实际情况打分（1分=初始级，5分=优化级），并可补充文字说明。所有提交将汇总分析，结果仅供项目内部使用。</p>
-    <button class="start-btn" id="start-btn" onclick="startSurvey()" disabled>开始评估 →</button>
+
+    <p class="wc-hint">* 每题请根据佛照当前实际情况选择成熟度等级（L1 初始级 → L5 优化级），并可补充文字说明。所有提交将汇总分析。</p>
+    <button class="btn-primary" id="start-btn" onclick="startSurvey()" disabled>
+      开始评估 <span>→</span>
+    </button>
   </div>
 </div>
 </div>
 
-<!-- Screen 2: Survey -->
+<!-- ══════════════════════════════════════════════
+     SCREEN 2: SURVEY
+══════════════════════════════════════════════ -->
 <div id="screen-survey" class="screen">
-<div class="survey-layout">
-  <aside class="sidebar">
-    <div class="sidebar-title">评估进度</div>
-    <div id="nav-domains"></div>
-  </aside>
-  <div class="survey-main">
-    <div class="s-toolbar">
-      <div class="s-whobox">
-        <div class="s-avatar" id="s-avatar">?</div>
-        <div>
-          <div class="s-whoname" id="s-whoname">-</div>
-          <div class="s-whorole" id="s-whorole">-</div>
+  <div class="survey-shell">
+    <!-- left nav rail -->
+    <aside class="s-rail">
+      <div class="rail-section">评估进度</div>
+      <div id="rail-domains"></div>
+    </aside>
+
+    <!-- main form column -->
+    <div class="s-main">
+      <div class="s-main-inner">
+      <!-- context bar -->
+      <div class="s-ctxbar">
+        <div class="ctx-who">
+          <div class="ctx-avatar" id="ctx-avatar">?</div>
+          <div>
+            <div class="ctx-name" id="ctx-name">-</div>
+            <div class="ctx-meta" id="ctx-meta">-</div>
+          </div>
         </div>
+        <div class="ctx-progress">
+          <div class="pbar-bg"><div class="pbar-fill" id="pbar" style="width:0%"></div></div>
+          <span class="pbar-pct" id="pbar-pct">0%</span>
+        </div>
+        <button class="btn-save" id="btn-save" onclick="saveToGitHub()">💾 保存</button>
+        <button class="btn-results" id="btn-results" onclick="showResults()">📊 查看结果</button>
       </div>
-      <div class="s-progress-wrap">
-        <div class="s-pbar-bg"><div class="s-pbar" id="s-pbar" style="width:0%"></div></div>
-        <span class="s-pct" id="s-pct">0%</span>
-      </div>
-      <button class="gh-save-btn" id="save-btn" onclick="saveToGitHub()">💾 保存</button>
-      <button class="result-btn" id="result-btn" onclick="showResults()">📊 查看结果</button>
+
+      <!-- domain sections injected here -->
+      <div id="survey-content"></div>
+    </div><!-- /s-main-inner -->
     </div>
-    <div id="survey-content"></div>
+  </div>
+
+  <!-- sticky action bar -->
+  <div class="action-bar">
+    <span class="action-bar-left" id="ab-status">已完成 0 / 29 项</span>
+    <div class="action-bar-right">
+      <button class="btn-primary" id="ab-results" onclick="showResults()" style="display:none">📊 查看结果</button>
+    </div>
   </div>
 </div>
-</div>
 
-<!-- Screen 3: Results -->
+<!-- ══════════════════════════════════════════════
+     SCREEN 3: RESULTS
+══════════════════════════════════════════════ -->
 <div id="screen-results" class="screen">
-<div class="result-wrap">
+<div class="result-outer">
   <div id="result-hero-box" class="result-hero"></div>
+
   <div class="result-grid">
-    <div class="result-chart-card">
-      <div class="result-card-title">📡 能力域雷达图</div>
+    <div class="r-card">
+      <div class="r-card-title">📡 能力域雷达图</div>
       <div class="radar-wrap"><canvas id="radarChart"></canvas></div>
     </div>
-    <div class="result-chart-card">
-      <div class="result-card-title">📋 各能力域得分</div>
-      <ul class="domain-scores-list" id="domain-scores-list"></ul>
+    <div class="r-card">
+      <div class="r-card-title">📋 各能力域得分</div>
+      <ul class="ds-list" id="ds-list"></ul>
     </div>
   </div>
-  <div class="suggestions-card">
-    <div class="result-card-title">💡 改进建议</div>
-    <div id="suggestions-content"></div>
+
+  <div class="sug-card">
+    <div class="r-card-title">💡 改进建议</div>
+    <div id="sug-content"></div>
   </div>
-  <div class="all-submissions" id="all-submissions-box" style="display:none">
-    <div class="result-card-title">👥 所有提交汇总</div>
-    <div id="all-submissions-content"></div>
+
+  <div id="all-subs-box" class="sub-card" style="display:none">
+    <div class="r-card-title">👥 所有提交汇总</div>
+    <div id="all-subs-content"></div>
   </div>
-  <div style="text-align:center;padding:16px 0 8px">
-    <button class="btn-back" onclick="backToSurvey()">← 返回修改</button>
-    &nbsp;
-    <button class="gh-save-btn" onclick="saveToGitHub()">💾 保存评估结果</button>
+
+  <div class="result-actions">
+    <button class="btn-outline" onclick="backToSurvey()">← 返回修改</button>
+    <button class="btn-save" onclick="saveToGitHub()">💾 保存评估结果</button>
   </div>
 </div>
 </div>
 
-<div class="save-banner" id="save-banner"></div>
+<div class="toast" id="toast"></div>
 
 <script>
 // ============================================================
-// DCMM 数据结构 (GB/T 36073-2025)
+// DATA — DCMM GB/T 36073-2025
 // ============================================================
-var DOMAINS = [
-  {
-    id:'d1', num:'01', name:'数据战略', icon:'🎯',
-    desc:'战略规划、实施与评估',
-    items:[
-      {id:'1.1', name:'数据战略规划',
-       levels:['无正式数据战略','部分业务有数据相关规划','企业级数据战略已制定，与业务战略对齐','战略定期评审优化，有量化目标','数据战略驱动业务创新，持续引领行业']},
-      {id:'1.2', name:'数据战略实施',
-       levels:['无明确实施计划','有初步实施安排但缺乏系统性','实施路径清晰，有专项预算和资源','战略实施有监控机制，偏差及时纠偏','实施敏捷迭代，与外部生态协同']},
-      {id:'1.3', name:'数据战略评估',
-       levels:['未进行战略评估','偶尔回顾数据相关成果','年度评估机制，有KPI考核','多维评估体系，驱动战略调整','评估结果支撑董事会决策，对外披露']}
-    ]
-  },
-  {
-    id:'d2', num:'02', name:'数据治理', icon:'🏛️',
-    desc:'治理组织、制度与文化',
-    items:[
-      {id:'2.1', name:'数据治理组织',
-       levels:['无专职数据治理角色','有兼职数据管理人员','设立专职数据治理岗位，职责明确','跨部门数据治理委员会运作成熟','数据治理嵌入公司治理体系，C级汇报']},
-      {id:'2.2', name:'数据制度建设',
-       levels:['无正式数据管理制度','少量零散数据规范','覆盖主要领域的数据管理制度体系','制度落地执行，有检查和考核','制度持续优化，与业务变化同步更新']},
-      {id:'2.3', name:'数据文化建设',
-       levels:['数据意识薄弱，依赖经验决策','部分团队具备数据意识','数据驱动理念得到管理层认可','全员数据素养培训体系完善','以数据为核心竞争力，文化深度内化']}
-    ]
-  },
-  {
-    id:'d3', num:'03', name:'数据架构', icon:'🏗️',
-    desc:'模型、分布、集成与元数据',
-    items:[
-      {id:'3.1', name:'数据模型',
-       levels:['无统一数据模型','业务系统有局部数据模型','企业级概念/逻辑数据模型已建立','模型与系统保持一致，版本受控','模型驱动架构演进，支持数字孪生']},
-      {id:'3.2', name:'数据分布',
-       levels:['不清楚数据分布情况','了解主要系统数据位置','建立数据分布地图，覆盖主要系统','全面数据资产地图，含非结构化数据','数据分布动态感知，支持实时决策']},
-      {id:'3.3', name:'数据集成与共享',
-       levels:['系统间数据孤岛严重','点对点集成，接口混乱','统一集成平台，标准API管理','数据共享目录，按需开放','数据生态开放，内外部协同共享']},
-      {id:'3.4', name:'元数据管理',
-       levels:['无元数据管理','关键业务元数据有记录','元数据仓库建立，覆盖主要数据资产','元数据自动采集，血缘关系可追溯','元数据驱动数据治理，支持智能发现']}
-    ]
-  },
-  {
-    id:'d4', num:'04', name:'数据资产', icon:'💎',
-    desc:'权属、价值评估与资产运营',
-    items:[
-      {id:'4.1', name:'权属管理',
-       levels:['数据权责不清','关键数据有负责人','建立数据所有权体系，职责清晰','权属管理嵌入业务流程','数据权属支持外部合规和资产交易']},
-      {id:'4.2', name:'价值评估',
-       levels:['未对数据价值进行评估','感知数据有价值但无量化','关键数据资产有价值评估方法','定期开展数据资产价值评估','数据资产价值纳入财务报告']},
-      {id:'4.3', name:'资产运营',
-       levels:['数据未作为资产管理','个别系统有数据目录','数据资产目录覆盖主要业务域','数据资产平台支持内部共享运营','数据产品化，支持内外部变现']}
-    ]
-  },
-  {
-    id:'d5', num:'05', name:'数据标准', icon:'📏',
-    desc:'业务术语、主数据、参考数据、数据元、指标',
-    items:[
-      {id:'5.1', name:'业务术语',
-       levels:['各部门术语自定义，无统一','有局部业务词汇表','企业级业务词汇表建立并维护','术语标准与系统配置绑定','术语支持行业交换和外部对标']},
-      {id:'5.2', name:'主数据',
-       levels:['主数据重复混乱','有主数据治理意识，局部清洗','主数据管理系统（MDM）上线','主数据黄金记录统一，质量可控','主数据驱动多法人/跨企业协同']},
-      {id:'5.3', name:'参考数据',
-       levels:['参考数据无统一管理','关键代码表有版本记录','参考数据统一管理，变更受控','参考数据与业务系统自动同步','参考数据支持跨机构对接标准']},
-      {id:'5.4', name:'数据元',
-       levels:['无数据元规范','关键字段有定义文档','数据元标准覆盖主要数据域','数据元标准与物理模型映射一致','数据元符合国家/行业标准，支持外报']},
-      {id:'5.5', name:'指标数据',
-       levels:['指标口径各系统不一致','核心指标有统一定义','指标体系覆盖主要业务域','指标平台统一发布，一致性保障','指标驱动经营决策，支持监管报送']}
-    ]
-  },
-  {
-    id:'d6', num:'06', name:'数据质量', icon:'✅',
-    desc:'需求、检查、分析与提升',
-    items:[
-      {id:'6.1', name:'数据质量需求',
-       levels:['无质量要求定义','业务部门有质量投诉','关键数据集有质量标准定义','全面质量需求管理，SLA约定','质量需求驱动系统和流程优化']},
-      {id:'6.2', name:'数据质量检查',
-       levels:['无质量检查机制','人工抽查，不系统','自动化质量规则，定期检查','实时质量监控，质量仪表板','预测性质量管理，提前预警']},
-      {id:'6.3', name:'数据质量分析',
-       levels:['质量问题不分析','事后分析，追责为主','根因分析，质量问题有归类','趋势分析，质量改进有量化目标','质量分析支持业务决策优化']},
-      {id:'6.4', name:'数据质量提升',
-       levels:['无质量提升计划','有临时修复，不可持续','质量改进项目定期开展','质量提升嵌入数据生命周期','质量文化驱动，持续卓越改进']}
-    ]
-  },
-  {
-    id:'d7', num:'07', name:'数据安全', icon:'🔐',
-    desc:'安全策略、管控与审计',
-    items:[
-      {id:'7.1', name:'数据安全策略',
-       levels:['无正式安全策略','有基础网络安全意识','数据安全分类分级策略完善','安全策略与业务风险挂钩','安全策略驱动合规和竞争优势']},
-      {id:'7.2', name:'数据安全管控',
-       levels:['访问控制薄弱','关键系统有账户管理','数据访问权限精细化管控','动态权限，最小化原则贯彻','零信任架构，自动化安全响应']},
-      {id:'7.3', name:'数据安全审计',
-       levels:['无安全审计','事后调查日志','定期安全审计机制','持续安全监控，异常实时告警','AI辅助安全态势感知']}
-    ]
-  },
-  {
-    id:'d8', num:'08', name:'数据应用', icon:'🚀',
-    desc:'数据分析、开放共享与数字化创新',
-    items:[
-      {id:'8.1', name:'数据分析与应用',
-       levels:['基本报表，手工导出','BI工具使用，但数据孤岛','自助分析平台，数据中台支撑','预测分析和AI应用场景落地','数据驱动业务模式创新']},
-      {id:'8.2', name:'数据开放与共享',
-       levels:['数据不开放，部门壁垒','内部申请共享，流程繁琐','内部数据共享平台，按需获取','数据API开放，内外部生态接入','数据市场，支持价值变现']},
-      {id:'8.3', name:'数字化创新',
-       levels:['未将数据用于创新','个别AI/数据项目探索','数据创新孵化机制建立','数字化创新规模化复制','数据驱动商业模式重构']}
-    ]
-  }
+var DOMAINS=[
+  {id:'d1',num:'01',name:'数据战略',icon:'🎯',desc:'战略规划、实施与评估',
+   items:[
+    {id:'1.1',name:'数据战略规划',levels:['无正式数据战略','部分业务有数据相关规划','企业级数据战略已制定，与业务战略对齐','战略定期评审优化，有量化目标','数据战略驱动业务创新，持续引领行业']},
+    {id:'1.2',name:'数据战略实施',levels:['无明确实施计划','有初步实施安排但缺乏系统性','实施路径清晰，有专项预算和资源','战略实施有监控机制，偏差及时纠偏','实施敏捷迭代，与外部生态协同']},
+    {id:'1.3',name:'数据战略评估',levels:['未进行战略评估','偶尔回顾数据相关成果','年度评估机制，有KPI考核','多维评估体系，驱动战略调整','评估结果支撑董事会决策，对外披露']}
+  ]},
+  {id:'d2',num:'02',name:'数据治理',icon:'🏛️',desc:'治理组织、制度与文化',
+   items:[
+    {id:'2.1',name:'数据治理组织',levels:['无专职数据治理角色','有兼职数据管理人员','设立专职数据治理岗位，职责明确','跨部门数据治理委员会运作成熟','数据治理嵌入公司治理体系，C级汇报']},
+    {id:'2.2',name:'数据制度建设',levels:['无正式数据管理制度','少量零散数据规范','覆盖主要领域的数据管理制度体系','制度落地执行，有检查和考核','制度持续优化，与业务变化同步更新']},
+    {id:'2.3',name:'数据文化建设',levels:['数据意识薄弱，依赖经验决策','部分团队具备数据意识','数据驱动理念得到管理层认可','全员数据素养培训体系完善','以数据为核心竞争力，文化深度内化']}
+  ]},
+  {id:'d3',num:'03',name:'数据架构',icon:'🏗️',desc:'模型、分布、集成与元数据',
+   items:[
+    {id:'3.1',name:'数据模型',levels:['无统一数据模型','业务系统有局部数据模型','企业级概念/逻辑数据模型已建立','模型与系统保持一致，版本受控','模型驱动架构演进，支持数字孪生']},
+    {id:'3.2',name:'数据分布',levels:['不清楚数据分布情况','了解主要系统数据位置','建立数据分布地图，覆盖主要系统','全面数据资产地图，含非结构化数据','数据分布动态感知，支持实时决策']},
+    {id:'3.3',name:'数据集成与共享',levels:['系统间数据孤岛严重','点对点集成，接口混乱','统一集成平台，标准API管理','数据共享目录，按需开放','数据生态开放，内外部协同共享']},
+    {id:'3.4',name:'元数据管理',levels:['无元数据管理','关键业务元数据有记录','元数据仓库建立，覆盖主要数据资产','元数据自动采集，血缘关系可追溯','元数据驱动数据治理，支持智能发现']}
+  ]},
+  {id:'d4',num:'04',name:'数据资产',icon:'💎',desc:'权属、价值评估与资产运营',
+   items:[
+    {id:'4.1',name:'权属管理',levels:['数据权责不清','关键数据有负责人','建立数据所有权体系，职责清晰','权属管理嵌入业务流程','数据权属支持外部合规和资产交易']},
+    {id:'4.2',name:'价值评估',levels:['未对数据价值进行评估','感知数据有价值但无量化','关键数据资产有价值评估方法','定期开展数据资产价值评估','数据资产价值纳入财务报告']},
+    {id:'4.3',name:'资产运营',levels:['数据未作为资产管理','个别系统有数据目录','数据资产目录覆盖主要业务域','数据资产平台支持内部共享运营','数据产品化，支持内外部变现']}
+  ]},
+  {id:'d5',num:'05',name:'数据标准',icon:'📏',desc:'业务术语、主数据、参考数据、数据元、指标',
+   items:[
+    {id:'5.1',name:'业务术语',levels:['各部门术语自定义，无统一','有局部业务词汇表','企业级业务词汇表建立并维护','术语标准与系统配置绑定','术语支持行业交换和外部对标']},
+    {id:'5.2',name:'主数据',levels:['主数据重复混乱','有主数据治理意识，局部清洗','主数据管理系统（MDM）上线','主数据黄金记录统一，质量可控','主数据驱动多法人/跨企业协同']},
+    {id:'5.3',name:'参考数据',levels:['参考数据无统一管理','关键代码表有版本记录','参考数据统一管理，变更受控','参考数据与业务系统自动同步','参考数据支持跨机构对接标准']},
+    {id:'5.4',name:'数据元',levels:['无数据元规范','关键字段有定义文档','数据元标准覆盖主要数据域','数据元标准与物理模型映射一致','数据元符合国家/行业标准，支持外报']},
+    {id:'5.5',name:'指标数据',levels:['指标口径各系统不一致','核心指标有统一定义','指标体系覆盖主要业务域','指标平台统一发布，一致性保障','指标驱动经营决策，支持监管报送']}
+  ]},
+  {id:'d6',num:'06',name:'数据质量',icon:'✅',desc:'需求、检查、分析与提升',
+   items:[
+    {id:'6.1',name:'数据质量需求',levels:['无质量要求定义','业务部门有质量投诉','关键数据集有质量标准定义','全面质量需求管理，SLA约定','质量需求驱动系统和流程优化']},
+    {id:'6.2',name:'数据质量检查',levels:['无质量检查机制','人工抽查，不系统','自动化质量规则，定期检查','实时质量监控，质量仪表板','预测性质量管理，提前预警']},
+    {id:'6.3',name:'数据质量分析',levels:['质量问题不分析','事后分析，追责为主','根因分析，质量问题有归类','趋势分析，质量改进有量化目标','质量分析支持业务决策优化']},
+    {id:'6.4',name:'数据质量提升',levels:['无质量提升计划','有临时修复，不可持续','质量改进项目定期开展','质量提升嵌入数据生命周期','质量文化驱动，持续卓越改进']}
+  ]},
+  {id:'d7',num:'07',name:'数据安全',icon:'🔐',desc:'安全策略、管控与审计',
+   items:[
+    {id:'7.1',name:'数据安全策略',levels:['无正式安全策略','有基础网络安全意识','数据安全分类分级策略完善','安全策略与业务风险挂钩','安全策略驱动合规和竞争优势']},
+    {id:'7.2',name:'数据安全管控',levels:['访问控制薄弱','关键系统有账户管理','数据访问权限精细化管控','动态权限，最小化原则贯彻','零信任架构，自动化安全响应']},
+    {id:'7.3',name:'数据安全审计',levels:['无安全审计','事后调查日志','定期安全审计机制','持续安全监控，异常实时告警','AI辅助安全态势感知']}
+  ]},
+  {id:'d8',num:'08',name:'数据应用',icon:'🚀',desc:'数据分析、开放共享与数字化创新',
+   items:[
+    {id:'8.1',name:'数据分析与应用',levels:['基本报表，手工导出','BI工具使用，但数据孤岛','自助分析平台，数据中台支撑','预测分析和AI应用场景落地','数据驱动业务模式创新']},
+    {id:'8.2',name:'数据开放与共享',levels:['数据不开放，部门壁垒','内部申请共享，流程繁琐','内部数据共享平台，按需获取','数据API开放，内外部生态接入','数据市场，支持价值变现']},
+    {id:'8.3',name:'数字化创新',levels:['未将数据用于创新','个别AI/数据项目探索','数据创新孵化机制建立','数字化创新规模化复制','数据驱动商业模式重构']}
+  ]}
 ];
 
-var ROLE_NAMES = {exec:'高管/决策层', data:'数据/IT团队', biz:'业务部门', audit:'审计/风控'};
-var LEVEL_NAMES = ['','初始级','受管理级','稳健级','量化管理级','优化级'];
-var LEVEL_DESC = ['','数据管理尚未规范化，依赖个人能力','数据管理已在部门层面受到关注，有初步规范','数据管理制度化，跨部门协调有效','基于量化指标管理数据，可预测可控','数据管理持续优化，驱动业务价值最大化'];
+var ROLE_NAMES={exec:'高管/决策层',data:'数据/IT团队',biz:'业务部门',audit:'审计/风控'};
+var LV_NAMES=['','初始级','受管理级','稳健级','量化管理级','优化级'];
+var LV_DESC=['','数据管理尚未规范化，依赖个人能力','数据管理已在部门层面受到关注，有初步规范','数据管理制度化，跨部门协调有效','基于量化指标管理数据，可预测可控','数据管理持续优化，驱动业务价值最大化'];
 
-var SUGGESTIONS = {
+var SUGGESTIONS={
   d1:['制定或更新企业级数据战略，明确3年目标','将数据战略纳入年度业务规划','建立数据战略执行仪表板','推动数据战略向董事会汇报机制'],
   d2:['成立数据治理委员会，任命CDO或数据负责人','完善数据管理制度体系，涵盖全生命周期','开展全员数据素养培训','建立数据文化激励机制'],
   d3:['建立企业级统一数据模型','绘制全域数据分布地图','推进SAP CPI统一集成架构','部署元数据管理工具（如SAP Information Steward）'],
@@ -415,557 +792,466 @@ var SUGGESTIONS = {
   d8:['推进SAC自助分析平台落地','建立内部数据共享申请流程','探索AI/ML在供应链优化中的应用','规划数据中台架构支撑业务创新']
 };
 
-
-// ============================================================
-// Tooltip 评估指引 (每个能力项的评估要点 + 典型证据)
-// ============================================================
-var HINTS = {
-  '1.1':{q:'评估要点：企业是否制定了正式的、与业务战略对齐的数据战略？',
-    evidence:'L1-2：数据工作靠个人推动，无文件。L3：有数据战略文件，高管签发。L4：战略有量化KPI，年度回顾。L5：数据战略纳入董事会议程，驱动商业模式创新。',
-    clue:'询问：是否有数据战略规划文件？是否有高管主导？'},
-  '1.2':{q:'评估要点：数据战略是否有落地路径、专项预算和资源保障？',
-    evidence:'L1-2：战略停留在PPT，无预算。L3：有实施路线图，设专项预算。L4：有执行监控机制和偏差管理。L5：实施敏捷化，与生态伙伴协同。',
-    clue:'询问：数据管理有独立预算线吗？实施进度由谁跟踪？'},
-  '1.3':{q:'评估要点：是否定期评估数据战略执行效果并反馈到战略调整？',
-    evidence:'L1-2：无评估机制。L3：年度评估，有KPI。L4：多维评估，闭环调整。L5：评估结论对外披露，支撑董事决策。',
-    clue:'询问：去年数据管理的KPI完成情况是否被评审过？'},
-  '2.1':{q:'评估要点：是否有专职数据治理岗位和跨部门协调机制？',
-    evidence:'L1-2：IT兼管，无专职。L3：有数据治理岗/数据负责人。L4：数据治理委员会定期运作。L5：CDO直接向CEO汇报，纳入公司治理体系。',
-    clue:'佛照数智化部6名内部顾问是否承担数据治理职责？是否有跨部门数据协调会？'},
-  '2.2':{q:'评估要点：数据管理制度是否覆盖主要业务域并有效落地？',
-    evidence:'L1-2：无制度或仅有零散规定。L3：有制度体系文件，覆盖主要领域。L4：制度有执行考核，有检查机制。L5：制度随业务变化持续更新。',
-    clue:'询问：是否有《数据管理办法》《主数据管理规范》等正式文件？'},
-  '2.3':{q:'评估要点：员工是否具备数据素养，决策是否依赖数据而非经验？',
-    evidence:'L1-2：经验驱动决策为主，数据意识薄弱。L3：管理层认可数据驱动。L4：有全员数据素养培训体系。L5：数据文化深入组织基因。',
-    clue:'询问：业务会议中是否常用数据支撑决策？是否有数据素养培训？'},
-  '3.1':{q:'评估要点：是否建立了企业级统一数据模型，与实际系统保持一致？',
-    evidence:'L1-2：各系统自定义，无统一模型。L3：企业概念/逻辑模型已建立。L4：模型版本受控，与系统同步。L5：模型驱动架构演进。',
-    clue:'佛照19家法人实体是否有统一的数据模型？S/4HANA Greenfield是建立统一模型的窗口期。'},
-  '3.2':{q:'评估要点：是否清楚企业数据分布在哪些系统，包括非结构化数据？',
-    evidence:'L1-2：数据在哪里、有多少说不清楚。L3：有数据分布地图，覆盖主要系统。L4：全面数据资产地图含非结化数据。L5：数据分布动态感知。',
-    clue:'询问：是否有数据资产清单？SAP/PLM/MES/OA各存了什么数据？'},
-  '3.3':{q:'评估要点：系统间数据集成是否规范，是否有统一集成平台？',
-    evidence:'L1-2：点对点集成，接口混乱，数据孤岛。L3：统一集成平台（如SAP CPI），标准API。L4：数据共享目录，按需开放。L5：数据生态开放共享。',
-    clue:'佛照已规划SAP CPI做集成，CPI上线后集成状况会显著改善。当前如何？'},
-  '3.4':{q:'评估要点：是否管理数据资产的描述信息（元数据），是否可追溯数据来源？',
-    evidence:'L1-2：无元数据管理，字段含义靠口口相传。L3：元数据仓库建立，覆盖主要数据资产。L4：元数据自动采集，血缘可追溯。L5：元数据驱动智能发现。',
-    clue:'询问：新员工如何了解各报表字段的含义？是否有数据字典？'},
-  '4.1':{q:'评估要点：关键数据是否有明确的所有者，责任是否清晰到人？',
-    evidence:'L1-2：数据出问题找不到负责人。L3：数据所有权体系建立，职责清晰。L4：权属管理嵌入业务流程。L5：数据权属支持外部合规和资产交易。',
-    clue:'询问：客户数据、物料数据出错时谁来负责？是否有数据Owner制度？'},
-  '4.2':{q:'评估要点：是否对数据资产进行过价值量化评估？',
-    evidence:'L1-2：知道数据有价值，但从未量化。L3：关键数据有价值评估方法。L4：定期开展数据资产价值评估。L5：数据资产价值纳入财务报告。',
-    clue:'询问：是否做过数据资产盘点？是否评估过CRM客户数据或产品数据的价值？'},
-  '4.3':{q:'评估要点：是否有数据资产目录，是否支持内部数据共享和运营？',
-    evidence:'L1-2：无数据目录，各部门存各自的。L3：数据资产目录覆盖主要业务域。L4：数据资产平台支持内部共享。L5：数据产品化，支持内外部变现。',
-    clue:'询问：有没有可以查询公司有哪些数据资产的入口？'},
-  '5.1':{q:'评估要点：各部门使用同一个业务词汇时含义是否一致？',
-    evidence:'L1-2：同一指标各部门口径不同，争吵不休。L3：企业级业务词汇表建立维护。L4：术语标准与系统配置绑定。L5：术语支持行业交换和外部对标。',
-    clue:'经典问题：佛照的"客户"定义在销售、财务、MDG中是否一致？'},
-  '5.2':{q:'评估要点：主数据（客户、供应商、物料等）是否统一管理，质量是否可控？',
-    evidence:'L1-2：主数据重复、混乱，多系统不一致。L3：MDM主数据管理系统上线。L4：黄金记录统一，质量可控。L5：主数据驱动多法人/跨企业协同。',
-    clue:'佛照19家法人主数据统一是核心痛点。SAP MDG在本次实施范围内，当前是什么状态？'},
-  '5.3':{q:'评估要点：参考数据（代码表、枚举值）是否统一管理，变更是否受控？',
-    evidence:'L1-2：各系统代码表自己维护，互不一致。L3：参考数据统一管理，变更受控。L4：与业务系统自动同步。L5：支持跨机构标准对接。',
-    clue:'询问：物料分类代码、币种代码、部门代码在各系统是否一致？如何维护？'},
-  '5.4':{q:'评估要点：关键数据字段是否有统一的定义标准，与系统物理模型是否一致？',
-    evidence:'L1-2：字段定义全靠个人记忆，无文档。L3：数据元标准覆盖主要数据域。L4：数据元标准与物理模型映射一致。L5：符合国家/行业标准，支持外报。',
-    clue:'询问：是否有数据字典？字段长度、格式、编码规则是否有规范文档？'},
-  '5.5':{q:'评估要点：核心业务指标（收入、利润、库存周转等）口径是否统一？',
-    evidence:'L1-2：相同指标各报表数字不一致，领导不信任数据。L3：指标体系覆盖主要业务域。L4：指标平台统一发布。L5：指标驱动经营决策，支持监管报送。',
-    clue:'经典痛点：销售收入在SAP、SmartBI、各部门Excel中是否一致？为什么不一致？'},
-  '6.1':{q:'评估要点：是否明确定义了关键数据的质量标准（完整性/准确性/及时性等）？',
-    evidence:'L1-2：没人定义数据质量要求，出错才发现。L3：关键数据集有质量标准定义。L4：全面质量需求管理，有SLA约定。L5：质量需求驱动系统和流程优化。',
-    clue:'询问：物料主数据的完整性要求是多少？财务数据的及时性SLA是多少小时？'},
-  '6.2':{q:'评估要点：是否有自动化的数据质量检查机制，是否有质量仪表板？',
-    evidence:'L1-2：靠人工偶尔检查，问题发现滞后。L3：自动化质量规则，定期检查报告。L4：实时质量监控，质量仪表板。L5：预测性质量管理，提前预警。',
-    clue:'询问：是否有数据质量检查工具？每周/每月是否有质量报告输出？'},
-  '6.3':{q:'评估要点：数据质量问题是否进行根因分析并分类追踪？',
-    evidence:'L1-2：出问题修数据，不分析原因。L3：根因分析，问题有归类。L4：趋势分析，有量化改进目标。L5：质量分析支持业务决策优化。',
-    clue:'询问：过去一年最常见的数据质量问题是什么？是否分析过根因？'},
-  '6.4':{q:'评估要点：数据质量改进是否有系统性计划并嵌入日常流程？',
-    evidence:'L1-2：临时修复，修了又错。L3：质量改进项目定期开展。L4：质量提升嵌入数据生命周期管理。L5：质量文化驱动持续改进。',
-    clue:'询问：是否有专项数据质量整改项目？整改成果是否验收？'},
-  '7.1':{q:'评估要点：是否有覆盖数据全生命周期的安全策略，包括数据分类分级？',
-    evidence:'L1-2：只有IT网络安全，无数据安全专项策略。L3：数据安全分类分级策略完善。L4：安全策略与业务风险挂钩。L5：安全策略驱动合规和竞争优势。',
-    clue:'佛照有泰国/德国法人涉及跨境数据，是否有数据出境合规策略？'},
-  '7.2':{q:'评估要点：数据访问权限是否精细化管控，是否遵循最小权限原则？',
-    evidence:'L1-2：权限粗放，离职人员账号未及时清理。L3：精细化权限管控，角色清晰。L4：动态权限，最小化原则贯彻。L5：零信任架构，自动化安全响应。',
-    clue:'询问：SAP权限方案是否在蓝图中规划？离职员工账号多久停用？'},
-  '7.3':{q:'评估要点：是否有数据安全审计机制，是否能及时发现异常访问？',
-    evidence:'L1-2：无日志审计，出事后无法追溯。L3：定期安全审计机制建立。L4：持续安全监控，异常实时告警。L5：AI辅助安全态势感知。',
-    clue:'询问：SAP系统操作日志是否定期审查？是否有异常访问告警？'},
-  '8.1':{q:'评估要点：数据分析能力是否支撑业务决策，是否有自助分析能力？',
-    evidence:'L1-2：基本报表，手工导出Excel，数据孤岛严重。L3：BI工具普及，自助分析平台上线。L4：预测分析和AI应用落地。L5：数据驱动商业模式创新。',
-    clue:'佛照当前用SmartBI/BIP，SAC在二期考虑。当前业务人员能否自助取数？'},
-  '8.2':{q:'评估要点：数据是否能在部门间便捷共享，是否有数据共享申请流程？',
-    evidence:'L1-2：各部门数据壁垒严重，跨部门取数靠关系。L3：内部数据共享平台，按需获取。L4：数据API开放，内外部生态接入。L5：数据市场，支持价值变现。',
-    clue:'询问：业务部门需要其他系统数据时，流程是什么？需要多久？'},
-  '8.3':{q:'评估要点：是否在探索或落地AI/数字化创新应用，是否有孵化机制？',
-    evidence:'L1-2：数字化创新仅停留在口号层面。L3：数据创新孵化机制建立，有专项探索。L4：数字化创新规模化复制。L5：数据驱动商业模式重构。',
-    clue:'佛照有AICG项目（2025年启动），是否有其他AI/数字化创新项目在推进？'}
+var HINTS={
+  '1.1':{q:'评估要点：企业是否制定了正式的、与业务战略对齐的数据战略？',evidence:'L1-2：数据工作靠个人推动，无文件。L3：有数据战略文件，高管签发。L4：战略有量化KPI，年度回顾。L5：数据战略纳入董事会议程，驱动商业模式创新。',clue:'询问：是否有数据战略规划文件？是否有高管主导？'},
+  '1.2':{q:'评估要点：数据战略是否有落地路径、专项预算和资源保障？',evidence:'L1-2：战略停留在PPT，无预算。L3：有实施路线图，设专项预算。L4：有执行监控机制和偏差管理。L5：实施敏捷化，与生态伙伴协同。',clue:'询问：数据管理有独立预算线吗？实施进度由谁跟踪？'},
+  '1.3':{q:'评估要点：是否定期评估数据战略执行效果并反馈到战略调整？',evidence:'L1-2：无评估机制。L3：年度评估，有KPI。L4：多维评估，闭环调整。L5：评估结论对外披露，支撑董事决策。',clue:'询问：去年数据管理的KPI完成情况是否被评审过？'},
+  '2.1':{q:'评估要点：是否有专职数据治理岗位和跨部门协调机制？',evidence:'L1-2：IT兼管，无专职。L3：有数据治理岗/数据负责人。L4：数据治理委员会定期运作。L5：CDO直接向CEO汇报，纳入公司治理体系。',clue:'佛照数智化部6名内部顾问是否承担数据治理职责？是否有跨部门数据协调会？'},
+  '2.2':{q:'评估要点：数据管理制度是否覆盖主要业务域并有效落地？',evidence:'L1-2：无制度或仅有零散规定。L3：有制度体系文件，覆盖主要领域。L4：制度有执行考核，有检查机制。L5：制度随业务变化持续更新。',clue:'询问：是否有《数据管理办法》《主数据管理规范》等正式文件？'},
+  '2.3':{q:'评估要点：员工是否具备数据素养，决策是否依赖数据而非经验？',evidence:'L1-2：经验驱动决策为主，数据意识薄弱。L3：管理层认可数据驱动。L4：有全员数据素养培训体系。L5：数据文化深入组织基因。',clue:'询问：业务会议中是否常用数据支撑决策？是否有数据素养培训？'},
+  '3.1':{q:'评估要点：是否建立了企业级统一数据模型，与实际系统保持一致？',evidence:'L1-2：各系统自定义，无统一模型。L3：企业概念/逻辑模型已建立。L4：模型版本受控，与系统同步。L5：模型驱动架构演进。',clue:'佛照19家法人实体是否有统一的数据模型？S/4HANA Greenfield是建立统一模型的窗口期。'},
+  '3.2':{q:'评估要点：是否清楚企业数据分布在哪些系统，包括非结构化数据？',evidence:'L1-2：数据在哪里、有多少说不清楚。L3：有数据分布地图，覆盖主要系统。L4：全面数据资产地图含非结化数据。L5：数据分布动态感知。',clue:'询问：是否有数据资产清单？SAP/PLM/MES/OA各存了什么数据？'},
+  '3.3':{q:'评估要点：系统间数据集成是否规范，是否有统一集成平台？',evidence:'L1-2：点对点集成，接口混乱，数据孤岛。L3：统一集成平台（如SAP CPI），标准API。L4：数据共享目录，按需开放。L5：数据生态开放共享。',clue:'佛照已规划SAP CPI做集成，CPI上线后集成状况会显著改善。当前如何？'},
+  '3.4':{q:'评估要点：是否管理数据资产的描述信息（元数据），是否可追溯数据来源？',evidence:'L1-2：无元数据管理，字段含义靠口口相传。L3：元数据仓库建立，覆盖主要数据资产。L4：元数据自动采集，血缘可追溯。L5：元数据驱动智能发现。',clue:'询问：新员工如何了解各报表字段的含义？是否有数据字典？'},
+  '4.1':{q:'评估要点：关键数据是否有明确的所有者，责任是否清晰到人？',evidence:'L1-2：数据出问题找不到负责人。L3：数据所有权体系建立，职责清晰。L4：权属管理嵌入业务流程。L5：数据权属支持外部合规和资产交易。',clue:'询问：客户数据、物料数据出错时谁来负责？是否有数据Owner制度？'},
+  '4.2':{q:'评估要点：是否对数据资产进行过价值量化评估？',evidence:'L1-2：知道数据有价值，但从未量化。L3：关键数据有价值评估方法。L4：定期开展数据资产价值评估。L5：数据资产价值纳入财务报告。',clue:'询问：是否做过数据资产盘点？是否评估过CRM客户数据或产品数据的价值？'},
+  '4.3':{q:'评估要点：是否有数据资产目录，是否支持内部数据共享和运营？',evidence:'L1-2：无数据目录，各部门存各自的。L3：数据资产目录覆盖主要业务域。L4：数据资产平台支持内部共享。L5：数据产品化，支持内外部变现。',clue:'询问：有没有可以查询公司有哪些数据资产的入口？'},
+  '5.1':{q:'评估要点：各部门使用同一个业务词汇时含义是否一致？',evidence:'L1-2：同一指标各部门口径不同，争吵不休。L3：企业级业务词汇表建立维护。L4：术语标准与系统配置绑定。L5：术语支持行业交换和外部对标。',clue:'经典问题：佛照的"客户"定义在销售、财务、MDG中是否一致？'},
+  '5.2':{q:'评估要点：主数据（客户、供应商、物料等）是否统一管理，质量是否可控？',evidence:'L1-2：主数据重复、混乱，多系统不一致。L3：MDM主数据管理系统上线。L4：黄金记录统一，质量可控。L5：主数据驱动多法人/跨企业协同。',clue:'佛照19家法人主数据统一是核心痛点。SAP MDG在本次实施范围内，当前是什么状态？'},
+  '5.3':{q:'评估要点：参考数据（代码表、枚举值）是否统一管理，变更是否受控？',evidence:'L1-2：各系统代码表自己维护，互不一致。L3：参考数据统一管理，变更受控。L4：与业务系统自动同步。L5：支持跨机构标准对接。',clue:'询问：物料分类代码、币种代码、部门代码在各系统是否一致？如何维护？'},
+  '5.4':{q:'评估要点：关键数据字段是否有统一的定义标准，与系统物理模型是否一致？',evidence:'L1-2：字段定义全靠个人记忆，无文档。L3：数据元标准覆盖主要数据域。L4：数据元标准与物理模型映射一致。L5：符合国家/行业标准，支持外报。',clue:'询问：是否有数据字典？字段长度、格式、编码规则是否有规范文档？'},
+  '5.5':{q:'评估要点：核心业务指标（收入、利润、库存周转等）口径是否统一？',evidence:'L1-2：相同指标各报表数字不一致，领导不信任数据。L3：指标体系覆盖主要业务域。L4：指标平台统一发布。L5：指标驱动经营决策，支持监管报送。',clue:'经典痛点：销售收入在SAP、SmartBI、各部门Excel中是否一致？为什么不一致？'},
+  '6.1':{q:'评估要点：是否明确定义了关键数据的质量标准（完整性/准确性/及时性等）？',evidence:'L1-2：没人定义数据质量要求，出错才发现。L3：关键数据集有质量标准定义。L4：全面质量需求管理，有SLA约定。L5：质量需求驱动系统和流程优化。',clue:'询问：物料主数据的完整性要求是多少？财务数据的及时性SLA是多少小时？'},
+  '6.2':{q:'评估要点：是否有自动化的数据质量检查机制，是否有质量仪表板？',evidence:'L1-2：靠人工偶尔检查，问题发现滞后。L3：自动化质量规则，定期检查报告。L4：实时质量监控，质量仪表板。L5：预测性质量管理，提前预警。',clue:'询问：是否有数据质量检查工具？每周/每月是否有质量报告输出？'},
+  '6.3':{q:'评估要点：数据质量问题是否进行根因分析并分类追踪？',evidence:'L1-2：出问题修数据，不分析原因。L3：根因分析，问题有归类。L4：趋势分析，有量化改进目标。L5：质量分析支持业务决策优化。',clue:'询问：过去一年最常见的数据质量问题是什么？是否分析过根因？'},
+  '6.4':{q:'评估要点：数据质量改进是否有系统性计划并嵌入日常流程？',evidence:'L1-2：临时修复，修了又错。L3：质量改进项目定期开展。L4：质量提升嵌入数据生命周期管理。L5：质量文化驱动持续改进。',clue:'询问：是否有专项数据质量整改项目？整改成果是否验收？'},
+  '7.1':{q:'评估要点：是否有覆盖数据全生命周期的安全策略，包括数据分类分级？',evidence:'L1-2：只有IT网络安全，无数据安全专项策略。L3：数据安全分类分级策略完善。L4：安全策略与业务风险挂钩。L5：安全策略驱动合规和竞争优势。',clue:'佛照有泰国/德国法人涉及跨境数据，是否有数据出境合规策略？'},
+  '7.2':{q:'评估要点：数据访问权限是否精细化管控，是否遵循最小权限原则？',evidence:'L1-2：权限粗放，离职人员账号未及时清理。L3：精细化权限管控，角色清晰。L4：动态权限，最小化原则贯彻。L5：零信任架构，自动化安全响应。',clue:'询问：SAP权限方案是否在蓝图中规划？离职员工账号多久停用？'},
+  '7.3':{q:'评估要点：是否有数据安全审计机制，是否能及时发现异常访问？',evidence:'L1-2：无日志审计，出事后无法追溯。L3：定期安全审计机制建立。L4：持续安全监控，异常实时告警。L5：AI辅助安全态势感知。',clue:'询问：SAP系统操作日志是否定期审查？是否有异常访问告警？'},
+  '8.1':{q:'评估要点：数据分析能力是否支撑业务决策，是否有自助分析能力？',evidence:'L1-2：基本报表，手工导出Excel，数据孤岛严重。L3：BI工具普及，自助分析平台上线。L4：预测分析和AI应用落地。L5：数据驱动商业模式创新。',clue:'佛照当前用SmartBI/BIP，SAC在二期考虑。当前业务人员能否自助取数？'},
+  '8.2':{q:'评估要点：数据是否能在部门间便捷共享，是否有数据共享申请流程？',evidence:'L1-2：各部门数据壁垒严重，跨部门取数靠关系。L3：内部数据共享平台，按需获取。L4：数据API开放，内外部生态接入。L5：数据市场，支持价值变现。',clue:'询问：业务部门需要其他系统数据时，流程是什么？需要多久？'},
+  '8.3':{q:'评估要点：是否在探索或落地AI/数字化创新应用，是否有孵化机制？',evidence:'L1-2：数字化创新仅停留在口号层面。L3：数据创新孵化机制建立，有专项探索。L4：数字化创新规模化复制。L5：数据驱动商业模式重构。',clue:'佛照有AICG项目（2025年启动），是否有其他AI/数字化创新项目在推进？'}
 };
 
 // ============================================================
-// State
+// STATE
 // ============================================================
-var state = {
-  name: '',
-  dept: '',
-  role: '',
-  scores: {},  // {capId: 1-5}
-  notes: {}    // {capId: text}
-};
-var radarChart = null;
+var state={name:'',dept:'',role:'',scores:{},notes:{}};
+var radarChart=null;
+var _resumeDraftData=null;
 
-
-function lsKey(){ return 'dcmm-draft-' + state.name + '-' + state.dept + '-' + state.role; }
+function lsKey(){return 'dcmm-v2-'+state.name+'-'+state.dept+'-'+state.role;}
 function saveDraft(){
-  if(!state.name || !state.role) return;
-  var draft = {scores: state.scores, notes: state.notes, savedAt: Date.now()};
-  try{ localStorage.setItem(lsKey(), JSON.stringify(draft)); }catch(e){}
+  if(!state.name||!state.role) return;
+  try{localStorage.setItem(lsKey(),JSON.stringify({scores:state.scores,notes:state.notes,savedAt:Date.now()}));}catch(e){}
 }
 function loadDraft(){
   try{
-    var raw = localStorage.getItem(lsKey());
+    var raw=localStorage.getItem(lsKey());
     if(!raw) return false;
-    var d = JSON.parse(raw);
-    var age = (Date.now() - (d.savedAt||0)) / 86400000;
-    if(age > 7) return false;   // 超7天草稿失效
-    state.scores = d.scores || {};
-    state.notes  = d.notes  || {};
-    return true;
-  }catch(e){ return false; }
+    var d=JSON.parse(raw);
+    if((Date.now()-(d.savedAt||0))/86400000>7) return false;
+    state.scores=d.scores||{};state.notes=d.notes||{};return true;
+  }catch(e){return false;}
 }
-function clearDraft(){ try{ localStorage.removeItem(lsKey()); }catch(e){} }
-// ============================================================
-// Welcome screen
-// ============================================================
-function selectRole(el){
-  document.querySelectorAll('.role-card').forEach(function(c){c.classList.remove('selected')});
-  el.classList.add('selected');
-  state.role = el.getAttribute('data-role');
-  checkStart();
-}
-document.getElementById('inp-name').addEventListener('input', function(){
-  state.name = this.value.trim();
-  checkStart();
-});
-document.getElementById('inp-dept').addEventListener('input', function(){
-  state.dept = this.value.trim();
-});
-function checkStart(){
-  document.getElementById('start-btn').disabled = !(state.name && state.role);
-}
+function clearDraft(){try{localStorage.removeItem(lsKey());}catch(e){}}
 
+// ============================================================
+// WELCOME SCREEN
+// ============================================================
+document.getElementById('inp-name').addEventListener('input',function(){state.name=this.value.trim();checkStart();});
+document.getElementById('inp-dept').addEventListener('input',function(){state.dept=this.value.trim();});
+
+function selectRole(el){
+  document.querySelectorAll('.role-card').forEach(function(c){c.classList.remove('selected');});
+  el.classList.add('selected');
+  state.role=el.dataset.role;
+  checkStart();
+}
+function checkStart(){
+  document.getElementById('start-btn').disabled=!(state.name&&state.role);
+}
 function startSurvey(){
-  state.name = document.getElementById('inp-name').value.trim();
-  state.dept = document.getElementById('inp-dept').value.trim();
-  buildSurvey();
+  state.name=document.getElementById('inp-name').value.trim();
+  state.dept=document.getElementById('inp-dept').value.trim();
+  buildSurvey(false);
   showScreen('screen-survey');
 }
+function resumeDraft(){
+  if(_resumeDraftData){
+    document.getElementById('inp-name').value=_resumeDraftData.name;
+    document.getElementById('inp-dept').value=_resumeDraftData.dept||'';
+    state.name=_resumeDraftData.name;
+    state.dept=_resumeDraftData.dept||'';
+    // set role card
+    var roleEl=document.querySelector('.role-card[data-role="'+_resumeDraftData.role+'"]');
+    if(roleEl) selectRole(roleEl);
+    state.role=_resumeDraftData.role;
+    document.getElementById('start-btn').disabled=false;
+    buildSurvey(true);
+    showScreen('screen-survey');
+  }
+}
+function dismissResume(){document.getElementById('resume-banner').classList.remove('show');}
+
+// scan localStorage for drafts on load
+(function(){
+  var latest=null,latestAge=Infinity;
+  try{
+    for(var i=0;i<localStorage.length;i++){
+      var k=localStorage.key(i);
+      if(!k||k.indexOf('dcmm-v2-')!==0) continue;
+      var d=JSON.parse(localStorage.getItem(k));
+      var age=(Date.now()-(d.savedAt||0))/3600000;
+      if(age<latestAge){latestAge=age;latest={key:k,data:d,age:age};}
+    }
+    if(latest){
+      var parts=latest.key.replace('dcmm-v2-','').split('-');
+      var rolePart=parts[parts.length-1];
+      var deptPart=parts.length>2?parts.slice(1,-1).join('-'):'';
+      var namePart=parts[0];
+      _resumeDraftData={name:namePart,dept:deptPart,role:rolePart,scores:latest.data.scores||{},notes:latest.data.notes||{}};
+      var ageStr=latestAge<1?Math.round(latestAge*60)+'分钟':Math.round(latestAge)+'小时';
+      document.getElementById('rb-name').textContent=namePart;
+      document.getElementById('rb-age').textContent=ageStr;
+      document.getElementById('resume-banner').classList.add('show');
+    }
+  }catch(e){}
+})();
 
 // ============================================================
-// Build survey UI
+// BUILD SURVEY UI
 // ============================================================
-function buildSurvey(){
-  var s = document.getElementById('s-avatar');
-  s.textContent = state.name.charAt(0) || '?';
-  document.getElementById('s-whoname').textContent = state.name;
-  document.getElementById('s-whorole').textContent = (state.dept ? state.dept + ' · ' : '') + (ROLE_NAMES[state.role] || state.role);
+function buildSurvey(restoring){
+  // context bar
+  document.getElementById('ctx-avatar').textContent=state.name.charAt(0)||'?';
+  document.getElementById('ctx-name').textContent=state.name;
+  document.getElementById('ctx-meta').textContent=(state.dept?state.dept+' · ':'')+( ROLE_NAMES[state.role]||state.role);
 
-  var navHtml = '';
-  DOMAINS.forEach(function(d, di){
-    navHtml += '<div class="nav-domain" id="nav-'+d.id+'" onclick="scrollToDomain(\'' + d.id + '\')">'
-      + d.icon + ' ' + d.name
-      + '<span class="nav-score" id="nav-score-'+d.id+'">-</span>'
-      + '</div>';
-  });
-  document.getElementById('nav-domains').innerHTML = navHtml;
-
-  var html = '';
+  // rail
+  var railHtml='';
   DOMAINS.forEach(function(d){
-    html += '<div class="domain-section" id="sec-'+d.id+'">';
-    html += '<div class="domain-header">'
-      + '<div class="domain-num">' + d.num + '</div>'
-      + '<div class="domain-title">' + d.icon + ' ' + d.name + '</div>'
-      + '<div class="domain-desc">' + d.desc + '</div>'
-      + '</div>';
-    d.items.forEach(function(item){
-      html += '<div class="cap-item" id="cap-'+item.id+'">';
-      html += '<div class="cap-head"><span class="cap-id">' + item.id + '</span><span class="cap-name">' + item.name + '</span>'
-      + (HINTS[item.id] ? '<span class="tip-wrap"><span class="tip-icon">ℹ</span><div class="tip-box"><div class="tip-title">💡 ' + HINTS[item.id].q + '</div><div class="tip-section"><strong>等级参考：</strong><br>' + HINTS[item.id].evidence + '</div><div class="tip-section" style="margin-top:8px;color:#FB8C00"><strong>🔍 访谈切入：</strong><br>' + HINTS[item.id].clue + '</div></div></span>' : '')
-      + '</div>';
-      html += '<div class="cap-body">';
-      html += '<div class="cap-levels">';
-      html += '<div class="cap-level-desc" id="desc-'+item.id+'">'
-        + '<span style="color:var(--b500);font-weight:700">选择适合的成熟度等级：</span><br>'
-        + item.levels.map(function(l,i){return '<span style="font-weight:700">L'+(i+1)+'</span> '+l}).join('<br>')
-        + '</div>';
-      html += '</div>';
-      html += '<div class="cap-right">';
-      html += '<div class="star-row">'
-        + '<span class="star-label">成熟度评分</span>'
-        + '<div class="stars" id="stars-'+item.id+'">';
-      for(var s=1;s<=5;s++){
-        html += '<span class="star" data-cap="'+item.id+'" data-val="'+s+'" onclick="setStar(\'' + item.id + '\',' + s + ')">★</span>';
-      }
-      html += '</div><span class="score-text" id="score-txt-'+item.id+'">未评分</span></div>';
-      html += '<div class="cap-note-label">补充说明（可选）</div>';
-      html += '<textarea class="cap-note" id="note-'+item.id+'" placeholder="请描述当前实际情况，或列举具体证据…" oninput="saveNote(\'' + item.id + '\')"></textarea>';
-      html += '</div></div></div>';
-    });
-    html += '</div>';
+    railHtml+='<div class="rail-item" id="rail-'+d.id+'" onclick="scrollToDomain(\''+d.id+'\')">'
+      +d.icon+' '+d.name
+      +'<span class="rail-check">✓</span>'
+      +'<span class="rail-score" id="rscore-'+d.id+'">-</span>'
+      +'</div>';
   });
-  document.getElementById('survey-content').innerHTML = html;
-  // 恢复本地草稿
-  var restored = loadDraft();
+  document.getElementById('rail-domains').innerHTML=railHtml;
+
+  // survey content
+  var html='';
+  DOMAINS.forEach(function(d){
+    html+='<div class="domain-card" id="sec-'+d.id+'">';
+    html+='<div class="domain-head">'
+      +'<div class="domain-badge">'+d.num+'</div>'
+      +'<div class="domain-name">'+d.icon+' '+d.name+'</div>'
+      +'<span class="domain-tag">'+d.desc+'</span>'
+      +'</div>';
+    d.items.forEach(function(item){
+      var hint=HINTS[item.id];
+      html+='<div class="cap-item" id="cap-'+item.id+'">';
+      // head
+      html+='<div class="cap-head">'
+        +'<span class="cap-id-badge">'+item.id+'</span>'
+        +'<span class="cap-name">'+item.name+'</span>';
+      if(hint){
+        html+='<span class="tip-wrap"><span class="tip-icon">i</span>'
+          +'<div class="tip-box">'
+          +'<div class="tip-title">💡 '+hint.q+'</div>'
+          +'<div class="tip-section"><strong>等级参考：</strong><br>'+hint.evidence+'</div>'
+          +'<div class="tip-section" style="margin-top:8px;color:#fbbf24"><strong>访谈切入：</strong><br>'+hint.clue+'</div>'
+          +'</div></span>';
+      }
+      html+='</div>';
+      // body
+      html+='<div class="cap-body">';
+      // left: level picker + desc
+      html+='<div class="cap-levels-col">';
+      html+='<div class="level-picker" id="lp-'+item.id+'">';
+      for(var v=1;v<=5;v++){
+        html+='<button class="lp-btn" data-cap="'+item.id+'" data-val="'+v+'" onclick="setLevel(\''+item.id+'\','+v+')">'
+          +'<div class="lp-num">L'+v+'</div>'
+          +'<div class="lp-label">'+LV_NAMES[v]+'</div>'
+          +'</button>';
+      }
+      html+='</div>';
+      html+='<div class="level-desc-box" id="ldesc-'+item.id+'">'
+        +'<strong>选择左侧等级查看详细说明</strong><br>'
+        +item.levels.map(function(l,i){return'<span style="font-weight:700">L'+(i+1)+'</span> '+l;}).join('<br>')
+        +'</div>';
+      html+='</div>';
+      // right: score status + note
+      html+='<div class="cap-right-col">';
+      html+='<div class="score-status" id="sstatus-'+item.id+'">'
+        +'<span class="score-dot" id="sdot-'+item.id+'"></span>'
+        +'<span class="score-val" id="sval-'+item.id+'">未评分</span>'
+        +'</div>';
+      html+='<div class="cap-note-label">补充说明（可选）</div>';
+      html+='<textarea class="cap-note" id="note-'+item.id+'" placeholder="请描述当前实际情况，或列举具体证据…" oninput="saveNote(\''+item.id+'\')"></textarea>';
+      html+='</div>';
+      html+='</div></div>';
+    });
+    html+='</div>';
+  });
+  document.getElementById('survey-content').innerHTML=html;
+
+  // restore draft
+  var restored=restoring?true:loadDraft();
   if(restored){
-    // 恢复星级
     Object.keys(state.scores).forEach(function(capId){
-      var val = state.scores[capId];
-      if(!val) return;
-      var stars = document.querySelectorAll('#stars-'+capId+' .star');
-      stars.forEach(function(s,i){ s.classList.toggle('on', i < val); });
-      var names = ['','初始级','受管理级','稳健级','量化管理级','优化级'];
-      var colors = ['','#B91C1C','#92400E','#065F46','#1E40AF','#5B21B6'];
-      var el = document.getElementById('score-txt-'+capId);
-      if(el) el.innerHTML = '<span style="font-weight:800;color:'+colors[val]+'">L'+val+' '+names[val]+'</span>';
+      var v=state.scores[capId];if(!v) return;
+      applyLevelUI(capId,v,false);
     });
-    // 恢复文字
     Object.keys(state.notes).forEach(function(capId){
-      var el = document.getElementById('note-'+capId);
-      if(el) el.value = state.notes[capId] || '';
+      var el=document.getElementById('note-'+capId);
+      if(el) el.value=state.notes[capId]||'';
     });
-    // 更新侧边栏分数
-    DOMAINS.forEach(function(d){ if(state.scores[d.items[0].id]) updateNavScore(d.items[0].id); });
-    showBanner('📂 已恢复上次未完成的草稿','');
+    DOMAINS.forEach(function(d){updateRailScore(d.id);});
+    showToast('已恢复上次草稿');
   }
   updateProgress();
-
   setupIntersection();
 }
 
-function setStar(capId, val){
-  state.scores[capId] = val;
-  var stars = document.querySelectorAll('#stars-'+capId+' .star');
-  stars.forEach(function(s, i){ s.classList.toggle('on', i < val); });
-  var names = ['','初始级','受管理级','稳健级','量化管理级','优化级'];
-  var colors = ['','#B91C1C','#92400E','#065F46','#1E40AF','#5B21B6'];
-  document.getElementById('score-txt-'+capId).innerHTML =
-    '<span style="font-weight:800;color:'+colors[val]+'">L'+val+' '+names[val]+'</span>';
+function setLevel(capId,val){
+  state.scores[capId]=val;
+  applyLevelUI(capId,val,true);
   updateProgress();
-  updateNavScore(capId);
+  updateRailScore('d'+capId.split('.')[0]);
   saveDraft();
+}
+
+function applyLevelUI(capId,val,animate){
+  // buttons
+  var lpContainer=document.getElementById('lp-'+capId);
+  var btns=lpContainer?lpContainer.querySelectorAll('.lp-btn'):[];
+  btns.forEach(function(b,i){b.classList.toggle('selected',parseInt(b.dataset.val)===val);});
+  // desc
+  var descEl=document.getElementById('ldesc-'+capId);
+  var capItem=null;
+  DOMAINS.forEach(function(d){d.items.forEach(function(it){if(it.id===capId)capItem=it;});});
+  if(descEl&&capItem){
+    descEl.innerHTML='<strong style="color:var(--accent)">L'+val+' '+LV_NAMES[val]+'：</strong>'+capItem.levels[val-1];
+  }
+  // status
+  var lvCls=['','lv1','lv2','lv3','lv4','lv5'];
+  var dot=document.getElementById('sdot-'+capId);
+  var sval=document.getElementById('sval-'+capId);
+  if(dot) dot.className='score-dot rated';
+  if(sval) sval.innerHTML='<span class="lv-pill '+lvCls[val]+'">L'+val+' '+LV_NAMES[val]+'</span>';
 }
 
 function saveNote(capId){
-  state.notes[capId] = document.getElementById('note-'+capId).value;
+  state.notes[capId]=document.getElementById('note-'+capId).value;
   saveDraft();
 }
 
-function updateNavScore(capId){
-  var domainId = 'd' + capId.split('.')[0];
-  var d = DOMAINS.find(function(d){ return d.id === domainId; });
+function updateRailScore(domainId){
+  var d=DOMAINS.find(function(x){return x.id===domainId;});
   if(!d) return;
-  var sum=0, cnt=0;
-  d.items.forEach(function(item){
-    if(state.scores[item.id]){ sum+=state.scores[item.id]; cnt++; }
-  });
-  var el = document.getElementById('nav-score-'+domainId);
-  if(el) el.textContent = cnt ? (sum/cnt).toFixed(1) : '-';
+  var sum=0,cnt=0;
+  d.items.forEach(function(it){if(state.scores[it.id]){sum+=state.scores[it.id];cnt++;}});
+  var el=document.getElementById('rscore-'+domainId);
+  var railEl=document.getElementById('rail-'+domainId);
+  if(el) el.textContent=cnt?(sum/cnt).toFixed(1):'-';
+  if(railEl){
+    var allDone=cnt===d.items.length;
+    railEl.classList.toggle('done',allDone);
+  }
 }
 
 function updateProgress(){
-  var total=0, done=0;
-  DOMAINS.forEach(function(d){
-    d.items.forEach(function(item){
-      total++;
-      if(state.scores[item.id]) done++;
-    });
-  });
-  var pct = total ? Math.round(done/total*100) : 0;
-  document.getElementById('s-pbar').style.width = pct+'%';
-  document.getElementById('s-pct').textContent = pct+'%';
-  var rb = document.getElementById('result-btn');
-  if(pct >= 80){ rb.style.display='inline-flex'; rb.textContent='📊 查看结果 ('+done+'/'+total+')'; }
+  var total=0,done=0;
+  DOMAINS.forEach(function(d){d.items.forEach(function(it){total++;if(state.scores[it.id])done++;});});
+  var pct=total?Math.round(done/total*100):0;
+  document.getElementById('pbar').style.width=pct+'%';
+  document.getElementById('pbar-pct').textContent=pct+'%';
+  document.getElementById('ab-status').textContent='已完成 '+done+' / '+total+' 项';
+  var showRes=pct>=80;
+  document.getElementById('btn-results').style.display=showRes?'inline-flex':'none';
+  document.getElementById('ab-results').style.display=showRes?'inline-flex':'none';
 }
 
 function scrollToDomain(did){
-  var el = document.getElementById('sec-'+did);
-  if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  var el=document.getElementById('sec-'+did);
+  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 function setupIntersection(){
   if(!window.IntersectionObserver) return;
-  var obs = new IntersectionObserver(function(entries){
+  var obs=new IntersectionObserver(function(entries){
     entries.forEach(function(e){
       if(e.isIntersecting){
-        var id = e.target.id.replace('sec-','');
-        document.querySelectorAll('.nav-domain').forEach(function(n){ n.classList.remove('active'); });
-        var nav = document.getElementById('nav-'+id);
+        var id=e.target.id.replace('sec-','');
+        document.querySelectorAll('.rail-item').forEach(function(n){n.classList.remove('active');});
+        var nav=document.getElementById('rail-'+id);
         if(nav) nav.classList.add('active');
       }
     });
   },{threshold:0.15});
-  DOMAINS.forEach(function(d){
-    var el = document.getElementById('sec-'+d.id);
-    if(el) obs.observe(el);
-  });
+  DOMAINS.forEach(function(d){var el=document.getElementById('sec-'+d.id);if(el)obs.observe(el);});
 }
 
 // ============================================================
-// Results
+// RESULTS
 // ============================================================
 function showResults(){
-  var domainScores = {};
+  var domScores={};
   DOMAINS.forEach(function(d){
-    var sum=0, cnt=0;
-    d.items.forEach(function(item){
-      if(state.scores[item.id]){ sum+=state.scores[item.id]; cnt++; }
-    });
-    domainScores[d.id] = cnt ? parseFloat((sum/cnt).toFixed(2)) : 0;
+    var sum=0,cnt=0;
+    d.items.forEach(function(it){if(state.scores[it.id]){sum+=state.scores[it.id];cnt++;}});
+    domScores[d.id]=cnt?parseFloat((sum/cnt).toFixed(2)):0;
   });
+  var allVals=Object.values(domScores);
+  var avg=allVals.length?parseFloat((allVals.reduce(function(a,b){return a+b;},0)/allVals.length).toFixed(2)):0;
+  var lv=Math.max(1,Math.min(5,Math.round(avg)));
 
-  var allScores = Object.values(domainScores);
-  var totalAvg = allScores.length ? parseFloat((allScores.reduce(function(a,b){return a+b},0)/allScores.length).toFixed(2)) : 0;
-  var level = Math.max(1, Math.min(5, Math.round(totalAvg)));
+  document.getElementById('result-hero-box').innerHTML=
+    '<div class="rh-level">L'+lv+'</div>'
+    +'<div class="rh-info">'
+    +'<div class="rh-name">'+LV_NAMES[lv]+'</div>'
+    +'<div class="rh-meta">综合得分：<span class="rh-score">'+avg+' / 5.0</span>'
+    +' &nbsp;|&nbsp; '+state.name+(state.dept?' ('+state.dept+')':'')+' · '+ROLE_NAMES[state.role]
+    +'<br>'+LV_DESC[lv]+'</div>'
+    +'</div>';
 
-  // Hero
-  var levelColors = ['','#FEE2E2','#FEF3C7','#D1FAE5','#DBEAFE','#EDE9FE'];
-  document.getElementById('result-hero-box').innerHTML =
-    '<div class="result-level-badge">L' + level + '</div>'
-    + '<div class="result-level-text">'
-    + '<div class="result-level-name">' + LEVEL_NAMES[level] + '</div>'
-    + '<div class="result-level-sub">综合得分：<span class="result-score-big">' + totalAvg + ' / 5.0</span> &nbsp;|&nbsp; 评估人：' + state.name + (state.dept ? ' (' + state.dept + ')' : '') + ' · ' + ROLE_NAMES[state.role] + '<br>' + LEVEL_DESC[level] + '</div>'
-    + '</div>';
-
-  // Domain scores list
-  var listHtml = '';
+  // domain list
+  var listHtml='';
   DOMAINS.forEach(function(d){
-    var sc = domainScores[d.id];
-    listHtml += '<li class="domain-score-item">'
-      + '<span class="ds-name">' + d.icon + ' ' + d.name + '</span>'
-      + '<div class="ds-bar-bg"><div class="ds-bar" style="width:'+Math.round(sc/5*100)+'%"></div></div>'
-      + '<span class="ds-score">' + (sc||'-') + '</span></li>';
+    var sc=domScores[d.id];
+    listHtml+='<li class="ds-item">'
+      +'<span class="ds-name">'+d.icon+' '+d.name+'</span>'
+      +'<div class="ds-bar-bg"><div class="ds-bar-fill" style="width:'+Math.round(sc/5*100)+'%"></div></div>'
+      +'<span class="ds-score">'+(sc||'-')+'</span></li>';
   });
-  document.getElementById('domain-scores-list').innerHTML = listHtml;
+  document.getElementById('ds-list').innerHTML=listHtml;
 
-  // Radar chart
-  if(radarChart){ radarChart.destroy(); }
-  var ctx = document.getElementById('radarChart').getContext('2d');
-  radarChart = new Chart(ctx, {
+  // radar
+  if(radarChart){radarChart.destroy();}
+  var ctx=document.getElementById('radarChart').getContext('2d');
+  radarChart=new Chart(ctx,{
     type:'radar',
     data:{
-      labels: DOMAINS.map(function(d){ return d.name; }),
+      labels:DOMAINS.map(function(d){return d.name;}),
       datasets:[{
         label:'成熟度评分',
-        data: DOMAINS.map(function(d){ return domainScores[d.id] || 0; }),
-        backgroundColor:'rgba(35,116,163,0.18)',
-        borderColor:'rgba(35,116,163,0.85)',
+        data:DOMAINS.map(function(d){return domScores[d.id]||0;}),
+        backgroundColor:'rgba(0,91,153,0.12)',
+        borderColor:'rgba(0,91,153,0.85)',
         borderWidth:2,
-        pointBackgroundColor:'#2374A3',
+        pointBackgroundColor:'#005B99',
         pointRadius:4
       }]
     },
     options:{
-      responsive:true,
-      maintainAspectRatio:false,
+      responsive:true,maintainAspectRatio:false,
       scales:{r:{min:0,max:5,ticks:{stepSize:1,font:{size:10}},pointLabels:{font:{size:11}}}},
       plugins:{legend:{display:false}}
     }
   });
 
-  // Suggestions
-  var sugHtml = '';
-  var sorted = DOMAINS.slice().sort(function(a,b){ return (domainScores[a.id]||0)-(domainScores[b.id]||0); });
+  // suggestions
+  var sugHtml='';
+  var sorted=DOMAINS.slice().sort(function(a,b){return (domScores[a.id]||0)-(domScores[b.id]||0);});
   sorted.forEach(function(d){
-    var sc = domainScores[d.id];
-    if(sc < 3){
-      sugHtml += '<div class="sug-domain">'
-        + '<div class="sug-domain-title">' + d.icon + ' ' + d.name
-        + ' <span class="level-badge lv'+Math.max(1,Math.round(sc||1))+'">L'+(Math.max(1,Math.round(sc||1)))+' '+LEVEL_NAMES[Math.max(1,Math.round(sc||1))]+'</span></div>'
-        + '<ul class="sug-items">';
-      (SUGGESTIONS[d.id]||[]).forEach(function(s){ sugHtml += '<li>'+s+'</li>'; });
-      sugHtml += '</ul></div>';
+    var sc=domScores[d.id];
+    if(sc<3){
+      var lv=Math.max(1,Math.round(sc||1));
+      sugHtml+='<div class="sug-domain">'
+        +'<div class="sug-dtitle">'+d.icon+' '+d.name
+        +' <span class="lv-pill lv'+lv+'">L'+lv+' '+LV_NAMES[lv]+'</span></div>'
+        +'<ul class="sug-list">';
+      (SUGGESTIONS[d.id]||[]).forEach(function(s){sugHtml+='<li>'+s+'</li>';});
+      sugHtml+='</ul></div>';
     }
   });
-  if(!sugHtml){
-    sugHtml = '<p style="color:var(--muted);font-size:12px;padding:8px 0">各能力域评分良好，建议持续保持并向量化管理级/优化级进阶。</p>';
-  }
-  document.getElementById('suggestions-content').innerHTML = sugHtml;
+  if(!sugHtml) sugHtml='<p style="color:var(--ink-3);font-size:12px;padding:8px 0">各能力域评分良好，建议持续保持并向量化管理级/优化级进阶。</p>';
+  document.getElementById('sug-content').innerHTML=sugHtml;
 
   loadAllSubmissions();
   showScreen('screen-results');
 }
 
-function backToSurvey(){
-  showScreen('screen-survey');
-}
+function backToSurvey(){showScreen('screen-survey');}
 
 // ============================================================
-// GitHub save & load (direct API)
+// GITHUB SAVE / LOAD
 // ============================================================
-var GH_REPO = 'EstaTea/fsl-report';
-var GH_FILE = 'kanban/survey-dcmm-data.json';
-var GH_API = 'https://api.github.com/repos/' + GH_REPO + '/contents/' + GH_FILE;
+var GH_REPO='EstaTea/fsl-report';
+var GH_FILE='kanban/survey-dcmm-data.json';
+var GH_API='https://api.github.com/repos/'+GH_REPO+'/contents/'+GH_FILE;
 
-function getToken(){
-  return localStorage.getItem('gh_token_fsl');
-}
-
-function collectData(){
-  return {
-    submissions: [{
-      name: state.name,
-      role: state.role,
-      roleName: ROLE_NAMES[state.role],
-      savedAt: new Date().toLocaleString('zh-CN'),
-      scores: JSON.parse(JSON.stringify(state.scores)),
-      notes: JSON.parse(JSON.stringify(state.notes))
-    }]
-  };
-}
+var WORKER_URL='https://fsl-survey-proxy.283656314.workers.dev/dcmm-save';
 
 async function saveToGitHub(){
-  var token = getToken();
-  if(!token){ showBanner('❌ 未登录，请先到登录页获取Token后再保存','err-b'); return; }
-
-  var btns = document.querySelectorAll('.gh-save-btn');
-  btns.forEach(function(b){ b.classList.add('saving'); b.textContent='保存中…'; });
-
+  var btns=document.querySelectorAll('.btn-save');
+  btns.forEach(function(b){b.classList.add('saving');b.textContent='保存中…';});
   try{
-    // 先读取已有内容
-    var headers = {'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json','Content-Type':'application/json'};
-    var getR = await fetch(GH_API, {headers:headers});
-    var existing = {submissions:[]};
-    var sha = null;
-    if(getR.ok){
-      var gdata = await getR.json();
-      sha = gdata.sha;
-      try{ existing = JSON.parse(atob(gdata.content.replace(/\n/g,''))); }catch(e){}
-    }
-
-    // 合并提交（同名+角色替换，否则追加）
-    var newEntry = {
-      name: state.name,
-      dept: state.dept,
-      role: state.role,
-      roleName: ROLE_NAMES[state.role],
-      savedAt: new Date().toLocaleString('zh-CN'),
-      scores: JSON.parse(JSON.stringify(state.scores)),
-      notes: JSON.parse(JSON.stringify(state.notes))
-    };
-    var subs = existing.submissions || [];
-    var idx = subs.findIndex(function(s){ return s.name===state.name && s.role===state.role; });
-    if(idx >= 0) subs[idx] = newEntry; else subs.push(newEntry);
-    existing.submissions = subs;
-
-    var content = btoa(unescape(encodeURIComponent(JSON.stringify(existing, null, 2))));
-    var body = {message:'dcmm: 提交评估 '+state.name, content:content};
-    if(sha) body.sha = sha;
-    var putR = await fetch(GH_API, {method:'PUT', headers:headers, body:JSON.stringify(body)});
-    if(putR.ok){ showBanner('✅ 评估结果已保存（'+state.name+'），草稿已清除',''); clearDraft(); }
-    else{ var err=await putR.json(); throw new Error(err.message); }
-  }catch(e){
-    showBanner('❌ 保存失败：'+e.message,'err-b');
-  }finally{
-    btns.forEach(function(b){ b.classList.remove('saving'); b.textContent='💾 保存'; });
-  }
+    var entry={name:state.name,dept:state.dept,role:state.role,roleName:ROLE_NAMES[state.role],
+               savedAt:new Date().toLocaleString('zh-CN'),
+               scores:JSON.parse(JSON.stringify(state.scores)),
+               notes:JSON.parse(JSON.stringify(state.notes))};
+    var r=await fetch(WORKER_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(entry)
+    });
+    var result=await r.json();
+    if(result.ok){showToast('✅ 评估结果已保存（'+state.name+'）');clearDraft();}
+    else throw new Error(result.error||'保存失败');
+  }catch(e){showToast('保存失败：'+e.message,'err');}
+  finally{btns.forEach(function(b){b.classList.remove('saving');b.textContent='💾 保存';});}
 }
 
 async function loadAllSubmissions(){
-  var headers = {'Accept':'application/vnd.github+json'};
-  var token = getToken();
-  if(token) headers['Authorization'] = 'Bearer '+token;
   try{
-    var r = await fetch(GH_API+'?_='+Date.now(), {headers:headers});
+    var r=await fetch(GH_API+'?_='+Date.now(),{
+      headers:{'Accept':'application/vnd.github+json'}
+    });
     if(!r.ok) return;
-    var data = await r.json();
-    var existing = JSON.parse(atob(data.content.replace(/\n/g,'')));
-    var subs = existing.submissions || [];
-    if(subs.length < 1) return;
-    renderAllSubmissions(subs);
+    var data=await r.json();
+    var existing=JSON.parse(atob(data.content.replace(/\n/g,'')));
+    var subs=existing.submissions||[];
+    if(subs.length<1) return;
+    renderAllSubs(subs);
+  }catch(e){}
+  try{
+    var r=await fetch(GH_API+'?_='+Date.now(),{headers:headers});
+    if(!r.ok) return;
+    var data=await r.json();
+    var existing=JSON.parse(atob(data.content.replace(/\n/g,'')));
+    var subs=existing.submissions||[];
+    if(subs.length<1) return;
+    renderAllSubs(subs);
   }catch(e){}
 }
 
-function renderAllSubmissions(subs){
-  var avgScores = {};
-  DOMAINS.forEach(function(d){
-    d.items.forEach(function(item){
-      var vals = subs.map(function(s){ return s.scores[item.id]; }).filter(Boolean);
-      avgScores[item.id] = vals.length ? parseFloat((vals.reduce(function(a,b){return a+b},0)/vals.length).toFixed(1)) : null;
-    });
-  });
-
-  var html = '<table class="sub-table"><thead><tr><th>姓名</th><th>部门</th><th>角色</th><th>提交时间</th>';
-  DOMAINS.forEach(function(d){ html += '<th>'+d.name+'</th>'; });
-  html += '<th>综合</th></tr></thead><tbody>';
-
+function renderAllSubs(subs){
+  var html='<table class="sub-table"><thead><tr><th>姓名</th><th>部门</th><th>角色</th><th>提交时间</th>';
+  DOMAINS.forEach(function(d){html+='<th>'+d.name+'</th>';});
+  html+='<th>综合</th></tr></thead><tbody>';
   subs.forEach(function(s){
-    html += '<tr><td>'+s.name+'</td><td>'+(s.dept||'-')+'</td><td>'+s.roleName+'</td><td>'+s.savedAt+'</td>';
+    html+='<tr><td>'+s.name+'</td><td>'+(s.dept||'-')+'</td><td>'+s.roleName+'</td><td>'+s.savedAt+'</td>';
     DOMAINS.forEach(function(d){
-      var dscores = d.items.map(function(i){ return s.scores[i.id]; }).filter(Boolean);
-      var avg = dscores.length ? (dscores.reduce(function(a,b){return a+b},0)/dscores.length).toFixed(1) : '-';
-      html += '<td>'+avg+'</td>';
+      var dsc=d.items.map(function(i){return s.scores[i.id];}).filter(Boolean);
+      html+='<td>'+(dsc.length?(dsc.reduce(function(a,b){return a+b;},0)/dsc.length).toFixed(1):'-')+'</td>';
     });
-    var all = Object.values(s.scores).filter(Boolean);
-    var total = all.length ? (all.reduce(function(a,b){return a+b},0)/all.length).toFixed(2) : '-';
-    html += '<td style="font-weight:800;color:var(--b500)">'+total+'</td></tr>';
+    var all=Object.values(s.scores).filter(Boolean);
+    html+='<td style="font-weight:800;color:var(--accent)">'+(all.length?(all.reduce(function(a,b){return a+b;},0)/all.length).toFixed(2):'-')+'</td></tr>';
   });
-
-  // 平均行
-  html += '<tr style="background:var(--b050)"><td colspan="3" style="font-weight:700;color:var(--b700)">📊 各维度平均</td>';
-  DOMAINS.forEach(function(d){
-    var dItems = d.items.map(function(i){ return avgScores[i.id]; }).filter(function(v){ return v!==null; });
-    var avg = dItems.length ? (dItems.reduce(function(a,b){return a+b},0)/dItems.length).toFixed(1) : '-';
-    html += '<td style="font-weight:800;color:var(--b700)">'+avg+'</td>';
-  });
-  html += '<td></td></tr>';
-  html += '</tbody></table>';
-
-  document.getElementById('all-submissions-content').innerHTML = html;
-  document.getElementById('all-submissions-box').style.display = 'block';
+  html+='</tbody></table>';
+  document.getElementById('all-subs-content').innerHTML=html;
+  document.getElementById('all-subs-box').style.display='block';
 }
 
 // ============================================================
-// Utils
+// UTILS
 // ============================================================
 function showScreen(id){
-  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
 }
 
-var bannerTimer = null;
-function showBanner(msg, cls){
-  var b = document.getElementById('save-banner');
-  b.textContent = msg;
-  b.className = 'save-banner show' + (cls ? ' '+cls : '');
-  if(bannerTimer) clearTimeout(bannerTimer);
-  bannerTimer = setTimeout(function(){ b.classList.remove('show'); }, 3500);
+var _toastTimer=null;
+function showToast(msg,type){
+  var t=document.getElementById('toast');
+  t.textContent=msg;
+  t.className='toast show'+(type==='err'?' err':'');
+  if(_toastTimer) clearTimeout(_toastTimer);
+  _toastTimer=setTimeout(function(){t.classList.remove('show');},3500);
 }
-
-// 页面加载时扫描草稿提示
-(function(){
-  try{
-    var latest = null, latestAge = Infinity;
-    for(var i=0; i<localStorage.length; i++){
-      var k = localStorage.key(i);
-      if(!k || k.indexOf('dcmm-draft-') !== 0) continue;
-      var d = JSON.parse(localStorage.getItem(k));
-      var age = (Date.now() - (d.savedAt||0)) / 3600000;
-      if(age < latestAge){ latestAge = age; latest = {key: k, data: d, age: age}; }
-    }
-    if(latest){
-      var parts = latest.key.replace('dcmm-draft-','').split('-');
-      var ageStr = latestAge < 1 ? Math.round(latestAge*60)+'分钟前' : Math.round(latestAge)+'小时前';
-      document.getElementById('resume-hint-name').textContent = ' ' + parts.slice(0,-1).join(' ') + ' ';
-      document.getElementById('resume-hint-age').textContent = ageStr + '自动保存';
-      document.getElementById('resume-hint').style.display = 'flex';
-    }
-  }catch(e){}
-})();
 </script>
 </body>
 </html>
