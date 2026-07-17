@@ -1046,6 +1046,7 @@ const GAP_ITEMS = [
 
 // State
 let scores = {};        // { domainId: { subLabel: score } }
+let derivedDomainAvgs = {}; // { domainId: avg } — set by deriveToReport, takes priority
 let targetLevel = 2;
 let ghConfig = {};
 
@@ -1166,12 +1167,15 @@ function setScore(domainId, sub, val) {
 // SCORING CALCULATION — GB/T 43439 §9
 // ══════════════════════════════════════════
 function calcDomainScore(domainId) {
+  // 若已有来自问卷汇总的均值，优先使用
+  if (derivedDomainAvgs[domainId] !== undefined && derivedDomainAvgs[domainId] !== null) {
+    return Math.round(derivedDomainAvgs[domainId] * 1000) / 1000;
+  }
   const d = DOMAINS.find(x => x.id === domainId);
   if (!d) return null;
   const subScores = d.subs.map(s => scores[domainId]?.[s]);
   const filled = subScores.filter(v => v !== null && v !== undefined);
   if (filled.length === 0) return null;
-  // Equal sub-domain weights (§9.3.1 — no explicit sub weights given, use equal)
   const avg = filled.reduce((a,b)=>a+b,0) / d.subs.length;
   return Math.round(avg * 1000) / 1000;
 }
@@ -1845,16 +1849,14 @@ function calcDomainFromScores(scoresObj, domain) {
 
 function deriveToReport() {
   if (!allResponses.length) return;
-  // Compute weighted domain averages → write into scores for Tab 1/2
+  // 计算各域均值，存入 derivedDomainAvgs，calcDomainScore 优先读取
+  derivedDomainAvgs = {};
   DOMAINS.forEach(d => {
-    if (!scores[d.id]) scores[d.id] = {};
     const vals = allResponses
       .map(r => r.domainAverages?.[d.id] ?? calcDomainFromScores(r.scores, d))
       .filter(v => v !== null && v !== undefined);
-    const avg = vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : null;
-    if (avg !== null) {
-      // Distribute avg evenly across all subs (equal weight)
-      d.subs.forEach(s => { scores[d.id][s] = avg; });
+    if (vals.length) {
+      derivedDomainAvgs[d.id] = vals.reduce((a,b)=>a+b,0) / vals.length;
     }
   });
   updateAll();
