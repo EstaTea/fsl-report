@@ -662,7 +662,7 @@ button,input,textarea,select{font-family:inherit}
           <div class="pbar-bg"><div class="pbar-fill" id="pbar" style="width:0%"></div></div>
           <span class="pbar-pct" id="pbar-pct">0%</span>
         </div>
-        <button class="btn-save" id="btn-save" onclick="saveToGitHub()">💾 保存</button>
+        <button class="btn-save" id="btn-save" onclick="saveToGitHub()">📤 提交</button>
         <button class="btn-results" id="btn-results" onclick="showResults()">📊 查看结果</button>
       </div>
 
@@ -676,6 +676,7 @@ button,input,textarea,select{font-family:inherit}
   <div class="action-bar">
     <span class="action-bar-left" id="ab-status">已完成 0 / 29 项</span>
     <div class="action-bar-right">
+      <button class="btn-save" onclick="saveToGitHub()">📤 提交评估</button>
       <button class="btn-primary" id="ab-results" onclick="showResults()" style="display:none">📊 查看结果</button>
     </div>
   </div>
@@ -1191,7 +1192,7 @@ async function saveToGitHub(){
     if(result.ok){showToast('✅ 评估结果已保存（'+state.name+'）');clearDraft();}
     else throw new Error(result.error||'保存失败');
   }catch(e){showToast('保存失败：'+e.message,'err');}
-  finally{btns.forEach(function(b){b.classList.remove('saving');b.textContent='💾 保存';});}
+  finally{btns.forEach(function(b){b.classList.remove('saving');b.textContent='📤 '+( b.id==='btn-save'?'提交':'提交评估');});}
 }
 
 async function loadAllSubmissions(){
