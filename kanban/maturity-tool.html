@@ -177,7 +177,20 @@ table.domain-table tr:hover td{background:var(--panel-2)}
 .gap-mid{background:rgba(183,122,22,.12);color:var(--warn)}
 .gap-low{background:rgba(47,122,85,.12);color:var(--up)}
 
-/* ── GAP TABLE ── */
+/* ── CAP DETAIL TABLE ── */
+table.cap-table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px}
+table.cap-table th{
+  font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--ink-3);padding:8px 10px;text-align:left;
+  border-bottom:2px solid var(--border);background:var(--panel-2);
+}
+table.cap-table th:first-child{border-radius:var(--r-sm) 0 0 0}
+table.cap-table th:last-child{border-radius:0 var(--r-sm) 0 0}
+table.cap-table td{padding:9px 10px;border-bottom:1px solid var(--border);color:var(--ink-2);vertical-align:middle;}
+table.cap-table tr:last-child td{border-bottom:none}
+table.cap-table tr:hover td{background:var(--panel-2)}
+
+
 .gap-section{margin-top:8px}
 table.gap-table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px}
 table.gap-table thead th{
@@ -680,6 +693,14 @@ table.resp-table tr:hover td{background:var(--panel-2)}
           <tbody id="domain-tbody"></tbody>
         </table>
       </div>
+    </div>
+  </div>
+
+  <!-- Capability Item Detail -->
+  <div class="card reveal" style="margin-top:16px">
+    <div class="section-title">能力项评分明细（各能力域汇总均值）</div>
+    <div id="cap-detail-wrap">
+      <div class="empty-state"><div class="empty-icon">📋</div><p>同步问卷响应后显示各能力项均值</p></div>
     </div>
   </div>
 
@@ -1270,6 +1291,7 @@ function updateAll() {
 
   updateAsideBars();
   updateDomainTable();
+  updateCapDetail();
   updateRadar();
   updateBrandPage(total, level);
   updatePresubmitCheck(filled, totalSubs);
@@ -1322,6 +1344,30 @@ function buildDomainTable() {
       <td class="score-cell" id="dt-gap-${d.id}">—</td>
     </tr>
   `).join('');
+}
+
+function updateCapDetail() {
+  const detEl = document.getElementById('cap-detail-wrap');
+  if (!detEl) return;
+  let html = '<table class="cap-table"><thead><tr>'
+    + '<th style="width:90px">能力域</th>'
+    + '<th>能力子域</th>'
+    + '<th style="text-align:center;width:70px">均值</th>'
+    + '<th style="text-align:center;width:60px">等级</th>'
+    + '</tr></thead><tbody>';
+  DOMAINS.forEach(d => {
+    d.subs.forEach((sub, ci) => {
+      const sc = scores[d.id]?.[sub];
+      const lv = scoreToLevel(sc);
+      html += '<tr>';
+      if (ci === 0) html += `<td rowspan="${d.subs.length}" style="font-weight:600;vertical-align:top;padding-top:10px;color:var(--ink-1)">${d.label}</td>`;
+      html += `<td style="font-family:var(--f-mono);font-size:11.5px">${sub}</td>`
+        + `<td style="text-align:center;font-family:var(--f-mono);font-size:12px">${sc !== null && sc !== undefined ? sc.toFixed(2) : '—'}</td>`
+        + `<td style="text-align:center"><span class="level-badge lv${lv||1}">${lv||'?'}</span></td>`
+        + '</tr>';
+    });
+  });
+  detEl.innerHTML = html + '</tbody></table>';
 }
 
 function updateDomainTable() {
