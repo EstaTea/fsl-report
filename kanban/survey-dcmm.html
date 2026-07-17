@@ -546,8 +546,6 @@ button,input,textarea,select{font-family:inherit}
   .result-hero{flex-direction:column;text-align:center}
   .welcome-card{padding:24px 20px}
 }
-.btn-token{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.25);padding:6px 10px;border-radius:6px;font-size:13px;cursor:pointer;transition:background .15s}
-.btn-token:hover{background:rgba(255,255,255,.2)}
 </style>
 </head>
 <body>
@@ -666,7 +664,6 @@ button,input,textarea,select{font-family:inherit}
           <span class="pbar-pct" id="pbar-pct">0%</span>
         </div>
         <button class="btn-save" id="btn-save" onclick="saveToGitHub()">💾 保存</button>
-        <button class="btn-token" title="设置 GitHub Token" onclick="promptToken()">🔑</button>
         <button class="btn-results" id="btn-results" onclick="showResults()">📊 查看结果</button>
       </div>
 
@@ -1178,55 +1175,22 @@ var GH_API='https://api.github.com/repos/'+GH_REPO+'/contents/'+GH_FILE;
 
 var WORKER_URL='https://fsl-survey-proxy.283656314.workers.dev/dcmm-save';
 
-function getToken(){
-  return localStorage.getItem('gh_token_fsl') || localStorage.getItem('dcmm_gh_token');
-}
-function promptToken(){
-  var t=prompt('请输入 GitHub Personal Access Token（需要 repo 权限）：\n\n获取方式：GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens → 生成后粘贴');
-  if(t&&t.trim()){
-    localStorage.setItem('dcmm_gh_token', t.trim());
-    localStorage.setItem('gh_token_fsl', t.trim());
-    showToast('✅ Token 已保存，请重新点击保存');
-  }
-}
 async function saveToGitHub(){
-  var token=getToken();
-  if(!token){ promptToken(); return; }
   var btns=document.querySelectorAll('.btn-save');
   btns.forEach(function(b){b.classList.add('saving');b.textContent='保存中…';});
   try{
-    var headers={'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json','Content-Type':'application/json'};
-    // 先读取现有文件拿 sha
-    var getR=await fetch(GH_API+'?_='+Date.now(),{headers:headers});
-    var existing={submissions:[]}, sha=null;
-    if(getR.ok){
-      var gdata=await getR.json();
-      sha=gdata.sha;
-      try{ existing=JSON.parse(atob(gdata.content.replace(/\n/g,''))); }catch(e){}
-    } else if(getR.status===401){
-      localStorage.removeItem('dcmm_gh_token');
-      localStorage.removeItem('gh_token_fsl');
-      throw new Error('Token 无效或已过期，请重新设置');
-    }
-    // 合并提交
     var entry={name:state.name,dept:state.dept,role:state.role,roleName:ROLE_NAMES[state.role],
                savedAt:new Date().toLocaleString('zh-CN'),
                scores:JSON.parse(JSON.stringify(state.scores)),
                notes:JSON.parse(JSON.stringify(state.notes))};
-    var subs=existing.submissions||[];
-    var idx=subs.findIndex(function(s){return s.name===state.name&&s.role===state.role&&s.dept===state.dept;});
-    if(idx>=0) subs[idx]=entry; else subs.push(entry);
-    existing.submissions=subs;
-    var content=btoa(unescape(encodeURIComponent(JSON.stringify(existing,null,2))));
-    var body={message:'dcmm: 提交评估 '+state.name,content:content};
-    if(sha) body.sha=sha;
-    var putR=await fetch(GH_API,{method:'PUT',headers:headers,body:JSON.stringify(body)});
-    if(putR.ok){showToast('✅ 评估结果已保存（'+state.name+'）');clearDraft();}
-    else{
-      var err=await putR.json();
-      if(putR.status===401){ localStorage.removeItem('dcmm_gh_token'); localStorage.removeItem('gh_token_fsl'); }
-      throw new Error(err.message||('HTTP '+putR.status));
-    }
+    var r=await fetch(WORKER_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(entry)
+    });
+    var result=await r.json();
+    if(result.ok){showToast('✅ 评估结果已保存（'+state.name+'）');clearDraft();}
+    else throw new Error(result.error||'保存失败');
   }catch(e){showToast('保存失败：'+e.message,'err');}
   finally{btns.forEach(function(b){b.classList.remove('saving');b.textContent='💾 保存';});}
 }
@@ -1290,16 +1254,7 @@ function showToast(msg,type){
   _toastTimer=setTimeout(function(){t.classList.remove('show');},3500);
 }
 
-// 启动时检查 token
-(function(){
-  if(!localStorage.getItem('gh_token_fsl') && !localStorage.getItem('dcmm_gh_token')){
-    // 在 survey 工具栏旁追加提示，等 DOM ready 后插入
-    document.addEventListener('DOMContentLoaded', function(){
-      var bar = document.getElementById('btn-save');
-      if(bar) bar.title = '未设置Token，点击保存时会提示输入';
-    });
-  }
-})();
+// ── end ──
 </script>
 </body>
 </html>
