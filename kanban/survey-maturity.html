@@ -147,15 +147,18 @@ button{cursor:pointer;font:inherit;border:none;background:none}
 .rating-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 @media(max-width:480px){.rating-row{grid-template-columns:repeat(2,1fr)}}
 .r-btn{
-  padding:9px 6px;border-radius:var(--r-sm);border:1.5px solid var(--border);
-  background:var(--panel-2);font-size:11.5px;font-weight:500;color:var(--ink-3);
-  text-align:center;line-height:1.3;transition:all .12s;
+  padding:10px 10px;border-radius:var(--r-sm);border:1.5px solid var(--border);
+  background:var(--panel-2);font-size:12px;font-weight:600;color:var(--ink-2);
+  text-align:left;line-height:1.3;transition:all .12s;
+  display:flex;flex-direction:column;align-items:flex-start;
 }
 .r-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 .r-btn.sel{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:700}
 .r-btn.sel-warn{border-color:var(--warn);background:rgba(183,122,22,.10);color:var(--warn);font-weight:700}
 .r-btn.sel-down{border-color:var(--down);background:rgba(192,69,60,.08);color:var(--down);font-weight:700}
 .r-score{display:block;font-size:10px;font-weight:700;margin-top:2px;opacity:.7}
+.r-desc{display:block;font-size:10px;color:inherit;opacity:.75;margin-top:4px;
+        line-height:1.45;font-weight:400;text-align:left;}
 .q-hint{font-size:11px;color:var(--ink-3);margin-top:6px;line-height:1.5}
 
 /* ── REVIEW STEP ── */
@@ -366,27 +369,92 @@ const WORKER_URL = 'https://fsl-maturity-survey.283656314.workers.dev/submit';
 // const WORKER_URL = 'https://fsl-maturity-survey.i523899.workers.dev/submit';
 
 const DOMAINS = [
-  { id:'org',   label:'组织',       weight:.12, color:'#2D5BD8',
+  { id:'org', label:'组织', weight:.12, color:'#2D5BD8',
     intro:'评估佛照在数字化转型的组织建设、战略规划、流程管理和变革管理方面的能力。',
-    subs:['组织建设','转型战略','流程管理','变革管理'] },
-  { id:'tech',  label:'技术',       weight:.13, color:'#4A7FE0',
+    subs:[
+      { label:'组织建设', hint:'是否设立了专职数字化转型部门或团队？数智化部是否配备了足够人力与职责授权？',
+        desc:{ s1:'仅有意识，无专职机构或人员', s0_5:'有兼职负责人，但职责不清晰', s0_8:'数智化部已建立，有明确职责', s1_0:'数智化部权责清晰，跨部门协同顺畅' }},
+      { label:'转型战略', hint:'十五五规划中是否有明确的数字化转型目标？战略目标是否已分解到各业务部门？',
+        desc:{ s1:'未制定数字化专项战略', s0_5:'有战略方向，但未量化或分解', s0_8:'十五五规划已含数字化目标，部分落地', s1_0:'战略目标清晰、分解到部门并纳入考核' }},
+      { label:'流程管理', hint:'关键业务流程（如订单、采购、生产）是否已系统化管理？流程优化是否有数据支撑？',
+        desc:{ s1:'流程靠人工经验，无标准化', s0_5:'部分流程已标准化，但未系统化', s0_8:'主要流程在系统中执行，有监控', s1_0:'流程持续优化，数据驱动改进' }},
+      { label:'变革管理', hint:'推行数字化时员工的接受程度如何？是否有配套培训与激励机制？',
+        desc:{ s1:'员工抵触，无变革支持机制', s0_5:'有培训但覆盖面有限，阻力较大', s0_8:'管理层推动有力，培训体系基本建立', s1_0:'全员认同，变革文化融入日常运营' }}
+    ]},
+  { id:'tech', label:'技术', weight:.13, color:'#4A7FE0',
     intro:'评估佛照在研发管理数字化、技术创新能力以及信息安全保障方面的现状。',
-    subs:['研发管理','技术创新','信息安全'] },
-  { id:'data',  label:'数据',       weight:.18, color:'#E08A2E',
+    subs:[
+      { label:'研发管理', hint:'PLM系统是否已上线并用于产品研发全流程管理？研发数据是否统一管理？',
+        desc:{ s1:'研发依赖纸质或分散表格管理', s0_5:'PLM已上线但使用率低，数据不完整', s0_8:'PLM覆盖主要研发流程，数据基本可追溯', s1_0:'PLM与ERP打通，研发数据驱动产品决策' }},
+      { label:'技术创新', hint:'佛照是否在AI、IoT、大数据等新技术方面有实质性探索或应用？AICG项目进展如何？',
+        desc:{ s1:'无新技术探索，技术跟随', s0_5:'有立项但尚未落地实际业务', s0_8:'AICG等项目已启动，部分场景有成效', s1_0:'新技术规模化应用，形成差异化竞争力' }},
+      { label:'信息安全', hint:'是否建立了完整的信息安全体系？数据访问权限、备份恢复机制是否到位？',
+        desc:{ s1:'无正式安全制度，漏洞明显', s0_5:'有基础防护，但缺乏完整体系', s0_8:'安全制度健全，定期审计执行', s1_0:'安全体系持续优化，应对新型威胁' }}
+    ]},
+  { id:'data', label:'数据', weight:.18, color:'#E08A2E',
     intro:'数据是佛照数字化转型的核心要素，评估业务数据化、数据管理、数据资产和数据业务化四个维度。',
-    subs:['业务数据化','数据管理','数据资产','数据业务化'] },
-  { id:'res',   label:'资源',       weight:.10, color:'#6FAA48',
+    subs:[
+      { label:'业务数据化', hint:'核心业务（销售、生产、财务）产生的数据是否能被系统自动采集和沉淀？',
+        desc:{ s1:'数据主要靠人工录入或事后补录', s0_5:'部分业务已自动采集，覆盖不全', s0_8:'主要业务数据自动采集，基本完整', s1_0:'全链条数据实时采集，质量受控' }},
+      { label:'数据管理', hint:'是否有统一的数据标准和主数据管理？各系统间数据是否一致？跨部门数据共享是否顺畅？',
+        desc:{ s1:'各系统数据标准不一，孤岛严重', s0_5:'有主数据概念但标准未统一', s0_8:'S/4HANA中主数据基本统一，标准初步建立', s1_0:'主数据全面治理，跨系统数据高度一致' }},
+      { label:'数据资产', hint:'是否建立了数据资产目录？数据的价值是否被识别和管理？',
+        desc:{ s1:'无数据资产意识，数据散落各处', s0_5:'有数据台账但不完整，无统一管理', s0_8:'数据资产目录初步建立，价值被识别', s1_0:'数据资产化运营，支撑业务决策' }},
+      { label:'数据业务化', hint:'数据分析结果是否真正用于业务决策？是否有数据驱动的新业务模式？',
+        desc:{ s1:'数据仅用于事后报表，不影响决策', s0_5:'部分管理层使用数据辅助决策', s0_8:'数据分析定期支撑运营决策', s1_0:'数据驱动业务创新，形成新产品或服务' }}
+    ]},
+  { id:'res', label:'资源', weight:.10, color:'#6FAA48',
     intro:'评估支撑数字化转型所需的基础设施、应用支撑资源、资金投入和知识积累情况。',
-    subs:['基础设施','应用支撑资源','资金','知识'] },
-  { id:'ops',   label:'数字化运营', weight:.15, color:'#9B5FC4',
+    subs:[
+      { label:'基础设施', hint:'网络、服务器、云平台是否能满足数字化系统的运行需求？各工厂的网络覆盖是否完善？',
+        desc:{ s1:'基础设施老旧，制约系统运行', s0_5:'总部设施尚可，工厂/分支薄弱', s0_8:'主要设施满足当前需求，有冗余', s1_0:'云化程度高，弹性扩展，全面覆盖' }},
+      { label:'应用支撑资源', hint:'SAP、PLM、MES等系统的运维团队是否到位？7名SAP内部顾问的能力是否能覆盖需求？',
+        desc:{ s1:'运维依赖外部，内部能力极弱', s0_5:'有基础运维但能力不足，响应慢', s0_8:'7名SAP顾问基本覆盖核心模块需求', s1_0:'内部团队能力强，能自主优化系统' }},
+      { label:'资金', hint:'数字化转型项目（S/4HANA、PLM等）的资金是否充足？预算执行是否有保障？',
+        desc:{ s1:'无专项预算，投入极少', s0_5:'有预算但不稳定，经常被削减', s0_8:'募集资金已专款专用，预算有保障', s1_0:'资金充足，持续投入，ROI追踪完善' }},
+      { label:'知识', hint:'是否积累了数字化转型的最佳实践？内部是否有知识沉淀和传承机制？',
+        desc:{ s1:'知识靠个人经验，无沉淀机制', s0_5:'有部分文档，但零散且过时', s0_8:'关键项目有系统文档，知识库初建', s1_0:'知识管理成熟，持续更新并驱动创新' }}
+    ]},
+  { id:'ops', label:'数字化运营', weight:.15, color:'#9B5FC4',
     intro:'评估佛照在营销、财务、供应链三大运营领域的数字化程度和成效。',
-    subs:['数字化营销','数字化财务','数字化供应链'] },
-  { id:'prod',  label:'数字化生产', weight:.18, color:'#D65A3A',
+    subs:[
+      { label:'数字化营销', hint:'线上渠道（天猫、京东等）与线下经销商数据是否打通？是否能基于数据做精准营销？',
+        desc:{ s1:'线上线下完全割裂，无数据分析', s0_5:'线上平台已运营，但无客户数据沉淀', s0_8:'线上数据可分析，渠道管理系统化', s1_0:'全渠道数据打通，AI驱动精准营销' }},
+      { label:'数字化财务', hint:'财务共享平台是否已稳定运行？是否支持多法人合并报表？BP管理模式是否落地？',
+        desc:{ s1:'财务依赖手工操作，报表靠导出拼接', s0_5:'财务共享上线但功能有限，手工补录多', s0_8:'财务共享运行稳定，19家法人基本覆盖', s1_0:'BP模式落地，实时财务洞察支撑决策' }},
+      { label:'数字化供应链', hint:'采购、库存、物流是否实现数字化管控？供应商协同是否通过系统实现？',
+        desc:{ s1:'供应链管理靠表格和电话协调', s0_5:'部分采购在系统中，但供应商协同弱', s0_8:'SRM/MM覆盖主要采购流程，可视化初步', s1_0:'供应链端到端可视，需求预测驱动库存优化' }}
+    ]},
+  { id:'prod', label:'数字化生产', weight:.18, color:'#D65A3A',
     intro:'制造是佛照的核心业务，评估产品设计到仓储配送全链条的数字化水平。',
-    subs:['产品设计','工艺设计','计划调度','生产作业','质量管控','设备管理','仓储配送'] },
-  { id:'svc',   label:'数字化服务', weight:.14, color:'#2A9E8A',
+    subs:[
+      { label:'产品设计', hint:'产品设计是否在PLM中进行？设计数据能否直接传递到生产系统？',
+        desc:{ s1:'设计用CAD，成果纸质传递，无系统', s0_5:'PLM上线但与ERP/生产系统未联通', s0_8:'PLM覆盖主要产品设计，数据基本贯通', s1_0:'数字孪生支撑设计，设计数据驱动制造' }},
+      { label:'工艺设计', hint:'工艺文件是否电子化？工艺参数是否与生产设备联动？',
+        desc:{ s1:'工艺靠纸质作业指导书传递', s0_5:'工艺文件已电子化，但与设备未联动', s0_8:'工艺数据在系统中管理，版本受控', s1_0:'工艺参数自动下发设备，闭环优化' }},
+      { label:'计划调度', hint:'生产计划是否基于系统自动排程？计划与实际执行偏差是否有预警机制？',
+        desc:{ s1:'计划靠人工排，协调主要依赖电话', s0_5:'有计划系统但准确率低，执行偏差大', s0_8:'PP模块支撑计划排程，关键节点可监控', s1_0:'AI辅助排程，动态调整，偏差自动预警' }},
+      { label:'生产作业', hint:'生产现场数据采集是否自动化？MES是否覆盖主要生产基地？',
+        desc:{ s1:'现场数据全靠人工填写，事后汇总', s0_5:'高明基地有MES，其他基地未覆盖', s0_8:'主要基地MES已上线，数据实时采集', s1_0:'全基地MES覆盖，自动化与智能化深度结合' }},
+      { label:'质量管控', hint:'质量数据是否实时采集？质量问题是否能快速追溯？不良品处理是否系统化？',
+        desc:{ s1:'质量检测纸质记录，追溯困难', s0_5:'有QM系统但数据不完整，追溯慢', s0_8:'质量数据在系统中管理，可基本追溯', s1_0:'质量大数据驱动预防，AI预测不良品' }},
+      { label:'设备管理', hint:'设备状态是否实时监控？预防性维护是否基于数据执行？设备OEE是否被追踪？',
+        desc:{ s1:'设备靠人工巡检，故障被动响应', s0_5:'有设备台账，维护计划靠经验', s0_8:'关键设备联网监控，计划性维护执行', s1_0:'设备数字孪生，AI预测性维护，OEE持续优化' }},
+      { label:'仓储配送', hint:'仓库是否使用WMS系统？库存数据是否实时准确？发货是否支持精确追踪？',
+        desc:{ s1:'仓库靠人工台账，出入库手动记录', s0_5:'有WMS但功能简单，数据准确性差', s0_8:'WMS（EWM）覆盖主仓，库存基本准确', s1_0:'智慧仓储，自动化设备联动，配送全程追踪' }}
+    ]},
+  { id:'svc', label:'数字化服务', weight:.14, color:'#2A9E8A',
     intro:'评估佛照对内对外的数字化服务能力，包括服务产品、交付、能力和运行四个方面。',
-    subs:['服务产品','服务交付','服务能力','服务运行'] }
+    subs:[
+      { label:'服务产品', hint:'佛照是否有数字化的服务产品（如远程运维、能耗管理、智能场景解决方案）？',
+        desc:{ s1:'仅销售硬件产品，无服务型产品', s0_5:'有增值服务概念，但未产品化', s0_8:'部分服务已产品化，如智能场景方案', s1_0:'服务产品体系完整，形成持续收入来源' }},
+      { label:'服务交付', hint:'工程安装、调试服务是否有系统支撑？客户服务请求是否能线上受理和追踪？',
+        desc:{ s1:'服务交付靠电话和纸质，无系统', s0_5:'有工单系统但使用率低，信息不完整', s0_8:'服务工单系统化，客户请求可追踪', s1_0:'服务交付全数字化，客户自助服务成熟' }},
+      { label:'服务能力', hint:'售后服务团队的响应速度和解决问题的能力如何？是否有知识库支撑？',
+        desc:{ s1:'服务能力弱，响应慢，客户满意度低', s0_5:'响应一般，靠经验解决，知识难复用', s0_8:'有服务知识库，响应及时，满意度尚可', s1_0:'AI辅助服务，预测性支持，满意度高' }},
+      { label:'服务运行', hint:'服务体系的运营数据是否被监控？服务质量是否有持续改进机制？',
+        desc:{ s1:'无服务运营数据，改进靠感觉', s0_5:'有基础数据但分析不足，改进被动', s0_8:'服务KPI定期监控，问题有改进闭环', s1_0:'数据驱动服务持续优化，与产品设计反馈联动' }}
+    ]}
 ];
 
 const RATINGS = [
@@ -449,23 +517,44 @@ function buildDomainSteps() {
       </div>
       <div class="domain-weight">权重 ${Math.round(d.weight*100)}% · ${d.subs.length} 个子域</div>
       <div class="domain-intro">${d.intro}</div>
-      ${d.subs.map((sub, si) => `
+      ${d.subs.map((sub, si) => {
+        const subLabel = sub.label;
+        const descMap = sub.desc || {};
+        return `
         <div class="question-block">
           <div class="q-label">
-            <span class="q-num">${si+1}</span>${sub}
+            <span class="q-num">${si+1}</span>${subLabel}
           </div>
+          ${sub.hint ? `<div class="q-hint" style="margin-bottom:10px">💡 ${sub.hint}</div>` : ''}
           <div class="rating-row">
-            ${RATINGS.map(r => `
-              <button class="r-btn" id="rbtn-${d.id}-${si}-${r.val}"
-                data-domain="${d.id}" data-sub="${sub}" data-val="${r.val}" data-cls="${r.cls}"
-                onclick="selectRating(this)">
-                ${r.label}
-                <span class="r-score">${r.score} 分</span>
-              </button>
-            `).join('')}
+            <button class="r-btn" id="rbtn-${d.id}-${si}-1"
+              data-domain="${d.id}" data-sub="${subLabel}" data-val="1" data-cls="sel"
+              onclick="selectRating(this)">
+              全部满足<span class="r-score">1.0 分</span>
+              ${descMap.s1_0 ? `<span class="r-desc">${descMap.s1_0}</span>` : ''}
+            </button>
+            <button class="r-btn" id="rbtn-${d.id}-${si}-0.8"
+              data-domain="${d.id}" data-sub="${subLabel}" data-val="0.8" data-cls="sel"
+              onclick="selectRating(this)">
+              大部分满足<span class="r-score">0.8 分</span>
+              ${descMap.s0_8 ? `<span class="r-desc">${descMap.s0_8}</span>` : ''}
+            </button>
+            <button class="r-btn" id="rbtn-${d.id}-${si}-0.5"
+              data-domain="${d.id}" data-sub="${subLabel}" data-val="0.5" data-cls="sel-warn"
+              onclick="selectRating(this)">
+              部分满足<span class="r-score">0.5 分</span>
+              ${descMap.s0_5 ? `<span class="r-desc">${descMap.s0_5}</span>` : ''}
+            </button>
+            <button class="r-btn" id="rbtn-${d.id}-${si}-0"
+              data-domain="${d.id}" data-sub="${subLabel}" data-val="0" data-cls="sel-down"
+              onclick="selectRating(this)">
+              不满足<span class="r-score">0.0 分</span>
+              ${descMap.s1 ? `<span class="r-desc">${descMap.s1}</span>` : ''}
+            </button>
           </div>
         </div>
-      `).join('')}
+        `;
+      }).join('')}
     `;
   });
 }
@@ -491,7 +580,7 @@ function selectRole(card) {
 
 function calcDomainAvg(domainId) {
   const d = DOMAINS.find(x => x.id === domainId);
-  const filled = d.subs.map(s => surveyScores[domainId]?.[s]).filter(v => v !== null && v !== undefined);
+  const filled = d.subs.map(s => surveyScores[domainId]?.[s.label]).filter(v => v !== null && v !== undefined);
   if(!filled.length) return null;
   return filled.reduce((a,b)=>a+b,0) / d.subs.length;
 }
@@ -579,7 +668,7 @@ function buildReviewStep() {
   const total = calcTotal();
   const rows = DOMAINS.map(d => {
     const s = calcDomainAvg(d.id);
-    const filled = Object.keys(surveyScores[d.id]||{}).filter(k=>surveyScores[d.id][k]!==null&&surveyScores[d.id][k]!==undefined).length;
+    const filled = d.subs.filter(sub => surveyScores[d.id]?.[sub.label] !== null && surveyScores[d.id]?.[sub.label] !== undefined).length;
     const missing = d.subs.length - filled;
     return `
       <div class="review-domain-row">
