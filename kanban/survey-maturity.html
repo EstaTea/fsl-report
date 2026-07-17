@@ -280,8 +280,9 @@ button{cursor:pointer;font:inherit;border:none;background:none}
       <span class="field-error">请填写姓名或匿名代号</span>
     </div>
     <div class="field-group" id="fg-dept">
-      <label class="field-label" for="f-dept">所在部门</label>
+      <label class="field-label" for="f-dept">所在部门 <span class="req">*必填</span></label>
       <input class="field-input" id="f-dept" type="text" placeholder="例：数智化部 / 财务部" autocomplete="off">
+      <span class="field-error">请填写所在部门</span>
     </div>
   </div>
 
@@ -646,6 +647,10 @@ function validateIntro() {
   const fg = document.getElementById('fg-name');
   if(!name){ fg.classList.add('has-error'); ok=false; }
   else fg.classList.remove('has-error');
+  const dept = document.getElementById('f-dept').value.trim();
+  const fgd = document.getElementById('fg-dept');
+  if(!dept){ fgd.classList.add('has-error'); ok=false; }
+  else fgd.classList.remove('has-error');
   if(!respondent.role){
     document.getElementById('role-error').style.display='block'; ok=false;
   }
