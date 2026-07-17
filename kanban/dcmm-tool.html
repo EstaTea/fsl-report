@@ -153,74 +153,80 @@ a{color:inherit;text-decoration:none}
 .sug-list li::before{content:"→";position:absolute;left:0;color:var(--accent);font-weight:700}
 
 /* ══════════════════════════
-   TAB 2 — 管理层提案
+   TAB 2 — 管理层提案（深色品牌样式）
 ══════════════════════════ */
-.report-shell{
-  max-width:920px;margin:24px auto;padding:40px 48px;
-  background:var(--bg);border:1px solid var(--border);
-  border-radius:var(--r-lg);box-shadow:var(--shadow-md);
-}
-.report-header{
-  border-bottom:3px solid var(--accent-dark);
-  padding-bottom:20px;margin-bottom:28px;
-}
-.report-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-.report-logo{background:var(--accent-dark);color:#fff;font-size:11px;font-weight:900;
-             letter-spacing:1px;border-radius:4px;padding:4px 9px}
-.report-org{font-size:12px;color:var(--ink-3)}
-.report-title{font-size:22px;font-weight:800;color:var(--accent-dark);letter-spacing:-.3px;margin-bottom:6px}
-.report-sub{font-size:13px;color:var(--ink-3)}
-.report-meta{display:flex;gap:20px;margin-top:12px}
-.report-meta-item{font-size:11px;color:var(--ink-3)}
-.report-meta-item strong{color:var(--ink-2)}
-
-.report-section{margin-bottom:28px}
-.report-section-title{
-  font-size:13px;font-weight:800;color:var(--accent-dark);
-  padding-bottom:8px;margin-bottom:14px;
-  border-bottom:1.5px solid var(--accent-soft);
-  display:flex;align-items:center;gap:8px;
-}
-.report-section-title::before{
-  content:'';width:4px;height:14px;border-radius:2px;background:var(--accent);flex-shrink:0;
-}
-
-.exec-summary-box{
-  background:var(--panel-2);border-left:4px solid var(--accent);
-  border-radius:0 var(--r) var(--r) 0;
-  padding:16px 18px;margin-bottom:16px;
-  font-size:13px;color:var(--ink-2);line-height:1.8;
-}
-
-.score-hero{
-  display:inline-flex;align-items:baseline;gap:8px;
-  background:var(--accent-dark);color:#fff;
-  border-radius:var(--r);padding:14px 20px;margin-bottom:16px;
-}
-.score-hero-num{font-size:36px;font-weight:900;line-height:1}
-.score-hero-label{font-size:13px;color:rgba(255,255,255,.7)}
-
-.priority-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
-.priority-table th{background:var(--panel-2);color:var(--ink-2);
-                   padding:8px 12px;text-align:left;font-weight:700;
-                   border-bottom:1.5px solid var(--border)}
-.priority-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--ink-2)}
-.priority-high{background:#fee2e2;color:#991b1b;padding:2px 8px;border-radius:3px;font-size:10.5px;font-weight:700}
-.priority-mid{background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:3px;font-size:10.5px;font-weight:700}
-.priority-low{background:var(--lv3-bg);color:var(--lv3-c);padding:2px 8px;border-radius:3px;font-size:10.5px;font-weight:700}
-
-.report-print-btn{
-  display:block;margin:20px auto 0;
-  background:var(--accent);color:#fff;border:none;
-  padding:10px 28px;border-radius:var(--r-sm);
-  font-size:13px;font-weight:700;cursor:pointer;
-  transition:background .15s;
-}
-.report-print-btn:hover{background:var(--accent-dark)}
-@media print{
-  .tab-nav,.tn-actions,.report-print-btn{display:none!important}
-  .report-shell{box-shadow:none;border:none;margin:0;padding:20px}
-  .tab-panel{display:block!important}
+#tab2{background:#0a0f1e;color:#e8ecf5;min-height:100vh;position:relative;overflow:hidden}
+.grain-layer{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.032;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+#tab2::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 120% 70% at 50% 0%,transparent 40%,rgba(4,6,14,.7) 100%)}
+.brand-content{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:0 40px}
+.brand-header-row{padding:28px 0 0;display:flex;align-items:center;justify-content:space-between}
+.brand-header-logo{font-size:13px;font-weight:800;color:rgba(255,255,255,.9)}
+.brand-header-logo span{color:rgba(255,255,255,.4);font-weight:400}
+.brand-header-meta{font-size:11px;color:rgba(255,255,255,.3);font-family:monospace}
+.brand-hero-section{padding:64px 0 48px}
+.brand-eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(0,91,153,.9);margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.brand-eyebrow::before{content:'';width:24px;height:1px;background:#005B99}
+.brand-hero-title{font-size:clamp(44px,6vw,84px);font-weight:900;line-height:.92;
+  letter-spacing:-.04em;color:#e8ecf5;margin-bottom:24px;text-wrap:balance}
+.brand-hero-title .level-accent{color:#1878BC;text-shadow:0 0 60px rgba(0,91,153,.5)}
+.brand-hero-sub{font-size:15px;color:rgba(232,236,245,.55);line-height:1.7;
+  max-width:560px;margin-bottom:36px}
+.brand-score-bar-wrap{display:flex;align-items:center;gap:20px;margin-bottom:44px}
+.brand-score-track{flex:1;max-width:480px;height:5px;border-radius:3px;
+  background:rgba(255,255,255,.1);position:relative}
+.brand-score-fill{height:100%;border-radius:3px;background:#005B99}
+.brand-score-fill::after{content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);
+  width:11px;height:11px;border-radius:50%;background:#fff;
+  box-shadow:0 0 0 3px #005B99,0 0 12px rgba(0,91,153,.6)}
+.brand-score-labels{display:flex;justify-content:space-between;font-size:10px;
+  color:rgba(255,255,255,.3);font-family:monospace;margin-top:5px}
+.brand-score-val{font-family:monospace;font-size:13px;color:rgba(255,255,255,.5)}
+.brand-stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:rgba(255,255,255,.06);border-radius:var(--r);overflow:hidden;margin-bottom:56px}
+.brand-stat{padding:20px 22px;background:#0d1426;text-align:center}
+.brand-stat-val{font-size:28px;font-weight:800;letter-spacing:-.03em;
+  color:#e8ecf5;margin-bottom:3px;font-variant-numeric:tabular-nums}
+.brand-stat-val.c-blue{color:#5e8cff}
+.brand-stat-val.c-gold{color:#e8a33d}
+.brand-stat-val.c-warn{color:#f0a868}
+.brand-stat-label{font-size:10.5px;color:rgba(232,236,245,.4);letter-spacing:.04em;text-transform:uppercase}
+.brand-section-label{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(0,91,153,.8);margin-bottom:28px;display:flex;align-items:center;gap:12px}
+.brand-section-label::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.08)}
+.findings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:48px}
+.finding-card{background:#141c33;border:1px solid rgba(255,255,255,.07);border-radius:var(--r);
+  padding:22px;transition:border-color .2s}
+.finding-card:hover{border-color:rgba(0,91,153,.4)}
+.finding-num{font-family:monospace;font-size:11px;font-weight:600;color:#005B99;margin-bottom:10px}
+.finding-title{font-size:16px;font-weight:700;color:#e8ecf5;margin-bottom:8px;line-height:1.35}
+.finding-desc{font-size:12px;color:rgba(232,236,245,.55);line-height:1.7}
+.finding-tag{display:inline-flex;margin-top:12px;padding:3px 10px;border-radius:99px;
+  font-size:10px;font-weight:600}
+.tag-high{background:rgba(192,69,60,.15);color:#e07a74}
+.tag-warn{background:rgba(183,122,22,.15);color:#d4a440}
+.tag-ok{background:rgba(47,122,85,.15);color:#5cb88a}
+.priority-rows{margin-top:24px;padding-bottom:60px}
+.priority-row-item{display:grid;grid-template-columns:28px 1fr auto auto;gap:14px;
+  align-items:center;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.priority-row-item:last-child{border:none}
+.p-idx{width:22px;height:22px;border-radius:6px;background:#141c33;
+  display:flex;align-items:center;justify-content:center;
+  font-family:monospace;font-size:11px;color:rgba(255,255,255,.4)}
+.p-text{font-size:13px;color:#e8ecf5;line-height:1.5}
+.p-text small{display:block;font-size:11px;color:rgba(232,236,245,.45);margin-top:2px}
+.p-domain{font-size:10px;font-weight:600;padding:3px 8px;border-radius:99px;
+  background:rgba(0,91,153,.2);color:#7aa4f5;white-space:nowrap}
+.p-horizon{font-size:10px;font-weight:700;padding:3px 10px;border-radius:99px;white-space:nowrap}
+.h-now{background:rgba(192,69,60,.2);color:#e07a74}
+.h-6m{background:rgba(183,122,22,.2);color:#d4a440}
+.h-12m{background:rgba(47,122,85,.2);color:#5cb88a}
+@media(max-width:900px){
+  .findings-grid{grid-template-columns:1fr}
+  .brand-stats-row{grid-template-columns:repeat(2,1fr)}
+  .brand-content{padding:0 20px}
 }
 
 /* ══════════════════════════
@@ -373,71 +379,73 @@ a{color:inherit;text-decoration:none}
      TAB 2 — 管理层提案
 ══════════════════════ -->
 <div id="tab2" class="tab-panel">
-<div class="report-shell">
+<div class="grain-layer" aria-hidden="true"></div>
+<div class="brand-content">
 
-  <div class="report-header">
-    <div class="report-logo-row">
-      <span class="report-logo">FSL</span>
-      <span class="report-org">佛山照明 · S/4HANA 升级项目</span>
-    </div>
-    <div class="report-title">数据管理能力成熟度评估报告</div>
-    <div class="report-sub">依据 GB/T 36073—2025（DCMM）· 多角色协同评估</div>
-    <div class="report-meta">
-      <div class="report-meta-item"><strong>评估时间：</strong><span id="r-date">—</span></div>
-      <div class="report-meta-item"><strong>参与人数：</strong><span id="r-count">—</span></div>
-      <div class="report-meta-item"><strong>覆盖角色：</strong><span id="r-roles">—</span></div>
-      <div class="report-meta-item"><strong>评估标准：</strong>GB/T 36073—2025</div>
-    </div>
-  </div>
+  <header class="brand-header-row">
+    <div class="brand-header-logo">佛山照明 FSL <span>· 数据管理能力成熟度评估报告 2026</span></div>
+    <div class="brand-header-meta">基于 GB/T 36073-2025（DCMM）· 多角色协同评估</div>
+  </header>
 
-  <!-- Executive Summary -->
-  <div class="report-section">
-    <div class="report-section-title">执行摘要</div>
-    <div class="score-hero">
-      <div class="score-hero-num" id="r-level">—</div>
-      <div><div style="font-size:16px;font-weight:800" id="r-level-name">暂无数据</div>
-           <div class="score-hero-label">综合得分 <span id="r-score">—</span> / 5.0</div>
+  <!-- Hero -->
+  <section class="brand-hero-section">
+    <div class="brand-eyebrow">DCMM 评估结论</div>
+    <h1 class="brand-hero-title">
+      当前处于<br>
+      <span class="level-accent" id="r-level-big">—</span>
+    </h1>
+    <p class="brand-hero-sub" id="r-summary">同步数据后自动生成摘要。</p>
+    <div class="brand-score-bar-wrap">
+      <div style="flex:1;max-width:480px">
+        <div class="brand-score-track">
+          <div class="brand-score-fill" id="r-score-fill" style="width:0%"></div>
+        </div>
+        <div class="brand-score-labels">
+          <span>L1</span><span>L2</span><span>L3</span><span>L4</span><span>L5</span>
+        </div>
+      </div>
+      <div class="brand-score-val">综合得分 <strong id="r-score" style="color:#5e8cff">—</strong> / 5.0</div>
+    </div>
+    <div class="brand-stats-row">
+      <div class="brand-stat">
+        <div class="brand-stat-val c-blue" id="r-stat-score">—</div>
+        <div class="brand-stat-label">成熟度总分</div>
+      </div>
+      <div class="brand-stat">
+        <div class="brand-stat-val" id="r-stat-count">—</div>
+        <div class="brand-stat-label">参与评估人数</div>
+      </div>
+      <div class="brand-stat">
+        <div class="brand-stat-val c-warn" id="r-stat-gaps">—</div>
+        <div class="brand-stat-label">高优先级差距</div>
+      </div>
+      <div class="brand-stat">
+        <div class="brand-stat-val c-gold">L3</div>
+        <div class="brand-stat-label">改进目标等级</div>
       </div>
     </div>
-    <div class="exec-summary-box" id="r-summary">
-      同步问卷数据后，将在此处自动生成执行摘要。
+  </section>
+
+  <!-- Findings -->
+  <div class="brand-section-label">核心评估发现</div>
+  <div class="findings-grid" id="r-findings-grid">
+    <div class="finding-card">
+      <div class="finding-num">同步中…</div>
+      <div class="finding-title">加载数据后自动生成</div>
+      <div class="finding-desc">请先在评估报告页同步问卷响应</div>
     </div>
   </div>
 
-  <!-- Domain findings -->
-  <div class="report-section">
-    <div class="report-section-title">各能力域评估发现</div>
-    <div id="r-domain-findings">
-      <div class="empty-state"><div class="empty-icon">🏛️</div><p>加载数据后自动生成</p></div>
+  <!-- Priority Actions -->
+  <div class="brand-section-label">优先行动建议</div>
+  <div class="priority-rows" id="r-priority-rows">
+    <div style="color:rgba(232,236,245,.4);font-size:13px;text-align:center;padding:32px 0">
+      加载数据后自动生成
     </div>
   </div>
 
-  <!-- Priority actions -->
-  <div class="report-section">
-    <div class="report-section-title">优先行动建议</div>
-    <table class="priority-table" id="r-priority-table">
-      <thead>
-        <tr>
-          <th>优先级</th><th>能力域</th><th>当前等级</th><th>目标等级</th><th>关键行动</th>
-        </tr>
-      </thead>
-      <tbody id="r-priority-tbody">
-        <tr><td colspan="5" style="text-align:center;padding:20px;color:var(--ink-3)">加载数据后自动生成</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- Roadmap -->
-  <div class="report-section">
-    <div class="report-section-title">实施路线建议（12个月）</div>
-    <div id="r-roadmap">
-      <div class="empty-state"><div class="empty-icon">🗓️</div><p>加载数据后自动生成</p></div>
-    </div>
-  </div>
-
-  <button class="report-print-btn" onclick="window.print()">🖨️ 打印 / 导出 PDF</button>
-</div>
-</div>
+</div><!-- /brand-content -->
+</div><!-- /tab2 -->
 
 <!-- ══════════════════════
      TAB 3 — 响应汇总
@@ -756,97 +764,81 @@ function renderTab1(domAvgs,capAvgs,total,lv){
 // ── TAB 2 ──────────────────────────────────────
 function renderTab2(domAvgs,total,lv){
   var n=allResponses.length;
-  var today=new Date().toLocaleDateString('zh-CN');
-  setText('r-date',today);
-  setText('r-count',n+'人');
 
+  // Hero section
+  setText('r-level-big', lv ? 'L'+lv+' '+LV_NAMES[lv] : '—');
+  setText('r-score', total!==null ? total.toFixed(2) : '—');
+  setText('r-stat-score', total!==null ? total.toFixed(2) : '—');
+  setText('r-stat-count', n+'人');
+
+  var highGaps=DOMAINS.filter(function(d){return domAvgs[d.id]!==null&&domAvgs[d.id]<2.8;}).length;
+  setText('r-stat-gaps', highGaps||'—');
+
+  var fillPct = total!==null ? ((total/5)*100).toFixed(1) : 0;
+  var fillEl=document.getElementById('r-score-fill');
+  if(fillEl) fillEl.style.width=fillPct+'%';
+
+  // Summary text
   var roleMap={};
   allResponses.forEach(function(r){
     var rn=ROLE_NAMES[r.role]||r.roleName||r.role||'未知';
     roleMap[rn]=(roleMap[rn]||0)+1;
   });
-  setText('r-roles',Object.entries(roleMap).map(function(e){return e[0]+'×'+e[1];}).join(' / ')||'—');
-
-  setText('r-level',total!==null?'L'+lv:'—');
-  setText('r-level-name',lv?LV_NAMES[lv]:'暂无数据');
-  setText('r-score',total!==null?total.toFixed(2):'—');
-
-  // Executive summary
+  var weakDomains=DOMAINS.filter(function(d){return domAvgs[d.id]!==null&&domAvgs[d.id]<3;})
+    .sort(function(a,b){return (domAvgs[a.id]||0)-(domAvgs[b.id]||0);});
+  var strongDomains=DOMAINS.filter(function(d){return domAvgs[d.id]!==null&&domAvgs[d.id]>=3;})
+    .sort(function(a,b){return (domAvgs[b.id]||0)-(domAvgs[a.id]||0);});
   var sumEl=document.getElementById('r-summary');
   if(sumEl&&n>0){
-    var weakDomains=DOMAINS.filter(function(d){return (domAvgs[d.id]||0)>0&&(domAvgs[d.id]||0)<3;})
-      .sort(function(a,b){return (domAvgs[a.id]||0)-(domAvgs[b.id]||0)});
-    var strongDomains=DOMAINS.filter(function(d){return (domAvgs[d.id]||0)>=3;})
-      .sort(function(a,b){return (domAvgs[b.id]||0)-(domAvgs[a.id]||0)});
-    sumEl.innerHTML='本次评估共收到 <strong>'+n+' 位</strong>佛照员工填写的 DCMM 问卷，'
-      +'涵盖'+Object.keys(roleMap).join('、')+'等角色视角。'
-      +'综合得分 <strong>'+( total?total.toFixed(2):'—')+'</strong>，对应成熟度等级 <strong>'+( lv?'L'+lv+' '+LV_NAMES[lv]:'—')+'</strong>。'
+    sumEl.innerHTML='本次评估共收到 <strong style="color:#e8ecf5">'+n+'</strong> 位佛照员工填写的 DCMM 问卷，'
+      +'涵盖'+Object.keys(roleMap).join('、')+'等角色视角。综合得分 '
+      +'<strong style="color:#5e8cff">'+(total?total.toFixed(2):'—')+'</strong>，'
+      +'对应成熟度等级 <strong style="color:#5e8cff">'+(lv?'L'+lv+' '+LV_NAMES[lv]:'—')+'</strong>。'
       +LV_DESC[lv||1]+'。'
-      +(strongDomains.length?'相对较强的能力域为'+strongDomains.slice(0,2).map(function(d){return d.name;}).join('、')+'；':' ')
+      +(strongDomains.length?'相对较强的能力域为'+strongDomains.slice(0,2).map(function(d){return d.name;}).join('、')+'；':'')
       +(weakDomains.length?'亟需提升的能力域为'+weakDomains.slice(0,3).map(function(d){return d.name;}).join('、')+'，建议在 S/4HANA 实施过程中同步推进相关数据管理能力建设。':'');
   }
 
-  // Domain findings
-  var findEl=document.getElementById('r-domain-findings');
-  if(findEl&&n>0){
-    findEl.innerHTML='<table style="width:100%;border-collapse:collapse;font-size:12.5px">'
-      +'<thead><tr>'
-      +'<th style="background:var(--panel-2);color:var(--ink-2);padding:8px 12px;text-align:left;font-weight:700;border-bottom:1.5px solid var(--border)">能力域</th>'
-      +'<th style="background:var(--panel-2);color:var(--ink-2);padding:8px 12px;text-align:center;font-weight:700;border-bottom:1.5px solid var(--border)">均分</th>'
-      +'<th style="background:var(--panel-2);color:var(--ink-2);padding:8px 12px;text-align:center;font-weight:700;border-bottom:1.5px solid var(--border)">成熟度等级</th>'
-      +'<th style="background:var(--panel-2);color:var(--ink-2);padding:8px 12px;text-align:left;font-weight:700;border-bottom:1.5px solid var(--border)">首要建议</th>'
-      +'</tr></thead><tbody>'
-      +DOMAINS.map(function(d){
+  // Findings grid
+  var fgEl=document.getElementById('r-findings-grid');
+  if(fgEl&&n>0){
+    var cards=DOMAINS.filter(function(d){return domAvgs[d.id]!==null;})
+      .slice(0,6)
+      .map(function(d,i){
         var sc=domAvgs[d.id];
-        var lv=scoreToLevel(sc);
-        if(!sc) return '';
-        return '<tr>'
-          +'<td style="padding:9px 12px;border-bottom:1px solid var(--border);font-weight:700;color:var(--accent-dark)">'+d.icon+' '+d.name+'</td>'
-          +'<td style="padding:9px 12px;border-bottom:1px solid var(--border);text-align:center;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums">'+sc.toFixed(2)+'</td>'
-          +'<td style="padding:9px 12px;border-bottom:1px solid var(--border);text-align:center"><span class="lv-pill lv'+lv+'">L'+lv+' '+LV_NAMES[lv]+'</span></td>'
-          +'<td style="padding:9px 12px;border-bottom:1px solid var(--border);color:var(--ink-3);font-size:12px">'+((SUGGESTIONS[d.id]||[])[0]||'')+'</td>'
-          +'</tr>';
-      }).join('')
-      +'</tbody></table>';
+        var dlv=scoreToLevel(sc);
+        var tagCls=dlv<=2?'tag-high':dlv===3?'tag-warn':'tag-ok';
+        var tagTxt=dlv<=2?'⚠ 高优先级':dlv===3?'⚡ 待深化':'✓ 良好基础';
+        var desc=(SUGGESTIONS[d.id]||['建议结合 S/4HANA 实施推进能力建设'])[0];
+        return '<div class="finding-card">'
+          +'<div class="finding-num">找到 0'+(i+1)+'</div>'
+          +'<div class="finding-title">'+d.icon+' '+d.name+'（L'+dlv+' · '+sc.toFixed(2)+'）</div>'
+          +'<div class="finding-desc">'+desc+'</div>'
+          +'<span class="finding-tag '+tagCls+'">'+tagTxt+'</span>'
+          +'</div>';
+      });
+    fgEl.innerHTML=cards.join('');
   }
 
-  // Priority action table
-  var tbodyEl=document.getElementById('r-priority-tbody');
-  if(tbodyEl&&n>0){
+  // Priority rows
+  var prEl=document.getElementById('r-priority-rows');
+  if(prEl&&n>0){
     var rows=DOMAINS.filter(function(d){return domAvgs[d.id]!==null;})
       .sort(function(a,b){return (domAvgs[a.id]||0)-(domAvgs[b.id]||0);})
       .map(function(d,i){
         var sc=domAvgs[d.id];
-        var lv=scoreToLevel(sc);
-        var target=Math.min(5,lv+1);
-        var pri=i<2?'<span class="priority-high">高</span>':i<4?'<span class="priority-mid">中</span>':'<span class="priority-low">低</span>';
+        var dlv=scoreToLevel(sc);
         var action=(SUGGESTIONS[d.id]||['持续保持当前水平'])[0];
-        return '<tr><td>'+pri+'</td><td>'+d.icon+' '+d.name+'</td>'
-          +'<td><span class="lv-pill lv'+lv+'">L'+lv+' '+LV_NAMES[lv]+'</span></td>'
-          +'<td><span class="lv-pill lv'+target+'">L'+target+' '+LV_NAMES[target]+'</span></td>'
-          +'<td style="font-size:12px">'+action+'</td></tr>';
+        var hCls=i<2?'h-now':i<4?'h-6m':'h-12m';
+        var hTxt=i<2?'即时启动':i<4?'6个月内':'12个月内';
+        return '<div class="priority-row-item">'
+          +'<div class="p-idx">'+(i+1)+'</div>'
+          +'<div class="p-text">'+action+'<small>'+d.icon+' '+d.name+' · 当前 L'+dlv+' → 目标 L'+Math.min(5,dlv+1)+'</small></div>'
+          +'<div class="p-domain">'+d.name+'</div>'
+          +'<div class="p-horizon '+hCls+'">'+hTxt+'</div>'
+          +'</div>';
       });
-    tbodyEl.innerHTML=rows.join('');
-  }
-
-  // Roadmap
-  var roadmapEl=document.getElementById('r-roadmap');
-  if(roadmapEl&&n>0){
-    var phases=[
-      {phase:'Q1（0-3个月）',focus:'现状确认与标准制定',items:['完成数据资产盘点','制定数据治理委员会章程','启动主数据清洗计划']},
-      {phase:'Q2（3-6个月）',focus:'基础能力建设',items:['MDG主数据管理系统上线','建立企业级业务词汇表','部署数据质量检查规则']},
-      {phase:'Q3（6-9个月）',focus:'能力深化与固化',items:['数据安全分类分级完成','数据架构统一（CPI集成）','自助分析平台推广']},
-      {phase:'Q4（9-12个月）',focus:'持续优化与评估',items:['年度DCMM评估复测','数据文化培训全员覆盖','制定下一年度数据战略']}
-    ];
-    roadmapEl.innerHTML='<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">'
-      +phases.map(function(p){
-        return '<div style="background:var(--panel-2);border-radius:var(--r);padding:14px;border-left:3px solid var(--accent)">'
-          +'<div style="font-weight:700;color:var(--accent-dark);font-size:12px;margin-bottom:4px">'+p.phase+'</div>'
-          +'<div style="font-size:11px;color:var(--ink-3);margin-bottom:8px">'+p.focus+'</div>'
-          +'<ul style="list-style:none;padding:0">'
-          +p.items.map(function(it){return '<li style="font-size:11.5px;color:var(--ink-2);padding:2px 0 2px 12px;position:relative"><span style="position:absolute;left:0;color:var(--accent)">▸</span>'+it+'</li>';}).join('')
-          +'</ul></div>';
-      }).join('')+'</div>';
+    prEl.innerHTML=rows.join('');
   }
 }
 
