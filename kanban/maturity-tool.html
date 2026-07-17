@@ -890,10 +890,9 @@ table.resp-table tr:hover td{background:var(--panel-2)}
 
   <!-- Toolbar -->
   <div class="agg-toolbar">
-    <span class="toolbar-label">📥 问卷响应汇总后台</span>
-    <button class="btn-sm" onclick="loadAllResponses()">↓ 同步 GitHub 响应</button>
+    <button class="btn-sm" onclick="loadAllResponses()">↻ 刷新响应</button>
+    <span id="agg-sync-status" style="font-size:11px;color:var(--ink-3);font-family:var(--f-mono)">同步中…</span>
     <div class="spacer"></div>
-    <span id="agg-sync-status" style="font-size:11px;color:var(--ink-3);font-family:var(--f-mono)">未同步</span>
     <button class="btn-sm" onclick="openSettings()">⚙ 设置</button>
   </div>
 
