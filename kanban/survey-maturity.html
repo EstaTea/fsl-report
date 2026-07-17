@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>佛照数字化成熟度评估问卷</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --page:#edf0f6; --bg:#fff; --panel-2:#f4f6fa; --border:rgba(20,32,56,.08);
+  --ink-1:#121a2b; --ink-2:#3a465c; --ink-3:#69768c;
+  --accent:#2D5BD8; --accent-soft:rgba(45,91,216,.10); --on-accent:#fff;
+  --glow:rgba(45,91,216,.28);
+  --up:#2F7A55; --down:#C0453C; --warn:#B77A16;
+  --accent-dark:#003B63;
+}
+
+/* ── TOPBAR（与 DCMM 问卷一致）── */
+.topbar{
+  background:var(--accent-dark);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  padding:0 28px;
+  position:sticky;top:0;z-index:200;
+}
+.topbar-row1{display:flex;align-items:center;gap:12px;height:48px}
+.tb-logo{background:#fff;color:var(--accent-dark);font-size:11px;font-weight:900;
+         letter-spacing:1px;border-radius:5px;padding:3px 8px;line-height:1;flex-shrink:0}
+.tb-project{font-size:14px;font-weight:700;color:#fff;letter-spacing:-.2px}
+.tb-badge{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);
+          padding:2px 10px;border-radius:20px;font-size:11px;color:rgba(255,255,255,.75)}
+.tb-nav{display:flex;gap:0;margin-top:0}
+.tb-navlink{padding:8px 14px;font-size:12px;color:rgba(255,255,255,.5);
+            border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;
+            transition:color .15s;text-decoration:none}
+.tb-navlink:hover{color:rgba(255,255,255,.85)}
+.tb-navlink.active{color:#5EA4CE;border-bottom-color:#5EA4CE;font-weight:700}
+  --shadow:0 1px 3px rgba(20,34,64,.06);
+  --r:16px; --r-sm:10px; --r-lg:24px;
+  --f:'Inter','PingFang SC',system-ui,sans-serif;
+  --f-display:'Plus Jakarta Sans','PingFang SC',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--f);background:var(--page);color:var(--ink-1);font-size:14px;min-height:100dvh}
+button{cursor:pointer;font:inherit;border:none;background:none}
+
+/* ── PROGRESS BAR ── */
+.progress-wrap{background:var(--bg);border-bottom:1px solid var(--border);padding:10px 24px}
+.progress-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:11.5px;color:var(--ink-3)}
+.progress-track{height:4px;background:var(--panel-2);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .4s ease}
+.step-dots{display:flex;gap:6px;align-items:center;justify-content:center;padding:8px 0 0;flex-wrap:wrap}
+.step-dot{
+  width:28px;height:28px;border-radius:50%;border:1.5px solid var(--border);
+  font-size:11px;font-weight:700;color:var(--ink-3);display:flex;align-items:center;justify-content:center;
+  background:var(--panel-2);transition:all .2s;flex-shrink:0;
+}
+.step-dot.done{background:var(--accent);border-color:var(--accent);color:#fff}
+.step-dot.current{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.step-dot-label{font-size:10px;color:var(--ink-3);white-space:nowrap}
+
+/* ── MAIN CARD ── */
+.main{max-width:760px;margin:0 auto;padding:24px 16px 120px}
+.card{
+  background:var(--bg);border:1px solid var(--border);border-radius:var(--r-lg);
+  padding:28px 32px;box-shadow:var(--shadow);
+}
+@media(max-width:600px){.card{padding:20px 16px}}
+
+/* ── INTRO ── */
+.survey-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--accent-soft);color:var(--accent);
+  font-size:11px;font-weight:700;padding:4px 12px;border-radius:99px;
+  margin-bottom:16px;letter-spacing:.04em;
+}
+.survey-title{
+  font-family:var(--f-display);font-size:26px;font-weight:800;
+  color:var(--ink-1);letter-spacing:-.03em;line-height:1.2;margin-bottom:10px;
+}
+.survey-title .brand-em{color:var(--accent)}
+.survey-desc{font-size:13.5px;color:var(--ink-2);line-height:1.75;margin-bottom:20px}
+.tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.info-tag{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:5px 12px;border-radius:99px;font-size:11.5px;font-weight:500;
+  background:var(--panel-2);color:var(--ink-2);border:1px solid var(--border);
+}
+
+/* ── FORM FIELDS ── */
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+@media(max-width:520px){.field-row{grid-template-columns:1fr}}
+.field-group{display:flex;flex-direction:column;gap:5px}
+.field-label{font-size:12px;font-weight:600;color:var(--ink-2)}
+.field-label .req{color:var(--down);margin-left:2px}
+.field-input{
+  padding:9px 13px;border-radius:var(--r-sm);
+  border:1.5px solid var(--border);background:var(--panel-2);
+  font:inherit;font-size:13px;color:var(--ink-1);transition:border-color .15s;
+}
+.field-input:focus{outline:none;border-color:var(--accent);background:var(--bg);
+  box-shadow:0 0 0 3px var(--accent-soft)}
+.field-error{font-size:11px;color:var(--down);display:none}
+.field-group.has-error .field-input{border-color:var(--down)}
+.field-group.has-error .field-error{display:block}
+
+/* ── ROLE CARDS ── */
+.role-label{font-size:12px;font-weight:600;color:var(--ink-2);margin-bottom:10px}
+.role-label .req{color:var(--down);margin-left:2px}
+.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px}
+@media(max-width:520px){.role-grid{grid-template-columns:1fr}}
+.role-card{
+  border:1.5px solid var(--border);border-radius:var(--r);
+  padding:14px 16px;cursor:pointer;transition:all .15s;text-align:left;
+  background:var(--panel-2);
+}
+.role-card:hover{border-color:var(--accent);background:var(--accent-soft)}
+.role-card.selected{border-color:var(--accent);background:var(--accent-soft)}
+.role-card-icon{font-size:20px;margin-bottom:6px}
+.role-card-title{font-size:13px;font-weight:700;color:var(--ink-1);margin-bottom:3px}
+.role-card-desc{font-size:11px;color:var(--ink-3);line-height:1.5}
+
+/* ── DOMAIN STEP ── */
+.domain-header{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.domain-num{
+  width:32px;height:32px;border-radius:10px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:800;color:#fff;
+}
+.domain-title{font-family:var(--f-display);font-size:20px;font-weight:800;color:var(--ink-1);letter-spacing:-.02em}
+.domain-weight{font-size:11px;color:var(--ink-3);margin-bottom:20px;padding-left:42px}
+.domain-intro{
+  font-size:12.5px;color:var(--ink-2);line-height:1.7;
+  background:var(--panel-2);border-radius:var(--r-sm);padding:12px 14px;
+  margin-bottom:20px;border-left:3px solid var(--accent);
+}
+
+/* ── SUB-DOMAIN QUESTION ── */
+.question-block{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+.question-block:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.q-label{font-size:13px;font-weight:600;color:var(--ink-1);margin-bottom:10px;line-height:1.5}
+.q-label .q-num{
+  display:inline-flex;width:20px;height:20px;border-radius:5px;
+  background:var(--accent-soft);color:var(--accent);font-size:10px;font-weight:700;
+  align-items:center;justify-content:center;margin-right:6px;flex-shrink:0;vertical-align:middle;
+}
+.rating-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+@media(max-width:480px){.rating-row{grid-template-columns:repeat(2,1fr)}}
+.r-btn{
+  padding:9px 6px;border-radius:var(--r-sm);border:1.5px solid var(--border);
+  background:var(--panel-2);font-size:11.5px;font-weight:500;color:var(--ink-3);
+  text-align:center;line-height:1.3;transition:all .12s;
+}
+.r-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.r-btn.sel{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:700}
+.r-btn.sel-warn{border-color:var(--warn);background:rgba(183,122,22,.10);color:var(--warn);font-weight:700}
+.r-btn.sel-down{border-color:var(--down);background:rgba(192,69,60,.08);color:var(--down);font-weight:700}
+.r-score{display:block;font-size:10px;font-weight:700;margin-top:2px;opacity:.7}
+.q-hint{font-size:11px;color:var(--ink-3);margin-top:6px;line-height:1.5}
+
+/* ── REVIEW STEP ── */
+.review-domain-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;
+}
+.review-domain-row:last-child{border:none}
+.review-domain-name{font-weight:600;color:var(--ink-1);display:flex;align-items:center;gap:8px}
+.review-score{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;color:var(--accent)}
+.review-missing{font-size:11px;color:var(--warn);margin-left:4px}
+.review-total{
+  margin-top:14px;padding:14px 16px;border-radius:var(--r);
+  background:var(--accent-soft);display:flex;align-items:center;justify-content:space-between;
+}
+.review-total-label{font-size:13px;font-weight:600;color:var(--accent)}
+.review-total-val{font-size:24px;font-weight:800;color:var(--accent);font-family:'JetBrains Mono',monospace}
+.reviewer-summary{
+  background:var(--panel-2);border-radius:var(--r-sm);padding:12px 14px;
+  font-size:12.5px;color:var(--ink-2);margin-bottom:16px;line-height:1.8;
+}
+
+/* ── THANKS ── */
+#step-thanks{text-align:center;padding:40px 20px}
+.thanks-icon{font-size:56px;margin-bottom:20px}
+.thanks-title{font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--ink-1);margin-bottom:8px}
+.thanks-sub{font-size:13.5px;color:var(--ink-3);line-height:1.7;margin-bottom:24px}
+.thanks-id{
+  font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-3);
+  background:var(--panel-2);padding:6px 12px;border-radius:var(--r-sm);display:inline-block;
+}
+
+/* ── NAV BUTTONS ── */
+.nav-bar{
+  position:fixed;bottom:0;left:0;right:0;z-index:50;
+  background:rgba(237,240,246,.94);backdrop-filter:blur(12px);
+  border-top:1px solid var(--border);padding:12px 20px;
+  display:flex;align-items:center;gap:10px;
+}
+.nav-bar .nav-step-info{flex:1;font-size:12px;color:var(--ink-3)}
+.btn-back{
+  padding:9px 22px;border-radius:var(--r-sm);font-size:13px;font-weight:600;
+  border:1.5px solid var(--border);color:var(--ink-2);background:transparent;transition:all .15s;
+}
+.btn-back:hover{border-color:var(--accent);color:var(--accent)}
+.btn-next{
+  padding:10px 28px;border-radius:var(--r-sm);font-size:13px;font-weight:700;
+  background:var(--accent);color:var(--on-accent);
+  box-shadow:0 2px 8px var(--glow);transition:all .15s;
+}
+.btn-next:hover{opacity:.9;box-shadow:0 4px 16px var(--glow)}
+.btn-next:disabled{opacity:.5;cursor:not-allowed;box-shadow:none}
+.btn-submit{
+  padding:10px 28px;border-radius:var(--r-sm);font-size:13px;font-weight:700;
+  background:var(--up);color:#fff;
+  box-shadow:0 2px 8px rgba(47,122,85,.3);transition:all .15s;
+}
+.btn-submit:hover{opacity:.9}
+.btn-submit:disabled{opacity:.5;cursor:not-allowed}
+
+/* ── SPINNER ── */
+.spinner{
+  width:18px;height:18px;border:2.5px solid rgba(255,255,255,.4);
+  border-top-color:#fff;border-radius:50%;display:inline-block;
+  animation:spin .7s linear infinite;margin-right:6px;vertical-align:middle;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<!-- ── TOPBAR ── -->
+<div class="topbar">
+  <div class="topbar-row1">
+    <span class="tb-logo">FSL</span>
+    <span class="tb-project">佛照 S/4HANA 升级项目</span>
+    <span class="tb-badge">数字化成熟度评估</span>
+  </div>
+  <nav class="tb-nav">
+    <a class="tb-navlink active" href="#">📊 数字化转型成熟度评估</a>
+  </nav>
+</div>
+
+<!-- ── PROGRESS ── -->
+<div class="progress-wrap" id="progress-wrap">
+  <div class="progress-info">
+    <span id="step-label">准备开始</span>
+    <span id="step-counter">0 / 9</span>
+  </div>
+  <div class="progress-track">
+    <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+  </div>
+  <div class="step-dots" id="step-dots"></div>
+</div>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+<!-- STEP 0: INTRO -->
+<div id="step-0" class="card">
+  <div class="survey-badge">● GB/T 43439-2023 · 数字化转型成熟度</div>
+  <h1 class="survey-title">「<span class="brand-em">佛照</span>」数字化转型<br>成熟度评估问卷</h1>
+  <p class="survey-desc">
+    依据国家标准 GB/T 43439-2023，通过多角色协同评估，为佛山照明数字化转型现状提供客观诊断，并给出针对性改进建议。请根据您对佛照当前实际情况的了解，选择各能力子域的成熟度满足程度。
+  </p>
+  <div class="tag-row">
+    <span class="info-tag">📊 7 个能力域</span>
+    <span class="info-tag">📝 26 个子域</span>
+    <span class="info-tag">⏱ 约 15 分钟</span>
+    <span class="info-tag">🔒 结果仅供项目内部使用</span>
+  </div>
+
+  <div class="field-row">
+    <div class="field-group" id="fg-name">
+      <label class="field-label" for="f-name">您的姓名 <span class="req">*必填</span></label>
+      <input class="field-input" id="f-name" type="text" placeholder="例：张三 / 匿名001" autocomplete="off">
+      <span class="field-error">请填写姓名或匿名代号</span>
+    </div>
+    <div class="field-group" id="fg-dept">
+      <label class="field-label" for="f-dept">所在部门</label>
+      <input class="field-input" id="f-dept" type="text" placeholder="例：数智化部 / 财务部" autocomplete="off">
+    </div>
+  </div>
+
+  <div style="margin-bottom:16px">
+    <div class="role-label">请选择您的角色 <span class="req">*必填</span></div>
+    <div class="role-grid" id="role-grid">
+      <button class="role-card" data-role="前台" onclick="selectRole(this)">
+        <div class="role-card-icon">🏪</div>
+        <div class="role-card-title">前台</div>
+        <div class="role-card-desc">商用、家用、国际（佛照光电）、电商、车灯、新业务 — 评估数据应用与客户视角</div>
+      </button>
+      <button class="role-card" data-role="中台" onclick="selectRole(this)">
+        <div class="role-card-icon">⚙️</div>
+        <div class="role-card-title">中台</div>
+        <div class="role-card-desc">供应链、产品及方案、质量与客服、招投标、研究院 — 评估数据协同与质量视角</div>
+      </button>
+      <button class="role-card" data-role="后台" onclick="selectRole(this)">
+        <div class="role-card-icon">🏦</div>
+        <div class="role-card-title">后台</div>
+        <div class="role-card-desc">财务、人力、数智化、审计、法律风控、品牌管理 — 评估数据治理与安全视角</div>
+      </button>
+      <button class="role-card" data-role="外部顾问" onclick="selectRole(this)">
+        <div class="role-card-icon">🔍</div>
+        <div class="role-card-title">外部顾问</div>
+        <div class="role-card-desc">艾维登、SAP 顾问团队 — 评估实施与最佳实践视角</div>
+      </button>
+    </div>
+    <div id="role-error" style="font-size:11px;color:var(--down);display:none;margin-top:4px">请选择您的角色</div>
+  </div>
+
+  <p style="font-size:11.5px;color:var(--ink-3);line-height:1.7">
+    * 每题请根据佛照当前实际情况选择成熟度等级，并可补充文字说明。所有提交将汇总分析，用于生成数字化转型诊断报告。
+  </p>
+</div>
+
+<!-- STEPS 1–7: Domain questions (injected by JS) -->
+<div id="step-1" class="card" style="display:none"></div>
+<div id="step-2" class="card" style="display:none"></div>
+<div id="step-3" class="card" style="display:none"></div>
+<div id="step-4" class="card" style="display:none"></div>
+<div id="step-5" class="card" style="display:none"></div>
+<div id="step-6" class="card" style="display:none"></div>
+<div id="step-7" class="card" style="display:none"></div>
+
+<!-- STEP 8: REVIEW -->
+<div id="step-8" class="card" style="display:none">
+  <h2 style="font-family:var(--f-display);font-size:20px;font-weight:800;margin-bottom:16px">确认并提交</h2>
+  <div class="reviewer-summary" id="reviewer-summary-box"></div>
+  <div id="review-scores"></div>
+  <div class="review-total">
+    <span class="review-total-label">预估综合得分（等权均值）</span>
+    <span class="review-total-val" id="review-total-val">—</span>
+  </div>
+</div>
+
+<!-- STEP THANKS -->
+<div id="step-thanks" style="display:none">
+  <div class="card">
+    <div class="thanks-icon">✅</div>
+    <div class="thanks-title">提交成功，感谢参与！</div>
+    <div class="thanks-sub">您的评估结果已保存。<br>项目团队将汇总所有参与者的反馈，生成佛照数字化转型成熟度综合报告。</div>
+    <div class="thanks-id" id="thanks-ref-id">提交编号：—</div>
+  </div>
+</div>
+
+</main>
+
+<!-- ── NAV BAR ── -->
+<div class="nav-bar" id="nav-bar">
+  <div class="nav-step-info" id="nav-step-info">步骤 1 / 9</div>
+  <button class="btn-back" id="btn-back" onclick="prevStep()" style="display:none">← 上一步</button>
+  <button class="btn-next" id="btn-next" onclick="nextStep()">开始评估 →</button>
+  <button class="btn-submit" id="btn-submit" onclick="submitSurvey()" style="display:none">提交评估 ✓</button>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+// DOMAIN DATA
+// ══════════════════════════════════════════
+// ══════════════════════════════════════════
+// CONFIG — 部署 Worker 后填入 URL，无需改其他任何地方
+// ══════════════════════════════════════════
+const WORKER_URL = 'https://fsl-maturity-survey.283656314.workers.dev/submit';
+// ↑ 部署完成后把上面这行替换为你的 Worker URL，例如：
+// const WORKER_URL = 'https://fsl-maturity-survey.i523899.workers.dev/submit';
+
+const DOMAINS = [
+  { id:'org',   label:'组织',       weight:.12, color:'#2D5BD8',
+    intro:'评估佛照在数字化转型的组织建设、战略规划、流程管理和变革管理方面的能力。',
+    subs:['组织建设','转型战略','流程管理','变革管理'] },
+  { id:'tech',  label:'技术',       weight:.13, color:'#4A7FE0',
+    intro:'评估佛照在研发管理数字化、技术创新能力以及信息安全保障方面的现状。',
+    subs:['研发管理','技术创新','信息安全'] },
+  { id:'data',  label:'数据',       weight:.18, color:'#E08A2E',
+    intro:'数据是佛照数字化转型的核心要素，评估业务数据化、数据管理、数据资产和数据业务化四个维度。',
+    subs:['业务数据化','数据管理','数据资产','数据业务化'] },
+  { id:'res',   label:'资源',       weight:.10, color:'#6FAA48',
+    intro:'评估支撑数字化转型所需的基础设施、应用支撑资源、资金投入和知识积累情况。',
+    subs:['基础设施','应用支撑资源','资金','知识'] },
+  { id:'ops',   label:'数字化运营', weight:.15, color:'#9B5FC4',
+    intro:'评估佛照在营销、财务、供应链三大运营领域的数字化程度和成效。',
+    subs:['数字化营销','数字化财务','数字化供应链'] },
+  { id:'prod',  label:'数字化生产', weight:.18, color:'#D65A3A',
+    intro:'制造是佛照的核心业务，评估产品设计到仓储配送全链条的数字化水平。',
+    subs:['产品设计','工艺设计','计划调度','生产作业','质量管控','设备管理','仓储配送'] },
+  { id:'svc',   label:'数字化服务', weight:.14, color:'#2A9E8A',
+    intro:'评估佛照对内对外的数字化服务能力，包括服务产品、交付、能力和运行四个方面。',
+    subs:['服务产品','服务交付','服务能力','服务运行'] }
+];
+
+const RATINGS = [
+  { val:1.0, label:'全部满足', score:'1.0', cls:'sel' },
+  { val:0.8, label:'大部分满足', score:'0.8', cls:'sel' },
+  { val:0.5, label:'部分满足', score:'0.5', cls:'sel-warn' },
+  { val:0.0, label:'不满足', score:'0.0', cls:'sel-down' }
+];
+
+const TOTAL_STEPS = 9; // 0=intro, 1-7=domains, 8=review
+let currentStep = 0;
+let respondent = { name:'', dept:'', role:'' };
+let surveyScores = {};
+
+// ══════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  DOMAINS.forEach(d => { surveyScores[d.id] = {}; });
+  buildDomainSteps();
+  buildStepDots();
+  showStep(0);
+});
+
+// ══════════════════════════════════════════
+// STEP DOTS
+// ══════════════════════════════════════════
+function buildStepDots() {
+  const container = document.getElementById('step-dots');
+  const labels = ['基本信息', ...DOMAINS.map(d=>d.label), '确认提交'];
+  container.innerHTML = labels.map((l,i) => `
+    <div style="display:flex;flex-direction:column;align-items:center;gap:2px">
+      <div class="step-dot" id="dot-${i}">${i===0?'👤':i===8?'✓':i}</div>
+      <div class="step-dot-label" style="display:none" id="dot-label-${i}">${l}</div>
+    </div>
+  `).join('');
+}
+
+function updateDots() {
+  for(let i=0;i<TOTAL_STEPS;i++){
+    const dot = document.getElementById('dot-'+i);
+    if(!dot) continue;
+    dot.classList.remove('done','current');
+    if(i < currentStep) dot.classList.add('done');
+    else if(i === currentStep) dot.classList.add('current');
+  }
+}
+
+// ══════════════════════════════════════════
+// BUILD DOMAIN STEPS
+// ══════════════════════════════════════════
+function buildDomainSteps() {
+  DOMAINS.forEach((d, di) => {
+    const el = document.getElementById('step-'+(di+1));
+    if(!el) return;
+    el.innerHTML = `
+      <div class="domain-header">
+        <div class="domain-num" style="background:${d.color}">${di+1}</div>
+        <div class="domain-title">${d.label}</div>
+      </div>
+      <div class="domain-weight">权重 ${Math.round(d.weight*100)}% · ${d.subs.length} 个子域</div>
+      <div class="domain-intro">${d.intro}</div>
+      ${d.subs.map((sub, si) => `
+        <div class="question-block">
+          <div class="q-label">
+            <span class="q-num">${si+1}</span>${sub}
+          </div>
+          <div class="rating-row">
+            ${RATINGS.map(r => `
+              <button class="r-btn" id="rbtn-${d.id}-${si}-${r.val}"
+                data-domain="${d.id}" data-sub="${sub}" data-val="${r.val}" data-cls="${r.cls}"
+                onclick="selectRating(this)">
+                ${r.label}
+                <span class="r-score">${r.score} 分</span>
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `).join('')}
+    `;
+  });
+}
+
+// ══════════════════════════════════════════
+// SCORING
+// ══════════════════════════════════════════
+function selectRating(btn) {
+  const { domain, sub, val, cls } = btn.dataset;
+  // Clear siblings
+  document.querySelectorAll(`button[data-domain="${domain}"][data-sub="${sub}"]`)
+    .forEach(b => b.classList.remove('sel','sel-warn','sel-down'));
+  btn.classList.add(cls);
+  surveyScores[domain][sub] = parseFloat(val);
+}
+
+function selectRole(card) {
+  document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  respondent.role = card.dataset.role;
+  document.getElementById('role-error').style.display = 'none';
+}
+
+function calcDomainAvg(domainId) {
+  const d = DOMAINS.find(x => x.id === domainId);
+  const filled = d.subs.map(s => surveyScores[domainId]?.[s]).filter(v => v !== null && v !== undefined);
+  if(!filled.length) return null;
+  return filled.reduce((a,b)=>a+b,0) / d.subs.length;
+}
+
+function calcTotal() {
+  let sum = 0, w = 0;
+  DOMAINS.forEach(d => {
+    const s = calcDomainAvg(d.id);
+    if(s !== null){ sum += s * d.weight; w += d.weight; }
+  });
+  return w ? Math.round((sum/w) * DOMAINS.reduce((a,d)=>a+d.weight,0) * 100) / 100 : null;
+}
+
+// ══════════════════════════════════════════
+// STEP NAVIGATION
+// ══════════════════════════════════════════
+function showStep(n) {
+  // Hide all
+  for(let i=0;i<=8;i++){
+    const el = document.getElementById('step-'+i);
+    if(el) el.style.display = 'none';
+  }
+  document.getElementById('step-thanks').style.display = 'none';
+
+  const el = document.getElementById('step-'+n);
+  if(el) el.style.display = 'block';
+  currentStep = n;
+
+  // Nav buttons
+  const btnBack   = document.getElementById('btn-back');
+  const btnNext   = document.getElementById('btn-next');
+  const btnSubmit = document.getElementById('btn-submit');
+  btnBack.style.display   = n > 0 ? '' : 'none';
+  btnNext.style.display   = n < 8 ? '' : 'none';
+  btnSubmit.style.display = n === 8 ? '' : 'none';
+  btnNext.textContent = n === 0 ? '开始评估 →' : '下一步 →';
+
+  // Progress
+  const pct = Math.round(n / TOTAL_STEPS * 100);
+  document.getElementById('progress-fill').style.width = pct+'%';
+  document.getElementById('step-counter').textContent = n+' / '+TOTAL_STEPS;
+  const stepNames = ['基本信息', ...DOMAINS.map(d=>d.label), '确认提交'];
+  document.getElementById('step-label').textContent = stepNames[n] || '';
+  document.getElementById('nav-step-info').textContent = `步骤 ${n+1} / ${TOTAL_STEPS+1}`;
+
+  if(n === 8) buildReviewStep();
+  updateDots();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function nextStep() {
+  if(currentStep === 0 && !validateIntro()) return;
+  if(currentStep < 8) showStep(currentStep + 1);
+}
+
+function prevStep() {
+  if(currentStep > 0) showStep(currentStep - 1);
+}
+
+function validateIntro() {
+  let ok = true;
+  const name = document.getElementById('f-name').value.trim();
+  const fg = document.getElementById('fg-name');
+  if(!name){ fg.classList.add('has-error'); ok=false; }
+  else fg.classList.remove('has-error');
+  if(!respondent.role){
+    document.getElementById('role-error').style.display='block'; ok=false;
+  }
+  if(ok){
+    respondent.name = name;
+    respondent.dept = document.getElementById('f-dept').value.trim();
+  }
+  return ok;
+}
+
+// ══════════════════════════════════════════
+// REVIEW STEP
+// ══════════════════════════════════════════
+function buildReviewStep() {
+  // Summary box
+  document.getElementById('reviewer-summary-box').innerHTML =
+    `提交人：<strong>${respondent.name}</strong>　部门：${respondent.dept||'未填写'}　角色：<strong>${respondent.role}</strong>`;
+
+  // Score table
+  const total = calcTotal();
+  const rows = DOMAINS.map(d => {
+    const s = calcDomainAvg(d.id);
+    const filled = Object.keys(surveyScores[d.id]||{}).filter(k=>surveyScores[d.id][k]!==null&&surveyScores[d.id][k]!==undefined).length;
+    const missing = d.subs.length - filled;
+    return `
+      <div class="review-domain-row">
+        <div class="review-domain-name">
+          <span style="width:10px;height:10px;border-radius:3px;background:${d.color};display:inline-block;flex-shrink:0"></span>
+          ${d.label}
+          ${missing ? `<span class="review-missing">⚠ ${missing} 题未填</span>` : ''}
+        </div>
+        <div class="review-score">${s !== null ? s.toFixed(2) : '—'}</div>
+      </div>
+    `;
+  }).join('');
+  document.getElementById('review-scores').innerHTML = rows;
+  document.getElementById('review-total-val').textContent = total !== null ? total.toFixed(2) : '—';
+}
+
+// ══════════════════════════════════════════
+// SUBMIT
+// ══════════════════════════════════════════
+async function submitSurvey() {
+  const btn = document.getElementById('btn-submit');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>提交中…';
+
+  const timestamp = new Date().toISOString();
+  const uid = Math.random().toString(36).slice(2,8).toUpperCase();
+  const refId = `FSL-${timestamp.slice(0,10).replace(/-/g,'')}-${uid}`;
+
+  const payload = {
+    id: refId,
+    submittedAt: timestamp,
+    respondent: { ...respondent },
+    scores: surveyScores,
+    domainAverages: Object.fromEntries(DOMAINS.map(d => [d.id, calcDomainAvg(d.id)])),
+    totalScore: calcTotal()
+  };
+
+  // ── 始终先写 localStorage 备份 ──
+  try {
+    const existing = JSON.parse(localStorage.getItem('fsl_survey_responses') || '[]');
+    existing.push(payload);
+    localStorage.setItem('fsl_survey_responses', JSON.stringify(existing));
+  } catch(e) {}
+
+  // ── POST 到 Cloudflare Worker ──
+  let success = false;
+  let errMsg = '';
+  try {
+    const res = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const json = await res.json().catch(() => ({}));
+    success = res.ok && json.ok;
+    if (!success) errMsg = json.error || `HTTP ${res.status}`;
+  } catch(e) {
+    errMsg = e.message;
+  }
+
+  // ── 显示结果 ──
+  for(let i=0;i<=8;i++){ const el=document.getElementById('step-'+i); if(el) el.style.display='none'; }
+  document.getElementById('step-thanks').style.display = 'block';
+  document.getElementById('thanks-ref-id').textContent =
+    success
+      ? `提交编号：${refId} · ✓ 已上传`
+      : `提交编号：${refId} · 已本地保存${errMsg ? '（网络：'+errMsg+'）' : ''}`;
+  document.getElementById('nav-bar').style.display = 'none';
+  document.getElementById('progress-wrap').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
