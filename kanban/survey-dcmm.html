@@ -598,7 +598,7 @@ button,input,textarea,select{font-family:inherit}
         <input id="inp-name" class="field-input" type="text" placeholder="例：张三 / 匿名001" maxlength="30">
       </div>
       <div>
-        <div class="field-label">所在部门</div>
+        <div class="field-label">所在部门 <span class="field-req">*必填</span></div>
         <input id="inp-dept" class="field-input" type="text" placeholder="例：数智化部 / 财务部" maxlength="30">
       </div>
     </div>
@@ -851,7 +851,7 @@ function clearDraft(){try{localStorage.removeItem(lsKey());}catch(e){}}
 // WELCOME SCREEN
 // ============================================================
 document.getElementById('inp-name').addEventListener('input',function(){state.name=this.value.trim();checkStart();});
-document.getElementById('inp-dept').addEventListener('input',function(){state.dept=this.value.trim();});
+document.getElementById('inp-dept').addEventListener('input',function(){state.dept=this.value.trim();checkStart();});
 
 function selectRole(el){
   document.querySelectorAll('.role-card').forEach(function(c){c.classList.remove('selected');});
@@ -860,7 +860,7 @@ function selectRole(el){
   checkStart();
 }
 function checkStart(){
-  document.getElementById('start-btn').disabled=!(state.name&&state.role);
+  document.getElementById('start-btn').disabled=!(state.name&&state.dept&&state.role);
 }
 function startSurvey(){
   state.name=document.getElementById('inp-name').value.trim();
