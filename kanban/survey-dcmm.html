@@ -1173,35 +1173,26 @@ var GH_REPO='EstaTea/fsl-report';
 var GH_FILE='kanban/survey-dcmm-data.json';
 var GH_API='https://api.github.com/repos/'+GH_REPO+'/contents/'+GH_FILE;
 
-var _T='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';
+var PROXY_URL='https://fsl-report.vercel.app/api/dcmm-save';
 
 async function saveToGitHub(){
   var btns=document.querySelectorAll('.btn-save');
-  btns.forEach(function(b){b.classList.add('saving');b.textContent='保存中…';});
+  btns.forEach(function(b){b.classList.add('saving');b.textContent='提交中…';});
   try{
-    var headers={'Authorization':'Bearer '+_T,'Accept':'application/vnd.github+json','Content-Type':'application/json'};
-    var getR=await fetch(GH_API,{headers:headers});
-    var existing={submissions:[]},sha=null;
-    if(getR.ok){
-      var gdata=await getR.json();sha=gdata.sha;
-      try{existing=JSON.parse(decodeURIComponent(escape(atob(gdata.content.replace(/\n/g,'')))));}catch(e){}
-    }
-    var newEntry={name:state.name,dept:state.dept,role:state.role,roleName:ROLE_NAMES[state.role],
-                  savedAt:new Date().toLocaleString('zh-CN'),
-                  scores:JSON.parse(JSON.stringify(state.scores)),
-                  notes:JSON.parse(JSON.stringify(state.notes))};
-    var subs=existing.submissions||[];
-    var idx=subs.findIndex(function(s){return s.name===state.name&&s.role===state.role;});
-    if(idx>=0) subs[idx]=newEntry; else subs.push(newEntry);
-    existing.submissions=subs;
-    var content=btoa(unescape(encodeURIComponent(JSON.stringify(existing,null,2))));
-    var body={message:'dcmm: 提交评估 '+state.name,content:content};
-    if(sha) body.sha=sha;
-    var putR=await fetch(GH_API,{method:'PUT',headers:headers,body:JSON.stringify(body)});
-    if(putR.ok){showToast('✅ 评估结果已提交（'+state.name+'）');clearDraft();}
-    else{var err=await putR.json();throw new Error(err.message);}
+    var entry={name:state.name,dept:state.dept,role:state.role,roleName:ROLE_NAMES[state.role],
+               savedAt:new Date().toLocaleString('zh-CN'),
+               scores:JSON.parse(JSON.stringify(state.scores)),
+               notes:JSON.parse(JSON.stringify(state.notes))};
+    var r=await fetch(PROXY_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(entry)
+    });
+    var result=await r.json();
+    if(result.ok){showToast('✅ 评估结果已提交（'+state.name+'）');clearDraft();}
+    else throw new Error(result.error||'提交失败');
   }catch(e){showToast('提交失败：'+e.message,'err');}
-  finally{btns.forEach(function(b){b.classList.remove('saving');b.textContent='📤 '+( b.id==='btn-save'?'提交':'提交评估');});}
+  finally{btns.forEach(function(b){b.classList.remove('saving');b.textContent='📤 '+(b.id==='btn-save'?'提交':'提交评估');});}
 }
 
 async function loadAllSubmissions(){
