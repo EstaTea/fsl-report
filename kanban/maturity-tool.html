@@ -636,11 +636,11 @@ table.resp-table tr:hover td{background:var(--panel-2)}
     <div class="kpi-tile reveal">
       <div class="kpi-top">
         <div class="kpi-icon">📋</div>
-        <div class="kpi-delta">26 子域</div>
+        <div class="kpi-delta" id="kpi-assessed-badge">26 子域</div>
       </div>
-      <div class="kpi-label">已完成评估</div>
+      <div class="kpi-label" id="kpi-assessed-label">已完成评估</div>
       <div class="kpi-value" id="kpi-assessed">0</div>
-      <div class="kpi-sub">共 <span id="kpi-total-subs">26</span> 个能力子域</div>
+      <div class="kpi-sub" id="kpi-assessed-sub">共 <span id="kpi-total-subs">26</span> 个能力子域</div>
     </div>
   </div>
 
@@ -1221,8 +1221,21 @@ function updateAll() {
   // KPI tiles
   setEl('kpi-score', total !== null ? total.toFixed(2) : '—');
   setEl('kpi-delta-level', total !== null ? LEVEL_NAMES[level]+'级' : '评估中');
-  setEl('kpi-assessed', filled);
-  setEl('kpi-total-subs', totalSubs);
+  // 第4个 KPI 磁贴：有汇总数据时显示响应人数，否则显示子域完成数
+  const isDerived = Object.keys(derivedDomainAvgs).length > 0;
+  if (isDerived) {
+    setEl('kpi-assessed-badge', '问卷汇总');
+    setEl('kpi-assessed-label', '参与评估人数');
+    setEl('kpi-assessed', allResponses.length);
+    const subEl = document.getElementById('kpi-assessed-sub');
+    if (subEl) subEl.textContent = `来自 ${new Set(allResponses.map(r=>r.respondent?.role)).size} 个角色`;
+  } else {
+    setEl('kpi-assessed-badge', '26 子域');
+    setEl('kpi-assessed-label', '已完成评估');
+    setEl('kpi-assessed', filled);
+    const subEl = document.getElementById('kpi-assessed-sub');
+    if (subEl) subEl.innerHTML = `共 <span id="kpi-total-subs">${totalSubs}</span> 个能力子域`;
+  }
 
   // Best/worst domain
   const domainScores = DOMAINS.map(d => ({ ...d, score: calcDomainScore(d.id) }))
