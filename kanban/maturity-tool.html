@@ -1947,7 +1947,13 @@ function _autoDerive() {
 }
 
 function deriveToReport() {
-  _autoDerive();
+  try {
+    _autoDerive();
+  } catch(e) {
+    alert('更新失败：' + e.message);
+    console.error(e);
+    return;
+  }
   switchTab(1);
 }
 
