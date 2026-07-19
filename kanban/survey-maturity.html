@@ -115,7 +115,18 @@ button{cursor:pointer;font:inherit;border:none;background:none}
   background:var(--panel-2);
 }
 .role-card:hover{border-color:var(--accent);background:var(--accent-soft)}
-.role-card.selected{border-color:var(--accent);background:var(--accent-soft)}
+.role-card.selected{
+  border:2px solid var(--accent);background:var(--accent-soft);
+  box-shadow:0 0 0 3px var(--accent-soft);position:relative;
+}
+.role-card.selected::after{
+  content:'✓';position:absolute;top:10px;right:12px;
+  width:20px;height:20px;border-radius:50%;
+  background:var(--accent);color:#fff;
+  font-size:11px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+}
+.role-card.selected .role-card-title{color:var(--accent)}
 .role-card-icon{font-size:20px;margin-bottom:6px}
 .role-card-title{font-size:13px;font-weight:700;color:var(--ink-1);margin-bottom:3px}
 .role-card-desc{font-size:11px;color:var(--ink-3);line-height:1.5}
@@ -320,22 +331,18 @@ button{cursor:pointer;font:inherit;border:none;background:none}
     <div class="role-label">请选择您的角色 <span class="req">*必填</span></div>
     <div class="role-grid" id="role-grid">
       <button class="role-card" data-role="前台" onclick="selectRole(this)">
-        <div class="role-card-icon">🏪</div>
         <div class="role-card-title">前台</div>
         <div class="role-card-desc">商用、家用、国际（佛照光电）、电商、车灯、新业务 — 评估数据应用与客户视角</div>
       </button>
       <button class="role-card" data-role="中台" onclick="selectRole(this)">
-        <div class="role-card-icon">⚙️</div>
         <div class="role-card-title">中台</div>
         <div class="role-card-desc">供应链、产品及方案、质量与客服、招投标、研究院 — 评估数据协同与质量视角</div>
       </button>
       <button class="role-card" data-role="后台" onclick="selectRole(this)">
-        <div class="role-card-icon">🏦</div>
         <div class="role-card-title">后台</div>
         <div class="role-card-desc">财务、人力、数智化、审计、法律风控、品牌管理 — 评估数据治理与安全视角</div>
       </button>
       <button class="role-card" data-role="外部顾问" onclick="selectRole(this)">
-        <div class="role-card-icon">🔍</div>
         <div class="role-card-title">外部顾问</div>
         <div class="role-card-desc">艾维登、SAP 顾问团队 — 评估实施与最佳实践视角</div>
       </button>
