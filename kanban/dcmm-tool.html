@@ -855,7 +855,7 @@ function renderTab3(da){
     }).join('');
   }
   var tbody=document.getElementById('resp-tbody');
-  if(tbody) tbody.innerHTML=allResponses.map(function(r){
+  if(tbody) tbody.innerHTML=allResponses.map(function(r,i){
     var sc=r.scores||{};
     var domCells=DOMAINS.map(function(d){
       var vals=d.items.map(function(id){return sc[id];}).filter(function(v){return v>0;});
