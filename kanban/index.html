@@ -42,7 +42,7 @@ body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;backgro
 .mod-tab.active{color:var(--b500);border-bottom-color:var(--b500);font-weight:700}
 .mod-tab .new-badge{font-size:9px;background:var(--primary);color:#fff;padding:1px 4px;border-radius:3px;font-weight:700}
 .mod-tab-dd{position:relative;display:inline-flex;align-items:stretch}
-.mod-tab-dd-panel{display:none;position:fixed;z-index:9999;background:var(--b900);border:1px solid rgba(255,255,255,.12);border-top:2px solid var(--b500);border-radius:0 6px 6px 6px;min-width:220px;padding:6px 0;box-shadow:0 6px 20px rgba(11,45,71,.5)}
+.mod-tab-dd-panel{display:none;position:fixed;z-index:9999;background:var(--b900);border:1px solid rgba(255,255,255,.12);border-top:2px solid var(--b500);border-radius:0 6px 6px 6px;min-width:220px;padding:6px 0;box-shadow:0 6px 20px rgba(11,45,71,.5);max-height:calc(100vh - 60px);overflow-y:auto}
 .mod-tab-dd-panel.dd-open{display:block}
 .mod-tab-dd-panel a{display:flex;align-items:center;gap:8px;padding:8px 16px;color:rgba(255,255,255,.7);font-size:12.5px;text-decoration:none;white-space:nowrap;transition:background .12s,color .12s}
 .mod-tab-dd-panel a:hover{background:rgba(255,255,255,.1);color:#fff}
