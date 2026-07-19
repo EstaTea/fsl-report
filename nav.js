@@ -139,7 +139,64 @@
     const a = nav.querySelector('a[href="/fsl-report/kanban/"]');
     if (a) a.classList.add('active');
   }
+
+  // ── 登录状态显示 ──────────────────────────────────────────────────────────────
+  (function () {
+    function getSession() {
+      try {
+        var s = localStorage.getItem('fsl_session') || sessionStorage.getItem('fsl_session');
+        if (s) {
+          var d = JSON.parse(s);
+          if (!d.exp || d.exp > Math.floor(Date.now() / 1000)) return d;
+        }
+        // 兼容旧版 PAT
+        var ghToken = localStorage.getItem('gh_token_fsl') || sessionStorage.getItem('gh_token_fsl');
+        if (ghToken) {
+          var u = JSON.parse(localStorage.getItem('gh_user_fsl') || sessionStorage.getItem('gh_user_fsl') || '{}');
+          return { login_type: 'github', name: u.name || u.login, avatar_url: u.avatar_url };
+        }
+        return null;
+      } catch (e) { return null; }
+    }
+
+    var session = getSession();
+    var badge   = document.getElementById('userBadge');
+    var loginBtn = document.getElementById('loginNavBtn');
+
+    if (session) {
+      if (badge) {
+        var avatar = document.getElementById('userAvatar');
+        var nameEl = document.getElementById('userName');
+        if (avatar) {
+          if (session.avatar_url) {
+            avatar.src = session.avatar_url;
+            avatar.style.display = 'block';
+          } else {
+            avatar.style.display = 'none';
+          }
+        }
+        if (nameEl) nameEl.textContent = session.name || session.email || session.login || '用户';
+        badge.style.display = 'flex';
+      }
+      if (loginBtn) loginBtn.style.display = 'none';
+    } else {
+      if (badge) badge.style.display = 'none';
+      if (loginBtn) loginBtn.style.display = 'flex';
+    }
+  })();
 })();
+
+function goLogin() {
+  var returnTo = encodeURIComponent(window.location.pathname + window.location.search);
+  window.location.href = '/fsl-report/kanban/login.html?return=' + returnTo;
+}
+
+function doLogout() {
+  localStorage.removeItem('fsl_session');  sessionStorage.removeItem('fsl_session');
+  localStorage.removeItem('gh_token_fsl'); sessionStorage.removeItem('gh_token_fsl');
+  localStorage.removeItem('gh_user_fsl');  sessionStorage.removeItem('gh_user_fsl');
+  window.location.href = '/fsl-report/kanban/login.html';
+}
 
 // ── mod-tab 下拉 Toggle 函数（调研/MDG/DRC/SI）─────────────────────────────────
 // 所有页面通过 nav.js 加载后，这四个函数在全局可用
