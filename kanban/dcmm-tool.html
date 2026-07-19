@@ -535,6 +535,7 @@ table.resp-table tr:hover td{background:var(--panel-2)}
           <th>数据战略</th><th>数据治理</th><th>数据架构</th><th>数据资产</th>
           <th>数据标准</th><th>数据质量</th><th>数据安全</th><th>数据应用</th>
           <th style="text-align:right">综合分</th>
+          <th style="text-align:center">操作</th>
         </tr></thead>
         <tbody id="resp-tbody"><tr><td colspan="13"><div class="empty-state"><div class="empty-icon">📭</div><p>点击「同步 GitHub 数据」加载问卷提交</p></div></td></tr></tbody>
       </table>
@@ -867,8 +868,94 @@ function renderTab3(da){
       +'<td style="font-weight:600">'+r.name+'</td><td>'+r.dept+'</td>'
       +'<td><span class="role-chip">'+(ROLE_NAMES[r.role]||r.roleName||r.role)+'</span></td>'
       +domCells
-      +'<td style="text-align:right;font-weight:800;color:var(--accent);font-family:var(--f-mono)">'+(ts?ts.toFixed(2):'—')+'</td></tr>';
+      +'<td style="text-align:right;font-weight:800;color:var(--accent);font-family:var(--f-mono)">'+(ts?ts.toFixed(2):'—')+'</td>'
+      +'<td style="text-align:center;white-space:nowrap">'
+      +'<button onclick="openDetail('+i+')" style="font-size:11px;padding:3px 8px;border-radius:6px;border:1px solid var(--border);background:var(--panel-2);color:var(--ink-2);cursor:pointer;margin-right:4px">详情</button>'
+      +'<button onclick="deleteResp('+i+')" style="font-size:11px;padding:3px 8px;border-radius:6px;border:1px solid rgba(192,69,60,.3);background:rgba(192,69,60,.06);color:var(--down);cursor:pointer">删除</button>'
+      +'</td></tr>';
   }).join('');
+}
+
+var ADMIN_URL='https://api.sapyou.com/api/dcmm-admin';
+
+function openDetail(i){
+  var r=allResponses[i];
+  if(!r) return;
+  var sc=r.scores||{};
+  var rows=DOMAINS.map(function(d){
+    return '<tr><td style="font-weight:600;padding:6px 12px;border-bottom:1px solid var(--border)">'+d.name+'</td>'
+      +d.items.map(function(id){
+        return '<td style="text-align:center;padding:6px 10px;border-bottom:1px solid var(--border);font-family:var(--f-mono)">'
+          +'<div style="font-size:10px;color:var(--ink-3);margin-bottom:2px">'+CAP_NAMES[id]+'</div>'
+          +'<input type="number" min="1" max="5" step="0.1" value="'+(sc[id]||'')+'" data-id="'+id+'" '
+          +'style="width:52px;text-align:center;border:1px solid var(--border);border-radius:6px;padding:3px 4px;font-size:13px;font-family:var(--f-mono)">'
+          +'</td>';
+      }).join('')+'</tr>';
+  }).join('');
+
+  var html='<div id="detail-modal" style="position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9000;display:flex;align-items:center;justify-content:center;padding:20px">'
+    +'<div style="background:var(--bg);border-radius:var(--r-lg);width:100%;max-width:760px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg)">'
+    +'<div style="padding:20px 24px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px">'
+    +'<div style="flex:1"><div style="font-weight:800;font-size:16px">'+r.name+' · 评估详情</div>'
+    +'<div style="font-size:12px;color:var(--ink-3);margin-top:2px">'+r.dept+' · '+(ROLE_NAMES[r.role]||r.roleName||r.role)+' · '+r.savedAt+'</div></div>'
+    +'<button onclick="closeDetail()" style="width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:var(--panel-2);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">×</button>'
+    +'</div>'
+    +'<div style="padding:16px 24px">'
+    +'<div style="margin-bottom:12px;display:flex;gap:10px">'
+    +'<div style="flex:1"><label style="font-size:11px;color:var(--ink-3)">姓名</label>'
+    +'<input id="edit-name" value="'+r.name+'" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:6px 10px;font-size:13px;margin-top:3px"></div>'
+    +'<div style="flex:1"><label style="font-size:11px;color:var(--ink-3)">部门</label>'
+    +'<input id="edit-dept" value="'+(r.dept||'')+'" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:6px 10px;font-size:13px;margin-top:3px"></div>'
+    +'</div>'
+    +'<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:12px">'+rows+'</table></div>'
+    +'</div>'
+    +'<div style="padding:12px 24px 20px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end">'
+    +'<button onclick="closeDetail()" style="padding:8px 20px;border-radius:8px;border:1px solid var(--border);background:var(--panel-2);color:var(--ink-2);font-size:13px;cursor:pointer">取消</button>'
+    +'<button onclick="saveDetail('+i+')" style="padding:8px 20px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-size:13px;font-weight:600;cursor:pointer">保存修改</button>'
+    +'</div></div></div>';
+  var el=document.createElement('div');
+  el.id='detail-modal-wrap';
+  el.innerHTML=html;
+  document.body.appendChild(el);
+}
+
+function closeDetail(){
+  var el=document.getElementById('detail-modal-wrap');
+  if(el) el.remove();
+}
+
+async function saveDetail(i){
+  var name=document.getElementById('edit-name').value.trim();
+  var dept=document.getElementById('edit-dept').value.trim();
+  var scores={};
+  document.querySelectorAll('#detail-modal-wrap input[data-id]').forEach(function(inp){
+    var v=parseFloat(inp.value);
+    if(v>0) scores[inp.dataset.id]=Math.min(5,Math.max(1,v));
+  });
+  var entry=Object.assign({},allResponses[i],{name:name,dept:dept,scores:scores});
+  try{
+    var r=await fetch(ADMIN_URL,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({index:i,entry:entry})});
+    var res=await r.json();
+    if(!res.ok) throw new Error(res.error||'保存失败');
+    allResponses[i]=entry;
+    closeDetail();
+    renderAll();
+    showToast('✅ 已保存修改（'+name+'）');
+  }catch(e){showToast('保存失败：'+e.message,'err');}
+}
+
+async function deleteResp(i){
+  var r=allResponses[i];
+  if(!r) return;
+  if(!confirm('确认删除「'+r.name+'」的评估记录？此操作不可撤销。')) return;
+  try{
+    var res=await fetch(ADMIN_URL,{method:'DELETE',headers:{'Content-Type':'application/json'},body:JSON.stringify({index:i})});
+    var data=await res.json();
+    if(!data.ok) throw new Error(data.error||'删除失败');
+    allResponses.splice(i,1);
+    renderAll();
+    showToast('已删除「'+r.name+'」的记录');
+  }catch(e){showToast('删除失败：'+e.message,'err');}
 }
 
 function deriveToReport(){
