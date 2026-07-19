@@ -605,7 +605,7 @@ async function syncResponses(){
   var s1=document.getElementById('sync-status'),s2=document.getElementById('agg-sync-status');
   if(s1) s1.textContent='同步中…';if(s2) s2.textContent='同步中…';
   try{
-    var r=await fetch(GH_CONTENTS_URL,{headers:{'Accept':'application/vnd.github+json','Cache-Control':'no-cache'}});
+    var r=await fetch(GH_CONTENTS_URL,{headers:{'Accept':'application/vnd.github+json'}});
     if(!r.ok) throw new Error('HTTP '+r.status);
     var meta=await r.json();
     var data=JSON.parse(decodeURIComponent(escape(atob(meta.content.replace(/\n/g,'')))));
