@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>海外财务本地化体系建设专项方案 — 佛山照明</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0B2D47;--blue:#2374A3;--mid:#3D8FC4;--light:#C7E2F2;--pale:#EBF5FB;
+  --white:#fff;--text:#0F2233;--muted:#5B7A91;--rule:#D6E8F2;
+  --green:#15803d;--amber:#b45309;--red:#b91c1c;--purple:#7c3aed;
+}
+body{font-family:"Microsoft YaHei","Helvetica Neue",sans-serif;background:#f0f4f8;color:var(--text);font-size:14px}
+
+/* ── NAV ── */
+nav{background:var(--navy);height:48px;display:flex;align-items:center;padding:0 24px;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(11,45,71,.4)}
+.nav-logo{font-size:13px;font-weight:800;color:#fff}.nav-logo span{color:#60a5fa}
+.nav-divider{width:1px;height:20px;background:rgba(255,255,255,.2)}
+.nav-title{flex:1;font-size:11px;color:rgba(255,255,255,.6)}
+.nav-chapters{display:flex;gap:4px}
+.nc{padding:4px 10px;font-size:11px;color:rgba(255,255,255,.55);cursor:pointer;border-radius:4px;transition:all .15s;border:1px solid transparent;white-space:nowrap}
+.nc:hover{background:rgba(255,255,255,.1);color:#fff}
+.nc.on{background:rgba(35,116,163,.5);color:#fff;border-color:rgba(255,255,255,.2)}
+.nav-conf{font-size:10px;color:rgba(255,255,255,.3);white-space:nowrap}
+
+/* ── SLIDES ── */
+.chapter{display:none;padding:24px;max-width:1280px;margin:0 auto}
+.chapter.on{display:block}
+
+/* ── COVER ── */
+.cover{background:linear-gradient(135deg,var(--navy) 0%,#1a4f73 60%,#2374a3 100%);
+  border-radius:12px;padding:48px 56px;color:#fff;min-height:360px;
+  display:flex;flex-direction:column;justify-content:space-between;margin-bottom:20px;
+  position:relative;overflow:hidden}
+.cover::after{content:'';position:absolute;right:-40px;top:-40px;width:300px;height:300px;
+  border-radius:50%;background:rgba(255,255,255,.04)}
+.cover-tag{font-size:11px;font-weight:700;letter-spacing:1.5px;color:rgba(255,255,255,.5);
+  text-transform:uppercase;margin-bottom:16px}
+.cover h1{font-size:32px;font-weight:800;line-height:1.2;margin-bottom:12px}
+.cover h1 span{color:#60a5fa}
+.cover-sub{font-size:15px;color:rgba(255,255,255,.7);margin-bottom:32px}
+.cover-meta{display:flex;gap:32px;flex-wrap:wrap}
+.cm{font-size:12px;color:rgba(255,255,255,.55)}.cm strong{color:rgba(255,255,255,.85);display:block;margin-bottom:2px}
+.fsl-logo{position:absolute;right:56px;top:48px;font-size:22px;font-weight:900;color:rgba(255,255,255,.15);letter-spacing:2px}
+
+/* ── TOC ── */
+.toc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+.toc-card{background:var(--white);border-radius:8px;padding:20px;border-left:4px solid var(--blue);
+  cursor:pointer;transition:all .15s}
+.toc-card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(35,116,163,.15)}
+.toc-num{font-size:28px;font-weight:900;color:var(--light);line-height:1}
+.toc-title{font-size:13px;font-weight:700;color:var(--navy);margin:6px 0 4px}
+.toc-desc{font-size:11px;color:var(--muted);line-height:1.5}
+
+/* ── SECTION TITLE ── */
+.sec-title{background:var(--navy);color:#fff;padding:8px 16px;border-radius:6px;
+  font-size:12px;font-weight:700;letter-spacing:.5px;margin:20px 0 12px;
+  display:flex;align-items:center;gap:8px}
+.sec-num{background:var(--blue);padding:2px 8px;border-radius:3px;font-size:11px}
+h2.slide-h{font-size:18px;font-weight:800;color:var(--navy);margin-bottom:4px;padding-bottom:8px;
+  border-bottom:2px solid var(--light)}
+.slide-sub{font-size:12px;color:var(--muted);margin-bottom:16px}
+
+/* ── CARDS ── */
+.card{background:var(--white);border-radius:8px;padding:16px;border:1px solid var(--rule);margin-bottom:12px}
+.card-grid{display:grid;gap:12px}
+.card-grid.c2{grid-template-columns:1fr 1fr}
+.card-grid.c3{grid-template-columns:1fr 1fr 1fr}
+.card-grid.c4{grid-template-columns:1fr 1fr 1fr 1fr}
+.card h3{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:8px;
+  display:flex;align-items:center;gap:6px}
+.card p,.card li{font-size:12px;color:var(--text);line-height:1.65}
+.card ul{padding-left:16px;margin-top:4px}
+.card-accent{border-left:3px solid var(--blue)}
+.card-green{border-left:3px solid var(--green)}
+.card-amber{border-left:3px solid var(--amber)}
+.card-red{border-left:3px solid var(--red)}
+.card-purple{border-left:3px solid var(--purple)}
+
+/* ── PAIN POINTS ── */
+.pain-row{display:flex;gap:10px;margin-bottom:8px;align-items:flex-start}
+.pain-icon{font-size:18px;flex-shrink:0;margin-top:2px}
+.pain-body h4{font-size:12px;font-weight:700;color:var(--navy);margin-bottom:3px}
+.pain-body p{font-size:11.5px;color:var(--muted);line-height:1.5}
+.pain-tag{font-size:10px;padding:1px 6px;border-radius:3px;font-weight:700;margin-top:4px;display:inline-block}
+.pt-high{background:#fee2e2;color:#b91c1c}
+.pt-med{background:#fef9c3;color:#92400e}
+
+/* ── SAP SCREENS ── */
+.sap-screen{background:#e8f0e9;border:1px solid #b8d4bb;border-radius:6px;overflow:hidden;margin:10px 0}
+.sap-bar{background:#1f3864;color:#fff;padding:5px 12px;font-size:11px;font-weight:700;display:flex;align-items:center;gap:8px}
+.sap-bar-logo{background:#0070d2;padding:1px 6px;border-radius:2px;font-size:10px;font-weight:900}
+.sap-body{padding:12px;background:#fff;font-size:11px;font-family:'Courier New',monospace}
+.sap-row{display:flex;gap:8px;align-items:center;padding:3px 0;border-bottom:1px solid #f0f0f0}
+.sap-label{width:180px;color:#444;flex-shrink:0}
+.sap-val{color:#0070d2;font-weight:600}
+.sap-field{background:#fafafa;border:1px solid #ccc;padding:2px 6px;border-radius:2px;min-width:120px}
+.sap-btn{background:#0070d2;color:#fff;border:none;padding:3px 10px;border-radius:2px;font-size:10px;cursor:pointer;margin:2px}
+.sap-table{width:100%;border-collapse:collapse;font-size:10.5px;margin-top:6px}
+.sap-table th{background:#1f3864;color:#fff;padding:4px 8px;text-align:left;font-weight:600}
+.sap-table td{padding:3px 8px;border-bottom:1px solid #e8f0e9}
+.sap-table tr:nth-child(even) td{background:#f5f9f5}
+.sap-tcode{background:#e8f0e9;border:1px solid #b8d4bb;padding:2px 8px;border-radius:3px;font-size:10px;font-family:monospace;color:#1f3864;font-weight:700}
+
+/* ── FLOW ── */
+.flow{display:flex;align-items:center;gap:0;flex-wrap:wrap;margin:12px 0}
+.flow-node{background:var(--navy);color:#fff;padding:8px 14px;border-radius:6px;font-size:11px;font-weight:600;text-align:center;flex:1;min-width:100px}
+.flow-node.done{background:var(--green)}
+.flow-node.gap{background:var(--red);position:relative}
+.flow-node.new{background:var(--blue)}
+.flow-arrow{font-size:18px;color:var(--muted);padding:0 6px;flex-shrink:0}
+.flow-node small{display:block;font-size:9px;opacity:.75;margin-top:2px}
+
+/* ── TIMELINE ── */
+.timeline{position:relative;padding-left:28px}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--light)}
+.tl-item{position:relative;margin-bottom:16px}
+.tl-dot{width:16px;height:16px;border-radius:50%;background:var(--blue);border:3px solid #fff;
+  box-shadow:0 0 0 2px var(--blue);position:absolute;left:-24px;top:2px}
+.tl-dot.done{background:var(--green);box-shadow:0 0 0 2px var(--green)}
+.tl-dot.future{background:var(--muted);box-shadow:0 0 0 2px var(--muted)}
+.tl-content h4{font-size:12px;font-weight:700;color:var(--navy)}
+.tl-content p{font-size:11px;color:var(--muted);line-height:1.5;margin-top:2px}
+.tl-date{font-size:10px;color:var(--blue);font-weight:700;margin-bottom:2px}
+
+/* ── BADGE ── */
+.badge{font-size:10px;padding:2px 7px;border-radius:3px;font-weight:700;white-space:nowrap}
+.badge-high{background:#fee2e2;color:#b91c1c}
+.badge-med{background:#fef9c3;color:#92400e}
+.badge-low{background:#dcfce7;color:#15803d}
+.badge-blue{background:#dbeafe;color:#1e40af}
+.badge-purple{background:#f3e8ff;color:#7c3aed}
+
+/* ── REQ TABLE ── */
+.req-table{width:100%;border-collapse:collapse;font-size:11px;margin-top:8px}
+.req-table th{background:var(--navy);color:#fff;padding:6px 10px;text-align:left;font-weight:600}
+.req-table td{padding:5px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+.req-table tr:nth-child(even) td{background:#fafbfc}
+.req-id{font-family:monospace;font-weight:700;color:var(--blue)}
+
+/* ── STATS BAR ── */
+.stats-bar{display:flex;gap:12px;margin:12px 0;flex-wrap:wrap}
+.stat{background:var(--white);border-radius:8px;padding:12px 16px;flex:1;min-width:120px;
+  border-left:3px solid var(--c);text-align:center}
+.stat .v{font-size:24px;font-weight:800;color:var(--c)}
+.stat .l{font-size:10px;color:var(--muted);margin-top:2px}
+
+.page-break{border:none;border-top:2px solid var(--rule);margin:24px 0}
+.footer-bar{background:var(--navy);color:rgba(255,255,255,.4);font-size:10px;
+  padding:8px 24px;display:flex;justify-content:space-between;margin-top:32px;border-radius:6px}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">FSL <span>专项方案</span></div>
+  <div class="nav-divider"></div>
+  <div class="nav-title">海外财务本地化体系建设 — S05</div>
+  <div class="nav-chapters">
+    <div class="nc on" onclick="goCh(0)">01 方案概述</div>
+    <div class="nc" onclick="goCh(1)">02 方案详解</div>
+    <div class="nc" onclick="goCh(2)">03 配套行动</div>
+    <div class="nc" onclick="goCh(3)">04 附录</div>
+  </div>
+  <div class="nav-conf">Atos Confidential</div>
+</nav>
+
+<!-- ══════════════ CH01: 专项方案概述 ══════════════ -->
+<div class="chapter on" id="ch0">
+
+  <!-- 封面 -->
+  <div class="cover">
+    <div class="fsl-logo">FSL</div>
+    <div>
+      <div class="cover-tag">高价值场景 S05 · 专项方案设计阶段</div>
+      <h1>海外财务<span>本地化体系</span>建设</h1>
+      <div class="cover-sub">多币种核算 · 转移定价 · DRC合规 · 经营可视化</div>
+    </div>
+    <div class="cover-meta">
+      <div class="cm"><strong>项目</strong>佛山照明 SAP S/4HANA PCE 升级</div>
+      <div class="cm"><strong>阶段</strong>探索阶段 → 蓝图阶段</div>
+      <div class="cm"><strong>方案负责人</strong>陈宇清（艾维登）</div>
+      <div class="cm"><strong>关联工作包</strong>WP3 FICO · WP8 DRC合规</div>
+      <div class="cm"><strong>版本</strong>V2.0 · 2025-07-22</div>
+    </div>
+  </div>
+
+  <!-- 目录 -->
+  <h2 class="slide-h">目录</h2>
+  <div class="toc-grid">
+    <div class="toc-card" onclick="goCh(0)">
+      <div class="toc-num">01</div>
+      <div class="toc-title">专项方案概述</div>
+      <div class="toc-desc">背景驱动 · 覆盖范围 · 方案目标 · 需求统计</div>
+    </div>
+    <div class="toc-card" onclick="goCh(1)">
+      <div class="toc-num">02</div>
+      <div class="toc-title">方案详解及系统实现</div>
+      <div class="toc-desc">4个子方案 · SAP配置 · 系统界面演示</div>
+    </div>
+    <div class="toc-card" onclick="goCh(2)">
+      <div class="toc-num">03</div>
+      <div class="toc-title">配套行动计划</div>
+      <div class="toc-desc">阶段划分 · 里程碑 · 前置条件 · 资源需求</div>
+    </div>
+    <div class="toc-card" onclick="goCh(3)">
+      <div class="toc-num">04</div>
+      <div class="toc-title">附录：相关文档及原始数据</div>
+      <div class="toc-desc">27条原始需求清单 · 架构图 · 参考资料</div>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- 背景 -->
+  <div class="sec-title"><span class="sec-num">1.1</span> 背景与驱动因素</div>
+  <div class="card-grid c3">
+    <div class="card card-red">
+      <h3>🌏 海外规模快速扩张</h3>
+      <p>国际事业部年营收 <strong>11亿+</strong>，目标12.8亿，未来3年持续增长。泰国FZ40 2026年1月正式量产，德国FZ33承接欧洲销售，美国销售公司规划中。</p>
+    </div>
+    <div class="card card-amber">
+      <h3>⚠️ ECC系统严重不适配</h3>
+      <p>现有ECC在海外场景存在：多币种无自动折算、汇兑凭证手工录入、转移定价无系统支撑、DRC税务合规缺失等<strong>系统性空白</strong>。</p>
+    </div>
+    <div class="card card-accent">
+      <h3>📋 合规压力持续升级</h3>
+      <p>泰国税务/原产地认证、德国HGB本地会计准则、欧盟VAT申报、转移定价文档要求日趋严格，人工处理<strong>合规风险极高</strong>。</p>
+    </div>
+  </div>
+
+  <!-- 需求统计 -->
+  <div class="sec-title"><span class="sec-num">1.2</span> 原始需求统计</div>
+  <div class="stats-bar">
+    <div class="stat" style="--c:#b91c1c"><div class="v">27</div><div class="l">关联原始需求</div></div>
+    <div class="stat" style="--c:#92400e"><div class="v">17</div><div class="l">高优先级</div></div>
+    <div class="stat" style="--c:#1e40af"><div class="v">2</div><div class="l">覆盖法人主体</div></div>
+    <div class="stat" style="--c:#7c3aed"><div class="v">4</div><div class="l">核心子方案</div></div>
+    <div class="stat" style="--c:#15803d"><div class="v">6</div><div class="l">关联SAP模块</div></div>
+  </div>
+
+  <!-- 业务痛点 -->
+  <div class="sec-title"><span class="sec-num">1.3</span> 核心业务痛点（归纳自27条需求）</div>
+  <div class="card-grid c2">
+    <div class="card">
+      <div class="pain-row">
+        <div class="pain-icon">💸</div>
+        <div class="pain-body">
+          <h4>汇兑损益处理全程手工</h4>
+          <p>外币收款无自动清账（A0282），汇兑损益凭证手工录入（A0288），季度汇总一笔无法匹配到单客户/单订单（A0289），外币锁汇无系统台账（A0291）。</p>
+          <span class="pain-tag pt-high">HIGH · 影响月结效率</span>
+        </div>
+      </div>
+      <div class="pain-row">
+        <div class="pain-icon">📊</div>
+        <div class="pain-body">
+          <h4>转移定价两套口径无系统支撑</h4>
+          <p>对外报关价（终端售价×0.59）与内部考核成本（移动平均价）需并行核算（A0359），目前完全靠线下Excel维护，合规风险极高。</p>
+          <span class="pain-tag pt-high">HIGH · 泰国税务核心</span>
+        </div>
+      </div>
+      <div class="pain-row">
+        <div class="pain-icon">🏭</div>
+        <div class="pain-body">
+          <h4>泰国工厂SAP模块严重缺位</h4>
+          <p>2026年1月量产，计划/物流/成本分析模块均未启用（A0363），运营透明度极低，无法支撑日常经营决策。</p>
+          <span class="pain-tag pt-high">HIGH · 生产运营盲区</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="pain-row">
+        <div class="pain-icon">💰</div>
+        <div class="pain-body">
+          <h4>海外报价模型失真丢单</h4>
+          <p>多工厂多层加价导致报价失真，BOM成本→标准成本→汇率→关税→运费→毛利的完整链路无系统支撑（A0360），容易丢失欧美大客户订单。</p>
+          <span class="pain-tag pt-high">HIGH · 商机损失</span>
+        </div>
+      </div>
+      <div class="pain-row">
+        <div class="pain-icon">📑</div>
+        <div class="pain-body">
+          <h4>海外法人SAP模板空白</h4>
+          <p>FZ40(泰国生产法人)与FZ33(德国销售法人)均无完整SAP模板（A0362），本地合规/税务/多语言均依赖人工处理。</p>
+          <span class="pain-tag pt-high">HIGH · 合规基础缺失</span>
+        </div>
+      </div>
+      <div class="pain-row">
+        <div class="pain-icon">👁️</div>
+        <div class="pain-body">
+          <h4>泰国经营数据不可视</h4>
+          <p>车间产量/料工费/盈亏多表手工汇总（A0377），应收/坏账无法按渠道精细拆分（A0287），经营驾驶舱完全缺失。</p>
+          <span class="pain-tag pt-med">MED · 管理决策受限</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bar">
+    <span>佛山照明 SAP S/4HANA 专项方案 · S05 海外财务本地化体系建设</span>
+    <span>Atos Confidential · V2.0</span>
+  </div>
+</div>
+
+<!-- ══════════════ CH02: 方案详解 ══════════════ -->
+<div class="chapter" id="ch1">
+  <h2 class="slide-h">方案详解及系统实现</h2>
+  <div class="slide-sub">4个子方案 · SAP S/4HANA PCE 配置实现</div>
+
+  <!-- 子方案1 -->
+  <div class="sec-title"><span class="sec-num">2.1</span> 子方案一：多币种与汇兑损益自动化</div>
+  <div class="card-grid c2">
+    <div class="card card-red">
+      <h3>🔴 现状（AS-IS）</h3>
+      <ul>
+        <li>外销外币收款无自动清账，销售人员手工认领订单</li>
+        <li>汇兑损益凭证需财务手工录入，季度汇总一笔</li>
+        <li>外币锁汇/掉期交易系统无联动台账</li>
+        <li>多币种查询需手工换算汇率（泰铢/欧元/美元）</li>
+      </ul>
+    </div>
+    <div class="card card-green">
+      <h3>🟢 目标（TO-BE）</h3>
+      <ul>
+        <li>F-28/F-32 自动匹配销售订单清账</li>
+        <li>FAGL_FC_VAL 外币估值自动生成汇兑凭证</li>
+        <li>TR-TM 锁汇台账系统化，与AR/AP联动</li>
+        <li>多本位币配置，自动折算泰铢/欧元/人民币</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SAP界面演示1 -->
+  <div class="sap-screen">
+    <div class="sap-bar">
+      <span class="sap-bar-logo">SAP</span>
+      <span>事务代码：FAGL_FC_VAL — 外币估值（Foreign Currency Valuation）</span>
+    </div>
+    <div class="sap-body">
+      <div class="sap-row"><span class="sap-label">公司代码</span><span class="sap-field">FZ40</span><span style="margin-left:16px;color:#666">泰国佛照FZ40</span></div>
+      <div class="sap-row"><span class="sap-label">估值关键日期</span><span class="sap-field">2025.06.30</span><span class="sap-btn">季末估值</span></div>
+      <div class="sap-row"><span class="sap-label">汇率类型</span><span class="sap-field">M (平均汇率)</span></div>
+      <div class="sap-row"><span class="sap-label">过账日期</span><span class="sap-field">2025.06.30</span><span class="sap-btn" style="background:#e8f0e9;color:#15803d;border:1px solid #b8d4bb">自动过账</span></div>
+      <table class="sap-table" style="margin-top:10px">
+        <tr><th>客户/供应商</th><th>原币金额</th><th>币种</th><th>本位币金额</th><th>估值损益</th><th>凭证号</th></tr>
+        <tr><td>C10023 Lidl GmbH</td><td>128,500.00</td><td>EUR</td><td>1,003,560.00</td><td style="color:#b91c1c">-12,840.00</td><td style="color:#0070d2">1800012345</td></tr>
+        <tr><td>C10087 Walmart</td><td>85,200.00</td><td>USD</td><td>617,699.00</td><td style="color:#15803d">+3,210.00</td><td style="color:#0070d2">1800012346</td></tr>
+        <tr><td>C10156 泰国本地客户</td><td>2,450,000.00</td><td>THB</td><td>478,050.00</td><td style="color:#b91c1c">-8,250.00</td><td style="color:#0070d2">1800012347</td></tr>
+      </table>
+      <div style="margin-top:8px;font-size:10px;color:#666">✅ 系统自动生成汇兑损益凭证，无需手工录入 | 已关联销售订单/采购订单</div>
+    </div>
+  </div>
+
+  <!-- 子方案2 -->
+  <div class="sec-title"><span class="sec-num">2.2</span> 子方案二：泰国转移定价双口径体系</div>
+  <div class="card-grid c3">
+    <div class="card card-amber">
+      <h3>📋 双口径需求</h3>
+      <p><strong>对外报关价：</strong>终端售价 × 0.59，满足泰国税务局及原产地认证要求</p>
+      <p style="margin-top:8px"><strong>内部考核成本：</strong>取自国内工厂移动平均价，用于集团内部利润核算与考核</p>
+    </div>
+    <div class="card card-accent">
+      <h3>⚙️ SAP实现方案</h3>
+      <ul>
+        <li>CO-PC 双重成本核算体系（法定 + 管理）</li>
+        <li>使用 <span class="sap-tcode">MR21</span> 价格更改维护内部转让价</li>
+        <li>STO内部采购订单配置转移定价逻辑</li>
+        <li>自动生成利润抵消凭证（集团合并用）</li>
+      </ul>
+    </div>
+    <div class="card card-green">
+      <h3>📊 预期效果</h3>
+      <ul>
+        <li>转移定价文档自动生成，满足OECD要求</li>
+        <li>合并报表抵消自动化（消除内部利润）</li>
+        <li>经营利润可追溯至单产品/单工厂</li>
+        <li>泰国税务申报数据直接从SAP导出</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SAP界面演示2 -->
+  <div class="sap-screen">
+    <div class="sap-bar">
+      <span class="sap-bar-logo">SAP</span>
+      <span>事务代码：MR21 — 价格更改 | 泰国转移定价维护</span>
+    </div>
+    <div class="sap-body">
+      <div class="sap-row"><span class="sap-label">公司代码</span><span class="sap-field">FZ40</span></div>
+      <div class="sap-row"><span class="sap-label">过账日期</span><span class="sap-field">2025.07.01</span></div>
+      <div class="sap-row"><span class="sap-label">价格控制</span><span class="sap-field">S (标准价)</span></div>
+      <table class="sap-table" style="margin-top:10px">
+        <tr><th>物料编号</th><th>物料描述</th><th>对外报关价(THB)</th><th>内部考核价(CNY)</th><th>折算汇率</th><th>差异</th></tr>
+        <tr><td>T-LED-001</td><td>LED球泡E27 9W</td><td>45.30</td><td>8.82</td><td>0.195</td><td style="color:#15803d">+0.23</td></tr>
+        <tr><td>T-LED-002</td><td>LED灯管T8 18W</td><td>78.60</td><td>15.30</td><td>0.195</td><td style="color:#b91c1c">-0.42</td></tr>
+        <tr><td>T-LED-003</td><td>LED面板灯600×600</td><td>312.50</td><td>60.84</td><td>0.195</td><td style="color:#15803d">+1.21</td></tr>
+      </table>
+      <div style="margin-top:8px;font-size:10px;color:#666">💡 系统自动维护两套价格，对外合规 + 对内考核，无需人工两套Excel</div>
+    </div>
+  </div>
+
+  <!-- 子方案3 -->
+  <div class="sec-title"><span class="sec-num">2.3</span> 子方案三：海外法人SAP模板（FZ40 / FZ33）</div>
+  <div class="card-grid c2">
+    <div class="card card-purple">
+      <h3>🏭 FZ40 — 泰国生产法人</h3>
+      <ul>
+        <li><strong>财务：</strong>泰铢本位币 + 人民币平行账，泰国增值税(VAT 7%)，月度税务报表</li>
+        <li><strong>物料：</strong>编码前加T标识，支持泰文/英文双语描述</li>
+        <li><strong>成本：</strong>启用CO-PC产品成本核算，料工费完整归集</li>
+        <li><strong>物流：</strong>MM-IM库存管理，PP生产订单完整启用</li>
+        <li><strong>合规：</strong>DRC泰国本地化税务，原产地证书数据源</li>
+      </ul>
+    </div>
+    <div class="card card-accent">
+      <h3>🏢 FZ33 — 德国销售法人</h3>
+      <ul>
+        <li><strong>财务：</strong>欧元本位币，HGB德国会计准则，年报自动生成</li>
+        <li><strong>税务：</strong>DRC欧盟VAT申报，进出口关税自动计算</li>
+        <li><strong>销售：</strong>SD销售订单，含欧洲客户价格协议管理</li>
+        <li><strong>集成：</strong>与国内FZ01通过STO内部采购订单联动</li>
+        <li><strong>报表：</strong>德国向集团汇报时自动汇率折算人民币</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SAP界面演示3 -->
+  <div class="sap-screen">
+    <div class="sap-bar">
+      <span class="sap-bar-logo">SAP</span>
+      <span>DRC — Document and Reporting Compliance | FZ40泰国税务申报配置</span>
+    </div>
+    <div class="sap-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div>
+          <div style="font-weight:700;color:#1f3864;margin-bottom:6px;font-size:11px">🇹🇭 泰国本地化设置</div>
+          <div class="sap-row"><span class="sap-label">国家</span><span class="sap-val">TH — 泰国</span></div>
+          <div class="sap-row"><span class="sap-label">税务编号(TIN)</span><span class="sap-field">0107562000XXX</span></div>
+          <div class="sap-row"><span class="sap-label">VAT税率</span><span class="sap-val">7.00%</span></div>
+          <div class="sap-row"><span class="sap-label">申报频率</span><span class="sap-val">月度</span></div>
+          <div class="sap-row"><span class="sap-label">本位币</span><span class="sap-val">THB 泰铢</span></div>
+        </div>
+        <div>
+          <div style="font-weight:700;color:#1f3864;margin-bottom:6px;font-size:11px">📊 本月税务申报状态</div>
+          <table class="sap-table">
+            <tr><th>申报类型</th><th>截止日期</th><th>状态</th></tr>
+            <tr><td>增值税月报(PP.30)</td><td>2025-07-15</td><td style="color:#15803d">✅ 已完成</td></tr>
+            <tr><td>企业所得税预缴</td><td>2025-07-31</td><td style="color:#92400e">⏳ 进行中</td></tr>
+            <tr><td>预提所得税(WHT)</td><td>2025-07-07</td><td style="color:#15803d">✅ 已完成</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 子方案4 -->
+  <div class="sec-title"><span class="sec-num">2.4</span> 子方案四：经营可视化与驾驶舱</div>
+  <div class="card-grid c2">
+    <div class="card">
+      <h3>📊 海外报价模型（SAP CO-PA）</h3>
+      <div class="flow" style="margin:8px 0">
+        <div class="flow-node new">BOM成本<small>CO-PC</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node new">标准成本<small>MR21</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node new">汇率折算<small>自动</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node new">关税运费<small>SD条件</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node new">目标毛利<small>CO-PA</small></div>
+      </div>
+      <p style="font-size:11px;color:var(--muted)">报价准确率提升，解决多层加价失真、欧美大客户丢单问题</p>
+    </div>
+    <div class="card">
+      <h3>🖥️ 泰国车间经营驾驶舱</h3>
+      <ul>
+        <li>产成品产量 vs 计划（实时）</li>
+        <li>料工费耗用明细（按工单/按产品）</li>
+        <li>车间盈亏（含汇兑影响）</li>
+        <li>应收账龄分析（按实际出库日）</li>
+        <li>转移定价合规状态监控</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SAP界面演示4 -->
+  <div class="sap-screen">
+    <div class="sap-bar">
+      <span class="sap-bar-logo">SAP</span>
+      <span>CO-PA — 盈利分析 | KE30 盈利分析报表 | FZ40 泰国 | 2025年H1</span>
+    </div>
+    <div class="sap-body">
+      <table class="sap-table">
+        <tr><th>产品线</th><th>销售收入(THB)</th><th>标准成本</th><th>关税运费</th><th>毛利</th><th>毛利率</th><th>汇兑影响</th></tr>
+        <tr><td>LED球泡</td><td>8,234,500</td><td>5,362,425</td><td>823,450</td><td style="color:#15803d"><strong>2,048,625</strong></td><td style="color:#15803d"><strong>24.9%</strong></td><td style="color:#b91c1c">-124,200</td></tr>
+        <tr><td>LED灯管</td><td>5,612,300</td><td>3,703,118</td><td>561,230</td><td style="color:#15803d"><strong>1,347,952</strong></td><td style="color:#15803d"><strong>24.0%</strong></td><td style="color:#b91c1c">-89,400</td></tr>
+        <tr><td>LED面板灯</td><td>3,428,900</td><td>2,400,230</td><td>342,890</td><td style="color:#92400e"><strong>685,780</strong></td><td style="color:#92400e"><strong>20.0%</strong></td><td style="color:#b91c1c">-52,100</td></tr>
+        <tr style="background:#f0f7ff"><td><strong>合计</strong></td><td><strong>17,275,700</strong></td><td><strong>11,465,773</strong></td><td><strong>1,727,570</strong></td><td style="color:#15803d"><strong>4,082,357</strong></td><td style="color:#15803d"><strong>23.6%</strong></td><td style="color:#b91c1c"><strong>-265,700</strong></td></tr>
+      </table>
+      <div style="margin-top:8px;font-size:10px;color:#666">💡 实时展示泰国运营真实盈利，含汇兑影响，支撑管理层经营决策</div>
+    </div>
+  </div>
+
+  <div class="footer-bar">
+    <span>佛山照明 SAP S/4HANA 专项方案 · S05 海外财务本地化体系建设</span>
+    <span>Atos Confidential · V2.0</span>
+  </div>
+</div>
+
+<!-- ══════════════ CH03: 配套行动计划 ══════════════ -->
+<div class="chapter" id="ch2">
+  <h2 class="slide-h">配套行动计划</h2>
+  <div class="slide-sub">阶段划分 · 关键里程碑 · 前置条件 · 资源需求</div>
+
+  <div class="sec-title"><span class="sec-num">3.1</span> 三阶段实施路径</div>
+  <div class="card-grid c3">
+    <div class="card card-amber">
+      <h3>📐 阶段一：蓝图设计（2025年8-9月）</h3>
+      <ul>
+        <li>确认泰国转移定价双口径文件（A0372）</li>
+        <li>梳理FZ40/FZ33法人组织架构</li>
+        <li>完成DRC泰国/德国本地化配置方案</li>
+        <li>设计多币种核算方案（本位币+平行账）</li>
+        <li>输出：蓝图设计书 + 配置规格书</li>
+      </ul>
+    </div>
+    <div class="card card-accent">
+      <h3>⚙️ 阶段二：系统实现（2025年10-11月）</h3>
+      <ul>
+        <li>完成FZ40/FZ33公司代码配置</li>
+        <li>FAGL_FC_VAL外币估值自动化上线</li>
+        <li>CO-PC双重成本核算配置</li>
+        <li>DRC申报接口集成测试</li>
+        <li>输出：系统配置完成 + 单元测试报告</li>
+      </ul>
+    </div>
+    <div class="card card-green">
+      <h3>🚀 阶段三：上线保障（2025年12月）</h3>
+      <ul>
+        <li>泰国工厂业务并行测试（含泰铢结算）</li>
+        <li>DRC首次申报演练（VAT+企业所得税）</li>
+        <li>关键用户培训（泰国本地财务2名）</li>
+        <li>上线切换 + Hypercare支持30天</li>
+        <li>输出：上线确认书 + 运营手册</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-title"><span class="sec-num">3.2</span> 关键里程碑</div>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot done"></div>
+      <div class="tl-content">
+        <div class="tl-date">2025年7月（当前）</div>
+        <h4>✅ 探索阶段完成 — 27条需求确认</h4>
+        <p>完成国际事业部访谈，转移定价/汇兑/DRC等核心需求全部识别，本方案基于访谈结果制定</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-date">2025年8月15日</div>
+        <h4>🎯 转移定价口径确认会（A0372前置条件）</h4>
+        <p>必须完成：由赵俊杰（国际事业部）+陈宇清（艾维登）+苏大明（数智化部）三方签字确认转移定价双口径正式文件</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-date">2025年9月30日</div>
+        <h4>🎯 FZ40/FZ33蓝图设计书签字</h4>
+        <p>完成海外法人完整配置方案，DRC合规方案通过泰国/德国当地财务顾问审核</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot future"></div>
+      <div class="tl-content">
+        <div class="tl-date">2025年11月30日</div>
+        <h4>系统配置完成 + 集成测试通过</h4>
+        <p>多币种核算、外币估值、转移定价、DRC申报全部通过系统测试，与WP3 FICO主流程集成验证</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot future"></div>
+      <div class="tl-content">
+        <div class="tl-date">2026年1月1日（目标）</div>
+        <h4>🚀 FZ40泰国与整体项目同步上线</h4>
+        <p>泰国工厂SAP全模块启用（与2026年1月量产同步），FZ33德国销售法人Q1上线</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-title"><span class="sec-num">3.3</span> 关键前置条件 & 风险</div>
+  <div class="card-grid c2">
+    <div class="card card-red">
+      <h3>⚠️ 必须解决的前置条件</h3>
+      <ul>
+        <li><strong>P1：</strong>补充近3年海外经营数据（A0371），作为SAP初始化数据来源</li>
+        <li><strong>P2：</strong>专项确认转移定价口径（A0372），必须在蓝图开始前完成</li>
+        <li><strong>P3：</strong>梳理报价模型与KPI体系（A0373），驾驶舱建设的指标来源</li>
+        <li><strong>P4：</strong>泰国工厂指派本地SAP关键用户（至少2名懂英文/中文）</li>
+      </ul>
+    </div>
+    <div class="card card-amber">
+      <h3>🔶 主要风险项</h3>
+      <ul>
+        <li><strong>R1：</strong>泰国税务顾问配合时差/语言风险 → 提前引入本地会计师</li>
+        <li><strong>R2：</strong>DRC泰国本地化内容SAP官方支持有限 → 需要SAP原厂专家参与</li>
+        <li><strong>R3：</strong>转移定价口径争议导致蓝图延期 → 设定硬性决策截止日期</li>
+        <li><strong>R4：</strong>FZ33德国HGB报表与IFRS差异处理复杂 → 引入德国当地顾问</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bar">
+    <span>佛山照明 SAP S/4HANA 专项方案 · S05 海外财务本地化体系建设</span>
+    <span>Atos Confidential · V2.0</span>
+  </div>
+</div>
+
+<!-- ══════════════ CH04: 附录 ══════════════ -->
+<div class="chapter" id="ch3">
+  <h2 class="slide-h">附录：原始需求清单 & 参考资料</h2>
+  <div class="slide-sub">27条P05关联需求 · 全部来自探索阶段访谈</div>
+
+  <div class="sec-title"><span class="sec-num">4.1</span> 原始需求清单（27条）</div>
+  <table class="req-table">
+    <thead>
+      <tr><th>编号</th><th>需求简述</th><th>优先级</th><th>来源部门</th><th>归属子方案</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="req-id">A0282</td><td>红冲、退货与销售折扣核算问题（外销外币无自动清账）</td><td><span class="badge badge-high">高</span></td><td>国际事业部财务</td><td>子方案一</td></tr>
+      <tr><td class="req-id">A0287</td><td>应收、清账、坏账计提无法按渠道精细拆分</td><td><span class="badge badge-high">高</span></td><td>国际事业部财务</td><td>子方案一</td></tr>
+      <tr><td class="req-id">A0288</td><td>SAP无法自动生成应收/应付汇兑损益凭证</td><td><span class="badge badge-high">高</span></td><td>国际事业部财务</td><td>子方案一</td></tr>
+      <tr><td class="req-id">A0289</td><td>汇兑损益按季度汇总一笔凭证，无法精细到客户/订单</td><td><span class="badge badge-high">高</span></td><td>国际事业部财务</td><td>子方案一</td></tr>
+      <tr><td class="req-id">A0290</td><td>外销账期账龄统计偏差（按开票日非出库日）</td><td><span class="badge badge-high">高</span></td><td>国际事业部财务</td><td>子方案一</td></tr>
+      <tr><td class="req-id">A0291</td><td>外币锁汇/掉期交易无系统台账</td><td><span class="badge badge-high">高</span></td><td>资金管理</td><td>子方案一</td></tr>
+      <tr><td class="req-id">A0292</td><td>工厂间内部交易不支持贷项红冲</td><td><span class="badge badge-high">高</span></td><td>集团财务</td><td>子方案一</td></tr>
+      <tr><td class="req-id">A0357</td><td>建立国际事业部统一主数据体系</td><td><span class="badge badge-high">高</span></td><td>国际事业部</td><td>子方案三</td></tr>
+      <tr><td class="req-id">A0359</td><td>泰国转移定价双成本核算（报关价vs内部考核价）</td><td><span class="badge badge-high">高</span></td><td>国际事业部</td><td>子方案二</td></tr>
+      <tr><td class="req-id">A0360</td><td>海外报价模型建设（BOM→成本→汇率→关税→毛利）</td><td><span class="badge badge-high">高</span></td><td>国际事业部</td><td>子方案四</td></tr>
+      <tr><td class="req-id">A0361</td><td>外汇风险精细化管理（参考美的模式）</td><td><span class="badge badge-med">中</span></td><td>资金管理</td><td>子方案一</td></tr>
+      <tr><td class="req-id">A0362</td><td>海外法人SAP模板设计（FZ40泰国/FZ33德国）</td><td><span class="badge badge-high">高</span></td><td>国际事业部</td><td>子方案三</td></tr>
+      <tr><td class="req-id">A0363</td><td>泰国工厂SAP系统深度落地（计划/物流/成本全激活）</td><td><span class="badge badge-high">高</span></td><td>泰国工厂</td><td>子方案三</td></tr>
+      <tr><td class="req-id">A0364</td><td>多语言系统适配（泰文/英文本地化）</td><td><span class="badge badge-med">中</span></td><td>泰国工厂</td><td>子方案三</td></tr>
+      <tr><td class="req-id">A0369</td><td>跨境电商运营管理体系</td><td><span class="badge badge-med">中</span></td><td>国际事业部</td><td>子方案四</td></tr>
+      <tr><td class="req-id">A0371</td><td>【行动项】补充近3年海外经营数据</td><td><span class="badge badge-high">高</span></td><td>国际事业部</td><td>前置条件</td></tr>
+      <tr><td class="req-id">A0372</td><td>【行动项】专项确认转移定价口径</td><td><span class="badge badge-high">高</span></td><td>集团财务</td><td>前置条件</td></tr>
+      <tr><td class="req-id">A0373</td><td>【行动项】梳理报价模型与驾驶舱KPI指标</td><td><span class="badge badge-high">高</span></td><td>国际事业部</td><td>前置条件</td></tr>
+      <tr><td class="req-id">A0374</td><td>多币种与成本核算（泰铢自动折算）</td><td><span class="badge badge-high">高</span></td><td>泰国工厂财务</td><td>子方案一</td></tr>
+      <tr><td class="req-id">A0376</td><td>泰国成本中心自动归属（KS02功能范围默认空白问题）</td><td><span class="badge badge-med">中</span></td><td>泰国工厂财务</td><td>子方案二</td></tr>
+      <tr><td class="req-id">A0377</td><td>泰国经营可视化报表（产量/料工费/车间盈亏）</td><td><span class="badge badge-med">中</span></td><td>泰国工厂</td><td>子方案四</td></tr>
+      <tr><td class="req-id">A0379</td><td>泰国专属物料编码（国内编码+T标识）</td><td><span class="badge badge-high">高</span></td><td>泰国工厂</td><td>子方案三</td></tr>
+      <tr><td class="req-id">A0391</td><td>多组织报表合并（FZ40/FZ33等多主体）</td><td><span class="badge badge-low">低</span></td><td>集团财务</td><td>子方案四</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-title" style="margin-top:20px"><span class="sec-num">4.2</span> 关联SAP模块矩阵</div>
+  <div class="card-grid c3">
+    <div class="card"><h3>💰 FI — 财务会计</h3><ul><li>FAGL_FC_VAL 外币估值</li><li>F-28/F-32 清账</li><li>FB01 凭证录入（自动）</li><li>FBL5N 客户行项目</li></ul></div>
+    <div class="card"><h3>📊 CO — 管理会计</h3><ul><li>CO-PC 产品成本核算</li><li>CO-PA 盈利分析（KE30）</li><li>MR21 价格更改</li><li>KS02 成本中心维护</li></ul></div>
+    <div class="card"><h3>⚖️ DRC — 合规申报</h3><ul><li>泰国VAT月报（PP.30）</li><li>泰国企业所得税</li><li>德国VAT申报</li><li>原产地证书数据</li></ul></div>
+    <div class="card"><h3>💱 TR — 资金管理</h3><ul><li>TR-TM 外汇台账</li><li>锁汇/掉期交易记录</li><li>多币种现金流预测</li></ul></div>
+    <div class="card"><h3>📋 Group Reporting</h3><ul><li>多法人合并报表</li><li>关联交易自动消除</li><li>转移定价调整凭证</li></ul></div>
+    <div class="card"><h3>🗄️ MDG — 主数据</h3><ul><li>海外物料编码标准</li><li>T标识泰国专用物料</li><li>客商统一编码</li></ul></div>
+  </div>
+
+  <div class="footer-bar">
+    <span>佛山照明 SAP S/4HANA 专项方案 · S05 海外财务本地化体系建设</span>
+    <span>Atos Confidential · V2.0 · 基于探索阶段访谈数据</span>
+  </div>
+</div>
+
+<script>
+function goCh(i){
+  document.querySelectorAll('.chapter').forEach((c,j)=>c.classList.toggle('on',i===j));
+  document.querySelectorAll('.nc').forEach((c,j)=>c.classList.toggle('on',i===j));
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>

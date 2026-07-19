@@ -40,6 +40,7 @@
             <a href="/fsl-report/consulting/diagnosis/report-01.html">1. 现状诊断报告</a>
             <a href="/fsl-report/consulting/blueprint/ea-report.html">2. 企业架构设计报告</a>
             <a href="/fsl-report/consulting/solutions/">3. 专项方案设计报告</a>
+            <a href="/fsl-report/consulting/solutions/s05-overseas-finance.html" style="padding-left:28px;font-size:11.5px;opacity:.85">└ S05 海外财务本地化体系建设</a>
             <a href="/fsl-report/consulting/blueprint/data-survey.html">4.1 数据调研分析报告</a>
             <a href="/fsl-report/consulting/blueprint/data-governance.html">4.2 数据规划及管理办法</a>
             <a href="/fsl-report/consulting/blueprint/data-summary.html">4.3 数据治理总结报告</a>
