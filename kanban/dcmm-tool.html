@@ -594,6 +594,7 @@ var SUGGESTIONS={
 
 var allResponses=[], derivedAvgs=null, radarChart=null;
 var GH_DATA_URL='https://raw.githubusercontent.com/EstaTea/fsl-report/main/kanban/survey-dcmm-data.json';
+var GH_CONTENTS_URL='https://api.github.com/repos/EstaTea/fsl-report/contents/kanban/survey-dcmm-data.json';
 
 function switchTab(n){
   document.querySelectorAll('.tab-btn').forEach(function(b,i){b.classList.toggle('active',i===n-1);});
@@ -604,9 +605,10 @@ async function syncResponses(){
   var s1=document.getElementById('sync-status'),s2=document.getElementById('agg-sync-status');
   if(s1) s1.textContent='同步中…';if(s2) s2.textContent='同步中…';
   try{
-    var r=await fetch(GH_DATA_URL+'?_='+Date.now());
+    var r=await fetch(GH_CONTENTS_URL,{headers:{'Accept':'application/vnd.github+json','Cache-Control':'no-cache'}});
     if(!r.ok) throw new Error('HTTP '+r.status);
-    var data=await r.json();
+    var meta=await r.json();
+    var data=JSON.parse(decodeURIComponent(escape(atob(meta.content.replace(/\n/g,'')))));
     allResponses=data.submissions||[];
     var ts=new Date().toLocaleTimeString('zh-CN');
     if(s1) s1.textContent='✓ '+allResponses.length+'条 · '+ts;
@@ -937,10 +939,9 @@ async function saveDetail(i){
     var r=await fetch(ADMIN_URL,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({index:i,entry:entry})});
     var res=await r.json();
     if(!res.ok) throw new Error(res.error||'保存失败');
-    allResponses[i]=entry;
     closeDetail();
-    renderAll();
     showToast('✅ 已保存修改（'+name+'）');
+    await syncResponses();
   }catch(e){showToast('保存失败：'+e.message,'err');}
 }
 
@@ -952,10 +953,9 @@ async function deleteResp(i,fromDetail){
     var res=await fetch(ADMIN_URL,{method:'DELETE',headers:{'Content-Type':'application/json'},body:JSON.stringify({index:i})});
     var data=await res.json();
     if(!data.ok) throw new Error(data.error||'删除失败');
-    allResponses.splice(i,1);
     if(fromDetail) closeDetail();
-    renderAll();
     showToast('已删除「'+r.name+'」的记录');
+    await syncResponses();
   }catch(e){showToast('删除失败：'+e.message,'err');}
 }
 
