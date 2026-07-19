@@ -314,7 +314,7 @@ function renderChain(){
         <div class="chain-items">${WP.map(w=>{
           return `<div class="chain-item${act(activeWPs,w.id)}${dim(activeWPs,w.id)}" onclick="selectItem('wp','${w.id}')">
             <span class="ci-badge" style="background:${w.color}22;color:${w.color}">${esc(w.id)}</span>
-            <div><div class="ci-name">${w.icon} ${esc(w.name)}</div><div class="ci-sub">${esc(w.owner)} · ${esc(w.budget)}</div></div></div>`;
+            <div><div class="ci-name">${w.icon} ${esc(w.name)}</div><div class="ci-sub">${esc(w.owner)}</div></div></div>`;
         }).join('')}</div>
       </div>
     </div>
@@ -382,7 +382,7 @@ function renderBackward(){
       ${WP.map(w=>`<div onclick="selWpBk('${w.id}')" style="padding:8px 10px;border-radius:6px;border:1px solid ${selWp===w.id?w.color:'var(--border)'};background:${selWp===w.id?w.color+'11':'var(--card)'};margin-bottom:5px;cursor:pointer;display:flex;align-items:center;gap:8px">
         <span style="font-size:16px">${w.icon}</span>
         <div><div style="font-size:11px;font-weight:600;color:${selWp===w.id?w.color:'var(--txt)'}">${esc(w.name)}</div>
-        <div style="font-size:10px;color:var(--muted)">${esc(w.owner)} · ${esc(w.budget)}</div></div>
+        <div style="font-size:10px;color:var(--muted)">${esc(w.owner)}</div></div>
       </div>`).join('')}
     </div>
     <div id="bk-detail">${selWp?renderBkDetail(selWp):'<div class="empty-state" style="padding-top:60px">👈 选择一个工作包，查看需求来源追溯</div>'}</div>
@@ -402,7 +402,7 @@ function renderBkDetail(wpId){
     <div class="trace-hdr">
       <span style="font-size:20px">${wp.icon}</span>
       <h3 style="color:${wp.color}">${esc(wp.name)}</h3>
-      <span style="font-size:11px;color:var(--muted);margin-left:auto">负责人: ${esc(wp.owner)} | 预算: ${esc(wp.budget)}</span>
+      <span style="font-size:11px;color:var(--muted);margin-left:auto">负责人: ${esc(wp.owner)}</span>
     </div>
 
     <div style="margin-bottom:10px">
