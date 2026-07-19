@@ -274,7 +274,7 @@ function renderChain(){
     <div id="chain-view">
       <div class="chain-col">
         <div class="chain-hdr" style="background:#0f766e">📋 原始需求 <small style="opacity:.7;font-size:9px">(全量555条，点击痛点过滤)</small></div>
-        <div class="chain-items">${(hasFilter ? SR.filter(r=>r.pain.some(p=>activePains.has(p))) : SR.slice(0,50)).map(r=>{
+        <div class="chain-items">${(hasFilter ? SR.filter(r=>r.pain.some(p=>activePains.has(p))) : SR).map(r=>{
           const pri=r.priority;
           return `<div class="chain-item${act(activeReqs,r.id)}${dim(activeReqs,r.id)}" onclick="selectItem('req','${r.id}')">
             <span class="ci-badge prio-${esc(pri)}">${esc(r.id)}</span>
