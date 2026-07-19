@@ -8,7 +8,6 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:"Microsoft YaHei",Arial,sans-serif;background:#0D1B2A;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
 
-/* animated background */
 .bg{position:fixed;inset:0;overflow:hidden;z-index:0}
 .bg-circle{position:absolute;border-radius:50%;opacity:.08}
 .bg-c1{width:600px;height:600px;background:radial-gradient(circle,#005EB8,transparent);top:-100px;right:-100px;animation:drift1 18s ease-in-out infinite}
@@ -19,107 +18,105 @@ body{font-family:"Microsoft YaHei",Arial,sans-serif;background:#0D1B2A;min-heigh
 @keyframes drift3{0%,100%{transform:translate(0,0)}50%{transform:translate(-20px,20px)}}
 .bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,94,184,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,94,184,.06) 1px,transparent 1px);background-size:40px 40px}
 
-/* card */
-.card{position:relative;z-index:1;width:100%;max-width:420px;margin:20px;background:rgba(255,255,255,.04);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:16px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.5)}
+.card{position:relative;z-index:1;width:100%;max-width:440px;margin:20px;background:rgba(255,255,255,.04);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:16px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.5)}
 
-/* card header */
-.card-header{background:linear-gradient(135deg,#003087 0%,#005EB8 100%);padding:32px 32px 28px;text-align:center;position:relative;overflow:hidden}
+.card-header{background:linear-gradient(135deg,#003087 0%,#005EB8 100%);padding:28px 32px 24px;text-align:center;position:relative;overflow:hidden}
 .card-header::after{content:"";position:absolute;bottom:-30px;left:50%;transform:translateX(-50%);width:200%;height:60px;background:rgba(255,255,255,.04);border-radius:50%}
-.logo-wrap{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:18px}
+.logo-wrap{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:14px}
 .logo-icon{width:44px;height:44px;background:rgba(255,255,255,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px}
 .logo-text{text-align:left}
 .logo-text .co{font-size:11px;color:rgba(255,255,255,.6);letter-spacing:1px;text-transform:uppercase}
 .logo-text .name{font-size:16px;font-weight:700;color:#fff;margin-top:2px}
-.card-title{font-size:22px;font-weight:800;color:#fff;margin-bottom:6px}
-.card-sub{font-size:13px;color:rgba(255,255,255,.6);line-height:1.5}
-.project-chips{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.card-title{font-size:21px;font-weight:800;color:#fff;margin-bottom:5px}
+.card-sub{font-size:12.5px;color:rgba(255,255,255,.6);line-height:1.5}
+.project-chips{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:12px}
 .chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);padding:3px 10px;border-radius:10px;font-size:10.5px;color:rgba(255,255,255,.8);letter-spacing:.3px}
 
-/* card body */
-.card-body{padding:28px 32px 32px}
+.card-body{padding:24px 28px 28px}
 
-/* tabs */
-.login-tabs{display:flex;gap:0;background:rgba(255,255,255,.04);border-radius:8px;padding:3px;margin-bottom:24px;border:1px solid rgba(255,255,255,.08)}
-.login-tab{flex:1;padding:7px 12px;border:none;background:transparent;color:rgba(255,255,255,.5);font-size:12.5px;cursor:pointer;border-radius:6px;font-family:inherit;transition:all .2s;font-weight:600}
-.login-tab.active{background:rgba(0,94,184,.7);color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+/* method tabs (email / github) */
+.method-tabs{display:flex;gap:0;background:rgba(255,255,255,.04);border-radius:8px;padding:3px;margin-bottom:20px;border:1px solid rgba(255,255,255,.08)}
+.method-tab{flex:1;padding:7px 10px;border:none;background:transparent;color:rgba(255,255,255,.45);font-size:12px;cursor:pointer;border-radius:6px;font-family:inherit;transition:all .2s;font-weight:600;display:flex;align-items:center;justify-content:center;gap:5px}
+.method-tab.active{background:rgba(0,94,184,.7);color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.3)}
 
-/* form */
-.form-group{margin-bottom:16px}
-.form-group label{display:block;font-size:12px;font-weight:700;color:rgba(255,255,255,.7);margin-bottom:6px;letter-spacing:.3px}
-.form-input{width:100%;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:8px;padding:11px 14px;font-size:13.5px;color:#fff;font-family:inherit;transition:border-color .2s,background .2s;outline:none}
-.form-input::placeholder{color:rgba(255,255,255,.25)}
+/* sub-tabs (login / register) */
+.sub-tabs{display:flex;gap:0;margin-bottom:20px;border-bottom:1px solid rgba(255,255,255,.08)}
+.sub-tab{flex:1;padding:8px 0;border:none;background:transparent;color:rgba(255,255,255,.4);font-size:12.5px;cursor:pointer;font-family:inherit;transition:all .2s;font-weight:600;border-bottom:2px solid transparent;margin-bottom:-1px}
+.sub-tab.active{color:#fff;border-bottom-color:#005EB8}
+
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:11.5px;font-weight:700;color:rgba(255,255,255,.65);margin-bottom:5px;letter-spacing:.3px}
+.form-input{width:100%;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:8px;padding:10px 13px;font-size:13px;color:#fff;font-family:inherit;transition:border-color .2s,background .2s;outline:none}
+.form-input::placeholder{color:rgba(255,255,255,.22)}
 .form-input:focus{border-color:rgba(0,94,184,.8);background:rgba(0,94,184,.1)}
 .form-input.error{border-color:rgba(168,196,224,.6);animation:shake .4s ease}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 
-/* password toggle */
 .input-wrap{position:relative}
-.input-wrap .form-input{padding-right:44px}
-.toggle-pass{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;font-size:15px;padding:2px}
+.input-wrap .form-input{padding-right:42px}
+.toggle-pass{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,.35);cursor:pointer;font-size:14px;padding:2px}
 .toggle-pass:hover{color:rgba(255,255,255,.8)}
 
-/* remember */
-.remember-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
-.remember-label{display:flex;align-items:center;gap:7px;cursor:pointer;font-size:12px;color:rgba(255,255,255,.55)}
-.remember-label input{accent-color:#005EB8;width:14px;height:14px}
-.help-link{font-size:11.5px;color:#A8C4E0;text-decoration:none}
+.row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+.remember-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.remember-label{display:flex;align-items:center;gap:7px;cursor:pointer;font-size:11.5px;color:rgba(255,255,255,.5)}
+.remember-label input{accent-color:#005EB8;width:13px;height:13px}
+.help-link{font-size:11px;color:#A8C4E0;text-decoration:none}
 .help-link:hover{color:#fff}
 
-/* submit */
-.btn-login{width:100%;padding:13px;background:linear-gradient(135deg,#003087,#005EB8);border:none;border-radius:8px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.5px;transition:all .2s;position:relative;overflow:hidden}
-.btn-login:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,94,184,.5)}
-.btn-login:active{transform:translateY(0)}
-.btn-login::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(255,255,255,.1),transparent);opacity:0;transition:opacity .3s}
-.btn-login:hover::after{opacity:1}
-.btn-login.loading{pointer-events:none;opacity:.8}
+.btn-main{width:100%;padding:12px;background:linear-gradient(135deg,#003087,#005EB8);border:none;border-radius:8px;color:#fff;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.4px;transition:all .2s;position:relative;overflow:hidden}
+.btn-main:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,94,184,.5)}
+.btn-main:active{transform:translateY(0)}
+.btn-main.loading{pointer-events:none;opacity:.8}
 .spinner-sm{display:none;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* alert */
-.alert{padding:10px 14px;border-radius:7px;font-size:12.5px;margin-bottom:16px;display:none;align-items:center;gap:8px;line-height:1.5}
+.alert{padding:9px 13px;border-radius:7px;font-size:12px;margin-bottom:14px;display:none;align-items:center;gap:8px;line-height:1.5}
 .alert.show{display:flex}
 .alert-error{background:rgba(0,48,135,.3);border:1px solid rgba(0,94,184,.4);color:#A8C4E0}
 .alert-success{background:rgba(0,94,184,.3);border:1px solid rgba(0,94,184,.5);color:#D0E4F7}
+.alert-warn{background:rgba(100,80,0,.3);border:1px solid rgba(180,140,0,.4);color:#F0D080}
 
-/* divider */
-.divider{display:flex;align-items:center;gap:12px;margin:20px 0}
-.divider-line{flex:1;height:1px;background:rgba(255,255,255,.08)}
-.divider span{font-size:11px;color:rgba(255,255,255,.3)}
+.divider{display:flex;align-items:center;gap:12px;margin:16px 0}
+.divider-line{flex:1;height:1px;background:rgba(255,255,255,.07)}
+.divider span{font-size:10.5px;color:rgba(255,255,255,.25)}
 
 /* device flow */
 #deviceSection{display:none}
-.device-code-box{background:rgba(255,255,255,.06);border:1.5px solid rgba(0,94,184,.4);border-radius:10px;padding:20px;text-align:center;margin:16px 0}
-.device-code{font-size:28px;font-weight:800;letter-spacing:6px;color:#fff;margin:8px 0;font-family:monospace}
-.device-url{font-size:12px;color:#A8C4E0;margin-bottom:12px}
-.device-progress{display:flex;align-items:center;justify-content:center;gap:8px;font-size:12px;color:rgba(255,255,255,.5)}
+.device-code-box{background:rgba(255,255,255,.06);border:1.5px solid rgba(0,94,184,.4);border-radius:10px;padding:18px;text-align:center;margin:14px 0}
+.device-code{font-size:28px;font-weight:800;letter-spacing:6px;color:#fff;margin:6px 0;font-family:monospace}
+.device-url{font-size:11.5px;color:#A8C4E0;margin-bottom:10px}
+.device-progress{display:flex;align-items:center;justify-content:center;gap:8px;font-size:11.5px;color:rgba(255,255,255,.4)}
 .pulse{width:8px;height:8px;border-radius:50%;background:#005EB8;animation:pulse 1.2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
 
-/* user info (post-login) */
-.user-info-preview{display:flex;align-items:center;gap:12px;background:rgba(0,94,184,.2);border:1px solid rgba(0,94,184,.3);border-radius:10px;padding:14px 16px;margin-bottom:16px}
-.user-avatar{width:42px;height:42px;border-radius:50%;border:2px solid rgba(255,255,255,.2)}
-.user-details .user-name{font-size:14px;font-weight:700;color:#fff}
-.user-details .user-handle{font-size:11.5px;color:rgba(255,255,255,.5);margin-top:2px}
-.user-details .user-role{font-size:10.5px;color:#A8C4E0;margin-top:3px}
+/* user logged-in state */
+.user-info-preview{display:flex;align-items:center;gap:12px;background:rgba(0,94,184,.2);border:1px solid rgba(0,94,184,.3);border-radius:10px;padding:13px 15px;margin-bottom:14px}
+.user-avatar{width:40px;height:40px;border-radius:50%;border:2px solid rgba(255,255,255,.2)}
+.user-avatar-placeholder{width:40px;height:40px;border-radius:50%;border:2px solid rgba(255,255,255,.2);background:linear-gradient(135deg,#003087,#005EB8);display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;font-weight:700}
+.user-details .user-name{font-size:13.5px;font-weight:700;color:#fff}
+.user-details .user-handle{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.user-details .user-role{font-size:10.5px;color:#A8C4E0;margin-top:2px}
 
-/* footer */
-.card-footer{padding:14px 32px 20px;border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:center}
-.card-footer p{font-size:11.5px;color:rgba(255,255,255,.25);text-align:center;line-height:1.6}
-.card-footer a{color:rgba(168,196,224,.6);text-decoration:none}
+.password-hint{font-size:10.5px;color:rgba(255,255,255,.3);margin-top:4px}
+
+.card-footer{padding:12px 28px 18px;border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:center}
+.card-footer p{font-size:11px;color:rgba(255,255,255,.22);text-align:center;line-height:1.6}
+.card-footer a{color:rgba(168,196,224,.5);text-decoration:none}
 .card-footer a:hover{color:#A8C4E0}
 
-/* help box */
-.help-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:14px;margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.45);line-height:1.8}
-.help-box strong{color:rgba(255,255,255,.7)}
+.help-box{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:13px;margin-top:14px;font-size:11px;color:rgba(255,255,255,.4);line-height:1.8}
+.help-box strong{color:rgba(255,255,255,.65)}
 .help-box a{color:#A8C4E0;text-decoration:none}
-.help-box a:hover{color:#D0E4F7;text-decoration:underline}
-.help-step{display:flex;gap:8px;margin-bottom:4px}
-.help-step .step-num{width:16px;height:16px;border-radius:50%;background:rgba(0,94,184,.5);color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.help-step{display:flex;gap:8px;margin-bottom:3px}
+.help-step .step-num{width:15px;height:15px;border-radius:50%;background:rgba(0,94,184,.5);color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
 
 @media(max-width:480px){
-  .card-body{padding:20px}
-  .card-header{padding:24px 20px 20px}
+  .card-body{padding:18px}
+  .card-header{padding:22px 18px 18px}
   .project-chips{display:none}
+  .row-2{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -151,60 +148,136 @@ body{font-family:"Microsoft YaHei",Arial,sans-serif;background:#0D1B2A;min-heigh
   </div>
 
   <div class="card-body">
-    <div class="login-tabs">
-      <button class="login-tab active" onclick="switchLoginTab('pat')">🔑 Token 登录</button>
-      <button class="login-tab" onclick="switchLoginTab('device')">📱 设备授权</button>
+    <!-- method tabs -->
+    <div class="method-tabs">
+      <button class="method-tab active" id="tabEmail" onclick="switchMethod('email')">✉️ 邮箱登录</button>
+      <button class="method-tab" id="tabGithub" onclick="switchMethod('github')">🔑 GitHub Token</button>
     </div>
 
-    <!-- PAT section -->
-    <div id="patSection">
-      <div class="alert alert-error" id="patError"></div>
-      <div id="userPreview" style="display:none"></div>
-
-      <div class="form-group">
-        <label>GitHub 用户名</label>
-        <input class="form-input" id="usernameInput" placeholder="你的 GitHub 用户名" autocomplete="username">
+    <!-- ── EMAIL SECTION ── -->
+    <div id="emailSection">
+      <div class="sub-tabs">
+        <button class="sub-tab active" id="subLogin" onclick="switchSub('login')">登录</button>
+        <button class="sub-tab" id="subRegister" onclick="switchSub('register')">注册账号</button>
       </div>
-      <div class="form-group">
-        <label>Personal Access Token</label>
-        <div class="input-wrap">
-          <input class="form-input" id="tokenInput" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="current-password">
-          <button class="toggle-pass" onclick="togglePassVis()" id="toggleBtn">👁</button>
+
+      <!-- email login -->
+      <div id="emailLoginForm">
+        <div class="alert alert-error" id="emailLoginError"></div>
+        <div class="form-group">
+          <label>邮箱</label>
+          <input class="form-input" id="loginEmail" type="email" placeholder="your@email.com" autocomplete="email">
         </div>
+        <div class="form-group">
+          <label>密码</label>
+          <div class="input-wrap">
+            <input class="form-input" id="loginPassword" type="password" placeholder="请输入密码" autocomplete="current-password">
+            <button class="toggle-pass" onclick="toggleVis('loginPassword',this)">👁</button>
+          </div>
+        </div>
+        <div class="remember-row">
+          <label class="remember-label"><input type="checkbox" id="emailRemember" checked> 记住我</label>
+          <a href="#" class="help-link" onclick="showForgotHint(); return false;">忘记密码？</a>
+        </div>
+        <button class="btn-main" id="emailLoginBtn" onclick="doEmailLogin()">
+          <span id="emailLoginTxt">登录</span>
+          <div class="spinner-sm" id="emailLoginSpin"></div>
+        </button>
       </div>
-      <div class="remember-row">
-        <label class="remember-label"><input type="checkbox" id="rememberMe" checked> 记住我（保存到本地）</label>
-        <a href="https://github.com/settings/tokens/new?scopes=repo&description=FSL+Project+Management" target="_blank" class="help-link">获取 Token ↗</a>
-      </div>
-      <button class="btn-login" id="loginBtn" onclick="doPatLogin()">
-        <span id="loginBtnText">登录</span>
-        <div class="spinner-sm" id="loginSpinner"></div>
-      </button>
 
-      <div class="help-box" id="helpBox">
-        <strong>如何获取 GitHub Token？</strong>
-        <div class="help-step"><div class="step-num">1</div><span>访问 <a href="https://github.com/settings/tokens/new?scopes=repo&description=FSL+Project+Management" target="_blank">github.com/settings/tokens</a></span></div>
-        <div class="help-step"><div class="step-num">2</div><span>Note 填写 "FSL项目管理"，勾选 <strong>repo</strong> 权限</span></div>
-        <div class="help-step"><div class="step-num">3</div><span>点击 Generate Token，复制以 ghp_ 开头的字符串</span></div>
-        <div class="help-step"><div class="step-num">4</div><span>粘贴到上方 Token 输入框，点击登录</span></div>
+      <!-- email register -->
+      <div id="emailRegisterForm" style="display:none">
+        <div class="alert alert-error"   id="emailRegError"></div>
+        <div class="alert alert-success" id="emailRegOk"></div>
+        <div class="row-2">
+          <div class="form-group">
+            <label>姓名</label>
+            <input class="form-input" id="regName" placeholder="真实姓名">
+          </div>
+          <div class="form-group">
+            <label>职务（选填）</label>
+            <input class="form-input" id="regRole" placeholder="如：顾问、客户方">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>邮箱</label>
+          <input class="form-input" id="regEmail" type="email" placeholder="your@email.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label>密码</label>
+          <div class="input-wrap">
+            <input class="form-input" id="regPassword" type="password" placeholder="至少 8 位" autocomplete="new-password">
+            <button class="toggle-pass" onclick="toggleVis('regPassword',this)">👁</button>
+          </div>
+          <div class="password-hint">至少 8 位字符</div>
+        </div>
+        <div class="form-group">
+          <label>确认密码</label>
+          <div class="input-wrap">
+            <input class="form-input" id="regPassword2" type="password" placeholder="再次输入密码" autocomplete="new-password">
+            <button class="toggle-pass" onclick="toggleVis('regPassword2',this)">👁</button>
+          </div>
+        </div>
+        <button class="btn-main" id="emailRegBtn" onclick="doEmailRegister()" style="margin-top:4px">
+          <span id="emailRegTxt">提交注册</span>
+          <div class="spinner-sm" id="emailRegSpin"></div>
+        </button>
       </div>
     </div>
 
-    <!-- Device flow section -->
-    <div id="deviceSection">
-      <div class="alert alert-error" id="deviceError"></div>
-      <p style="font-size:12.5px;color:rgba(255,255,255,.55);line-height:1.7;margin-bottom:16px">设备授权模式无需手动复制 Token。点击下方按钮获取验证码，然后在 GitHub 上完成授权。</p>
-      <button class="btn-login" id="deviceStartBtn" onclick="startDeviceFlow()">
-        <span>获取设备授权码</span>
-      </button>
-      <div id="deviceCodeArea" style="display:none">
-        <div class="device-code-box">
-          <div class="device-url">请访问：<a href="https://github.com/login/device" target="_blank" style="color:#A8C4E0">github.com/login/device</a></div>
-          <div class="device-code" id="deviceCode">- - - -</div>
-          <div style="font-size:11.5px;color:rgba(255,255,255,.4);margin-top:4px">输入上方验证码完成授权</div>
+    <!-- ── GITHUB SECTION ── -->
+    <div id="githubSection" style="display:none">
+      <div class="method-tabs" style="margin-bottom:16px">
+        <button class="method-tab active" id="patTab" onclick="switchGhTab('pat')">🔑 Token 登录</button>
+        <button class="method-tab" id="deviceTab" onclick="switchGhTab('device')">📱 设备授权</button>
+      </div>
+
+      <!-- PAT -->
+      <div id="patSection">
+        <div class="alert alert-error" id="patError"></div>
+        <div id="userPreview"></div>
+        <div class="form-group">
+          <label>GitHub 用户名</label>
+          <input class="form-input" id="usernameInput" placeholder="你的 GitHub 用户名" autocomplete="username">
         </div>
-        <div class="device-progress"><div class="pulse"></div><span id="deviceStatus">等待授权中...</span></div>
-        <button onclick="cancelDeviceFlow()" style="width:100%;margin-top:12px;padding:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;color:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;font-size:12px">取消</button>
+        <div class="form-group">
+          <label>Personal Access Token</label>
+          <div class="input-wrap">
+            <input class="form-input" id="tokenInput" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="current-password">
+            <button class="toggle-pass" onclick="toggleVis('tokenInput',this)">👁</button>
+          </div>
+        </div>
+        <div class="remember-row">
+          <label class="remember-label"><input type="checkbox" id="rememberMe" checked> 记住我</label>
+          <a href="https://github.com/settings/tokens/new?scopes=repo&description=FSL+Project+Management" target="_blank" class="help-link">获取 Token ↗</a>
+        </div>
+        <button class="btn-main" id="loginBtn" onclick="doPatLogin()">
+          <span id="loginBtnText">登录</span>
+          <div class="spinner-sm" id="loginSpinner"></div>
+        </button>
+        <div class="help-box">
+          <strong>如何获取 GitHub Token？</strong>
+          <div class="help-step"><div class="step-num">1</div><span>访问 <a href="https://github.com/settings/tokens/new?scopes=repo&description=FSL+Project+Management" target="_blank">github.com/settings/tokens</a></span></div>
+          <div class="help-step"><div class="step-num">2</div><span>Note 填写"FSL项目管理"，勾选 <strong>repo</strong> 权限</span></div>
+          <div class="help-step"><div class="step-num">3</div><span>点击 Generate Token，复制 ghp_ 开头字符串</span></div>
+          <div class="help-step"><div class="step-num">4</div><span>粘贴到上方 Token 输入框，点击登录</span></div>
+        </div>
+      </div>
+
+      <!-- Device flow -->
+      <div id="deviceSection">
+        <div class="alert alert-error" id="deviceError"></div>
+        <p style="font-size:12px;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:14px">设备授权模式无需手动复制 Token。点击下方按钮，然后在 GitHub 上完成授权。</p>
+        <button class="btn-main" id="deviceStartBtn" onclick="startDeviceFlow()"><span>获取设备授权码</span></button>
+        <div id="deviceCodeArea" style="display:none">
+          <div class="device-code-box">
+            <div class="device-url">请访问：<a href="https://github.com/login/device" target="_blank" style="color:#A8C4E0">github.com/login/device</a></div>
+            <div class="device-code" id="deviceCode">- - - -</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.35);margin-top:3px">输入上方验证码完成授权</div>
+          </div>
+          <div class="device-progress"><div class="pulse"></div><span id="deviceStatus">等待授权中...</span></div>
+          <button onclick="cancelDeviceFlow()" style="width:100%;margin-top:10px;padding:7px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:6px;color:rgba(255,255,255,.4);cursor:pointer;font-family:inherit;font-size:11.5px">取消</button>
+        </div>
       </div>
     </div>
   </div>
@@ -216,183 +289,264 @@ body{font-family:"Microsoft YaHei",Arial,sans-serif;background:#0D1B2A;min-heigh
 
 <script>
 var REPO = 'EstaTea/fsl-report';
-var DEVICE_CLIENT_ID = ''; // Optional: fill in if you register a GitHub OAuth App
+var DEVICE_CLIENT_ID = '';
+var PROXY = 'https://fsl-report.vercel.app/api';
 
-// ── Check if already logged in ────────────────────────────────────
+// ── 检查是否已登录 ────────────────────────────────────────────────
 (function(){
-  var token = localStorage.getItem('gh_token_fsl');
-  var user  = localStorage.getItem('gh_user_fsl');
-  if(token && user){
-    try{
-      var u = JSON.parse(user);
-      // Show logged-in state before redirecting
-      document.addEventListener('DOMContentLoaded', function(){
-        showAlreadyLoggedIn(u);
-      });
-    }catch(e){}
-  }
+  var session = getSession();
+  if(!session) return;
+  document.addEventListener('DOMContentLoaded', function(){
+    showAlreadyLoggedIn(session);
+  });
 })();
 
-function showAlreadyLoggedIn(u){
-  var pat = document.getElementById('patSection');
-  pat.innerHTML = '<div class="user-info-preview">'+
-    '<img class="user-avatar" src="'+u.avatar_url+'" alt="avatar">'+
-    '<div class="user-details">'+
-      '<div class="user-name">'+esc(u.name||u.login)+'</div>'+
-      '<div class="user-handle">@'+esc(u.login)+'</div>'+
-      '<div class="user-role" id="userRole">检查权限中...</div>'+
-    '</div>'+
-  '</div>'+
-  '<button class="btn-login" onclick="goToBoard()" style="margin-bottom:10px">进入项目看板 →</button>'+
-  '<button onclick="doLogout()" style="width:100%;padding:9px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:7px;color:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;font-size:12.5px">退出登录（切换账号）</button>';
-  checkUserAccess();
-}
-
-async function checkUserAccess(){
-  var token = localStorage.getItem('gh_token_fsl');
-  if(!token) return;
+function getSession(){
   try{
-    var r = await fetch('https://api.github.com/repos/'+REPO, {
-      headers:{'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json'}
-    });
-    var el = document.getElementById('userRole');
-    if(!el) return;
-    if(r.ok){
-      var repo = await r.json();
-      el.textContent = repo.permissions && repo.permissions.push ? '✅ 具有写入权限（可创建/编辑任务）' : '👁 只读权限（仅查看）';
-      el.style.color = repo.permissions && repo.permissions.push ? '#A8C4E0' : 'rgba(255,255,255,.4)';
-    } else {
-      el.textContent = '⚠️ Token 可能已过期，建议重新登录';
-      el.style.color = '#6B8CB8';
+    var s = localStorage.getItem('fsl_session') || sessionStorage.getItem('fsl_session');
+    if(!s) return null;
+    var data = JSON.parse(s);
+    // 检查过期（email登录有exp，github token没有）
+    if(data.exp && data.exp < Math.floor(Date.now()/1000)) {
+      clearSession(); return null;
     }
-  }catch(e){}
+    return data;
+  }catch(e){ return null; }
 }
 
-// ── PAT Login ────────────────────────────────────────────────────
-function switchLoginTab(tab){
-  document.querySelectorAll('.login-tab').forEach(function(t,i){
-    t.classList.toggle('active', (i===0&&tab==='pat')||(i===1&&tab==='device'));
-  });
-  document.getElementById('patSection').style.display = tab==='pat'?'block':'none';
-  document.getElementById('deviceSection').style.display = tab==='device'?'block':'none';
+function saveSession(data, remember){
+  var s = JSON.stringify(data);
+  if(remember){ localStorage.setItem('fsl_session', s); }
+  else { sessionStorage.setItem('fsl_session', s); }
 }
 
-function togglePassVis(){
-  var inp = document.getElementById('tokenInput');
-  var btn = document.getElementById('toggleBtn');
+function clearSession(){
+  localStorage.removeItem('fsl_session');
+  sessionStorage.removeItem('fsl_session');
+  // 兼容旧版 PAT 存储
+  localStorage.removeItem('gh_token_fsl');
+  localStorage.removeItem('gh_user_fsl');
+  sessionStorage.removeItem('gh_token_fsl');
+  sessionStorage.removeItem('gh_user_fsl');
+}
+
+function showAlreadyLoggedIn(s){
+  var email = document.getElementById('emailSection');
+  if(!email) return;
+  var avatarHtml = s.avatar_url
+    ? '<img class="user-avatar" src="'+esc(s.avatar_url)+'" alt="avatar">'
+    : '<div class="user-avatar-placeholder">'+esc((s.name||'?')[0].toUpperCase())+'</div>';
+  var loginType = s.login_type === 'email' ? '邮箱登录' : 'GitHub Token';
+  email.innerHTML =
+    '<div class="user-info-preview">'+
+      avatarHtml+
+      '<div class="user-details">'+
+        '<div class="user-name">'+esc(s.name||s.email||s.login||'用户')+'</div>'+
+        '<div class="user-handle">'+esc(s.email||('@'+s.login)||'')+'</div>'+
+        '<div class="user-role">'+loginType+' · 已登录</div>'+
+      '</div>'+
+    '</div>'+
+    '<button class="btn-main" onclick="goToBoard()" style="margin-bottom:10px">进入项目看板 →</button>'+
+    '<button onclick="doLogout()" style="width:100%;padding:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:7px;color:rgba(255,255,255,.4);cursor:pointer;font-family:inherit;font-size:12px">退出登录（切换账号）</button>';
+  document.getElementById('githubSection').style.display = 'none';
+  document.querySelectorAll('.method-tabs').forEach(function(t){ t.style.display='none'; });
+}
+
+// ── 标签切换 ─────────────────────────────────────────────────────
+function switchMethod(m){
+  document.getElementById('tabEmail').classList.toggle('active', m==='email');
+  document.getElementById('tabGithub').classList.toggle('active', m==='github');
+  document.getElementById('emailSection').style.display   = m==='email'  ? 'block':'none';
+  document.getElementById('githubSection').style.display  = m==='github' ? 'block':'none';
+}
+
+function switchSub(s){
+  document.getElementById('subLogin').classList.toggle('active', s==='login');
+  document.getElementById('subRegister').classList.toggle('active', s==='register');
+  document.getElementById('emailLoginForm').style.display    = s==='login'    ? 'block':'none';
+  document.getElementById('emailRegisterForm').style.display = s==='register' ? 'block':'none';
+}
+
+function switchGhTab(t){
+  document.getElementById('patTab').classList.toggle('active', t==='pat');
+  document.getElementById('deviceTab').classList.toggle('active', t==='device');
+  document.getElementById('patSection').style.display    = t==='pat'    ? 'block':'none';
+  document.getElementById('deviceSection').style.display = t==='device' ? 'block':'none';
+}
+
+// ── 通用工具 ──────────────────────────────────────────────────────
+function toggleVis(id, btn){
+  var inp = document.getElementById(id);
   inp.type = inp.type==='password' ? 'text' : 'password';
   btn.textContent = inp.type==='password' ? '👁' : '🙈';
 }
 
-function setLoading(loading){
-  var btn = document.getElementById('loginBtn');
-  var txt = document.getElementById('loginBtnText');
-  var sp  = document.getElementById('loginSpinner');
-  btn.classList.toggle('loading', loading);
-  txt.style.display = loading ? 'none' : 'block';
-  sp.style.display  = loading ? 'block' : 'none';
+function setLoading(btnId, spinId, txtId, state){
+  var btn = document.getElementById(btnId);
+  var sp  = document.getElementById(spinId);
+  var txt = document.getElementById(txtId);
+  if(btn) btn.classList.toggle('loading', state);
+  if(sp)  sp.style.display  = state ? 'block':'none';
+  if(txt) txt.style.display = state ? 'none' :'block';
 }
 
-function showError(id, msg){
+function showAlert(id, msg, type){
   var el = document.getElementById(id);
-  el.textContent = '⚠️  '+msg;
-  el.className = 'alert alert-error show';
-  setTimeout(function(){ el.classList.remove('show'); }, 6000);
+  if(!el) return;
+  el.textContent = msg;
+  el.className = 'alert alert-'+type+' show';
+  if(type !== 'success') setTimeout(function(){ el.classList.remove('show'); }, 7000);
 }
 
-async function doPatLogin(){
-  var token = document.getElementById('tokenInput').value.trim();
-  var username = document.getElementById('usernameInput').value.trim();
-  if(!token){ showError('patError','请输入 Personal Access Token'); document.getElementById('tokenInput').classList.add('error'); return; }
-
-  setLoading(true);
-  try{
-    // Validate token by calling /user
-    var r = await fetch('https://api.github.com/user', {
-      headers:{'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json'}
-    });
-    if(!r.ok){
-      if(r.status===401) showError('patError','Token 无效或已过期，请重新生成');
-      else showError('patError','GitHub API 错误 ('+r.status+')，请稍后重试');
-      setLoading(false); return;
-    }
-    var user = await r.json();
-    // Check repo access
-    var r2 = await fetch('https://api.github.com/repos/'+REPO,{
-      headers:{'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json'}
-    });
-    var canWrite = false;
-    if(r2.ok){ var repo=await r2.json(); canWrite=repo.permissions&&repo.permissions.push; }
-
-    // Save to localStorage
-    var remember = document.getElementById('rememberMe').checked;
-    if(remember){
-      localStorage.setItem('gh_token_fsl', token);
-      localStorage.setItem('gh_user_fsl', JSON.stringify({
-        login: user.login, name: user.name, avatar_url: user.avatar_url,
-        can_write: canWrite, login_time: new Date().toISOString()
-      }));
-    } else {
-      sessionStorage.setItem('gh_token_fsl', token);
-      sessionStorage.setItem('gh_user_fsl', JSON.stringify({
-        login: user.login, name: user.name, avatar_url: user.avatar_url, can_write: canWrite
-      }));
-      // Also set in localStorage temporarily for the redirect
-      localStorage.setItem('gh_token_fsl', token);
-      localStorage.setItem('gh_user_fsl', JSON.stringify({
-        login: user.login, name: user.name, avatar_url: user.avatar_url, can_write: canWrite
-      }));
-    }
-
-    // Show success then redirect
-    var pat = document.getElementById('patSection');
-    pat.innerHTML = '<div class="alert alert-success show" style="display:flex">'+
-      '<img src="'+user.avatar_url+'" style="width:32px;height:32px;border-radius:50%;margin-right:4px">'+
-      '<span>登录成功！欢迎 <strong>'+esc(user.name||user.login)+'</strong>，正在跳转...</span>'+
-    '</div>';
-    setTimeout(function(){ goToBoard(); }, 1200);
-
-  }catch(e){
-    showError('patError','网络错误，请检查网络连接后重试');
-    setLoading(false);
-  }
+function showForgotHint(){
+  showAlert('emailLoginError', '请联系项目管理员重置密码。', 'warn');
 }
 
 function goToBoard(){ window.location.href = '/fsl-report/kanban/'; }
 
 function doLogout(){
-  localStorage.removeItem('gh_token_fsl');
-  localStorage.removeItem('gh_user_fsl');
-  sessionStorage.removeItem('gh_token_fsl');
-  sessionStorage.removeItem('gh_user_fsl');
+  clearSession();
   location.reload();
 }
 
-// ── Device Flow (requires OAuth App client_id) ────────────────────
+function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// ── 邮箱登录 ─────────────────────────────────────────────────────
+async function doEmailLogin(){
+  var email    = document.getElementById('loginEmail').value.trim();
+  var password = document.getElementById('loginPassword').value;
+  if(!email || !password){ showAlert('emailLoginError','请填写邮箱和密码','error'); return; }
+
+  setLoading('emailLoginBtn','emailLoginSpin','emailLoginTxt', true);
+  try{
+    var r = await fetch(PROXY+'/auth-login', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({email, password}),
+    });
+    var data = await r.json();
+    if(!r.ok || !data.ok){
+      showAlert('emailLoginError', data.error||'登录失败', 'error');
+      setLoading('emailLoginBtn','emailLoginSpin','emailLoginTxt', false);
+      return;
+    }
+    // 解析JWT payload（只做展示用，验证在服务端）
+    var payload = JSON.parse(atob(data.token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
+    var remember = document.getElementById('emailRemember').checked;
+    saveSession({
+      login_type: 'email',
+      token: data.token,
+      email: data.user.email,
+      name: data.user.name,
+      role: data.user.role,
+      is_admin: data.user.is_admin,
+      exp: payload.exp,
+    }, remember);
+    showAlert('emailLoginError','登录成功，正在跳转...','success');
+    setTimeout(goToBoard, 900);
+  }catch(e){
+    showAlert('emailLoginError','网络错误，请稍后重试','error');
+    setLoading('emailLoginBtn','emailLoginSpin','emailLoginTxt', false);
+  }
+}
+
+// ── 邮箱注册 ─────────────────────────────────────────────────────
+async function doEmailRegister(){
+  var name      = document.getElementById('regName').value.trim();
+  var role      = document.getElementById('regRole').value.trim();
+  var email     = document.getElementById('regEmail').value.trim();
+  var password  = document.getElementById('regPassword').value;
+  var password2 = document.getElementById('regPassword2').value;
+
+  if(!name || !email || !password){ showAlert('emailRegError','请填写姓名、邮箱和密码','error'); return; }
+  if(password !== password2){ showAlert('emailRegError','两次密码不一致','error'); return; }
+  if(password.length < 8){ showAlert('emailRegError','密码至少 8 位','error'); return; }
+
+  setLoading('emailRegBtn','emailRegSpin','emailRegTxt', true);
+  try{
+    var r = await fetch(PROXY+'/auth-register', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({email, password, name, role: role||'member'}),
+    });
+    var data = await r.json();
+    if(!r.ok || !data.ok){
+      showAlert('emailRegError', data.error||'注册失败', 'error');
+      setLoading('emailRegBtn','emailRegSpin','emailRegTxt', false);
+      return;
+    }
+    setLoading('emailRegBtn','emailRegSpin','emailRegTxt', false);
+    if(data.status === 'active'){
+      showAlert('emailRegOk','✅ '+data.message+'  即将跳转到登录...','success');
+      setTimeout(function(){ switchSub('login'); document.getElementById('loginEmail').value = email; }, 1800);
+    } else {
+      showAlert('emailRegOk','⏳ '+data.message,'success');
+    }
+  }catch(e){
+    showAlert('emailRegError','网络错误，请稍后重试','error');
+    setLoading('emailRegBtn','emailRegSpin','emailRegTxt', false);
+  }
+}
+
+// ── GitHub PAT 登录 ───────────────────────────────────────────────
+async function doPatLogin(){
+  var token    = document.getElementById('tokenInput').value.trim();
+  if(!token){ showAlert('patError','请输入 Personal Access Token','error'); return; }
+
+  setLoading('loginBtn','loginSpinner','loginBtnText', true);
+  try{
+    var r = await fetch('https://api.github.com/user', {
+      headers:{'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json'}
+    });
+    if(!r.ok){
+      showAlert('patError', r.status===401 ? 'Token 无效或已过期' : 'GitHub API 错误 ('+r.status+')','error');
+      setLoading('loginBtn','loginSpinner','loginBtnText', false); return;
+    }
+    var user = await r.json();
+    var r2 = await fetch('https://api.github.com/repos/'+REPO,{
+      headers:{'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json'}
+    });
+    var canWrite = false;
+    if(r2.ok){ var repo=await r2.json(); canWrite=!!(repo.permissions&&repo.permissions.push); }
+
+    var remember = document.getElementById('rememberMe').checked;
+    saveSession({
+      login_type: 'github',
+      gh_token: token,
+      login: user.login,
+      name: user.name,
+      email: user.email,
+      avatar_url: user.avatar_url,
+      can_write: canWrite,
+    }, remember);
+
+    showAlert('patError','登录成功，正在跳转...','success');
+    setTimeout(goToBoard, 900);
+  }catch(e){
+    showAlert('patError','网络错误，请检查连接后重试','error');
+    setLoading('loginBtn','loginSpinner','loginBtnText', false);
+  }
+}
+
+// ── GitHub Device Flow ────────────────────────────────────────────
 var devicePollTimer = null;
 
 async function startDeviceFlow(){
   if(!DEVICE_CLIENT_ID){
-    showError('deviceError','设备授权模式需要配置 GitHub OAuth App Client ID。请使用 Token 登录，或联系管理员配置 OAuth App。');
-    return;
+    showAlert('deviceError','设备授权需要配置 GitHub OAuth App Client ID，请使用 Token 登录或联系管理员。','error'); return;
   }
   document.getElementById('deviceStartBtn').style.display='none';
   document.getElementById('deviceCodeArea').style.display='block';
-
   try{
     var r = await fetch('https://github.com/login/device/code',{
-      method:'POST',
-      headers:{'Accept':'application/json','Content-Type':'application/json'},
-      body: JSON.stringify({client_id: DEVICE_CLIENT_ID, scope:'repo'})
+      method:'POST', headers:{'Accept':'application/json','Content-Type':'application/json'},
+      body: JSON.stringify({client_id:DEVICE_CLIENT_ID, scope:'repo'})
     });
     var data = await r.json();
     document.getElementById('deviceCode').textContent = data.user_code;
     window.open('https://github.com/login/device','_blank');
     pollDeviceToken(data.device_code, data.interval||5);
-  }catch(e){
-    showError('deviceError','获取设备码失败：'+e.message);
-    cancelDeviceFlow();
-  }
+  }catch(e){ showAlert('deviceError','获取设备码失败：'+e.message,'error'); cancelDeviceFlow(); }
 }
 
 function pollDeviceToken(deviceCode, interval){
@@ -400,23 +554,20 @@ function pollDeviceToken(deviceCode, interval){
   devicePollTimer = setInterval(async function(){
     count++;
     document.getElementById('deviceStatus').textContent='等待授权中... ('+count+'s)';
-    if(count > 300){ cancelDeviceFlow(); showError('deviceError','授权超时，请重新尝试'); return; }
+    if(count>300){ cancelDeviceFlow(); showAlert('deviceError','授权超时，请重新尝试','error'); return; }
     try{
       var r = await fetch('https://github.com/login/oauth/access_token',{
-        method:'POST',
-        headers:{'Accept':'application/json','Content-Type':'application/json'},
+        method:'POST', headers:{'Accept':'application/json','Content-Type':'application/json'},
         body: JSON.stringify({client_id:DEVICE_CLIENT_ID, device_code:deviceCode, grant_type:'urn:ietf:params:oauth:grant-type:device_code'})
       });
       var data = await r.json();
       if(data.access_token){
         clearInterval(devicePollTimer);
-        localStorage.setItem('gh_token_fsl', data.access_token);
-        document.getElementById('deviceStatus').textContent='✅ 授权成功，正在跳转...';
-        // fetch user info
         var ur = await fetch('https://api.github.com/user',{headers:{'Authorization':'Bearer '+data.access_token}});
         var user = await ur.json();
-        localStorage.setItem('gh_user_fsl', JSON.stringify({login:user.login,name:user.name,avatar_url:user.avatar_url,login_time:new Date().toISOString()}));
-        setTimeout(goToBoard, 1000);
+        saveSession({ login_type:'github', gh_token:data.access_token, login:user.login, name:user.name, avatar_url:user.avatar_url }, true);
+        document.getElementById('deviceStatus').textContent='✅ 授权成功，正在跳转...';
+        setTimeout(goToBoard, 800);
       }
     }catch(e){}
   }, interval*1000);
@@ -428,12 +579,18 @@ function cancelDeviceFlow(){
   document.getElementById('deviceCodeArea').style.display='none';
 }
 
-// ── Enter to submit ───────────────────────────────────────────────
+// Enter 提交
 document.addEventListener('keydown',function(e){
-  if(e.key==='Enter') doPatLogin();
+  if(e.key!=='Enter') return;
+  var emailVisible = document.getElementById('emailSection').style.display !== 'none';
+  if(emailVisible){
+    var isLogin = document.getElementById('emailLoginForm').style.display !== 'none';
+    if(isLogin) doEmailLogin(); else doEmailRegister();
+  } else {
+    var isDevice = document.getElementById('deviceSection').style.display !== 'none';
+    if(!isDevice) doPatLogin();
+  }
 });
-
-function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 </script>
 </body>
 </html>

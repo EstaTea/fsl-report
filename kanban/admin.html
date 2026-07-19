@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>用户管理 | 佛照项目管理系统</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0B2D47;--dark:#1B3A6B;--primary:#005EB8;--mid:#1F70C1;
+  --light:#A8C4E0;--pale:#D0E4F7;--bg:#EBF4FF;--white:#fff;
+  --text:#0D1B2A;--text2:#2C3E50;--r:8px;
+}
+body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+/* TOP NAV */
+.topnav{background:linear-gradient(135deg,var(--navy),var(--dark));color:#fff;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:52px;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.nav-brand{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700}
+.nav-brand span{font-size:11px;color:rgba(255,255,255,.5);font-weight:400}
+.nav-right{display:flex;align-items:center;gap:10px}
+.btn{padding:5px 13px;border-radius:6px;font-size:11.5px;cursor:pointer;border:none;font-family:inherit;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+.btn-ghost{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2)}
+.btn-ghost:hover{background:rgba(255,255,255,.2)}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{background:var(--dark)}
+.btn-danger{background:rgba(180,40,40,.7);color:#fff}
+.btn-danger:hover{background:rgba(180,40,40,1)}
+.btn-success{background:rgba(30,130,60,.8);color:#fff}
+.btn-success:hover{background:rgba(30,130,60,1)}
+.btn-sm{padding:4px 10px;font-size:11px}
+
+/* LAYOUT */
+.container{max-width:1100px;margin:0 auto;padding:24px 20px}
+
+/* TABS */
+.page-tabs{display:flex;gap:0;background:#fff;border-radius:var(--r);padding:4px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:20px;width:fit-content}
+.page-tab{padding:7px 18px;border:none;background:transparent;color:var(--text2);font-size:12.5px;cursor:pointer;border-radius:6px;font-family:inherit;font-weight:600;transition:all .15s}
+.page-tab.active{background:var(--primary);color:#fff;box-shadow:0 2px 6px rgba(0,94,184,.3)}
+
+/* SECTIONS */
+.section{display:none}
+.section.active{display:block}
+
+/* STATS ROW */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.stat-card{background:#fff;border-radius:var(--r);padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.06);border-left:3px solid var(--primary)}
+.stat-label{font-size:11px;color:#888;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
+.stat-value{font-size:28px;font-weight:800;color:var(--navy);line-height:1.2;margin-top:4px}
+.stat-sub{font-size:10.5px;color:#aaa;margin-top:2px}
+
+/* FILTER BAR */
+.filter-bar{display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+.filter-bar input{padding:7px 12px;border:1.5px solid var(--pale);border-radius:6px;font-size:12.5px;outline:none;font-family:inherit;flex:1;min-width:160px}
+.filter-bar input:focus{border-color:var(--primary)}
+.filter-select{padding:7px 10px;border:1.5px solid var(--pale);border-radius:6px;font-size:12px;outline:none;font-family:inherit;background:#fff;cursor:pointer}
+
+/* TABLE */
+.table-wrap{background:#fff;border-radius:var(--r);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow:hidden}
+table{width:100%;border-collapse:collapse}
+th{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:#888;background:#F7FAFF;border-bottom:2px solid var(--pale);text-align:left}
+td{padding:11px 14px;font-size:12.5px;border-bottom:1px solid #f0f4f8;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#F7FAFF}
+.empty-row td{text-align:center;color:#bbb;padding:32px;font-size:13px}
+
+.badge{display:inline-flex;align-items:center;padding:2px 9px;border-radius:12px;font-size:10.5px;font-weight:700;letter-spacing:.2px}
+.badge-active{background:#E0F7E8;color:#1B7C3A}
+.badge-pending{background:#FFF3CD;color:#8A6000}
+.badge-rejected{background:#FFE5E5;color:#A02020}
+.badge-disabled{background:#EEEEEE;color:#888}
+
+.user-cell{display:flex;align-items:center;gap:10px}
+.avatar-circle{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--primary));color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.user-name{font-weight:600;font-size:12.5px}
+.user-email{font-size:11px;color:#888;margin-top:1px}
+
+.actions{display:flex;gap:6px;flex-wrap:wrap}
+
+/* CONFIG FORM */
+.config-card{background:#fff;border-radius:var(--r);box-shadow:0 2px 8px rgba(0,0,0,.06);padding:24px;margin-bottom:20px}
+.config-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--pale)}
+.config-row{display:flex;align-items:flex-start;justify-content:space-between;padding:14px 0;border-bottom:1px solid #f0f4f8;gap:20px}
+.config-row:last-child{border-bottom:none;padding-bottom:0}
+.config-info{flex:1}
+.config-label{font-size:13px;font-weight:600;color:var(--text)}
+.config-desc{font-size:11.5px;color:#888;margin-top:3px;line-height:1.5}
+.toggle-wrap{flex-shrink:0;display:flex;align-items:center}
+.toggle{position:relative;width:44px;height:24px;cursor:pointer}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-slider{position:absolute;inset:0;background:#ccc;border-radius:24px;transition:.2s}
+.toggle-slider::before{content:"";position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}
+.toggle input:checked+.toggle-slider{background:var(--primary)}
+.toggle input:checked+.toggle-slider::before{transform:translateX(20px)}
+.tag-input-wrap{display:flex;flex-wrap:wrap;gap:6px;padding:8px;border:1.5px solid var(--pale);border-radius:6px;min-height:40px;cursor:text;align-items:center}
+.tag-input-wrap:focus-within{border-color:var(--primary)}
+.tag{background:var(--pale);color:var(--navy);padding:3px 8px 3px 10px;border-radius:12px;font-size:11.5px;display:inline-flex;align-items:center;gap:5px}
+.tag button{background:none;border:none;cursor:pointer;color:#888;font-size:13px;padding:0;line-height:1;display:flex}
+.tag-input{border:none;outline:none;font-family:inherit;font-size:12.5px;flex:1;min-width:120px;background:transparent}
+.config-save-btn{margin-top:18px}
+
+/* ALERT */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:12px 18px;border-radius:8px;font-size:12.5px;box-shadow:0 6px 20px rgba(0,0,0,.25);display:none;z-index:999;max-width:320px;line-height:1.5}
+.toast.show{display:block;animation:slideIn .25s ease}
+@keyframes slideIn{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.toast.success{background:#1B7C3A}
+.toast.error{background:#A02020}
+
+.loading-mask{position:fixed;inset:0;background:rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;z-index:100;display:none}
+.spinner{width:36px;height:36px;border:3px solid var(--pale);border-top-color:var(--primary);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(max-width:768px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .container{padding:14px}
+  .topnav{padding:0 14px}
+  th:nth-child(4),td:nth-child(4){display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <div class="nav-brand">
+    📋 佛照项目管理 <span>/ 用户管理后台</span>
+  </div>
+  <div class="nav-right">
+    <span id="adminName" style="font-size:11.5px;color:rgba(255,255,255,.6)"></span>
+    <a href="/fsl-report/kanban/" class="btn btn-ghost btn-sm">返回看板</a>
+    <button class="btn btn-ghost btn-sm" onclick="doLogout()">退出登录</button>
+  </div>
+</div>
+
+<div class="container">
+  <div class="page-tabs">
+    <button class="page-tab active" onclick="switchTab('users')">👥 用户列表</button>
+    <button class="page-tab" onclick="switchTab('config')">⚙️ 认证配置</button>
+  </div>
+
+  <!-- ── 用户列表 ── -->
+  <div class="section active" id="secUsers">
+    <div class="stats" id="statsRow">
+      <div class="stat-card"><div class="stat-label">总用户</div><div class="stat-value" id="statTotal">-</div><div class="stat-sub">已注册</div></div>
+      <div class="stat-card" style="border-color:#1B7C3A"><div class="stat-label">已激活</div><div class="stat-value" id="statActive">-</div><div class="stat-sub">可登录</div></div>
+      <div class="stat-card" style="border-color:#8A6000"><div class="stat-label">待审批</div><div class="stat-value" id="statPending">-</div><div class="stat-sub">需处理</div></div>
+      <div class="stat-card" style="border-color:#A02020"><div class="stat-label">已拒绝/禁用</div><div class="stat-value" id="statOther">-</div><div class="stat-sub"></div></div>
+    </div>
+
+    <div class="filter-bar">
+      <input id="searchInput" placeholder="搜索姓名 / 邮箱..." oninput="renderTable()">
+      <select class="filter-select" id="statusFilter" onchange="renderTable()">
+        <option value="">全部状态</option>
+        <option value="active">已激活</option>
+        <option value="pending">待审批</option>
+        <option value="rejected">已拒绝</option>
+        <option value="disabled">已禁用</option>
+      </select>
+      <button class="btn btn-primary btn-sm" onclick="loadUsers()">🔄 刷新</button>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>用户</th>
+            <th>职务</th>
+            <th>状态</th>
+            <th>注册时间</th>
+            <th>最后登录</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="userTableBody">
+          <tr class="empty-row"><td colspan="6">加载中...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── 认证配置 ── -->
+  <div class="section" id="secConfig">
+    <div class="config-card">
+      <div class="config-title">注册审批设置</div>
+
+      <div class="config-row">
+        <div class="config-info">
+          <div class="config-label">自动审批新注册</div>
+          <div class="config-desc">开启后新用户注册即刻激活，无需管理员审批；关闭后需要手动在用户列表中审批。</div>
+        </div>
+        <div class="toggle-wrap">
+          <label class="toggle">
+            <input type="checkbox" id="cfgAutoApprove" checked>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="config-row">
+        <div class="config-info">
+          <div class="config-label">限制邮箱域名</div>
+          <div class="config-desc">留空则不限制。填写后只允许指定域名的邮箱注册（如 eviden.com、fsl.com.cn）。</div>
+          <div style="margin-top:10px">
+            <div class="tag-input-wrap" id="domainTagWrap" onclick="document.getElementById('domainInput').focus()">
+              <input class="tag-input" id="domainInput" placeholder="输入域名后按回车添加，如 eviden.com" onkeydown="addDomainTag(event)">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="config-row">
+        <div class="config-info">
+          <div class="config-label">管理员账号</div>
+          <div class="config-desc">具有管理员权限的邮箱列表，可访问本页面并执行审批操作。</div>
+          <div style="margin-top:10px">
+            <div class="tag-input-wrap" id="adminTagWrap" onclick="document.getElementById('adminInput').focus()">
+              <input class="tag-input" id="adminInput" placeholder="输入管理员邮箱后按回车" onkeydown="addAdminTag(event)">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary config-save-btn" onclick="saveConfig()">保存配置</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="loading-mask" id="loadingMask"><div class="spinner"></div></div>
+
+<script>
+var PROXY = 'https://fsl-report.vercel.app/api';
+var allUsers = [];
+var sessionToken = '';
+
+// ── 鉴权检查 ─────────────────────────────────────────────────────
+(function(){
+  try{
+    var s = localStorage.getItem('fsl_session') || sessionStorage.getItem('fsl_session');
+    if(!s) return redirect();
+    var data = JSON.parse(s);
+    if(data.exp && data.exp < Math.floor(Date.now()/1000)) return redirect();
+    if(data.login_type !== 'email' || !data.is_admin) {
+      showToast('仅管理员账号可访问此页面', 'error');
+      setTimeout(redirect, 2000); return;
+    }
+    sessionToken = data.token;
+    document.getElementById('adminName').textContent = data.name || data.email;
+  }catch(e){ redirect(); }
+})();
+
+function redirect(){ window.location.href = '/fsl-report/kanban/login.html'; }
+function doLogout(){
+  localStorage.removeItem('fsl_session'); sessionStorage.removeItem('fsl_session');
+  redirect();
+}
+
+// ── Tab 切换 ──────────────────────────────────────────────────────
+function switchTab(t){
+  document.querySelectorAll('.page-tab').forEach(function(b,i){
+    b.classList.toggle('active', (i===0&&t==='users')||(i===1&&t==='config'));
+  });
+  document.getElementById('secUsers').classList.toggle('active', t==='users');
+  document.getElementById('secConfig').classList.toggle('active', t==='config');
+  if(t==='config') loadConfig();
+}
+
+// ── Toast ─────────────────────────────────────────────────────────
+function showToast(msg, type){
+  var el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast show'+(type?' '+type:'');
+  clearTimeout(el._t);
+  el._t = setTimeout(function(){ el.classList.remove('show'); }, 3500);
+}
+
+function setLoading(v){ document.getElementById('loadingMask').style.display = v ? 'flex':'none'; }
+
+function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function fmtDate(iso){
+  if(!iso) return '-';
+  var d = new Date(iso);
+  return d.getFullYear()+'-'+(d.getMonth()+1+'').padStart(2,'0')+'-'+(d.getDate()+'').padStart(2,'0')
+    +' '+(d.getHours()+'').padStart(2,'0')+':'+(d.getMinutes()+'').padStart(2,'0');
+}
+
+// ── 用户列表 ──────────────────────────────────────────────────────
+async function loadUsers(){
+  setLoading(true);
+  try{
+    var r = await fetch(PROXY+'/auth-admin', {
+      headers:{'Authorization':'Bearer '+sessionToken}
+    });
+    if(r.status===403){ showToast('权限不足，请确认账号已被设为管理员', 'error'); setLoading(false); return; }
+    var data = await r.json();
+    if(!data.ok){ showToast(data.error||'加载失败', 'error'); setLoading(false); return; }
+    allUsers = data.users || [];
+    updateStats();
+    renderTable();
+  }catch(e){ showToast('网络错误：'+e.message, 'error'); }
+  setLoading(false);
+}
+
+function updateStats(){
+  var active  = allUsers.filter(function(u){ return u.status==='active'; }).length;
+  var pending = allUsers.filter(function(u){ return u.status==='pending'; }).length;
+  var other   = allUsers.filter(function(u){ return u.status==='rejected'||u.status==='disabled'; }).length;
+  document.getElementById('statTotal').textContent   = allUsers.length;
+  document.getElementById('statActive').textContent  = active;
+  document.getElementById('statPending').textContent = pending;
+  document.getElementById('statOther').textContent   = other;
+}
+
+function renderTable(){
+  var q      = (document.getElementById('searchInput').value||'').toLowerCase();
+  var status = document.getElementById('statusFilter').value;
+  var filtered = allUsers.filter(function(u){
+    var matchQ = !q || (u.name||'').toLowerCase().includes(q) || (u.email||'').toLowerCase().includes(q);
+    var matchS = !status || u.status === status;
+    return matchQ && matchS;
+  });
+
+  var badgeMap = {
+    active:   '<span class="badge badge-active">✓ 已激活</span>',
+    pending:  '<span class="badge badge-pending">⏳ 待审批</span>',
+    rejected: '<span class="badge badge-rejected">✗ 已拒绝</span>',
+    disabled: '<span class="badge badge-disabled">⊘ 已禁用</span>',
+  };
+
+  var rows = filtered.map(function(u){
+    var initials = (u.name||u.email||'?')[0].toUpperCase();
+    var actions = '';
+    if(u.status==='pending'){
+      actions += '<button class="btn btn-success btn-sm" onclick="doAction(\'approve\',\''+esc(u.id)+'\',\''+esc(u.email)+'\')">审批通过</button>';
+      actions += '<button class="btn btn-danger btn-sm" onclick="doAction(\'reject\',\''+esc(u.id)+'\',\''+esc(u.email)+'\')">拒绝</button>';
+    } else if(u.status==='active'){
+      actions += '<button class="btn btn-sm" style="background:#EEE;color:#555" onclick="doAction(\'disable\',\''+esc(u.id)+'\',\''+esc(u.email)+'\')">禁用</button>';
+    } else if(u.status==='disabled'||u.status==='rejected'){
+      actions += '<button class="btn btn-success btn-sm" onclick="doAction(\'enable\',\''+esc(u.id)+'\',\''+esc(u.email)+'\')">重新激活</button>';
+    }
+    return '<tr>'+
+      '<td><div class="user-cell"><div class="avatar-circle">'+esc(initials)+'</div><div><div class="user-name">'+esc(u.name||'—')+'</div><div class="user-email">'+esc(u.email)+'</div></div></div></td>'+
+      '<td>'+esc(u.role||'member')+'</td>'+
+      '<td>'+(badgeMap[u.status]||u.status)+'</td>'+
+      '<td>'+fmtDate(u.created_at)+'</td>'+
+      '<td>'+fmtDate(u.last_login)+'</td>'+
+      '<td><div class="actions">'+actions+'</div></td>'+
+    '</tr>';
+  });
+
+  document.getElementById('userTableBody').innerHTML = rows.length
+    ? rows.join('')
+    : '<tr class="empty-row"><td colspan="6">暂无匹配用户</td></tr>';
+}
+
+async function doAction(action, userId, email){
+  var labels = {approve:'审批通过',reject:'拒绝',disable:'禁用',enable:'重新激活'};
+  if(!confirm('确认对 '+email+' 执行操作：'+labels[action]+'？')) return;
+  setLoading(true);
+  try{
+    var r = await fetch(PROXY+'/auth-admin?action='+action, {
+      method:'POST',
+      headers:{'Authorization':'Bearer '+sessionToken,'Content-Type':'application/json'},
+      body: JSON.stringify({user_id: userId}),
+    });
+    var data = await r.json();
+    if(data.ok){
+      showToast('操作成功：'+email+' → '+labels[action], 'success');
+      await loadUsers();
+    } else {
+      showToast(data.error||'操作失败', 'error');
+    }
+  }catch(e){ showToast('网络错误：'+e.message, 'error'); }
+  setLoading(false);
+}
+
+// ── 配置管理 ──────────────────────────────────────────────────────
+var domainTags = [];
+var adminTags  = [];
+
+function renderTags(tags, wrapId, removeFunc){
+  var wrap = document.getElementById(wrapId);
+  var input = wrap.querySelector('.tag-input');
+  wrap.querySelectorAll('.tag').forEach(function(t){ t.remove(); });
+  tags.forEach(function(tag, i){
+    var el = document.createElement('span');
+    el.className = 'tag';
+    el.innerHTML = esc(tag)+'<button onclick="'+removeFunc+'('+i+')" title="删除">×</button>';
+    wrap.insertBefore(el, input);
+  });
+}
+
+function addDomainTag(e){
+  if(e.key !== 'Enter') return;
+  var v = document.getElementById('domainInput').value.trim().toLowerCase();
+  if(v && !domainTags.includes(v)){
+    domainTags.push(v);
+    renderTags(domainTags, 'domainTagWrap', 'removeDomain');
+  }
+  document.getElementById('domainInput').value = '';
+  e.preventDefault();
+}
+function removeDomain(i){ domainTags.splice(i,1); renderTags(domainTags,'domainTagWrap','removeDomain'); }
+
+function addAdminTag(e){
+  if(e.key !== 'Enter') return;
+  var v = document.getElementById('adminInput').value.trim().toLowerCase();
+  if(v && !adminTags.includes(v)){
+    adminTags.push(v);
+    renderTags(adminTags, 'adminTagWrap', 'removeAdmin');
+  }
+  document.getElementById('adminInput').value = '';
+  e.preventDefault();
+}
+function removeAdmin(i){ adminTags.splice(i,1); renderTags(adminTags,'adminTagWrap','removeAdmin'); }
+
+async function loadConfig(){
+  setLoading(true);
+  try{
+    var r = await fetch(PROXY+'/auth-admin?action=config', {
+      headers:{'Authorization':'Bearer '+sessionToken}
+    });
+    var data = await r.json();
+    if(!data.ok){ showToast(data.error||'加载配置失败', 'error'); setLoading(false); return; }
+    var c = data.config || {};
+    document.getElementById('cfgAutoApprove').checked = c.auto_approve !== false;
+    domainTags = c.allowed_email_domains || [];
+    adminTags  = c.admin_users || [];
+    renderTags(domainTags, 'domainTagWrap', 'removeDomain');
+    renderTags(adminTags,  'adminTagWrap',  'removeAdmin');
+  }catch(e){ showToast('网络错误：'+e.message, 'error'); }
+  setLoading(false);
+}
+
+async function saveConfig(){
+  setLoading(true);
+  try{
+    var r = await fetch(PROXY+'/auth-admin?action=update-config', {
+      method:'POST',
+      headers:{'Authorization':'Bearer '+sessionToken,'Content-Type':'application/json'},
+      body: JSON.stringify({
+        auto_approve: document.getElementById('cfgAutoApprove').checked,
+        allowed_email_domains: domainTags,
+        admin_users: adminTags,
+      }),
+    });
+    var data = await r.json();
+    showToast(data.ok ? '配置已保存' : (data.error||'保存失败'), data.ok ? 'success' : 'error');
+  }catch(e){ showToast('网络错误：'+e.message, 'error'); }
+  setLoading(false);
+}
+
+// ── 初始化 ────────────────────────────────────────────────────────
+loadUsers();
+</script>
+</body>
+</html>
