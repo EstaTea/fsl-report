@@ -99,6 +99,7 @@
     <div id="userBadge" style="display:none;align-items:center;gap:8px;padding:0 4px">
       <img id="userAvatar" src="" alt="" style="width:28px;height:28px;border-radius:50%;border:2px solid rgba(255,255,255,.2)">
       <span id="userName" style="font-size:12px;color:rgba(255,255,255,.75);max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
+      <a id="adminNavLink" href="/fsl-report/kanban/admin.html" style="display:none;font-size:11px;padding:3px 8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:5px;color:#fff;align-items:center;gap:4px;">⚙️ 管理</a>
       <button onclick="doLogout()" class="btn btn-ghost" style="font-size:11px;padding:3px 8px">退出</button>
     </div>
     <button onclick="goLogin()" class="btn btn-ghost" id="loginNavBtn" style="display:none;font-size:11.5px">🔑 登录</button>
@@ -177,6 +178,10 @@
         }
         if (nameEl) nameEl.textContent = session.name || session.email || session.login || '用户';
         badge.style.display = 'flex';
+        // 管理员入口：邮箱登录的 is_admin，或 GitHub 仓库 owner
+        var isAdmin = session.is_admin || session.login === 'EstaTea';
+        var adminLink = document.getElementById('adminNavLink');
+        if (adminLink) adminLink.style.display = isAdmin ? 'flex' : 'none';
       }
       if (loginBtn) loginBtn.style.display = 'none';
     } else {

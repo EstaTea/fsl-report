@@ -56,11 +56,31 @@ export default async function handler(req, res) {
   const authSecret = process.env.AUTH_SECRET;
   if (!ghToken || !authSecret) return res.status(500).json({ error: 'Server misconfigured' });
 
-  // 验证管理员身份
+  // 验证管理员身份：支持 JWT（邮箱登录）和 GitHub token（仓库 owner）
   const authHeader = req.headers['authorization'] || '';
-  const sessionToken = authHeader.replace('Bearer ', '').trim();
-  const claims = verifyToken(sessionToken, authSecret);
-  if (!claims?.is_admin) {
+  const rawToken = authHeader.replace('Bearer ', '').trim();
+
+  let isAdmin = false;
+
+  if (rawToken.startsWith('gh:')) {
+    // GitHub token 验证：检查是否为仓库 owner
+    const ghPat = rawToken.slice(3);
+    try {
+      const r = await fetch(`${GH_API}/repos/${AUTH_REPO}`, {
+        headers: { ...ghHeaders(ghPat), 'Authorization': `Bearer ${ghPat}` },
+      });
+      if (r.ok) {
+        const repo = await r.json();
+        isAdmin = repo.permissions?.admin === true;
+      }
+    } catch {}
+  } else {
+    // JWT 验证
+    const claims = verifyToken(rawToken, authSecret);
+    isAdmin = !!claims?.is_admin;
+  }
+
+  if (!isAdmin) {
     return res.status(403).json({ error: '无权限：需要管理员身份' });
   }
 

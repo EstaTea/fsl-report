@@ -238,11 +238,13 @@ var sessionToken = '';
     if(!s) return redirect();
     var data = JSON.parse(s);
     if(data.exp && data.exp < Math.floor(Date.now()/1000)) return redirect();
-    if(data.login_type !== 'email' || !data.is_admin) {
+    var isAdmin = data.is_admin || data.login === 'EstaTea';
+    if(!isAdmin) {
       showToast('仅管理员账号可访问此页面', 'error');
       setTimeout(redirect, 2000); return;
     }
-    sessionToken = data.token;
+    // GitHub owner 用特殊标记，邮箱管理员用 JWT token
+    sessionToken = data.token || ('gh:' + (data.gh_token || ''));
     document.getElementById('adminName').textContent = data.name || data.email;
   }catch(e){ redirect(); }
 })();
