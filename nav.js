@@ -104,7 +104,23 @@
     </div>
     <button onclick="goLogin()" class="btn btn-ghost" id="loginNavBtn" style="display:none;font-size:11.5px">🔑 登录</button>
   </div>
-    <a href="/fsl-report/togaf/" style="padding:0 14px;color:rgba(255,255,255,.75);font-size:12.5px;height:54px;display:flex;align-items:center;white-space:nowrap;font-weight:600;">TOGAF</a>
+    <div class="nav-dropdown">
+      <a href="/fsl-report/togaf/" style="padding:0 14px;color:rgba(255,255,255,.75);font-size:12.5px;height:54px;display:flex;align-items:center;white-space:nowrap;font-weight:600;">TOGAF &amp; EA <span class="nav-arrow">▾</span></a>
+      <div class="nav-dropdown-panel">
+        <div class="nav-dd-row">
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">架构工作台</div>
+            <a href="/fsl-report/togaf/">📐 TOGAF ADM 工作台</a>
+            <a href="/fsl-report/req_tracing.html">🗺️ 需求追踪工作台</a>
+          </div>
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">EA 输出</div>
+            <a href="/fsl-report/consulting/blueprint/ea-report.html">企业架构设计报告</a>
+            <a href="/fsl-report/consulting/roadmap/roadmap-report.html">数字化转型路径规划</a>
+          </div>
+        </div>
+      </div>
+    </div>
 </nav>`;
 
   // ── active 状态：根据当前路径高亮对应菜单项 ────────────────────────────────
@@ -119,6 +135,7 @@
 
   // 精确匹配规则（从长到短，防止 / 误匹配所有页面）
   const rules = [
+    ['/fsl-report/req_tracing', 'a[href="/fsl-report/togaf/"]'],
     ['/fsl-report/togaf/',      'a[href="/fsl-report/togaf/"]'],
     ['/fsl-report/kanban/',     'a[href="/fsl-report/kanban/"]'],
     ['/fsl-report/weekly/',     'a[href="/fsl-report/weekly/"]'],

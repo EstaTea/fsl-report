@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>需求追踪工作台 — 佛照 S/4HANA</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f0f4f8;--card:#fff;--border:#e2e8f0;--txt:#1e293b;--muted:#64748b;
+  --navy:#0f172a;--blue:#1d4ed8;--font:'Segoe UI',system-ui,sans-serif;
+  --L1:#0f766e;--L2:#b45309;--L3:#1d4ed8;--L4:#7c3aed;--L5:#be185d;
+}
+body{font-family:var(--font);background:var(--bg);color:var(--txt);min-height:100vh;display:flex;flex-direction:column}
+/* sub-header strip */
+#subhdr{background:#0f172a;color:#f8fafc;padding:6px 24px;display:flex;align-items:center;gap:12px;flex-shrink:0;border-bottom:1px solid #1e293b}
+#subhdr-title{font-size:13px;font-weight:700}#subhdr-title span{color:#60a5fa}
+#subhdr-tag{font-size:10px;color:#94a3b8;padding:2px 7px;border:1px solid #334155;border-radius:3px}
+#subhdr-proj{flex:1;font-size:11px;color:#94a3b8}
+/* nav tabs */
+#nav{background:#1e293b;display:flex;padding:0 16px;gap:2px;flex-shrink:0}
+.nav-tab{padding:10px 16px;font-size:12px;font-weight:500;color:#94a3b8;cursor:pointer;border-bottom:2px solid transparent;transition:all .12s;white-space:nowrap}
+.nav-tab:hover{color:#e2e8f0}.nav-tab.on{color:#60a5fa;border-bottom-color:#60a5fa;font-weight:700}
+/* layout */
+#body{flex:1;padding:16px;overflow-y:auto}
+/* summary strip */
+#summary{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px}
+.sum-card{background:var(--card);border-radius:8px;padding:12px 14px;border-left:3px solid var(--c);display:flex;align-items:center;gap:10px}
+.sum-icon{font-size:20px}.sum-info .v{font-size:20px;font-weight:800;color:var(--c)}.sum-info .l{font-size:10px;color:var(--muted)}
+/* chain view */
+#chain-view{display:flex;gap:0;overflow-x:auto;padding-bottom:8px}
+.chain-col{min-width:200px;max-width:240px;flex-shrink:0}
+.chain-hdr{padding:8px 12px;font-size:11px;font-weight:700;color:#fff;border-radius:6px 6px 0 0;text-align:center;display:flex;align-items:center;justify-content:center;gap:6px}
+.chain-items{background:var(--card);border:1px solid var(--border);border-top:none;border-radius:0 0 6px 6px;min-height:400px}
+.chain-item{padding:8px 10px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s;display:flex;gap:6px;align-items:flex-start}
+.chain-item:last-child{border-bottom:none}
+.chain-item:hover{background:#f8fafc}
+.chain-item.active{background:#eff6ff;border-left:3px solid var(--blue)}
+.chain-item.dimmed{opacity:.3}
+.ci-badge{font-size:9px;font-weight:700;padding:2px 5px;border-radius:3px;white-space:nowrap;flex-shrink:0;margin-top:1px}
+.ci-name{font-size:11px;line-height:1.3;flex:1}
+.ci-sub{font-size:10px;color:var(--muted);margin-top:2px}
+.chain-arrow{display:flex;align-items:center;padding:0 6px;color:#94a3b8;font-size:18px;flex-shrink:0;align-self:center}
+/* detail panel */
+#detail{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;margin-top:14px;min-height:120px}
+#detail h3{font-size:13px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+#detail .d-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+#detail .d-item{background:#f8fafc;border-radius:6px;padding:10px 12px;border-left:3px solid var(--border)}
+#detail .d-item .label{font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;margin-bottom:4px}
+#detail .d-item .value{font-size:12px;line-height:1.5}
+/* forward/backward view */
+.trace-view{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px}
+.trace-hdr{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.trace-hdr h3{font-size:13px;font-weight:700}
+.trace-path{display:flex;align-items:center;gap:4px;padding:12px;background:#f8fafc;border-radius:6px;border:1px solid var(--border);margin-bottom:10px;flex-wrap:wrap}
+.tp-node{padding:4px 10px;border-radius:4px;font-size:11px;font-weight:600;color:#fff;cursor:pointer;transition:opacity .1s}
+.tp-node:hover{opacity:.85}
+.tp-arrow{font-size:14px;color:#94a3b8}
+.trace-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.trace-tag{padding:4px 10px;border-radius:4px;font-size:11px;cursor:pointer;border:1px solid transparent;transition:all .1s}
+.trace-tag:hover{border-color:#94a3b8}
+/* scenario manager */
+.sc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.sc-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;cursor:pointer;transition:all .12s}
+.sc-card:hover{border-color:#94a3b8;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.sc-card.selected{border-color:#7c3aed;background:#faf5ff}
+.sc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
+.sc-id{font-size:10px;font-weight:700;color:var(--muted)}
+.sc-sel{width:16px;height:16px;border-radius:3px;border:2px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px}
+.sc-sel.on{background:#7c3aed;border-color:#7c3aed;color:#fff}
+.sc-name{font-size:12px;font-weight:600;line-height:1.3;margin-bottom:4px}
+.sc-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.sc-tag{font-size:10px;padding:2px 6px;border-radius:3px;background:#f1f5f9;color:var(--muted)}
+.sc-owner{font-size:10px;color:var(--muted)}
+.phase-badge{font-size:9px;padding:2px 6px;border-radius:3px;font-weight:700}
+.sev-高{background:#fee2e2;color:#b91c1c}
+.sev-中{background:#fef9c3;color:#92400e}
+.sel-count{background:#7c3aed;color:#fff;border-radius:10px;padding:1px 8px;font-size:11px;font-weight:700;margin-left:8px}
+/* util */
+.badge-p1{background:#7c3aed22;color:#7c3aed;font-size:10px;padding:2px 6px;border-radius:3px;font-weight:700}
+.badge-p2{background:#f1f5f9;color:#64748b;font-size:10px;padding:2px 6px;border-radius:3px;font-weight:700}
+.domain-badge{font-size:10px;padding:2px 6px;border-radius:3px;font-weight:600}
+.dom-业务架构{background:#fef3c7;color:#92400e}
+.dom-数据架构{background:#dcfce7;color:#166534}
+.dom-应用架构{background:#dbeafe;color:#1e40af}
+.dom-技术架构{background:#f3e8ff;color:#6b21a8}
+.empty-state{text-align:center;padding:40px;color:var(--muted);font-size:13px}
+.prio-高{background:#fee2e2;color:#b91c1c;padding:2px 6px;border-radius:3px;font-size:10px;font-weight:700}
+.prio-中{background:#fef9c3;color:#92400e;padding:2px 6px;border-radius:3px;font-size:10px;font-weight:700}
+.prio-低{background:#dcfce7;color:#166534;padding:2px 6px;border-radius:3px;font-size:10px;font-weight:700}
+.hint{font-size:11px;color:var(--muted);font-style:italic;margin-bottom:10px}
+/* search bar */
+.search-bar{display:flex;gap:8px;margin-bottom:12px;align-items:center}
+.search-bar input{flex:1;padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;outline:none}
+.search-bar input:focus{border-color:#60a5fa}
+.search-bar select{padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:11px;background:#fff;outline:none}
+</style>
+</head>
+<body>
+<div id="site-nav"></div>
+<script src="/fsl-report/nav.js"></script>
+<div id="subhdr">
+  <div id="subhdr-title">🗺️ <span>需求追踪工作台</span></div>
+  <div id="subhdr-tag">TOGAF EA</div>
+  <div id="subhdr-proj">佛山照明 SAP S/4HANA PCE 升级项目 | 需求 → 诊断 → 架构差距 → 高价值场景 → 工作包（双向追溯）</div>
+</div>
+<div id="nav">
+  <div class="nav-tab on" onclick="switchView('chain')">🗺️ 全景追溯链</div>
+  <div class="nav-tab" onclick="switchView('forward')">→ 正向推导</div>
+  <div class="nav-tab" onclick="switchView('backward')">← 反向追溯</div>
+  <div class="nav-tab" onclick="switchView('scenario')">🎯 场景管理</div>
+</div>
+<div id="body">
+  <div id="summary"></div>
+  <div id="content"></div>
+</div>
+<script>
+const RAW={"work_packages": [{"id": "WP1", "name": "主数据MDG", "color": "#7c3aed", "icon": "🗄️", "owner": "班家亮", "budget": "80万", "status": "进行中"}, {"id": "WP2", "name": "PCE基础搭建", "color": "#0369a1", "icon": "🏗️", "owner": "Eviden", "budget": "120万", "status": "进行中"}, {"id": "WP3", "name": "FICO+Group Reporting", "color": "#b45309", "icon": "💰", "owner": "郭裕", "budget": "180万", "status": "进行中"}, {"id": "WP4", "name": "SD+信用管理", "color": "#0f766e", "icon": "📦", "owner": "陈雪星", "budget": "100万", "status": "计划中"}, {"id": "WP5", "name": "MM+PP+MRP", "color": "#15803d", "icon": "🏭", "owner": "杨晓超", "budget": "150万", "status": "计划中"}, {"id": "WP6", "name": "QM+EWM", "color": "#9a3412", "icon": "🔍", "owner": "杨晓超", "budget": "80万", "status": "计划中"}, {"id": "WP7", "name": "CPI集成", "color": "#6d28d9", "icon": "🔗", "owner": "Eviden", "budget": "90万", "status": "计划中"}, {"id": "WP8", "name": "DRC合规", "color": "#be185d", "icon": "⚖️", "owner": "陈宇清", "budget": "60万", "status": "计划中"}, {"id": "WP9", "name": "泰国+德国本地化", "color": "#92400e", "icon": "🌏", "owner": "陈宇清", "budget": "50万", "status": "规划中"}, {"id": "WP10a", "name": "二期 SAC", "color": "#475569", "icon": "📊", "owner": "郭裕", "budget": "TBD", "status": "规划中"}, {"id": "WP10b", "name": "二期 SuccessFactors", "color": "#334155", "icon": "👥", "owner": "HR", "budget": "TBD", "status": "规划中"}], "scenarios": [{"id": "S01", "name": "物料主数据治理", "owner": "班家亮", "selected": true, "wp": ["WP1"], "domain": "数据架构", "priority": "P1", "desc": "统一物料编码规则，建立MDG主数据治理流程，解决编码不一致导致的跨系统对账困难"}, {"id": "S02", "name": "销售运作计划SOP+主生产计划MPS建设", "owner": "杨晓超", "selected": true, "wp": ["WP5"], "domain": "业务架构", "priority": "P1", "desc": "建立S&OP集成计划体系，连接销售预测与生产计划，解决产销协同断层问题"}, {"id": "S03", "name": "MRP物料需求计划建设", "owner": "杨晓超", "selected": true, "wp": ["WP5"], "domain": "业务架构", "priority": "P1", "desc": "在S/4HANA中启用MRP Live，实现物料需求的自动化计算与采购触发"}, {"id": "S04", "name": "制造成本还原方案", "owner": "郭裕", "selected": true, "wp": ["WP3"], "domain": "业务架构", "priority": "P1", "desc": "建立完整的产品成本核算体系，解决现有ECC成本核算不准确、还原困难的问题"}, {"id": "S05", "name": "海外财务体系合规建设", "owner": "陈宇清", "selected": true, "wp": ["WP3", "WP8"], "domain": "业务架构", "priority": "P1", "desc": "针对泰国/德国子公司的本地会计准则合规，包括税务申报与外汇管理"}, {"id": "S06", "name": "集团法定合并报表建设", "owner": "郭裕", "selected": true, "wp": ["WP3"], "domain": "业务架构", "priority": "P1", "desc": "通过Group Reporting实现19家法人主体的合并财务报表自动化生成"}, {"id": "S07", "name": "销售价格体系优化", "owner": "陈雪星", "selected": true, "wp": ["WP4"], "domain": "业务架构", "priority": "P1", "desc": "统一价格策略管理，解决多渠道/多主体价格维护分散、一致性差的问题"}, {"id": "S08", "name": "采购价格管理优化", "owner": "贾奋明", "selected": true, "wp": ["WP5"], "domain": "业务架构", "priority": "P1", "desc": "建立集中化采购价格协议，实现价格自动比对与偏差预警"}, {"id": "S09", "name": "生产进度看板建设", "owner": "杨晓超", "selected": false, "wp": ["WP5"], "domain": "应用架构", "priority": "P2", "desc": "可视化生产订单执行进度，提升车间透明度"}, {"id": "S10", "name": "研发投入产出分析体系建设", "owner": "郭裕", "selected": false, "wp": ["WP10a"], "domain": "应用架构", "priority": "P2", "desc": "建立R&D项目成本归集与产出分析看板"}, {"id": "S11", "name": "质量追溯优化", "owner": "杨晓超", "selected": false, "wp": ["WP6"], "domain": "业务架构", "priority": "P2", "desc": "端到端质量批次追溯，从原材料到成品，支持客诉溯源"}, {"id": "S12", "name": "关联交易处理方案", "owner": "陈雪星", "selected": false, "wp": ["WP3", "WP4"], "domain": "业务架构", "priority": "P2", "desc": "集团内部交易消除，支持合并报表的关联交易自动抵消"}, {"id": "S13", "name": "销售订单对账", "owner": "陈雪星", "selected": false, "wp": ["WP4"], "domain": "应用架构", "priority": "P2", "desc": "销售订单与财务凭证的自动匹配对账，减少月末手工核对工作量"}, {"id": "S14", "name": "SRM与SAP同步优化", "owner": "贾奋明", "selected": false, "wp": ["WP5", "WP7"], "domain": "应用架构", "priority": "P2", "desc": "优化现有SRM系统与S/4HANA的集成接口，提升数据同步实时性"}, {"id": "S15", "name": "客商主数据治理方案", "owner": "贾奋明", "selected": false, "wp": ["WP1"], "domain": "数据架构", "priority": "P2", "desc": "建立供应商/客户主数据标准，统一BP(Business Partner)管理"}], "arch_gaps": [{"id": "G01", "domain": "业务架构", "name": "产销协同机制缺失", "severity": "高", "togaf_phase": "B", "scenarios": ["S02", "S03", "S08"], "desc": "缺乏S&OP集成计划流程，销售预测与生产/采购计划割裂，导致库存积压与缺货并存"}, {"id": "G02", "domain": "业务架构", "name": "成本核算体系不完整", "severity": "高", "togaf_phase": "B", "scenarios": ["S04", "S05"], "desc": "ECC标准成本与实际成本差异大，海外主体成本核算规则与总部不一致"}, {"id": "G03", "domain": "业务架构", "name": "集团合并报表能力不足", "severity": "高", "togaf_phase": "B", "scenarios": ["S06", "S12"], "desc": "19个法人主体无自动化合并，关联交易消除依赖手工Excel，月结周期长达7+天"}, {"id": "G04", "domain": "业务架构", "name": "价格管理分散无统一策略", "severity": "中", "togaf_phase": "B", "scenarios": ["S07", "S08"], "desc": "多渠道销售价格与采购价格维护分散，历史定价数据难以追溯与审计"}, {"id": "G05", "domain": "数据架构", "name": "主数据标准缺失", "severity": "高", "togaf_phase": "C1", "scenarios": ["S01", "S15"], "desc": "物料编码规则混乱，无MDG治理流程，跨主体数据不一致，影响所有业务流程"}, {"id": "G06", "domain": "数据架构", "name": "数据质量无系统保障", "severity": "中", "togaf_phase": "C1", "scenarios": ["S01", "S11", "S15"], "desc": "缺乏数据标准和质量监控机制，脏数据在业务流程中累积"}, {"id": "G07", "domain": "应用架构", "name": "系统集成点多线乱", "severity": "高", "togaf_phase": "C2", "scenarios": ["S14"], "desc": "37个P2P接口，SRM/MES/WMS等外部系统与ECC集成无统一管控，变更风险高"}, {"id": "G08", "domain": "应用架构", "name": "报表与分析能力弱", "severity": "中", "togaf_phase": "C2", "scenarios": ["S09", "S10", "S13"], "desc": "缺乏实时管理报表，BI需求依赖导出Excel手工处理，洞察滞后"}, {"id": "G09", "domain": "技术架构", "name": "ECC版本老旧升级迫切", "severity": "高", "togaf_phase": "D", "scenarios": ["S02", "S03", "S04", "S05", "S06"], "desc": "ECC 6.0已到维护终止，S/4HANA PCE迁移是本项目核心驱动力"}, {"id": "G10", "domain": "技术架构", "name": "海外合规技术支撑不足", "severity": "高", "togaf_phase": "D", "scenarios": ["S05", "S08"], "desc": "泰国/德国本地化税务(DRC)与外汇管理在ECC中缺乏系统支撑"}], "pain_points": [{"id": "P01", "name": "财务月结周期过长（7+天）", "dept": "财务", "severity": "高", "gaps": ["G02", "G03"], "req_count": 28, "desc": "合并报表依赖手工，关联交易消除无自动化，月结需要7天以上"}, {"id": "P02", "name": "物料编码混乱跨系统对账困难", "dept": "物流/IT", "severity": "高", "gaps": ["G05", "G06"], "req_count": 35, "desc": "同一物料在不同主体编码不同，跨主体业务无法自动匹配"}, {"id": "P03", "name": "产销计划割裂库存异常", "dept": "供应链", "severity": "高", "gaps": ["G01"], "req_count": 42, "desc": "销售部门预测与生产/采购计划不联动，导致成品库存积压同时原材料缺货"}, {"id": "P04", "name": "成本核算不准无法还原", "dept": "财务/制造", "severity": "高", "gaps": ["G02"], "req_count": 31, "desc": "产品成本中标准成本与实际差异过大，管理层无法获得真实成本数据"}, {"id": "P05", "name": "海外主体合规风险高", "dept": "财务/法务", "severity": "高", "gaps": ["G09", "G10"], "req_count": 24, "desc": "泰国/德国子公司税务申报、外汇管理缺乏系统支撑，面临合规风险"}, {"id": "P06", "name": "37个点对点集成难以维护", "dept": "IT", "severity": "高", "gaps": ["G07"], "req_count": 18, "desc": "系统集成无统一平台，任何系统升级都需要同步修改多个接口，维护成本极高"}, {"id": "P07", "name": "报表分析依赖手工Excel", "dept": "全部", "severity": "中", "gaps": ["G08"], "req_count": 67, "desc": "几乎所有管理报表需要从SAP导出数据后手工处理，数据滞后且易错"}, {"id": "P08", "name": "价格维护分散审计困难", "dept": "销售/采购", "severity": "中", "gaps": ["G04"], "req_count": 22, "desc": "价格策略分散在多人多系统维护，历史变更无法追溯，审计风险高"}, {"id": "P09", "name": "质量追溯能力弱客诉响应慢", "dept": "质量", "severity": "中", "gaps": ["G08"], "req_count": 19, "desc": "产品质量问题无法快速定位批次来源，客户投诉响应周期长"}, {"id": "P10", "name": "ECC维护终止升级箭在弦上", "dept": "IT/管理层", "severity": "高", "gaps": ["G09"], "req_count": 15, "desc": "ECC 6.0维护终止，系统安全与功能扩展均受限，升级是战略必选项"}], "sample_reqs": [{"id": "A0012", "brief": "集团合并报表需支持19家法人主体自动汇总", "dept": "财务部", "priority": "高", "pain": ["P01", "P04"], "wp": "WP3"}, {"id": "A0015", "brief": "关联交易消除需要系统自动处理，不能依赖手工", "dept": "财务部", "priority": "高", "pain": ["P01"], "wp": "WP3"}, {"id": "A0023", "brief": "月结需在3天内完成，现有7天流程必须压缩", "dept": "财务部", "priority": "高", "pain": ["P01"], "wp": "WP3"}, {"id": "A0031", "brief": "物料编码需要全集团统一规则，消除重复物料", "dept": "物流部", "priority": "高", "pain": ["P02"], "wp": "WP1"}, {"id": "A0035", "brief": "供应商主数据需要集中维护，各主体不得自行创建", "dept": "采购部", "priority": "高", "pain": ["P02"], "wp": "WP1"}, {"id": "A0041", "brief": "主数据变更需要审批流，有完整的变更历史记录", "dept": "IT", "priority": "中", "pain": ["P02"], "wp": "WP1"}, {"id": "A0055", "brief": "销售预测需要能直接传递到MPS生产计划", "dept": "销售部", "priority": "高", "pain": ["P03"], "wp": "WP5"}, {"id": "A0061", "brief": "MRP运行需要自动触发采购申请，不能手动", "dept": "供应链", "priority": "高", "pain": ["P03"], "wp": "WP5"}, {"id": "A0068", "brief": "计划员能看到销售订单对生产计划的影响", "dept": "生产", "priority": "中", "pain": ["P03"], "wp": "WP5"}, {"id": "A0078", "brief": "产品实际成本需要能追溯到原材料级别", "dept": "财务部", "priority": "高", "pain": ["P04"], "wp": "WP3"}, {"id": "A0082", "brief": "成本差异分析报表需要按产品/产线/工厂维度", "dept": "财务部", "priority": "高", "pain": ["P04"], "wp": "WP3"}, {"id": "A0091", "brief": "泰国子公司需要支持泰铢外汇管理和当地税务申报", "dept": "泰国财务", "priority": "高", "pain": ["P05"], "wp": "WP8"}, {"id": "A0095", "brief": "德国GmbH需要满足HGB本地会计准则", "dept": "德国财务", "priority": "高", "pain": ["P05"], "wp": "WP8"}, {"id": "A0105", "brief": "SRM采购系统与SAP的集成必须实时同步", "dept": "IT", "priority": "高", "pain": ["P06"], "wp": "WP7"}, {"id": "A0112", "brief": "集成接口需要统一监控平台，异常自动告警", "dept": "IT", "priority": "高", "pain": ["P06"], "wp": "WP7"}, {"id": "A0125", "brief": "管理层需要实时销售看板，不能T+1", "dept": "管理层", "priority": "中", "pain": ["P07"], "wp": "WP10a"}, {"id": "A0131", "brief": "研发项目成本需要可以按项目维度归集分析", "dept": "研发部", "priority": "中", "pain": ["P07"], "wp": "WP10a"}, {"id": "A0142", "brief": "销售价格变更需要审批流和历史版本追溯", "dept": "销售部", "priority": "中", "pain": ["P08"], "wp": "WP4"}, {"id": "A0148", "brief": "批量采购协议价格需要在系统中自动比对", "dept": "采购部", "priority": "中", "pain": ["P08"], "wp": "WP5"}, {"id": "A0201", "brief": "ECC系统需要在2027年前完成S/4HANA迁移", "dept": "IT", "priority": "高", "pain": ["P10"], "wp": "WP2"}, {"id": "A0208", "brief": "迁移过程需要保留历史数据可查询，不能断档", "dept": "财务部", "priority": "高", "pain": ["P10"], "wp": "WP2"}]};
+const WP=RAW.work_packages, SC=RAW.scenarios, AG=RAW.arch_gaps, PP=RAW.pain_points, SR=RAW.sample_reqs;
+
+// state
+let view='chain', sel={layer:null, id:null};
+const DOMAIN_COLOR={'业务架构':'#b45309','数据架构':'#15803d','应用架构':'#1d4ed8','技术架构':'#7c3aed'};
+const LAYER_COLOR={'L1':'#0f766e','L2':'#b45309','L3':'#1d4ed8','L4':'#7c3aed','L5':'#be185d'};
+
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+function switchView(v){ view=v; sel={layer:null,id:null};
+  document.querySelectorAll('.nav-tab').forEach((t,i)=>{
+    t.classList.toggle('on', ['chain','forward','backward','scenario'][i]===v);
+  }); render(); }
+
+function selectItem(layer, id){
+  if(sel.layer===layer && sel.id===id){ sel={layer:null,id:null}; } else { sel={layer,id}; }
+  render();
+}
+
+// ── lookup helpers ─────────────────────────────────────────────────────────
+function reqsByPain(pid){ return SR.filter(r=>r.pain.includes(pid)); }
+function painsByGap(gid){ return PP.filter(p=>p.gaps.includes(gid)); }
+function gapsByScenario(sid){ return AG.filter(g=>g.scenarios.includes(sid)); }
+function wpsBySc(sid){ const s=SC.find(x=>x.id===sid); return s?(s.wp||[]).map(w=>WP.find(x=>x.id===w)).filter(Boolean):[]; }
+function scByWp(wpid){ return SC.filter(s=>(s.wp||[]).includes(wpid)); }
+function gapsByDomain(dom){ return AG.filter(g=>g.domain===dom); }
+
+// ── summary strip ──────────────────────────────────────────────────────────
+function renderSummary(){
+  const cards=[
+    {c:'#0f766e',icon:'📋',v:'555',l:'原始需求总条数'},
+    {c:'#b45309',icon:'🔍',v:'10',l:'业务痛点归纳'},
+    {c:'#1d4ed8',icon:'🏛️',v:'10',l:'架构差距识别'},
+    {c:'#7c3aed',icon:'🎯',v:'15 (8选定)',l:'高价值解决方案'},
+    {c:'#be185d',icon:'📦',v:'11',l:'实施工作包'},
+  ];
+  document.getElementById('summary').innerHTML=cards.map(c=>
+    `<div class="sum-card" style="--c:${c.c}">
+      <div class="sum-icon">${c.icon}</div>
+      <div class="sum-info"><div class="v">${esc(c.v)}</div><div class="l">${esc(c.l)}</div></div>
+    </div>`
+  ).join('');
+}
+
+// ══ VIEW 1: 全景追溯链 ═════════════════════════════════════════════════════
+function renderChain(){
+  // determine active sets based on selection
+  let activeReqs=new Set(), activePains=new Set(), activeGaps=new Set(), activeSCs=new Set(), activeWPs=new Set();
+  if(sel.id){
+    if(sel.layer==='req'){
+      const r=SR.find(x=>x.id===sel.id);
+      activeReqs.add(sel.id);
+      (r.pain||[]).forEach(pid=>{
+        activePains.add(pid);
+        const p=PP.find(x=>x.id===pid);
+        (p.gaps||[]).forEach(gid=>{
+          activeGaps.add(gid);
+          const g=AG.find(x=>x.id===gid);
+          (g.scenarios||[]).forEach(sid=>{
+            activeSCs.add(sid);
+            const s=SC.find(x=>x.id===sid);
+            (s.wp||[]).forEach(w=>activeWPs.add(w));
+          });
+        });
+      });
+    } else if(sel.layer==='pain'){
+      activePains.add(sel.id);
+      reqsByPain(sel.id).forEach(r=>activeReqs.add(r.id));
+      const p=PP.find(x=>x.id===sel.id);
+      (p.gaps||[]).forEach(gid=>{
+        activeGaps.add(gid);
+        AG.find(x=>x.id===gid).scenarios.forEach(sid=>{
+          activeSCs.add(sid);
+          SC.find(x=>x.id===sid).wp.forEach(w=>activeWPs.add(w));
+        });
+      });
+    } else if(sel.layer==='gap'){
+      activeGaps.add(sel.id);
+      const g=AG.find(x=>x.id===sel.id);
+      painsByGap(sel.id).forEach(p=>{
+        activePains.add(p.id);
+        reqsByPain(p.id).forEach(r=>activeReqs.add(r.id));
+      });
+      (g.scenarios||[]).forEach(sid=>{
+        activeSCs.add(sid);
+        SC.find(x=>x.id===sid).wp.forEach(w=>activeWPs.add(w));
+      });
+    } else if(sel.layer==='sc'){
+      activeSCs.add(sel.id);
+      gapsByScenario(sel.id).forEach(g=>{
+        activeGaps.add(g.id);
+        painsByGap(g.id).forEach(p=>{
+          activePains.add(p.id);
+          reqsByPain(p.id).forEach(r=>activeReqs.add(r.id));
+        });
+      });
+      wpsBySc(sel.id).forEach(w=>activeWPs.add(w.id));
+    } else if(sel.layer==='wp'){
+      activeWPs.add(sel.id);
+      scByWp(sel.id).forEach(s=>{
+        activeSCs.add(s.id);
+        gapsByScenario(s.id).forEach(g=>{
+          activeGaps.add(g.id);
+          painsByGap(g.id).forEach(p=>{
+            activePains.add(p.id);
+            reqsByPain(p.id).forEach(r=>activeReqs.add(r.id));
+          });
+        });
+      });
+    }
+  }
+  const hasFilter=sel.id!=null;
+  function dim(set, id){ return hasFilter && !set.has(id) ? ' dimmed':''; }
+  function act(set, id){ return set.has(id) ? ' active':''; }
+
+  // detail panel
+  let detailHtml='<div class="empty-state">👆 点击任意节点，查看双向追溯关系</div>';
+  if(sel.id){
+    if(sel.layer==='pain'){
+      const p=PP.find(x=>x.id===sel.id);
+      detailHtml=`<h3>🔍 业务痛点：${esc(p.name)}</h3>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:8px">${esc(p.desc)}</p>
+        <div class="d-grid">
+          <div class="d-item"><div class="label">相关需求数</div><div class="value"><strong>${p.req_count}</strong> 条（样本: ${reqsByPain(p.id).length}条展示）</div></div>
+          <div class="d-item"><div class="label">部门</div><div class="value">${esc(p.dept)}</div></div>
+          <div class="d-item"><div class="label">→ 触发架构差距</div><div class="value">${p.gaps.map(g=>{ const gx=AG.find(x=>x.id===g); return gx?'<span class="phase-badge sev-高">'+esc(gx.name)+'</span>':g; }).join(' ')}</div></div>
+          <div class="d-item"><div class="label">严重程度</div><div class="value"><span class="sev-${esc(p.severity)} phase-badge">${esc(p.severity)}</span></div></div>
+        </div>`;
+    } else if(sel.layer==='gap'){
+      const g=AG.find(x=>x.id===sel.id);
+      detailHtml=`<h3>🏛️ 架构差距：${esc(g.name)}</h3>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:8px">${esc(g.desc)}</p>
+        <div class="d-grid">
+          <div class="d-item"><div class="label">架构域</div><div class="value"><span class="domain-badge dom-${esc(g.domain)}">${esc(g.domain)}</span></div></div>
+          <div class="d-item"><div class="label">TOGAF Phase</div><div class="value">Phase ${esc(g.togaf_phase)}</div></div>
+          <div class="d-item"><div class="label">→ 对应解决方案</div><div class="value">${g.scenarios.map(s=>{ const sx=SC.find(x=>x.id===s); return sx?'<span class="badge-p'+esc(sx.priority.slice(1))+'">'+esc(sx.name)+'</span>':s; }).join(' ')}</div></div>
+          <div class="d-item"><div class="label">严重程度</div><div class="value"><span class="sev-${esc(g.severity)} phase-badge">${esc(g.severity)}</span></div></div>
+        </div>`;
+    } else if(sel.layer==='sc'){
+      const s=SC.find(x=>x.id===sel.id);
+      const wps=wpsBySc(s.id);
+      detailHtml=`<h3>🎯 高价值场景：${esc(s.name)}</h3>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:8px">${esc(s.desc)}</p>
+        <div class="d-grid">
+          <div class="d-item"><div class="label">负责人</div><div class="value">${esc(s.owner)}</div></div>
+          <div class="d-item"><div class="label">架构域</div><div class="value"><span class="domain-badge dom-${esc(s.domain)}">${esc(s.domain)}</span></div></div>
+          <div class="d-item"><div class="label">→ 工作包</div><div class="value">${wps.map(w=>`<span style="background:${w.color}22;color:${w.color};padding:2px 6px;border-radius:3px;font-size:10px;font-weight:700">${esc(w.name)}</span>`).join(' ')}</div></div>
+          <div class="d-item"><div class="label">选定状态</div><div class="value">${s.selected?'<span class="badge-p1">✅ 已选入8场景</span>':'<span class="badge-p2">候选</span>'}</div></div>
+        </div>`;
+    }
+  }
+
+  document.getElementById('content').innerHTML=`
+    <p class="hint">点击任意节点高亮全链路追溯，再次点击取消；箭头方向为正向推导</p>
+    <div id="chain-view">
+      <div class="chain-col">
+        <div class="chain-hdr" style="background:#0f766e">📋 原始需求 <small style="opacity:.7;font-size:9px">(展示21条代表性样本)</small></div>
+        <div class="chain-items">${SR.map(r=>{
+          const pri=r.priority;
+          return `<div class="chain-item${act(activeReqs,r.id)}${dim(activeReqs,r.id)}" onclick="selectItem('req','${r.id}')">
+            <span class="ci-badge prio-${esc(pri)}">${esc(r.id)}</span>
+            <div><div class="ci-name">${esc(r.brief)}</div><div class="ci-sub">${esc(r.dept)}</div></div></div>`;
+        }).join('')}</div>
+      </div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-col">
+        <div class="chain-hdr" style="background:#b45309">🔍 业务痛点诊断 <small style="opacity:.7;font-size:9px">(10个)</small></div>
+        <div class="chain-items">${PP.map(p=>{
+          return `<div class="chain-item${act(activePains,p.id)}${dim(activePains,p.id)}" onclick="selectItem('pain','${p.id}')">
+            <span class="ci-badge sev-${esc(p.severity)} phase-badge">${esc(p.id)}</span>
+            <div><div class="ci-name">${esc(p.name)}</div><div class="ci-sub">${esc(p.dept)} · ${p.req_count}条需求</div></div></div>`;
+        }).join('')}</div>
+      </div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-col">
+        <div class="chain-hdr" style="background:#1d4ed8">🏛️ TOGAF架构差距 <small style="opacity:.7;font-size:9px">(10个)</small></div>
+        <div class="chain-items">${AG.map(g=>{
+          return `<div class="chain-item${act(activeGaps,g.id)}${dim(activeGaps,g.id)}" onclick="selectItem('gap','${g.id}')">
+            <span class="ci-badge domain-badge dom-${esc(g.domain)}" style="font-size:8px">${esc(g.domain.slice(0,2))}</span>
+            <div><div class="ci-name">${esc(g.name)}</div><div class="ci-sub">Phase ${esc(g.togaf_phase)} · ${esc(g.domain)}</div></div></div>`;
+        }).join('')}</div>
+      </div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-col">
+        <div class="chain-hdr" style="background:#7c3aed">🎯 高价值场景 <small style="opacity:.7;font-size:9px">(15个)</small></div>
+        <div class="chain-items">${SC.map(s=>{
+          return `<div class="chain-item${act(activeSCs,s.id)}${dim(activeSCs,s.id)}" onclick="selectItem('sc','${s.id}')">
+            <span class="ci-badge badge-p${s.priority.slice(1)}">${esc(s.id)}</span>
+            <div><div class="ci-name">${esc(s.name)}</div>
+            <div class="ci-sub">${esc(s.owner)}${s.selected?' ✅':''}</div></div></div>`;
+        }).join('')}</div>
+      </div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-col">
+        <div class="chain-hdr" style="background:#be185d">📦 工作包 <small style="opacity:.7;font-size:9px">(11个)</small></div>
+        <div class="chain-items">${WP.map(w=>{
+          return `<div class="chain-item${act(activeWPs,w.id)}${dim(activeWPs,w.id)}" onclick="selectItem('wp','${w.id}')">
+            <span class="ci-badge" style="background:${w.color}22;color:${w.color}">${esc(w.id)}</span>
+            <div><div class="ci-name">${w.icon} ${esc(w.name)}</div><div class="ci-sub">${esc(w.owner)} · ${esc(w.budget)}</div></div></div>`;
+        }).join('')}</div>
+      </div>
+    </div>
+    <div id="detail" style="margin-top:12px">${detailHtml}</div>`;
+}
+
+// ══ VIEW 2: 正向推导 ════════════════════════════════════════════════════════
+function renderForward(){
+  const searchEl=document.getElementById('fwd-search');
+  const filterEl=document.getElementById('fwd-filter');
+  const q=(searchEl?searchEl.value:'').toLowerCase();
+  const f=(filterEl?filterEl.value:'all');
+
+  let filteredPains=PP;
+  if(q) filteredPains=PP.filter(p=>p.name.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q));
+  if(f!=='all') filteredPains=PP.filter(p=>p.severity===f);
+
+  let content=`
+    <div class="search-bar">
+      <input id="fwd-search" placeholder="搜索痛点..." value="${esc(q)}" oninput="renderForward()">
+      <select id="fwd-filter" onchange="renderForward()">
+        <option value="all" ${f==='all'?'selected':''}>全部严重度</option>
+        <option value="高" ${f==='高'?'selected':''}>高</option>
+        <option value="中" ${f==='中'?'selected':''}>中</option>
+      </select>
+    </div>
+    <p class="hint">从业务痛点出发 → 架构差距 → 解决方案 → 工作包（正向推导）</p>`;
+
+  filteredPains.forEach(p=>{
+    const gaps=p.gaps.map(gid=>AG.find(x=>x.id===gid)).filter(Boolean);
+    const allScs=[...new Set(gaps.flatMap(g=>g.scenarios))].map(sid=>SC.find(x=>x.id===sid)).filter(Boolean);
+    const allWps=[...new Set(allScs.flatMap(s=>s.wp))].map(wid=>WP.find(x=>x.id===wid)).filter(Boolean);
+
+    content+=`<div class="trace-view" style="margin-bottom:10px">
+      <div class="trace-hdr">
+        <span class="sev-${esc(p.severity)} phase-badge">${esc(p.id)}</span>
+        <h3>${esc(p.name)}</h3>
+        <span style="font-size:11px;color:var(--muted);margin-left:auto">${esc(p.dept)} · ${p.req_count}条需求</span>
+      </div>
+      <div class="trace-path">
+        <span style="font-size:10px;color:var(--muted);margin-right:4px">📋</span>
+        <span class="tp-node" style="background:#0f766e" title="${p.req_count}条需求">${p.req_count}条原始需求</span>
+        <span class="tp-arrow">→</span>
+        ${gaps.map(g=>`<span class="tp-node" style="background:#1d4ed8">${esc(g.name)}</span>`).join('<span class="tp-arrow">·</span>')}
+        <span class="tp-arrow">→</span>
+        ${allScs.map(s=>`<span class="tp-node" style="background:${s.selected?'#7c3aed':'#94a3b8'}">${esc(s.name)}${s.selected?' ✅':''}</span>`).join('<span class="tp-arrow">·</span>')}
+        <span class="tp-arrow">→</span>
+        ${allWps.map(w=>`<span class="tp-node" style="background:${w.color}">${esc(w.name)}</span>`).join('<span class="tp-arrow">·</span>')}
+      </div>
+      <div style="font-size:11px;color:var(--muted);padding:4px 8px;background:#f8fafc;border-radius:4px">${esc(p.desc)}</div>
+    </div>`;
+  });
+
+  document.getElementById('content').innerHTML=content;
+}
+
+// ══ VIEW 3: 反向追溯 ════════════════════════════════════════════════════════
+function renderBackward(){
+  let content=`<p class="hint">从工作包/解决方案出发 → 架构差距 → 业务痛点 → 原始需求（反向追溯）</p>`;
+  const selWp=sel.layer==='wp-bk'?sel.id:null;
+
+  content+=`<div style="display:grid;grid-template-columns:260px 1fr;gap:12px">
+    <div>
+      <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px;text-transform:uppercase">选择工作包</div>
+      ${WP.map(w=>`<div onclick="selWpBk('${w.id}')" style="padding:8px 10px;border-radius:6px;border:1px solid ${selWp===w.id?w.color:'var(--border)'};background:${selWp===w.id?w.color+'11':'var(--card)'};margin-bottom:5px;cursor:pointer;display:flex;align-items:center;gap:8px">
+        <span style="font-size:16px">${w.icon}</span>
+        <div><div style="font-size:11px;font-weight:600;color:${selWp===w.id?w.color:'var(--txt)'}">${esc(w.name)}</div>
+        <div style="font-size:10px;color:var(--muted)">${esc(w.owner)} · ${esc(w.budget)}</div></div>
+      </div>`).join('')}
+    </div>
+    <div id="bk-detail">${selWp?renderBkDetail(selWp):'<div class="empty-state" style="padding-top:60px">👈 选择一个工作包，查看需求来源追溯</div>'}</div>
+  </div>`;
+
+  document.getElementById('content').innerHTML=content;
+}
+
+function renderBkDetail(wpId){
+  const wp=WP.find(x=>x.id===wpId); if(!wp) return '';
+  const scs=scByWp(wpId);
+  const allGaps=[...new Set(scs.flatMap(s=>gapsByScenario(s.id)))];
+  const allPains=[...new Set(allGaps.flatMap(g=>painsByGap(g.id)))];
+  const allReqs=[...new Set(allPains.flatMap(p=>reqsByPain(p.id)))];
+
+  let h=`<div class="trace-view">
+    <div class="trace-hdr">
+      <span style="font-size:20px">${wp.icon}</span>
+      <h3 style="color:${wp.color}">${esc(wp.name)}</h3>
+      <span style="font-size:11px;color:var(--muted);margin-left:auto">负责人: ${esc(wp.owner)} | 预算: ${esc(wp.budget)}</span>
+    </div>
+
+    <div style="margin-bottom:10px">
+      <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:6px">📍 追溯路径摘要</div>
+      <div class="trace-path">
+        <span class="tp-node" style="background:${wp.color}">${esc(wp.name)}</span>
+        <span class="tp-arrow">←</span>
+        <span class="tp-node" style="background:#7c3aed">${scs.length}个场景</span>
+        <span class="tp-arrow">←</span>
+        <span class="tp-node" style="background:#1d4ed8">${allGaps.length}个架构差距</span>
+        <span class="tp-arrow">←</span>
+        <span class="tp-node" style="background:#b45309">${allPains.length}个业务痛点</span>
+        <span class="tp-arrow">←</span>
+        <span class="tp-node" style="background:#0f766e">${allReqs.length}条需求(样本)</span>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div><div style="font-size:11px;font-weight:700;margin-bottom:6px">🎯 来源场景</div>
+        ${scs.map(s=>`<div style="padding:6px 8px;background:#f8fafc;border-radius:4px;margin-bottom:4px;border-left:3px solid ${s.selected?'#7c3aed':'#e2e8f0'}">
+          <span class="badge-p${s.priority.slice(1)}">${esc(s.id)}</span>
+          <span style="font-size:11px;margin-left:6px">${esc(s.name)}</span>
+          ${s.selected?'<span style="float:right;font-size:10px;color:#7c3aed">✅ 选定</span>':''}
+        </div>`).join('')}
+      </div>
+      <div><div style="font-size:11px;font-weight:700;margin-bottom:6px">🔍 根源业务痛点</div>
+        ${allPains.map(p=>`<div style="padding:6px 8px;background:#f8fafc;border-radius:4px;margin-bottom:4px;border-left:3px solid #b45309">
+          <span class="sev-${esc(p.severity)} phase-badge" style="font-size:9px">${esc(p.severity)}</span>
+          <span style="font-size:11px;margin-left:6px">${esc(p.name)}</span>
+          <span style="float:right;font-size:10px;color:var(--muted)">${p.req_count}条</span>
+        </div>`).join('')}
+      </div>
+    </div>
+
+    <div style="margin-top:10px">
+      <div style="font-size:11px;font-weight:700;margin-bottom:6px">📋 原始需求样本 (${allReqs.length}条)</div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px">
+        ${allReqs.map(r=>`<span class="trace-tag prio-${esc(r.priority)}" style="background:${r.priority==='高'?'#fee2e2':r.priority==='中'?'#fef9c3':'#dcfce7'}" title="${esc(r.brief)}">${esc(r.id)}: ${esc(r.brief.slice(0,20))}${r.brief.length>20?'...':''}</span>`).join('')}
+      </div>
+    </div>
+  </div>`;
+  return h;
+}
+
+function selWpBk(id){ sel={layer:'wp-bk',id}; renderBackward(); }
+
+// ══ VIEW 4: 场景管理 ════════════════════════════════════════════════════════
+function renderScenario(){
+  const selectedCount=SC.filter(s=>s.selected).length;
+  let content=`
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <div>
+        <div style="font-size:13px;font-weight:700">高价值场景管理</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:2px">从15个候选场景中选定进入《专项方案设计阶段》的场景</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:22px;font-weight:800;color:#7c3aed">${selectedCount} <span style="font-size:12px;font-weight:400">/ 15 已选定</span></div>
+        <div style="font-size:10px;color:var(--muted)">目标: 8个高价值场景</div>
+      </div>
+    </div>
+    <div class="sc-grid">
+      ${SC.map(s=>{
+        const wps=wpsBySc(s.id);
+        const gaps=gapsByScenario(s.id);
+        return `<div class="sc-card${s.selected?' selected':''}" onclick="toggleScenario('${s.id}')">
+          <div class="sc-top">
+            <span class="sc-id">${esc(s.id)}</span>
+            <div style="display:flex;align-items:center;gap:6px">
+              <span class="badge-p${s.priority.slice(1)}">${esc(s.priority)}</span>
+              <div class="sc-sel${s.selected?' on':''}">${s.selected?'✓':''}</div>
+            </div>
+          </div>
+          <div class="sc-name">${esc(s.name)}</div>
+          <div class="sc-owner">👤 ${esc(s.owner)}</div>
+          <div class="sc-meta">
+            <span class="domain-badge dom-${esc(s.domain)}">${esc(s.domain)}</span>
+            ${wps.map(w=>`<span class="sc-tag" style="background:${w.color}22;color:${w.color}">${esc(w.id)}</span>`).join('')}
+            <span class="sc-tag">${gaps.length}个差距</span>
+          </div>
+          <div style="font-size:10px;color:var(--muted);margin-top:6px;line-height:1.4">${esc(s.desc.slice(0,60))}${s.desc.length>60?'...':''}</div>
+        </div>`;
+      }).join('')}
+    </div>`;
+
+  // 选定场景的汇总卡
+  const selected=SC.filter(s=>s.selected);
+  if(selected.length>0){
+    content+=`
+    <div style="margin-top:16px;background:var(--card);border:2px solid #7c3aed;border-radius:8px;padding:14px">
+      <div style="font-size:13px;font-weight:700;color:#7c3aed;margin-bottom:10px">📋 已选定场景汇总（专项方案设计阶段）</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+        ${selected.map((s,i)=>{
+          const wps=wpsBySc(s.id);
+          return `<div style="background:#faf5ff;border-radius:6px;padding:10px;border-left:3px solid #7c3aed">
+            <div style="font-size:10px;color:#7c3aed;font-weight:700;margin-bottom:4px">场景${String(i+1).padStart(2,'0')}</div>
+            <div style="font-size:11px;font-weight:600;line-height:1.3;margin-bottom:4px">${esc(s.name)}</div>
+            <div style="font-size:10px;color:var(--muted)">${esc(s.owner)} | ${wps.map(w=>esc(w.name)).join(', ')}</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+  }
+  document.getElementById('content').innerHTML=content;
+}
+
+function toggleScenario(id){
+  const s=SC.find(x=>x.id===id);
+  if(!s) return;
+  const selCount=SC.filter(x=>x.selected).length;
+  if(!s.selected && selCount>=8){
+    // allow override but warn
+    if(!confirm(`当前已选${selCount}个场景，再添加"${s.name}"将超过8个。是否继续？`)) return;
+  }
+  s.selected=!s.selected;
+  renderScenario();
+}
+
+// ── main render ─────────────────────────────────────────────────────────────
+function render(){
+  renderSummary();
+  if(view==='chain') renderChain();
+  else if(view==='forward') renderForward();
+  else if(view==='backward') renderBackward();
+  else if(view==='scenario') renderScenario();
+}
+
+window.onload=()=>{ render(); };
+</script>
+</body>
+</html>
