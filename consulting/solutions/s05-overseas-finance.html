@@ -2,683 +2,1113 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>海外财务本地化体系建设专项方案 — 佛山照明</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<title>海外财务本地化体系建设 — S05 专项方案</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+
+@font-face{font-family:'NotoSC';src:local('Noto Sans SC'),local('PingFang SC'),local('Microsoft YaHei')}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --navy:#0B2D47;--blue:#2374A3;--mid:#3D8FC4;--light:#C7E2F2;--pale:#EBF5FB;
-  --white:#fff;--text:#0F2233;--muted:#5B7A91;--rule:#D6E8F2;
-  --green:#15803d;--amber:#b45309;--red:#b91c1c;--purple:#7c3aed;
+  --sap-light:#D1EFFF;--sap-mid:#89D1FF;--sap-accent:#1B90FF;
+  --sap-primary:#0070F2;--sap-dark:#002A86;--sap-darker:#00144A;
+  --sap-white:#FFFFFF;--sap-black:#000000;
+  --sap-green:#188918;--sap-red:#D20A0A;--sap-orange:#E76500;
+  --font-body:'Noto Sans SC','PingFang SC','Microsoft YaHei',Arial,sans-serif;
+  --title-size:clamp(1.4rem,4.5vw,3.5rem);
+  --h2-size:clamp(1rem,2.8vw,2rem);
+  --h3-size:clamp(0.85rem,1.9vw,1.4rem);
+  --body-size:clamp(0.7rem,1.3vw,1rem);
+  --small-size:clamp(0.6rem,0.9vw,0.78rem);
+  --label-size:clamp(0.56rem,0.72vw,0.68rem);
+  --slide-padding:clamp(0.8rem,3vw,3rem);
+  --content-gap:clamp(0.4rem,1.6vw,1.6rem);
+  --element-gap:clamp(0.2rem,0.8vw,0.8rem);
+  --footer-h:clamp(28px,4vh,36px);
 }
-body{font-family:"Microsoft YaHei","Helvetica Neue",sans-serif;background:#f0f4f8;color:var(--text);font-size:14px}
+html,body{height:100%;overflow-x:hidden}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth}
+body{font-family:var(--font-body);color:var(--sap-darker);background:var(--sap-white)}
+.slide{width:100vw;height:100vh;height:100dvh;overflow:hidden;scroll-snap-align:start;display:flex;flex-direction:column;position:relative;padding-bottom:var(--footer-h)}
+.slide-content{flex:1;display:flex;flex-direction:column;justify-content:center;max-height:100%;overflow:hidden;padding:var(--slide-padding)}
+[class$="-slide"] .slide-content{gap:var(--content-gap);width:100%;max-width:min(94vw,1280px);margin:0 auto}
 
-/* ── NAV ── */
-nav{background:var(--navy);height:48px;display:flex;align-items:center;padding:0 24px;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(11,45,71,.4)}
-.nav-logo{font-size:13px;font-weight:800;color:#fff}.nav-logo span{color:#60a5fa}
-.nav-divider{width:1px;height:20px;background:rgba(255,255,255,.2)}
-.nav-title{flex:1;font-size:11px;color:rgba(255,255,255,.6)}
-.nav-chapters{display:flex;gap:4px}
-.nc{padding:4px 10px;font-size:11px;color:rgba(255,255,255,.55);cursor:pointer;border-radius:4px;transition:all .15s;border:1px solid transparent;white-space:nowrap}
-.nc:hover{background:rgba(255,255,255,.1);color:#fff}
-.nc.on{background:rgba(35,116,163,.5);color:#fff;border-color:rgba(255,255,255,.2)}
-.nav-conf{font-size:10px;color:rgba(255,255,255,.3);white-space:nowrap}
+/* ── Footer bar: white bg, real logos, page number center ── */
+.deck-footer{
+  position:fixed;bottom:0;left:0;right:0;z-index:9999;
+  height:var(--footer-h);
+  background:#fff;
+  border-top:1.5px solid #D0D5DD;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(.8rem,2vw,1.8rem);
+}
+.df-left{height:calc(var(--footer-h) - 8px);display:flex;align-items:center}
+.df-left img{height:100%;width:auto;object-fit:contain;display:block}
+.df-center{font-size:clamp(10px,1.2vh,13px);color:#666;font-weight:500;letter-spacing:.04em}
+.df-right{display:flex;align-items:center}
+.df-right img{height:clamp(18px,3vh,26px);width:auto;object-fit:contain;display:block}
 
-/* ── SLIDES ── */
-.chapter{display:none;padding:24px;max-width:1280px;margin:0 auto}
-.chapter.on{display:block}
+.progress-bar{position:fixed;bottom:var(--footer-h);left:0;height:2px;background:var(--sap-accent);transition:width .3s ease;z-index:10000}
 
-/* ── COVER ── */
-.cover{background:linear-gradient(135deg,var(--navy) 0%,#1a4f73 60%,#2374a3 100%);
-  border-radius:12px;padding:48px 56px;color:#fff;min-height:360px;
-  display:flex;flex-direction:column;justify-content:space-between;margin-bottom:20px;
-  position:relative;overflow:hidden}
-.cover::after{content:'';position:absolute;right:-40px;top:-40px;width:300px;height:300px;
-  border-radius:50%;background:rgba(255,255,255,.04)}
-.cover-tag{font-size:11px;font-weight:700;letter-spacing:1.5px;color:rgba(255,255,255,.5);
-  text-transform:uppercase;margin-bottom:16px}
-.cover h1{font-size:32px;font-weight:800;line-height:1.2;margin-bottom:12px}
-.cover h1 span{color:#60a5fa}
-.cover-sub{font-size:15px;color:rgba(255,255,255,.7);margin-bottom:32px}
-.cover-meta{display:flex;gap:32px;flex-wrap:wrap}
-.cm{font-size:12px;color:rgba(255,255,255,.55)}.cm strong{color:rgba(255,255,255,.85);display:block;margin-bottom:2px}
-.fsl-logo{position:absolute;right:56px;top:48px;font-size:22px;font-weight:900;color:rgba(255,255,255,.15);letter-spacing:2px}
+/* ---- shared layouts ---- */
+.content-slide,.feature-grid-slide,.table-slide,.timeline-slide,.process-slide,.arch-slide,.kpi-slide,.agenda-slide,.two-col-slide,.three-col-slide,.split-slide{background:var(--sap-white);display:flex;flex-direction:column;align-items:stretch}
+h2.slide-h2{font-size:var(--h2-size);font-weight:600;color:var(--sap-dark);margin:0 0 .4rem 0;line-height:1.25}
+.bullet-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--element-gap)}
+.bullet-list li{font-size:var(--body-size);color:var(--sap-dark);line-height:1.45;padding-left:clamp(1.1rem,1.8vw,1.8rem);position:relative}
+.bullet-list li::before{content:'';position:absolute;left:0;top:.55em;width:clamp(5px,.55vw,9px);height:clamp(5px,.55vw,9px);border-radius:50%;background:var(--sap-accent)}
+.kicker{font-size:var(--small-size);color:var(--sap-primary);font-style:italic;border-left:3px solid var(--sap-accent);padding-left:.75rem;line-height:1.4}
+/* title */
+.title-slide{background:var(--sap-dark);color:var(--sap-white);display:flex;align-items:center;justify-content:center}
+.title-content{display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--content-gap);max-width:min(90vw,900px)}
+.title-slide h1{font-size:var(--title-size);font-weight:700;line-height:1.1;color:var(--sap-white);margin:0}
+.title-slide .subtitle{font-size:var(--h3-size);font-weight:300;opacity:.85;color:var(--sap-white);margin:0;line-height:1.4}
+.title-slide .meta{font-size:var(--small-size);opacity:.6;color:var(--sap-white);margin:0;letter-spacing:.05em}
+.cover-decorated{background:var(--sap-white);color:var(--sap-darker);align-items:flex-start;justify-content:flex-end;padding-bottom:clamp(3rem,10vh,8rem)}
+.cover-decorated .title-content{align-items:flex-start;text-align:left;padding-left:clamp(2rem,4vw,4rem);width:55%;max-width:55%;z-index:2}
+.cover-decorated h1{color:var(--sap-darker)}
+.cover-decorated .subtitle{color:var(--sap-dark);opacity:1}
+.cover-decorated .meta{color:var(--sap-primary);opacity:.8}
+.cover-panel-right{position:absolute;top:0;right:0;width:45%;height:100%;background:var(--sap-primary);z-index:1}
+/* section divider */
+.section-divider{background:var(--sap-darker);color:var(--sap-white);display:flex;align-items:center;justify-content:center}
+.divider-content{display:flex;flex-direction:column;align-items:flex-start;gap:var(--element-gap);max-width:min(90vw,800px);padding:var(--slide-padding)}
+.section-number{font-size:var(--title-size);font-weight:700;color:var(--sap-accent);line-height:1;opacity:.9}
+.section-divider h2{font-size:var(--h2-size);font-weight:600;color:var(--sap-white);margin:0;line-height:1.2;border-left:clamp(3px,.4vw,5px) solid var(--sap-accent);padding-left:var(--element-gap)}
+.divider-sub{font-size:var(--body-size);color:rgba(255,255,255,.6);margin-left:calc(var(--element-gap) + clamp(3px,.4vw,5px))}
+/* kpi */
+.kpi-grid{display:grid;gap:var(--content-gap);width:100%}
+.kpi-card{background:var(--sap-white);border-radius:clamp(6px,.8vw,12px);padding:clamp(1rem,2vw,1.75rem);display:flex;flex-direction:column;align-items:flex-start;gap:clamp(.3rem,.6vw,.6rem);border:1px solid var(--sap-light);border-left:clamp(4px,.45vw,5px) solid var(--sap-primary);box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.kpi-value{font-size:var(--h2-size);font-weight:700;color:var(--sap-primary);line-height:1}
+.kpi-unit{font-size:var(--h3-size);font-weight:400;color:var(--sap-mid)}
+.kpi-label{font-size:var(--body-size);font-weight:500;color:var(--sap-dark)}
+.kpi-trend{font-size:var(--small-size);font-weight:500;color:var(--sap-mid)}
+.kpi-trend.pos{color:var(--sap-green)}.kpi-trend.neg{color:var(--sap-red)}
+/* feature grid */
+.feature-grid{display:grid;gap:var(--content-gap);width:100%}
+.card{background:var(--sap-light);padding:clamp(.8rem,1.6vw,1.5rem);border-radius:clamp(5px,.65vw,10px);display:flex;flex-direction:column;gap:var(--element-gap);border-left:clamp(3px,.3vw,4px) solid var(--sap-accent)}
+.card-icon{font-size:clamp(1.3rem,2.5vw,2.2rem);line-height:1}
+.card h3{font-size:var(--h3-size);font-weight:600;color:var(--sap-dark);margin:0}
+.card p{font-size:var(--small-size);color:var(--sap-dark);margin:0;line-height:1.4}
+/* table */
+.table-wrapper{overflow-x:auto;border-radius:clamp(4px,.5vw,8px);border:1px solid var(--sap-mid)}
+.comparison-table{width:100%;border-collapse:collapse;font-size:var(--body-size)}
+.comparison-table thead{background:var(--sap-primary);color:var(--sap-white)}
+.comparison-table th{padding:clamp(.4rem,.8vw,.9rem) clamp(.6rem,1.2vw,1.3rem);text-align:left;font-size:var(--label-size);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.comparison-table td{padding:clamp(.4rem,.8vw,.8rem) clamp(.6rem,1.2vw,1.3rem);color:var(--sap-dark);border-bottom:1px solid var(--sap-light);font-size:var(--small-size)}
+.comparison-table tbody tr:nth-child(even){background:var(--sap-light)}
+.comparison-table tbody tr:last-child td{border-bottom:none}
+/* two-col */
+.two-col-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.8rem,2.5vw,2.5rem);width:100%}
+.two-col-grid .col h3{font-size:var(--h3-size);font-weight:700;margin:0 0 var(--element-gap) 0;line-height:1.3}
+/* timeline */
+.timeline{display:flex;flex-direction:row;gap:0;position:relative;align-items:flex-start;padding-top:clamp(.8rem,1.8vw,1.8rem);width:100%}
+.timeline::before{content:'';position:absolute;top:clamp(1.5rem,2.5vw,2.2rem);left:clamp(.8rem,1.6vw,1.2rem);right:clamp(.8rem,1.6vw,1.2rem);height:2px;background:var(--sap-mid);z-index:0}
+.timeline-node{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--element-gap);position:relative;z-index:1;padding:0 clamp(.4rem,.8vw,.8rem)}
+.timeline-marker{width:clamp(10px,1.3vw,18px);height:clamp(10px,1.3vw,18px);border-radius:50%;background:var(--sap-accent);box-shadow:0 0 0 clamp(3px,.35vw,5px) rgba(27,144,255,.25);flex-shrink:0}
+.timeline-label{font-size:var(--label-size);font-weight:700;color:var(--sap-primary);text-transform:uppercase;letter-spacing:.05em}
+.timeline-text{font-size:var(--small-size);color:var(--sap-mid);line-height:1.4}
+/* process */
+.process-flow{display:flex;flex-direction:row;align-items:center;gap:var(--element-gap);width:100%}
+.process-step{display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--element-gap);flex:1;min-width:0}
+.step-number{width:clamp(1.8rem,3.5vw,3rem);height:clamp(1.8rem,3.5vw,3rem);border-radius:50%;background:var(--sap-primary);color:var(--sap-white);display:flex;align-items:center;justify-content:center;font-size:var(--h3-size);font-weight:700;flex-shrink:0}
+.step-content h3{font-size:var(--h3-size);font-weight:600;color:var(--sap-dark);margin:0 0 calc(var(--element-gap)*.5) 0}
+.step-content p{font-size:var(--small-size);color:var(--sap-mid);margin:0;line-height:1.4}
+.process-arrow{font-size:var(--h2-size);color:var(--sap-accent);font-weight:700;flex-shrink:0;align-self:center}
+/* arch */
+.arch-diagram{display:flex;flex-direction:column;gap:0;width:100%}
+.arch-layer{background:var(--sap-light);border-left:clamp(3px,.4vw,5px) solid var(--sap-primary);border-radius:clamp(4px,.5vw,8px);padding:clamp(.6rem,1.2vw,1.1rem);display:flex;flex-direction:column;gap:var(--element-gap)}
+.arch-layer-label{font-size:var(--label-size);font-weight:700;color:var(--sap-primary);text-transform:uppercase;letter-spacing:.06em}
+.arch-blocks{display:flex;flex-direction:row;gap:var(--element-gap);flex-wrap:wrap;justify-content:center}
+.arch-block{background:var(--sap-white);border:1px solid var(--sap-mid);border-radius:clamp(3px,.3vw,5px);padding:clamp(.35rem,.7vw,.65rem) clamp(.6rem,1.2vw,1.1rem);font-size:var(--small-size);color:var(--sap-dark);font-weight:500;white-space:nowrap}
+.arch-connector{font-size:var(--h2-size);color:var(--sap-accent);font-weight:700;text-align:center;padding:clamp(.2rem,.4vw,.4rem) 0;line-height:1}
+/* agenda */
+.agenda-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:clamp(.35rem,.9vh,.9rem)}
+.agenda-list li{display:flex;align-items:baseline;gap:clamp(.4rem,1.3vw,1.3rem);font-size:var(--body-size);line-height:1.4;padding-bottom:clamp(.25rem,.7vh,.65rem);border-bottom:1px solid rgba(0,0,0,.08)}
+.agenda-number{font-size:var(--h2-size);font-weight:700;color:var(--sap-accent);min-width:clamp(1.3rem,2.5vw,2.5rem);flex-shrink:0}
+.agenda-text{font-weight:400;color:var(--sap-darker)}
+/* end */
+.end-slide{background:var(--sap-dark);color:var(--sap-white);display:flex;align-items:center;justify-content:center}
+.end-content{display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--content-gap);max-width:min(90vw,700px);padding:var(--slide-padding)}
+.end-slide h2{font-size:var(--title-size);font-weight:700;color:var(--sap-white);margin:0;line-height:1.1}
+.contact-info p{font-size:var(--body-size);color:rgba(255,255,255,.75);margin:0}
+.sap-footer{position:absolute;bottom:calc(var(--footer-h) + clamp(.8rem,2.5vh,1.6rem));left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.25rem}
+.sap-footer-brand{display:flex;align-items:center;gap:.5rem}
+.sap-footer-logo{height:clamp(.75rem,1.6vh,1.3rem);width:auto}
+.sap-footer-divider{font-size:var(--body-size);color:rgba(255,255,255,.5);font-weight:300}
+.sap-footer-tagline{font-size:var(--body-size);font-style:italic;font-weight:300;color:rgba(255,255,255,.85)}
+.sap-footer-copyright{font-size:var(--label-size);color:rgba(255,255,255,.4);margin:0}
+/* SAP UI mockup */
+.fiori-shell{background:#354A5E;border-radius:8px 8px 0 0;padding:6px 12px;display:flex;align-items:center;gap:8px}
+.fiori-shell-logo{font-size:var(--small-size);font-weight:700;color:#fff;letter-spacing:.08em}
+.fiori-shell-title{font-size:var(--small-size);color:rgba(255,255,255,.8);flex:1;text-align:center}
+.fiori-shell-icons{font-size:var(--small-size);color:rgba(255,255,255,.7);display:flex;gap:10px}
+.fiori-body{background:#F7F7F7;border:1px solid #d0d7de;border-top:none;border-radius:0 0 8px 8px;padding:12px;overflow:hidden}
+.fiori-tile-grid{display:grid;gap:8px;width:100%}
+.fiori-tile{background:#fff;border:1px solid #e4e4e4;border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:4px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.fiori-tile-icon{font-size:1.4rem;line-height:1}
+.fiori-tile-title{font-size:var(--small-size);font-weight:600;color:#333}
+.fiori-tile-sub{font-size:var(--label-size);color:#666}
+.fiori-tile-kpi{font-size:var(--h3-size);font-weight:700;color:var(--sap-primary)}
+.tcode-bar{background:#1a3a5c;border-radius:6px 6px 0 0;padding:4px 10px;display:flex;align-items:center;gap:8px}
+.tcode-label{font-size:var(--small-size);color:#7ab7f5;font-weight:600;letter-spacing:.06em}
+.tcode-name{font-size:var(--small-size);color:#fff}
+.tcode-body{background:#fff;border:1px solid #c0c0c0;border-top:none;border-radius:0 0 6px 6px;padding:10px;font-size:var(--small-size);color:#333}
+.tcode-field-row{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.tcode-field-label{font-size:var(--label-size);color:#666;min-width:120px}
+.tcode-field-val{background:#F0F5FF;border:1px solid #89D1FF;border-radius:3px;padding:2px 8px;font-size:var(--small-size);color:var(--sap-dark);font-weight:500}
+.tcode-result-header{display:flex;background:var(--sap-primary);color:#fff;border-radius:4px 4px 0 0;font-size:var(--label-size);font-weight:600}
+.tcode-result-header span,.tcode-result-cell{padding:4px 8px;flex:1}
+.tcode-result-row-data{display:flex;border-bottom:1px solid #eee;font-size:var(--small-size)}
+.tcode-result-row-data:nth-child(even){background:#F7F7F7}
+.mdg-portal{background:#fff;border:1px solid #d0d7de;border-radius:8px;overflow:hidden}
+.mdg-header{background:linear-gradient(90deg,#0070F2,#002A86);padding:8px 14px;display:flex;align-items:center;gap:8px}
+.mdg-header-title{font-size:var(--small-size);font-weight:700;color:#fff;letter-spacing:.05em}
+.mdg-header-badge{background:rgba(255,255,255,.2);border-radius:10px;padding:2px 8px;font-size:var(--label-size);color:#fff}
+.mdg-body{padding:10px}
+.mdg-workflow-row{display:flex;align-items:center;gap:6px;padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:var(--small-size)}
+.mdg-status{border-radius:10px;padding:2px 8px;font-size:var(--label-size);font-weight:600;white-space:nowrap}
+.mdg-status.pending{background:#FFF3B8;color:#C35500}
+.mdg-status.approved{background:#EBF5CB;color:#188918}
+.mdg-status.review{background:#D1EFFF;color:#0070F2}
+.gr-screen{background:#fff;border:1px solid #d0d7de;border-radius:8px;overflow:hidden}
+.gr-toolbar{background:#354A5E;padding:6px 12px;display:flex;align-items:center;gap:8px;color:#fff;font-size:var(--small-size)}
+.gr-toolbar-title{font-weight:600;flex:1}
+.gr-table{width:100%;font-size:var(--small-size);border-collapse:collapse}
+.gr-table th{background:#E8F0FE;color:var(--sap-dark);padding:5px 8px;text-align:right;font-weight:600;font-size:var(--label-size);border-bottom:2px solid var(--sap-mid)}
+.gr-table th:first-child{text-align:left}
+.gr-table td{padding:4px 8px;text-align:right;border-bottom:1px solid #f0f0f0;color:#333}
+.gr-table td:first-child{text-align:left;font-weight:500;color:var(--sap-dark)}
+.gr-table tr.elim{background:#FFF3B8}
+.gr-table tr.total{background:var(--sap-light);font-weight:700}
+.gr-table .neg{color:var(--sap-red)}.gr-table .pos{color:var(--sap-green)}
+.acdoca-screen{background:#fff;border:1px solid #ccc;border-radius:8px;overflow:hidden}
+.acdoca-header{background:#1a3a5c;padding:6px 12px;color:#fff;font-size:var(--small-size);font-weight:600;display:flex;align-items:center;gap:8px}
+.acdoca-tabs{display:flex;background:#f0f0f0;border-bottom:1px solid #ccc}
+.acdoca-tab{padding:5px 12px;font-size:var(--label-size);cursor:pointer;border-right:1px solid #ddd;color:#555}
+.acdoca-tab.active{background:#fff;color:var(--sap-primary);font-weight:700;border-bottom:2px solid var(--sap-primary);margin-bottom:-1px}
+.acdoca-body{padding:8px;font-size:var(--small-size)}
+.acdoca-row{display:grid;padding:4px 6px;border-bottom:1px solid #f0f0f0}
+.acdoca-row.header{background:#E8F0FE;font-weight:700;font-size:var(--label-size);color:var(--sap-dark)}
+@keyframes pulseHint{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(.98)}}
+#thumbnailOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;overflow-y:auto;padding:1.5rem}
+#thumbnailOverlay.open{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.8rem;align-content:start}
+.thumb-btn{background:rgba(255,255,255,.08);border:2px solid transparent;border-radius:7px;padding:.6rem;color:#fff;cursor:pointer;font-family:var(--font-body);font-size:.7rem;text-align:left;transition:border-color .15s}
+.thumb-btn:hover{border-color:var(--sap-accent)}
+.thumb-btn.current{border-color:var(--sap-accent);background:rgba(27,144,255,.15)}
+.thumb-num{font-size:1.3rem;font-weight:700;color:var(--sap-accent);display:block;margin-bottom:.2rem}
+.reveal{opacity:0;transition:opacity 250ms ease;transition-delay:calc(var(--i,0)*75ms)}
+.reveal-up{opacity:0;transform:translateY(18px);transition:opacity 280ms ease-out,transform 280ms ease-out;transition-delay:calc(var(--i,0)*75ms)}
+.slide.visible .reveal{opacity:1}
+.slide.visible .reveal-up{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.15s!important}html{scroll-behavior:auto}}
+@media(max-height:700px){:root{--slide-padding:clamp(.6rem,2.5vw,1.8rem);--content-gap:clamp(.3rem,1.2vw,.9rem);--h2-size:clamp(.9rem,2.5vw,1.7rem)}}
 
-/* ── TOC ── */
-.toc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
-.toc-card{background:var(--white);border-radius:8px;padding:20px;border-left:4px solid var(--blue);
-  cursor:pointer;transition:all .15s}
-.toc-card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(35,116,163,.15)}
-.toc-num{font-size:28px;font-weight:900;color:var(--light);line-height:1}
-.toc-title{font-size:13px;font-weight:700;color:var(--navy);margin:6px 0 4px}
-.toc-desc{font-size:11px;color:var(--muted);line-height:1.5}
+.prog-track{flex:1;height:6px;background:#E5E7EB;border-radius:3px;position:relative;cursor:pointer;margin:0 clamp(.4rem,1.2vw,1rem)}
+.prog-fill{height:100%;background:var(--sap-primary);border-radius:3px;pointer-events:none;transition:width .15s}
+.prog-thumb{width:13px;height:13px;background:var(--sap-primary);border-radius:50%;position:absolute;top:50%;transform:translate(-50%,-50%);cursor:grab;box-shadow:0 1px 4px rgba(0,112,242,.4)}
+.prog-thumb:active{cursor:grabbing;transform:translate(-50%,-50%) scale(1.25)}
+.pg-btn{font-size:clamp(10px,1.2vh,13px);color:#444;font-weight:600;background:none;border:1px solid #D0D5DD;border-radius:4px;padding:2px 10px;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.pg-btn:hover{background:#F3F4F6}
+.jump-panel{display:none;position:fixed;bottom:calc(var(--footer-h) + 6px);left:50%;transform:translateX(-50%);background:#fff;border:1px solid #D0D5DD;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.15);padding:10px;z-index:10001;width:min(94vw,740px)}
+.jump-panel.open{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:5px}
+.jp-btn{background:none;border:1px solid #E5E7EB;border-radius:5px;padding:5px 8px;cursor:pointer;font-family:inherit;font-size:11px;text-align:left;display:flex;align-items:flex-start;gap:5px;line-height:1.3;transition:background .12s}
+.jp-btn:hover{background:#EFF6FF;border-color:var(--sap-primary)}
+.jp-btn.cur{background:#DBEAFE;border-color:var(--sap-primary);font-weight:700}
+.jp-num{font-size:12px;font-weight:800;color:var(--sap-primary);min-width:18px;flex-shrink:0;padding-top:1px}
+.jp-label{color:#333;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.status-switcher {
+    position: fixed; top: 8px; right: 16px; z-index: 1100;
+    background: rgba(11,45,71,.95); border: 1px solid rgba(255,255,255,.2);
+    border-radius: 6px; padding: 5px 10px;
+    display: flex; align-items: center; gap: 7px;
+    font-family: inherit; backdrop-filter: blur(6px);
+    box-shadow: 0 2px 12px rgba(0,0,0,.3);
+  }
+  .status-switcher .ss-label { color: rgba(255,255,255,.45); font-weight: 700; font-size: 10px; letter-spacing: .5px; text-transform: uppercase; white-space: nowrap; }
+  .ss-btn { border: 1.5px solid transparent; border-radius: 4px; padding: 4px 11px; font-size: 11px; font-weight: 700; cursor: pointer; transition: all .2s; font-family: inherit; white-space: nowrap; line-height: 1; }
+  .ss-btn:not(.active) { background: transparent; color: rgba(255,255,255,.45); border-color: transparent; }
+  .ss-btn:hover:not(.active) { background: rgba(255,255,255,.1); color: rgba(255,255,255,.85); border-color: rgba(255,255,255,.2); }
+  .ss-btn#ss-todo.active { background: #4A5568; color: #fff; border-color: #718096; }
+  .ss-btn#ss-wip.active  { background: #1A56DB; color: #fff; border-color: #3B82F6; box-shadow: 0 0 0 2px rgba(59,130,246,.4); }
+  .ss-btn#ss-done.active { background: #166534; color: #fff; border-color: #22C55E; box-shadow: 0 0 0 2px rgba(34,197,94,.4); }
+  .ss-indicator-wrap { display: flex; align-items: center; gap: 5px; margin-left: 3px; padding-left: 10px; border-left: 1px solid rgba(255,255,255,.15); }
+  .ss-indicator-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .ss-indicator-dot.todo { background: #718096; }
+  .ss-indicator-dot.wip  { background: #3B82F6; }
+  .ss-indicator-dot.done { background: #22C55E; }
+  /* ── Status Switcher ── */
+  .ss-indicator-wrap { display:flex; align-items:center; gap:4px; padding-left:6px; border-left:1px solid rgba(255,255,255,.15); }
+  .ss-indicator-dot { width:7px; height:7px; border-radius:50%; background:#718096; }
+  .ss-indicator-dot.wip { background:#3B82F6; }
+  .ss-indicator-dot.done { background:#22C55E; }
+  .ss-indicator-text { color:rgba(255,255,255,.75); font-size:10px; font-weight:700; white-space:nowrap; }
 
-/* ── SECTION TITLE ── */
-.sec-title{background:var(--navy);color:#fff;padding:8px 16px;border-radius:6px;
-  font-size:12px;font-weight:700;letter-spacing:.5px;margin:20px 0 12px;
-  display:flex;align-items:center;gap:8px}
-.sec-num{background:var(--blue);padding:2px 8px;border-radius:3px;font-size:11px}
-h2.slide-h{font-size:18px;font-weight:800;color:var(--navy);margin-bottom:4px;padding-bottom:8px;
-  border-bottom:2px solid var(--light)}
-.slide-sub{font-size:12px;color:var(--muted);margin-bottom:16px}
 
-/* ── CARDS ── */
-.card{background:var(--white);border-radius:8px;padding:16px;border:1px solid var(--rule);margin-bottom:12px}
-.card-grid{display:grid;gap:12px}
-.card-grid.c2{grid-template-columns:1fr 1fr}
-.card-grid.c3{grid-template-columns:1fr 1fr 1fr}
-.card-grid.c4{grid-template-columns:1fr 1fr 1fr 1fr}
-.card h3{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:8px;
-  display:flex;align-items:center;gap:6px}
-.card p,.card li{font-size:12px;color:var(--text);line-height:1.65}
-.card ul{padding-left:16px;margin-top:4px}
-.card-accent{border-left:3px solid var(--blue)}
-.card-green{border-left:3px solid var(--green)}
-.card-amber{border-left:3px solid var(--amber)}
-.card-red{border-left:3px solid var(--red)}
-.card-purple{border-left:3px solid var(--purple)}
-
-/* ── PAIN POINTS ── */
-.pain-row{display:flex;gap:10px;margin-bottom:8px;align-items:flex-start}
-.pain-icon{font-size:18px;flex-shrink:0;margin-top:2px}
-.pain-body h4{font-size:12px;font-weight:700;color:var(--navy);margin-bottom:3px}
-.pain-body p{font-size:11.5px;color:var(--muted);line-height:1.5}
-.pain-tag{font-size:10px;padding:1px 6px;border-radius:3px;font-weight:700;margin-top:4px;display:inline-block}
-.pt-high{background:#fee2e2;color:#b91c1c}
-.pt-med{background:#fef9c3;color:#92400e}
-
-/* ── SAP SCREENS ── */
-.sap-screen{background:#e8f0e9;border:1px solid #b8d4bb;border-radius:6px;overflow:hidden;margin:10px 0}
-.sap-bar{background:#1f3864;color:#fff;padding:5px 12px;font-size:11px;font-weight:700;display:flex;align-items:center;gap:8px}
-.sap-bar-logo{background:#0070d2;padding:1px 6px;border-radius:2px;font-size:10px;font-weight:900}
-.sap-body{padding:12px;background:#fff;font-size:11px;font-family:'Courier New',monospace}
-.sap-row{display:flex;gap:8px;align-items:center;padding:3px 0;border-bottom:1px solid #f0f0f0}
-.sap-label{width:180px;color:#444;flex-shrink:0}
-.sap-val{color:#0070d2;font-weight:600}
-.sap-field{background:#fafafa;border:1px solid #ccc;padding:2px 6px;border-radius:2px;min-width:120px}
-.sap-btn{background:#0070d2;color:#fff;border:none;padding:3px 10px;border-radius:2px;font-size:10px;cursor:pointer;margin:2px}
-.sap-table{width:100%;border-collapse:collapse;font-size:10.5px;margin-top:6px}
-.sap-table th{background:#1f3864;color:#fff;padding:4px 8px;text-align:left;font-weight:600}
-.sap-table td{padding:3px 8px;border-bottom:1px solid #e8f0e9}
-.sap-table tr:nth-child(even) td{background:#f5f9f5}
-.sap-tcode{background:#e8f0e9;border:1px solid #b8d4bb;padding:2px 8px;border-radius:3px;font-size:10px;font-family:monospace;color:#1f3864;font-weight:700}
-
-/* ── FLOW ── */
-.flow{display:flex;align-items:center;gap:0;flex-wrap:wrap;margin:12px 0}
-.flow-node{background:var(--navy);color:#fff;padding:8px 14px;border-radius:6px;font-size:11px;font-weight:600;text-align:center;flex:1;min-width:100px}
-.flow-node.done{background:var(--green)}
-.flow-node.gap{background:var(--red);position:relative}
-.flow-node.new{background:var(--blue)}
-.flow-arrow{font-size:18px;color:var(--muted);padding:0 6px;flex-shrink:0}
-.flow-node small{display:block;font-size:9px;opacity:.75;margin-top:2px}
-
-/* ── TIMELINE ── */
-.timeline{position:relative;padding-left:28px}
-.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--light)}
-.tl-item{position:relative;margin-bottom:16px}
-.tl-dot{width:16px;height:16px;border-radius:50%;background:var(--blue);border:3px solid #fff;
-  box-shadow:0 0 0 2px var(--blue);position:absolute;left:-24px;top:2px}
-.tl-dot.done{background:var(--green);box-shadow:0 0 0 2px var(--green)}
-.tl-dot.future{background:var(--muted);box-shadow:0 0 0 2px var(--muted)}
-.tl-content h4{font-size:12px;font-weight:700;color:var(--navy)}
-.tl-content p{font-size:11px;color:var(--muted);line-height:1.5;margin-top:2px}
-.tl-date{font-size:10px;color:var(--blue);font-weight:700;margin-bottom:2px}
-
-/* ── BADGE ── */
-.badge{font-size:10px;padding:2px 7px;border-radius:3px;font-weight:700;white-space:nowrap}
-.badge-high{background:#fee2e2;color:#b91c1c}
-.badge-med{background:#fef9c3;color:#92400e}
-.badge-low{background:#dcfce7;color:#15803d}
-.badge-blue{background:#dbeafe;color:#1e40af}
-.badge-purple{background:#f3e8ff;color:#7c3aed}
-
-/* ── REQ TABLE ── */
-.req-table{width:100%;border-collapse:collapse;font-size:11px;margin-top:8px}
-.req-table th{background:var(--navy);color:#fff;padding:6px 10px;text-align:left;font-weight:600}
-.req-table td{padding:5px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
-.req-table tr:nth-child(even) td{background:#fafbfc}
-.req-id{font-family:monospace;font-weight:700;color:var(--blue)}
-
-/* ── STATS BAR ── */
-.stats-bar{display:flex;gap:12px;margin:12px 0;flex-wrap:wrap}
-.stat{background:var(--white);border-radius:8px;padding:12px 16px;flex:1;min-width:120px;
-  border-left:3px solid var(--c);text-align:center}
-.stat .v{font-size:24px;font-weight:800;color:var(--c)}
-.stat .l{font-size:10px;color:var(--muted);margin-top:2px}
-
-.page-break{border:none;border-top:2px solid var(--rule);margin:24px 0}
-.footer-bar{background:var(--navy);color:rgba(255,255,255,.4);font-size:10px;
-  padding:8px 24px;display:flex;justify-content:space-between;margin-top:32px;border-radius:6px}
 </style>
+<script src="/fsl-report/auth-guard.js"></script>
 </head>
 <body>
+<div class="presentation">
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">FSL <span>专项方案</span></div>
-  <div class="nav-divider"></div>
-  <div class="nav-title">海外财务本地化体系建设 — S05</div>
-  <div class="nav-chapters">
-    <div class="nc on" onclick="goCh(0)">01 方案概述</div>
-    <div class="nc" onclick="goCh(1)">02 方案详解</div>
-    <div class="nc" onclick="goCh(2)">03 配套行动</div>
-    <div class="nc" onclick="goCh(3)">04 附录</div>
+<!-- ①封面 -->
+<section class="slide title-slide cover-decorated" id="slide-1">
+  <div class="cover-panel-right"></div>
+  <div class="slide-content title-content">
+    <h1 class="reveal">海外财务本地化<br>体系建设</h1>
+    <p class="subtitle reveal">多币种核算 · 转移定价 · DRC合规 · 经营可视化</p>
+    <p class="meta reveal">佛山照明 × SAP × Eviden &nbsp;|&nbsp; 2026.07 &nbsp;|&nbsp; S05 专项方案</p>
   </div>
-  <div class="nav-conf">Atos Confidential</div>
-</nav>
+</section>
 
-<!-- ══════════════ CH01: 专项方案概述 ══════════════ -->
-<div class="chapter on" id="ch0">
-
-  <!-- 封面 -->
-  <div class="cover">
-    <div class="fsl-logo">FSL</div>
-    <div>
-      <div class="cover-tag">高价值场景 S05 · 专项方案设计阶段</div>
-      <h1>海外财务<span>本地化体系</span>建设</h1>
-      <div class="cover-sub">多币种核算 · 转移定价 · DRC合规 · 经营可视化</div>
-    </div>
-    <div class="cover-meta">
-      <div class="cm"><strong>项目</strong>佛山照明 SAP S/4HANA PCE 升级</div>
-      <div class="cm"><strong>阶段</strong>探索阶段 → 蓝图阶段</div>
-      <div class="cm"><strong>方案负责人</strong>陈宇清（艾维登）</div>
-      <div class="cm"><strong>关联工作包</strong>WP3 FICO · WP8 DRC合规</div>
-      <div class="cm"><strong>版本</strong>V2.0 · 2025-07-22</div>
-    </div>
+<!-- ②目录 -->
+<section class="slide content-slide" id="slide-2">
+  <div class="slide-content">
+    <h2 class="slide-h2 reveal">目录</h2>
+    <ol class="agenda-list reveal-up" style="--i:1">
+      <li><span class="agenda-number">01</span><span class="agenda-text">专项方案概述 — 背景、痛点、覆盖范围</span></li>
+      <li><span class="agenda-number">02</span><span class="agenda-text">子方案一：多币种与汇兑损益自动化</span></li>
+      <li><span class="agenda-number">03</span><span class="agenda-text">子方案二：泰国转移定价双口径体系</span></li>
+      <li><span class="agenda-number">04</span><span class="agenda-text">子方案三：海外法人SAP模板 FZ40 / FZ33</span></li>
+      <li><span class="agenda-number">05</span><span class="agenda-text">子方案四：经营可视化与驾驶舱</span></li>
+      <li><span class="agenda-number">06</span><span class="agenda-text">配套行动计划 — 阶段、里程碑、前置条件</span></li>
+      <li><span class="agenda-number">07</span><span class="agenda-text">附录：27条原始需求清单</span></li>
+    </ol>
   </div>
+</section>
 
-  <!-- 目录 -->
-  <h2 class="slide-h">目录</h2>
-  <div class="toc-grid">
-    <div class="toc-card" onclick="goCh(0)">
-      <div class="toc-num">01</div>
-      <div class="toc-title">专项方案概述</div>
-      <div class="toc-desc">背景驱动 · 覆盖范围 · 方案目标 · 需求统计</div>
-    </div>
-    <div class="toc-card" onclick="goCh(1)">
-      <div class="toc-num">02</div>
-      <div class="toc-title">方案详解及系统实现</div>
-      <div class="toc-desc">4个子方案 · SAP配置 · 系统界面演示</div>
-    </div>
-    <div class="toc-card" onclick="goCh(2)">
-      <div class="toc-num">03</div>
-      <div class="toc-title">配套行动计划</div>
-      <div class="toc-desc">阶段划分 · 里程碑 · 前置条件 · 资源需求</div>
-    </div>
-    <div class="toc-card" onclick="goCh(3)">
-      <div class="toc-num">04</div>
-      <div class="toc-title">附录：相关文档及原始数据</div>
-      <div class="toc-desc">27条原始需求清单 · 架构图 · 参考资料</div>
-    </div>
+<!-- ③章节分隔 01 -->
+<section class="slide section-divider" id="slide-3">
+  <div class="slide-content divider-content">
+    <div class="section-number reveal">01</div>
+    <h2 class="reveal">专项方案概述</h2>
+    <p class="divider-sub reveal-up" style="--i:1">背景驱动 · 核心痛点 · 覆盖范围 · 需求统计</p>
   </div>
+</section>
 
-  <div class="page-break"></div>
-
-  <!-- 背景 -->
-  <div class="sec-title"><span class="sec-num">1.1</span> 背景与驱动因素</div>
-  <div class="card-grid c3">
-    <div class="card card-red">
-      <h3>🌏 海外规模快速扩张</h3>
-      <p>国际事业部年营收 <strong>11亿+</strong>，目标12.8亿，未来3年持续增长。泰国FZ40 2026年1月正式量产，德国FZ33承接欧洲销售，美国销售公司规划中。</p>
-    </div>
-    <div class="card card-amber">
-      <h3>⚠️ ECC系统严重不适配</h3>
-      <p>现有ECC在海外场景存在：多币种无自动折算、汇兑凭证手工录入、转移定价无系统支撑、DRC税务合规缺失等<strong>系统性空白</strong>。</p>
-    </div>
-    <div class="card card-accent">
-      <h3>📋 合规压力持续升级</h3>
-      <p>泰国税务/原产地认证、德国HGB本地会计准则、欧盟VAT申报、转移定价文档要求日趋严格，人工处理<strong>合规风险极高</strong>。</p>
-    </div>
-  </div>
-
-  <!-- 需求统计 -->
-  <div class="sec-title"><span class="sec-num">1.2</span> 原始需求统计</div>
-  <div class="stats-bar">
-    <div class="stat" style="--c:#b91c1c"><div class="v">27</div><div class="l">关联原始需求</div></div>
-    <div class="stat" style="--c:#92400e"><div class="v">17</div><div class="l">高优先级</div></div>
-    <div class="stat" style="--c:#1e40af"><div class="v">2</div><div class="l">覆盖法人主体</div></div>
-    <div class="stat" style="--c:#7c3aed"><div class="v">4</div><div class="l">核心子方案</div></div>
-    <div class="stat" style="--c:#15803d"><div class="v">6</div><div class="l">关联SAP模块</div></div>
-  </div>
-
-  <!-- 业务痛点 -->
-  <div class="sec-title"><span class="sec-num">1.3</span> 核心业务痛点（归纳自27条需求）</div>
-  <div class="card-grid c2">
-    <div class="card">
-      <div class="pain-row">
-        <div class="pain-icon">💸</div>
-        <div class="pain-body">
-          <h4>汇兑损益处理全程手工</h4>
-          <p>外币收款无自动清账（A0282），汇兑损益凭证手工录入（A0288），季度汇总一笔无法匹配到单客户/单订单（A0289），外币锁汇无系统台账（A0291）。</p>
-          <span class="pain-tag pt-high">HIGH · 影响月结效率</span>
-        </div>
+<!-- ④背景驱动 -->
+<section class="slide kpi-slide" id="slide-4">
+  <div class="slide-content">
+    <h2 class="slide-h2 reveal">为什么现在必须做？</h2>
+    <p class="kicker reveal-up" style="--i:1">三重驱动力同时发酵，ECC海外能力已无法支撑佛照国际化战略</p>
+    <div class="feature-grid reveal-up" style="--i:2;grid-template-columns:1fr 1fr 1fr">
+      <div class="card" style="border-left-color:#D20A0A">
+        <div class="card-icon">🌏</div>
+        <h3>海外规模急速扩张</h3>
+        <p>国际事业部年营收 <strong>11亿+</strong>，目标12.8亿。泰国FZ40 2026年1月量产，德国FZ33承接欧洲销售，美国公司规划中。ECC 系统根本无法支撑多主体并行运营。</p>
       </div>
-      <div class="pain-row">
-        <div class="pain-icon">📊</div>
-        <div class="pain-body">
-          <h4>转移定价两套口径无系统支撑</h4>
-          <p>对外报关价（终端售价×0.59）与内部考核成本（移动平均价）需并行核算（A0359），目前完全靠线下Excel维护，合规风险极高。</p>
-          <span class="pain-tag pt-high">HIGH · 泰国税务核心</span>
-        </div>
+      <div class="card" style="border-left-color:#E76500">
+        <div class="card-icon">⚠️</div>
+        <h3>合规压力持续升级</h3>
+        <p>泰国税务/原产地认证、德国HGB、欧盟VAT、OECD转移定价文档要求日趋严格。目前全部依赖 <strong>线下Excel人工处理</strong>，合规风险极高。</p>
       </div>
-      <div class="pain-row">
-        <div class="pain-icon">🏭</div>
-        <div class="pain-body">
-          <h4>泰国工厂SAP模块严重缺位</h4>
-          <p>2026年1月量产，计划/物流/成本分析模块均未启用（A0363），运营透明度极低，无法支撑日常经营决策。</p>
-          <span class="pain-tag pt-high">HIGH · 生产运营盲区</span>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="pain-row">
-        <div class="pain-icon">💰</div>
-        <div class="pain-body">
-          <h4>海外报价模型失真丢单</h4>
-          <p>多工厂多层加价导致报价失真，BOM成本→标准成本→汇率→关税→运费→毛利的完整链路无系统支撑（A0360），容易丢失欧美大客户订单。</p>
-          <span class="pain-tag pt-high">HIGH · 商机损失</span>
-        </div>
-      </div>
-      <div class="pain-row">
-        <div class="pain-icon">📑</div>
-        <div class="pain-body">
-          <h4>海外法人SAP模板空白</h4>
-          <p>FZ40(泰国生产法人)与FZ33(德国销售法人)均无完整SAP模板（A0362），本地合规/税务/多语言均依赖人工处理。</p>
-          <span class="pain-tag pt-high">HIGH · 合规基础缺失</span>
-        </div>
-      </div>
-      <div class="pain-row">
-        <div class="pain-icon">👁️</div>
-        <div class="pain-body">
-          <h4>泰国经营数据不可视</h4>
-          <p>车间产量/料工费/盈亏多表手工汇总（A0377），应收/坏账无法按渠道精细拆分（A0287），经营驾驶舱完全缺失。</p>
-          <span class="pain-tag pt-med">MED · 管理决策受限</span>
-        </div>
+      <div class="card" style="border-left-color:#0070F2">
+        <div class="card-icon">📊</div>
+        <h3>经营决策严重失明</h3>
+        <p>汇兑损益无法追溯到单客户/订单，泰国车间成本完全不透明，报价模型失真导致丢单。管理层对海外 <strong>真实盈利无数据支撑</strong>。</p>
       </div>
     </div>
   </div>
+</section>
 
-  <div class="footer-bar">
-    <span>佛山照明 SAP S/4HANA 专项方案 · S05 海外财务本地化体系建设</span>
-    <span>Atos Confidential · V2.0</span>
+<!-- ⑤核心痛点 -->
+<section class="slide content-slide" id="slide-5">
+  <div class="slide-content">
+    <h2 class="slide-h2 reveal">六大核心痛点</h2>
+    <p class="kicker reveal-up" style="--i:1">归纳自探索阶段 27 条 P05 原始需求</p>
+    <div class="feature-grid reveal-up" style="--i:2;grid-template-columns:1fr 1fr">
+      <div class="card">
+        <div class="card-icon">💸</div>
+        <h3>汇兑损益处理全程手工</h3>
+        <p>外币收款无自动清账 <span style="color:#D20A0A;font-weight:700">（A0282）</span>，汇兑凭证手工录入 <span style="color:#D20A0A;font-weight:700">（A0288）</span>，季度汇总一笔无法匹配单订单 <span style="color:#D20A0A;font-weight:700">（A0289）</span>，锁汇无台账 <span style="color:#D20A0A;font-weight:700">（A0291）</span>。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📋</div>
+        <h3>转移定价双口径无系统支撑</h3>
+        <p>对外报关价（终端售价×0.59）与内部考核成本（移动平均价）并行维护，完全靠线下Excel，OECD 文档无系统生成 <span style="color:#D20A0A;font-weight:700">（A0359/A0372）</span>。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏭</div>
+        <h3>泰国工厂 SAP 模块严重缺位</h3>
+        <p>2026年1月已量产，计划/物流/成本模块均<strong>未启用</strong>，运营透明度极低，日常经营决策无数据 <span style="color:#D20A0A;font-weight:700">（A0363）</span>。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">💰</div>
+        <h3>海外报价模型失真导致丢单</h3>
+        <p>多工厂多层加价导致报价失真，BOM→成本→汇率→关税→运费→毛利完整链路无系统支撑 <span style="color:#D20A0A;font-weight:700">（A0360）</span>，欧美大客户（Lidl/沃尔玛）丢单风险高。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📑</div>
+        <h3>海外法人 SAP 模板空白</h3>
+        <p>FZ40泰国生产法人、FZ33德国销售法人均无完整 SAP 模板 <span style="color:#D20A0A;font-weight:700">（A0362）</span>，本地合规/税务/多语言全部人工处理。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">👁️</div>
+        <h3>泰国经营数据完全不可视</h3>
+        <p>车间产量/料工费/盈亏多表手工汇总 <span style="color:#D20A0A;font-weight:700">（A0377）</span>，应收/坏账无法按渠道拆分 <span style="color:#D20A0A;font-weight:700">（A0287）</span>，驾驶舱完全缺失。</p>
+      </div>
+    </div>
   </div>
-</div>
+</section>
 
-<!-- ══════════════ CH02: 方案详解 ══════════════ -->
-<div class="chapter" id="ch1">
-  <h2 class="slide-h">方案详解及系统实现</h2>
-  <div class="slide-sub">4个子方案 · SAP S/4HANA PCE 配置实现</div>
-
-  <!-- 子方案1 -->
-  <div class="sec-title"><span class="sec-num">2.1</span> 子方案一：多币种与汇兑损益自动化</div>
-  <div class="card-grid c2">
-    <div class="card card-red">
-      <h3>🔴 现状（AS-IS）</h3>
-      <ul>
-        <li>外销外币收款无自动清账，销售人员手工认领订单</li>
-        <li>汇兑损益凭证需财务手工录入，季度汇总一笔</li>
-        <li>外币锁汇/掉期交易系统无联动台账</li>
-        <li>多币种查询需手工换算汇率（泰铢/欧元/美元）</li>
-      </ul>
-    </div>
-    <div class="card card-green">
-      <h3>🟢 目标（TO-BE）</h3>
-      <ul>
-        <li>F-28/F-32 自动匹配销售订单清账</li>
-        <li>FAGL_FC_VAL 外币估值自动生成汇兑凭证</li>
-        <li>TR-TM 锁汇台账系统化，与AR/AP联动</li>
-        <li>多本位币配置，自动折算泰铢/欧元/人民币</li>
-      </ul>
+<!-- ⑥需求统计 KPI -->
+<section class="slide kpi-slide" id="slide-6">
+  <div class="slide-content">
+    <h2 class="slide-h2 reveal">需求覆盖统计</h2>
+    <p class="kicker reveal-up" style="--i:1">来源：探索阶段访谈 · 国际事业部 · 泰国FZ40 · 德国FZ33</p>
+    <div class="kpi-grid reveal-up" style="--i:2;grid-template-columns:repeat(5,1fr)">
+      <div class="kpi-card">
+        <span class="kpi-value">27</span>
+        <span class="kpi-label">关联原始需求</span>
+        <span class="kpi-trend">P05 痛点映射</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-value" style="color:#D20A0A">17</span>
+        <span class="kpi-label">高优先级需求</span>
+        <span class="kpi-trend neg">必须本期实现</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-value">2</span>
+        <span class="kpi-label">覆盖海外法人</span>
+        <span class="kpi-trend">FZ40 · FZ33</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-value">4</span>
+        <span class="kpi-label">核心子方案</span>
+        <span class="kpi-trend">完整解决方案</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-value">6</span>
+        <span class="kpi-label">关联 SAP 模块</span>
+        <span class="kpi-trend">FI · CO · DRC · TR · GR · MDG</span>
+      </div>
     </div>
   </div>
+</section>
 
-  <!-- SAP界面演示1 -->
-  <div class="sap-screen">
-    <div class="sap-bar">
-      <span class="sap-bar-logo">SAP</span>
-      <span>事务代码：FAGL_FC_VAL — 外币估值（Foreign Currency Valuation）</span>
+<!-- ⑦章节分隔 02 -->
+<section class="slide section-divider" id="slide-7">
+  <div class="slide-content divider-content">
+    <div class="section-number reveal">02</div>
+    <h2 class="reveal">子方案一：多币种与汇兑损益自动化</h2>
+    <p class="divider-sub reveal-up" style="--i:1">FAGL_FC_VAL · F-28/F-32 · TR-TM · 多本位币配置</p>
+  </div>
+</section>
+
+<!-- ⑧AS-IS vs TO-BE -->
+<section class="slide two-col-slide" id="slide-8">
+  <div class="slide-content">
+    <h2 class="slide-h2 reveal">现状 AS-IS vs 目标 TO-BE</h2>
+    <div class="two-col-grid reveal-up" style="--i:1">
+      <div class="col">
+        <h3 style="color:#D20A0A;border-left:4px solid #D20A0A;padding-left:.6rem">🔴 现状痛点</h3>
+        <ul class="bullet-list">
+          <li>外销外币收款无自动清账，销售人员手工认领订单</li>
+          <li>汇兑损益凭证需财务手工录入，季度汇总一笔</li>
+          <li>外币锁汇/掉期交易系统无联动台账，风险敞口不可见</li>
+          <li>多币种查询（泰铢/欧元/美元）需手工换算汇率</li>
+          <li>应收/坏账无法按渠道、事业部精细拆分核算</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3 style="color:#188918;border-left:4px solid #188918;padding-left:.6rem">🟢 目标状态</h3>
+        <ul class="bullet-list">
+          <li><strong>F-28/F-32</strong> 自动匹配销售订单清账</li>
+          <li><strong>FAGL_FC_VAL</strong> 外币估值自动生成汇兑凭证，精确到单客户/单订单</li>
+          <li><strong>TR-TM</strong> 锁汇台账系统化，与 AR/AP 实时联动</li>
+          <li>多本位币配置，泰铢/欧元/人民币自动折算</li>
+          <li>应收按渠道精细拆分，坏账计提全自动</li>
+        </ul>
+      </div>
     </div>
-    <div class="sap-body">
-      <div class="sap-row"><span class="sap-label">公司代码</span><span class="sap-field">FZ40</span><span style="margin-left:16px;color:#666">泰国佛照FZ40</span></div>
-      <div class="sap-row"><span class="sap-label">估值关键日期</span><span class="sap-field">2025.06.30</span><span class="sap-btn">季末估值</span></div>
-      <div class="sap-row"><span class="sap-label">汇率类型</span><span class="sap-field">M (平均汇率)</span></div>
-      <div class="sap-row"><span class="sap-label">过账日期</span><span class="sap-field">2025.06.30</span><span class="sap-btn" style="background:#e8f0e9;color:#15803d;border:1px solid #b8d4bb">自动过账</span></div>
-      <table class="sap-table" style="margin-top:10px">
-        <tr><th>客户/供应商</th><th>原币金额</th><th>币种</th><th>本位币金额</th><th>估值损益</th><th>凭证号</th></tr>
-        <tr><td>C10023 Lidl GmbH</td><td>128,500.00</td><td>EUR</td><td>1,003,560.00</td><td style="color:#b91c1c">-12,840.00</td><td style="color:#0070d2">1800012345</td></tr>
-        <tr><td>C10087 Walmart</td><td>85,200.00</td><td>USD</td><td>617,699.00</td><td style="color:#15803d">+3,210.00</td><td style="color:#0070d2">1800012346</td></tr>
-        <tr><td>C10156 泰国本地客户</td><td>2,450,000.00</td><td>THB</td><td>478,050.00</td><td style="color:#b91c1c">-8,250.00</td><td style="color:#0070d2">1800012347</td></tr>
+  </div>
+</section>
+
+<!-- ⑨SAP FAGL_FC_VAL 界面 -->
+<section class="slide content-slide" id="slide-9">
+  <div class="slide-content">
+    <h2 class="slide-h2 reveal">系统实现：外币估值自动化</h2>
+    <div class="reveal-up" style="--i:1">
+      <div class="tcode-bar">
+        <span class="tcode-label">T-CODE</span>
+        <span class="tcode-name">FAGL_FC_VAL — Foreign Currency Valuation（外币估值）</span>
+      </div>
+      <div class="tcode-body">
+        <div class="tcode-field-row">
+          <span class="tcode-field-label">公司代码</span>
+          <span class="tcode-field-val">FZ40</span>
+          <span style="font-size:var(--small-size);color:#888;margin-left:8px">泰国佛照 FZ40</span>
+        </div>
+        <div class="tcode-field-row">
+          <span class="tcode-field-label">估值关键日期</span>
+          <span class="tcode-field-val">2025.06.30</span>
+          <span style="background:#D1EFFF;color:#0070F2;padding:2px 8px;border-radius:3px;font-size:var(--label-size);font-weight:700;margin-left:8px">季末估值</span>
+        </div>
+        <div class="tcode-field-row">
+          <span class="tcode-field-label">汇率类型</span>
+          <span class="tcode-field-val">M（平均汇率）</span>
+        </div>
+        <div style="margin-top:8px">
+          <div class="tcode-result-header" style="display:grid;grid-template-columns:1.5fr 1fr .7fr 1fr 1fr 1fr">
+            <span>客户/供应商</span><span>原币金额</span><span>币种</span><span>本位币金额</span><span>估值损益</span><span>凭证号</span>
+          </div>
+          <div class="tcode-result-row-data" style="display:grid;grid-template-columns:1.5fr 1fr .7fr 1fr 1fr 1fr">
+            <span>C10023 Lidl GmbH</span><span>128,500.00</span><span>EUR</span><span>1,003,560.00</span>
+            <span style="color:#D20A0A">-12,840.00</span><span style="color:#0070F2">1800012345</span>
+          </div>
+          <div class="tcode-result-row-data" style="display:grid;grid-template-columns:1.5fr 1fr .7fr 1fr 1fr 1fr">
+            <span>C10087 Walmart US</span><span>85,200.00</span><span>USD</span><span>617,699.00</span>
+            <span style="color:#188918">+3,210.00</span><span style="color:#0070F2">1800012346</span>
+          </div>
+          <div class="tcode-result-row-data" style="display:grid;grid-template-columns:1.5fr 1fr .7fr 1fr 1fr 1fr">
+            <span>C10156 泰国本地客户</span><span>2,450,000.00</span><span>THB</span><span>478,050.00</span>
+            <span style="color:#D20A0A">-8,250.00</span><span style="color:#0070F2">1800012347</span>
+          </div>
+        </div>
+        <div style="margin-top:8px;font-size:var(--label-size);color:#188918">
+          ✅ 系统自动生成汇兑损益凭证，无需手工录入 | 已关联销售订单 | 支持按客户/产品线/渠道钻取
+        </div>
+      </div>
+    </div>
+    <p class="kicker reveal-up" style="--i:2;margin-top:.5rem">关联需求：A0282 · A0287 · A0288 · A0289 · A0290 · A0291 · A0292 · A0374</p>
+  </div>
+</section>
+
+<!-- ⑩章节分隔 03 -->
+<section class="slide section-divider" id="slide-10">
+  <div class="slide-content divider-content">
+    <div class="section-number reveal">03</div>
+    <h2 class="reveal">子方案二：泰国转移定价双口径</h2>
+    <p class="divider-sub reveal-up" style="--i:1">CO-PC 双重成本核算 · MR21 价格更改 · STO 内部采购订单</p>
+  </div>
+</section>
+
+<!-- ⑪转移定价设计 -->
+<section class="slide content-slide" id="slide-11">
+  <div class="slide-content">
+    <h2 class="slide-h2 reveal">双口径成本核算设计</h2>
+    <div class="feature-grid reveal-up" style="--i:1;grid-template-columns:1fr 1fr 1fr">
+      <div class="card" style="border-left-color:#E76500">
+        <div class="card-icon">📋</div>
+        <h3>对外报关价</h3>
+        <p>终端售价 × <strong>0.59</strong><br>满足泰国税务局原产地认证，用于对外申报文件，系统自动维护价格条件类型 <strong>ZTP1</strong>。</p>
+      </div>
+      <div class="card" style="border-left-color:#0070F2">
+        <div class="card-icon">💰</div>
+        <h3>内部考核成本</h3>
+        <p>取自国内工厂<strong>移动平均价</strong><br>用于集团内部利润核算与考核，通过 <strong>STO内部采购订单</strong> 自动传递，驱动合并抵消。</p>
+      </div>
+      <div class="card" style="border-left-color:#188918">
+        <div class="card-icon">📊</div>
+        <h3>预期效果</h3>
+        <p>• OECD 转移定价文档自动生成<br>• 合并报表关联交易自动消除<br>• 经营利润追溯至单产品/单工厂<br>• 泰国税务申报数据直接从 SAP 导出</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑫MR21 SAP界面 -->
+<section class="slide content-slide" id="slide-12">
+  <div class="slide-content">
+    <h2 class="slide-h2 reveal">系统实现：转移定价维护</h2>
+    <div class="reveal-up" style="--i:1">
+      <div class="tcode-bar">
+        <span class="tcode-label">T-CODE</span>
+        <span class="tcode-name">MR21 — 价格更改 | 泰国FZ40 转移定价维护</span>
+      </div>
+      <div class="tcode-body">
+        <div class="tcode-field-row">
+          <span class="tcode-field-label">公司代码</span>
+          <span class="tcode-field-val">FZ40</span>
+        </div>
+        <div class="tcode-field-row">
+          <span class="tcode-field-label">价格控制</span>
+          <span class="tcode-field-val">S（标准成本）</span>
+        </div>
+        <div style="margin-top:8px">
+          <div class="tcode-result-header" style="display:grid;grid-template-columns:1fr 1.5fr 1fr 1fr .8fr 1fr">
+            <span>物料编号</span><span>物料描述</span><span>对外报关价(THB)</span><span>内部考核价(CNY)</span><span>折算汇率</span><span>差异</span>
+          </div>
+          <div class="tcode-result-row-data" style="display:grid;grid-template-columns:1fr 1.5fr 1fr 1fr .8fr 1fr">
+            <span>T-LED-001</span><span>LED球泡E27 9W</span><span>45.30</span><span>8.82</span><span>0.195</span>
+            <span style="color:#188918">+0.23</span>
+          </div>
+          <div class="tcode-result-row-data" style="display:grid;grid-template-columns:1fr 1.5fr 1fr 1fr .8fr 1fr">
+            <span>T-LED-002</span><span>LED灯管T8 18W</span><span>78.60</span><span>15.30</span><span>0.195</span>
+            <span style="color:#D20A0A">-0.42</span>
+          </div>
+          <div class="tcode-result-row-data" style="display:grid;grid-template-columns:1fr 1.5fr 1fr 1fr .8fr 1fr">
+            <span>T-LED-003</span><span>LED面板灯600×600</span><span>312.50</span><span>60.84</span><span>0.195</span>
+            <span style="color:#188918">+1.21</span>
+          </div>
+        </div>
+        <div style="margin-top:8px;font-size:var(--label-size);color:#188918">
+          💡 系统自动维护两套价格，对外合规 + 对内考核，无需人工两套 Excel | 汇率自动更新
+        </div>
+      </div>
+    </div>
+    <p class="kicker reveal-up" style="--i:2;margin-top:.5rem">关联需求：A0359 · A0360 · A0372 · A0373 · A0376</p>
+  </div>
+</section>
+
+<!-- ⑬章节分隔 04 -->
+<section class="slide section-divider" id="slide-13">
+  <div class="slide-content divider-content">
+    <div class="section-number reveal">04</div>
+    <h2 class="reveal">子方案三：海外法人 SAP 模板</h2>
+    <p class="divider-sub reveal-up" style="--i:1">FZ40 泰国生产法人 · FZ33 德国销售法人 · DRC 合规申报</p>
+  </div>
+</section>
+
+<!-- ⑭FZ40/FZ33 设计 -->
+<section class="slide two-col-slide" id="slide-14">
+  <div class="slide-content">
+    <h2 class="slide-h2 reveal">海外法人 SAP 模板设计</h2>
+    <div class="two-col-grid reveal-up" style="--i:1">
+      <div class="col">
+        <h3 style="color:#7c3aed;border-left:4px solid #7c3aed;padding-left:.6rem">🏭 FZ40 — 泰国生产法人</h3>
+        <ul class="bullet-list">
+          <li><strong>财务：</strong>泰铢本位币 + 人民币平行账，泰国 VAT (7%) 自动申报</li>
+          <li><strong>物料：</strong>编码前加 <strong>T</strong> 标识，泰文/英文双语描述</li>
+          <li><strong>成本：</strong>启用 CO-PC 产品成本核算，料工费完整归集</li>
+          <li><strong>物流：</strong>MM-IM 库存管理，PP 生产订单全面启用</li>
+          <li><strong>DRC：</strong>泰国本地化税务，原产地证书数据源</li>
+          <li><strong>语言：</strong>多语言适配，支持本地泰国工人操作</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3 style="color:#0070F2;border-left:4px solid #0070F2;padding-left:.6rem">🏢 FZ33 — 德国销售法人</h3>
+        <ul class="bullet-list">
+          <li><strong>财务：</strong>欧元本位币，HGB 德国会计准则，年报自动生成</li>
+          <li><strong>税务：</strong>DRC 欧盟 VAT 申报，进出口关税自动计算</li>
+          <li><strong>销售：</strong>SD 销售订单 + 欧洲客户价格协议管理</li>
+          <li><strong>集成：</strong>与国内 FZ01 通过 STO 内部采购订单联动</li>
+          <li><strong>报表：</strong>向集团汇报时自动汇率折算人民币</li>
+          <li><strong>合规：</strong>满足欧盟 GDPR 及德国本地数据法规</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑮DRC税务申报界面 -->
+<section class="slide content-slide" id="slide-15">
+  <div class="slide-content">
+    <h2 class="slide-h2 reveal">系统实现：DRC 泰国税务合规</h2>
+    <div class="reveal-up" style="--i:1">
+      <div class="fiori-shell">
+        <span class="fiori-shell-logo">SAP</span>
+        <span class="fiori-shell-title">DRC — Document and Reporting Compliance | FZ40 泰国税务申报</span>
+        <div class="fiori-shell-icons"><span>🔔</span><span>👤</span><span>⚙️</span></div>
+      </div>
+      <div class="fiori-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div>
+            <div style="font-weight:700;color:#002A86;margin-bottom:6px;font-size:var(--small-size)">🇹🇭 泰国本地化配置</div>
+            <div class="tcode-field-row"><span class="tcode-field-label">国家代码</span><span class="tcode-field-val">TH — 泰国</span></div>
+            <div class="tcode-field-row"><span class="tcode-field-label">税务编号 (TIN)</span><span class="tcode-field-val">0107562000XXX</span></div>
+            <div class="tcode-field-row"><span class="tcode-field-label">增值税税率</span><span class="tcode-field-val" style="color:#D20A0A">7.00%</span></div>
+            <div class="tcode-field-row"><span class="tcode-field-label">申报频率</span><span class="tcode-field-val">月度申报</span></div>
+            <div class="tcode-field-row"><span class="tcode-field-label">本位币</span><span class="tcode-field-val">THB 泰铢</span></div>
+          </div>
+          <div>
+            <div style="font-weight:700;color:#002A86;margin-bottom:6px;font-size:var(--small-size)">📊 本月申报状态</div>
+            <table class="comparison-table" style="font-size:var(--label-size)">
+              <thead><tr><th>申报类型</th><th>截止日期</th><th>状态</th></tr></thead>
+              <tbody>
+                <tr><td>增值税月报 PP.30</td><td>2025-07-15</td><td style="color:#188918;font-weight:700">✅ 已完成</td></tr>
+                <tr><td>企业所得税预缴</td><td>2025-07-31</td><td style="color:#E76500;font-weight:700">⏳ 进行中</td></tr>
+                <tr><td>预提所得税 WHT</td><td>2025-07-07</td><td style="color:#188918;font-weight:700">✅ 已完成</td></tr>
+                <tr><td>原产地证书数据</td><td>按需</td><td style="color:#188918;font-weight:700">✅ 系统自动</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="kicker reveal-up" style="--i:2;margin-top:.5rem">关联需求：A0362 · A0363 · A0364 · A0379 · A0391</p>
+  </div>
+</section>
+
+<!-- ⑯章节分隔 05 -->
+<section class="slide section-divider" id="slide-16">
+  <div class="slide-content divider-content">
+    <div class="section-number reveal">05</div>
+    <h2 class="reveal">子方案四：经营可视化与驾驶舱</h2>
+    <p class="divider-sub reveal-up" style="--i:1">CO-PA 盈利分析 · 海外报价模型 · 泰国车间经营看板</p>
+  </div>
+</section>
+
+<!-- ⑰报价模型流程 -->
+<section class="slide content-slide" id="slide-17">
+  <div class="slide-content">
+    <h2 class="slide-h2 reveal">海外报价模型（CO-PA 盈利分析）</h2>
+    <p class="kicker reveal-up" style="--i:1">全链路报价成本系统化，彻底解决多层加价失真、欧美大客户丢单问题</p>
+    <div class="process-flow reveal-up" style="--i:2">
+      <div class="process-step">
+        <div class="step-number">1</div>
+        <div class="step-content"><h3>BOM 成本</h3><p>CO-PC 产品成本核算，料工费完整归集</p></div>
+      </div>
+      <div class="process-arrow">→</div>
+      <div class="process-step">
+        <div class="step-number">2</div>
+        <div class="step-content"><h3>标准成本</h3><p>MR21 维护，双口径价格自动传递</p></div>
+      </div>
+      <div class="process-arrow">→</div>
+      <div class="process-step">
+        <div class="step-number">3</div>
+        <div class="step-content"><h3>汇率折算</h3><p>自动获取最新汇率，THB/EUR/USD</p></div>
+      </div>
+      <div class="process-arrow">→</div>
+      <div class="process-step">
+        <div class="step-number">4</div>
+        <div class="step-content"><h3>关税运费</h3><p>SD 条件类型自动加载</p></div>
+      </div>
+      <div class="process-arrow">→</div>
+      <div class="process-step">
+        <div class="step-number">5</div>
+        <div class="step-content"><h3>目标毛利</h3><p>CO-PA KE30 实时盈利分析</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑱CO-PA盈利分析界面 -->
+<section class="slide content-slide" id="slide-18">
+  <div class="slide-content">
+    <h2 class="slide-h2 reveal">系统实现：泰国经营驾驶舱（CO-PA KE30）</h2>
+    <div class="reveal-up" style="--i:1">
+      <div class="tcode-bar">
+        <span class="tcode-label">T-CODE</span>
+        <span class="tcode-name">KE30 — 盈利分析报表 | FZ40 泰国 | 2025年H1</span>
+      </div>
+      <div class="tcode-body">
+        <table class="comparison-table">
+          <thead>
+            <tr><th>产品线</th><th>销售收入(THB)</th><th>标准成本</th><th>关税运费</th><th>毛利</th><th>毛利率</th><th>汇兑影响</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>LED 球泡</td><td>8,234,500</td><td>5,362,425</td><td>823,450</td><td style="color:#188918;font-weight:700">2,048,625</td><td style="color:#188918;font-weight:700">24.9%</td><td style="color:#D20A0A">-124,200</td></tr>
+            <tr><td>LED 灯管</td><td>5,612,300</td><td>3,703,118</td><td>561,230</td><td style="color:#188918;font-weight:700">1,347,952</td><td style="color:#188918;font-weight:700">24.0%</td><td style="color:#D20A0A">-89,400</td></tr>
+            <tr><td>LED 面板灯</td><td>3,428,900</td><td>2,400,230</td><td>342,890</td><td style="color:#E76500;font-weight:700">685,780</td><td style="color:#E76500;font-weight:700">20.0%</td><td style="color:#D20A0A">-52,100</td></tr>
+            <tr style="background:#D1EFFF;font-weight:700"><td>合计</td><td>17,275,700</td><td>11,465,773</td><td>1,727,570</td><td style="color:#188918">4,082,357</td><td style="color:#188918">23.6%</td><td style="color:#D20A0A">-265,700</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:8px;font-size:var(--label-size);color:#188918">
+          💡 实时展示泰国运营真实盈利，含汇兑影响，支撑管理层经营决策 | 可钻取至单产品/单客户
+        </div>
+      </div>
+    </div>
+    <p class="kicker reveal-up" style="--i:2;margin-top:.5rem">关联需求：A0354 · A0360 · A0369 · A0370 · A0371 · A0373 · A0377</p>
+  </div>
+</section>
+
+<!-- ⑲章节分隔 06 -->
+<section class="slide section-divider" id="slide-19">
+  <div class="slide-content divider-content">
+    <div class="section-number reveal">06</div>
+    <h2 class="reveal">配套行动计划</h2>
+    <p class="divider-sub reveal-up" style="--i:1">三阶段 · 关键里程碑 · 前置条件 · 风险管控</p>
+  </div>
+</section>
+
+<!-- ⑳三阶段实施路径 -->
+<section class="slide content-slide" id="slide-20">
+  <div class="slide-content">
+    <h2 class="slide-h2 reveal">三阶段实施路径</h2>
+    <div class="feature-grid reveal-up" style="--i:1;grid-template-columns:1fr 1fr 1fr">
+      <div class="card" style="border-left-color:#E76500">
+        <div class="card-icon">📐</div>
+        <h3>阶段一：蓝图设计</h3>
+        <p style="color:#E76500;font-weight:700;margin-bottom:.4rem">2025年 8-9月</p>
+        <ul class="bullet-list" style="font-size:var(--small-size)">
+          <li>确认转移定价双口径文件（A0372 强前置）</li>
+          <li>梳理 FZ40/FZ33 法人组织架构</li>
+          <li>完成 DRC 泰国/德国本地化配置方案</li>
+          <li>设计多币种核算方案</li>
+          <li><strong>输出：</strong>蓝图设计书 + 配置规格书</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left-color:#0070F2">
+        <div class="card-icon">⚙️</div>
+        <h3>阶段二：系统实现</h3>
+        <p style="color:#0070F2;font-weight:700;margin-bottom:.4rem">2025年 10-11月</p>
+        <ul class="bullet-list" style="font-size:var(--small-size)">
+          <li>完成 FZ40/FZ33 公司代码配置</li>
+          <li>FAGL_FC_VAL 外币估值自动化上线</li>
+          <li>CO-PC 双重成本核算配置</li>
+          <li>DRC 申报接口集成测试</li>
+          <li><strong>输出：</strong>系统配置完成 + 单元测试报告</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left-color:#188918">
+        <div class="card-icon">🚀</div>
+        <h3>阶段三：上线保障</h3>
+        <p style="color:#188918;font-weight:700;margin-bottom:.4rem">2025年 12月</p>
+        <ul class="bullet-list" style="font-size:var(--small-size)">
+          <li>泰国工厂业务并行测试（含泰铢结算）</li>
+          <li>DRC 首次申报演练（VAT + 企业所得税）</li>
+          <li>关键用户培训（泰国本地财务 2 名）</li>
+          <li>上线切换 + Hypercare 30天</li>
+          <li><strong>输出：</strong>上线确认书 + 运营手册</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ㉑里程碑时间轴 -->
+<section class="slide timeline-slide" id="slide-21">
+  <div class="slide-content">
+    <h2 class="slide-h2 reveal">关键里程碑</h2>
+    <div class="timeline reveal-up" style="--i:1">
+      <div class="timeline-node">
+        <div class="timeline-marker" style="background:#188918;box-shadow:0 0 0 4px rgba(24,137,24,.2)"></div>
+        <span class="timeline-label">当前</span>
+        <span class="timeline-text">探索完成<br>27条需求确认</span>
+      </div>
+      <div class="timeline-node">
+        <div class="timeline-marker"></div>
+        <span class="timeline-label">8月15日</span>
+        <span class="timeline-text">转移定价<br>口径确认会<br><span style="color:#D20A0A;font-weight:700">强前置条件</span></span>
+      </div>
+      <div class="timeline-node">
+        <div class="timeline-marker"></div>
+        <span class="timeline-label">9月30日</span>
+        <span class="timeline-text">FZ40/FZ33<br>蓝图签字</span>
+      </div>
+      <div class="timeline-node">
+        <div class="timeline-marker" style="background:#888"></div>
+        <span class="timeline-label">11月30日</span>
+        <span class="timeline-text">系统配置 +<br>集成测试通过</span>
+      </div>
+      <div class="timeline-node">
+        <div class="timeline-marker" style="background:#888"></div>
+        <span class="timeline-label">2026年1月</span>
+        <span class="timeline-text">🚀 FZ40 与<br>整体项目上线</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ㉒前置条件与风险 -->
+<section class="slide two-col-slide" id="slide-22">
+  <div class="slide-content">
+    <h2 class="slide-h2 reveal">关键前置条件 &amp; 主要风险</h2>
+    <div class="two-col-grid reveal-up" style="--i:1">
+      <div class="col">
+        <h3 style="color:#D20A0A;border-left:4px solid #D20A0A;padding-left:.6rem">⚠️ 必须解决的前置条件</h3>
+        <ul class="bullet-list">
+          <li><strong>P1（强制）：</strong>转移定价口径确认文件（A0372），蓝图开始前必须三方签字</li>
+          <li><strong>P2：</strong>补充近3年海外经营数据（A0371），SAP 初始化数据来源</li>
+          <li><strong>P3：</strong>梳理报价模型与驾驶舱 KPI（A0373）</li>
+          <li><strong>P4：</strong>泰国工厂指派本地 SAP 关键用户（≥2名，懂英文/中文）</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3 style="color:#E76500;border-left:4px solid #E76500;padding-left:.6rem">🔶 主要风险项</h3>
+        <ul class="bullet-list">
+          <li><strong>R1：</strong>泰国税务顾问配合时差/语言风险 → 提前引入本地会计师</li>
+          <li><strong>R2：</strong>DRC 泰国本地化 SAP 官方支持有限 → 需要 SAP 原厂专家参与</li>
+          <li><strong>R3：</strong>转移定价口径争议导致蓝图延期 → 设定硬性决策截止日</li>
+          <li><strong>R4：</strong>FZ33 德国 HGB 与 IFRS 差异复杂 → 引入德国当地顾问</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ㉓章节分隔 07 -->
+<section class="slide section-divider" id="slide-23">
+  <div class="slide-content divider-content">
+    <div class="section-number reveal">07</div>
+    <h2 class="reveal">附录：原始需求清单</h2>
+    <p class="divider-sub reveal-up" style="--i:1">27条 P05 关联需求 · 全部来自探索阶段访谈</p>
+  </div>
+</section>
+
+<!-- ㉔需求清单 page 1 -->
+<section class="slide table-slide" id="slide-24">
+  <div class="slide-content">
+    <h2 class="slide-h2 reveal">原始需求清单（1/2）— 高优先级</h2>
+    <div class="table-wrapper reveal-up" style="--i:1">
+      <table class="comparison-table">
+        <thead><tr><th>编号</th><th>需求简述</th><th>优先级</th><th>来源部门</th><th>归属子方案</th></tr></thead>
+        <tbody>
+          <tr><td style="font-family:monospace;color:#0070F2;font-weight:700">A0282</td><td>红冲、退货与外销外币收款无自动清账</td><td style="color:#D20A0A;font-weight:700">高</td><td>国际财务</td><td>子方案一</td></tr>
+          <tr><td style="font-family:monospace;color:#0070F2;font-weight:700">A0287</td><td>应收/坏账无法按渠道/事业部精细拆分</td><td style="color:#D20A0A;font-weight:700">高</td><td>国际财务</td><td>子方案一</td></tr>
+          <tr><td style="font-family:monospace;color:#0070F2;font-weight:700">A0288</td><td>SAP无法自动生成应收/应付汇兑损益凭证</td><td style="color:#D20A0A;font-weight:700">高</td><td>国际财务</td><td>子方案一</td></tr>
+          <tr><td style="font-family:monospace;color:#0070F2;font-weight:700">A0289</td><td>汇兑损益按季度汇总一笔，无法精细到客户/订单</td><td style="color:#D20A0A;font-weight:700">高</td><td>国际财务</td><td>子方案一</td></tr>
+          <tr><td style="font-family:monospace;color:#0070F2;font-weight:700">A0290</td><td>外销账期账龄统计偏差（按开票日非出库日）</td><td style="color:#D20A0A;font-weight:700">高</td><td>国际财务</td><td>子方案一</td></tr>
+          <tr><td style="font-family:monospace;color:#0070F2;font-weight:700">A0291</td><td>外币锁汇/掉期交易无系统台账</td><td style="color:#D20A0A;font-weight:700">高</td><td>资金管理</td><td>子方案一</td></tr>
+          <tr><td style="font-family:monospace;color:#0070F2;font-weight:700">A0292</td><td>工厂间内部交易不支持贷项红冲</td><td style="color:#D20A0A;font-weight:700">高</td><td>集团财务</td><td>子方案一</td></tr>
+          <tr><td style="font-family:monospace;color:#0070F2;font-weight:700">A0357</td><td>建立国际事业部统一主数据体系</td><td style="color:#D20A0A;font-weight:700">高</td><td>国际事业部</td><td>子方案三</td></tr>
+          <tr><td style="font-family:monospace;color:#0070F2;font-weight:700">A0359</td><td>泰国转移定价双成本核算（报关价 vs 内部考核价）</td><td style="color:#D20A0A;font-weight:700">高</td><td>国际事业部</td><td>子方案二</td></tr>
+          <tr><td style="font-family:monospace;color:#0070F2;font-weight:700">A0360</td><td>海外报价模型建设（BOM→成本→汇率→关税→毛利）</td><td style="color:#D20A0A;font-weight:700">高</td><td>国际事业部</td><td>子方案四</td></tr>
+        </tbody>
       </table>
-      <div style="margin-top:8px;font-size:10px;color:#666">✅ 系统自动生成汇兑损益凭证，无需手工录入 | 已关联销售订单/采购订单</div>
     </div>
   </div>
+</section>
 
-  <!-- 子方案2 -->
-  <div class="sec-title"><span class="sec-num">2.2</span> 子方案二：泰国转移定价双口径体系</div>
-  <div class="card-grid c3">
-    <div class="card card-amber">
-      <h3>📋 双口径需求</h3>
-      <p><strong>对外报关价：</strong>终端售价 × 0.59，满足泰国税务局及原产地认证要求</p>
-      <p style="margin-top:8px"><strong>内部考核成本：</strong>取自国内工厂移动平均价，用于集团内部利润核算与考核</p>
-    </div>
-    <div class="card card-accent">
-      <h3>⚙️ SAP实现方案</h3>
-      <ul>
-        <li>CO-PC 双重成本核算体系（法定 + 管理）</li>
-        <li>使用 <span class="sap-tcode">MR21</span> 价格更改维护内部转让价</li>
-        <li>STO内部采购订单配置转移定价逻辑</li>
-        <li>自动生成利润抵消凭证（集团合并用）</li>
-      </ul>
-    </div>
-    <div class="card card-green">
-      <h3>📊 预期效果</h3>
-      <ul>
-        <li>转移定价文档自动生成，满足OECD要求</li>
-        <li>合并报表抵消自动化（消除内部利润）</li>
-        <li>经营利润可追溯至单产品/单工厂</li>
-        <li>泰国税务申报数据直接从SAP导出</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- SAP界面演示2 -->
-  <div class="sap-screen">
-    <div class="sap-bar">
-      <span class="sap-bar-logo">SAP</span>
-      <span>事务代码：MR21 — 价格更改 | 泰国转移定价维护</span>
-    </div>
-    <div class="sap-body">
-      <div class="sap-row"><span class="sap-label">公司代码</span><span class="sap-field">FZ40</span></div>
-      <div class="sap-row"><span class="sap-label">过账日期</span><span class="sap-field">2025.07.01</span></div>
-      <div class="sap-row"><span class="sap-label">价格控制</span><span class="sap-field">S (标准价)</span></div>
-      <table class="sap-table" style="margin-top:10px">
-        <tr><th>物料编号</th><th>物料描述</th><th>对外报关价(THB)</th><th>内部考核价(CNY)</th><th>折算汇率</th><th>差异</th></tr>
-        <tr><td>T-LED-001</td><td>LED球泡E27 9W</td><td>45.30</td><td>8.82</td><td>0.195</td><td style="color:#15803d">+0.23</td></tr>
-        <tr><td>T-LED-002</td><td>LED灯管T8 18W</td><td>78.60</td><td>15.30</td><td>0.195</td><td style="color:#b91c1c">-0.42</td></tr>
-        <tr><td>T-LED-003</td><td>LED面板灯600×600</td><td>312.50</td><td>60.84</td><td>0.195</td><td style="color:#15803d">+1.21</td></tr>
+<!-- ㉕需求清单 page 2 -->
+<section class="slide table-slide" id="slide-25">
+  <div class="slide-content">
+    <h2 class="slide-h2 reveal">原始需求清单（2/2）— 高优先级续 + 中低优先级</h2>
+    <div class="table-wrapper reveal-up" style="--i:1">
+      <table class="comparison-table">
+        <thead><tr><th>编号</th><th>需求简述</th><th>优先级</th><th>来源部门</th><th>归属子方案</th></tr></thead>
+        <tbody>
+          <tr><td style="font-family:monospace;color:#0070F2;font-weight:700">A0362</td><td>海外法人SAP模板（FZ40泰国生产/FZ33德国销售）</td><td style="color:#D20A0A;font-weight:700">高</td><td>国际事业部</td><td>子方案三</td></tr>
+          <tr><td style="font-family:monospace;color:#0070F2;font-weight:700">A0363</td><td>泰国工厂SAP全模块深度落地（计划/物流/成本）</td><td style="color:#D20A0A;font-weight:700">高</td><td>泰国工厂</td><td>子方案三</td></tr>
+          <tr><td style="font-family:monospace;color:#0070F2;font-weight:700">A0371</td><td>【行动项】补充近3年海外经营数据</td><td style="color:#D20A0A;font-weight:700">高</td><td>国际事业部</td><td>前置条件</td></tr>
+          <tr><td style="font-family:monospace;color:#0070F2;font-weight:700">A0372</td><td>【行动项】专项确认转移定价口径（强前置）</td><td style="color:#D20A0A;font-weight:700">高</td><td>集团财务</td><td>前置条件</td></tr>
+          <tr><td style="font-family:monospace;color:#0070F2;font-weight:700">A0373</td><td>梳理报价模型与驾驶舱KPI体系</td><td style="color:#D20A0A;font-weight:700">高</td><td>国际事业部</td><td>前置条件</td></tr>
+          <tr><td style="font-family:monospace;color:#0070F2;font-weight:700">A0374</td><td>多币种与成本核算（泰铢自动折算）</td><td style="color:#D20A0A;font-weight:700">高</td><td>泰国工厂财务</td><td>子方案一</td></tr>
+          <tr><td style="font-family:monospace;color:#0070F2;font-weight:700">A0379</td><td>泰国专属物料编码（国内编码+T标识）</td><td style="color:#D20A0A;font-weight:700">高</td><td>泰国工厂</td><td>子方案三</td></tr>
+          <tr><td style="font-family:monospace;color:#0070F2;font-weight:700">A0361</td><td>外汇风险精细化管理（参考美的模式）</td><td style="color:#E76500">中</td><td>资金管理</td><td>子方案一</td></tr>
+          <tr><td style="font-family:monospace;color:#0070F2;font-weight:700">A0364</td><td>多语言系统适配（泰文/英文本地化）</td><td style="color:#E76500">中</td><td>泰国工厂</td><td>子方案三</td></tr>
+          <tr><td style="font-family:monospace;color:#0070F2;font-weight:700">A0377</td><td>泰国经营可视化报表（产量/料工费/盈亏）</td><td style="color:#E76500">中</td><td>泰国工厂</td><td>子方案四</td></tr>
+        </tbody>
       </table>
-      <div style="margin-top:8px;font-size:10px;color:#666">💡 系统自动维护两套价格，对外合规 + 对内考核，无需人工两套Excel</div>
     </div>
   </div>
+</section>
 
-  <!-- 子方案3 -->
-  <div class="sec-title"><span class="sec-num">2.3</span> 子方案三：海外法人SAP模板（FZ40 / FZ33）</div>
-  <div class="card-grid c2">
-    <div class="card card-purple">
-      <h3>🏭 FZ40 — 泰国生产法人</h3>
-      <ul>
-        <li><strong>财务：</strong>泰铢本位币 + 人民币平行账，泰国增值税(VAT 7%)，月度税务报表</li>
-        <li><strong>物料：</strong>编码前加T标识，支持泰文/英文双语描述</li>
-        <li><strong>成本：</strong>启用CO-PC产品成本核算，料工费完整归集</li>
-        <li><strong>物流：</strong>MM-IM库存管理，PP生产订单完整启用</li>
-        <li><strong>合规：</strong>DRC泰国本地化税务，原产地证书数据源</li>
-      </ul>
-    </div>
-    <div class="card card-accent">
-      <h3>🏢 FZ33 — 德国销售法人</h3>
-      <ul>
-        <li><strong>财务：</strong>欧元本位币，HGB德国会计准则，年报自动生成</li>
-        <li><strong>税务：</strong>DRC欧盟VAT申报，进出口关税自动计算</li>
-        <li><strong>销售：</strong>SD销售订单，含欧洲客户价格协议管理</li>
-        <li><strong>集成：</strong>与国内FZ01通过STO内部采购订单联动</li>
-        <li><strong>报表：</strong>德国向集团汇报时自动汇率折算人民币</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- SAP界面演示3 -->
-  <div class="sap-screen">
-    <div class="sap-bar">
-      <span class="sap-bar-logo">SAP</span>
-      <span>DRC — Document and Reporting Compliance | FZ40泰国税务申报配置</span>
-    </div>
-    <div class="sap-body">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-        <div>
-          <div style="font-weight:700;color:#1f3864;margin-bottom:6px;font-size:11px">🇹🇭 泰国本地化设置</div>
-          <div class="sap-row"><span class="sap-label">国家</span><span class="sap-val">TH — 泰国</span></div>
-          <div class="sap-row"><span class="sap-label">税务编号(TIN)</span><span class="sap-field">0107562000XXX</span></div>
-          <div class="sap-row"><span class="sap-label">VAT税率</span><span class="sap-val">7.00%</span></div>
-          <div class="sap-row"><span class="sap-label">申报频率</span><span class="sap-val">月度</span></div>
-          <div class="sap-row"><span class="sap-label">本位币</span><span class="sap-val">THB 泰铢</span></div>
+<!-- ㉖SAP模块矩阵 -->
+<section class="slide content-slide" id="slide-26">
+  <div class="slide-content">
+    <h2 class="slide-h2 reveal">关联 SAP 模块矩阵</h2>
+    <div class="arch-diagram reveal-up" style="--i:1;gap:.5rem">
+      <div class="arch-layer">
+        <span class="arch-layer-label">合规层</span>
+        <div class="arch-blocks">
+          <span class="arch-block">DRC — 泰国 VAT 月报 (PP.30)</span>
+          <span class="arch-block">DRC — 泰国企业所得税</span>
+          <span class="arch-block">DRC — 德国 VAT 申报</span>
+          <span class="arch-block">DRC — 原产地证书数据</span>
         </div>
-        <div>
-          <div style="font-weight:700;color:#1f3864;margin-bottom:6px;font-size:11px">📊 本月税务申报状态</div>
-          <table class="sap-table">
-            <tr><th>申报类型</th><th>截止日期</th><th>状态</th></tr>
-            <tr><td>增值税月报(PP.30)</td><td>2025-07-15</td><td style="color:#15803d">✅ 已完成</td></tr>
-            <tr><td>企业所得税预缴</td><td>2025-07-31</td><td style="color:#92400e">⏳ 进行中</td></tr>
-            <tr><td>预提所得税(WHT)</td><td>2025-07-07</td><td style="color:#15803d">✅ 已完成</td></tr>
-          </table>
+      </div>
+      <div class="arch-connector">↕</div>
+      <div class="arch-layer">
+        <span class="arch-layer-label">财务核算层</span>
+        <div class="arch-blocks">
+          <span class="arch-block">FI — FAGL_FC_VAL 外币估值</span>
+          <span class="arch-block">FI — F-28/F-32 自动清账</span>
+          <span class="arch-block">TR — TM 外汇台账</span>
+          <span class="arch-block">Group Reporting — 合并抵消</span>
+        </div>
+      </div>
+      <div class="arch-connector">↕</div>
+      <div class="arch-layer">
+        <span class="arch-layer-label">管理核算层</span>
+        <div class="arch-blocks">
+          <span class="arch-block">CO-PC — 产品成本核算</span>
+          <span class="arch-block">CO-PA — KE30 盈利分析</span>
+          <span class="arch-block">MR21 — 双口径价格更改</span>
+          <span class="arch-block">KS02 — 成本中心管理</span>
+        </div>
+      </div>
+      <div class="arch-connector">↕</div>
+      <div class="arch-layer">
+        <span class="arch-layer-label">基础数据层</span>
+        <div class="arch-blocks">
+          <span class="arch-block">MDG — 海外物料编码 (T标识)</span>
+          <span class="arch-block">MDG — 客商主数据统一</span>
+          <span class="arch-block">MM-IM — 库存管理</span>
+          <span class="arch-block">PP — 生产订单</span>
         </div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- 子方案4 -->
-  <div class="sec-title"><span class="sec-num">2.4</span> 子方案四：经营可视化与驾驶舱</div>
-  <div class="card-grid c2">
-    <div class="card">
-      <h3>📊 海外报价模型（SAP CO-PA）</h3>
-      <div class="flow" style="margin:8px 0">
-        <div class="flow-node new">BOM成本<small>CO-PC</small></div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-node new">标准成本<small>MR21</small></div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-node new">汇率折算<small>自动</small></div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-node new">关税运费<small>SD条件</small></div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-node new">目标毛利<small>CO-PA</small></div>
-      </div>
-      <p style="font-size:11px;color:var(--muted)">报价准确率提升，解决多层加价失真、欧美大客户丢单问题</p>
+<!-- ㉗结束页 -->
+<section class="slide end-slide" id="slide-27">
+  <div class="slide-content end-content">
+    <h2 class="reveal">谢谢</h2>
+    <div class="contact-info reveal-up" style="--i:1">
+      <p>佛山照明 SAP S/4HANA PCE 升级项目</p>
+      <p style="margin-top:.4rem">S05 海外财务本地化体系建设 · 专项方案 V2.0</p>
+      <p style="margin-top:.4rem;opacity:.6">Atos Confidential · 2026.07</p>
     </div>
-    <div class="card">
-      <h3>🖥️ 泰国车间经营驾驶舱</h3>
-      <ul>
-        <li>产成品产量 vs 计划（实时）</li>
-        <li>料工费耗用明细（按工单/按产品）</li>
-        <li>车间盈亏（含汇兑影响）</li>
-        <li>应收账龄分析（按实际出库日）</li>
-        <li>转移定价合规状态监控</li>
-      </ul>
+    <div class="sap-footer reveal-up" style="--i:2">
+      <div class="sap-footer-tagline">Run Simple · Run Better · Run Live</div>
+      <div class="sap-footer-copyright">© 2026 Eviden / Atos — 佛山照明项目组 内部使用</div>
     </div>
   </div>
+</section>
 
-  <!-- SAP界面演示4 -->
-  <div class="sap-screen">
-    <div class="sap-bar">
-      <span class="sap-bar-logo">SAP</span>
-      <span>CO-PA — 盈利分析 | KE30 盈利分析报表 | FZ40 泰国 | 2025年H1</span>
-    </div>
-    <div class="sap-body">
-      <table class="sap-table">
-        <tr><th>产品线</th><th>销售收入(THB)</th><th>标准成本</th><th>关税运费</th><th>毛利</th><th>毛利率</th><th>汇兑影响</th></tr>
-        <tr><td>LED球泡</td><td>8,234,500</td><td>5,362,425</td><td>823,450</td><td style="color:#15803d"><strong>2,048,625</strong></td><td style="color:#15803d"><strong>24.9%</strong></td><td style="color:#b91c1c">-124,200</td></tr>
-        <tr><td>LED灯管</td><td>5,612,300</td><td>3,703,118</td><td>561,230</td><td style="color:#15803d"><strong>1,347,952</strong></td><td style="color:#15803d"><strong>24.0%</strong></td><td style="color:#b91c1c">-89,400</td></tr>
-        <tr><td>LED面板灯</td><td>3,428,900</td><td>2,400,230</td><td>342,890</td><td style="color:#92400e"><strong>685,780</strong></td><td style="color:#92400e"><strong>20.0%</strong></td><td style="color:#b91c1c">-52,100</td></tr>
-        <tr style="background:#f0f7ff"><td><strong>合计</strong></td><td><strong>17,275,700</strong></td><td><strong>11,465,773</strong></td><td><strong>1,727,570</strong></td><td style="color:#15803d"><strong>4,082,357</strong></td><td style="color:#15803d"><strong>23.6%</strong></td><td style="color:#b91c1c"><strong>-265,700</strong></td></tr>
-      </table>
-      <div style="margin-top:8px;font-size:10px;color:#666">💡 实时展示泰国运营真实盈利，含汇兑影响，支撑管理层经营决策</div>
-    </div>
-  </div>
-
-  <div class="footer-bar">
-    <span>佛山照明 SAP S/4HANA 专项方案 · S05 海外财务本地化体系建设</span>
-    <span>Atos Confidential · V2.0</span>
-  </div>
 </div>
-
-<!-- ══════════════ CH03: 配套行动计划 ══════════════ -->
-<div class="chapter" id="ch2">
-  <h2 class="slide-h">配套行动计划</h2>
-  <div class="slide-sub">阶段划分 · 关键里程碑 · 前置条件 · 资源需求</div>
-
-  <div class="sec-title"><span class="sec-num">3.1</span> 三阶段实施路径</div>
-  <div class="card-grid c3">
-    <div class="card card-amber">
-      <h3>📐 阶段一：蓝图设计（2025年8-9月）</h3>
-      <ul>
-        <li>确认泰国转移定价双口径文件（A0372）</li>
-        <li>梳理FZ40/FZ33法人组织架构</li>
-        <li>完成DRC泰国/德国本地化配置方案</li>
-        <li>设计多币种核算方案（本位币+平行账）</li>
-        <li>输出：蓝图设计书 + 配置规格书</li>
-      </ul>
-    </div>
-    <div class="card card-accent">
-      <h3>⚙️ 阶段二：系统实现（2025年10-11月）</h3>
-      <ul>
-        <li>完成FZ40/FZ33公司代码配置</li>
-        <li>FAGL_FC_VAL外币估值自动化上线</li>
-        <li>CO-PC双重成本核算配置</li>
-        <li>DRC申报接口集成测试</li>
-        <li>输出：系统配置完成 + 单元测试报告</li>
-      </ul>
-    </div>
-    <div class="card card-green">
-      <h3>🚀 阶段三：上线保障（2025年12月）</h3>
-      <ul>
-        <li>泰国工厂业务并行测试（含泰铢结算）</li>
-        <li>DRC首次申报演练（VAT+企业所得税）</li>
-        <li>关键用户培训（泰国本地财务2名）</li>
-        <li>上线切换 + Hypercare支持30天</li>
-        <li>输出：上线确认书 + 运营手册</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="sec-title"><span class="sec-num">3.2</span> 关键里程碑</div>
-  <div class="timeline">
-    <div class="tl-item">
-      <div class="tl-dot done"></div>
-      <div class="tl-content">
-        <div class="tl-date">2025年7月（当前）</div>
-        <h4>✅ 探索阶段完成 — 27条需求确认</h4>
-        <p>完成国际事业部访谈，转移定价/汇兑/DRC等核心需求全部识别，本方案基于访谈结果制定</p>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-content">
-        <div class="tl-date">2025年8月15日</div>
-        <h4>🎯 转移定价口径确认会（A0372前置条件）</h4>
-        <p>必须完成：由赵俊杰（国际事业部）+陈宇清（艾维登）+苏大明（数智化部）三方签字确认转移定价双口径正式文件</p>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-content">
-        <div class="tl-date">2025年9月30日</div>
-        <h4>🎯 FZ40/FZ33蓝图设计书签字</h4>
-        <p>完成海外法人完整配置方案，DRC合规方案通过泰国/德国当地财务顾问审核</p>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot future"></div>
-      <div class="tl-content">
-        <div class="tl-date">2025年11月30日</div>
-        <h4>系统配置完成 + 集成测试通过</h4>
-        <p>多币种核算、外币估值、转移定价、DRC申报全部通过系统测试，与WP3 FICO主流程集成验证</p>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot future"></div>
-      <div class="tl-content">
-        <div class="tl-date">2026年1月1日（目标）</div>
-        <h4>🚀 FZ40泰国与整体项目同步上线</h4>
-        <p>泰国工厂SAP全模块启用（与2026年1月量产同步），FZ33德国销售法人Q1上线</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="sec-title"><span class="sec-num">3.3</span> 关键前置条件 & 风险</div>
-  <div class="card-grid c2">
-    <div class="card card-red">
-      <h3>⚠️ 必须解决的前置条件</h3>
-      <ul>
-        <li><strong>P1：</strong>补充近3年海外经营数据（A0371），作为SAP初始化数据来源</li>
-        <li><strong>P2：</strong>专项确认转移定价口径（A0372），必须在蓝图开始前完成</li>
-        <li><strong>P3：</strong>梳理报价模型与KPI体系（A0373），驾驶舱建设的指标来源</li>
-        <li><strong>P4：</strong>泰国工厂指派本地SAP关键用户（至少2名懂英文/中文）</li>
-      </ul>
-    </div>
-    <div class="card card-amber">
-      <h3>🔶 主要风险项</h3>
-      <ul>
-        <li><strong>R1：</strong>泰国税务顾问配合时差/语言风险 → 提前引入本地会计师</li>
-        <li><strong>R2：</strong>DRC泰国本地化内容SAP官方支持有限 → 需要SAP原厂专家参与</li>
-        <li><strong>R3：</strong>转移定价口径争议导致蓝图延期 → 设定硬性决策截止日期</li>
-        <li><strong>R4：</strong>FZ33德国HGB报表与IFRS差异处理复杂 → 引入德国当地顾问</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="footer-bar">
-    <span>佛山照明 SAP S/4HANA 专项方案 · S05 海外财务本地化体系建设</span>
-    <span>Atos Confidential · V2.0</span>
-  </div>
-</div>
-
-<!-- ══════════════ CH04: 附录 ══════════════ -->
-<div class="chapter" id="ch3">
-  <h2 class="slide-h">附录：原始需求清单 & 参考资料</h2>
-  <div class="slide-sub">27条P05关联需求 · 全部来自探索阶段访谈</div>
-
-  <div class="sec-title"><span class="sec-num">4.1</span> 原始需求清单（27条）</div>
-  <table class="req-table">
-    <thead>
-      <tr><th>编号</th><th>需求简述</th><th>优先级</th><th>来源部门</th><th>归属子方案</th></tr>
-    </thead>
-    <tbody>
-      <tr><td class="req-id">A0282</td><td>红冲、退货与销售折扣核算问题（外销外币无自动清账）</td><td><span class="badge badge-high">高</span></td><td>国际事业部财务</td><td>子方案一</td></tr>
-      <tr><td class="req-id">A0287</td><td>应收、清账、坏账计提无法按渠道精细拆分</td><td><span class="badge badge-high">高</span></td><td>国际事业部财务</td><td>子方案一</td></tr>
-      <tr><td class="req-id">A0288</td><td>SAP无法自动生成应收/应付汇兑损益凭证</td><td><span class="badge badge-high">高</span></td><td>国际事业部财务</td><td>子方案一</td></tr>
-      <tr><td class="req-id">A0289</td><td>汇兑损益按季度汇总一笔凭证，无法精细到客户/订单</td><td><span class="badge badge-high">高</span></td><td>国际事业部财务</td><td>子方案一</td></tr>
-      <tr><td class="req-id">A0290</td><td>外销账期账龄统计偏差（按开票日非出库日）</td><td><span class="badge badge-high">高</span></td><td>国际事业部财务</td><td>子方案一</td></tr>
-      <tr><td class="req-id">A0291</td><td>外币锁汇/掉期交易无系统台账</td><td><span class="badge badge-high">高</span></td><td>资金管理</td><td>子方案一</td></tr>
-      <tr><td class="req-id">A0292</td><td>工厂间内部交易不支持贷项红冲</td><td><span class="badge badge-high">高</span></td><td>集团财务</td><td>子方案一</td></tr>
-      <tr><td class="req-id">A0357</td><td>建立国际事业部统一主数据体系</td><td><span class="badge badge-high">高</span></td><td>国际事业部</td><td>子方案三</td></tr>
-      <tr><td class="req-id">A0359</td><td>泰国转移定价双成本核算（报关价vs内部考核价）</td><td><span class="badge badge-high">高</span></td><td>国际事业部</td><td>子方案二</td></tr>
-      <tr><td class="req-id">A0360</td><td>海外报价模型建设（BOM→成本→汇率→关税→毛利）</td><td><span class="badge badge-high">高</span></td><td>国际事业部</td><td>子方案四</td></tr>
-      <tr><td class="req-id">A0361</td><td>外汇风险精细化管理（参考美的模式）</td><td><span class="badge badge-med">中</span></td><td>资金管理</td><td>子方案一</td></tr>
-      <tr><td class="req-id">A0362</td><td>海外法人SAP模板设计（FZ40泰国/FZ33德国）</td><td><span class="badge badge-high">高</span></td><td>国际事业部</td><td>子方案三</td></tr>
-      <tr><td class="req-id">A0363</td><td>泰国工厂SAP系统深度落地（计划/物流/成本全激活）</td><td><span class="badge badge-high">高</span></td><td>泰国工厂</td><td>子方案三</td></tr>
-      <tr><td class="req-id">A0364</td><td>多语言系统适配（泰文/英文本地化）</td><td><span class="badge badge-med">中</span></td><td>泰国工厂</td><td>子方案三</td></tr>
-      <tr><td class="req-id">A0369</td><td>跨境电商运营管理体系</td><td><span class="badge badge-med">中</span></td><td>国际事业部</td><td>子方案四</td></tr>
-      <tr><td class="req-id">A0371</td><td>【行动项】补充近3年海外经营数据</td><td><span class="badge badge-high">高</span></td><td>国际事业部</td><td>前置条件</td></tr>
-      <tr><td class="req-id">A0372</td><td>【行动项】专项确认转移定价口径</td><td><span class="badge badge-high">高</span></td><td>集团财务</td><td>前置条件</td></tr>
-      <tr><td class="req-id">A0373</td><td>【行动项】梳理报价模型与驾驶舱KPI指标</td><td><span class="badge badge-high">高</span></td><td>国际事业部</td><td>前置条件</td></tr>
-      <tr><td class="req-id">A0374</td><td>多币种与成本核算（泰铢自动折算）</td><td><span class="badge badge-high">高</span></td><td>泰国工厂财务</td><td>子方案一</td></tr>
-      <tr><td class="req-id">A0376</td><td>泰国成本中心自动归属（KS02功能范围默认空白问题）</td><td><span class="badge badge-med">中</span></td><td>泰国工厂财务</td><td>子方案二</td></tr>
-      <tr><td class="req-id">A0377</td><td>泰国经营可视化报表（产量/料工费/车间盈亏）</td><td><span class="badge badge-med">中</span></td><td>泰国工厂</td><td>子方案四</td></tr>
-      <tr><td class="req-id">A0379</td><td>泰国专属物料编码（国内编码+T标识）</td><td><span class="badge badge-high">高</span></td><td>泰国工厂</td><td>子方案三</td></tr>
-      <tr><td class="req-id">A0391</td><td>多组织报表合并（FZ40/FZ33等多主体）</td><td><span class="badge badge-low">低</span></td><td>集团财务</td><td>子方案四</td></tr>
-    </tbody>
-  </table>
-
-  <div class="sec-title" style="margin-top:20px"><span class="sec-num">4.2</span> 关联SAP模块矩阵</div>
-  <div class="card-grid c3">
-    <div class="card"><h3>💰 FI — 财务会计</h3><ul><li>FAGL_FC_VAL 外币估值</li><li>F-28/F-32 清账</li><li>FB01 凭证录入（自动）</li><li>FBL5N 客户行项目</li></ul></div>
-    <div class="card"><h3>📊 CO — 管理会计</h3><ul><li>CO-PC 产品成本核算</li><li>CO-PA 盈利分析（KE30）</li><li>MR21 价格更改</li><li>KS02 成本中心维护</li></ul></div>
-    <div class="card"><h3>⚖️ DRC — 合规申报</h3><ul><li>泰国VAT月报（PP.30）</li><li>泰国企业所得税</li><li>德国VAT申报</li><li>原产地证书数据</li></ul></div>
-    <div class="card"><h3>💱 TR — 资金管理</h3><ul><li>TR-TM 外汇台账</li><li>锁汇/掉期交易记录</li><li>多币种现金流预测</li></ul></div>
-    <div class="card"><h3>📋 Group Reporting</h3><ul><li>多法人合并报表</li><li>关联交易自动消除</li><li>转移定价调整凭证</li></ul></div>
-    <div class="card"><h3>🗄️ MDG — 主数据</h3><ul><li>海外物料编码标准</li><li>T标识泰国专用物料</li><li>客商统一编码</li></ul></div>
-  </div>
-
-  <div class="footer-bar">
-    <span>佛山照明 SAP S/4HANA 专项方案 · S05 海外财务本地化体系建设</span>
-    <span>Atos Confidential · V2.0 · 基于探索阶段访谈数据</span>
-  </div>
-</div>
+<div class="deck-footer" id="deckFooter"><div class="df-left"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARQAAAA2CAYAAAAGY2bwAAAAAXNSR0IArs4c6QAAAIRlWElmTU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAACQAAAAAQAAAJAAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAAARSgAwAEAAAAAQAAADYAAAAA9Lbb7QAAAAlwSFlzAAAWJQAAFiUBSVIk8AAAIyJJREFUeAHtXQecFEXWfz15ZgNLVAQFQUAUUEEQE+E+DAcqoIJ6hlM5PcN5h2fC07tP5XdmPs9DvdMzZ0CUQ0UEM0FMSFBXkCiCICwsGyZP9/d/1d0z3bPTk4VdnPrBTnflelX1r1evXr2WCE6B49+SK1GgRIESBQqhgK2QxKW0JQqUKFCigJECJUAxUqP0XKJAiQIFUaAEKAWRr5S4RIESBYwUKAGKkRql5xIFShQoiAIlQCmIfKXEJQqUKGCkQAlQjNQoPZcoUKJAQRQoAUpB5CslLlGgRAEjBUqAYqRG6blEgRIFCqKAI5/UsixTOBzOJ2nGNC6Xi2y2PHEuFiVFjqUtQ7LZifi/JKWNlyowFotRNBIhoxYg19XpcJCUb51TFZSvH7ddkdE2biO3L6mN0F9Uool+k5gGdqdGC7QqirYZdBwlDmsO7cqXHsnpDG1LDrJ818dJPmktM0WAnm9ynAzjNzm6eJcwXzg/7nueAwXWVcwRe17QQHmlenvuXBo5alTKthXqueTjxXTM4GNzywZEjG3bSI0v3ELBJdNIcmEiGJ1GYFvVAeQdfiV5T7mUpKoOxhhZPT/zxOM04fdXmOL26nYwvfDyyzRg4CCT/954Ccy4jyLffULOfsPJ2esYsh94KEneyvjglTdWU81N/VSQwMC1H3AYVV75FDl6Hk3Krh20645hFPtxtRrf4abKy54i95Cz90hT5LodROEAyhaa2yQ5PWQrbwPAy2uIpqxzdM3naOc2lGFcsIzLgzGZOkEdoKXkcFJk2XuoWKrFCvFMziq/RCTJV0mOw09MeBie/NPvYgLAJzlfLZLRG/EkXytyHzuGbB0Oouiqz6nuXxdTbCv6MM+FQAlFqOzsm6nsN3caapX9Y1695cCKzM4tVsHsC8sUMyQrZLdjdc3Bybu3U3jRdAq88yRFt31DtlbtkNrQqQAbyVtF9o6HUPm595Cj14AccjdHdYJ78jkdFI0iT6wIUdS3vLw85zqbcy3Om1z7E4VWvkORDYspVD2XFH+QfKdcTuUTHiJyagCLQcaDWUwoAIrkKcfA0+iN9vC7DkCSwwVGJ6/hkVeDGh68nILLX0OZNnBRMrl6HU8VVz4BUOyVV36pEjXOupNCn81CGUkLTqrI8FPkKFVe+Ai5T7qIGqf/ncIbFmad1iJLARb2Tr2p9a3vktS6vSma/P231PgGAwpzmUbkMEVLvCCeo9Ph5Bl2geqHvoz3YZ6AQjY/xosnUUaOT3tuxORYsYzRMamjG7+mwJv/oMCiZ8nmrSDJXYZkOphIpIQaQPA+5P3VFeQ5YRxROSaTCM+iszJWoHlFCH88W4CJ5PKJQWsrb4dVcFgCTJpXdZvURvKWgyNpBYDD9jEWAbBVJMCuSez8PCSXF+MEYyBLQJEAKOR0i8Ikt1fUSbK78itcTwUQkNwM5EYuSQtkQBD9lz2gqPXTx7xeyN77bZGAItdup+Dbj2C1eQNcSTXZylqbKYhOkxt2kWfgGPKdMYkchx5jCN/3wIQbF65+D6y5OviZNbd3OIScBx5haHfpMRUFFLHN4jGBSYmtkOBeTFsiNZUCkKNwkBQHJrtwiM8AYAIYllEhntga6eMsdTzKRlaCLY0Sg8yLORaxBUqVl1Ydix/RPoPcLFU03jYVyxUNUHgLEIzpxM6/etFoqn1qIr/oV4vIP+8RCq+YA0/sIZPYMyUSJJurksrG3U7ek35Pttb7JRLvo08xyEbCK95StzJMFWzzbG33J3vXw8wtdplZWRa+qVwdkrrB2ZjYbGyBBMdnzmLfelPIe+wFoBdAAG1XGndT5PulpAR2m2kBOjkO6kf2/brAX+MsOH79LgqvW0zEnAycZHeT8+Dj1DGHgwvV00ZyXQ1F1i3SgAHx0A9S60wyPIxtcDKug/qTVNFWTYuy5V0/UmTjZ/G81EKs/3qHX07OvkOEwN0US8c7cIT1/5pQNG6waIDCYPLB++9ju57d/tTUOO2FT1D69O2bKoiUoJ/8M++i0CczSK6HAI871jQBgOaBOnL2OI7Kz7sbgsaBRRXopazUXvfEioWVq/6ZiYYBoWDr0J4c7XpRZOVCVdDJqxtkU5Fvl4j4otpguWPb11HjjDvI2Q0C5UiYlAaeSGqjeGVsnH0XuX+oxmBMnAxhJGMVjkIQOJrsXZIAS03aQv4q5Op9CpVNeABbYz/AALKx9V+R/NIkivp3gQ4JWZ6EbY/vnL9gyNnFhplpYKtsT7vvOj0OJqLR2K54hlxIroG/JiUSEl42yKxqJ59iBoCMsin0KzMj5W3Je+rVkPsNFJwPg77/hTtUQMmSys5DjiX3oLFpY9c/cmna8FwC8wMU7dQkuaDjTziBdIFtclgh77wS1P/zUqwGmCDMKopVQodY5KxJxX0jJ5Hv3FuacC2FlN2800IwXP0ppPqrTNVUgnUUWPwMBZY8r9EGwQy+PMjjIIwVNhqi8NfzADQfCH9+x4OaF2ga/WGFemKg+sT/KqFGcvVNfUoRj9QCHmxlbSHE9In/XF1bBbbO4lCAgdrsdE5XH3Wx9V9TbMcGlb5MU9BL8vrIPXS8SCgRZECak4O1+qManzmibBwL0curSCprpfdKvHuySS7igFvdky4/QLGoIetpFBtQIsveodopYzWQQEcLMDFUgPeXfMT524fJdcKZhoB9/zH6zcdU/+SV4N7q0Vh1qEsOD9jzgTg+fj8L4SNPBBnAErQkVqowJRKwjN+yApKAw2KhTG5TbN1Kqn/iSmw/NsfHI2+9y0b/LTkqjql/EtyfHiA5veTqOUJ/zfybVMXMCfZujKICSlGbgs4NvDqFGl69VewlMfKTsud3G3n6n0O+s24g2wHdksL3/dfImqVC+Ky3lI96Ky56CIslcx5zsGLmv/3U80z5G+dymoZGVn5E0TVfJLab6Efv6D82jVgEH6V+J0W+fJdiO7dgKGiyDQwL7+hr8stdZz/SpI5hW1T/9J8osmkFhOCJEx/JU0buE8+mwMwpou329gcJmUt08xpsfwyAje2Tk7fje8oJgS4KsxICYxtXTNdsASXwyr3UMOs2DUwMTWYCQbLOgq3yMyeTe8SFhsBfziNPpMCHj4E7qcNk0gcFBKk4GiXFRrb2Xcy048mCEwi5dmuCSDg+ZeUxlhGwIFeuw2qqs8gADVsZwjBR+ORCadypTYw0s87fQMH3HqPgx9Pix63MAf1cgBL9vpoapv+VYrs2qjTAVsLdd3QOgKK1hdvMcg3BoaRoH9og12yh8OLXxIFArO4Hw4kajoF9VVRx4VQh1A0vn0dhnTvksQqOWhwcGEGYBeDZOK6PLr/S65jY/GSTA4W+mEOxmk3oV4vDDgZiHYyzyjF9pPwAxUic9PnnFcosZeMbd2JCJBEeA0byVJK7/1jyjbyabEVUesqronspUXT1Z9Tw3HXYw69LDGzm4KBw6Bx0qqhV22NGN6mdsn0L1dzYR2XTsWI59j+UKq5+huydukN4G6Vdt50ITVnIY3gSALQrsI10DhhBSl0t1f/7Mgp9NddQXpPskQ6TkVdtsP8MUsLxpPq5HICUJ6soC6cVAlj5N0sn122l0IcvCKDluiuNdQBN3s4ZQAWTOrriI6p7/A8QYn+r6qLw8Tz8WXBth/Z1xUVTyXn0yfCTyXPyBAqvgtKaF8CuO6YBgwPT/IBDcerC8ie8G8vR44pftXy5voaCi6eTc/t6AALkLtDYlXcCHHJwoa/foNCKWWlTCN2XtDGyD8ye+tnnWXDM4KKXhVxEPX9Xs+M7KPbWHQEk15PnpAm5oSr0B6LrlqNPY+iQ75EhpPRtDkR+B5Jt/y4F13dPZxBe9hZFN38FYV2VuWgeo2lcsuxD4YGOEw7hwo3qoDcMcj2+wmGCZTZMtDTltIwgiULfvE2h5f9NVJeBlDm8OMeHIDRZqmyDreU2gAT0NRg0cUwseVtDz+dw8p12I646DFHzQHp7555i0RPbHLzzGOZxxqdGzu79yTfmFq28DLRkgAvVgwv9DwXeeyRRRwB1XN8o4Wv5JPRkTLoyllGLEtDsAEXeuQ0sM1YNHuy6AzrbWx9A5effR65Bp+u+mX9xvBn5egGFl86m8PL3kCW0a7fiGBTO0bEXVuheZOvcAwpwZ0H5bXDm/JpBjNDCV0CfGWKltKwOb192bIb6PYS1PAHY8bEoOJu4Y3/s7WObvyPCtkbevBoDGMChOQYbGfejYlvWkbx1HbZWDcgqwyTQE7eQXyEDMchBUldbgj5PX/IOuYT88x8E11yG06D9cco1ktxHn4aFqSPFNnytJgWAKPX1iDsBqg3YWvK74AR74xHcI98LStIFSl2m5gt6C4AjA7eTNkHTQKHYJhaDpmG6j7iCob8U+NvsACW8aKZ5vwdWUYIaue+0G7IHE6zUfJkruORliqxagj0ktgaaurW4cAaiybvB7rKUHgpy4S/ngW39BzmPHI4QXuab58RhMGmcdgvFdm9Ju0opAZZlPA1W17BFweCUd2v6Ozxo+L1uG7aW92BFLQe7X4v37QkAAvgGPnqCgktfFRqisV0s+Gx2w4VbkrcTN6+NAlOArirv0AS8es6glXvIedDMfo3kRsiZMEGjm5dTdMuKhMxJj8tHvbzdY+6EHY/FNQvwqwiOiOVSlTe+ooZl+os0ioytjsGp4zj78ekd+juyt+ukcZiGjPQxjvo2zr47UV9jlDyeizpC3G5t35xHRfQkMrQVSdcyFJ64MFi1P+Qmo/QoaX95H+yfMRnCqNlYJTBB0KNikCSn4v03s7ZYoeSaDZDc/4G8J15K3rOuE50fX9mT0+2l99CCmdTw0g1COJqJ5WWNz/A3Cyi6aTmAJ3ESIQa5PtAxoPhIOLYNN1N1EDWy+hjMsZ0biWrWIxwDmNNhYu07TiH3YaeQe/AYVT7BHNyGryj46StQkNzZZILxqQ0rTQaXziTZv5PkjQBnQbfcKGKr6phFAqAQ/vGlVud+vUlwGUjFXE5k8xdZpE9E4Tq7h56TEO4mgtQntJsvTRIuZRbDFRVQ/nbzpMTNW6vBh4HKzu3x0DUTr6Uy3NY1ObHVUePE/XnlAFueyUVXLKDG1++HmvNiFZGbSK+RL0vLeXIYJw+4F7n2R/K/Da1JnGj4zpmUqag9Gh5bu4zqn7oCgwySev1iG7OxTOM4QCSqFIOwMbJ2EWjGQu10IIAwIx0SWahPAkSKM9CSs24O77ZKLFTDzlfHBMaYfc2X0N9ZBE1ZAyenVxS04AuCQrgq6I7FKB+Xjt6m/CDng4zMN+Z6cvQYIATAvN1qfPIGCn42DfUwiARM6ZJexDiBn9OwsCRFKeZrfoCigYKxImzKYMoUnMFn6aqqquj6STc3ie3ofhTRAnA6fClKOAmnGZsgN3iNPCMuahJfeOBIzI/r5f65KF8IoBjeDROB64sOYE7F1XeMOB2JbPzUzJoCfHjFDi58grwjLiYJd2Gai7Mf3JecXY+l8NoPxOkLCwUdnY4E+12DbQy2bdxWEwbjRRw3aiDMg0/n+jBxEg7xeMCJ/gS4CC1RAwAx+JozVpMCdNU0iZwKfzI1oPDssspBK1OjCds9sT5CTVE/QbsME5u3iVaLa6Y6Ip0wR+DDTXotruTKtLDqMTNl/vOEG0dXwSWwnRDdpRPgsUUp1qpN1XTnIQOEIErV/kRuIKoCFjPw7r/J0aUP0Lq/WoQGatFvP8Edn3sotGq+ChBNJgAGAgaK56jx5DvzzzjV6SrSx6Bw1PDEH8DNfGJapeVAPfnffITKLrpDLac5/MWqVjb2Ogrf847gUBTcu/Gefg0uBM6n0MKX0D4DeKK+Mlh33TCREvaTD0alyn57txCy7rwV93YYgDAZ7B17w4jSo2Tv1peovpZ23XkKVO3XCJqzMLDN5CUktcf++5fiUmCGuemJCHxvrNU1L5PruPTa2bvvGgU5HjjmrDkTc4k5vYk5kaijSKtzMtp8aZJfvmDXJCPVIz9AsahEOhAxli/iWeXRZj/yDL4QEvUHsApi9WTYAcrzvZKGZ7BFOu/v4mhO/v4biqz+HJq0fxVA0kROwoRkBTjY1Wh90xxxmmOsg70TDC5dOpXqH7scsgYI1/T6gDMKr5pHZdSMAAUVdxx+ApWPvZ0aZtxMvlP/hL3/WRT6fHaiSQZ0jghAMbDkWIEV5lB0LiWeioV+TGOQWvuNB/FDKj9ThGK+GBpQzGxzyUsfA5ZpkurI9OH/6cDCaiJblpF/QAwnday7Eh/LyCr85dvi5rm4x5Uq60I4qBT55QcoKTJirzAsmGXrImls0vpOuwryjPt5lMc7iwGDhYy1k4ernchsKv43vWKPSYIV3N62M7n6jKLy3yEfC2fnI+MTL6HGV/8mjDGp0TBo2G7szq0ktWk+2x4etK4h48i9dgl5R05Uq2o1WMMhhGuDH5ygvWN3Ipz8yKyibnSYDArsxiiBRgimf1QVvAzhMtLYcDEzJdggnjA6lIVsy5BlM3sE94s2KtBT4tvGMtqqapQmAYdVrVlGlw5MOF1GkLLKXCQWHKkpRprylAiO/VkBzuCCK/5LwS8gc0njhJW+NOG5BBUNUNgc4hmjRoKbhvBKqwHDi/7MXka4KS+DucEmQlMtISx3eYZcQOHP3xIKRXFBJANIOmMwYrVwCitt5edNJucRI7QMrX8cB/QQshVWIorXlgdBmo6zzu3nDbG36UyV1zyLyyoW+2hUWwk24oTn/cTpDo4wQ1++haPLz6FzghMdfYBj28Oq9oG3ppK0qJ1QLZd3b4uHs42QwFzcC2IDRKZe1NoIWvtG/ZHsEBi2TAfZ3E/fUcPjAGdeuEAXPh2L1QJ0jfI3q8ZhfLAd42j1EowVAIvuDIOcuWOTLpAeJ+OvOmvY4mAYR/+xmrWq4NjlbnKz3JgV61jJDTsA9AkN8+x0bYy5FPZcNEBhxvm5F18itlqflUMHWlq3x8pbfsmDFOo5jBqfv4Fi9T9CrsJEMvSWsRAMftYpsOFOhWfoBPIMvxjq5IcYY1g+h1cvMN3WFRF55W+yPbDMYs8FMFfmTddlPBChKr5tFex1tBX14iPm8DfvwhsyK2Zv9VMinkC4pRyqnq+2FRNECCV18IBANrDwmTjANGkk6O07A0fsLdhF1n9MylqW+6l0YyCxstiW3EyWMQU+fJqCHz2XHJR4Z9DWFNwSnlk+oX+EntDM21Qw0ZOhXJMqgPBXAYiYMzWCWxK3omfR5FcfE00CcvdINzpzzs2D+wuFGFiKFwhisnMfD7MFvnIKzLqXQl+/A4m3V3AOEjoKGxsMA0wKsKvOroNxZf8wch56LIRk49TjvXhm1g9K3S6hryJUy3myCceghRMhyHJalgPNAAIRaARLWMkSDnQy6qIkAgRYpNNpUbU0jQkMzwYDRAbflvWIiaQrPOZccQaL2k1IZrHI6RkKTleb8Lpftr8McDgqzuSY02fN6Nj274GJmuwMXJejc39xoZPnSdN6an6gQXQba/rmWcekyumzKMk7v1f+Xk+xneuokwRYeKoXUKT6E8gBNqsan4zEmEDeky4RxpjZMpZUBgPEOkEzVESp24kLdjeBhfwOaRJk4EnkHQ6dj5boMIii61aAzcZKlbQ68cmasL2rgTUPMN7OCPkBtxUnYWLwYhDrTqjiC8tjGGxIJ3SBiria6eXsqV82IMWnXnEuLVPBGF+6eUfGDWEvFkJ7JaZN2kzpORyWDMV9GuaiOZOkfskmi4xxuE/5KJ/rqztsSV19Tyb38N+obUjGPcYPBsUta2n3P8dlPW/07K1+EzPJKkYqfythYKq4RfCzte1E7uPGk+vo00WHKBA06qBrgzUr/Yg026IiS98l/xtTVFN6DILxSYYcMCltrZqRMDbbRvFgxZaILdbxZx9MJ24Ikira0M6Jh8Xv60hOH/lO/jN5TgN4MmcDW72N028RchUBHuBqys+5h1yDNZpDcNvw/I0UgXxGTMjiLGhZt64YET0Dx5GzYz8QA4DAGIk2stkG9TQrRYN4lcc9HuGg1ObsMZjkn8CVJN3HEaYhWX5ndMxd8DYSC1Ro9Tvk6jFcHBbY0A+WDuXxcbQu07GMpwcgPuGOFWt789Y98h2Op7VP3PBiwXZh+GsC6ZwUYhlZMtqkS5E+LD9ASZ/nzxMKjkTXlk3R9dmVidOfxpduh04LvlUTV4DTcwNR8c99xJnYNo3OLr9mF4tnCS6ztTuoSc3Cn7yZWMGwILDA0Nn7BGG3lCPbKjvgT4I7EX6waWprBX84NoTNQksxE4UP/vCAbkHOfcJ4rrRaY0z24Nwnyd1vKIxzdVf9uD28WOoLjPhVxwefaHnwgTjPSRer4TonjDisyWzvfqTKJXB0hCn4MkOk+mMA9UJRJG8tKydN18BLLS75rw03lds9C0DJwUlQRpRrtlH40zdQdXBDjJTggtyHjcoIJlyMuHGeQ3mZorYcQMnUknThIDRby2+ceTe0TT8UpzrxgaWnw0DyDDiHyq9+WPfZp3751jXfttYda2A6oIGbcNpES3iYn8Rkg5c6vzAQcceKJ1FLcgbADL7+MNVPv4noRYkc7bvj201Xii8ospp7DIab+Jg98t3nsHz3kTBCJcYFg4gGFv5ZD5C8/QcIteeICewZcC6V//FRlRrBAIx/Y+H64En1xAXcSnDlbPJBtd+uK2amohvAKW5HJlW4lR9vo5jT0vsGz86+Q61i/6z++zagYDvDrF/g9YegawIFOBynpVSAQ4d7jrmQyq948Gcl9t7KPLQAJg8+fVGTB2DUYeDacOGS7Xykc8bvICe+N6Ol4JW8Bbt6KAgKYTX6PvrTWtBnGlVAXscuxJbZ3roPAAyDXgAQCZxaGcBDat9ZhPM4im76AtuMhRhPOCiAXCn0zRyKby5weOAedDZO1xaqglsmObajja/cDS5lmqC/yKgIf/iLkQ1PX4eb5W8KNX3msNiusGfk5UXIPfcs8gMUwQrmXtieThFZNl+o0YdX4YSIvxhnchCR8VEzTCN4jh5HZZfeawrdl14C7z6MvTm2K5pAlYWv5ePvTNtEllOFPp2FOFj5mMPDVxplNmGACciD1uZrnTZ9cw70vzwZk45PwtQtm7jj1W8EvvXcTVSbDVcJGyGaMW4hI8GRrMYACD0gYWJz7WemZvIXCBy9Bwk/5hCcvQbjsy8/qHFAtzCuh/hn3EW+8X8xpSvkJbphGS4Lvhr/BC+fWJaNwpcfpGyndrxVhVQjnjbbUuMJWsID2/2ILJ0Le6MQMjbUCMGYqd4sQOOPMuGo2XvSVbjefZ4pOJcX1qXx4vMJzdGxFmxg3uM4UoQgUT/JQtudBw8ke7c+qDJzGRYDSolCIW4mhZa+ojaNlQqhrcyAwkDsOXJMdk3OlpHh7UTcIREEp5nYf/U43Cz3iWdh8aAE/BR4/98I1dqObaC9M3+uNrGiu6B+EJjv08xBIiZOuiLVi8nNpjI15xlwFgTUHwpFMqYhx/FDSbCy93NqDMg2PMf+RouzXdCNt0uB+VPJddhQcvQ5Xs8q79/o+pUUmP1/ON2sQB5oD4Df5m1DNv4gmWF7l66AvI/NLTLd5wAluuYz8s+6j8Ir53M/J21xwJXwlwV9bcg77DJ8ZPpCsnU82II0mb15KG/dupWmPvggdercWVx4TJuK5y6P4yTn8Xpo9Ogx1KNXr6SQ/F/Z2pr/9Qdxe/ppZIJCee+PI09H2x5UftEULWOukIUDALn6nqp+s8d4VAxAUhrrVRsbFklN3igi/MU8IWcw+RtfUBZ/UlZwP+wPMInVbKDQklfBNRyqbdWMCfDMabA6y4GaRLqkKMmvSu0OGKi6DXRInMiwwqT7iFPxJb928ei2dtjasBKh7iCTiP20UX8Tv45eg7CFxnanHrRljh10EQaXuH81sjqPGIatz5lQfnsaZULOAcfXGPzz/kWVBQKKUHt48hpcbsUFTncF5ywUFT0nnkNu/o63qf4xim2qhlGo7zSQ1gYhLw67tiGtVmGuYIHOQLUCc9rbyXEO7595Hy7MzUDHVoPIrBCURCjchnb1HE6eX/0WHX1GwjJ7nnW3wWTD1q3b6OFHNWFcnvlUuF3Us0ePwgFF24qGPpoGzuRh7eYwkwGXA2GagcGk4opHs7Kjy6u/d/jvwLLPxnbRxTMBecBsQoce8L8MJ0THZddaDNoGfHYik5OhDR3nogB+8s4fcLR/f3yypEqvRPyYRDgVMXE3qWKqfv65U2HF70W8YFwwrVjeAP0l3xk3mBOBA+MJGneImyx7k/BRMEeXQbC4j3oDJMRQwxgUJz6HaMJqFFE2/n8xJl+FacgdyA4e4Iii6z8DB/0OOfuPiBeRy0N09VIsmpMpgnzEh9cZTKBj4zjwSGFvWQCdMUMYT5LxyRH+8qYSqjXQC21k2hnpx4L7uOkQYybZPe8TgCJv3YDB9xAFFz0tOkwlsoEAWB1YqFg2+lZYJb9M3W9qk88QK69HBhV3XikTiXxlZTBFUmhXgO2Gweldtx4PWcdWDKDtwBHY98Bqr0QDAJOeVPGnZ6FXwVudbBxOP/bvRpVX/QdzD0f2+BavVNUe342uIFuHruqEzCYbxGEDzxkdOA6TAz0EYPCFN0uHCWqcDJbxUIcaGJ3CFkVcqdBpDSDwDvs9dAXMPShMNgBQdSe+sLgBlzJ1D/7loiv2wwPzqczxgP64RxVZ/SnZdUCBLyyJie8dh1a+KUCZuTC5HneoPnySnLhBzuG5OGXHFqqbei60YterRspZOA4QsLlhjGnUdTDvcXSK7NCX3Y6AJvkxwuh1Eyv3qJNwWDTs+BKCs9fQFHlk55XUi9klak6xwjCNWD/tRs16O4irDxZRSXRyuIFch/yKfKMn4ihtmNAIbU71L15dsNpC4aryyqeo7v7zIG78SazASmg3uIrDqfLPL5D9wN45FAda4mhZfGGAV2CeuPmCsD5gcyhdRBXlYeYW6GLQBm145jp1RRfCWGSIichf+vOekZp7YhDVndCwbWQOw+y8w8/H6dALEHjzsS0vWiEYvWJdHbPznX4tPkHCgMKcBE6OoANlr+oCAILh7xwBhYG96vb3KTjnMWqcc7cQHkue1mjLzdiGnmsu2PDGnzN1MNC9Cw7EnWhbPIpWf8dBvYm10/N1eQEK6yCw03/zLbyQdEJG8NoDkHCDhWU2TfCcolJatug8WHEvO+0v5B03Cas1Vpx8J4ReUR4Q4j97qDTQg/L9ZVKqdMwjP96G8KU/BZNdzQiXIntS5bXPU90D52PfHoT9GBj3Pv5MrGatMleR8+B2iR+tPkwzE0hnyIbBR7DNqNMedkLPRtjQMRdsh+Kab9REKLGNhFmMKcJAObfRC4NbVk7kJXQ7JPL0GwuurEuTqOIkiNuLycgfGJNgWc0zhJXnzM7evR+5+5wBIfcr5B10AfnGTiQb+kkltDluxjf0ha1NJ6ERzeO5YfYdMB42ijy/vjxz0g49yd6hF4ycbwKjpI0ZTgUBrhuWDG1QI/COtaZJxgIQIS9AsWsSZK/hY0YRf0Cf0tmUW1CcyLIPYFT6KqwGO4H2YOuZtTc4FoA5Ox0FruQGch71P4UDiZa3HWrN3Ga2TGdSbTeUnesjgwlfqrQL84u5pXZ2P54k2aMODk6qfVzLvn9XfHIEH0qr6oBVqX9WmYptDU5x1JMcgIg40cmRO4BZhfLz78Hkvb4pza2y0nArXslC41ncJ3P2G4bPWAwjz6jLSf7+W4AtL0LWrmoijFXjqFhYs7OIJnXoTFUw3mXverhFjIS3b8xEKhtzLdlMca0am0hn+cQyLuTHRtl942+2jGYMcBzcD184vBfGx7EFxWLk5LGBfHgsm+tlTJXbs2gRBnVyt+aWSyn2XqAAd1mqAWnlvxeqWCryF0eBFJupXxwNWmiDU4EJN8XKv4U2s1TtFkWBEqC0qO4qVbZEgeZNgRKgNO/+KdWuRIEWRYESoLSo7ipVtkSB5k2BEqA07/4p1a5EgRZFgRKgtKjuKlW2RIHmTYESoDTv/inVrkSBFkWB/we44NkO+2PjYAAAAABJRU5ErkJggg==" style="height:100%;width:auto;object-fit:contain;display:block" alt="FSL 佛山照明"></div><div class="df-center" style="display:flex;align-items:center;gap:8px;flex:1;margin:0 clamp(.5rem,2vw,1.5rem)"><div class="prog-track" id="progTrack"><div class="prog-fill" id="progFill" style="width:0%"></div><div class="prog-thumb" id="progThumb" style="left:0%"></div></div><button class="pg-btn" id="pgBtn" onclick="toggleJumpPanel()">1 / N</button></div><div class="jump-panel" id="jumpPanel"></div><div class="df-right"><img src="data:image/png;base64,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" style="height:100%;width:auto;max-height:22px;object-fit:contain;display:block" alt="Atos"></div></div>
 
 <script>
-function goCh(i){
-  document.querySelectorAll('.chapter').forEach((c,j)=>c.classList.toggle('on',i===j));
-  document.querySelectorAll('.nc').forEach((c,j)=>c.classList.toggle('on',i===j));
-  window.scrollTo(0,0);
+
+class SAPSlidePresentation {
+  constructor() {
+    this.slides = Array.from(document.querySelectorAll('.slide'));
+    this.total = this.slides.length;
+    this.cur = 0;
+    this.animating = false;
+    this._wt = 0;
+    window._deck = this;
+    this.observe();
+    this.events();
+    this.updateUI(0);
+  }
+  observe() {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          const idx = this.slides.indexOf(e.target);
+          if (idx !== -1) { this.cur = idx; this.updateUI(idx); }
+        }
+      });
+    }, { threshold: 0.5 });
+    this.slides.forEach(s => obs.observe(s));
+  }
+  events() {
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { closeJumpPanel(); return; }
+      const nxt = ['ArrowDown','ArrowRight',' ','PageDown'];
+      const prv = ['ArrowUp','ArrowLeft','PageUp'];
+      if (nxt.includes(e.key)) { e.preventDefault(); this.go(this.cur + 1); }
+      else if (prv.includes(e.key)) { e.preventDefault(); this.go(this.cur - 1); }
+      else if (e.key === 'Home') { e.preventDefault(); this.go(0); }
+      else if (e.key === 'End')  { e.preventDefault(); this.go(this.total - 1); }
+    });
+    document.addEventListener('wheel', e => {
+      const now = Date.now();
+      if (now - this._wt < 800) return;
+      this._wt = now;
+      e.deltaY > 0 ? this.go(this.cur + 1) : this.go(this.cur - 1);
+    }, { passive: true });
+    let ty = 0;
+    document.addEventListener('touchstart', e => { ty = e.touches[0].clientY; }, { passive: true });
+    document.addEventListener('touchend', e => {
+      const d = ty - e.changedTouches[0].clientY;
+      if (Math.abs(d) > 50) this.go(this.cur + (d > 0 ? 1 : -1));
+    }, { passive: true });
+  }
+  go(idx) {
+    if (idx < 0 || idx >= this.total || this.animating) return;
+    this.animating = true;
+    this.slides[idx].scrollIntoView({ behavior: 'smooth' });
+    this.cur = idx; this.updateUI(idx);
+    setTimeout(() => { this.animating = false; }, 650);
+  }
+  updateUI(idx) {
+    const pct = this.total > 1 ? (idx / (this.total - 1)) * 100 : 0;
+    const pb    = document.getElementById('pb');
+    const fill  = document.getElementById('progFill');
+    const thumb = document.getElementById('progThumb');
+    const btn   = document.getElementById('pgBtn');
+    if (pb)    pb.style.width = ((idx+1)/this.total*100) + '%';
+    if (fill)  fill.style.width = pct + '%';
+    if (thumb) thumb.style.left = pct + '%';
+    if (btn)   btn.textContent = (idx+1) + ' / ' + this.total;
+    document.querySelectorAll('.jp-btn').forEach((b,i) => b.classList.toggle('cur', i===idx));
+  }
 }
+document.addEventListener('DOMContentLoaded', () => new SAPSlidePresentation());
+
+</script>
+<script>
+
+(function(){
+  const track = document.getElementById('progTrack');
+  if (!track) return;
+  function seek(x) {
+    const r = track.getBoundingClientRect();
+    const p = Math.max(0, Math.min(1, (x - r.left) / r.width));
+    window._deck.go(Math.round(p * (window._deck.total - 1)));
+  }
+  track.addEventListener('click', e => seek(e.clientX));
+  let drag = false;
+  const thumb = document.getElementById('progThumb');
+  thumb.addEventListener('mousedown', e => { drag = true; e.preventDefault(); });
+  document.addEventListener('mousemove', e => { if (drag) seek(e.clientX); });
+  document.addEventListener('mouseup',   () => { drag = false; });
+  thumb.addEventListener('touchstart', () => { drag = true; }, {passive:true});
+  document.addEventListener('touchmove', e => { if (drag) seek(e.touches[0].clientX); }, {passive:true});
+  document.addEventListener('touchend',  () => { drag = false; });
+})();
+
+function buildJumpPanel() {
+  const panel = document.getElementById('jumpPanel');
+  if (!panel || panel.children.length) return;
+  window._deck.slides.forEach((s, i) => {
+    const h = s.querySelector('h1,h2');
+    const b = document.createElement('button');
+    b.className = 'jp-btn' + (i === 0 ? ' cur' : '');
+    b.id = 'jp-' + i;
+    const lbl = h ? h.textContent.replace(/\s+/g,' ').slice(0,42) : 'Slide '+(i+1);
+    b.innerHTML = '<span class="jp-num">'+(i+1)+'</span><span class="jp-label">'+lbl+'</span>';
+    b.onclick = () => { window._deck.go(i); closeJumpPanel(); };
+    panel.appendChild(b);
+  });
+}
+function toggleJumpPanel() {
+  buildJumpPanel();
+  document.getElementById('jumpPanel').classList.toggle('open');
+}
+function closeJumpPanel() {
+  const p = document.getElementById('jumpPanel');
+  if (p) p.classList.remove('open');
+}
+document.addEventListener('click', e => {
+  const p   = document.getElementById('jumpPanel');
+  const btn = document.getElementById('pgBtn');
+  if (p && p.classList.contains('open') && !p.contains(e.target) && e.target !== btn) closeJumpPanel();
+});
+
+</script>
+<div class="status-switcher" id="statusSwitcher">
+  <span class="ss-label">文档状态</span>
+  <button class="ss-btn" id="ss-todo" onclick="setDocStatus('todo')">⏳ 待开始</button>
+  <button class="ss-btn" id="ss-wip"  onclick="setDocStatus('wip')">🔄 进行中</button>
+  <button class="ss-btn" id="ss-done" onclick="setDocStatus('done')">✅ 已完成</button>
+  <div class="ss-indicator-wrap">
+    <div class="ss-indicator-dot" id="ss-dot"></div>
+    <span class="ss-indicator-text" id="ss-indicator">—</span>
+  </div>
+</div>
+
+<script id="statusSwitcherJS">
+
+(function(){
+  var WORKER='https://fsl-status.283656314.workers.dev';
+  var SF='https://api.github.com/repos/EstaTea/fsl-report/contents/status/doc-status.json';
+  var DOCKEY=location.pathname.replace(/\.html$/,'').replace(/\/$/,'').replace(/^\/fsl-report/,'')||'/';
+  function applyUI(s){
+    var L={todo:'待开始',wip:'进行中',done:'已完成'};
+    var D={todo:'todo',wip:'wip',done:'done'};
+    ['todo','wip','done'].forEach(function(k){var b=document.getElementById('ss-'+k);if(b)b.classList.toggle('active',k===s);});
+    var ind=document.getElementById('ss-indicator');if(ind)ind.textContent=L[s]||s;
+    var dot=document.getElementById('ss-dot');if(dot)dot.className='ss-indicator-dot '+(D[s]||'');
+  }
+  function readStatus(cb){
+    fetch(SF+'?ref=main&_='+Date.now())
+      .then(function(r){return r.json();})
+      .then(function(d){var j={};try{var c='';for(var i=0;i<d.content.length;i++){var x=d.content.charCodeAt(i);if(x!==10&&x!==13)c+=d.content[i];}j=JSON.parse(atob(c));}catch(e){}cb(j);})
+      .catch(function(){cb({});});
+  }
+  window.setDocStatus=function(s){
+    applyUI(s);
+    var sw=document.getElementById('statusSwitcher');
+    if(sw){sw.style.outline='2px solid #F59E0B';sw.title='保存中...';}
+    fetch(WORKER,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({doc_key:DOCKEY,status:s})})
+      .then(function(r){return r.json().then(function(j){return {ok:r.ok,body:j};});})
+      .then(function(res){
+        if(res.ok){if(sw){sw.style.outline='2px solid #22C55E';sw.title='已保存';setTimeout(function(){sw.style.outline='';sw.title='';},3000);}}
+        else{alert('保存失败: '+(res.body.error||'unknown'));if(sw)sw.style.outline='2px solid #EF4444';}
+      }).catch(function(e){alert(e.message);if(sw)sw.style.outline='2px solid #EF4444';});
+  };
+  document.addEventListener('DOMContentLoaded',function(){readStatus(function(j){applyUI(j[DOCKEY]||'todo');});});
+})();
+
 </script>
 </body>
 </html>
