@@ -36,14 +36,14 @@ export default async function handler(req, res) {
 
   let subs = existing.submissions || [];
 
+  // 用 savedAt 作为唯一标识定位记录
+  const { savedAt, entry } = body;
+  const idx = subs.findIndex(s => s.savedAt === savedAt);
+  if (idx < 0) return res.status(400).json({ error: 'Invalid index' });
+
   if (req.method === 'DELETE') {
-    // 按 index 删除
-    const { index } = body;
-    if (index === undefined || index < 0 || index >= subs.length) {
-      return res.status(400).json({ error: 'Invalid index' });
-    }
-    const deleted = subs[index];
-    subs.splice(index, 1);
+    const deleted = subs[idx];
+    subs.splice(idx, 1);
     existing.submissions = subs;
     const content = btoa(unescape(encodeURIComponent(JSON.stringify(existing, null, 2))));
     const putR = await fetch(GH_API, {
@@ -56,17 +56,12 @@ export default async function handler(req, res) {
   }
 
   if (req.method === 'PUT') {
-    // 按 index 更新整条记录
-    const { index, entry } = body;
-    if (index === undefined || index < 0 || index >= subs.length) {
-      return res.status(400).json({ error: 'Invalid index' });
-    }
-    subs[index] = { ...subs[index], ...entry };
+    subs[idx] = { ...subs[idx], ...entry };
     existing.submissions = subs;
     const content = btoa(unescape(encodeURIComponent(JSON.stringify(existing, null, 2))));
     const putR = await fetch(GH_API, {
       method: 'PUT', headers,
-      body: JSON.stringify({ message: `dcmm: 修改评估记录 ${subs[index].name}`, content, sha })
+      body: JSON.stringify({ message: `dcmm: 修改评估记录 ${subs[idx].name}`, content, sha })
     });
     if (putR.ok) return res.status(200).json({ ok: true });
     const err = await putR.json();

@@ -936,7 +936,7 @@ async function saveDetail(i){
   });
   var entry=Object.assign({},allResponses[i],{name:name,dept:dept,scores:scores});
   try{
-    var r=await fetch(ADMIN_URL,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({index:i,entry:entry})});
+    var r=await fetch(ADMIN_URL,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({savedAt:allResponses[i].savedAt,entry:entry})});
     var res=await r.json();
     if(!res.ok) throw new Error(res.error||'保存失败');
     closeDetail();
@@ -950,7 +950,7 @@ async function deleteResp(i,fromDetail){
   if(!r) return;
   if(!confirm('确认删除「'+r.name+'」的评估记录？此操作不可撤销。')) return;
   try{
-    var res=await fetch(ADMIN_URL,{method:'DELETE',headers:{'Content-Type':'application/json'},body:JSON.stringify({index:i})});
+    var res=await fetch(ADMIN_URL,{method:'DELETE',headers:{'Content-Type':'application/json'},body:JSON.stringify({savedAt:allResponses[i].savedAt})});
     var data=await res.json();
     if(!data.ok) throw new Error(data.error||'删除失败');
     if(fromDetail) closeDetail();
