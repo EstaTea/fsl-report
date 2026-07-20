@@ -27,7 +27,7 @@ export default async function handler(req, res) {
     if (getR.ok) {
       const gd = await getR.json();
       sha = gd.sha;
-      existing = JSON.parse(decodeURIComponent(escape(atob(gd.content.replace(/\n/g, '')))));
+      existing = JSON.parse(Buffer.from(gd.content.replace(/\n/g, ''), 'base64').toString('utf8'));
     }
   } catch (e) {}
 
@@ -36,7 +36,7 @@ export default async function handler(req, res) {
   if (idx >= 0) subs[idx] = entry; else subs.push(entry);
   existing.submissions = subs;
 
-  const content = btoa(unescape(encodeURIComponent(JSON.stringify(existing, null, 2))));
+  const content = Buffer.from(JSON.stringify(existing, null, 2)).toString('base64');
   const putBody = { message: `dcmm: 提交评估 ${entry.name}`, content };
   if (sha) putBody.sha = sha;
 
