@@ -27,7 +27,11 @@ async function writeJson(token, path, sha, data, message) {
   const r = await fetch(`${GH_API}/repos/${AUTH_REPO}/contents/${path}`, {
     method: 'PUT', headers: ghHeaders(token), body: JSON.stringify(body),
   });
-  return r.ok;
+  if (!r.ok) {
+    const errBody = await r.json().catch(() => ({}));
+    return { ok: false, status: r.status, ghError: errBody.message || JSON.stringify(errBody) };
+  }
+  return { ok: true };
 }
 
 function hashPassword(password, salt) {
@@ -98,8 +102,10 @@ export default async function handler(req, res) {
 
   usersData.users.push(newUser);
 
-  const ok = await writeJson(token, 'users.json', usersSha, usersData, `auth: 新用户注册 ${emailLower}`);
-  if (!ok) return res.status(500).json({ error: '写入用户数据失败，请稍后重试' });
+  const result = await writeJson(token, 'users.json', usersSha, usersData, `auth: 新用户注册 ${emailLower}`);
+  if (!result.ok) {
+    return res.status(500).json({ error: `写入失败(${result.status}): ${result.ghError}` });
+  }
 
   return res.status(200).json({
     ok: true,
