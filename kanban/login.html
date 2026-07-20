@@ -418,12 +418,17 @@ async function doEmailLogin(){
   if(!email || !password){ showAlert('emailLoginError','请填写邮箱和密码','error'); return; }
 
   setLoading('emailLoginBtn','emailLoginSpin','emailLoginTxt', true);
+  var loginTimeout = setTimeout(function(){
+    setLoading('emailLoginBtn','emailLoginSpin','emailLoginTxt', false);
+    showAlert('emailLoginError','请求超时，请重试','error');
+  }, 15000);
   try{
     var r = await fetch(PROXY+'/auth-login', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({email, password}),
     });
+    clearTimeout(loginTimeout);
     var data = await r.json();
     if(!r.ok || !data.ok){
       showAlert('emailLoginError', data.error||'登录失败', 'error');
@@ -463,12 +468,17 @@ async function doEmailRegister(){
   if(password.length < 8){ showAlert('emailRegError','密码至少 8 位','error'); return; }
 
   setLoading('emailRegBtn','emailRegSpin','emailRegTxt', true);
+  var regTimeout = setTimeout(function(){
+    setLoading('emailRegBtn','emailRegSpin','emailRegTxt', false);
+    showAlert('emailRegError','请求超时，请重试','error');
+  }, 15000);
   try{
     var r = await fetch(PROXY+'/auth-register', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({email, password, name, role: role||'member'}),
     });
+    clearTimeout(regTimeout);
     var data = await r.json();
     if(!r.ok || !data.ok){
       showAlert('emailRegError', data.error||'注册失败', 'error');
