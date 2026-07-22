@@ -357,7 +357,7 @@ function renderForward(){
       </div>
       <div class="trace-path">
         <span style="font-size:10px;color:var(--muted);margin-right:4px">📋</span>
-        <span class="tp-node" style="background:#0f766e" title="${p.req_count}条需求">${p.req_count}条原始需求</span>
+        <span class="tp-node" style="background:#0f766e;cursor:pointer;text-decoration:underline dotted" title="点击查看需求明细" onclick="showReqModal('${p.id}')">${p.req_count}条原始需求 🔍</span>
         <span class="tp-arrow">→</span>
         ${gaps.map(g=>`<span class="tp-node" style="background:#1d4ed8">${esc(g.name)}</span>`).join('<span class="tp-arrow">·</span>')}
         <span class="tp-arrow">→</span>
@@ -622,5 +622,75 @@ function renderReqs(){
 
 window.onload=()=>{ render(); };
 </script>
+
+<!-- ══ 需求明细模态框 ══════════════════════════════════════════════════════ -->
+<div id="req-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.45);backdrop-filter:blur(2px)" onclick="closeReqModal(event)">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(820px,94vw);max-height:80vh;background:var(--card);border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.3);display:flex;flex-direction:column;overflow:hidden">
+    <!-- header -->
+    <div id="req-modal-hdr" style="padding:14px 18px;background:#0f766e;color:#fff;display:flex;align-items:flex-start;gap:10px;flex-shrink:0">
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:700;margin-bottom:3px" id="req-modal-title"></div>
+        <div style="font-size:11px;opacity:.85" id="req-modal-desc"></div>
+      </div>
+      <button onclick="document.getElementById('req-modal').style.display='none'" style="background:rgba(255,255,255,.2);border:none;color:#fff;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:13px;flex-shrink:0">✕ 关闭</button>
+    </div>
+    <!-- stats bar -->
+    <div id="req-modal-stats" style="padding:8px 18px;background:#f0fdfa;border-bottom:1px solid #d1fae5;font-size:11px;color:#0f766e;display:flex;gap:16px;flex-shrink:0"></div>
+    <!-- body -->
+    <div id="req-modal-body" style="overflow-y:auto;padding:14px 18px;flex:1"></div>
+  </div>
+</div>
+
+<script>
+function showReqModal(pid){
+  const p = PP.find(x=>x.id===pid);
+  if(!p) return;
+  const reqs = reqsByPain(pid);
+
+  document.getElementById('req-modal-title').textContent = p.id + '  ' + p.name;
+  document.getElementById('req-modal-desc').textContent = p.desc;
+
+  const sampleN = reqs.length;
+  const totalN  = p.req_count;
+  document.getElementById('req-modal-stats').innerHTML =
+    `<span>📋 样本展示 <strong>${sampleN}</strong> 条</span>` +
+    `<span>📊 痛点总需求 <strong>${totalN}</strong> 条</span>` +
+    `<span>🏢 涉及部门 <strong>${p.dept}</strong></span>` +
+    `<span style="margin-left:auto;color:${p.severity==='高'?'#dc2626':'#d97706'}">⚠️ 严重度：${p.severity}</span>`;
+
+  const prioColor = {'高':'#fee2e2','中':'#fef9c3','低':'#dcfce7','待定':'#f1f5f9'};
+  const prioText  = {'高':'#991b1b','中':'#854d0e','低':'#166534','待定':'#475569'};
+
+  if(reqs.length === 0){
+    document.getElementById('req-modal-body').innerHTML =
+      '<div style="text-align:center;padding:40px;color:var(--muted)">暂无需求样本数据（总计 '+totalN+' 条需求已归入此痛点，样本未收录）</div>';
+  } else {
+    document.getElementById('req-modal-body').innerHTML = reqs.map(r=>{
+      const bg = prioColor[r.priority] || '#f1f5f9';
+      const tc = prioText[r.priority]  || '#475569';
+      return `<div style="border:1px solid #e2e8f0;border-radius:8px;margin-bottom:10px;overflow:hidden">
+        <div style="padding:8px 12px;background:${bg};display:flex;align-items:center;gap:8px">
+          <span style="font-size:10px;font-weight:700;color:${tc};background:${bg};border:1px solid ${tc};padding:1px 6px;border-radius:4px">${esc(r.id)}</span>
+          <span style="font-size:12px;font-weight:600;color:var(--txt);flex:1">${esc(r.brief)}</span>
+          <span style="font-size:10px;color:var(--muted)">${esc(r.dept)}</span>
+          <span style="font-size:10px;font-weight:600;color:${tc}">优先级: ${esc(r.priority)}</span>
+        </div>
+        ${r.detail ? `<div style="padding:8px 12px;font-size:11px;color:var(--txt);line-height:1.6;background:var(--card)">${esc(r.detail)}</div>` : ''}
+        ${r.opinion ? `<div style="padding:6px 12px;font-size:10px;color:#0369a1;background:#f0f9ff;border-top:1px solid #e0f2fe;line-height:1.5"><span style="font-weight:700">💬 意见：</span>${esc(r.opinion)}</div>` : ''}
+      </div>`;
+    }).join('');
+  }
+
+  document.getElementById('req-modal').style.display = 'block';
+}
+
+function closeReqModal(e){
+  if(e.target === document.getElementById('req-modal'))
+    document.getElementById('req-modal').style.display = 'none';
+}
+
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') document.getElementById('req-modal').style.display='none'; });
+</script>
+
 </body>
 </html>
