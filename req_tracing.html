@@ -303,9 +303,10 @@ function renderChain(){
       <div class="chain-col">
         <div class="chain-hdr" style="background:#7c3aed">🎯 高价值场景 <small style="opacity:.7;font-size:9px">(15个)</small></div>
         <div class="chain-items">${SC.map(s=>{
-          return `<div class="chain-item${act(activeSCs,s.id)}${dim(activeSCs,s.id)}" onclick="selectItem('sc','${s.id}')">
-            <span class="ci-badge badge-p${s.priority.slice(1)}">${esc(s.id)}</span>
-            <div><div class="ci-name">${esc(s.name)}</div>
+          const notFocused = !s.selected;
+          return `<div class="chain-item${act(activeSCs,s.id)}${dim(activeSCs,s.id)}" onclick="selectItem('sc','${s.id}')" style="${notFocused?'opacity:.45;':''}">
+            <span class="ci-badge ${notFocused?'':'badge-p'+s.priority.slice(1)}" style="${notFocused?'background:#e2e8f0;color:#94a3b8;':''}">${esc(s.id)}</span>
+            <div><div class="ci-name" style="${notFocused?'color:var(--muted);':''}">${esc(s.name)}</div>
             <div class="ci-sub">${esc(s.owner)}${s.selected?' ✅':''}</div></div></div>`;
         }).join('')}</div>
       </div>
