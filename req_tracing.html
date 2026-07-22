@@ -283,7 +283,7 @@ function renderChain(){
       </div>
       <div class="chain-arrow">→</div>
       <div class="chain-col">
-        <div class="chain-hdr" style="background:#b45309">🔍 业务痛点诊断 <small style="opacity:.7;font-size:9px">(18个)</small></div>
+        <div class="chain-hdr" style="background:#b45309">🔍 业务痛点诊断 <small style="opacity:.7;font-size:9px">(${PP.length}个)</small></div>
         <div class="chain-items">${PP.map(p=>{
           return `<div class="chain-item${act(activePains,p.id)}${dim(activePains,p.id)}" onclick="selectItem('pain','${p.id}')">
             <span class="ci-badge sev-${esc(p.severity)} phase-badge">${esc(p.id)}</span>
@@ -292,7 +292,7 @@ function renderChain(){
       </div>
       <div class="chain-arrow">→</div>
       <div class="chain-col">
-        <div class="chain-hdr" style="background:#1d4ed8">🏛️ TOGAF架构差距 <small style="opacity:.7;font-size:9px">(10个)</small></div>
+        <div class="chain-hdr" style="background:#1d4ed8">🏛️ TOGAF架构差距 <small style="opacity:.7;font-size:9px">(${AG.length}个)</small></div>
         <div class="chain-items">${AG.map(g=>{
           return `<div class="chain-item${act(activeGaps,g.id)}${dim(activeGaps,g.id)}" onclick="selectItem('gap','${g.id}')">
             <span class="ci-badge domain-badge dom-${esc(g.domain)}" style="font-size:8px">${esc(g.domain.slice(0,2))}</span>
@@ -301,7 +301,7 @@ function renderChain(){
       </div>
       <div class="chain-arrow">→</div>
       <div class="chain-col">
-        <div class="chain-hdr" style="background:#7c3aed">🎯 高价值场景 <small style="opacity:.7;font-size:9px">(15个)</small></div>
+        <div class="chain-hdr" style="background:#7c3aed">🎯 高价值场景 <small style="opacity:.7;font-size:9px">(${SC.length}个)</small></div>
         <div class="chain-items">${SC.map(s=>{
           const notFocused = !s.selected;
           return `<div class="chain-item${act(activeSCs,s.id)}${dim(activeSCs,s.id)}" onclick="selectItem('sc','${s.id}')" style="${notFocused?'opacity:.45;':''}">
@@ -312,7 +312,7 @@ function renderChain(){
       </div>
       <div class="chain-arrow">→</div>
       <div class="chain-col">
-        <div class="chain-hdr" style="background:#be185d">📦 工作包 <small style="opacity:.7;font-size:9px">(11个)</small></div>
+        <div class="chain-hdr" style="background:#be185d">📦 工作包 <small style="opacity:.7;font-size:9px">(${WP.length}个)</small></div>
         <div class="chain-items">${WP.map(w=>{
           return `<div class="chain-item${act(activeWPs,w.id)}${dim(activeWPs,w.id)}" onclick="selectItem('wp','${w.id}')">
             <span class="ci-badge" style="background:${w.color}22;color:${w.color}">${esc(w.id)}</span>
