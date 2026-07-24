@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>周报 W5 | FSL 工作台</title>
+<style>
+:root{--b900:#0B2D47;--b700:#1A4F73;--b500:#2374A3;--b300:#5EA4CE;
+      --b100:#C7E2F2;--b050:#EBF5FB;--bg:#F2F7FB;--text:#0F2233;
+      --muted:#5B7A91;--rule:#D6E8F2;--r:6px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;
+     background:var(--bg);color:var(--text);font-size:14px;line-height:1.8;}
+a{color:inherit;text-decoration:none;}
+.hero{background:linear-gradient(155deg,var(--b900) 0%,var(--b700) 100%);
+      color:#fff;padding:36px 48px 32px;border-bottom:3px solid var(--b500);}
+.hero-meta{font-size:11.5px;opacity:.6;margin-bottom:8px;letter-spacing:.3px;text-transform:uppercase;}
+.hero h1{font-size:22px;font-weight:800;margin-bottom:6px;}
+.hero p{font-size:13px;opacity:.72;max-width:700px;}
+.hero-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);
+      border-radius:3px;padding:3px 12px;font-size:11px;letter-spacing:.4px;text-transform:uppercase;}
+.container{max-width:1280px;margin:0 auto;padding:30px 32px;}
+.bc{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted);margin-bottom:22px;}
+.bc a{color:var(--b500);}.bc a:hover{color:var(--b700);}.bc .sep{color:var(--b100);}
+.top-row{display:grid;grid-template-columns:160px 260px 1fr;gap:12px;margin-bottom:14px;}
+@media(max-width:1000px){.top-row{grid-template-columns:1fr 1fr;}}
+@media(max-width:640px){.top-row{grid-template-columns:1fr;}}
+.card{background:#fff;border:1px solid var(--rule);border-radius:var(--r);padding:18px 20px;
+      box-shadow:0 1px 3px rgba(35,116,163,.05);}
+.card-title{font-size:12px;font-weight:800;color:var(--b900);text-decoration:underline;margin-bottom:10px;}
+.status-center{text-align:center;}
+.status-dot{width:52px;height:52px;border-radius:50%;margin:6px auto;}
+.s-green{background:#43A047;}.s-yellow{background:#FB8C00;}.s-red{background:#E53935;}
+.s-label{font-size:12.5px;font-weight:800;color:var(--b900);margin-top:6px;}
+.s-week{font-size:11px;color:var(--muted);margin-top:3px;}
+.s-phase{font-size:11.5px;font-weight:700;color:var(--b700);margin-top:4px;}
+.det-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.det-text{font-size:13.5px;font-weight:700;flex:1;}
+.det-ind{width:20px;height:20px;border-radius:50%;flex-shrink:0;}
+.pbar-wrap{background:var(--b050);border-radius:3px;height:7px;flex:1;max-width:90px;}
+.pbar{height:100%;border-radius:3px;background:#43A047;}
+.gantt-wrap{overflow-x:auto;}
+.gantt{width:100%;border-collapse:collapse;font-size:11px;}
+.gantt th{background:var(--b700);color:#fff;padding:4px 6px;text-align:center;
+          white-space:nowrap;font-size:10px;border:1px solid var(--b900);}
+.gantt td{border:1px solid var(--rule);padding:3px 5px;white-space:nowrap;}
+.gantt .tn{background:var(--b050);min-width:130px;color:var(--b900);font-weight:600;}
+.bar{border-radius:2px;height:13px;display:inline-block;vertical-align:middle;}
+.b-done{background:var(--b700);}.b-now{background:var(--b500);}.b-plan{background:var(--b100);}
+.gantt-note{font-size:10.5px;color:var(--b500);margin-top:5px;font-style:italic;}
+.cards-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px;}
+@media(max-width:1100px){.cards-row{grid-template-columns:1fr 1fr;}}
+@media(max-width:640px){.cards-row{grid-template-columns:1fr;}}
+.card-hd{font-size:13px;font-weight:800;color:var(--b900);
+         border-bottom:2px solid var(--b050);padding-bottom:8px;margin-bottom:12px;}
+.sec{font-size:11px;font-weight:800;color:var(--b700);
+     text-transform:uppercase;letter-spacing:.5px;margin:10px 0 5px;}
+.sec:first-child{margin-top:0;}
+ul.cl{padding-left:15px;}
+ul.cl li{font-size:12.5px;line-height:1.65;margin-bottom:3px;}
+.ri{display:flex;gap:8px;margin-bottom:9px;align-items:flex-start;}
+.ri-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.ri-txt{font-size:12px;line-height:1.5;flex:1;}
+.ri-g{background:#43A047;}.ri-y{background:#FB8C00;}.ri-r{background:#E53935;}
+.bdg{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;
+     border-radius:3px;margin-left:3px;}
+.bdg-g{background:#E8F5E9;color:#2E7D32;}
+.bdg-y{background:#FFF8E1;color:#F57F17;}
+.bdg-r{background:#FFEBEE;color:#C62828;}
+.bdg-b{background:var(--b050);color:var(--b700);}
+.sum-box{background:var(--b050);border-left:3px solid var(--b500);
+         border-radius:0 4px 4px 0;padding:8px 12px;margin-top:10px;font-size:12px;}
+.sum-box-warn{background:#FFF8E1;border-left:3px solid #FB8C00;
+              border-radius:0 4px 4px 0;padding:8px 12px;margin-top:10px;font-size:12px;}
+.ftable{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px;}
+.ftable th{background:var(--b700);color:#fff;padding:6px 10px;text-align:left;
+           font-size:11px;font-weight:700;border:1px solid var(--b900);}
+.ftable td{border:1px solid var(--rule);padding:7px 10px;vertical-align:top;}
+.ftable tr:nth-child(even) td{background:var(--b050);}
+.ftable tr:hover td{background:#e0f0fa;}
+footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
+       padding:18px;font-size:11px;margin-top:48px;letter-spacing:.2px;}
+@media(max-width:768px){.hero{padding:22px 20px;}.container{padding:20px 16px;}}
+._ed[contenteditable="true"]{outline:2px dashed #60A5FA !important;border-radius:2px;background:rgba(96,165,250,.06) !important;cursor:text;}
+._ed[contenteditable="true"]:focus{outline:2px solid #3B82F6 !important;background:rgba(96,165,250,.1) !important;}
+#peb{padding:5px 16px;border-radius:4px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);color:rgba(255,255,255,.85);font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap;flex-shrink:0;}
+#peb:hover{background:rgba(255,255,255,.2);color:#fff;}
+#peb.on{background:#3B82F6;border-color:#3B82F6;color:#fff;}
+#psb{padding:5px 16px;border-radius:4px;border:none;background:#22C55E;color:#fff;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0;display:none;}
+#psb:disabled{background:#6B7280;cursor:not-allowed;}
+#pes{font-size:11px;color:rgba(255,255,255,.6);pointer-events:none;white-space:nowrap;}
+</style>
+</head>
+<body>
+
+<div id="site-nav"></div>
+<script src="../nav.js"></script>
+
+<div class="hero">
+  <div class="hero-meta">蓝图设计阶段第2周 · V1.0 · 2026-07-24</div>
+  <h1>项目周报 — W5（2026-07-20 ~ 07-24）</h1>
+  <p>高层访谈全部完成（总经理+董事长）· 需求扩展至555条 · 进度研讨会召开 · 李泽华总对进度提出不满 · 8月20日诊断关闭节点面临压力</p>
+  <div class="hero-chips">
+    <span class="chip">蓝图设计</span>
+    <span class="chip">W5 完成</span>
+    <span class="chip">高层访谈✅</span>
+    <span class="chip">555条需求</span>
+    <span class="chip">⚠ 进度压力</span>
+  </div>
+</div>
+
+<div class="container">
+  <div class="bc">
+    <a href="/fsl-report/">工作台首页</a>
+    <span class="sep">›</span>
+    <a href="/fsl-report/weekly/">项目周报</a>
+    <span class="sep">›</span>
+    <span>W5</span>
+  </div>
+
+  <!-- ── 状态行 ── -->
+  <div class="top-row">
+
+    <div class="card">
+      <div class="card-title">整体状态</div>
+      <div class="status-center">
+        <div class="status-dot s-yellow"></div>
+        <div class="s-label">整体黄色</div>
+        <div class="s-week">2026-07-20 ~ 07-24</div>
+        <div class="s-phase">蓝图设计阶段 · W5</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">详细状态</div>
+      <div class="det-row">
+        <span class="det-text">进度：40%</span>
+        <div class="pbar-wrap"><div class="pbar" style="width:40%;background:#FB8C00;"></div></div>
+        <div class="det-ind" style="background:#FB8C00;"></div>
+      </div>
+      <div class="det-row">
+        <span class="det-text">风险：高 <b style="color:#d32f2f;">3</b> &nbsp;中 <b style="color:#e8a900;">3</b> &nbsp;低 1</span>
+        <div class="det-ind" style="background:#E53935;"></div>
+      </div>
+      <div class="det-row">
+        <span class="det-text">需求收集：<b style="color:#1a4f73;">555条</b>（29部门，截止07-31）</span>
+        <div class="det-ind" style="background:#43A047;"></div>
+      </div>
+      <div class="sum-box-warn">⚠ 李泽华总对进度提出不满：需求梳理超预期，要求8月20日前必须完成诊断报告与蓝图初稿，否则无法保障按期上线</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">本周工作进度（W5）</div>
+      <div class="gantt-wrap">
+        <table class="gantt">
+          <thead>
+            <tr>
+              <th style="min-width:110px;">工作内容</th>
+              <th>7/21(二)</th><th>7/22(三)</th><th>7/23(四)</th><th>7/24(五)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="tn">总经理访谈</td>
+              <td style="text-align:center"><span class="bar b-done" style="width:36px;"></span></td>
+              <td></td><td></td><td></td>
+            </tr>
+            <tr>
+              <td class="tn">董事长调研</td>
+              <td style="text-align:center"><span class="bar b-done" style="width:36px;"></span></td>
+              <td></td><td></td><td></td>
+            </tr>
+            <tr>
+              <td class="tn">SD/信用/家用需求讨论</td>
+              <td style="text-align:center"><span class="bar b-done" style="width:36px;"></span></td>
+              <td></td><td></td><td></td>
+            </tr>
+            <tr>
+              <td class="tn">成本还原/发票/MES专题</td>
+              <td></td>
+              <td style="text-align:center"><span class="bar b-done" style="width:36px;"></span></td>
+              <td></td><td></td>
+            </tr>
+            <tr>
+              <td class="tn">全体进度研讨会</td>
+              <td></td><td></td>
+              <td style="text-align:center"><span class="bar b-done" style="width:36px;"></span></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="tn">需求梳理/流程图/接口文档</td>
+              <td style="text-align:center"><span class="bar b-now" style="width:36px;"></span></td>
+              <td style="text-align:center"><span class="bar b-now" style="width:36px;"></span></td>
+              <td style="text-align:center"><span class="bar b-now" style="width:36px;"></span></td>
+              <td style="text-align:center"><span class="bar b-now" style="width:36px;"></span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="gantt-note">■深蓝=已完成 ■中蓝=进行中 · 07-21为高层访谈日（总经理+董事长），07-23为全体进度研讨会</div>
+    </div>
+
+  </div>
+
+  <!-- ── 4 cards ── -->
+  <div class="cards-row">
+
+    <!-- 本周成果 -->
+    <div class="card">
+      <div class="card-hd">本周主要成果</div>
+
+      <div class="sec">■ 总经理张学权访谈（07-21）</div>
+      <ul class="cl">
+        <li>SAP升级定位为公司未来3-5年数字化转型底层基石，优先解决80%-90%核心业务痛点</li>
+        <li><b>正式决策成立数据治理委员会</b>，配套MDG，长期统一管控全公司主数据新增/审批/分发/维护</li>
+        <li>物料编码全量梳理为项目核心任务，89万条中活跃有效仅40万条，须ABC分类法分步推进，<b>不得延后至上线后处理</b></li>
+        <li>各业务部门配置唯一专职关键用户，保障50%以上时间投入；"抓大放小"原则，边缘问题延后迭代</li>
+      </ul>
+
+      <div class="sec">■ 董事长余中民调研（07-21）</div>
+      <ul class="cl">
+        <li>SAP定位为核心财务管控底座；<b>暂停其他数字化项目，集中资源聚焦SAP建设</b></li>
+        <li>全流程重塑，旧系统数据按新规则导入（非简单平移），同步验证数据有效性</li>
+        <li>制造端：利用系统数据找出制造瓶颈（用工效率/设备自动化/工艺缺陷），提出改善课题</li>
+        <li>营销端：预留经销商对接接口，获取库存与POS数据；SAP清晰展示销售端勾稽关系</li>
+        <li>执行保障：敏捷原则尽早测试，每日调度，强执行力</li>
+      </ul>
+
+      <div class="sec">■ 成本还原专项确认（07-22）</div>
+      <ul class="cl">
+        <li><b>核心结论：无批次管理前提下，不存在100%精准的成本还原方案</b></li>
+        <li>两条路径需高层拍板：①全集团上线批次管理（精准，成本高）；②简化版报表（需书面锁定验收标准，仅作经营参考）</li>
+        <li>成本大类固化6类；报表统一取上月月结周期价；单工厂物料级成本还原基础功能必须保留</li>
+      </ul>
+
+      <div class="sec">■ 全体进度研讨会（07-23，李泽华总主持）</div>
+      <ul class="cl">
+        <li>累计收集需求<b>555条</b>（29部门，20业务域）；需求梳理完成90.1%；<b>07-31截止，到期关闭</b></li>
+        <li>16个高价值场景初稿提出，各部门主要异议：经销商渠道场景缺失、场景需与需求条目映射、前台覆盖不足</li>
+        <li>外围系统识别23个，12个已集成须同步升级，11个纳入中长期规划</li>
+        <li><b>李泽华总明确不满意进度</b>，要求后续汇报提供完整台账+细化时间表；8月20日前必须完成诊断/蓝图初稿</li>
+      </ul>
+
+      <div class="sec">■ 其他专题（07-21~07-22）</div>
+      <ul class="cl">
+        <li>SD需求：MMBE不增字段；商城价格/物流/定制品纳入三年规划；信用管控方案评估多条路径中</li>
+        <li>家用事业部：统一总部单一公司开单跨公司发货（解决订单混乱核心路径）；质保从出库日起算</li>
+        <li>发票尾差：±5元容差保持；寄售MRKO维持F-04手工调账</li>
+        <li>高明MES：8条SAP→MES单向接口已打通；MES仓库与SAP仓管对接需求待规划；QM范围待确认</li>
+      </ul>
+    </div>
+
+    <!-- 专题进展 -->
+    <div class="card">
+      <div class="card-hd">W5 关键进展汇总</div>
+
+      <div class="sec">■ 高层访谈完成情况</div>
+      <table class="ftable" style="font-size:11.5px;">
+        <thead>
+          <tr><th>访谈对象</th><th style="width:55px;text-align:center;">状态</th><th>核心要求</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b>张学权 总经理</b></td><td style="text-align:center;"><span class="bdg bdg-g">✅完成</span></td><td>数据治理委员会+MDG；物料编码全量梳理；抓大放小</td></tr>
+          <tr><td><b>余中民 董事长</b></td><td style="text-align:center;"><span class="bdg bdg-g">✅完成</span></td><td>SAP为财务管控底座；暂停其他数字化项目；敏捷测试尽早上线</td></tr>
+          <tr><td>曾肖静 副总经理</td><td style="text-align:center;"><span class="bdg bdg-y">待安排</span></td><td>原计划W3安排，仍未完成</td></tr>
+        </tbody>
+      </table>
+
+      <div class="sec" style="margin-top:12px;">■ 16大高价值场景初稿</div>
+      <table class="ftable" style="font-size:11px;">
+        <thead>
+          <tr><th>场景</th><th style="width:60px;text-align:center;">覆盖</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>物料主数据治理</td><td style="text-align:center;"><span class="bdg bdg-r">头号核心</span></td></tr>
+          <tr><td>SOP+MPS销售运作与主生产计划</td><td style="text-align:center;"><span class="bdg bdg-b">已纳入</span></td></tr>
+          <tr><td>MRP物料需求计划</td><td style="text-align:center;"><span class="bdg bdg-b">已纳入</span></td></tr>
+          <tr><td>制造成本还原</td><td style="text-align:center;"><span class="bdg bdg-b">已纳入</span></td></tr>
+          <tr><td>海外资产&财务合规</td><td style="text-align:center;"><span class="bdg bdg-b">已纳入</span></td></tr>
+          <tr><td>集团合并报表</td><td style="text-align:center;"><span class="bdg bdg-b">已纳入</span></td></tr>
+          <tr><td>销售价格体系优化</td><td style="text-align:center;"><span class="bdg bdg-y">待确认方案</span></td></tr>
+          <tr><td>采购价格&货源配额管控</td><td style="text-align:center;"><span class="bdg bdg-b">已纳入</span></td></tr>
+          <tr><td>生产进度可视化看板</td><td style="text-align:center;"><span class="bdg bdg-b">已纳入</span></td></tr>
+          <tr><td>研发投入产出分析</td><td style="text-align:center;"><span class="bdg bdg-b">已纳入</span></td></tr>
+          <tr><td>全流程质量追溯</td><td style="text-align:center;"><span class="bdg bdg-b">已纳入</span></td></tr>
+          <tr><td>集团关联交易处理</td><td style="text-align:center;"><span class="bdg bdg-y">争议：归入合并报表？</span></td></tr>
+          <tr><td>SRM与SAP双向同步</td><td style="text-align:center;"><span class="bdg bdg-b">已纳入</span></td></tr>
+          <tr><td>客商主数据治理</td><td style="text-align:center;"><span class="bdg bdg-b">已纳入</span></td></tr>
+          <tr><td>客户信用体系分级</td><td style="text-align:center;"><span class="bdg bdg-b">已纳入</span></td></tr>
+          <tr><td><b>经销商进销存&渠道库存</b></td><td style="text-align:center;"><span class="bdg bdg-r">缺失！待补充</span></td></tr>
+        </tbody>
+      </table>
+
+      <div class="sum-box-warn" style="margin-top:10px;">
+        <b>需求截止倒计时：</b>2026-07-31（剩余7天），到期后不再接收新增诉求。各部门须在本周内完成最终需求提报。
+      </div>
+    </div>
+
+    <!-- 风险 -->
+    <div class="card">
+      <div class="card-hd">主要风险（W5更新）</div>
+
+      <div class="ri">
+        <div class="ri-dot ri-r"></div>
+        <div class="ri-txt"><b>诊断报告与蓝图初稿进度滞后</b><span class="bdg bdg-r">高</span><br>
+        李泽华总明确不满意进度，要求8月20日前完成诊断/蓝图初稿定稿，否则无法保障2027-01-01上线。当前汇报内容重复、缺乏完整台账，需要大幅提速</div>
+      </div>
+      <div class="ri">
+        <div class="ri-dot ri-r"></div>
+        <div class="ri-txt"><b>成本还原方案需高层拍板</b><span class="bdg bdg-r">高</span><br>
+        无批次前提下不存在精准方案，两条路径（启用批次 vs 简化报表）各有重大代价，必须固定单一决策领导书面确认，否则存在后续推翻现有方案、影响验收与回款的风险</div>
+      </div>
+      <div class="ri">
+        <div class="ri-dot ri-r"></div>
+        <div class="ri-txt"><b>经销商渠道场景缺失于16大场景</b><span class="bdg bdg-r">高</span><br>
+        家用/商用事业部核心诉求，家用程总在全体会议上明确提出，当前16个场景完全未覆盖，须单独立项并在本期预留基础数据接口，否则后期二次返工成本极高</div>
+      </div>
+      <div class="ri">
+        <div class="ri-dot ri-y"></div>
+        <div class="ri-txt"><b>批次管理决策持续悬空</b><span class="bdg bdg-y">中</span><br>
+        成本还原、不良品核算、高价值物料追溯均依赖批次管理，但本次升级暂不启用。若蓝图阶段仍不确定，将影响MM/PP/CO/QM多模块配置方向</div>
+      </div>
+      <div class="ri">
+        <div class="ri-dot ri-y"></div>
+        <div class="ri-txt"><b>MES与SAP对接范围未完全落定</b><span class="bdg bdg-y">中</span><br>
+        MES仓库与SAP仓管对接需求刚提出，QM模块在MES中为空白且范围未确认，MES已上线主数据稳定，SAP升级后数据对接遗漏风险存在</div>
+      </div>
+      <div class="ri">
+        <div class="ri-dot ri-y"></div>
+        <div class="ri-txt"><b>曾肖静副总经理访谈仍未完成</b><span class="bdg bdg-y">中</span><br>
+        原计划W3安排，持续延迟至W5仍未完成，管理层访谈矩阵存在缺口</div>
+      </div>
+      <div class="ri">
+        <div class="ri-dot ri-g"></div>
+        <div class="ri-txt"><b>高层支持明确</b><span class="bdg bdg-g">低</span><br>
+        总经理与董事长均完成访谈，战略定位明确，数据治理委员会正式成立，关键用户配置要求已下达，高层障碍基本排除</div>
+      </div>
+
+      <div style="margin-top:10px;font-size:11px;font-weight:700;color:var(--b900);">
+        风险摘要 &nbsp; 高 <b style="color:#d32f2f;">3</b> &nbsp;｜&nbsp; 中 <b style="color:#e8a900;">3</b> &nbsp;｜&nbsp; 低 <b style="color:#22a01a;">1</b>
+      </div>
+    </div>
+
+    <!-- 下一步 -->
+    <div class="card">
+      <div class="card-hd">下一步计划（W6，07-27~07-31）</div>
+
+      <div class="sec">■ 诊断报告与蓝图初稿（最高优先级）</div>
+      <ul class="cl">
+        <li>★1《现状诊断报告》完成定稿，提交各部门确认</li>
+        <li>8大核心专题方案PPT制作，均衡覆盖前台销售/中台供应链/后台财务</li>
+        <li>每个专题附二级/三级痛点，与555条需求双向可追溯</li>
+      </ul>
+
+      <div class="sec">■ 需求收集截止（07-31）</div>
+      <ul class="cl">
+        <li>需求通道07-31关闭，通知各部门最终确认，到期后不再新增</li>
+        <li>完成555条需求全量梳理，区分三类：本期落地 / 参数/流程替代 / 远期规划</li>
+        <li>输出场景与需求映射台账（满足招投标中心等部门对应关系查询需求）</li>
+      </ul>
+
+      <div class="sec">■ 关键专题推进</div>
+      <ul class="cl">
+        <li>成本还原两条路径方案：输出方案文件提交高层决策，明确唯一决策人，书面确认验收标准</li>
+        <li>经销商渠道场景：完成补充纳入16大场景，确认本期基础接口范围</li>
+        <li>补充安排曾肖静副总经理访谈</li>
+      </ul>
+
+      <div class="sec">■ 蓝图文档体系</div>
+      <ul class="cl">
+        <li>业务流程图4阶第二轮关键用户意见反馈+修改</li>
+        <li>蓝图确认沟通启动，各模块顾问输出蓝图交付物确认书</li>
+        <li>接口开发说明书和开发任务清单完成，接口文档合规检查</li>
+      </ul>
+
+      <div class="sum-box-warn">
+        ⚠ W6是项目关键转折周：需求07-31截止，8月进入蓝图密集确认阶段，8月20日诊断关闭。若本周无法完成诊断报告初稿并启动蓝图确认，按期上线目标面临重大风险。
+      </div>
+    </div>
+
+  </div><!-- /cards-row -->
+
+  <!-- ── W5 关键会议明细 ── -->
+  <div class="card" style="margin-top:14px;">
+    <div class="card-hd">W5 关键会议明细（07-21 ~ 07-23）</div>
+    <div style="overflow-x:auto;">
+      <table class="ftable">
+        <thead>
+          <tr>
+            <th style="width:80px;">日期</th>
+            <th style="width:200px;">会议/活动</th>
+            <th>主要内容</th>
+            <th style="width:200px;">关键结论</th>
+            <th style="width:70px;">状态</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="white-space:nowrap;font-weight:700;color:var(--b700);">07-21（周二）</td>
+            <td><b>总经理张学权访谈</b></td>
+            <td>SAP升级战略定位；物料编码治理；数据治理委员会成立；关键用户配置要求；"抓大放小"原则</td>
+            <td style="color:#C62828;font-size:11px;font-weight:700;">成立数据治理委员会+MDG；物料全量梳理为核心任务，不得延后；专职关键用户50%时间</td>
+            <td style="text-align:center;"><span style="background:#E8F5E9;color:#2E7D32;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">完成</span></td>
+          </tr>
+          <tr>
+            <td style="white-space:nowrap;font-weight:700;color:var(--b700);">07-21（周二）</td>
+            <td><b>董事长余中民调研</b></td>
+            <td>SAP核心底座定位；暂停其他数字化项目；制造能力诊断与改善；营销端经销商数据链接；敏捷测试与强执行力保障</td>
+            <td style="color:#C62828;font-size:11px;font-weight:700;">SAP为财务管控底座；暂停其他数字化项目；全流程重塑非平移；预留经销商接口；8个高价值场景方案</td>
+            <td style="text-align:center;"><span style="background:#E8F5E9;color:#2E7D32;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">完成</span></td>
+          </tr>
+          <tr>
+            <td style="white-space:nowrap;font-weight:700;color:var(--b700);">07-21（周二）</td>
+            <td><b>SD需求整理问题讨论</b></td>
+            <td>MMBE/ZSR50差异；跨公司圈货规则；返利删除行未回写；地址输入框问题；快速开单方案；商城价格/物流/定制品讨论</td>
+            <td style="color:#E65100;font-size:11px;">商城价格/物流/定制品纳入三年规划；跨公司须转卖订单；技术问题评估方案中</td>
+            <td style="text-align:center;"><span style="background:#E8F5E9;color:#2E7D32;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">完成</span></td>
+          </tr>
+          <tr>
+            <td style="white-space:nowrap;font-weight:700;color:var(--b700);">07-21（周二）</td>
+            <td><b>信用管控需求讨论</b></td>
+            <td>信用管控手工维护现状；三公司共用额度与SAP逻辑冲突；临时额度OA与SAP同步；多维度管控路径评估</td>
+            <td style="color:#E65100;font-size:11px;">方案未定，需评估标准功能/外围开发多条路径；优先推进OA与SAP打通</td>
+            <td style="text-align:center;"><span style="background:#FFF8E1;color:#F57F17;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">待定方案</span></td>
+          </tr>
+          <tr>
+            <td style="white-space:nowrap;font-weight:700;color:var(--b700);">07-21（周二）</td>
+            <td><b>家用事业部需求讨论（2场）</b></td>
+            <td>经销商库存缺失（准确率<15%）；主数据新增型号/色温/系列字段；编码规则优化；商城价格对接；防伪防串质保改出库日；促销自动化；统一总部开单跨公司发货</td>
+            <td style="color:#C62828;font-size:11px;font-weight:700;">统一总部单一公司开单跨公司发货确定为核心路径；质保从出库日起算；经销商系统为3-5年规划</td>
+            <td style="text-align:center;"><span style="background:#E8F5E9;color:#2E7D32;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">完成</span></td>
+          </tr>
+          <tr>
+            <td style="white-space:nowrap;font-weight:700;color:var(--b700);">07-22（周三）</td>
+            <td><b>成本还原专项讨论</b></td>
+            <td>半成品成本还原手工逻辑；无批次管理的核心瓶颈；两套路径对比（批次 vs 简化报表）；报表输出标准；成本大类拆分规范；项目风险分析</td>
+            <td style="color:#C62828;font-size:11px;font-weight:700;">无批次不存在精准方案；两条路径需高层书面决策；成本大类固化6类；取上月月结周期价</td>
+            <td style="text-align:center;"><span style="background:#FFF8E1;color:#F57F17;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">待高层决策</span></td>
+          </tr>
+          <tr>
+            <td style="white-space:nowrap;font-weight:700;color:var(--b700);">07-22（周三）</td>
+            <td><b>发票校验尾差处理</b></td>
+            <td>±5元容差机制；寄售MRKO底层程序锁死；F-04手工调账合规方案确认</td>
+            <td style="color:#E65100;font-size:11px;">维持现有手工调账；从源头规范供应商开票金额</td>
+            <td style="text-align:center;"><span style="background:#E8F5E9;color:#2E7D32;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">完成</span></td>
+          </tr>
+          <tr>
+            <td style="white-space:nowrap;font-weight:700;color:var(--b700);">07-22（周三）</td>
+            <td><b>高明SAP与MES对接讨论</b></td>
+            <td>8条单向接口已打通；MES仓库与SAP仓管对接需求；QM模块在MES中为空白；风险：SAP升级后数据对接遗漏</td>
+            <td style="color:#E65100;font-size:11px;">MES仓库对接SAP待规划；QM范围需与MES顾问确认；数据遗漏风险需排查</td>
+            <td style="text-align:center;"><span style="background:#FFF8E1;color:#F57F17;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">待明确</span></td>
+          </tr>
+          <tr>
+            <td style="white-space:nowrap;font-weight:700;color:var(--b700);">07-23（周四）</td>
+            <td><b>★ 全体需求研讨会（李泽华总主持）</b></td>
+            <td>555条需求/29部门/20业务域汇报；16大高价值场景初稿；各部门异议收集（经销商缺失/权重偏差/映射关系等）；外围23个系统；时间节点确认；需求截止07-31</td>
+            <td style="color:#C62828;font-size:11px;font-weight:700;">李泽华总对进度不满；8月20日诊断必须完成；8个核心专题均衡前中后台；07-31需求截止</td>
+            <td style="text-align:center;"><span style="background:#E8F5E9;color:#2E7D32;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">完成</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
+      <div style="flex:1;min-width:150px;background:var(--b050);border-radius:var(--r);padding:10px 14px;border-left:3px solid #43A047;">
+        <div style="font-size:11px;font-weight:800;color:#2E7D32;margin-bottom:4px;">✅ 高层访谈 2/3</div>
+        <div style="font-size:20px;font-weight:800;color:var(--b900);">总经理+董事长</div>
+        <div style="font-size:10.5px;color:var(--muted);">曾肖静副总仍待安排</div>
+      </div>
+      <div style="flex:1;min-width:150px;background:var(--b050);border-radius:var(--r);padding:10px 14px;border-left:3px solid var(--b500);">
+        <div style="font-size:11px;font-weight:800;color:var(--b700);margin-bottom:4px;">📋 需求总量</div>
+        <div style="font-size:20px;font-weight:800;color:var(--b900);">555条</div>
+        <div style="font-size:10.5px;color:var(--muted);">29部门·20业务域·07-31截止</div>
+      </div>
+      <div style="flex:1;min-width:150px;background:#FFEBEE;border-radius:var(--r);padding:10px 14px;border-left:3px solid #E53935;">
+        <div style="font-size:11px;font-weight:800;color:#C62828;margin-bottom:4px;">⚠ 进度警告</div>
+        <div style="font-size:20px;font-weight:800;color:var(--b900);">8月20日截止</div>
+        <div style="font-size:10.5px;color:var(--muted);">诊断+蓝图初稿必须完成</div>
+      </div>
+      <div style="flex:2;min-width:220px;background:#FFF8E1;border-radius:var(--r);padding:10px 14px;border-left:3px solid #FB8C00;">
+        <div style="font-size:11px;font-weight:800;color:#E65100;margin-bottom:4px;">W5收官总结</div>
+        <div style="font-size:11.5px;color:var(--text);line-height:1.6;">
+          高层访谈完成，战略定位和数据治理方向明确。但项目整体进度进入黄色警戒：诊断报告延期、李泽华总公开提出不满、成本还原等核心决策悬空。W6必须大幅提速，完成需求截止、诊断报告定稿、核心专题方案成形。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 导航按钮 -->
+  <div style="margin-top:14px;text-align:center;">
+    <a href="/fsl-report/weekly/schedule.html"
+       style="display:inline-flex;align-items:center;gap:8px;background:var(--b700);color:#fff;
+              padding:10px 24px;border-radius:var(--r);font-size:13px;font-weight:700;
+              text-decoration:none;box-shadow:0 2px 8px rgba(11,45,71,.25);">
+      📊 查看项目总体进度甘特图 →
+    </a>
+    &nbsp;&nbsp;
+    <a href="/fsl-report/weekly/w4.html"
+       style="display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--b700);
+              border:1.5px solid var(--b300);padding:10px 24px;border-radius:var(--r);
+              font-size:13px;font-weight:700;text-decoration:none;">
+      ← W4 周报
+    </a>
+  </div>
+
+</div>
+
+<footer>佛山照明 SAP S/4HANA 升级项目工作台 · 机密文件 · 仅供项目组内部使用 · 2026</footer>
+<script>
+(function(){
+  var API='https://api.github.com/repos/EstaTea/fsl-report/contents/weekly/w5.html';
+  var editing=false,snaps={},ghToken='';
+  function st(msg,c){var e=document.getElementById('pes');if(e){e.textContent=msg;e.style.color=c||'rgba(255,255,255,.65)';}}
+  function init(){
+    var sels=['.hero p','.hero h1','.sum-box','.sum-box-warn','.ri-txt','.det-text','.s-label','.s-week','.s-phase','.gantt-note','.card ul.cl li'];
+    sels.forEach(function(sel){document.querySelectorAll(sel).forEach(function(el,i){var k=sel+'::'+i;el.classList.add('_ed');el.dataset.ek=k;snaps[k]=el.innerHTML;el.contentEditable='false';});});
+  }
+  function toggle(){
+    editing=!editing;
+    document.querySelectorAll('._ed').forEach(function(el){el.contentEditable=editing?'true':'false';});
+    var eb=document.getElementById('peb'),sb=document.getElementById('psb');
+    if(eb){eb.textContent=editing?'✎ 编辑中':'✎ 编辑';eb.className=editing?'on':'';}
+    if(sb){sb.style.display=editing?'flex':'none';}
+    st(editing?'点击蓝色虚线区域编辑':'');
+  }
+  function doSave(){
+    var token=prompt('GitHub Personal Access Token（repo 权限）：');
+    if(!token||!token.trim()){st('✗ 未输入 Token','#EF4444');return;}
+    ghToken=token.trim();
+    var changes=[];
+    document.querySelectorAll('._ed').forEach(function(el){var k=el.dataset.ek;if(k&&el.innerHTML!==snaps[k]){var parts=k.split('::');changes.push({sel:parts[0],idx:parseInt(parts[1]||0),newHtml:el.innerHTML});snaps[k]=el.innerHTML;}});
+    if(!changes.length){st('ℹ 无修改');return;}
+    var sb=document.getElementById('psb');if(sb){sb.disabled=true;sb.textContent='读取中…';}
+    fetch(API,{headers:{'Authorization':'token '+ghToken,'Accept':'application/vnd.github+json'}})
+    .then(function(r){if(!r.ok)throw new Error('读取失败 '+r.status);return r.json();})
+    .then(function(meta){
+      var sha=meta.sha;
+      var bytes=Uint8Array.from(atob(meta.content.replace(/\n/g,'')),function(c){return c.charCodeAt(0);});
+      var srcHtml=new TextDecoder('utf-8').decode(bytes);
+      var parser=new DOMParser();var srcDoc=parser.parseFromString(srcHtml,'text/html');
+      changes.forEach(function(c){var els=srcDoc.querySelectorAll(c.sel);if(els&&els[c.idx]){els[c.idx].innerHTML=c.newHtml;}});
+      var newHtml='<!DOCTYPE html>\n'+srcDoc.documentElement.outerHTML;
+      var encoded=new TextEncoder().encode(newHtml);var bin='',C=4096;
+      for(var i=0;i<encoded.length;i+=C)bin+=String.fromCharCode.apply(null,encoded.subarray(i,i+C));
+      return fetch(API,{method:'PUT',headers:{'Authorization':'token '+ghToken,'Content-Type':'application/json','Accept':'application/vnd.github+json'},body:JSON.stringify({message:'content: w5 edit',sha:sha,content:btoa(bin)})});
+    })
+    .then(function(r){if(!r.ok)return r.json().then(function(e){throw new Error(e.message||r.status);});return r.json();})
+    .then(function(){st('✓ 已保存到 GitHub','#22C55E');})
+    .catch(function(e){st('✗ '+e.message,'#EF4444');})
+    .finally(function(){if(sb){sb.disabled=false;sb.textContent='💾 保存';}});
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+  window.toggle=toggle;window.doSave=doSave;
+})();
+</script>
+</body>
+</html>
