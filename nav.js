@@ -91,6 +91,7 @@
             <a href="https://estatea.github.io/mdg-course/" target="_blank">🎓 MDG案例</a>
             <a href="https://estatea.github.io/drc-course/" target="_blank">📋 DRC案例</a>
             <a href="https://estatea.github.io/si-course/" target="_blank">🔗 SI案例</a>
+            <a href="https://estatea.github.io/gr-course/" target="_blank">📊 GR案例</a>
           </div>
         </div>
         <div class="nav-dd-research">
@@ -255,6 +256,7 @@ function toggleSurveyDd(e) { _fslToggleDd(e, 'survey-dropdown'); }
 function toggleMdgDd(e)    { _fslToggleDd(e, 'mdg-dropdown');    }
 function toggleDrcDd(e)    { _fslToggleDd(e, 'drc-dropdown');    }
 function toggleSiDd(e)     { _fslToggleDd(e, 'si-dropdown');     }
+function toggleGrDd(e)     { _fslToggleDd(e, 'gr-dropdown');     }
 
 // 点击页面任意处关闭所有 mod-tab 下拉
 document.addEventListener('click', function() {
