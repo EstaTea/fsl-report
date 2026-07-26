@@ -93,6 +93,18 @@
             <a href="https://estatea.github.io/si-course/" target="_blank">🔗 SI案例</a>
           </div>
         </div>
+        <div class="nav-dd-research">
+          <div class="nav-dd-group-title">AI互动课程</div>
+          <div class="nav-dd-research-links">
+            <a href="https://openmaic-silk-eight.vercel.app/classroom/kHmdhBRu5Q" target="_blank">📐 TOGAF Part1·基础+ADM</a>
+            <a href="https://openmaic-silk-eight.vercel.app/classroom/C0dIqCj-sV" target="_blank">📐 TOGAF Part2a·ADM E-H</a>
+            <a href="https://openmaic-silk-eight.vercel.app/classroom/wS_s1UdoJr" target="_blank">📐 TOGAF Part2b·内容框架</a>
+            <a href="https://openmaic-silk-eight.vercel.app/classroom/-TdcLOQA8R" target="_blank">📐 TOGAF Part3a·治理框架</a>
+            <a href="https://openmaic-silk-eight.vercel.app/classroom/sO9_r11KJq" target="_blank">📐 TOGAF Part3b·实战冲刺</a>
+            <a href="https://openmaic-silk-eight.vercel.app/classroom/VQiRvoKo8d" target="_blank">📊 DCMM数据管理评估</a>
+            <a href="https://openmaic-silk-eight.vercel.app" target="_blank">➕ 生成新课程</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
