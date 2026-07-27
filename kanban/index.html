@@ -4541,23 +4541,53 @@ function cgExportExcel(){
 
 
 // ── ORG PEOPLE EXPORT ─────────────────────────────────────────────────────────
+// Expand a scroll container to its full content size, capture with html2canvas,
+// then restore original styles. Returns a Promise<HTMLCanvasElement>.
+function orgCaptureFullHeight(container){
+  var orig = {
+    height: container.style.height,
+    maxHeight: container.style.maxHeight,
+    overflow: container.style.overflow,
+    minHeight: container.style.minHeight
+  };
+  var fullH = container.scrollHeight;
+  var fullW = container.scrollWidth;
+  container.style.height = fullH + 'px';
+  container.style.maxHeight = 'none';
+  container.style.overflow = 'visible';
+  container.style.minHeight = 'unset';
+  return window.html2canvas(container, {
+    backgroundColor: '#F2F7FB',
+    scale: 2,
+    useCORS: true,
+    scrollX: 0,
+    scrollY: 0,
+    width: fullW,
+    height: fullH
+  }).then(function(canvas){
+    container.style.height    = orig.height;
+    container.style.maxHeight = orig.maxHeight;
+    container.style.overflow  = orig.overflow;
+    container.style.minHeight = orig.minHeight;
+    return canvas;
+  }, function(err){
+    container.style.height    = orig.height;
+    container.style.maxHeight = orig.maxHeight;
+    container.style.overflow  = orig.overflow;
+    container.style.minHeight = orig.minHeight;
+    throw err;
+  });
+}
+
 function orgExportPNG(){
-  var target = ORG_CURRENT_VIEW === 'tree'
+  var container = ORG_CURRENT_VIEW === 'tree'
     ? document.getElementById('orgChartView')
     : document.getElementById('orgListView');
-  if(!target){ showOrgToast('无可导出内容', true); return; }
+  if(!container){ showOrgToast('无可导出内容', true); return; }
   var statusEl = document.getElementById('orgExportStatus');
   statusEl.textContent = '生成PNG中…';
   function doCapture(){
-    window.html2canvas(target, {
-      backgroundColor: '#F2F7FB',
-      scale: 2,
-      useCORS: true,
-      scrollX: 0,
-      scrollY: 0,
-      windowWidth: target.scrollWidth,
-      windowHeight: target.scrollHeight
-    }).then(function(canvas){
+    orgCaptureFullHeight(container).then(function(canvas){
       canvas.toBlob(function(blob){
         var url = URL.createObjectURL(blob);
         var a = document.createElement('a');
@@ -4572,55 +4602,58 @@ function orgExportPNG(){
   if(!window.html2canvas){
     var s = document.createElement('script');
     s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
-    s.onload = doCapture;
-    document.head.appendChild(s);
+    s.onload = doCapture; document.head.appendChild(s);
   } else { doCapture(); }
 }
 
 function orgExportPDF(){
-  var target = ORG_CURRENT_VIEW === 'tree'
+  var container = ORG_CURRENT_VIEW === 'tree'
     ? document.getElementById('orgChartView')
     : document.getElementById('orgListView');
-  if(!target){ showOrgToast('无可导出内容', true); return; }
+  if(!container){ showOrgToast('无可导出内容', true); return; }
   var statusEl = document.getElementById('orgExportStatus');
   statusEl.textContent = '生成PDF中…';
   function doCapturePDF(){
-    window.html2canvas(target, {
-      backgroundColor: '#F2F7FB',
-      scale: 2,
-      useCORS: true,
-      scrollX: 0,
-      scrollY: 0,
-      windowWidth: target.scrollWidth,
-      windowHeight: target.scrollHeight
-    }).then(function(canvas){
-      var imgData = canvas.toDataURL('image/png');
+    orgCaptureFullHeight(container).then(function(canvas){
       var iw = canvas.width, ih = canvas.height;
-      var landscape = iw > ih;
-      var pw = landscape ? 297 : 210, ph = landscape ? 210 : 297;
-      var ratio = Math.min(pw / iw * 3.7795, ph / ih * 3.7795);
-      var fw = iw * ratio / 3.7795, fh = ih * ratio / 3.7795;
+      // A4 portrait, 10mm margins → 190mm × 277mm content area
+      var pageW = 210, pageH = 297, margin = 10;
+      var contentW = pageW - 2 * margin;   // 190mm
+      var contentH = pageH - 2 * margin;   // 277mm
+      // px per mm (based on full-width fit)
+      var pxPerMm = iw / contentW;
+      var pageH_px = contentH * pxPerMm;
+      var totalPages = Math.ceil(ih / pageH_px);
       function makePDF(){
-        var doc = new window.jspdf.jsPDF({orientation: landscape ? 'landscape' : 'portrait', unit: 'mm', format: 'a4'});
-        doc.setFillColor(242, 247, 251); doc.rect(0, 0, pw, ph, 'F');
-        doc.addImage(imgData, 'PNG', (pw - fw) / 2, (ph - fh) / 2, fw, fh);
+        var doc = new window.jspdf.jsPDF({orientation:'portrait', unit:'mm', format:'a4'});
+        for(var i = 0; i < totalPages; i++){
+          if(i > 0) doc.addPage();
+          var sliceY  = Math.round(i * pageH_px);
+          var sliceH  = Math.round(Math.min(pageH_px, ih - sliceY));
+          var sliceCanvas = document.createElement('canvas');
+          sliceCanvas.width  = iw;
+          sliceCanvas.height = sliceH;
+          sliceCanvas.getContext('2d').drawImage(canvas, 0, sliceY, iw, sliceH, 0, 0, iw, sliceH);
+          var sliceH_mm = sliceH / pxPerMm;
+          doc.setFillColor(242, 247, 251);
+          doc.rect(0, 0, pageW, pageH, 'F');
+          doc.addImage(sliceCanvas.toDataURL('image/png'), 'PNG', margin, margin, contentW, sliceH_mm);
+        }
         doc.save('佛照人员架构图.pdf');
-        statusEl.textContent = 'PDF已导出 ✓';
-        setTimeout(function(){ statusEl.textContent = ''; }, 2000);
+        statusEl.textContent = 'PDF已导出（共' + totalPages + '页）✓';
+        setTimeout(function(){ statusEl.textContent = ''; }, 3000);
       }
       if(!window.jspdf){
         var s = document.createElement('script');
         s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
-        s.onload = makePDF;
-        document.head.appendChild(s);
+        s.onload = makePDF; document.head.appendChild(s);
       } else { makePDF(); }
     }).catch(function(){ statusEl.textContent = '导出失败'; });
   }
   if(!window.html2canvas){
     var s = document.createElement('script');
     s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
-    s.onload = doCapturePDF;
-    document.head.appendChild(s);
+    s.onload = doCapturePDF; document.head.appendChild(s);
   } else { doCapturePDF(); }
 }
 
