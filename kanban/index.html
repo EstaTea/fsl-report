@@ -4541,58 +4541,60 @@ function cgExportExcel(){
 
 
 // ── ORG PEOPLE EXPORT ─────────────────────────────────────────────────────────
-// Clone content into an off-screen div attached directly to body (bypasses all
-// parent overflow:hidden clipping), capture with html2canvas, then remove.
-function orgCaptureFullHeight(container) {
+function orgCaptureFullHeight() {
   return new Promise(function(resolve, reject) {
     var isTree = (ORG_CURRENT_VIEW === 'tree');
-    // For tree view grab the inner wrap, not the scroll wrapper — it holds all content
     var src = isTree
-      ? (document.querySelector('#orgChartView .org-chart-wrap') || container)
-      : container;
+      ? (document.querySelector('#orgChartView .org-chart-wrap') || document.getElementById('orgChartView'))
+      : document.getElementById('orgListView');
 
-    var naturalW = Math.max(src.scrollWidth || src.offsetWidth, 400);
-
-    // Shell appended directly to body — zero parent overflow constraints
     var shell = document.createElement('div');
-    shell.style.cssText = [
-      'position:absolute',
-      'top:0',
-      'left:' + (-(naturalW + 800)) + 'px',
-      'width:' + naturalW + 'px',
-      'background:#F2F7FB',
-      'overflow:visible',
-      'z-index:-1000',
-      isTree ? 'padding:24px 16px' : 'padding:16px 20px',
-      'box-sizing:border-box',
-    ].join(';');
+    shell.style.position   = 'absolute';
+    shell.style.top        = '0';
+    shell.style.left       = '-99999px';
+    shell.style.background = '#F2F7FB';
+    shell.style.overflow   = 'visible';
+    shell.style.zIndex     = '-1000';
+    shell.style.padding    = isTree ? '24px 16px' : '16px 20px';
+    shell.style.boxSizing  = 'border-box';
+    // Unconstrained width so clone expands to its natural size
+    shell.style.width      = 'max-content';
+    shell.style.minWidth   = '0';
 
     var clone = src.cloneNode(true);
-    clone.style.overflow  = 'visible';
-    clone.style.overflowY = 'visible';
-    clone.style.overflowX = 'visible';
-    clone.style.height    = 'auto';
-    clone.style.maxHeight = 'none';
-    clone.style.minHeight = '0';
-    clone.style.width     = isTree ? 'auto' : '100%';
+    clone.style.overflow   = 'visible';
+    clone.style.height     = 'auto';
+    clone.style.maxHeight  = 'none';
+    clone.style.minHeight  = '0';
+    clone.style.width      = isTree ? 'max-content' : '1100px';
     shell.appendChild(clone);
     document.body.appendChild(shell);
 
-    // Two rAF to ensure layout is fully computed before capture
-    requestAnimationFrame(function() { requestAnimationFrame(function() {
+    // Three rAFs: allow full reflow + paint before measuring
+    requestAnimationFrame(function() { requestAnimationFrame(function() { requestAnimationFrame(function() {
+      var fullW = shell.scrollWidth;
+      var fullH = shell.scrollHeight;
+      // Lock size so html2canvas sees a stable viewport
+      shell.style.width  = fullW + 'px';
+      shell.style.height = fullH + 'px';
+
       window.html2canvas(shell, {
         backgroundColor: '#F2F7FB',
         scale: 2,
         useCORS: true,
         logging: false,
+        width:   fullW,
+        height:  fullH,
+        scrollX: 0,
+        scrollY: 0,
       }).then(function(canvas) {
         document.body.removeChild(shell);
         resolve(canvas);
       }).catch(function(err) {
-        if(shell.parentNode) document.body.removeChild(shell);
+        if (shell.parentNode) document.body.removeChild(shell);
         reject(err);
       });
-    }); });
+    }); }); });
   });
 }
 
