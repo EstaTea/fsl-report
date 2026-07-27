@@ -4541,53 +4541,66 @@ function cgExportExcel(){
 
 
 // ── ORG PEOPLE EXPORT ─────────────────────────────────────────────────────────
-// Expand a scroll container to its full content size, capture with html2canvas,
-// then restore original styles. Returns a Promise<HTMLCanvasElement>.
-function orgCaptureFullHeight(container){
-  var orig = {
-    height: container.style.height,
-    maxHeight: container.style.maxHeight,
-    overflow: container.style.overflow,
-    minHeight: container.style.minHeight
-  };
-  var fullH = container.scrollHeight;
-  var fullW = container.scrollWidth;
-  container.style.height = fullH + 'px';
-  container.style.maxHeight = 'none';
-  container.style.overflow = 'visible';
-  container.style.minHeight = 'unset';
-  return window.html2canvas(container, {
-    backgroundColor: '#F2F7FB',
-    scale: 2,
-    useCORS: true,
-    scrollX: 0,
-    scrollY: 0,
-    width: fullW,
-    height: fullH
-  }).then(function(canvas){
-    container.style.height    = orig.height;
-    container.style.maxHeight = orig.maxHeight;
-    container.style.overflow  = orig.overflow;
-    container.style.minHeight = orig.minHeight;
-    return canvas;
-  }, function(err){
-    container.style.height    = orig.height;
-    container.style.maxHeight = orig.maxHeight;
-    container.style.overflow  = orig.overflow;
-    container.style.minHeight = orig.minHeight;
-    throw err;
+// Clone content into an off-screen div attached directly to body (bypasses all
+// parent overflow:hidden clipping), capture with html2canvas, then remove.
+function orgCaptureFullHeight(container) {
+  return new Promise(function(resolve, reject) {
+    var isTree = (ORG_CURRENT_VIEW === 'tree');
+    // For tree view grab the inner wrap, not the scroll wrapper — it holds all content
+    var src = isTree
+      ? (document.querySelector('#orgChartView .org-chart-wrap') || container)
+      : container;
+
+    var naturalW = Math.max(src.scrollWidth || src.offsetWidth, 400);
+
+    // Shell appended directly to body — zero parent overflow constraints
+    var shell = document.createElement('div');
+    shell.style.cssText = [
+      'position:absolute',
+      'top:0',
+      'left:' + (-(naturalW + 800)) + 'px',
+      'width:' + naturalW + 'px',
+      'background:#F2F7FB',
+      'overflow:visible',
+      'z-index:-1000',
+      isTree ? 'padding:24px 16px' : 'padding:16px 20px',
+      'box-sizing:border-box',
+    ].join(';');
+
+    var clone = src.cloneNode(true);
+    clone.style.overflow  = 'visible';
+    clone.style.overflowY = 'visible';
+    clone.style.overflowX = 'visible';
+    clone.style.height    = 'auto';
+    clone.style.maxHeight = 'none';
+    clone.style.minHeight = '0';
+    clone.style.width     = isTree ? 'auto' : '100%';
+    shell.appendChild(clone);
+    document.body.appendChild(shell);
+
+    // Two rAF to ensure layout is fully computed before capture
+    requestAnimationFrame(function() { requestAnimationFrame(function() {
+      window.html2canvas(shell, {
+        backgroundColor: '#F2F7FB',
+        scale: 2,
+        useCORS: true,
+        logging: false,
+      }).then(function(canvas) {
+        document.body.removeChild(shell);
+        resolve(canvas);
+      }).catch(function(err) {
+        if(shell.parentNode) document.body.removeChild(shell);
+        reject(err);
+      });
+    }); });
   });
 }
 
 function orgExportPNG(){
-  var container = ORG_CURRENT_VIEW === 'tree'
-    ? document.getElementById('orgChartView')
-    : document.getElementById('orgListView');
-  if(!container){ showOrgToast('无可导出内容', true); return; }
   var statusEl = document.getElementById('orgExportStatus');
   statusEl.textContent = '生成PNG中…';
   function doCapture(){
-    orgCaptureFullHeight(container).then(function(canvas){
+    orgCaptureFullHeight().then(function(canvas){
       canvas.toBlob(function(blob){
         var url = URL.createObjectURL(blob);
         var a = document.createElement('a');
@@ -4607,20 +4620,14 @@ function orgExportPNG(){
 }
 
 function orgExportPDF(){
-  var container = ORG_CURRENT_VIEW === 'tree'
-    ? document.getElementById('orgChartView')
-    : document.getElementById('orgListView');
-  if(!container){ showOrgToast('无可导出内容', true); return; }
   var statusEl = document.getElementById('orgExportStatus');
   statusEl.textContent = '生成PDF中…';
   function doCapturePDF(){
-    orgCaptureFullHeight(container).then(function(canvas){
+    orgCaptureFullHeight().then(function(canvas){
       var iw = canvas.width, ih = canvas.height;
-      // A4 portrait, 10mm margins → 190mm × 277mm content area
       var pageW = 210, pageH = 297, margin = 10;
-      var contentW = pageW - 2 * margin;   // 190mm
-      var contentH = pageH - 2 * margin;   // 277mm
-      // px per mm (based on full-width fit)
+      var contentW = pageW - 2 * margin;
+      var contentH = pageH - 2 * margin;
       var pxPerMm = iw / contentW;
       var pageH_px = contentH * pxPerMm;
       var totalPages = Math.ceil(ih / pageH_px);
@@ -4628,16 +4635,13 @@ function orgExportPDF(){
         var doc = new window.jspdf.jsPDF({orientation:'portrait', unit:'mm', format:'a4'});
         for(var i = 0; i < totalPages; i++){
           if(i > 0) doc.addPage();
-          var sliceY  = Math.round(i * pageH_px);
-          var sliceH  = Math.round(Math.min(pageH_px, ih - sliceY));
-          var sliceCanvas = document.createElement('canvas');
-          sliceCanvas.width  = iw;
-          sliceCanvas.height = sliceH;
-          sliceCanvas.getContext('2d').drawImage(canvas, 0, sliceY, iw, sliceH, 0, 0, iw, sliceH);
-          var sliceH_mm = sliceH / pxPerMm;
-          doc.setFillColor(242, 247, 251);
-          doc.rect(0, 0, pageW, pageH, 'F');
-          doc.addImage(sliceCanvas.toDataURL('image/png'), 'PNG', margin, margin, contentW, sliceH_mm);
+          var sliceY = Math.round(i * pageH_px);
+          var sliceH = Math.round(Math.min(pageH_px, ih - sliceY));
+          var sc = document.createElement('canvas');
+          sc.width = iw; sc.height = sliceH;
+          sc.getContext('2d').drawImage(canvas, 0, sliceY, iw, sliceH, 0, 0, iw, sliceH);
+          doc.setFillColor(242, 247, 251); doc.rect(0, 0, pageW, pageH, 'F');
+          doc.addImage(sc.toDataURL('image/png'), 'PNG', margin, margin, contentW, sliceH / pxPerMm);
         }
         doc.save('佛照人员架构图.pdf');
         statusEl.textContent = 'PDF已导出（共' + totalPages + '页）✓';
