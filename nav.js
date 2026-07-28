@@ -103,6 +103,7 @@
             <a href="https://openmaic-silk-eight.vercel.app/classroom/-TdcLOQA8R" target="_blank">📐 TOGAF Part3a·治理框架</a>
             <a href="https://openmaic-silk-eight.vercel.app/classroom/sO9_r11KJq" target="_blank">📐 TOGAF Part3b·实战冲刺</a>
             <a href="https://openmaic-silk-eight.vercel.app/classroom/VQiRvoKo8d" target="_blank">📊 DCMM数据管理评估</a>
+            <a href="https://openmaic-silk-eight.vercel.app/classroom/Qh191HWcEw" target="_blank">📈 数字化转型成熟度评估</a>
             <a href="https://openmaic-silk-eight.vercel.app" target="_blank">➕ 生成新课程</a>
           </div>
         </div>
