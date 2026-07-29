@@ -177,20 +177,7 @@ table.domain-table tr:hover td{background:var(--panel-2)}
 .gap-mid{background:rgba(183,122,22,.12);color:var(--warn)}
 .gap-low{background:rgba(47,122,85,.12);color:var(--up)}
 
-/* ── CAP DETAIL TABLE ── */
-table.cap-table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px}
-table.cap-table th{
-  font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
-  color:var(--ink-3);padding:8px 10px;text-align:left;
-  border-bottom:2px solid var(--border);background:var(--panel-2);
-}
-table.cap-table th:first-child{border-radius:var(--r-sm) 0 0 0}
-table.cap-table th:last-child{border-radius:0 var(--r-sm) 0 0}
-table.cap-table td{padding:9px 10px;border-bottom:1px solid var(--border);color:var(--ink-2);vertical-align:middle;}
-table.cap-table tr:last-child td{border-bottom:none}
-table.cap-table tr:hover td{background:var(--panel-2)}
-
-
+/* ── GAP TABLE ── */
 .gap-section{margin-top:8px}
 table.gap-table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px}
 table.gap-table thead th{
@@ -596,7 +583,6 @@ table.resp-table tr:hover td{background:var(--panel-2)}
   *{animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
 </style>
-<script src="/fsl-report/auth-guard.js"></script>
 </head>
 <body>
 
@@ -605,7 +591,6 @@ table.resp-table tr:hover td{background:var(--panel-2)}
   <div class="brand-mark">数字化成熟度评估</div>
   <button class="tab-btn active" onclick="switchTab(1)" id="btn1" aria-selected="true">评估报告</button>
   <button class="tab-btn" onclick="switchTab(2)" id="btn2" aria-selected="false">管理层提案</button>
-  <button class="tab-btn" onclick="switchTab(3)" id="btn3" aria-selected="false">📥 响应汇总</button>
   <div class="spacer"></div>
   <div class="nav-actions">
     <span id="github-status">未连接 GitHub</span>
@@ -695,14 +680,6 @@ table.resp-table tr:hover td{background:var(--panel-2)}
           <tbody id="domain-tbody"></tbody>
         </table>
       </div>
-    </div>
-  </div>
-
-  <!-- Capability Item Detail -->
-  <div class="card reveal" style="margin-top:16px">
-    <div class="section-title">能力项评分明细（各能力域汇总均值）</div>
-    <div id="cap-detail-wrap">
-      <div class="empty-state"><div class="empty-icon">📋</div><p>同步问卷响应后显示各能力项均值</p></div>
     </div>
   </div>
 
@@ -970,7 +947,7 @@ table.resp-table tr:hover td{background:var(--panel-2)}
             <th>提交时间</th><th>姓名</th><th>部门</th><th>角色</th>
             <th>组织</th><th>技术</th><th>数据</th><th>资源</th>
             <th>运营</th><th>生产</th><th>服务</th>
-            <th style="text-align:right">综合分</th>
+            <th style="text-align:right">综合分</th><th>操作</th>
           </tr>
         </thead>
         <tbody id="resp-tbody">
@@ -1112,9 +1089,8 @@ function initScores() {
 // TAB SWITCHING
 // ══════════════════════════════════════════
 function switchTab(n) {
-  [1,2,3].forEach(i => {
-    const panel = document.getElementById('tab'+i);
-    if (panel) panel.classList.toggle('active', i===n);
+  [1,2].forEach(i => {
+    document.getElementById('tab'+i).classList.toggle('active', i===n);
     const btn = document.getElementById('btn'+i);
     if (btn) { btn.classList.toggle('active', i===n); btn.setAttribute('aria-selected', i===n ? 'true' : 'false'); }
   });
@@ -1294,7 +1270,6 @@ function updateAll() {
 
   updateAsideBars();
   updateDomainTable();
-  updateCapDetail();
   updateRadar();
   updateBrandPage(total, level);
   updatePresubmitCheck(filled, totalSubs);
@@ -1347,50 +1322,6 @@ function buildDomainTable() {
       <td class="score-cell" id="dt-gap-${d.id}">—</td>
     </tr>
   `).join('');
-}
-
-function updateCapDetail() {
-  const detEl = document.getElementById('cap-detail-wrap');
-  if (!detEl) return;
-  const isDerived = Object.keys(derivedDomainAvgs).length > 0;
-  // 0-1 归一化分 → 1-5 等级（maturity-tool 专用）
-  function normToLevel(s) {
-    if (s === null || s === undefined) return null;
-    if (s >= 0.96) return 5;
-    if (s >= 0.76) return 4;
-    if (s >= 0.56) return 3;
-    if (s >= 0.36) return 2;
-    if (s > 0) return 1;
-    return 0;
-  }
-  function getSubScore(domainId, sub) {
-    if (isDerived && allResponses.length > 0) {
-      const vals = allResponses
-        .map(r => r.scores?.[domainId]?.[sub])
-        .filter(v => v !== null && v !== undefined);
-      return vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : null;
-    }
-    return scores[domainId]?.[sub] ?? null;
-  }
-  let html = '<table class="cap-table"><thead><tr>'
-    + '<th style="width:90px">能力域</th>'
-    + '<th>能力子域</th>'
-    + '<th style="text-align:center;width:70px">均值</th>'
-    + '<th style="text-align:center;width:60px">等级</th>'
-    + '</tr></thead><tbody>';
-  DOMAINS.forEach(d => {
-    d.subs.forEach((sub, ci) => {
-      const sc = getSubScore(d.id, sub);
-      const lv = normToLevel(sc);
-      html += '<tr>';
-      if (ci === 0) html += `<td rowspan="${d.subs.length}" style="font-weight:600;vertical-align:top;padding-top:10px;color:var(--ink-1)">${d.label}</td>`;
-      html += `<td style="font-family:var(--f-mono);font-size:11.5px">${sub}</td>`
-        + `<td style="text-align:center;font-family:var(--f-mono);font-size:12px">${sc !== null ? sc.toFixed(2) : '—'}</td>`
-        + `<td style="text-align:center">${lv ? `<span class="level-badge lv${lv}">${lv}</span>` : '—'}</td>`
-        + '</tr>';
-    });
-  });
-  detEl.innerHTML = html + '</tbody></table>';
 }
 
 function updateDomainTable() {
@@ -1647,6 +1578,104 @@ function updateGhStatus() {
     : '未连接 GitHub';
 }
 
+// ══════════════════════════════════════════
+// DETAIL MODAL
+// ══════════════════════════════════════════
+function openRespDetail(i) {
+  const r = allResponses[i];
+  if (!r) return;
+  const da = r.domainAverages || {};
+  const name = r.respondent?.name || '—';
+  const dept = r.respondent?.dept || '';
+  const role = r.respondent?.role || '—';
+  const time = (r.submittedAt||'').slice(0,16).replace('T',' ');
+
+  const domainRows = DOMAINS.map(d => {
+    const avg = da[d.id] ?? calcDomainFromScores(r.scores, d);
+    const subs = d.subs || [];
+    const subCells = subs.map(sub => {
+      const subLabel = typeof sub === 'string' ? sub : sub.label;
+      const val = r.scores?.[d.id]?.[subLabel];
+      return `<td style="text-align:center;padding:6px 8px;border-bottom:1px solid var(--border)">
+        <div style="font-size:10px;color:var(--ink-3);margin-bottom:2px">${subLabel}</div>
+        <span style="font-family:var(--f-mono);font-weight:700;font-size:13px;color:var(--accent)">
+          ${val !== null && val !== undefined ? val : '—'}
+        </span>
+      </td>`;
+    }).join('');
+    return `<tr>
+      <td style="font-weight:600;padding:6px 12px;border-bottom:1px solid var(--border);white-space:nowrap;color:var(--ink-1)">${d.label}</td>
+      ${subCells}
+      <td style="text-align:center;padding:6px 8px;border-bottom:1px solid var(--border)">
+        <div style="font-size:10px;color:var(--ink-3);margin-bottom:2px">均值</div>
+        <span style="font-family:var(--f-mono);font-weight:800;font-size:13px;color:var(--accent)">${avg !== null ? parseFloat(avg).toFixed(2) : '—'}</span>
+      </td>
+    </tr>`;
+  }).join('');
+
+  const el = document.createElement('div');
+  el.id = 'maturity-detail-wrap';
+  el.innerHTML = `
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9000;display:flex;align-items:center;justify-content:center;padding:20px" onclick="if(event.target===this)closeRespDetail()">
+      <div style="background:var(--bg);border-radius:var(--r-lg);width:100%;max-width:820px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg)">
+        <div style="padding:20px 24px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px">
+          <div style="flex:1">
+            <div style="font-weight:800;font-size:16px;color:var(--ink-1)">${name} · 评估详情</div>
+            <div style="font-size:12px;color:var(--ink-3);margin-top:2px">${dept} · ${role} · ${time}</div>
+          </div>
+          <button onclick="closeRespDetail()" style="width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:var(--panel-2);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1">×</button>
+        </div>
+        <div style="padding:16px 24px">
+          <div style="margin-bottom:14px;display:flex;gap:10px">
+            <div style="flex:1">
+              <label style="font-size:11px;color:var(--ink-3);display:block;margin-bottom:3px">姓名</label>
+              <input id="rd-name" value="${name}" style="width:100%;border:1px solid var(--border);border-radius:var(--r-sm);padding:7px 10px;font-size:13px;font-family:var(--f-body)">
+            </div>
+            <div style="flex:1">
+              <label style="font-size:11px;color:var(--ink-3);display:block;margin-bottom:3px">部门</label>
+              <input id="rd-dept" value="${dept}" style="width:100%;border:1px solid var(--border);border-radius:var(--r-sm);padding:7px 10px;font-size:13px;font-family:var(--f-body)">
+            </div>
+          </div>
+          <div style="overflow-x:auto">
+            <table style="width:100%;border-collapse:collapse;font-size:12px">${domainRows}</table>
+          </div>
+        </div>
+        <div style="padding:12px 24px 18px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end">
+          <button onclick="deleteRespDetail(${i})" style="padding:7px 18px;border-radius:var(--r-sm);border:1px solid rgba(192,69,60,.3);background:rgba(192,69,60,.06);color:var(--down);font-size:12.5px;cursor:pointer;margin-right:auto">删除记录</button>
+          <button onclick="closeRespDetail()" class="btn-ghost" style="padding:7px 18px;font-size:12.5px">取消</button>
+          <button onclick="saveRespDetail(${i})" class="btn-primary" style="padding:7px 18px;font-size:12.5px">保存修改</button>
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(el);
+}
+
+function closeRespDetail() {
+  const el = document.getElementById('maturity-detail-wrap');
+  if (el) el.remove();
+}
+
+async function saveRespDetail(i) {
+  const name = document.getElementById('rd-name').value.trim();
+  const dept = document.getElementById('rd-dept').value.trim();
+  if (!name) return;
+  allResponses[i].respondent = { ...allResponses[i].respondent, name, dept };
+  allResponses[i].id = allResponses[i].id || Date.now().toString();
+  try { localStorage.setItem('fsl_responses_cache', JSON.stringify(allResponses)); } catch(e) {}
+  closeRespDetail();
+  renderAggregation();
+  _autoDerive();
+}
+
+function deleteRespDetail(i) {
+  if (!confirm(`确认删除「${allResponses[i]?.respondent?.name||'该条'}」的记录？`)) return;
+  allResponses.splice(i, 1);
+  try { localStorage.setItem('fsl_responses_cache', JSON.stringify(allResponses)); } catch(e) {}
+  closeRespDetail();
+  renderAggregation();
+  _autoDerive();
+}
+
 function openSettings() {
   document.getElementById('settings-modal').classList.add('open');
   if (ghConfig.owner) document.getElementById('gh-owner').value = ghConfig.owner;
@@ -1793,14 +1822,8 @@ async function loadAllResponses() {
     const loaded = [];
     for (const f of jsonFiles) {
       try {
-        const fr = await fetch(f.url, {
-          headers: { Authorization: `Bearer ${ghConfig.token}`, Accept: 'application/vnd.github.v3+json' }
-        });
-        if (fr.ok) {
-          const fd = await fr.json();
-          const content = JSON.parse(decodeURIComponent(escape(atob(fd.content.replace(/\n/g,'')))));
-          loaded.push(content);
-        }
+        const fr = await fetch(f.download_url);
+        if (fr.ok) { const d = await fr.json(); loaded.push(d); }
       } catch(e) {}
     }
     allResponses = loaded;
@@ -1907,7 +1930,7 @@ function renderAggregation() {
   // Response table
   const tbody = document.getElementById('resp-tbody');
   if (tbody) {
-    tbody.innerHTML = allResponses.map(r => {
+    tbody.innerHTML = allResponses.map((r, i) => {
       const da = r.domainAverages || {};
       const scoreCell = v => v !== null && v !== undefined
         ? `<td style="text-align:center;font-family:var(--f-mono);font-size:11px">${parseFloat(v).toFixed(2)}</td>`
@@ -1922,6 +1945,9 @@ function renderAggregation() {
           ${DOMAINS.map(d => scoreCell(da[d.id] ?? calcDomainFromScores(r.scores, d))).join('')}
           <td style="text-align:right;font-weight:700;font-family:var(--f-mono);color:var(--accent)">
             ${total!==null ? parseFloat(total).toFixed(2) : '—'}
+          </td>
+          <td style="text-align:center;white-space:nowrap">
+            <button onclick="openRespDetail(${i})" class="btn-sm" style="font-size:11px;padding:3px 10px">详情</button>
           </td>
         </tr>
       `;
@@ -1948,13 +1974,7 @@ function _autoDerive() {
 }
 
 function deriveToReport() {
-  try {
-    _autoDerive();
-  } catch(e) {
-    alert('更新失败：' + e.message);
-    console.error(e);
-    return;
-  }
+  _autoDerive();
   switchTab(1);
 }
 
