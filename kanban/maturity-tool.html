@@ -882,6 +882,98 @@ table.resp-table tr:hover td{background:var(--panel-2)}
       </div>
     </div>
   </section>
+
+  <!-- 方法论 -->
+  <section style="padding:0 0 80px" aria-labelledby="method-label">
+    <div class="brand-section-label" id="method-label">评估方法论</div>
+
+    <!-- 为什么选 GB/T 43439 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px">
+      <div class="finding-card" style="border-color:rgba(45,91,216,.25)">
+        <div class="finding-num">为什么选择 GB/T 43439-2023</div>
+        <div class="finding-title" style="font-size:15px">国家认可的唯一权威标准</div>
+        <div class="finding-desc">GB/T 43439-2023《信息技术服务 数字化转型 成熟度模型与评估》于2024年6月正式实施，是中国唯一由国家标准化管理委员会发布的数字化转型成熟度国家标准，具有权威性和法律效力。</div>
+      </div>
+      <div class="finding-card" style="border-color:rgba(45,91,216,.25)">
+        <div class="finding-num">与 SAP S/4HANA 项目高度契合</div>
+        <div class="finding-title" style="font-size:15px">覆盖 ERP 涉及的全部能力域</div>
+        <div class="finding-desc">标准的7大能力域（组织、技术、数据、资源、数字化运营、数字化生产、数字化服务）与 S/4HANA Greenfield 实施范围一一对应，便于将评估结果直接指导 SAP 模块优先级决策和蓝图设计。</div>
+      </div>
+      <div class="finding-card" style="border-color:rgba(45,91,216,.25)">
+        <div class="finding-num">照明行业适用性</div>
+        <div class="finding-title" style="font-size:15px">适用于制造型企业全价值链</div>
+        <div class="finding-desc">标准明确涵盖数字化生产（产品设计、工艺、计划、MES、设备、仓储配送）7个子域，完整匹配佛照从研发到交付的制造主业，无需行业定制裁剪即可直接应用。</div>
+      </div>
+      <div class="finding-card" style="border-color:rgba(45,91,216,.25)">
+        <div class="finding-num">评估结果可对标可认证</div>
+        <div class="finding-title" style="font-size:15px">支持与行业同类企业横向比较</div>
+        <div class="finding-desc">国标提供统一的评分公式和等级判定方法，佛照未来可申请第三方官方认证，评估结果可与欧普、阳光、Signify 等行业对标企业进行量化对比，具备对外沟通价值。</div>
+      </div>
+    </div>
+
+    <!-- 五级定义 -->
+    <div class="brand-section-label" style="margin-bottom:24px">成熟度五级定义（GB/T 43439-2023 §5）</div>
+    <div style="display:flex;flex-direction:column;gap:0;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.08)">
+      <div style="display:grid;grid-template-columns:56px 100px 1fr;gap:0;background:#1a2540;padding:14px 20px;align-items:start">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:900;color:#5e8cff;line-height:1">L1</div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#e8ecf5;margin-bottom:2px">转型探索</div>
+          <div style="font-size:10px;color:rgba(232,236,245,.4);font-family:'JetBrains Mono',monospace">0.8 – 1.8 分</div>
+        </div>
+        <div style="font-size:12.5px;color:rgba(232,236,245,.65);line-height:1.7;padding-left:16px;border-left:1px solid rgba(255,255,255,.08)">
+          组织已具备转型意识，开始对实施数字化转型的基础和条件进行规划，在运营、生产、服务等业务领域基于内外部需求开展数字化转型探索工作。核心特征：有意识，有探索，无体系。
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:56px 100px 1fr;gap:0;background:#141c33;padding:14px 20px;align-items:start">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:900;color:#7aa4f5;line-height:1">L2</div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#e8ecf5;margin-bottom:2px">局部整合</div>
+          <div style="font-size:10px;color:rgba(232,236,245,.4);font-family:'JetBrains Mono',monospace">1.8 – 2.8 分</div>
+        </div>
+        <div style="font-size:12.5px;color:rgba(232,236,245,.65);line-height:1.7;padding-left:16px;border-left:1px solid rgba(255,255,255,.08)">
+          组织应对数字化转型的组织、技术、数据和资源进行规划，完成局部业务的数据收集、整合与应用，初步具备基于数据的运营和优化能力。核心特征：有规划，有局部数据，初步数据驱动。
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:56px 100px 1fr;gap:0;background:#1a2540;padding:14px 20px;align-items:start;border:1px solid rgba(45,91,216,.4);border-radius:0;position:relative">
+        <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:#2D5BD8"></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:900;color:#2D5BD8;line-height:1">L3</div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#e8ecf5;margin-bottom:2px">系统推进 <span style="font-size:10px;background:rgba(45,91,216,.3);color:#5e8cff;padding:1px 7px;border-radius:99px;margin-left:4px">SAP项目目标</span></div>
+          <div style="font-size:10px;color:rgba(232,236,245,.4);font-family:'JetBrains Mono',monospace">2.8 – 3.8 分</div>
+        </div>
+        <div style="font-size:12.5px;color:rgba(232,236,245,.65);line-height:1.7;padding-left:16px;border-left:1px solid rgba(45,91,216,.3)">
+          组织应具备数字化转型总体规划并有序实施，完成关键业务的系统集成和数据交互，在运营、生产和服务领域实现基于数据的效率提升。核心特征：有体系，关键系统集成，数据驱动效率。
+          <strong style="color:#5e8cff;display:block;margin-top:6px">→ 这是本次 S/4HANA Greenfield 实施完成后应达到的目标等级。</strong>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:56px 100px 1fr;gap:0;background:#141c33;padding:14px 20px;align-items:start">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:900;color:#9ab8ee;line-height:1">L4</div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#e8ecf5;margin-bottom:2px">数据智能</div>
+          <div style="font-size:10px;color:rgba(232,236,245,.4);font-family:'JetBrains Mono',monospace">3.8 – 4.8 分</div>
+        </div>
+        <div style="font-size:12.5px;color:rgba(232,236,245,.65);line-height:1.7;padding-left:16px;border-left:1px solid rgba(255,255,255,.08)">
+          组织应将数据作为支撑运营、生产和服务关键领域业务能力提升优化的核心要素，构建算法和模型为业务的相关方提供数据智能体验。核心特征：数据资产化，算法驱动，智能化体验。
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:56px 100px 1fr;gap:0;background:#1a2540;padding:14px 20px;align-items:start">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:900;color:#c8d9f5;line-height:1">L5</div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#e8ecf5;margin-bottom:2px">生态融合</div>
+          <div style="font-size:10px;color:rgba(232,236,245,.4);font-family:'JetBrains Mono',monospace">4.8 – 5.0 分</div>
+        </div>
+        <div style="font-size:12.5px;color:rgba(232,236,245,.65);line-height:1.7;padding-left:16px;border-left:1px solid rgba(255,255,255,.08)">
+          组织应基于数据持续推动业务活动的优化和创新，实现内外部能力、资源和市场等多要素融合，构建独特生态价值。核心特征：生态协同，持续创新，构建独特竞争壁垒。
+        </div>
+      </div>
+    </div>
+
+    <!-- 说明 -->
+    <div style="margin-top:16px;padding:14px 18px;background:rgba(255,255,255,.04);border-radius:8px;font-size:11.5px;color:rgba(232,236,245,.5);line-height:1.8">
+      本评估基于 GB/T 43439-2023 第9章评分方法：各子域按满足程度计算均值（全部满足 L5 分 / 大部分满足 L4 / 部分满足 L3 / 初步满足 L2 / 不满足 L1），经能力子域→能力域→总分三层加权求和得出综合分，再按上表区间判定等级。
+    </div>
+  </section>
+
 </div><!-- /brand-content -->
 </div><!-- /tab2 -->
 
