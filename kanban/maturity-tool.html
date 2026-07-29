@@ -1669,8 +1669,38 @@ async function saveRespDetail(i) {
   _autoDerive();
 }
 
-function deleteRespDetail(i) {
-  if (!confirm(`确认删除「${allResponses[i]?.respondent?.name||'该条'}」的记录？`)) return;
+async function deleteRespDetail(i) {
+  const r = allResponses[i];
+  if (!confirm(`确认删除「${r?.respondent?.name||'该条'}」的记录？此操作不可撤销。`)) return;
+
+  // 若有 GitHub 路径，调用 API 真正删除文件
+  if (r?._ghPath && r?._ghSha && ghConfig.token && ghConfig.owner && ghConfig.repo) {
+    try {
+      const url = `https://api.github.com/repos/${ghConfig.owner}/${ghConfig.repo}/contents/${r._ghPath}`;
+      const res = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${ghConfig.token}`,
+          Accept: 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: `survey: delete response from ${r?.respondent?.name||'unknown'}`,
+          sha: r._ghSha
+        })
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        alert('GitHub 删除失败：' + (err.message || res.status));
+        return;
+      }
+    } catch(e) {
+      alert('网络错误：' + e.message);
+      return;
+    }
+  }
+
+  // 更新本地
   allResponses.splice(i, 1);
   try { localStorage.setItem('fsl_responses_cache', JSON.stringify(allResponses)); } catch(e) {}
   closeRespDetail();
@@ -1825,7 +1855,13 @@ async function loadAllResponses() {
     for (const f of jsonFiles) {
       try {
         const fr = await fetch(f.download_url);
-        if (fr.ok) { const d = await fr.json(); loaded.push(d); }
+        if (fr.ok) {
+          const d = await fr.json();
+          // 保存 GitHub 文件路径和 sha，用于删除操作
+          d._ghPath = f.path;
+          d._ghSha  = f.sha;
+          loaded.push(d);
+        }
       } catch(e) {}
     }
     allResponses = loaded;
