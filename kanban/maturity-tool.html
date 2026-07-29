@@ -1193,12 +1193,19 @@ function calcTotalScore() {
 
 function scoreToLevel(s) {
   if (s === null || s === undefined) return null;
-  if (s >= 4.8) return 5;
-  if (s >= 3.8) return 4;
-  if (s >= 2.8) return 3;
-  if (s >= 1.8) return 2;
-  if (s >= 0.8) return 1;
+  // 内部分数 0-1，对应国标 0-5 区间除以 5
+  if (s >= 0.96) return 5;  // 4.8/5
+  if (s >= 0.76) return 4;  // 3.8/5
+  if (s >= 0.56) return 3;  // 2.8/5
+  if (s >= 0.36) return 2;  // 1.8/5
+  if (s >= 0.16) return 1;  // 0.8/5
   return 0;
+}
+
+// 内部分数 → 国标显示分数（乘5）
+function displayScore(s) {
+  if (s === null || s === undefined) return null;
+  return Math.round(s * 5 * 100) / 100;
 }
 
 const LEVEL_NAMES = ['','一','二','三','四','五'];
@@ -1219,7 +1226,7 @@ function updateAll() {
   });
 
   // KPI tiles
-  setEl('kpi-score', total !== null ? total.toFixed(2) : '—');
+  setEl('kpi-score', total !== null ? displayScore(total).toFixed(2) : '—');
   setEl('kpi-delta-level', total !== null ? LEVEL_NAMES[level]+'级' : '评估中');
   // 第4个 KPI 磁贴：有汇总数据时显示响应人数，否则显示子域完成数
   const isDerived = Object.keys(derivedDomainAvgs).length > 0;
@@ -1244,10 +1251,10 @@ function updateAll() {
     const best = domainScores.reduce((a,b) => b.score > a.score ? b : a);
     const worst = domainScores.reduce((a,b) => b.score < a.score ? b : a);
     setEl('kpi-best-domain', best.label);
-    setEl('kpi-best-score', best.score.toFixed(2));
+    setEl('kpi-best-score', displayScore(best.score).toFixed(2));
     setEl('kpi-best-sub', best.label + ' · L' + (scoreToLevel(best.score)||'?'));
     setEl('kpi-weak-domain', worst.label);
-    setEl('kpi-weak-score', worst.score.toFixed(2));
+    setEl('kpi-weak-score', displayScore(worst.score).toFixed(2));
     setEl('kpi-weak-sub', worst.label + ' · 差距最大');
   }
 
@@ -1255,14 +1262,14 @@ function updateAll() {
   DOMAINS.forEach(d => {
     const s = calcDomainScore(d.id);
     const el = document.getElementById('dsc-'+d.id);
-    if (el) el.textContent = s !== null ? s.toFixed(2) : '—';
+    if (el) el.textContent = s !== null ? displayScore(s).toFixed(2) : '—';
   });
 
   // Aside score (元素已随旧 Tab3 移除，安全跳过)
   const asideScore = document.getElementById('aside-score');
   const asideBadge = document.getElementById('aside-level-badge');
   if (asideScore && total !== null) {
-    asideScore.textContent = total.toFixed(2);
+    asideScore.textContent = displayScore(total).toFixed(2);
   } else if (asideScore) {
     asideScore.textContent = '—';
   }
@@ -1305,7 +1312,7 @@ function updateAsideBars() {
     const bar = document.getElementById('abar-'+d.id);
     const val = document.getElementById('aval-'+d.id);
     if (bar) bar.style.width = s !== null ? (s/1*100)+'%' : '0%';
-    if (val) val.textContent = s !== null ? s.toFixed(2) : '—';
+    if (val) val.textContent = s !== null ? displayScore(s).toFixed(2) : '—';
   });
 }
 
@@ -1330,9 +1337,7 @@ function updateDomainTable() {
   DOMAINS.forEach(d => {
     const s = calcDomainScore(d.id);
     const lv = scoreToLevel(s);
-    // For now, all scores are for the selected target level
-    // L1/L2/L3 columns show score at each threshold
-    const showScore = s !== null ? s.toFixed(2) : '—';
+    const showScore = s !== null ? displayScore(s).toFixed(2) : '—';
     ['l1','l2','l3'].forEach(lk => {
       const el = document.getElementById(`dt-${lk}-${d.id}`);
       if (el) el.textContent = showScore;
@@ -1345,7 +1350,8 @@ function updateDomainTable() {
     }
     const gapEl = document.getElementById('dt-gap-'+d.id);
     if (gapEl && s !== null) {
-      const gap = 3 - s; // gap to Level 3 target
+      const ds = displayScore(s);           // 0-5 显示分
+      const gap = 3 - ds;                    // 与三级目标的差距（5分制）
       const cls = gap > 1.5 ? 'gap-high' : gap > 0.5 ? 'gap-mid' : 'gap-low';
       const label = gap > 1.5 ? '大' : gap > 0.5 ? '中' : '小';
       gapEl.innerHTML = `<span class="gap-pill ${cls}">${label} (${gap.toFixed(1)})</span>`;
@@ -1390,15 +1396,13 @@ function drawRadar() {
   const n = DOMAINS.length;
   const angles = DOMAINS.map((_, i) => (i * 2 * Math.PI / n) - Math.PI/2);
 
-  // Grid rings (5 rings: 0.2 / 0.4 / 0.6 / 0.8 / 1.0)
+  // Grid rings (5 rings，刻度显示 1-5 对应国标等级)
   let html = '';
   for (let ring = 1; ring <= 5; ring++) {
     const r = R * ring / 5;
     const pts = angles.map(a => `${cx+r*Math.cos(a)},${cy+r*Math.sin(a)}`).join(' ');
     html += `<polygon points="${pts}" fill="none" stroke="var(--border)" stroke-width="1"/>`;
-    // Ring label
-    const ringLabel = (ring * 0.2).toFixed(1);
-    html += `<text x="${cx+4}" y="${cy-r+4}" font-size="9" fill="var(--ink-3)" font-family="JetBrains Mono,monospace">${ringLabel}</text>`;
+    html += `<text x="${cx+4}" y="${cy-r+4}" font-size="9" fill="var(--ink-3)" font-family="JetBrains Mono,monospace">${ring}</text>`;
   }
 
   // Axis lines + labels
@@ -1475,13 +1479,13 @@ function updateRadar() {
 // ══════════════════════════════════════════
 function updateBrandPage(total, level) {
   setEl('brand-level-num', LEVEL_NAMES[level] || '二');
-  setEl('brand-score-val', total !== null ? total.toFixed(2) : '2.34');
-  setEl('b-stat1', total !== null ? total.toFixed(2) : '—');
+  setEl('brand-score-val', total !== null ? displayScore(total).toFixed(2) : '2.34');
+  setEl('b-stat1', total !== null ? displayScore(total).toFixed(2) : '—');
   setEl('b-stat3', countHighGaps());
 
   const fill = document.getElementById('brand-score-fill');
   if (fill && total !== null) {
-    fill.style.width = ((total / 5) * 100).toFixed(1) + '%';
+    fill.style.width = (total * 100).toFixed(1) + '%';  // 0-1 → 0-100%
   }
 
   if (level !== null) {
@@ -1518,7 +1522,7 @@ function updatePresubmitCheck(filled, totalSubs) {
     },
     {
       label: '综合得分',
-      val: total !== null ? total.toFixed(2) + ' / 5.0' : '待完成',
+      val: total !== null ? displayScore(total).toFixed(2) + ' / 5.0' : '待完成',
       pass: total !== null,
       advisory: false
     },
@@ -1919,7 +1923,7 @@ function renderAggregation() {
   const totalAvg = wSum ? Math.round((totalSum/wSum)*DOMAINS.reduce((a,d)=>a+d.weight,0)*100)/100 : null;
   const lvl = scoreToLevel(totalAvg);
 
-  setEl('agg-avg-score', totalAvg !== null ? totalAvg.toFixed(2) : '—');
+  setEl('agg-avg-score', totalAvg !== null ? displayScore(totalAvg).toFixed(2) : '—');
   setEl('agg-level', totalAvg !== null ? LEVEL_NAMES[lvl]+'级' : '—');
 
   // Role distribution
@@ -1945,7 +1949,7 @@ function renderAggregation() {
           <div class="agg-bar-track">
             <div class="agg-bar-fill" style="width:${v!==null?v/1*100:0}%;background:${d.color}"></div>
           </div>
-          <div class="agg-bar-val">${v!==null?v.toFixed(2):'—'}</div>
+          <div class="agg-bar-val">${v!==null?(v*5).toFixed(2):'—'}</div>
         </div>
       `;
     }).join('');
@@ -1972,7 +1976,7 @@ function renderAggregation() {
     tbody.innerHTML = allResponses.map((r, i) => {
       const da = r.domainAverages || {};
       const scoreCell = v => v !== null && v !== undefined
-        ? `<td style="text-align:center;font-family:var(--f-mono);font-size:11px">${parseFloat(v).toFixed(2)}</td>`
+        ? `<td style="text-align:center;font-family:var(--f-mono);font-size:11px">${(parseFloat(v)*5).toFixed(2)}</td>`
         : `<td style="text-align:center;color:var(--ink-3)">—</td>`;
       const total = r.totalScore ?? null;
       return `
@@ -1983,7 +1987,7 @@ function renderAggregation() {
           <td><span class="role-chip">${r.respondent?.role||'—'}</span></td>
           ${DOMAINS.map(d => scoreCell(da[d.id] ?? calcDomainFromScores(r.scores, d))).join('')}
           <td style="text-align:right;font-weight:700;font-family:var(--f-mono);color:var(--accent)">
-            ${total!==null ? parseFloat(total).toFixed(2) : '—'}
+            ${total!==null ? (parseFloat(total)*5).toFixed(2) : '—'}
           </td>
           <td style="text-align:center;white-space:nowrap">
             <button onclick="openRespDetail(${i})" class="btn-sm" style="font-size:11px;padding:3px 10px">详情</button>
