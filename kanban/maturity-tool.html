@@ -1390,14 +1390,15 @@ function drawRadar() {
   const n = DOMAINS.length;
   const angles = DOMAINS.map((_, i) => (i * 2 * Math.PI / n) - Math.PI/2);
 
-  // Grid rings (5 levels)
+  // Grid rings (5 rings: 0.2 / 0.4 / 0.6 / 0.8 / 1.0)
   let html = '';
   for (let ring = 1; ring <= 5; ring++) {
     const r = R * ring / 5;
     const pts = angles.map(a => `${cx+r*Math.cos(a)},${cy+r*Math.sin(a)}`).join(' ');
     html += `<polygon points="${pts}" fill="none" stroke="var(--border)" stroke-width="1"/>`;
     // Ring label
-    html += `<text x="${cx+4}" y="${cy-r+4}" font-size="9" fill="var(--ink-3)" font-family="JetBrains Mono,monospace">${ring}</text>`;
+    const ringLabel = (ring * 0.2).toFixed(1);
+    html += `<text x="${cx+4}" y="${cy-r+4}" font-size="9" fill="var(--ink-3)" font-family="JetBrains Mono,monospace">${ringLabel}</text>`;
   }
 
   // Axis lines + labels
@@ -1448,7 +1449,7 @@ function updateRadar() {
 
   const pts = DOMAINS.map((d, i) => {
     const s = calcDomainScore(d.id) ?? 0;
-    const r = R * Math.min(s, 5) / 5;
+    const r = R * Math.min(s, 1);   // 分数 0-1，直接映射到 R
     return `${cx+r*Math.cos(angles[i])},${cy+r*Math.sin(angles[i])}`;
   });
   poly.setAttribute('points', pts.join(' '));
@@ -1458,7 +1459,7 @@ function updateRadar() {
     if (!dot) return;
     const s = calcDomainScore(d.id);
     if (s !== null) {
-      const r = R * Math.min(s, 5) / 5;
+      const r = R * Math.min(s, 1);  // 0-1 映射
       dot.setAttribute('cx', cx + r*Math.cos(angles[i]));
       dot.setAttribute('cy', cy + r*Math.sin(angles[i]));
       dot.setAttribute('opacity', '1');
