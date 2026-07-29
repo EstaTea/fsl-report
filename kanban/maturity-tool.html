@@ -672,10 +672,11 @@ table.resp-table tr:hover td{background:var(--panel-2)}
         <table class="domain-table" id="domain-table" aria-label="能力域评分明细表">
           <thead>
             <tr>
-              <th style="width:90px">能力域</th>
-              <th>L1</th><th>L2</th><th>L3</th>
-              <th style="width:56px">综合</th>
-              <th style="width:80px">差距</th>
+              <th style="width:100px">能力域</th>
+              <th style="width:72px">当前得分</th>
+              <th style="width:72px">当前等级</th>
+              <th style="width:80px">SAP项目目标</th>
+              <th style="width:100px">差距</th>
             </tr>
           </thead>
           <tbody id="domain-tbody"></tbody>
@@ -1324,10 +1325,9 @@ function buildDomainTable() {
   tbody.innerHTML = DOMAINS.map(d => `
     <tr>
       <td>${d.label}</td>
-      <td class="score-cell" id="dt-l1-${d.id}">—</td>
-      <td class="score-cell" id="dt-l2-${d.id}">—</td>
-      <td class="score-cell" id="dt-l3-${d.id}">—</td>
-      <td class="score-cell" style="font-weight:700" id="dt-tot-${d.id}">—</td>
+      <td class="score-cell" id="dt-score-${d.id}">—</td>
+      <td class="score-cell" id="dt-lv-${d.id}">—</td>
+      <td class="score-cell" id="dt-target-${d.id}">L3</td>
       <td class="score-cell" id="dt-gap-${d.id}">—</td>
     </tr>
   `).join('');
@@ -1336,25 +1336,30 @@ function buildDomainTable() {
 function updateDomainTable() {
   DOMAINS.forEach(d => {
     const s = calcDomainScore(d.id);
+    const ds = s !== null ? displayScore(s) : null;  // 0-5 显示分
     const lv = scoreToLevel(s);
-    const showScore = s !== null ? displayScore(s).toFixed(2) : '—';
-    ['l1','l2','l3'].forEach(lk => {
-      const el = document.getElementById(`dt-${lk}-${d.id}`);
-      if (el) el.textContent = showScore;
-    });
-    const totEl = document.getElementById('dt-tot-'+d.id);
-    if (totEl) {
-      totEl.innerHTML = s !== null ? `
-        <span class="level-badge lv${lv||1}">${lv||'?'}</span>
-      ` : '—';
+    const targetScore = 3.0;  // SAP项目目标：三级（对应 2.8-3.8）
+
+    const scoreEl = document.getElementById('dt-score-'+d.id);
+    if (scoreEl) scoreEl.textContent = ds !== null ? ds.toFixed(2) : '—';
+
+    const lvEl = document.getElementById('dt-lv-'+d.id);
+    if (lvEl) {
+      lvEl.innerHTML = s !== null
+        ? `<span class="level-badge lv${lv||1}">L${lv||'?'}</span>`
+        : '—';
     }
+
     const gapEl = document.getElementById('dt-gap-'+d.id);
-    if (gapEl && s !== null) {
-      const ds = displayScore(s);           // 0-5 显示分
-      const gap = 3 - ds;                    // 与三级目标的差距（5分制）
-      const cls = gap > 1.5 ? 'gap-high' : gap > 0.5 ? 'gap-mid' : 'gap-low';
-      const label = gap > 1.5 ? '大' : gap > 0.5 ? '中' : '小';
-      gapEl.innerHTML = `<span class="gap-pill ${cls}">${label} (${gap.toFixed(1)})</span>`;
+    if (gapEl && ds !== null) {
+      const gap = targetScore - ds;
+      if (gap <= 0) {
+        // 已达标或超标
+        gapEl.innerHTML = `<span class="gap-pill gap-low">✓ 已达标 (${Math.abs(gap).toFixed(2)}+)</span>`;
+      } else {
+        const cls = gap > 1.0 ? 'gap-high' : gap > 0.3 ? 'gap-mid' : 'gap-low';
+        gapEl.innerHTML = `<span class="gap-pill ${cls}">差 ${gap.toFixed(2)}</span>`;
+      }
     } else if (gapEl) gapEl.textContent = '—';
   });
 }
