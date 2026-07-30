@@ -287,7 +287,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
 
       <div class="sec">■ 需求通道截止（07-31）</div>
       <ul class="cl">
-        <li>555条需求通道今日截止，到期后不再接收新增诉求</li>
+        <li>689条需求通道今日截止，到期后不再接收新增诉求</li>
         <li>所有需求条条有回应，分三类处置：本期落地 / 参数流程替代 / 远期规划</li>
       </ul>
     </div>
@@ -299,7 +299,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
       <!-- 核心数字 -->
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;">
         <div style="text-align:center;min-width:55px;">
-          <div style="font-size:24px;font-weight:800;color:var(--b700);">555</div>
+          <div style="font-size:24px;font-weight:800;color:var(--b700);">689</div>
           <div style="font-size:10px;color:var(--muted);">总需求</div>
         </div>
         <div style="text-align:center;min-width:55px;">
@@ -541,7 +541,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
           <tr>
             <td style="white-space:nowrap;font-weight:700;color:var(--b700);">07-31（周五）</td>
             <td><b>★ 需求通道截止</b></td>
-            <td>腾讯共享文档需求提报通道关闭，555条需求正式定版，到期后不再新增</td>
+            <td>腾讯共享文档需求提报通道关闭，689条需求正式定版，到期后不再新增</td>
             <td style="color:#C62828;font-size:11px;font-weight:700;">需求定版，进入全量梳理与场景映射阶段</td>
             <td style="text-align:center;"><span style="background:#FFEBEE;color:#C62828;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">今日截止</span></td>
           </tr>
@@ -562,7 +562,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
       </div>
       <div style="flex:1;min-width:150px;background:var(--b050);border-radius:var(--r);padding:10px 14px;border-left:3px solid var(--b500);">
         <div style="font-size:11px;font-weight:800;color:var(--b700);margin-bottom:4px;">📋 需求定版</div>
-        <div style="font-size:20px;font-weight:800;color:var(--b900);">555条</div>
+        <div style="font-size:20px;font-weight:800;color:var(--b900);">689条</div>
         <div style="font-size:10.5px;color:var(--muted);">今日截止，到期关闭</div>
       </div>
       <div style="flex:2;min-width:220px;background:#FFF8E1;border-radius:var(--r);padding:10px 14px;border-left:3px solid #FB8C00;">
@@ -600,7 +600,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
   var editing=false,snaps={},ghToken='';
   function st(msg,c){var e=document.getElementById('pes');if(e){e.textContent=msg;e.style.color=c||'rgba(255,255,255,.65)';}}
   function init(){
-    var sels=['.hero p','.hero h1','.sum-box','.sum-box-warn','.sum-box-red','.ri-txt','.det-text','.s-label','.s-week','.s-phase','.gantt-note','.card ul.cl li'];
+    var sels=['.hero p','.hero h1','.sum-box','.sum-box-warn','.sum-box-red','.ri-txt','.det-text','.s-label','.s-week','.s-phase','.gantt-note','.card ul.cl li','.card-hd','.card-title','.ms-label','.ms-date','.ms-days','.ftable td','.ftable th'];
     sels.forEach(function(sel){document.querySelectorAll(sel).forEach(function(el,i){var k=sel+'::'+i;el.classList.add('_ed');el.dataset.ek=k;snaps[k]=el.innerHTML;el.contentEditable='false';});});
   }
   function toggle(){
