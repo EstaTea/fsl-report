@@ -2034,31 +2034,24 @@ async function loadAllResponses() {
   const statusEl = document.getElementById('agg-sync-status');
   if (statusEl) statusEl.textContent = '同步中…';
   try {
-    // List files under data/maturity/
-    const url = `https://api.github.com/repos/${ghConfig.owner}/${ghConfig.repo}/contents/${ghConfig.path || 'data/maturity'}`;
+    const filePath = 'kanban/survey-maturity-data.json';
+    const url = `https://api.github.com/repos/${ghConfig.owner}/${ghConfig.repo}/contents/${filePath}`;
     const res = await fetch(url, {
       headers: { Authorization: `Bearer ${ghConfig.token}`, Accept: 'application/vnd.github.v3+json' }
     });
     if (!res.ok) {
-      if (statusEl) statusEl.textContent = '目录不存在或权限不足';
+      if (statusEl) statusEl.textContent = '暂无响应数据';
       return;
     }
-    const files = await res.json();
-    const jsonFiles = files.filter(f => f.name.endsWith('.json'));
-    const loaded = [];
-    for (const f of jsonFiles) {
-      try {
-        const fr = await fetch(f.download_url);
-        if (fr.ok) {
-          const d = await fr.json();
-          // 保存 GitHub 文件路径和 sha，用于删除操作
-          d._ghPath = f.path;
-          d._ghSha  = f.sha;
-          loaded.push(d);
-        }
-      } catch(e) {}
-    }
-    allResponses = loaded;
+    const fileData = await res.json();
+    const decoded = JSON.parse(decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, '')))));
+    const submissions = decoded.submissions || [];
+    allResponses = submissions.map(function(s, i) {
+      s._ghPath = filePath;
+      s._ghSha  = fileData.sha;
+      s._idx    = i;
+      return s;
+    });
     try { localStorage.setItem('fsl_responses_cache', JSON.stringify(loaded)); } catch(e) {}
     if (statusEl) statusEl.textContent = `✓ 已同步 ${loaded.length} 条 · ${new Date().toLocaleTimeString('zh-CN')}`;
     renderAggregation();
