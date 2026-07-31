@@ -2363,26 +2363,51 @@ function ganttToday(){
 }
 
 // ── RISK ──────────────────────────────────────────────────────────
-// ── RISK ──────────────────────────────────────────────────────────
-var RKEY='fsl-risks-v2', rEditId=null;
-function rLoad(){
-  var def=[
-    {id:'r1',title:'上市合规风险',desc:'S/4HANA上线初期可能存在财务数据过渡期不稳定，影响A股信息披露合规',prob:'低',impact:'高',status:'缓解中',mitigation:'上线时间避开半年报/年报披露窗口；ECC保持只读3个月'},
-    {id:'r2',title:'主数据清洗周期超预期',desc:'6.2万物料数据质量比预期差，清洗工作量超出，数据迁移100%准确率无法按时达到',prob:'高',impact:'高',status:'未处理',mitigation:'2026年6月立即启动数据清洗（先于系统配置）；三轮模拟迁移'},
-    {id:'r3',title:'明确广晟集团与佛照S/4HANA系统边界',desc:'广晟推行的共享/司库/合并系统与佛照S/4HANA的边界未定义，可能导致范围蔓延或接口冲突',prob:'高',impact:'高',status:'已接受',mitigation:'2026年7月31日前明确边界协议，超出边界的需求纳入变更请求管理'},
-    {id:'r4',title:'MES/WMS供应商接口配合风险',desc:'EWM↔WMS库存和MES→PP投工接口需要供应商配合改造，可能导致接口延迟',prob:'中',impact:'中',status:'缓解中',mitigation:'蓝图阶段锁定接口设计方案；要求供应商签署配合协议；提前3个月启动接口联调'},
-    {id:'r5',title:'关键用户参与度不足',desc:'业务部门关键用户无法投入足够时间参与蓝图确认和UAT测试',prob:'中',impact:'中',status:'缓解中',mitigation:'李泽华副总经理签字的关键用户承诺书；每周项目例会机制'},
-  ];
-  try{var s=localStorage.getItem(RKEY);return s?JSON.parse(s):def;}catch(e){return def;}
+var RISK_FILE='https://api.github.com/repos/EstaTea/fsl-report/contents/data/risks.json';
+var _risks=[], _risksSHA='', rEditId=null;
+
+function rFetch(callback){
+  var h={'Accept':'application/vnd.github+json'};
+  if(TOKEN) h['Authorization']='Bearer '+TOKEN;
+  fetch(RISK_FILE+'?_='+Date.now(),{headers:h})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(d.sha) _risksSHA=d.sha;
+      if(d.content){
+        var c='';
+        for(var i=0;i<d.content.length;i++){var x=d.content.charCodeAt(i);if(x!==10&&x!==13)c+=d.content[i];}
+        try{_risks=JSON.parse(atob(c));}catch(e){_risks=[];}
+      }
+      if(callback) callback();
+    })
+    .catch(function(){if(callback) callback();});
 }
-function rSave(risks){try{localStorage.setItem(RKEY,JSON.stringify(risks));}catch(e){}}
+
+function rSave(risks, callback){
+  if(!TOKEN){promptLoginThenDo(function(){rSave(risks,callback);});return;}
+  _risks=risks;
+  var body=JSON.stringify({
+    message:'update: risks data',
+    content:btoa(unescape(encodeURIComponent(JSON.stringify(risks,null,2)))),
+    sha:_risksSHA
+  });
+  fetch(RISK_FILE,{method:'PUT',headers:{'Accept':'application/vnd.github+json','Authorization':'Bearer '+TOKEN,'Content-Type':'application/json'},body:body})
+    .then(function(r){return r.json();})
+    .then(function(d){if(d.content)_risksSHA=d.content.sha;if(callback)callback();})
+    .catch(function(){if(callback)callback();});
+}
 function rColor(prob,impact){
   var p={低:1,中:2,高:3}[prob]||1,i={低:1,中:2,高:3}[impact]||1,sc=p*i;
   return sc<=1?'rm-green':sc<=2?'rm-yellow':sc<=4?'rm-orange':'rm-red';
 }
 function rSCls(s){return s==='未处理'?'rsb-open':s==='缓解中'?'rsb-mit':s==='已关闭'?'rsb-closed':s==='已接受'?'rsb-accepted':'rsb-open';}
 function renderRisk(issues){
-  var risks=rLoad();
+  rFetch(function(){
+    _renderRiskUI();
+  });
+}
+function _renderRiskUI(){
+  var risks=_risks;
   // 行=影响（高/中/低），列=可能性（低/中/高）
   // 行列标题已硬编码在HTML里，这里只填充 3×3=9 个色块
   var impacts=['高','中','低'];
@@ -2440,7 +2465,7 @@ function rApplyFilter(){
   var status=document.getElementById('riskFilterStatus').value;
   var prob=document.getElementById('riskFilterProb').value;
   var impact=document.getElementById('riskFilterImpact').value;
-  var risks=rLoad().filter(function(r){
+  var risks=_risks.filter(function(r){
     if(status&&r.status!==status) return false;
     if(prob&&r.prob!==prob) return false;
     if(impact&&r.impact!==impact) return false;
@@ -2450,12 +2475,12 @@ function rApplyFilter(){
   document.getElementById('riskCount').textContent='共 '+risks.length+' 项'+(status||prob||impact?' (已筛选)':'');
 }
 function rFilterCell(prob,imp){
-  var risks=rLoad();
+  var risks=_risks;
   if(_rfp===prob&&_rfi===imp){_rfp=_rfi=null;rRenderList(risks);document.getElementById('riskCount').textContent='共 '+risks.length+' 项';}
   else{_rfp=prob;_rfi=imp;rRenderList(risks,prob,imp);document.getElementById('riskCount').textContent='筛选：可能性 '+prob+' × 影响 '+imp;}
 }
 function openRiskModal(id){
-  rEditId=id;var risks=rLoad(),r=id?risks.find(function(x){return x.id===id;}):null;
+  rEditId=id;var risks=_risks,r=id?risks.find(function(x){return x.id===id;}):null;
   document.getElementById('riskModalTitle').textContent=id?'编辑风险':'登记风险';
   document.getElementById('rmfTitle').value=r?r.title:'';
   document.getElementById('rmfDesc').value=r?r.desc:'';
@@ -2469,18 +2494,20 @@ function closeRiskModal(){document.getElementById('riskModalOv').classList.remov
 function saveRisk(){
   var title=document.getElementById('rmfTitle').value.trim();
   if(!title){alert('请填写标题');return;}
-  var risks=rLoad();
+  var risks=_risks.slice();
   var r={id:rEditId||(Date.now().toString(36)+Math.random().toString(36).slice(2,5)),
     title:title,desc:document.getElementById('rmfDesc').value.trim(),
     prob:document.getElementById('rmfProb').value,impact:document.getElementById('rmfImpact').value,
     status:document.getElementById('rmfStatus').value,
     mitigation:document.getElementById('rmfMitigation').value.trim()};
   if(rEditId){var idx=risks.findIndex(function(x){return x.id===rEditId;});if(idx>=0)risks[idx]=r;}else risks.push(r);
-  rSave(risks);closeRiskModal();renderRisk([]);
+  closeRiskModal();
+  rSave(risks,function(){_renderRiskUI();});
 }
 function deleteRisk(id){
   if(!confirm('确认删除此风险？'))return;
-  rSave(rLoad().filter(function(r){return r.id!==id;}));renderRisk([]);
+  var risks=_risks.filter(function(r){return r.id!==id;});
+  rSave(risks,function(){_renderRiskUI();});
 }
 
 

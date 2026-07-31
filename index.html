@@ -292,35 +292,30 @@ function getRiskLevel(issue){
   return l.replace('优先级:','');
 }
 
-// Fetch all open issues
+// Fetch all open issues + risks from GitHub
+var RISKS_API='https://api.github.com/repos/EstaTea/fsl-report/contents/data/risks.json';
 Promise.all([
   fetch(API+'/issues?state=open&per_page=100&sort=updated').then(function(r){return r.json();}),
   fetch(API+'/issues?state=closed&per_page=50&sort=updated').then(function(r){return r.json();}),
-  fetch(API+'/milestones?state=open&per_page=50&sort=due_on').then(function(r){return r.json();})
+  fetch(API+'/milestones?state=open&per_page=50&sort=due_on').then(function(r){return r.json();}),
+  fetch(RISKS_API+'?_='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;})
 ]).then(function(results){
   var openIssues   = Array.isArray(results[0]) ? results[0] : [];
   var closedIssues = Array.isArray(results[1]) ? results[1] : [];
   var milestones   = Array.isArray(results[2]) ? results[2] : [];
+  var risksRaw = [];
+  try{
+    var rd=results[3];
+    if(rd&&rd.content){var c='';for(var i=0;i<rd.content.length;i++){var x=rd.content.charCodeAt(i);if(x!==10&&x!==13)c+=rd.content[i];}risksRaw=JSON.parse(atob(c));}
+  }catch(e){}
 
   var allIssues = openIssues.concat(closedIssues);
   var tasks     = allIssues.filter(function(i){ return !isRisk(i) && !i.pull_request; });
   var risks     = openIssues.filter(function(i){ return isRisk(i); });
 
-  // ── 从 localStorage 读取看板风险数据（与看板保持一致）──
-  var RKEY_LS = 'fsl-risks-v2';
-  var lsRisksRaw = [];
-  try { var _s = localStorage.getItem(RKEY_LS); lsRisksRaw = _s ? JSON.parse(_s) : []; } catch(e){}
-  if (!lsRisksRaw.length) {
-    lsRisksRaw = [
-      {id:'r1',title:'上市合规风险',prob:'低',impact:'高',status:'缓解中'},
-      {id:'r2',title:'主数据清洗周期超预期',prob:'高',impact:'高',status:'未处理'},
-      {id:'r3',title:'明确广晟集团与佛照S/4HANA系统边界',prob:'高',impact:'高',status:'已接受'},
-      {id:'r4',title:'MES/WMS供应商接口配合风险',prob:'中',impact:'中',status:'缓解中'},
-      {id:'r5',title:'关键用户参与度不足',prob:'中',impact:'中',status:'缓解中'}
-    ];
-  }
+  // ── 从 GitHub data/risks.json 读取风险（与看板保持一致）──
   var pScore = {低:1,中:2,高:3};
-  var lsOpenRisks = lsRisksRaw.filter(function(r){ return r.status !== '已关闭'; });
+  var lsOpenRisks = risksRaw.filter(function(r){ return r.status !== '已关闭'; });
   lsOpenRisks.sort(function(a,b){
     return (pScore[b.prob]||1)*(pScore[b.impact]||1) - (pScore[a.prob]||1)*(pScore[a.impact]||1);
   });
