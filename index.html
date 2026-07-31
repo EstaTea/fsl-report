@@ -305,6 +305,25 @@ Promise.all([
   var allIssues = openIssues.concat(closedIssues);
   var tasks     = allIssues.filter(function(i){ return !isRisk(i) && !i.pull_request; });
   var risks     = openIssues.filter(function(i){ return isRisk(i); });
+
+  // ── 从 localStorage 读取看板风险数据（与看板保持一致）──
+  var RKEY_LS = 'fsl-risks-v2';
+  var lsRisksRaw = [];
+  try { var _s = localStorage.getItem(RKEY_LS); lsRisksRaw = _s ? JSON.parse(_s) : []; } catch(e){}
+  if (!lsRisksRaw.length) {
+    lsRisksRaw = [
+      {id:'r1',title:'上市合规风险',prob:'低',impact:'高',status:'缓解中'},
+      {id:'r2',title:'主数据清洗周期超预期',prob:'高',impact:'高',status:'未处理'},
+      {id:'r3',title:'明确广晟集团与佛照S/4HANA系统边界',prob:'高',impact:'高',status:'已接受'},
+      {id:'r4',title:'MES/WMS供应商接口配合风险',prob:'中',impact:'中',status:'缓解中'},
+      {id:'r5',title:'关键用户参与度不足',prob:'中',impact:'中',status:'缓解中'}
+    ];
+  }
+  var pScore = {低:1,中:2,高:3};
+  var lsOpenRisks = lsRisksRaw.filter(function(r){ return r.status !== '已关闭'; });
+  lsOpenRisks.sort(function(a,b){
+    return (pScore[b.prob]||1)*(pScore[b.impact]||1) - (pScore[a.prob]||1)*(pScore[a.impact]||1);
+  });
   var openTasks = openIssues.filter(function(i){ return !isRisk(i) && !i.pull_request; });
   var doneTasks = closedIssues.filter(function(i){ return !isRisk(i) && !i.pull_request; });
   var wipTasks  = openTasks.filter(function(i){ return getStatus(i)==='进行中'; });
@@ -315,7 +334,7 @@ Promise.all([
   // KPI
   document.getElementById('scTotal').textContent = total;
   document.getElementById('scWip').textContent   = wipTasks.length;
-  document.getElementById('scRisk').textContent  = risks.length;
+  document.getElementById('scRisk').textContent  = lsOpenRisks.length;
   document.getElementById('scMs').textContent    = milestones.length;
 
   // 任务完成率（与任务总数口径一致：排除风险类、PR）
@@ -416,22 +435,23 @@ Promise.all([
   }).join('');
   document.getElementById('msList').innerHTML = msHtml || '<div class="loading-row">暂无里程碑</div>';
 
-  // 风险
-  var hiRisks = risks.filter(function(i){
-    var lv = getRiskLevel(i);
-    return lv==='高' || lv==='P1';
+  // 风险（从 localStorage 读取，与看板保持一致）
+  var hiRisks = lsOpenRisks.filter(function(r){
+    return (pScore[r.prob]||1) * (pScore[r.impact]||1) >= 6;
   });
-  var riskHtml = (hiRisks.length ? hiRisks : risks).slice(0,6).map(function(i){
-    var lv = getRiskLevel(i) || '中';
-    var lvStyle = lv==='高'||lv==='P1' ? 'background:#fee2e2;color:#dc2626' :
-                  'background:#fef9c3;color:#92400e';
-    var status = getStatus(i) || getLabel(i,'风险状态:').replace('风险状态:','') || '未处理';
-    var sStyle = status.includes('缓解') ? 'background:#EBF4FF;color:var(--b700)' :
-                 status.includes('完成') ? 'background:#f0fdf4;color:#15803d' :
+  var showRisks = (hiRisks.length ? hiRisks : lsOpenRisks).slice(0,6);
+  var riskHtml = showRisks.map(function(r){
+    var sc = (pScore[r.prob]||1) * (pScore[r.impact]||1);
+    var lvLabel = sc >= 9 ? '严重' : sc >= 6 ? '高' : sc >= 3 ? '中' : '低';
+    var lvStyle = sc >= 6 ? 'background:#fee2e2;color:#dc2626' : 'background:#fef9c3;color:#92400e';
+    var s = r.status || '未处理';
+    var sStyle = s.includes('缓解') ? 'background:#EBF4FF;color:var(--b700)' :
+                 s.includes('已接受') ? 'background:#f0fdf4;color:#15803d' :
+                 s.includes('关闭') ? 'background:#f0fdf4;color:#15803d' :
                  'background:var(--bg);color:var(--muted)';
-    return '<div class="risk-row"><span class="rr-title">'+esc(i.title.replace(/^[【\[][^\]】]+[】\]]\s*/,''))+'</span>'
-      +'<span class="rr-badge" style="'+sStyle+'">'+esc(status)+'</span>'
-      +'<span class="rr-badge" style="'+lvStyle+';margin-left:2px">'+esc(lv)+'</span></div>';
+    return '<div class="risk-row"><span class="rr-title">'+esc(r.title)+'</span>'
+      +'<span class="rr-badge" style="'+sStyle+'">'+esc(s)+'</span>'
+      +'<span class="rr-badge" style="'+lvStyle+';margin-left:2px">'+esc(lvLabel)+'</span></div>';
   }).join('');
   document.getElementById('riskList').innerHTML = riskHtml || '<div class="loading-row" style="color:#15803d">暂无开放风险</div>';
 
