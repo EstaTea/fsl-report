@@ -306,7 +306,7 @@ Promise.all([
   var risksRaw = [];
   try{
     var rd=results[3];
-    if(rd&&rd.content){var c='';for(var i=0;i<rd.content.length;i++){var x=rd.content.charCodeAt(i);if(x!==10&&x!==13)c+=rd.content[i];}risksRaw=JSON.parse(atob(c));}
+    if(rd&&rd.content){var c='';for(var i=0;i<rd.content.length;i++){var x=rd.content.charCodeAt(i);if(x!==10&&x!==13)c+=rd.content[i];}risksRaw=JSON.parse(decodeURIComponent(escape(atob(c))));}
   }catch(e){}
 
   var allIssues = openIssues.concat(closedIssues);

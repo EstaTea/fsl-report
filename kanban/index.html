@@ -2376,7 +2376,7 @@ function rFetch(callback){
       if(d.content){
         var c='';
         for(var i=0;i<d.content.length;i++){var x=d.content.charCodeAt(i);if(x!==10&&x!==13)c+=d.content[i];}
-        try{_risks=JSON.parse(atob(c));}catch(e){_risks=[];}
+        try{_risks=JSON.parse(decodeURIComponent(escape(atob(c))));}catch(e){_risks=[];}
       }
       if(callback) callback();
     })
