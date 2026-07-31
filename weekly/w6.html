@@ -153,8 +153,8 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
     <div class="card">
       <div class="card-title">详细状态</div>
       <div class="det-row">
-        <span class="det-text">进度：45%</span>
-        <div class="pbar-wrap"><div class="pbar" style="width:45%;background:#FB8C00;"></div></div>
+        <span class="det-text">进度：20%</span>
+        <div class="pbar-wrap"><div class="pbar" style="width:20%;background:#FB8C00;"></div></div>
         <div class="det-ind" style="background:#FB8C00;"></div>
       </div>
       <div class="det-row">
@@ -485,53 +485,59 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
       </div>
     </div>
 
-    <!-- 下一步 -->
-    <div class="card">
-      <div class="card-hd">下一步计划（W7，08-03~08-07）</div>
-
-      <div class="sec">■ 现状诊断报告（最高优先级）</div>
-      <ul class="cl">
-        <li>补充数据中心架构信息，融合数字化成熟度+数据成熟度评估</li>
-        <li>确定咨询阶段成果汇报故事线</li>
-        <li><b>08-07 现状诊断报告评审</b>——内部评审通过后提交客户确认</li>
-      </ul>
-
-      <div class="sec">■ 数据治理（08-04 重大节点）</div>
-      <ul class="cl">
-        <li><b>08-04 发布《数据调研分析报告》</b></li>
-        <li><b>08-04 数据治理宣贯暨MDG培训会</b>——邀请张学权总经理、李泽华副总现场指导</li>
-        <li>08-05 发布《数据规划及管理办法》</li>
-        <li>《数据治理总结报告》定稿</li>
-      </ul>
-
-      <div class="sec">■ 企业架构四大架构集中确认</div>
-      <ul class="cl">
-        <li>业务架构：统一流程模板 / 端到端数字化贯通</li>
-        <li>数据架构：MDG为SOR / 统一编码 / 质量SLA</li>
-        <li>应用架构：S/4HANA PCE为核心 / CPI为集成中枢</li>
-        <li>技术架构：PCE私有云 / HANA / DEV-QAS-PRD三环境</li>
-      </ul>
-
-      <div class="sec">■ 接口与功能扫描</div>
-      <ul class="cl">
-        <li>接口开发说明书编写、阶段规划研讨、合规性检查</li>
-        <li>存量功能菜单级梳理、界面定制梳理、S4差异分析</li>
-        <li>未来佛照SAP功能启用建议清单输出</li>
-      </ul>
-
-      <div class="sec">■ 甲方支持跟进</div>
-      <ul class="cl">
-        <li>数据治理委员会成立时间表——本周例会正式提请落实</li>
-        <li>关键用户共同办公排班——请各部门负责人确认</li>
-        <li>项目章程签字确认</li>
-      </ul>
-
-      <div class="sum-box-warn">
-        W7 是8月冲刺的起点：8/4 MDG培训会（高管出席）和 8/7 诊断报告评审是两个最关键节点，直接决定8月20日诊断关闭能否达成。
-      </div>
-    </div>
-
   </div><!-- /cards-row -->
+
+  <!-- ── 下一步计划（全宽） ── -->
+  <div class="card" style="margin-top:14px;">
+    <div class="card-hd">下一步计划（W7，08-03~08-07）</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+
+      <div>
+        <div class="sec" style="margin-top:0;">■ 现状诊断报告（最高优先级）</div>
+        <ul class="cl">
+          <li>补充数据中心架构信息，融合数字化成熟度+数据成熟度评估</li>
+          <li>确定咨询阶段成果汇报故事线</li>
+          <li><b>08-07 现状诊断报告评审</b>——内部评审通过后提交客户确认</li>
+        </ul>
+        <div class="sec">■ 企业架构四大架构集中确认</div>
+        <ul class="cl">
+          <li>业务架构：统一流程模板 / 端到端数字化贯通</li>
+          <li>数据架构：MDG为SOR / 统一编码 / 质量SLA</li>
+          <li>应用架构：S/4HANA PCE为核心 / CPI为集成中枢</li>
+          <li>技术架构：PCE私有云 / HANA / DEV-QAS-PRD三环境</li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="sec" style="margin-top:0;">■ 数据治理（08-04 重大节点）</div>
+        <ul class="cl">
+          <li><b>08-04 发布《数据调研分析报告》</b></li>
+          <li><b>08-04 数据治理宣贯暨MDG培训会</b>——邀请张学权总经理、李泽华副总现场指导</li>
+          <li>08-05 发布《数据规划及管理办法》</li>
+          <li>《数据治理总结报告》定稿</li>
+        </ul>
+        <div class="sec">■ 接口与功能扫描</div>
+        <ul class="cl">
+          <li>接口开发说明书编写、阶段规划研讨、合规性检查</li>
+          <li>存量功能菜单级梳理、界面定制梳理、S4差异分析</li>
+          <li>未来佛照SAP功能启用建议清单输出</li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="sec" style="margin-top:0;">■ 甲方支持跟进</div>
+        <ul class="cl">
+          <li>数据治理委员会成立时间表——本周例会正式提请落实</li>
+          <li>关键用户共同办公排班——请各部门负责人确认</li>
+          <li>项目章程签字确认</li>
+        </ul>
+        <div class="sum-box-warn" style="margin-top:12px;">
+          W7 是8月冲刺的起点：<b>8/4 MDG培训会（高管出席）</b>和 <b>8/7 诊断报告评审</b>是两个最关键节点，直接决定8月20日诊断关闭能否达成。
+        </div>
+      </div>
+
+    </div>
+  </div>
 
   <!-- ── W6 关键会议明细 ── -->
   <div class="card" style="margin-top:14px;">
