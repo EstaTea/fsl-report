@@ -2052,11 +2052,11 @@ async function loadAllResponses() {
       s._idx    = i;
       return s;
     });
-    try { localStorage.setItem('fsl_responses_cache', JSON.stringify(loaded)); } catch(e) {}
-    if (statusEl) statusEl.textContent = `✓ 已同步 ${loaded.length} 条 · ${new Date().toLocaleTimeString('zh-CN')}`;
+    try { localStorage.setItem('fsl_responses_cache', JSON.stringify(allResponses)); } catch(e) {}
+    if (statusEl) statusEl.textContent = `✓ 已同步 ${allResponses.length} 条 · ${new Date().toLocaleTimeString('zh-CN')}`;
     renderAggregation();
     // 自动将汇总均值写入报告
-    if (loaded.length > 0) _autoDerive();
+    if (allResponses.length > 0) _autoDerive();
   } catch(e) {
     if (statusEl) statusEl.textContent = '网络错误：' + e.message;
   }
