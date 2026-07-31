@@ -2378,6 +2378,22 @@ function rFetch(callback){
         for(var i=0;i<d.content.length;i++){var x=d.content.charCodeAt(i);if(x!==10&&x!==13)c+=d.content[i];}
         try{_risks=JSON.parse(decodeURIComponent(escape(atob(c))));}catch(e){_risks=[];}
       }
+      // ── 一次性迁移：localStorage 有更多数据时，自动上传到 GitHub ──
+      try{
+        var ls=localStorage.getItem('fsl-risks-v2');
+        if(ls){
+          var lsData=JSON.parse(ls);
+          if(Array.isArray(lsData)&&lsData.length>_risks.length){
+            _risks=lsData;
+            rSave(lsData,function(){
+              localStorage.removeItem('fsl-risks-v2');
+              console.log('Risk migration: '+lsData.length+' risks uploaded to GitHub.');
+            });
+          } else {
+            localStorage.removeItem('fsl-risks-v2');
+          }
+        }
+      }catch(e){}
       if(callback) callback();
     })
     .catch(function(){if(callback) callback();});
