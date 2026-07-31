@@ -109,19 +109,9 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="nav-right">
-    <div id="userBadge" style="display:none;align-items:center;gap:8px;padding:0 4px">
-      <img id="userAvatar" src="" alt="" style="width:28px;height:28px;border-radius:50%;border:2px solid rgba(255,255,255,.2)">
-      <span id="userName" style="font-size:12px;color:rgba(255,255,255,.75);max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
-      <a id="adminNavLink" href="/fsl-report/kanban/admin.html" style="display:none;font-size:11px;padding:3px 8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:5px;color:#fff;align-items:center;gap:4px;">⚙️ 管理</a>
-      <button onclick="doLogout()" class="btn btn-ghost" style="font-size:11px;padding:3px 8px">退出</button>
-    </div>
-    <button onclick="goLogin()" class="btn btn-ghost" id="loginNavBtn" style="display:none;font-size:11.5px">🔑 登录</button>
-  </div>
     <div class="nav-dropdown">
       <a href="/fsl-report/togaf/" style="padding:0 14px;color:rgba(255,255,255,.75);font-size:12.5px;height:54px;display:flex;align-items:center;white-space:nowrap;font-weight:600;">TOGAF &amp; EA <span class="nav-arrow">▾</span></a>
-      <div class="nav-dropdown-panel">
+      <div class="nav-dropdown-panel" style="right:0;left:auto;">
         <div class="nav-dd-row">
           <div class="nav-dd-col nav-dd-panel">
             <div class="nav-dd-group-title">架构工作台</div>
@@ -136,6 +126,16 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="nav-right">
+    <div id="userBadge" style="display:none;align-items:center;gap:8px;padding:0 4px">
+      <img id="userAvatar" src="" alt="" style="width:28px;height:28px;border-radius:50%;border:2px solid rgba(255,255,255,.2)">
+      <span id="userName" style="font-size:12px;color:rgba(255,255,255,.75);max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
+      <a id="adminNavLink" href="/fsl-report/kanban/admin.html" style="display:none;font-size:11px;padding:3px 8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:5px;color:#fff;align-items:center;gap:4px;">⚙️ 管理</a>
+      <button onclick="doLogout()" class="btn btn-ghost" style="font-size:11px;padding:3px 8px">退出</button>
+    </div>
+    <button onclick="goLogin()" class="btn btn-ghost" id="loginNavBtn" style="display:none;font-size:11.5px">🔑 登录</button>
+  </div>
 </nav>`;
 
   // ── active 状态：根据当前路径高亮对应菜单项 ────────────────────────────────
