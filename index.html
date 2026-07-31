@@ -428,7 +428,7 @@ Promise.all([
 
   // 风险（从 localStorage 读取，与看板保持一致）
   var hiRisks = lsOpenRisks.filter(function(r){
-    return (pScore[r.prob]||1) * (pScore[r.impact]||1) >= 6;
+    return (pScore[r.prob]||1) * (pScore[r.impact]||1) >= 4;
   });
   var showRisks = (hiRisks.length ? hiRisks : lsOpenRisks).slice(0,6);
   var riskHtml = showRisks.map(function(r){
