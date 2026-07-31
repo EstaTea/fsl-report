@@ -2364,20 +2364,14 @@ function ganttToday(){
 
 // ── RISK ──────────────────────────────────────────────────────────
 var RISK_FILE='https://api.github.com/repos/EstaTea/fsl-report/contents/data/risks.json';
+var RISK_RAW='https://raw.githubusercontent.com/EstaTea/fsl-report/main/data/risks.json';
 var _risks=[], _risksSHA='', rEditId=null;
 
 function rFetch(callback){
-  var h={'Accept':'application/vnd.github+json'};
-  if(TOKEN) h['Authorization']='Bearer '+TOKEN;
-  fetch(RISK_FILE+'?_='+Date.now(),{headers:h})
+  fetch(RISK_RAW+'?_='+Date.now())
     .then(function(r){return r.json();})
     .then(function(d){
-      if(d.sha) _risksSHA=d.sha;
-      if(d.content){
-        var c='';
-        for(var i=0;i<d.content.length;i++){var x=d.content.charCodeAt(i);if(x!==10&&x!==13)c+=d.content[i];}
-        try{_risks=JSON.parse(decodeURIComponent(escape(atob(c))));}catch(e){_risks=[];}
-      }
+      if(Array.isArray(d)) _risks=d;
       // ── 一次性迁移：localStorage 有更多数据时，自动上传到 GitHub ──
       try{
         var ls=localStorage.getItem('fsl-risks-v2');
@@ -2387,13 +2381,19 @@ function rFetch(callback){
             _risks=lsData;
             rSave(lsData,function(){
               localStorage.removeItem('fsl-risks-v2');
-              console.log('Risk migration: '+lsData.length+' risks uploaded to GitHub.');
             });
           } else {
             localStorage.removeItem('fsl-risks-v2');
           }
         }
       }catch(e){}
+      // 同时拉 SHA（供后续写入用）
+      var h={'Accept':'application/vnd.github+json'};
+      if(TOKEN) h['Authorization']='Bearer '+TOKEN;
+      fetch(RISK_FILE,{headers:h})
+        .then(function(r){return r.json();})
+        .then(function(meta){if(meta.sha)_risksSHA=meta.sha;})
+        .catch(function(){});
       if(callback) callback();
     })
     .catch(function(){if(callback) callback();});
