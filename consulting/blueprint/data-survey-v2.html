@@ -198,6 +198,7 @@ footer-note{display:block;text-align:center;font-size:11px;color:var(--muted);ma
     <a href="#s5-2" class="sub">5.2 信息安全体系</a>
     <a href="#s6">六、差距分析与优先级</a>
     <a href="#s7">七、战略建议与路线图</a>
+    <a href="#s8" style="color:#E65100;font-weight:700">八、DCMM 成熟度评估（v2.1）</a>
   
     <div class="sb-ch">关联交付物</div>
     <a href="/fsl-report/consulting/diagnosis/report-02.html">★1 现状诊断报告 V2</a>
@@ -1238,6 +1239,257 @@ footer-note{display:block;text-align:center;font-size:11px;color:var(--muted);ma
         </tbody>
       </table>
     </div>
+  </div>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 第八章 DCMM 成熟度评估 -->
+<div class="chapter" id="s8">
+  <div class="ch-header"><div class="ch-num" style="background:var(--primary)">8</div><h2>DCMM 数据管理能力成熟度评估（v2.1新增）</h2></div>
+  <div class="ch-body">
+    <div class="box guide">
+      <p>本章依据 GB/T 36073—2018《数据管理能力成熟度评估模型（DCMM）》，通过结构化问卷对佛山照明 8 个能力域、28 个能力项进行全面评估。2026 年 7 月完成调研，有效响应 <b>19 份</b>（艾维登外部顾问×9、佛照后台×5、中台×2、前台×3），代表项目核心成员的综合判断。</p>
+    </div>
+
+    <!-- 总体结论 -->
+    <div class="sec">
+      <div class="sec-title">8.0 总体评估结论</div>
+      <div class="grid-4">
+        <div class="metric-card">
+          <div class="mc-num orange">2.06</div>
+          <div class="pbar-wrap"><div class="pbar-fill orange" style="width:41%"></div></div>
+          <div class="mc-lbl">综合得分（满分5）<br>对应 <b>L2 受管理级</b></div>
+        </div>
+        <div class="metric-card">
+          <div class="mc-num red">1.79</div>
+          <div class="pbar-wrap"><div class="pbar-fill red" style="width:36%"></div></div>
+          <div class="mc-lbl">最低项：5.5 数据标准管控<br>治理规则存在但不执行</div>
+        </div>
+        <div class="metric-card">
+          <div class="mc-num" style="color:#2D5BD8">2.53</div>
+          <div class="pbar-wrap"><div class="pbar-fill" style="width:51%;background:#2D5BD8"></div></div>
+          <div class="mc-lbl">最高项：7.2 数据安全管控<br>制度体系相对完善</div>
+        </div>
+        <div class="metric-card">
+          <div class="mc-num orange">19</div>
+          <div class="pbar-wrap"><div class="pbar-fill orange" style="width:38%"></div></div>
+          <div class="mc-lbl">有效响应份数<br>覆盖外部顾问+佛照各层级</div>
+        </div>
+      </div>
+      <div class="box warn" style="margin-top:16px">
+        <p><b>DCMM L2 受管理级的含义：</b>企业已在局部业务中建立了数据管理实践，但缺乏系统化、集团统一的治理框架；数据管理以被动响应为主，缺乏前瞻性规划；不同部门之间数据标准和质量差异显著。这与本报告第四章主数据深度分析的发现高度吻合——<b>规则存在但不被遵守，制度建立但无法落地</b>是核心矛盾。</p>
+      </div>
+    </div>
+
+    <!-- 8个域详细评分 -->
+    <div class="sec">
+      <div class="sec-title">8.1 八大能力域评分明细</div>
+      <div class="grid-2">
+        <div>
+          <div class="sec-sub">各域均值（全体 vs 角色分组）</div>
+          <table>
+            <thead>
+              <tr><th>能力域</th><th>全体</th><th>外部顾问</th><th>后台</th><th>中台</th><th>前台</th><th>差距</th></tr>
+            </thead>
+            <tbody>
+              <tr style="background:#FFF8E1"><td><b>数据战略</b></td><td>2.11</td><td>1.92</td><td>2.07</td><td>2.33</td><td>2.56</td><td><span class="badge med">中等</span></td></tr>
+              <tr style="background:#FFF5F5"><td><b>数据治理</b></td><td>2.11</td><td>2.04</td><td style="color:#C62828"><b>1.67</b></td><td>2.83</td><td>2.56</td><td><span class="badge high">内部分歧大</span></td></tr>
+              <tr style="background:#FFF5F5"><td><b>数据架构</b></td><td>2.00</td><td>1.85</td><td>1.90</td><td>2.12</td><td>2.50</td><td><span class="badge high">偏低</span></td></tr>
+              <tr style="background:#FDECEA"><td><b>数据资产</b></td><td>1.93</td><td style="color:#C62828"><b>1.69</b></td><td>1.93</td><td>2.33</td><td>2.33</td><td><span class="badge high">最弱之一</span></td></tr>
+              <tr style="background:#FDECEA"><td><b>数据标准</b></td><td>1.99</td><td>1.81</td><td>1.84</td><td>2.20</td><td>2.60</td><td><span class="badge high">偏低</span></td></tr>
+              <tr style="background:#FFF8E1"><td><b>数据质量</b></td><td>2.04</td><td>1.85</td><td>1.90</td><td>2.38</td><td>2.58</td><td><span class="badge med">中等</span></td></tr>
+              <tr style="background:#EBF4FF"><td><b>数据安全</b></td><td><b>2.40</b></td><td>2.11</td><td>2.47</td><td>2.83</td><td><b>2.89</b></td><td><span class="badge done">相对最强</span></td></tr>
+              <tr style="background:#FDECEA"><td><b>数据应用</b></td><td>1.91</td><td>1.85</td><td style="color:#C62828"><b>1.67</b></td><td>2.00</td><td>2.44</td><td><span class="badge high">最弱之一</span></td></tr>
+              <tr style="background:#F5F5F5"><td><b>综合均值</b></td><td><b>2.06</b></td><td>1.93</td><td>1.93</td><td>2.38</td><td>2.56</td><td>—</td></tr>
+            </tbody>
+          </table>
+          <div class="box finding" style="margin-top:10px;font-size:12px">
+            <b>关键分歧：</b>前台（业务一线）对数据现状评分普遍高于外部顾问（差距约+0.5分），说明业务人员对数据问题的感知程度低于实际，存在<b>认知偏差风险</b>——业务变革时将遇到更大阻力。
+          </div>
+        </div>
+        <div>
+          <div class="sec-sub">28个能力项全量评分</div>
+          <table>
+            <thead><tr><th>项</th><th>能力项名称</th><th>均值</th><th>等级</th></tr></thead>
+            <tbody>
+              <tr><td>1.1</td><td>数据战略规划</td><td>2.05</td><td><span class="badge med">L2</span></td></tr>
+              <tr><td>1.2</td><td>数据战略实施</td><td>2.05</td><td><span class="badge med">L2</span></td></tr>
+              <tr><td>1.3</td><td>数据战略评估</td><td>2.22</td><td><span class="badge med">L2</span></td></tr>
+              <tr style="background:#FDECEA"><td>2.1</td><td>数据治理组织</td><td><b style="color:#C62828">1.89</b></td><td><span class="badge high">L2↓</span></td></tr>
+              <tr><td>2.2</td><td>数据治理制度</td><td>2.26</td><td><span class="badge med">L2</span></td></tr>
+              <tr><td>2.3</td><td>数据治理推广</td><td>2.16</td><td><span class="badge med">L2</span></td></tr>
+              <tr><td>3.1</td><td>数据模型</td><td>2.11</td><td><span class="badge med">L2</span></td></tr>
+              <tr><td>3.2</td><td>数据分布</td><td>2.11</td><td><span class="badge med">L2</span></td></tr>
+              <tr><td>3.3</td><td>数据集成与共享</td><td>2.00</td><td><span class="badge med">L2</span></td></tr>
+              <tr style="background:#FDECEA"><td>3.4</td><td>元数据管理</td><td><b style="color:#C62828">1.89</b></td><td><span class="badge high">L2↓</span></td></tr>
+              <tr style="background:#FDECEA"><td>4.1</td><td>数据资产管理</td><td><b style="color:#C62828">1.84</b></td><td><span class="badge high">L2↓</span></td></tr>
+              <tr><td>4.2</td><td>数据价值评估</td><td>1.95</td><td><span class="badge med">L2</span></td></tr>
+              <tr><td>4.3</td><td>数据资产运营</td><td>2.00</td><td><span class="badge med">L2</span></td></tr>
+              <tr><td>5.1</td><td>业务术语</td><td>2.00</td><td><span class="badge med">L2</span></td></tr>
+              <tr><td>5.2</td><td>参考数据与主数据</td><td>2.05</td><td><span class="badge med">L2</span></td></tr>
+              <tr><td>5.3</td><td>数据元</td><td>2.05</td><td><span class="badge med">L2</span></td></tr>
+              <tr><td>5.4</td><td>指标数据</td><td>2.05</td><td><span class="badge med">L2</span></td></tr>
+              <tr style="background:#FDECEA"><td>5.5</td><td>数据标准管控</td><td><b style="color:#C62828">1.79</b></td><td><span class="badge high">最低项</span></td></tr>
+              <tr><td>6.1</td><td>数据质量需求</td><td>2.00</td><td><span class="badge med">L2</span></td></tr>
+              <tr><td>6.2</td><td>数据质量检查</td><td>2.05</td><td><span class="badge med">L2</span></td></tr>
+              <tr><td>6.3</td><td>数据质量分析</td><td>2.05</td><td><span class="badge med">L2</span></td></tr>
+              <tr><td>6.4</td><td>数据质量提升</td><td>2.05</td><td><span class="badge med">L2</span></td></tr>
+              <tr style="background:#EBF4FF"><td>7.1</td><td>数据安全策略</td><td><b style="color:#2D5BD8">2.37</b></td><td><span class="badge done">L2↑</span></td></tr>
+              <tr style="background:#EBF4FF"><td>7.2</td><td>数据安全管控</td><td><b style="color:#2D5BD8">2.53</b></td><td><span class="badge done">最高项</span></td></tr>
+              <tr style="background:#EBF4FF"><td>7.3</td><td>数据安全审计</td><td><b style="color:#2D5BD8">2.32</b></td><td><span class="badge done">L2↑</span></td></tr>
+              <tr style="background:#FDECEA"><td>8.1</td><td>数据分析</td><td><b style="color:#C62828">1.84</b></td><td><span class="badge high">L2↓</span></td></tr>
+              <tr><td>8.2</td><td>数据共享开放</td><td>1.95</td><td><span class="badge med">L2</span></td></tr>
+              <tr><td>8.3</td><td>数据服务创新</td><td>1.95</td><td><span class="badge med">L2</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 关键发现与高频备注 -->
+    <div class="sec">
+      <div class="sec-title">8.2 关键发现：受访者原话摘录（高频共识）</div>
+      <p style="font-size:13px;color:var(--text2);margin-bottom:14px">以下摘录来自 19 份问卷中的结构化备注，覆盖外部顾问与佛照内部人员，按能力域归类整理。</p>
+      <table>
+        <thead><tr><th>能力域</th><th>典型原话</th><th>对应痛点</th></tr></thead>
+        <tbody>
+          <tr style="background:#FDECEA">
+            <td><b>数据战略</b><br>2.11分</td>
+            <td style="font-size:12px;line-height:1.8">
+              「数据文件不健全，没有组织」<br>
+              「战略没有成本投资预算」<br>
+              「无评估机制」<br>
+              「暂无集团统一正式数据战略文件，仅本次S/4项目出台零散主数据编码规则，仅服务系统切换短期需求，未与各事业部长期业务战略对齐」
+            </td>
+            <td>数字化战略停留在项目层面，缺乏集团级数据治理战略文件与常态化评审机制</td>
+          </tr>
+          <tr style="background:#FFF5F5">
+            <td><b>数据治理</b><br>2.11分（内部分歧最大）</td>
+            <td style="font-size:12px;line-height:1.8">
+              「无专职数据治理角色」（两人同时提出）<br>
+              「无明确的制度」<br>
+              「数据重要性观念不足」<br>
+              「仅IT、财务、经营岗具备基础数据意识，研发、生产、销售多依靠经验开展业务」
+            </td>
+            <td>无专职数据治理岗位；全公司仅1名流程专员；意识薄弱导致制度落地困难</td>
+          </tr>
+          <tr style="background:#FFF5F5">
+            <td><b>数据架构</b><br>2.00分</td>
+            <td style="font-size:12px;line-height:1.8">
+              「各系统各自为政」<br>
+              「数据归哪个部门，划分不清晰」<br>
+              「数据孤岛因为系统和系统之间没有打通」<br>
+              「字段管理没有结构化文档管理」<br>
+              「系统间全部点对点对接，蜘蛛网式定制接口无统一API管理」
+            </td>
+            <td>18+套系统点对点集成；无集团级数据模型；元数据缺失（3.4分=1.89，全域最低之一）</td>
+          </tr>
+          <tr style="background:#FDECEA">
+            <td><b>数据资产</b><br>1.93分（最弱域之一）</td>
+            <td style="font-size:12px;line-height:1.8">
+              「数据问题没有归口部门和负责人」<br>
+              「数据每日、每周、每季度、每年的量化工作几乎空白」<br>
+              「无数据目录管理」<br>
+              「未建立覆盖全业务的数据所有者管理，权责未嵌入日常业务流程」
+            </td>
+            <td>数据资产管理（4.1）=1.84，全域最低；无数据Owner机制；无价值量化方法</td>
+          </tr>
+          <tr style="background:#FDECEA">
+            <td><b>数据标准</b><br>1.99分</td>
+            <td style="font-size:12px;line-height:1.8">
+              「物料主数据认知各个部门关注点不同，不统一」<br>
+              「主数据重复、冲突」<br>
+              「各个系统代码自己有自己的要求，集团没有统一口径」<br>
+              「数据标准管控（5.5）」=1.79，全域最低项：「数据源正确性不足，报表数据不可信」
+            </td>
+            <td>与第四章BOM/物料主数据分析完全一致——编码规则2022年已制定，但缺系统强制约束</td>
+          </tr>
+          <tr>
+            <td><b>数据质量</b><br>2.04分</td>
+            <td style="font-size:12px;line-height:1.8">
+              「数据标准质量没有定义」<br>
+              「问题都是下游部门提报，发现严重滞后」<br>
+              「不做数据根原因错误分析」<br>
+              「数据遇到一笔修正一笔，是被动纠错」
+            </td>
+            <td>被动式质量管理；无主动检测机制；无根因分析流程；同类问题重复出现</td>
+          </tr>
+          <tr style="background:#EBF4FF">
+            <td><b>数据安全</b><br>2.40分（最强域）</td>
+            <td style="font-size:12px;line-height:1.8">
+              「数据安全意识有，没有落地管控」（外部顾问）<br>
+              「权限管理粗，没有信息保密到字段级别的管控」<br>
+              「数据日志不健全，无法跟踪数据篡改的风险」<br>
+              「只有核心系统实现账号基础管理」（内部佛照）
+            </td>
+            <td>制度体系完善（ISO 27001对标，40份文件）但执行层有缺口；Greenfield需重新设计SAP权限（职责分离）</td>
+          </tr>
+          <tr style="background:#FDECEA">
+            <td><b>数据应用</b><br>1.91分（最弱域之一）</td>
+            <td style="font-size:12px;line-height:1.8">
+              「没有专业的数据挖掘和数据钻取工具软件」<br>
+              「跨部门的数据获取难」<br>
+              「数据化改革只是宣传，没有作为一个项目去落实」<br>
+              「SAP、PLM、MES、海外系统数据未打通，跨领域联合分析依赖手工导出拼接，BI工具老旧，虽有但应用层级很低」
+            </td>
+            <td>数据应用停留在手工报表层；SmartBI/BIP使用率低；无数据服务创新场景</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 与 S/4HANA 的关联 -->
+    <div class="sec">
+      <div class="sec-title">8.3 DCMM 评估与 S/4HANA 实施的对应关系</div>
+      <table>
+        <thead><tr><th>DCMM 弱项</th><th>DCMM得分</th><th>S/4HANA 对应模块/举措</th><th>优先级</th></tr></thead>
+        <tbody>
+          <tr style="background:#FDECEA">
+            <td><b>5.5 数据标准管控</b>（最低 1.79）</td>
+            <td style="color:#C62828"><b>1.79</b></td>
+            <td>MDG 主数据治理平台——强制校验物料/客商编码规则，系统层面杜绝不合规数据入库</td>
+            <td><span class="badge p0">P0 上线必须</span></td>
+          </tr>
+          <tr style="background:#FDECEA">
+            <td><b>4.1 数据资产管理</b>（1.84）</td>
+            <td style="color:#C62828"><b>1.84</b></td>
+            <td>MDG 数据资产目录 + 数据 Owner 机制（物料：研究院/数智化部；客商：销售部门；财务：财务部）</td>
+            <td><span class="badge p0">P0 上线必须</span></td>
+          </tr>
+          <tr style="background:#FDECEA">
+            <td><b>8.1 数据分析</b>（1.84）</td>
+            <td style="color:#C62828"><b>1.84</b></td>
+            <td>S/4HANA 内嵌分析（Embedded Analytics）+ SAC（二期引入，替换 SmartBI/BIP）</td>
+            <td><span class="badge p1">P1 上线后6个月</span></td>
+          </tr>
+          <tr style="background:#FDECEA">
+            <td><b>2.1 数据治理组织</b>（1.89）</td>
+            <td style="color:#C62828"><b>1.89</b></td>
+            <td>设立数字化推进办公室（DPO），招募数据治理专员×2，抽调业务Champion≥6人</td>
+            <td><span class="badge p0">P0 立即行动</span></td>
+          </tr>
+          <tr style="background:#FDECEA">
+            <td><b>3.4 元数据管理</b>（1.89）</td>
+            <td style="color:#C62828"><b>1.89</b></td>
+            <td>MDG + S/4HANA 元数据仓库，建立统一数据字典，覆盖 SAP/PLM/MES 全系统字段定义</td>
+            <td><span class="badge p1">P1 蓝图阶段</span></td>
+          </tr>
+          <tr style="background:#EBF4FF">
+            <td><b>7.x 数据安全</b>（最高 2.40）</td>
+            <td style="color:#2D5BD8"><b>2.40</b></td>
+            <td>Greenfield 实施中按职责分离（SoD）原则重新设计 SAP 角色权限；更新应急预案覆盖 PCE 云场景</td>
+            <td><span class="badge med">P2 实施阶段</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="box finding" style="margin-top:14px">
+        <p><b>DCMM 评估与本报告第四章的交叉验证：</b>第四章基于 SAP 真实导出数据发现的问题（3,542条物料100%缺关键字段、BOM 12%问题行、工艺路线 44%无描述）在 DCMM 维度得到了量化确认——数据标准管控（5.5=1.79）和数据资产管理（4.1=1.84）恰好是最低的两个能力项。<b>两个独立维度的结论高度吻合，相互印证。</b></p>
+      </div>
+    </div>
+
   </div>
 </div>
 
