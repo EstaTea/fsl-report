@@ -350,9 +350,11 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
     <div class="sb-ch">现状诊断</div>
     <a href="#quantify">一、数据现状量化诊断</a>
     <a href="#quantify" class="sub">覆盖率基线 · DCMM评分 · 对标</a>
+    <a href="#material-pain">1+ 物料四大痛点 &amp; 编码方案</a>
+    <a href="#material-pain" class="sub">879,558条 · 方案C · 12位新规</a>
     <a href="#audit">二、物料主数据深度审计</a>
-    <a href="#audit" class="sub">3,542条 · 五大缺失 · UoM混用</a>
-    <a href="#audit" class="sub">产品分类 · 编码规则</a>
+    <a href="#audit" class="sub">879,558条 · 四大痛点 · 编码方案C</a>
+    <a href="#audit" class="sub">五大缺失字段 · UoM混用</a>
     <a href="#bom-routing">三、BOM与工艺路线审计</a>
     <a href="#bom-routing" class="sub">BOM 83行 · 问题行分析</a>
     <a href="#bom-routing" class="sub">工艺路线19条逐行标注</a>
@@ -371,7 +373,7 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
     <a href="#risk">八、风险管理 &amp; 应急预案</a>
     <a href="#risk" class="sub">16项风险矩阵 · Cut-over预案</a>
     <a href="#longterm">九、长期能力建设 &amp; ROI</a>
-    <a href="#longterm" class="sub">ROI 179% · AI路线图</a>
+    <a href="#longterm" class="sub">ROI 179% · AI路线图 · 正式KPI</a>
     <a href="#decision">十、给决策层的建议</a>
     <div class="sb-ch">数据治理三部曲</div>
     <a href="/fsl-report/consulting/blueprint/data-survey-v2.html">★4 数据调研分析报告 V2</a>
@@ -404,12 +406,12 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
     <div class="cover-meta-item"><div class="lbl">最终验收</div><div class="val">吴梓填（数智化部）/ 李泽华（签收代表）</div></div>
   </div>
   <div class="cover-kpi">
-    <div class="kpi-box"><div class="num">4.6万</div><div class="desc">报告字数</div></div>
-    <div class="kpi-box"><div class="num">3,542</div><div class="desc">物料主数据条数</div></div>
-    <div class="kpi-box"><div class="num">~32%</div><div class="desc">综合数据治理基线</div></div>
-    <div class="kpi-box"><div class="num">75-220万</div><div class="desc">年度业务损失估算（元）</div></div>
-    <div class="kpi-box"><div class="num">179%</div><div class="desc">3年治理ROI</div></div>
-    <div class="kpi-box"><div class="num">2.06</div><div class="desc">DCMM实测L2<br><span style="font-size:9px;opacity:.8">19人问卷，综合得分</span></div></div>
+    <div class="kpi-box"><div class="num">879,558</div><div class="desc">物料主数据总量</div></div>
+    <div class="kpi-box"><div class="num">400,532</div><div class="desc">活跃有效物料数</div></div>
+    <div class="kpi-box"><div class="num">55分/100</div><div class="desc">物料主数据质量评分</div></div>
+    <div class="kpi-box"><div class="num">4,358,018</div><div class="desc">BOM明细条数</div></div>
+    <div class="kpi-box"><div class="num">2个停用</div><div class="desc">利润中心实际使用数/P0</div></div>
+    <div class="kpi-box"><div class="num">L2→L3</div><div class="desc">DCMM当前→目标</div></div>
   </div>
 </section>
 
@@ -434,7 +436,7 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
       <table>
         <thead><tr><th>数据类别</th><th>文件名称</th><th>数据规模</th><th>版本时效</th><th>完整性</th></tr></thead>
         <tbody>
-          <tr><td>物料主数据</td><td>物料主数据基本视图.xls</td><td>3,542条 × 31字段</td><td>2026年6月导出</td><td><span class="badge g">✅ 完整（FZ05全量）</span></td></tr>
+          <tr><td>物料主数据</td><td>物料主数据基本视图.xls + SAP QAS全量导出</td><td>879,558条（有效400,532条，停用/无效479,026条）</td><td>2026年6月导出（SAP QAS）</td><td><span class="badge g">✅ 完整（全量含所有法人）</span></td></tr>
           <tr><td>产品分类体系</td><td>产品分类表（2025版）.xlsx</td><td>186行 × 3层分类</td><td>2025年最新版</td><td><span class="badge g">✅ 最新版</span></td></tr>
           <tr><td>物料编码规则</td><td>FSL物料编码规则总表20220801.xlsx</td><td>1,571条分类规则</td><td>2022年8月版</td><td><span class="badge a">⚠️ 4年未更新</span></td></tr>
           <tr><td>BOM清单</td><td>BOM清单.xls</td><td>83行（仅1个BOM样本）</td><td>2025年2月创建</td><td><span class="badge r">❌ 严重不完整（全量约2,000+）</span></td></tr>
@@ -468,6 +470,24 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
         <b>v2.0 更新说明（2026-08-02）：</b>新增三条结论（C11/C12/C13），来源于第二轮 27 部门 876 条调研需求及高管访谈（总经理张学权：制造改善 + 销售勾稽 + 现金流精细）。DCMM 成熟度由 v1.0 中估算的 L1 修正为实测 L2（综合 2.06分）。侧边栏关联交付物已更新为 V2 版本链接。
       </div>
     </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-table"></i> 真实数据规模与质量评分（基于 SAP QAS 全量导出）</div>
+      <table>
+        <thead><tr><th>主数据对象</th><th>总记录数</th><th>有效记录数</th><th>质量评分（/100）</th><th>质量等级</th></tr></thead>
+        <tbody>
+          <tr><td><b>物料主数据</b></td><td>879,558</td><td>400,532（45.5%）</td><td><span class="badge r">55</span></td><td><span class="badge r">较差</span></td></tr>
+          <tr><td><b>BOM 主数据</b></td><td>612,026 表头 / 4,358,018 明细</td><td>576,570 表头</td><td><span class="badge r">50</span></td><td><span class="badge r">较差</span></td></tr>
+          <tr><td><b>工艺路线</b></td><td>仅1产品族（面板灯）完整</td><td>极少</td><td><span class="badge r">50</span></td><td><span class="badge r">较差</span></td></tr>
+          <tr><td><b>客户主数据</b></td><td>23,981</td><td>23,737</td><td><span class="badge a">65</span></td><td><span class="badge a">一般</span></td></tr>
+          <tr><td><b>供应商主数据</b></td><td>10,039</td><td>9,981</td><td><span class="badge a">65</span></td><td><span class="badge a">一般</span></td></tr>
+          <tr><td><b>财务主数据（科目/成本中心）</b></td><td>17,741 科目 / 2,872 成本中心</td><td>17,681 科目 / 2,217 成本中心</td><td><span class="badge b">75</span></td><td><span class="badge b">中等</span></td></tr>
+          <tr style="background:#FDECEA"><td><b>利润中心</b></td><td>2 个定义</td><td style="color:#C0392B;font-weight:700">0 个实际使用（100% 停用）</td><td><span class="badge r">—</span></td><td><span class="badge r">P0级缺失</span></td></tr>
+        </tbody>
+      </table>
+      <div class="box finding">
+        <p><strong>利润中心缺失：P0 级最严重管理数据风险</strong><br>
+        利润中心全部停用（2个定义，0个实际使用）是报告中最严重的管理数据缺失——这是集团合并报表必须手工处理、事业部经营分析无法实现的根本原因。S/4HANA实施必须将利润中心启用列为P0优先级，先于BOM清洗。</p>
+      </div>
   </div>
 </div>
 <!-- ═══ CH1 QUANTIFY ═══ -->
@@ -475,12 +495,12 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
   <div class="ch-header"><div class="ch-num">1</div><h2>数据现状量化诊断</h2></div>
   <div class="ch-body">
     <div class="sec">
-      <div class="sec-title"><i class="fas fa-chart-bar"></i> 1.1 主数据治理基线（综合覆盖率约32%）</div>
-      <p>通过对7类主数据文件的全量分析，从<strong>完整性、准确性、及时性、一致性</strong>四个维度建立数据质量基线：</p>
+      <div class="sec-title"><i class="fas fa-chart-bar"></i> 1.1 主数据治理基线（全量 SAP QAS 数据，综合质量评分约 55/100）</div>
+      <p>通过对 SAP QAS 全量主数据及7类补充文件的系统分析，从<strong>完整性、准确性、及时性、一致性</strong>四个维度建立数据质量基线。物料主数据总量 <strong>879,558 条</strong>，其中活跃有效物料 <strong>400,532 条（45.5%）</strong>，停用/无效 479,026 条（54.5%）：</p>
       <table>
         <thead><tr><th>主数据域</th><th>完整性</th><th>准确性</th><th>及时性</th><th>一致性</th><th>综合评级</th><th>核心短板</th></tr></thead>
         <tbody>
-          <tr><td><b>物料主数据</b></td><td><span class="badge r">15%</span></td><td><span class="badge r">30%</span></td><td><span class="badge a">60%</span></td><td><span class="badge r">25%</span></td><td><span class="badge r">极差</span></td><td>5大关键字段~100%缺失；UoM 11种混用</td></tr>
+          <tr><td><b>物料主数据</b></td><td><span class="badge r">15%</span></td><td><span class="badge r">30%</span></td><td><span class="badge a">60%</span></td><td><span class="badge r">25%</span></td><td><span class="badge r">较差</span></td><td>879,558条总量，45.5%有效；5大关键字段~100%缺失；UoM 11种混用</td></tr>
           <tr><td><b>BOM</b></td><td><span class="badge r">15-30%</span></td><td><span class="badge r">50%</span></td><td><span class="badge a">55%</span></td><td><span class="badge r">20%</span></td><td><span class="badge r">极差</span></td><td>覆盖率<30%；研产混用；12%问题行</td></tr>
           <tr><td><b>工艺路线</b></td><td><span class="badge r">4.6%</span></td><td><span class="badge r">40%</span></td><td><span class="badge a">60%</span></td><td><span class="badge r">15%</span></td><td><span class="badge r">极差</span></td><td>仅面板灯；44%无描述；39%零工时</td></tr>
           <tr><td>工作中心</td><td><span class="badge a">70%</span></td><td><span class="badge a">65%</span></td><td><span class="badge a">70%</span></td><td><span class="badge a">60%</span></td><td><span class="badge a">较差</span></td><td>WK19006无描述；外协工序未配置</td></tr>
@@ -824,9 +844,54 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
     </div>
   </div>
 </div>
+<!-- ═══ CH1B MATERIAL PAIN POINTS ═══ -->
+<div class="chapter" id="material-pain">
+  <div class="ch-header"><div class="ch-num" style="background:rgba(255,255,255,.2)">1+</div><h2>物料主数据：879,558条中的四大痛点</h2></div>
+  <div class="ch-body">
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-exclamation-circle"></i> 四大系统性痛点</div>
+      <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:10px">
+        <li style="background:#FFF5F5;border-left:4px solid #C0392B;border-radius:0 8px 8px 0;padding:12px 16px">
+          <strong style="color:#C0392B;font-size:13px">痛点一：一物多码</strong><br>
+          <span style="font-size:12.5px;color:var(--text2)">研发/生产/采购各自编码体系，同一物料 2-3 个编码共存，导致 MRP 无法去重合并需求，库存数据碎片化，跨部门沟通混乱。</span>
+        </li>
+        <li style="background:#FFFBEB;border-left:4px solid #E67E22;border-radius:0 8px 8px 0;padding:12px 16px">
+          <strong style="color:#E67E22;font-size:13px">痛点二：编码规则碎片化</strong><br>
+          <span style="font-size:12.5px;color:var(--text2)">2019/2020/2022 三套编码版本并行，半成品12位 / 成品17位 / 包装物12位各不统一，新老规则交叉，导致系统无法按规则校验，批量清洗工作量极大。</span>
+        </li>
+        <li style="background:#EBF4FF;border-left:4px solid var(--primary);border-radius:0 8px 8px 0;padding:12px 16px">
+          <strong style="color:var(--primary);font-size:13px">痛点三：语义过载（编码膨胀）</strong><br>
+          <span style="font-size:12.5px;color:var(--text2)">品牌/色温/灯头等易变属性嵌入编码，每次属性变化需申请新编码，造成编码持续膨胀。879,558 条中大量为属性微调产生的近似重复物料。</span>
+        </li>
+        <li style="background:#FDECEA;border-left:4px solid #C0392B;border-radius:0 8px 8px 0;padding:12px 16px">
+          <strong style="color:#C0392B;font-size:13px">痛点四：停用数据包袱沉重</strong><br>
+          <span style="font-size:12.5px;color:var(--text2)">879,558 条中 <strong>479,026 条（54%）</strong> 标记停用/无效，但不可简单删除——需基于<em>库存余额 / 未清采购单据 / BOM 引用 / 售后服务义务</em>分类处理。盲目迁移或删除均会引发业务数据断裂。</span>
+        </li>
+      </ul>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-check-circle"></i> 解决方向（7.29 编码研讨会确认 · 方案C）</div>
+      <div class="box green">
+        <p><strong>采用方案C（折中方案 / 新老划断）</strong><br>
+        新物料自 2027 年起采用 <strong>12位统一新规则</strong>：<br>
+        <code style="background:var(--bg);padding:2px 6px;border-radius:4px;font-family:'Courier New',monospace;font-size:12px">物料大类1位 + 一级分类2位 + 二级分类2位 + 预留2位 + 流水号5位 = 12位</code><br><br>
+        旧编码完整保留并建立历史映射表（旧料号 ↔ 新料号），通过 <strong>SAP MDG（主数据治理）</strong> 统一管控，彻底杜绝多口创建问题。存量879,558条物料不强制重新编码，通过映射关系在系统内透明关联。</p>
+      </div>
+      <table style="margin-top:12px">
+        <thead><tr><th>方案对比</th><th>方案A（全部重新编码）</th><th>方案B（保留现有）</th><th style="background:var(--primary)">方案C（折中/新老划断）✓选定</th></tr></thead>
+        <tbody>
+          <tr><td>对存量物料影响</td><td><span class="badge r">影响极大，全部变更</span></td><td><span class="badge g">无影响</span></td><td><span class="badge g">无影响（旧码保留）</span></td></tr>
+          <tr><td>对新物料管控</td><td><span class="badge g">统一规范</span></td><td><span class="badge r">延续旧问题</span></td><td><span class="badge g">统一新规范（12位）</span></td></tr>
+          <tr><td>实施难度</td><td><span class="badge r">极高（全系统变更）</span></td><td><span class="badge g">无</span></td><td><span class="badge a">中（仅新物料执行新规则）</span></td></tr>
+          <tr><td>MDG 依赖</td><td><span class="badge r">必须同步</span></td><td><span class="badge a">建议</span></td><td><span class="badge a">建议（确保新规则落地）</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 <!-- ═══ CH2 MATERIAL AUDIT ═══ -->
 <div class="chapter" id="audit">
-  <div class="ch-header"><div class="ch-num">2</div><h2>物料主数据深度审计（3,542条全量）</h2></div>
+  <div class="ch-header"><div class="ch-num">2</div><h2>物料主数据深度审计（879,558条全量 · 有效400,532条）</h2></div>
   <div class="ch-body">
     <div class="sec">
       <div class="sec-title"><i class="fas fa-box"></i> 2.1 物料类型分布与质量分析</div>
@@ -1626,6 +1691,25 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
           <tr><td>DCMM 2级认证</td><td>申请数据管理能力成熟度国家标准2级认证，由认证机构评审</td><td>2028年</td><td>约20-40万元（认证+辅导）</td></tr>
         </tbody>
       </table>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-trophy"></i> 9.5 正式 KPI 指标体系（数据规划方案 V2.1 · 2026-08-02 更新）</div>
+      <p>以下为经项目组审核确认的正式数据治理 KPI 指标，作为 S/4HANA 迁移验收与长期运营的量化承诺基准：</p>
+      <table>
+        <thead><tr><th>KPI 指标</th><th>基线值</th><th>目标值</th><th>来源依据</th></tr></thead>
+        <tbody>
+          <tr><td><b>物料数据准确率</b></td><td><span class="badge r">估算 &lt;70%</span></td><td><span class="badge g">≥ 98%</span></td><td>数据规划方案 V2.1</td></tr>
+          <tr><td><b>物料必填字段完整率</b></td><td><span class="badge r">~100% 关键字段缺失</span></td><td><span class="badge g">100%</span></td><td>上线硬性门槛（Go/No-Go）</td></tr>
+          <tr><td><b>客户/供应商税号完整率</b></td><td><span class="badge a">未统计</span></td><td><span class="badge g">≥ 99%</span></td><td>Business Partner 转换准则</td></tr>
+          <tr><td><b>"一物多码"问题解决率</b></td><td><span class="badge r">普遍存在</span></td><td><span class="badge g">≥ 95%</span></td><td>MDG 去重规则</td></tr>
+          <tr><td><b>BOM 数据完整率</b></td><td><span class="badge r">大量缺生效日期和变更号</span></td><td><span class="badge g">≥ 95%</span></td><td>迁移质量标准</td></tr>
+          <tr><td><b>数据质量工单响应及时率</b></td><td><span class="badge r">无机制</span></td><td><span class="badge g">≥ 90%</span></td><td>MDM 运营标准</td></tr>
+          <tr><td><b>MDM 平台数据同步及时率</b></td><td><span class="badge r">无 MDM 平台</span></td><td><span class="badge g">≥ 99%</span></td><td>技术标准</td></tr>
+          <tr><td><b>S/4HANA 迁移一次成功率</b></td><td>—</td><td><span class="badge g">≥ 98%</span></td><td>迁移验收标准</td></tr>
+          <tr><td><b>财务结账周期</b></td><td><span class="badge a">15 个工作日</span></td><td><span class="badge g">≤ 8 个工作日</span></td><td>4.2 规划方案</td></tr>
+        </tbody>
+      </table>
+      <div class="box principle"><p>以上 KPI 将纳入年度数据治理 Review 机制，由 MDM 办公室每季度统计并向数据治理委员会汇报。S/4HANA 迁移完成后 6 个月内，须出具 KPI 首次达标情况报告。</p></div>
     </div>
   </div>
 </div>

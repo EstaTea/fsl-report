@@ -359,6 +359,8 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
     <a href="#diag-ba" class="sub">高明公司 · 燎旺 · IT建设</a>
     <a href="#diag-da">四、数据+技术架构（DA/TA）诊断</a>
     <a href="#diag-da" class="sub">主数据权责真空 · IT人力缺口</a>
+    <a href="#data-gov-org">2.5 数据治理组织设计</a>
+    <a href="#data-gov-org" class="sub">四层架构 · 六类主数据Owner · 7.24确认</a>
     <div class="sb-ch">第三部分：深度分析</div>
     <a href="#problems">五、五大核心组织问题</a>
     <a href="#problems" class="sub">定位模糊 · 人力不足 · 流程缺位</a>
@@ -408,8 +410,8 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
   <div class="cover-kpi">
     <div class="kpi-box"><div class="num">268</div><div class="desc">组织节点数</div></div>
     <div class="kpi-box"><div class="num">3,570</div><div class="desc">集团员工总数</div></div>
-    <div class="kpi-box"><div class="num">22人</div><div class="desc">IT人员实际数<br><span style="font-size:9px;opacity:.8">含7名SAP顾问</span></div></div>
-    <div class="kpi-box"><div class="num">5倍</div><div class="desc">IT人力缺口比</div></div>
+    <div class="kpi-box"><div class="num">17人（实有）</div><div class="desc">数智化部实有人员（2026-06-24）</div></div>
+    <div class="kpi-box"><div class="num">1:364</div><div class="desc">IT员工比（行业均值1:50）</div></div>
     <div class="kpi-box"><div class="num">490万</div><div class="desc">历史失败损失（元）</div></div>
     <div class="kpi-box"><div class="num">21人</div><div class="desc">联络员体系规模</div></div>
   </div>
@@ -425,6 +427,18 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
         <div class="prio-card p1"><div class="pl">主张二</div><div class="pt">S/4HANA上线后IT组织需要扩张，而非维持现状</div><ul class="pi"><li><b>v2.0修正：</b>当前实际 IT 人员 22 人（含7名SAP专职顾问），而非 v1.0 中的 16 人；但 1:545 的 IT 员工比仍远低于制造业均值 1:50，缺口 3–7 倍</li><li>S/4HANA后系统复杂度大幅提升（19法人·10模块·12套集成）</li></ul></div>
         <div class="prio-card p1"><div class="pl">主张三</div><div class="pt">数字化转型本质是业务变革，IT只能是推动者</div><ul class="pi"><li>李泽华副总（2026-06-23）：<em>"数字化不是说IT部门往前推就可以完事的，他们必须要来做改变。"</em></li><li>数字化保障组织必须是横跨IT和业务的联合体</li></ul></div>
         <div class="prio-card p2" style="border-top-color:#1B3A6B"><div class="pl" style="color:#1B3A6B">v2.0 新增</div><div class="pt">新业务拓展中心需要纳入数字化保障组织体系（v2.0新增）</div><ul class="pi"><li>新业务拓展中心（适老/植物/养殖照明）成立超1年，全部用 OA+行政命令驱动，无标准化信息化流程，与SAP完全隔离</li><li>总经理明确要求：制造改善 + 销售勾稽 + 现金流精细，新业务中心需在"数据统一优先"原则下接入 S/4HANA 标准流程</li><li>建议：新业务拓展中心需配置专职数字化 Champion（1人），纳入数字化推进办公室（DPO）的统一协调体系</li></ul></div>
+      </div>
+      <div class="box action" style="background:#EBF4FF;border-color:var(--navy);margin-top:14px">
+        <div style="font-weight:700;color:var(--navy);font-size:12px;margin-bottom:6px">📋 2026.7.21 总经理张学权访谈核心决策（4项正式决策）</div>
+        <ol style="margin:0;padding-left:18px;font-size:13px;color:var(--text2);line-height:1.9">
+          <li>物料数据治理为项目核心任务，<strong>不得延后至上线后</strong></li>
+          <li><strong>成立跨部门数据治理委员会（数据治理办公室）</strong>，配套MDG工具，长期管控主数据</li>
+          <li>每个业务部门仅配1名专职关键用户，保障<strong>50%以上时间</strong>投入项目</li>
+          <li>遵循"抓大放小"原则，边缘问题延后迭代</li>
+        </ol>
+      </div>
+      <div class="box finding" style="margin-top:10px">
+        <p>2026.7.24 数据治理组织建设研讨会确认内容：本次研讨会完成了数据治理组织架构的核心设计，确定了四层架构，并明确了六类主数据的Owner归口。这是S/4HANA成功实施的组织保障基础。</p>
       </div>
       <div style="background:#EBF4FF;border-left:4px solid #1B3A6B;border-radius:0 6px 6px 0;padding:10px 14px;margin-top:10px;font-size:12.5px">
         <b>v2.0 更新说明（2026-08-02）：</b>主张二中 IT 人力数据修正（16人→22人，含7名SAP顾问）；新增主张四：新业务拓展中心数字化保障需求。本版同步补充第二轮 DCMM 实测结果（综合 2.06/L2）对组织成熟度的量化验证，以及领星ERP游离系统对 IT 组织架构的影响分析。
@@ -1031,6 +1045,77 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
     <div style="flex:1;min-width:140px;background:var(--bg);border-radius:6px;padding:8px 12px;font-size:12px;text-align:center"><div style="font-weight:800;color:var(--dark);font-size:18px">2026-08</div><div style="color:var(--muted)">P1岗位需在此日期前完成招募或到位</div></div>
   </div>
 </div>
+  </div>
+</div>
+<div class="chapter" id="data-gov-org">
+  <div class="ch-header"><div class="ch-num">2.5</div><h2>数据治理组织设计（2026.7.24研讨会确认）</h2></div>
+  <div class="ch-body">
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-sitemap"></i> 四层数据治理组织架构</div>
+      <table>
+        <thead>
+          <tr><th>层级</th><th>角色</th><th>建议归口</th><th>核心职责</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>决策层</strong></td>
+            <td>数据治理委员会</td>
+            <td>公司分管领导任主任，各业务中心/事业部/财务/供应链/研发/制造/数智化负责人</td>
+            <td>审批数据治理战略/政策；裁决跨部门数据争议；每季度审议数据质量报告</td>
+          </tr>
+          <tr>
+            <td><strong>管理层</strong></td>
+            <td>数据管理办公室（DMO）</td>
+            <td>挂靠数智化部，专职数据治理负责人1名+数据治理专员2-3名（可初期兼职后期专职）</td>
+            <td>制定/修订主数据标准/编码规则；每月编制数据质量报告；负责MDM平台业务需求管理</td>
+          </tr>
+          <tr>
+            <td><strong>执行层</strong></td>
+            <td>数据Owner + 数据Steward</td>
+            <td>各业务归口部门负责人（Owner）+ 专职/兼职业务人员（Steward，各部门1-2名）</td>
+            <td>业务归口，主数据审核与维护，异常整改跟踪</td>
+          </tr>
+          <tr>
+            <td><strong>技术层</strong></td>
+            <td>IT技术支撑团队</td>
+            <td>数智化部及各系统应用团队</td>
+            <td>MDM平台技术运营，接口监控，权限管理</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-database"></i> 六类主数据 Owner 职责分配</div>
+      <table>
+        <thead>
+          <tr><th>主数据类型</th><th>归口部门</th><th>Data Owner</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>物料主数据</td><td>研究院/产品及方案中心</td><td>研究院院长/产品及方案中心总监</td></tr>
+          <tr><td>BOM与工艺路线</td><td>研究院（EBOM）+工艺部门（PBOM/MBOM）</td><td>研究院院长+生产运营管理中心总监</td></tr>
+          <tr><td>客户主数据</td><td>营销中心</td><td>销售中心总监</td></tr>
+          <tr><td>供应商主数据</td><td>采购中心/供应链管理中心</td><td>供应链管理中心总监</td></tr>
+          <tr><td>财务主数据</td><td>财务共享中心</td><td>财务中心总监</td></tr>
+          <tr><td>组织主数据</td><td>企管部/人力资源部</td><td>企管部总监/人力资源总监</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-cogs"></i> 三大关键机制</div>
+      <div class="box principle">
+        <p><strong>1. 争议裁决机制：</strong>跨部门争议先由DMO协商，协商不成提交治理委员会裁决</p>
+        <p><strong>2. 紧急变更机制：</strong>生产/结算紧急场景可临时放行，但须设定到期时间（不超过5个工作日）并事后复核</p>
+        <p><strong>3. 问题工单机制：</strong>所有数据质量问题通过工单流转，须包含对象/问题/影响/责任人/优先级/根因/整改/复核证据</p>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-compass"></i> 设计原则</div>
+      <div class="box vision">
+        <p><strong>业务主导：</strong>数据Owner必须是业务部门而非IT部门</p>
+        <p><strong>权责对等：</strong>赋予审核/冻结/废止权限的同时承担质量责任</p>
+        <p><strong>分层管理：</strong>决策层定方向、管理层定标准、执行层抓落实</p>
+      </div>
+    </div>
   </div>
 </div>
 <div class="chapter" id="ch3">
@@ -2280,7 +2365,10 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
 <tr><td>预算</td><td>约15-25万（7个月合同制）</td></tr>
 </tbody></table>
 <div class="sec-sub">7.2.2 Super User体系建设计划</div>
-<p style="margin-bottom:9px;color:var(--text2)">SAP Super User（关键用户/超级用户）体系是SAP上线成功的关键保障机制。Super User是分布在各业务部门的SAP"种子用户"，既接受SAP顾问团队的深度培训，又负责培训本部门的普通用户，并在上线后提供一线支持。</p>
+      <div class="box amber" style="margin-bottom:14px">
+        <p><strong>根据2026.7.21总经理张学权正式决策：</strong>每个业务部门仅配1名专职关键用户，保障<strong>50%以上工作时间</strong>投入项目（含需求确认、蓝图讨论、测试、数据清洗、培训）。这是2023年APS失败教训的直接回应——历史失败的根因之一即业务资源投入严重不足。</p>
+      </div>
+      <p style="margin-bottom:9px;color:var(--text2)">SAP Super User（关键用户/超级用户）体系是SAP上线成功的关键保障机制。Super User是分布在各业务部门的SAP"种子用户"，既接受SAP顾问团队的深度培训，又负责培训本部门的普通用户，并在上线后提供一线支持。</p>
 <p style="margin-bottom:9px;color:var(--text2)"><strong>Super User培训计划（2026年10月-12月）：</strong></p>
 <table>
 <thead>

@@ -271,7 +271,7 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
     <a href="#aa" class="sub">系统数据孤岛</a>
     <div class="sb-ch">深度案例分析</div>
     <a href="#material">四、物料主数据</a>
-    <a href="#material" class="sub">3,542条记录剖析</a>
+    <a href="#material" class="sub">879,558条规模剖析</a>
     <a href="#bom">五、BOM 案例</a>
     <a href="#bom" class="sub">83行中的风险</a>
     <a href="#routing">六、工艺路线</a>
@@ -312,12 +312,14 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
     <div class="cover-meta-item"><div class="lbl">甲方验收</div><div class="val">吴梓填（数智化部）</div></div>
   </div>
   <div class="cover-kpi">
-    <div class="kpi-box"><div class="num">3,542</div><div class="desc">物料主数据条数</div></div>
-    <div class="kpi-box"><div class="num">~100%</div><div class="desc">关键字段缺失率</div></div>
-    <div class="kpi-box"><div class="num">12%</div><div class="desc">BOM问题行比例</div></div>
-    <div class="kpi-box"><div class="num">44%</div><div class="desc">工序描述缺失率</div></div>
+    <div class="kpi-box"><div class="num">879,558</div><div class="desc">物料主数据总量</div></div>
+    <div class="kpi-box"><div class="num">400,532</div><div class="desc">活跃有效物料条数</div></div>
+    <div class="kpi-box"><div class="num">54%</div><div class="desc">停用/冗余物料占比</div></div>
+    <div class="kpi-box"><div class="num">612,026</div><div class="desc">BOM表头条数</div></div>
     <div class="kpi-box"><div class="num">2.06</div><div class="desc">DCMM实测综合得分<br><span style="font-size:9px;opacity:.8">L2 受管理级（19人问卷）</span></div></div>
-    <div class="kpi-box"><div class="num">89%</div><div class="desc">法人数据孤岛率</div></div>
+    <div class="kpi-box"><div class="num" style="font-size:16px">L2→L3</div><div class="desc">DCMM当前→目标</div></div>
+    <div class="kpi-box"><div class="num">2个停用</div><div class="desc">利润中心（P0级问题）</div></div>
+    <div class="kpi-box"><div class="num">689</div><div class="desc">最新需求总量</div></div>
   </div>
 </section>
 
@@ -353,6 +355,28 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
           <tr style="background:#EBF4FF"><td><strong>F-08</strong></td><td><b>DCMM实测综合得分 2.06 / L2受管理级（v2.0新增）</b>——基于19人结构化问卷（艾维登×9 + 佛照各层级×10），8个能力域全量评估；最低项：5.5数据标准管控（1.79）；最高项：7.2数据安全管控（2.53）</td><td><span class="badge a">高</span></td><td>与本文件第四章主数据质量分析交叉验证：两个独立维度高度吻合——规则存在但不执行</td></tr>
         </tbody>
       </table>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-database"></i> 真实数据规模（基于 SAP QAS 最新备份）</div>
+      <table>
+        <thead><tr><th>主数据类型</th><th>总记录数</th><th>有效记录数</th><th>停用/无效</th></tr></thead>
+        <tbody>
+          <tr><td><strong>物料主数据</strong></td><td>879,558</td><td>400,532</td><td>479,026（54%）</td></tr>
+          <tr><td style="padding-left:20px">— 成品</td><td>307,968</td><td>87,631</td><td>220,337</td></tr>
+          <tr><td style="padding-left:20px">— 半成品</td><td>282,849</td><td>106,098</td><td>176,751</td></tr>
+          <tr><td style="padding-left:20px">— 原材料</td><td>135,181</td><td>77,826</td><td>57,355</td></tr>
+          <tr><td><strong>BOM 表头</strong></td><td>612,026</td><td>576,570</td><td>35,456（5.8%）</td></tr>
+          <tr><td><strong>BOM 明细</strong></td><td>4,358,018</td><td>4,358,018</td><td>0</td></tr>
+          <tr><td>客户主数据</td><td>23,981</td><td>23,737</td><td>244</td></tr>
+          <tr><td>供应商主数据</td><td>10,039</td><td>9,981</td><td>58</td></tr>
+          <tr><td>GL 科目</td><td>17,741</td><td>17,681</td><td>60</td></tr>
+          <tr><td>成本中心</td><td>2,872</td><td>2,217</td><td>655（23%）</td></tr>
+          <tr style="background:#FFF5F5"><td><strong>利润中心</strong></td><td>2</td><td>0</td><td><strong style="color:#C0392B">2个全部停用（P0级问题）</strong></td></tr>
+        </tbody>
+      </table>
+      <div class="box finding"><p>利润中心全部停用是集团管理分析的核心盲区——无法按事业部进行收入/成本的拆分统计，所有管理报表依赖手工Excel汇总，这是总经理提出"销售端勾稽关系"和"现金流精细管理"无法实现的数据根因。</p></div>
+    </div>
+    <div class="sec">
       <div style="background:#EBF4FF;border-left:4px solid #1B3A6B;border-radius:0 6px 6px 0;padding:10px 14px;margin-top:10px;font-size:12.5px">
         <b>v2.0 更新说明（2026-08-02）：</b>在 v1.0 基础上新增三条高风险发现（F-06/F-07/F-08），补充基于 876 条两轮调研需求（27部门）的治理优先级复审，更新 DCMM 成熟度评估结果（实测 2.06 分，较 v1.0 中估算的 1 级有所修正）。侧边栏关联交付物更新为 V2 版本链接。
       </div>
@@ -389,7 +413,7 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
         <div class="arch-row">
           <div class="arch-layer-label">DA 数据架构</div>
           <div class="arch-boxes">
-            <div class="arch-box"><div class="ab-title">物料主数据</div><div class="ab-sub">3,542条·多字段缺失</div></div>
+            <div class="arch-box"><div class="ab-title">物料主数据</div><div class="ab-sub">879,558条·停用率54%</div></div>
             <div class="arch-box"><div class="ab-title">BOM / 工艺路线</div><div class="ab-sub">结构性问题·覆盖不全</div></div>
             <div class="arch-box"><div class="ab-title">财务主数据</div><div class="ab-sub">无统一CoA</div></div>
             <div class="arch-box"><div class="ab-title">客商主数据</div><div class="ab-sub">重复·无统一标准</div></div>
@@ -900,6 +924,38 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
   <div class="ch-header"><div class="ch-num">10</div><h2>数据管理办法</h2></div>
   <div class="ch-body">
     <div class="sec">
+      <div class="sec-title"><i class="fas fa-gavel"></i> 管理层需优先决策的 10 项事项</div>
+      <table>
+        <thead><tr><th>#</th><th>决策事项</th><th>决策结论/建议</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>确认数据治理委员会牵头领导、DMO承接部门及专职岗位配置</td><td>数智化部或企管部承接，专职数据治理经理1名+专员2-3名</td></tr>
+          <tr><td>2</td><td>确认六类核心对象的业务Owner与数据Steward</td><td>见下表Owner分配矩阵</td></tr>
+          <tr><td>3</td><td>冻结目标组织模型：19家法人、分公司、工厂、事业部、利润中心的目标关系</td><td>须在蓝图启动前完成，利润中心缺失是P0障碍</td></tr>
+          <tr><td>4</td><td>确定"对象级权威源+属性级主责"架构</td><td>MDG为权威源；PLM负责EBOM；SAP负责MBOM；财务共享负责凭证</td></tr>
+          <tr><td>5</td><td>批准物料编码规则：新物料采用12位新规则（折中方案C），旧编码建立映射逐步淘汰</td><td>2026.7.29编码研讨会确认方案C为主流</td></tr>
+          <tr><td>6</td><td>批准EBOM-PBOM-MBOM版本、生效、变更与发布标准</td><td>PLM更新EBOM→MDG审批→SAP生产MBOM，禁止绕过MDG直接修改SAP</td></tr>
+          <tr><td>7</td><td>确认客户和供应商向Business Partner转换的合并、角色、税号、银行和状态治理原则</td><td>BP-R1（税号）优先，BP-R2（名称≥85%）辅助</td></tr>
+          <tr><td>8</td><td>批准历史数据迁移范围分类准则（A迁移启用/B迁移限制/C保留映射/D归档/E待确认）</td><td>FZ01+FZ13（占全集团物料79%）为首批主战场</td></tr>
+          <tr><td>9</td><td>将数据质量门槛、模拟迁移、对账和回退演练纳入S/4HANA项目里程碑</td><td>至少2-3轮模拟迁移；回退触发：错误率&gt;5%或核心流程无法运行</td></tr>
+          <tr><td>10</td><td>确定MDG、数据质量工具和集成平台的分阶段建设路径</td><td>MDG-M+MDG-C/S+MDG-F为P0；MDG-BOM为P1</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-users"></i> 六类主数据 Owner 职责分配</div>
+      <table>
+        <thead><tr><th>主数据类型</th><th>归口部门</th><th>Data Owner</th></tr></thead>
+        <tbody>
+          <tr><td>物料主数据</td><td>研究院/产品及方案中心</td><td>研究院院长/产品及方案中心总监</td></tr>
+          <tr><td>BOM与工艺路线</td><td>研究院（EBOM）+工艺部门（PBOM/MBOM）</td><td>研究院院长+生产运营管理中心总监</td></tr>
+          <tr><td>客户主数据</td><td>销售中心/营销管理部</td><td>销售中心总监</td></tr>
+          <tr><td>供应商主数据</td><td>供应链管理中心/采购部</td><td>供应链管理中心总监</td></tr>
+          <tr><td>财务主数据</td><td>财务中心</td><td>财务中心总监</td></tr>
+          <tr><td>组织主数据</td><td>人力资源部/企业管理部</td><td>人力资源总监/企管部总监</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sec">
       <div class="sec-title"><i class="fas fa-users-cog"></i> 10.1 数据治理组织架构</div>
       <div class="arch-diagram">
         <div style="text-align:center;margin-bottom:14px">
@@ -1019,6 +1075,33 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
         </div>
       </div>
     </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-tasks"></i> 11.3 清洗七个工作包（WP1-WP7）</div>
+      <table>
+        <thead><tr><th>工作包</th><th>核心内容</th><th>主战场</th></tr></thead>
+        <tbody>
+          <tr><td><strong>WP1 组织与财务</strong></td><td>目标组织字典、财务映射、迁移清单、模拟结账对账</td><td>全19家法人</td></tr>
+          <tr><td><strong>WP2 物料</strong></td><td>黄金物料、旧新映射、AML/MPN规则、异常清单</td><td>FZ01+FZ13（占79%）优先</td></tr>
+          <tr><td><strong>WP3 BOM</strong></td><td>可迁移BOM、版本映射、结构对账报告</td><td>612,026表头需分类处理</td></tr>
+          <tr><td><strong>WP4 工艺路线</strong></td><td>目标工艺数据、关联完整性报告、场景验证</td><td>MES独立维护须打通</td></tr>
+          <tr><td><strong>WP5 客商（客户+BP）</strong></td><td>客户黄金记录、BP映射、异常与豁免清单</td><td>23,981客户做去重</td></tr>
+          <tr><td><strong>WP6 供应商+BP</strong></td><td>供应商黄金记录、BP映射、合规复核证据</td><td>10,039供应商去重</td></tr>
+          <tr><td><strong>WP7 参考数据与映射</strong></td><td>代码集统一、映射台账、接口转换规则</td><td>领星SKU↔SAP物料号</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sec">
+      <div class="sec-title"><i class="fas fa-sort-amount-down"></i> 11.4 数据迁移严格依赖顺序</div>
+      <div class="flow">
+        <div class="flow-step navy">组织/参考数据</div><div class="flow-arrow">→</div>
+        <div class="flow-step active">财务结构<br><span style="font-size:9px;font-weight:400">科目/成本中心/利润中心/交易伙伴</span></div><div class="flow-arrow">→</div>
+        <div class="flow-step">BP/客商</div><div class="flow-arrow">→</div>
+        <div class="flow-step">物料</div><div class="flow-arrow">→</div>
+        <div class="flow-step">BOM/工艺路线</div><div class="flow-arrow">→</div>
+        <div class="flow-step green">业务数据<br><span style="font-size:9px;font-weight:400">库存/余额/未清订单</span></div>
+      </div>
+      <div class="box amber"><p><strong>回退触发条件：</strong>数据错误率超过5%；核心业务流程无法运行；切换时间窗口耗尽</p></div>
+    </div>
   </div>
 </div>
 
@@ -1055,6 +1138,9 @@ pre{background:var(--bg);border:1px solid var(--pale);border-radius:8px;padding:
         </div>
         <div class="risk-item">
           <div class="ri-code">R-D08</div><div class="rt-cell">历史4次失败项目导致业务部门对数据清洗工作冷漠抵制</div><td><span class="badge a">中</span></td><td><span class="badge a">中</span></td><td><span class="badge a">中</span></td><div class="rt-cell">变更管理专题推进；启动会强调数据治理是SAP成功的前提，非IT项目</div>
+        </div>
+        <div class="risk-item">
+          <div class="ri-code">R-D09</div><div class="rt-cell">物料主数据实际规模（879,558条）远超原始估计，其中479,026条（54%）停用/无效，清洗工作量及切换窗口需重新评估</div><td><span class="badge r">高</span></td><td><span class="badge r">高</span></td><td><span class="badge r">极高</span></td><div class="rt-cell">按WP2优先清洗FZ01+FZ13（占全集团79%）；采用分批迁移策略；回退触发线设定为错误率&gt;5%</div>
         </div>
       </div>
     </div>
