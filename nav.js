@@ -40,6 +40,7 @@
             <a href="/fsl-report/consulting/diagnosis/report-01.html">1. 现状诊断报告</a>
             <a href="/fsl-report/consulting/diagnosis/report-02.html" style="padding-left:28px;font-size:11.5px;opacity:.85">└ V2（2026-08）</a>
             <a href="/fsl-report/consulting/blueprint/ea-report.html">2. 企业架构设计报告</a>
+            <a href="/fsl-report/consulting/blueprint/ea-report-v2.html" style="padding-left:28px;font-size:11.5px;opacity:.85">└ V2（2026-08）</a>
             <a href="/fsl-report/consulting/solutions/">3. 专项方案设计报告</a>
             <a href="/fsl-report/consulting/solutions/s05-overseas-finance.html" style="padding-left:28px;font-size:11.5px;opacity:.85">└ S05 海外财务本地化体系建设</a>
             <a href="/fsl-report/consulting/blueprint/data-survey.html">4.1 数据调研分析报告</a>

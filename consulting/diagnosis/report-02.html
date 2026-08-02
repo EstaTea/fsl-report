@@ -417,7 +417,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.4);text-align:center;
   <h1>佛山照明企业现状诊断报告
     <span class="sub">业务 · 数字化 · 数据 · 系统  全景诊断 &nbsp;<span style="font-size:0.55em;background:var(--b700);color:#fff;padding:2px 10px;border-radius:12px;vertical-align:middle;letter-spacing:1px;">V2</span></span>
   </h1>
-  <p>基于两轮调研共 <strong>876 条需求</strong>（2025年第一轮 175 条 + 2026年第二轮 701 条，两轮独立收集，存在部分重叠）、18 场次业务访谈及高明/航信/泰国/沪乐四家子公司现场访谈，依据工信部《制造业企业数字化转型实施指南》框架，系统呈现佛山照明当前业务与信息化现状，识别核心痛点，开展行业标杆对比与数字化成熟度评估，提出转型愿景与关键目标。本版在 V1 基础上新增：IT 人力严重不足专项分析、电商与新业务系统盲区、车灯成本结算痛点、高管访谈深度洞察。</p>
+  <p>基于两轮调研共 <strong>689 条需求</strong>（A0001–A0689，截至2026年7月29日，覆盖29个业务部门）、18 场次业务访谈及高明/航信/泰国/沪乐四家子公司现场访谈，依据工信部《制造业企业数字化转型实施指南》框架，系统呈现佛山照明当前业务与信息化现状，识别核心痛点，开展行业标杆对比与数字化成熟度评估，提出转型愿景与关键目标。本版在 V1 基础上新增：IT 人力严重不足专项分析、电商与新业务系统盲区、车灯成本结算痛点、高管访谈深度洞察。</p>
   <div class="hero-stats">
     <div class="stat-card"><div class="num">876</div><div class="label">调研需求合计（两轮）</div></div>
     <div class="stat-card"><div class="num">18</div><div class="label">业务访谈场次</div></div>
@@ -436,10 +436,10 @@ footer{background:var(--b900);color:rgba(255,255,255,.4);text-align:center;
 <div class="callout info"><div class="callout-icon">📋</div><div>本报告是佛山照明业务诊断咨询项目第一阶段（现状分析与诊断）的核心交付物，对应招标文件★1★3关键指标要求，支撑后续EA架构设计、专项方案设计及实施路径规划。</div></div>
 
 <div class="kpi-strip">
-  <div class="kpi-box alert"><div class="kv">0.95%</div><div class="kl">扣非净利率（行业底部）</div></div>
+  <div class="kpi-box alert"><div class="kv">0.95%</div><div class="kl">扣非净利率（2025，2026Q1进一步恶化）</div></div>
   <div class="kpi-box alert"><div class="kv">109天</div><div class="kl">存货周转天数（欧普71天）</div></div>
-  <div class="kpi-box alert"><div class="kv">147天</div><div class="kl">应收账款周转天数（欧普37天）</div></div>
-  <div class="kpi-box warn"><div class="kv">17.6%</div><div class="kl">综合毛利率（欧普39.1%）</div></div>
+  <div class="kpi-box alert"><div class="kv">147天</div><div class="kl">应收账款周转天数（2026Q1恶化至92.4天，欧普37天）</div></div>
+  <div class="kpi-box warn"><div class="kv">15.7%</div><div class="kl">综合毛利率（2026Q1，欧普39.1%）</div></div>
   <div class="kpi-box warn"><div class="kv">20.8%</div><div class="kl">境外收入占比（无海外工厂）</div></div>
   <div class="kpi-box alert"><div class="kv">1:364</div><div class="kl">IT人员比（行业均值1:50）</div></div>
   <div class="kpi-box pos"><div class="kv">2900+</div><div class="kl">累计有效专利</div></div>
@@ -465,6 +465,9 @@ footer{background:var(--b900);color:rgba(255,255,255,.4);text-align:center;
       <li>泰国工厂已启动，当前ECC<strong>不支持泰国本位币记账</strong>及当地税制</li>
       <li><strong>IT人员严重不足：</strong>全集团仅22名IT人员（1:364），行业均值需80-120人，缺口约4倍</li>
       <li>电商/国际事业部独立运行领星ERP，物料编码与SAP冲突，形成数据孤岛</li>
+      <li><strong>经营净现金流2026Q1转负（-1.41亿）</strong>，应收账款21.73亿为净利润10.1倍，资金压力急剧上升</li>
+      <li>总需求<strong>689条（截至7.29，29个部门）</strong>，SAP S/4HANA可满足247条（45%），<strong>缺货率高达30%-40%</strong></li>
+      <li><strong>每月30万张发票仍需人工处理</strong>，MES/领星/PLM/SRM/聚水潭五大系统断点待解</li>
     </ul>
   </div>
   <div class="card">
@@ -484,13 +487,13 @@ footer{background:var(--b900);color:rgba(255,255,255,.4);text-align:center;
 <section id="s1">
 <h2>一、调研概况</h2>
 <h3>1.1 调研组织概述</h3>
-<p>本项目调研分<strong>两轮</strong>开展。<strong>第一轮</strong>（2025年10月27日—11月29日）：历时约5周，由SAP项目团队主导，共完成<strong>18场次业务访谈</strong>、<strong>2场次管理层沟通</strong>，佛照参与人员超过40人，收集 <strong>175 条</strong>结构化需求，覆盖总部核心业务部门及高明/航信/泰国/沪乐等主要子公司。<strong>第二轮</strong>（2026年）：调研范围扩展至 <strong>27 个部门</strong>，新增电商事业部、新业务拓展中心、董事办公室、审计部、法务部等，补充收集 <strong>701 条</strong>需求，两轮合计 <strong>876 条</strong>（存在部分跨轮重复提出的需求）。</p>
+<p>本项目调研分<strong>两轮</strong>开展。<strong>第一轮</strong>（2025年10月27日—11月29日）：历时约5周，由SAP项目团队主导，共完成<strong>18场次业务访谈</strong>、<strong>2场次管理层沟通</strong>，佛照参与人员超过40人，收集 <strong>175 条</strong>结构化需求，覆盖总部核心业务部门及高明/航信/泰国/沪乐等主要子公司。<strong>第二轮</strong>（2026年）：调研范围扩展至 <strong>29 个部门</strong>，新增电商事业部、新业务拓展中心、董事办公室、审计部、法务部等，合并整理后全量需求编号 <strong>A0001–A0689，共 689 条</strong>（截至2026年7月29日），高优先级 180 条（占32%），中优先级 216 条，SAP S/4HANA 可满足 247 条（45%）。</p>
 
-<div class="callout info"><div class="callout-icon">📊</div><div>V2 报告依据两轮全量需求进行痛点归纳与优先级排序，第二轮新增需求已对 V1 中的 IT 人力、电商系统、新业务、车灯成本等专项进行了大幅深化。</div></div>
+<div class="callout info"><div class="callout-icon">📊</div><div>V2 报告依据两轮全量需求（689条，截至7.29）进行痛点归纳与优先级排序，第二轮新增需求已对 V1 中的 IT 人力、电商系统、新业务、车灯成本等专项进行了大幅深化。市场营销与销售需求最多（133条），其次为供应链与采购（98条）、集团财务管控（55条）。</div></div>
 
 <div class="two-col">
   <div class="chart-card">
-    <div class="cc-title">调研需求分类分布（875条合计）</div>
+    <div class="cc-title">调研需求分类分布（689条合计，截至7.29）</div>
     <div class="chart-wrap"><canvas id="surveyTypeChart"></canvas></div>
     <p class="cc-source">系统升级类需求最多（约35%），反映现有ERP系统功能缺失是首要矛盾；数据优化类需求（约19%）揭示主数据治理亟待解决；第二轮新增管理提升类和新能力建设类需求占比明显上升。</p>
   </div>
@@ -501,7 +504,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.4);text-align:center;
   </div>
 </div>
 
-<h3>1.2 调研参与部门（两轮合计 27 个）</h3>
+<h3>1.2 调研参与部门（两轮合计 29 个）</h3>
 <div class="three-col">
   <div class="card">
     <h4>总部职能与研发</h4>
@@ -547,9 +550,9 @@ footer{background:var(--b900);color:rgba(255,255,255,.4);text-align:center;
 
 <div class="kpi-strip">
   <div class="kpi-box"><div class="kv">87.97亿</div><div class="kl">2025年营收（同比-2.78%）</div></div>
-  <div class="kpi-box warn"><div class="kv">17.6%</div><div class="kl">综合毛利率</div></div>
-  <div class="kpi-box alert"><div class="kv">0.95%</div><div class="kl">扣非净利率</div></div>
-  <div class="kpi-box"><div class="kv">3.21%</div><div class="kl">ROE净资产收益率</div></div>
+  <div class="kpi-box alert"><div class="kv">15.7%</div><div class="kl">综合毛利率（2026Q1，同比-3.9pct）</div></div>
+  <div class="kpi-box alert"><div class="kv">0.95%</div><div class="kl">扣非净利率（2025，2026Q1继续恶化）</div></div>
+  <div class="kpi-box alert"><div class="kv">-1.41亿</div><div class="kl">2026Q1经营净现金流（首次转负）</div></div>
   <div class="kpi-box warn"><div class="kv">20.8%</div><div class="kl">境外收入占比</div></div>
   <div class="kpi-box pos"><div class="kv">120+国</div><div class="kl">产品销售覆盖</div></div>
 </div>
@@ -717,11 +720,11 @@ footer{background:var(--b900);color:rgba(255,255,255,.4);text-align:center;
   <div class="arch-row" style="margin-top:2px;">
     <div class="arch-label">业务运营层</div>
     <div class="arch-boxes">
-      <div class="arch-box ab-b300">PLM（2025新上线）</div>
+      <div class="arch-box ab-b300">PLM Windchill（2022上线）</div>
       <div class="arch-box ab-b100">MES（局部覆盖）</div>
       <div class="arch-box ab-b100">WMS（部分集成）</div>
       <div class="arch-box ab-b100">SRM（接口尾差）</div>
-      <div class="arch-box ab-red">勤策 CRM（未集成）</div>
+      <div class="arch-box ab-red">纷扬 CRM（2026上线，未完全集成）</div>
       <div class="arch-box ab-b100">电商 OMS</div>
     </div>
   </div>
@@ -741,8 +744,8 @@ footer{background:var(--b900);color:rgba(255,255,255,.4);text-align:center;
   <div class="card">
     <h4>集团管控层</h4>
     <ul>
-      <li>财务共享系统（2025年新上线）</li>
-      <li>司库系统（在建中）</li>
+      <li>用友财务共享平台（<strong>2025年新上线</strong>）</li>
+      <li>浪潮司库系统（<strong>2025年新上线</strong>）</li>
       <li>合并报表系统（系统外手工）</li>
       <li>广晟集团：共享/司库/合并等系统</li>
     </ul>
@@ -759,25 +762,25 @@ footer{background:var(--b900);color:rgba(255,255,255,.4);text-align:center;
   <div class="card">
     <h4>研发与制造层</h4>
     <ul>
-      <li>PLM系统（2025年新上线）</li>
-      <li>车灯/线路板MES（局部覆盖）</li>
-      <li>电子仓和网店仓WMS（部分集成）</li>
+      <li>PLM系统（Windchill，<strong>2022年上线</strong>）</li>
+      <li>MES线路板车间（<strong>2021年</strong>）；MES车灯事业部（<strong>2026年正式上线</strong>）</li>
+      <li>电子仓和网店仓WMS（<strong>2023年</strong>，部分集成）</li>
       <li>智能仓储管理系统</li>
     </ul>
   </div>
   <div class="card">
     <h4>销售与协同层</h4>
     <ul>
-      <li>勤策CRM（与SAP未完全集成）</li>
-      <li>电商订单系统/OMS（聚水潭等）</li>
+      <li>纷扬CRM（<strong>2026年正式上线</strong>，前称勤策，与SAP未完全集成）</li>
+      <li>聚水潭电商ERP（<strong>2023年</strong>）/OMS</li>
       <li>经销商商城（无库存实时对接）</li>
-      <li>OA综合办公（大量流程在OA处理）</li>
+      <li>OA泛微E9（<strong>2019年升级</strong>，大量流程在OA处理）</li>
     </ul>
   </div>
   <div class="card">
     <h4>供应商协同层</h4>
     <ul>
-      <li>SRM供应商管理系统（已集成，存在接口尾差）</li>
+      <li>SRM汉得SaaS版（<strong>2019年上线</strong>，已集成，存在接口尾差）</li>
       <li>合同管理系统（独立，无ERP集成）</li>
       <li>费控系统（独立）</li>
     </ul>
@@ -828,7 +831,52 @@ footer{background:var(--b900);color:rgba(255,255,255,.4);text-align:center;
 </table>
 </div>
 
-<h3>3.5 IT 人力配置严重不足（V2 新增专项）</h3>
+<h3>3.5 五大系统集成断点（AS-IS）</h3>
+<div class="callout warn"><div class="callout-icon">⚠️</div><div>以下五大集成断点直接导致每月30万张发票需人工处理、缺货率高达30%-40%、数据无法跨系统实时流动。蓝图阶段必须逐一制定闭环方案，P0级断点须在上线前全部解决。</div></div>
+<div class="tbl-wrap">
+<table>
+<thead><tr><th>系统对</th><th>集成状态</th><th>业务影响</th><th>需求编号</th><th>本期改造优先级</th></tr></thead>
+<tbody>
+<tr>
+  <td><strong>SAP ↔ PLM（Windchill）</strong></td>
+  <td>单向传输，无实时同步</td>
+  <td>BOM变更无法及时到达生产端，EBOM→MBOM仍靠手工转换</td>
+  <td>A0014 / A0183</td>
+  <td class="bad" style="font-weight:700;">P0</td>
+</tr>
+<tr>
+  <td><strong>SAP ↔ MES（车灯）</strong></td>
+  <td>单向 SAP→MES，反向未建立</td>
+  <td>质量追溯断链，产出入库不实时，产成品库存失真</td>
+  <td>—</td>
+  <td class="bad" style="font-weight:700;">P0</td>
+</tr>
+<tr>
+  <td><strong>SAP ↔ 聚水潭 / WMS</strong></td>
+  <td>未形成稳定闭环</td>
+  <td>每月约30万张发票需人工处理，退货流程全人工衔接</td>
+  <td>—</td>
+  <td class="bad" style="font-weight:700;">P0</td>
+</tr>
+<tr>
+  <td><strong>SAP ↔ 领星 ERP</strong></td>
+  <td>完全未打通</td>
+  <td>跨境电商 SKU/库存/应收/对账全部人工衔接，数据孤岛</td>
+  <td>—</td>
+  <td class="bad" style="font-weight:700;">P0</td>
+</tr>
+<tr>
+  <td><strong>SAP ↔ OA / SRM</strong></td>
+  <td>审批结果须手工录入 SAP</td>
+  <td>价格维护错误率高，采购信息记录断点，SRM发票无附件</td>
+  <td>A0008 / A0012 / A0032</td>
+  <td class="ok" style="font-weight:700;">P1</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3>3.6 IT 人力配置严重不足（V2 新增专项）</h3>
 <div class="callout info"><div class="callout-icon">⚠️</div><div>本专项依据第二轮调研中高管访谈（董事办公室/数智化部）及行业基准数据（标普全球市场财智）首次系统量化佛照 IT 人力缺口，是制约本次 S/4HANA 实施成功的核心风险之一。</div></div>
 
 <div class="two-col">
@@ -864,7 +912,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.4);text-align:center;
   <div><strong>风险判断：</strong>以 22 名 IT 人员（含 7 名 SAP 顾问）支撑 19 家法人、18+ 套外围系统、以及即将启动的 S/4HANA Greenfield 实施，<strong>运营风险极高</strong>。项目建议在蓝图阶段前明确：① 内部 SAP 关键用户培育计划（至少 35 人）；② 运维团队扩编方案（建议增至 40–60 人）；③ 与 Eviden 协商知识转移条款，防止上线后形成顾问依赖。</div>
 </div>
 
-<h3>3.6 游离系统专项：电商与国际事业部（V2 新增）</h3>
+<h3>3.7 游离系统专项：电商与国际事业部（V2 新增）</h3>
 <p>第二轮调研发现，国际事业部/电商事业部长期在 SAP 体系之外独立运行<strong>领星 ERP</strong>（海外电商专用系统），自定义物料编码和产品描述规则与佛照 SAP 物料编码体系存在根本冲突，形成独立的数据孤岛。</p>
 <div class="tbl-wrap">
 <table>
@@ -880,7 +928,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.4);text-align:center;
 
 <div class="two-col">
   <div class="chart-card">
-    <div class="cc-title">四类问题分布（175条需求）</div>
+    <div class="cc-title">四类问题分布（689条需求，截至7.29）</div>
     <div class="chart-wrap"><canvas id="painTypeChart"></canvas></div>
   </div>
   <div class="chart-card">
@@ -939,6 +987,11 @@ footer{background:var(--b900);color:rgba(255,255,255,.4);text-align:center;
   <li class="p2"><div class="pain-badge">P2</div><div class="pain-text"><strong>董事会投资管理与 SAP 完全割裂，投资后评价无数据基础</strong><span>董事办公室访谈揭示：公司每年 8-9 个内部投资项目，当前无系统化数据支持投资分析和后评价。财务部导出高明产值数据需1周，加工整理需半月，严重滞后于决策需求。SAP 集团报告（Group Reporting）+ 利润中心体系建设是解决该问题的根本路径，建议纳入蓝图设计优先级。</span></div></li>
   <li class="p2"><div class="pain-badge">P2</div><div class="pain-text"><strong>IT 预算评估缺乏标准，数字化投资 ROI 无法量化</strong><span>董事办公室访谈指出：每次开党委会领导头疼如何评估 IT 预算合理性，当前由审计部委托外部咨询公司做公允价值评估再公开招标。缺乏内部 IT 投资管理框架和 ROI 量化工具，导致数字化项目立项效率低、说服力弱。建议在 S/4HANA 项目中同步建立数字化投资管理台账，并在上线后引入 SAP 内嵌分析进行投资回报追踪。</span></div></li>
 </ul>
+
+<div class="callout" style="border-left-color:var(--b900);background:#fff5f5;margin-top:16px;">
+  <div class="callout-icon">🔴</div>
+  <div><strong>V2补充：缺货率30%-40%是MRP/计划体系失效的量化佐证</strong>——N+2滚动月度计划已在家用/商用事业部开始试点（2026年初），但全集团MRP系统性运行尚未建立，专职MRP控制者岗位缺失。供应链与采购共收集需求98条（位列第二），MPS/MRP专项方案是本次S/4HANA实施的核心交付物之一，目标将缺货率降至10%以内。</div>
+</div>
 </section>
 
 <!-- ===== S5: BENCHMARK ===== -->
@@ -1068,6 +1121,31 @@ footer{background:var(--b900);color:rgba(255,255,255,.4);text-align:center;
 <!-- ===== S7: VISION ===== -->
 <section id="s7">
 <h2>七、数字化转型愿景与关键目标</h2>
+
+<div class="callout" style="border-left-color:var(--red);background:#fff5f5;margin-bottom:20px;">
+  <div class="callout-icon">🏛️</div>
+  <div>
+    <strong>最高层战略决策（2026-07-21）</strong>
+    <div style="margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:13px;">
+      <div style="background:#fff;padding:12px;border-radius:4px;border-left:3px solid var(--red);">
+        <div style="font-weight:700;color:var(--b900);margin-bottom:6px;">董事长 余中民</div>
+        <ul style="margin:0;padding-left:16px;line-height:1.8;color:#2A3F52;">
+          <li>SAP是财务管控底座，目标重塑全流程</li>
+          <li><strong>暂停其他数字化项目，集中资源聚焦SAP</strong></li>
+          <li>改善目标：毛利率≥20%，扣非净利润3.0–4.0亿（2027–2028年）</li>
+        </ul>
+      </div>
+      <div style="background:#fff;padding:12px;border-radius:4px;border-left:3px solid var(--b700);">
+        <div style="font-weight:700;color:var(--b900);margin-bottom:6px;">总经理 张学权</div>
+        <ul style="margin:0;padding-left:16px;line-height:1.8;color:#2A3F52;">
+          <li>优先解决<strong>80%–90%核心业务痛点</strong></li>
+          <li><strong>每部门1名专职关键用户（50%+时间投入）</strong></li>
+          <li>数据治理委员会 + MDG 必须在蓝图阶段前成立</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="callout" style="border-left-color:var(--b700);background:var(--b050);margin-bottom:20px;">
   <div class="callout-icon">💬</div>

@@ -224,12 +224,12 @@ footer-note{display:block;text-align:center;font-size:11px;color:var(--muted);ma
     <div class="cover-meta-item"><div class="lbl">甲方验收</div><div class="val">待定</div></div>
   </div>
   <div class="cover-kpi">
-    <div class="kpi-box"><div class="num">3,542</div><div class="desc">物料主数据条数</div></div>
-    <div class="kpi-box"><div class="num">100%</div><div class="desc">成品关键字段缺失率</div></div>
-    <div class="kpi-box"><div class="num">12%</div><div class="desc">BOM问题行比例</div></div>
-    <div class="kpi-box"><div class="num">19/19</div><div class="desc">SAP ECC法人覆盖</div></div>
-    <div class="kpi-box"><div class="num">1.7/5</div><div class="desc">数据架构成熟度评分</div></div>
-    <div class="kpi-box" style="border-top:3px solid #E65100"><div class="num" style="color:#E65100">876</div><div class="desc">两轮调研需求合计<br><span style="font-size:10px;color:#888">175+701条，27部门</span></div></div>
+    <div class="kpi-box"><div class="num">879,558</div><div class="desc">物料主数据总量（全集团）</div></div>
+    <div class="kpi-box"><div class="num">400,532</div><div class="desc">活跃有效物料数</div></div>
+    <div class="kpi-box"><div class="num">54%</div><div class="desc">停用/冗余物料占比</div></div>
+    <div class="kpi-box"><div class="num">2个停用</div><div class="desc">利润中心实际使用数（P0）</div></div>
+    <div class="kpi-box"><div class="num">L2→L3</div><div class="desc">DCMM当前→目标</div></div>
+    <div class="kpi-box" style="border-top:3px solid #E65100"><div class="num" style="color:#E65100">689条</div><div class="desc">2026-07-29最新需求总量</div></div>
   </div>
 </div>
 
@@ -343,6 +343,9 @@ footer-note{display:block;text-align:center;font-size:11px;color:var(--muted);ma
           <tr style="background:#EBF4FF"><td><b>第二轮调研需求表（v2.1新增）</b></td><td>佛照_02探索阶段_需求整理_V3（腾讯文档）</td><td>2026年7月，持续收集至7月31日</td><td>27部门701条需求，与第一轮175条合计876条</td></tr>
           <tr style="background:#EBF4FF"><td><b>高管访谈补充（v2.1新增）</b></td><td>董事办公室·策略访谈；总经理张学权·项目诉求；副总经理李泽华·项目主持</td><td>2026年7月</td><td>管理层核心诉求、IT投资评估、数字化目标优先级</td></tr>
           <tr style="background:#EBF4FF"><td><b>领星ERP系统信息（v2.1新增）</b></td><td>国际/电商事业部访谈（赵俊杰·廖建祖）</td><td>2026年第二轮</td><td>游离系统分析，物料编码冲突证据</td></tr>
+          <tr style="background:#D0E4F7"><td><b>SAP QAS全量导出</b></td><td>物料主数据全量（879,558条）、BOM表头（612,026条）、BOM明细（435万条）</td><td>2026年7月备份</td><td>全量主数据质量分析</td></tr>
+          <tr style="background:#D0E4F7"><td><b>各模块方案蓝图</b></td><td>FI_CO/SD/MM_WM/PP_QM方案蓝图（草稿，占位待填）</td><td>2026年6月</td><td>架构决策输入（注：蓝图尚未完成）</td></tr>
+          <tr style="background:#D0E4F7"><td><b>高价值专项方案</b></td><td>MPS/MRP/QM质量追溯/生产进度看板/泰国财务/采购价格/销售价格/数据治理</td><td>2026年7月</td><td>痛点量化与解决方案</td></tr>
         </tbody>
       </table>
     </div>
@@ -391,12 +394,19 @@ footer-note{display:block;text-align:center;font-size:11px;color:var(--muted);ma
       <table>
         <thead><tr><th>IT对比维度</th><th>佛照现状</th><th>行业参考</th><th>差距</th></tr></thead>
         <tbody>
-          <tr><td>IT部门人员数</td><td><b style="color:#C62828;">16–23人（数智化部）</b></td><td>约60–90人（同体量企业）</td><td><span class="badge high">缺口3–4倍</span></td></tr>
+          <tr><td>IT部门人员数</td><td><b style="color:#C62828;">17人（实有，截至2026-06-24）</b></td><td>约60–90人（同体量企业）</td><td><span class="badge high">缺口3–4倍</span></td></tr>
           <tr><td>IT人员/总员工比</td><td><b style="color:#C62828;">0.2–0.3%</b></td><td>约1–1.5%</td><td><span class="badge high">差距4–5倍</span></td></tr>
           <tr><td>专职流程人员</td><td><b style="color:#C62828;">1人（全公司）</b></td><td>建议5–8人</td><td><span class="badge high">缺口4–7人</span></td></tr>
         </tbody>
       </table>
+      <div class="box finding" style="margin-top:10px;">
+        <p><b>IT组成（17人明细）：</b>部长×1 / 副部长×1 / 项目管理×1 / 系统开发×2 / 网络安全×2 / 硬件维护×1 / 需求分析×4 / AI需求×1 / AI开发×2 / 采购行政×1</p>
+        <p style="margin-top:6px;"><b>实际SAP专职顾问：</b>内部6人（PP×1 / MM×1 / SD×1 / 开发顾问×2 / Basis×1）+ 外部1人（FICO），合计7人承载19法人全模块SAP运维。</p>
+      </div>
       <div class="box warn"><p>历史数字化失败：4个项目相继失败（APS/数字化车间/财务共享/营销平台），累计损失600+万元，形成「恐惧文化」，是本次S/4HANA TO-BE确认最大的非技术障碍。</p></div>
+      <div class="box finding">
+        <p><b>AI建设现状：</b>AI专职人员2名；私有化部署服务器3台，已部署GLM5.1/Qwen3.5；知识库覆盖人力资源/财务/研究院等部分业务域；但供应链/财务/生产垂直场景因「基础数据条件不足」尚未落地——这正是数据治理先行的根本原因。</p>
+      </div>
     </div>
 
     <div class="sec" id="s2-3">
@@ -412,6 +422,9 @@ footer-note{display:block;text-align:center;font-size:11px;color:var(--muted);ma
           <tr><td><b>内部交易核算复杂</b></td><td><span class="badge p0">P0</span></td><td>19家法人关联交易，转移定价两套口径，无统一规则</td><td>Group Reporting</td></tr>
           <tr><td><b>报价→价格主数据断点</b></td><td><span class="badge p1">P1</span></td><td>SRM审批结果无法自动转为SAP价格记录，需人工中转</td><td>MM/SRM集成</td></tr>
           <tr><td><b>独家供应商高风险</b></td><td><span class="badge p1">P1</span></td><td>二供长期不激活会失效，近期已发生供货中断事件</td><td>MM供应商管理</td></tr>
+          <tr style="background:#EBF4FF"><td><b>开票自动化</b></td><td><span class="badge p0">P0 初始</span></td><td>每月30万张发票仍需人工处理；聚水潭旧版电子发票按内部订单维度取数，与客户订单维度不一致</td><td>SD/FI金税接口</td></tr>
+          <tr style="background:#EBF4FF"><td><b>研发费用归集</b></td><td><span class="badge p1">P1 初始</span></td><td>三表口径差异千万级（法定利润表/高新认定/所得税汇算）；PLM无费用管理，SAP有成本但难关联研发项目</td><td>CO内部订单+PLM</td></tr>
+          <tr style="background:#EBF4FF"><td><b>防伪防串闭环</b></td><td><span class="badge p1">P1 初始</span></td><td>防串码与销售订单号/客户地址无关联，正向溯源功能实质失效</td><td>SD+防伪系统接口</td></tr>
         </tbody>
       </table>
     </div>
@@ -566,11 +579,30 @@ footer-note{display:block;text-align:center;font-size:11px;color:var(--muted);ma
 <div class="chapter" id="s4">
   <div class="ch-header"><div class="ch-num">4</div><h2>数据架构（Data Architecture）· 深度案例分析</h2></div>
   <div class="ch-body">
-    <div class="box finding"><p>本章基于从SAP系统导出的真实数据（物料主数据3,542条、BOM清单83行、工艺路线18条），通过具体数字论证生产与计划中的主数据混乱问题。</p></div>
+    <div class="box finding"><p>本章基于从SAP系统导出的真实数据（物料主数据879,558条全量、BOM表头612,026条、BOM明细435万条），通过具体数字论证生产与计划中的主数据混乱问题。</p></div>
 
     <div class="sec" id="s4-1">
-      <div class="sec-title">4.1 物料主数据质量诊断（n=3,542）</div>
-      <div class="sec-sub">物料类型分布</div>
+      <div class="sec-title">4.1 物料主数据全量质量诊断（n=879,558，全集团SAP QAS数据）</div>
+      <div class="sec-sub">全量数据概览（数据来源：SAP QAS最新备份，2026年7月）</div>
+      <table>
+        <thead><tr><th>维度</th><th>全量数据</th><th>有效数据</th><th>停用/无效</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr style="background:#EBF4FF"><td><b>物料主数据</b></td><td><b>879,558</b></td><td>400,532（45.5%）</td><td><b style="color:#C62828;">479,026（54%）</b></td><td>数据来源：SAP QAS最新备份</td></tr>
+          <tr><td>&nbsp;&nbsp;— 成品</td><td>307,968</td><td>87,631</td><td>220,337</td><td></td></tr>
+          <tr><td>&nbsp;&nbsp;— 半成品</td><td>282,849</td><td>106,098</td><td>176,751</td><td></td></tr>
+          <tr><td>&nbsp;&nbsp;— 原材料</td><td>135,181</td><td>77,826</td><td>57,355</td><td></td></tr>
+          <tr><td><b>BOM表头</b></td><td>612,026</td><td>576,570</td><td>35,456（5.8%）</td><td></td></tr>
+          <tr><td><b>BOM明细</b></td><td>4,358,018</td><td>4,358,018</td><td>0（未标记停用）</td><td></td></tr>
+          <tr style="background:#FFF8E1"><td><b>成本中心</b></td><td>2,872</td><td>2,217</td><td>655（23%）</td><td></td></tr>
+          <tr style="background:#FFF5F5"><td><b>利润中心</b></td><td><b style="color:#C62828;">2个定义</b></td><td><b style="color:#C62828;">0个使用</b></td><td><b style="color:#C62828;">100%停用</b></td><td><span class="badge p0">P0级缺失</span></td></tr>
+          <tr style="background:#EBF4FF"><td><b>FZ01主战场物料</b></td><td>约700,000</td><td>—</td><td>—</td><td>占全集团约79%</td></tr>
+          <tr style="background:#EBF4FF"><td><b>FZ13主战场物料</b></td><td>约435,000</td><td>—</td><td>—</td><td>与FZ01合计约79%</td></tr>
+        </tbody>
+      </table>
+      <div class="box warn">
+        <p><b>FZ01+FZ13两家法人物料总量约占全集团79%</b>，是数据清洗和MDG上线的首批主战场。FZ40（泰国工厂）目前<b>无供应商主数据记录</b>，采购数据在本地系统处理，S/4HANA上线前必须完成FZ40主数据的从零建立。</p>
+      </div>
+      <div class="sec-sub">物料类型分布（探索阶段样本 n=3,542）</div>
       <table>
         <thead><tr><th>物料类型</th><th>含义</th><th>数量</th><th>占比</th></tr></thead>
         <tbody>
@@ -1040,6 +1072,12 @@ footer-note{display:block;text-align:center;font-size:11px;color:var(--muted);ma
           </table>
         </div>
       </div>
+      <div class="box finding" style="margin-top:16px;">
+        <p><b>跨文件共同印证的三条系统性根因（2026年7月访谈确认）：</b></p>
+        <p style="margin-top:8px;"><b>1. 财务核算不真实：</b>利润中心100%停用→无事业部盈利分析；研发费用三表差异千万级；每月30万张发票人工处理导致开票数据滞后</p>
+        <p style="margin-top:4px;"><b>2. 主数据碎片化：</b>客商主数据在SAP/SRM/财务共享/广晟共享4个系统中分裂维护；物料编码三套版本（2019/2020/2022）并行；879,558条物料中54%停用但不可简单删除</p>
+        <p style="margin-top:4px;"><b>3. 集成架构孤岛化：</b>5大系统单向或人工衔接（PLM/MES/聚水潭/领星/OA），无任何一份被业务+IT共同确认的最新完整集成架构图</p>
+      </div>
     </div>
   </div>
 </div>
@@ -1213,6 +1251,22 @@ footer-note{display:block;text-align:center;font-size:11px;color:var(--muted);ma
           <div class="rt-content">
             <div class="rt-title">2026年8–9月 — SD价格体系TO-BE确认</div>
             <div class="rt-desc">优先级最高、最复杂的流程设计；涉及家用/商用/电商/国际四个事业部；建议设立价格专项Workshop（2天）</div>
+          </div>
+        </div>
+        <div class="rt-line"></div>
+        <div class="rt-row">
+          <div class="rt-dot warn"></div>
+          <div class="rt-content">
+            <div class="rt-title">2026-08-20（里程碑）— 蓝图初稿定稿<span style="background:#E65100;color:#fff;font-size:11px;padding:1px 8px;border-radius:10px;margin-left:8px">进行中</span></div>
+            <div class="rt-desc">四大模块方案蓝图（FI_CO/SD/MM_WM/PP_QM）初稿完成；TOGAF 4A架构文档汇总；甲方核心干系人确认</div>
+          </div>
+        </div>
+        <div class="rt-line"></div>
+        <div class="rt-row">
+          <div class="rt-dot"></div>
+          <div class="rt-content">
+            <div class="rt-title">2026年9–11月 — 外围系统接口改造窗口期</div>
+            <div class="rt-desc">23个系统（12个已集成需改造）：接口开发责任矩阵锁定；CPI集成方案定稿；聚水潭/领星/PLM/MES改造立项；接口开发责任人明确到人</div>
           </div>
         </div>
         <div class="rt-line"></div>
