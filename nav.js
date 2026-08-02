@@ -45,9 +45,13 @@
             <a href="/fsl-report/consulting/blueprint/data-survey.html">4.1 数据调研分析报告</a>
             <a href="/fsl-report/consulting/blueprint/data-survey-v2.html" style="padding-left:28px;font-size:11.5px;opacity:.85">└ V2（2026-08）</a>
             <a href="/fsl-report/consulting/blueprint/data-governance.html">4.2 数据规划及管理办法</a>
+            <a href="/fsl-report/consulting/blueprint/data-governance-v2.html" style="padding-left:28px;font-size:11.5px;opacity:.85">└ V2（2026-08）</a>
             <a href="/fsl-report/consulting/blueprint/data-summary.html">4.3 数据治理总结报告</a>
+            <a href="/fsl-report/consulting/blueprint/data-summary-v2.html" style="padding-left:28px;font-size:11.5px;opacity:.85">└ V2（2026-08）</a>
             <a href="/fsl-report/consulting/blueprint/org-design.html">5. 组织设计报告</a>
+            <a href="/fsl-report/consulting/blueprint/org-design-v2.html" style="padding-left:28px;font-size:11.5px;opacity:.85">└ V2（2026-08）</a>
             <a href="/fsl-report/consulting/roadmap/roadmap-report.html">6. 数字化转型路径规划</a>
+            <a href="/fsl-report/consulting/roadmap/roadmap-report-v2.html" style="padding-left:28px;font-size:11.5px;opacity:.85">└ V2（2026-08）</a>
           </div>
           <div class="nav-dd-col nav-dd-panel">
             <div class="nav-dd-group-title">SAP 实施交付</div>
