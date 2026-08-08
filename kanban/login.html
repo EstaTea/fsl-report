@@ -395,7 +395,7 @@ function showAlert(id, msg, type){
   if(!el) return;
   el.textContent = msg;
   el.className = 'alert alert-'+type+' show';
-  if(type !== 'success') setTimeout(function(){ el.classList.remove('show'); }, 7000);
+  if(type === 'success') setTimeout(function(){ el.classList.remove('show'); }, 7000);
 }
 
 function showForgotHint(){
@@ -418,7 +418,9 @@ async function doEmailLogin(){
   if(!email || !password){ showAlert('emailLoginError','请填写邮箱和密码','error'); return; }
 
   setLoading('emailLoginBtn','emailLoginSpin','emailLoginTxt', true);
+  var timedOut = false;
   var loginTimeout = setTimeout(function(){
+    timedOut = true;
     setLoading('emailLoginBtn','emailLoginSpin','emailLoginTxt', false);
     showAlert('emailLoginError','请求超时，请重试','error');
   }, 15000);
@@ -429,6 +431,7 @@ async function doEmailLogin(){
       body: JSON.stringify({email, password}),
     });
     clearTimeout(loginTimeout);
+    if(timedOut) return;
     var data = await r.json();
     if(!r.ok || !data.ok){
       showAlert('emailLoginError', data.error||'登录失败', 'error');
