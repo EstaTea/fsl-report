@@ -298,7 +298,7 @@ function chainDetail(){
     <div class="bar" style="height:10px">${['BA','DA','AA','TA'].map(a=>`<div style="width:${p.arch[a]*100}%;background:${ARCH_COLOR[a]}" title="${ARCH_CN[a]} ${Math.round(p.arch[a]*100)}%"></div>`).join('')}</div>
     <div style="font-size:11px;color:var(--muted)">${['BA','DA','AA','TA'].map(a=>`${ARCH_CN[a]} ${Math.round(p.arch[a]*100)}%`).join(' · ')}</div>
     <div class="sec-title">二级细分痛点（${(p.children||[]).length}）</div>
-    <div>${(p.children||[]).map(c=>{const sp=SUB_PAIN_MAP[c.id]||c;return `<span class="chip b2" title="关键词：${esc((sp.kw||[]).slice(0,5).join('、'))}" onclick="event.stopPropagation();rf.pain='${p.id}';rPage=1;switchView('reqs')">${esc(c.id)} ${esc(c.name)} · ${c.req_count}条${c.scene?' → '+esc(c.scene):''}</span>`;}).join('')||'<span class="empty-state">无细分</span>'}</div>
+    <div>${(p.children||[]).map(c=>{const sp=SUB_PAIN_MAP[c.id]||c;return `<span class="chip b2" title="关键词：${esc((sp.kw||[]).slice(0,5).join('、'))}" onclick="event.stopPropagation();rf.pain='${p.id}';switchView('reqs')">${esc(c.id)} ${esc(c.name)} · ${c.req_count}条${c.scene?' → '+esc(c.scene):''}</span>`;}).join('')||'<span class="empty-state">无细分</span>'}</div>
     <div class="sec-title">关联场景（${scs.length}）</div><div>${scs.map(s=>`<span class="chip" onclick="selectItem('sc','${esc(s)}')">${esc(s)} ${esc(SCEN_MAP[s].name)}</span>`).join('')||'<span class="empty-state">无直接场景（治理类/支撑类）</span>'}</div>
     <div class="sec-title">流向项目卡片（${wps.length}）</div><div>${wps.map(w=>`<span class="chip b2" onclick="selectItem('wp','${w}')">${esc(w)} ${esc(WP_MAP[w].name)}（${WP_MAP[w].year}）</span>`).join('')||'<span class="empty-state">未流向实施卡片</span>'}</div>`;
   }
@@ -408,26 +408,24 @@ function renderScenario(){
 }
 
 // ══ VIEW 5: 需求明细 ══
-let rf={q:'',dom:'',prio:'',pain:'',sc:'',arch:''},rPage=1;
+let rf={q:'',dom:'',prio:'',pain:'',sc:'',arch:''};
 function renderReqs(){
   const doms=[...new Set(REQS.map(r=>r.dom))].sort();
   let list=REQS.filter(r=>
     (!rf.q||r.id.toLowerCase().includes(rf.q.toLowerCase())||r.brief.toLowerCase().includes(rf.q.toLowerCase()))&&
     (!rf.dom||r.dom===rf.dom)&&(!rf.prio||r.prio===rf.prio)&&
     (!rf.pain||r.pain.includes(rf.pain))&&(!rf.sc||r.s===rf.sc)&&(!rf.arch||r.arch===rf.arch));
-  const PER=50,total=Math.max(1,Math.ceil(list.length/PER));rPage=Math.min(rPage,total);
-  const page=list.slice((rPage-1)*PER,rPage*PER);
   const opt=(v,l,cur)=>`<option value="${esc(v)}"${cur===v?' selected':''}>${esc(l)}</option>`;
   let html=`<div class="fbar">
-    <input placeholder="🔍 需求编号/关键词" value="${esc(rf.q)}" oninput="rf.q=this.value;rPage=1;renderReqs()">
-    <select onchange="rf.dom=this.value;rPage=1;renderReqs()">${opt('','全部领域'+`(${REQS.length})`,rf.dom)}${doms.map(d=>opt(d,d+`(${REQS.filter(r=>r.dom===d).length})`,rf.dom)).join('')}</select>
-    <select onchange="rf.prio=this.value;rPage=1;renderReqs()">${opt('','全部优先级',rf.prio)}${['高','中','低','待定'].map(p=>opt(p,p+`(${REQS.filter(r=>r.prio===p).length})`,rf.prio)).join('')}</select>
-    <select onchange="rf.pain=this.value;rPage=1;renderReqs()">${opt('','全部痛点',rf.pain)}${PP.map(p=>opt(p.id,p.id+' '+p.name.slice(0,10)+`(${p.req_count})`,rf.pain)).join('')}</select>
-    <select onchange="rf.sc=this.value;rPage=1;renderReqs()">${opt('','全部场景',rf.sc)}${SC.map(s=>opt(s.id,s.id+' '+s.name.slice(0,10)+`(${s.req_count})`,rf.sc)).join('')}</select>
-    <select onchange="rf.arch=this.value;rPage=1;renderReqs()">${opt('','全部4A',rf.arch)}${['BA','DA','AA'].map(a=>opt(a,ARCH_CN[a]+`(${archDomCount[a]||0})`,rf.arch)).join('')}</select>
+    <input placeholder="🔍 需求编号/关键词" value="${esc(rf.q)}" oninput="rf.q=this.value;renderReqs()">
+    <select onchange="rf.dom=this.value;renderReqs()">${opt('','全部领域'+`(${REQS.length})`,rf.dom)}${doms.map(d=>opt(d,d+`(${REQS.filter(r=>r.dom===d).length})`,rf.dom)).join('')}</select>
+    <select onchange="rf.prio=this.value;renderReqs()">${opt('','全部优先级',rf.prio)}${['高','中','低','待定'].map(p=>opt(p,p+`(${REQS.filter(r=>r.prio===p).length})`,rf.prio)).join('')}</select>
+    <select onchange="rf.pain=this.value;renderReqs()">${opt('','全部痛点',rf.pain)}${PP.map(p=>opt(p.id,p.id+' '+p.name.slice(0,10)+`(${p.req_count})`,rf.pain)).join('')}</select>
+    <select onchange="rf.sc=this.value;renderReqs()">${opt('','全部场景',rf.sc)}${SC.map(s=>opt(s.id,s.id+' '+s.name.slice(0,10)+`(${s.req_count})`,rf.sc)).join('')}</select>
+    <select onchange="rf.arch=this.value;renderReqs()">${opt('','全部4A',rf.arch)}${['BA','DA','AA'].map(a=>opt(a,ARCH_CN[a]+`(${archDomCount[a]||0})`,rf.arch)).join('')}</select>
     <span style="font-size:11px;color:var(--muted)">命中 ${list.length} / 701 条</span></div>`;
   html+=`<table class="rtable"><tr><th>编号</th><th>需求简述</th><th>提出部门</th><th>优先级</th><th>问题领域</th><th>痛点</th><th>细分痛点</th><th>4A</th><th>场景</th></tr>`;
-  page.forEach(r=>{const s=SCEN_MAP[r.s];
+  list.forEach(r=>{const s=SCEN_MAP[r.s];
     html+=`<tr onclick="showReq('${r.id}')"><td style="color:#2E5E9E;font-weight:700;white-space:nowrap">${esc(r.id)}</td>
     <td>${esc(r.brief.slice(0,34))}</td><td style="color:var(--muted)">${esc(r.dept)}</td><td>${prioBadge(r.prio)}</td>
     <td style="color:var(--muted);white-space:nowrap">${esc(r.dom.slice(0,8))}</td>
@@ -435,10 +433,7 @@ function renderReqs(){
     <td>${(r.sub_pain||[]).map(sp=>{const sm2=SUB_PAIN_MAP[sp];return `<span class="chip" style="padding:0 5px;background:#EDF3FA;color:#2E5E9E" title="${esc(sm2?sm2.name:'')}">${esc(sp)}</span>`;}).join('')||'<span style="color:#8A9BB0">—</span>'}</td>
     <td><span class="ci-badge" style="background:${ARCH_COLOR[r.arch]};color:${r.arch==='TA'?'#12315C':'#fff'}">${r.arch}</span></td>
     <td style="white-space:nowrap">${s?(s.is_bucket?'<span style="color:#8A9BB0">'+esc(s.name.slice(0,8))+'</span>':esc(s.id)):'—'}</td></tr>`;});
-  html+=`</table><div class="pager">
-    <button ${rPage===1?'disabled':''} onclick="rPage--;renderReqs()">‹ 上一页</button>
-    ${Array.from({length:total},(_,i)=>i+1).filter(p=>p===1||p===total||Math.abs(p-rPage)<=2).map(p=>`<button class="${p===rPage?'on':''}" onclick="rPage=${p};renderReqs()">${p}</button>`).join('<span style="align-self:center;color:var(--muted)">…</span>')}
-    <button ${rPage===total?'disabled':''} onclick="rPage++;renderReqs()">下一页 ›</button></div>`;
+  html+=`</table>`;
   document.getElementById('view').innerHTML=html;
 }
 function showReq(rid){const r=REQS.find(x=>x.id===rid);if(!r)return;
