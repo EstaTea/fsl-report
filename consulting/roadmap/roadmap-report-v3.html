@@ -261,7 +261,7 @@ tr:hover td{background:#E0EEFF}
     <div class="cover-meta-item"><div class="lbl">密级</div><div class="val">仅限项目团队</div></div>
   </div>
   <div class="cover-kpi">
-    <div class="kpi-box"><div class="num">17</div><div class="desc">项目卡片（SAP 11 + 外围 6）<br><span style="font-size:9px;opacity:.8">PC01–PC17</span></div></div>
+    <div class="kpi-box"><div class="num">24</div><div class="desc">项目卡片（SAP 11 + 外围 13）<br><span style="font-size:9px;opacity:.8">PC01–PC24</span></div></div>
     <div class="kpi-box"><div class="num">3</div><div class="desc">实施阶段</div></div>
     <div class="kpi-box"><div class="num">23</div><div class="desc">高价值专项场景数<br><span style="font-size:9px;opacity:.8">S01–S23</span></div></div>
     <div class="kpi-box"><div class="num">701</div><div class="desc">原始需求溯源<br><span style="font-size:9px;opacity:.8">23主痛点+78子痛点</span></div></div>
@@ -325,7 +325,7 @@ tr:hover td{background:#E0EEFF}
       </div>
       <div class="sec-sub">需求流向汇总桑基图（701 条原始需求 → 4A 架构 → 23 高价值场景 → 24 项目卡片）</div>
       <div class="box action">
-        <p><strong>外围系统改造（PC12–PC17）的追溯定位：</strong>上述五层链路收敛出 11 个 SAP 体系项目卡片（PC01–PC11）。此外，规划将 6 个横向使能类外围系统——数据中台（PC12）、AI 平台与应用（PC13）、APS 高级计划排程（PC14）、智能仓储 WMS（PC15）、设备物联 IoT（PC16）、供应链控制塔（PC17）——作为独立项目卡片纳入三年路线图。它们不对应单一业务痛点，而是为 23 个场景与 SAP 11 卡片提供"数据底座 / 智能能力 / 计划引擎 / 仓储与设备物联 / 经营可视"的横向支撑，是五层追溯之外的<strong>"使能层"</strong>。其成本与资源测算见第三章 §3.2 与第六章 §6.3。</p>
+        <p><strong>外围系统改造（PC12–PC24）的追溯定位：</strong>上述五层链路收敛出 11 个 SAP 体系项目卡片（PC01–PC11）。此外，规划将 6 个横向使能类外围系统——数据中台（PC12）、AI 平台与应用（PC13）、APS 高级计划排程（PC14）、智能仓储 WMS（PC15）、设备物联 IoT（PC16）、供应链控制塔（PC17）——作为独立项目卡片纳入三年路线图。它们不对应单一业务痛点，而是为 23 个场景与 SAP 11 卡片提供"数据底座 / 智能能力 / 计划引擎 / 仓储与设备物联 / 经营可视"的横向支撑，是五层追溯之外的<strong>"使能层"</strong>。其成本与资源测算见第三章 §3.2 与第六章 §6.3。</p>
       </div>
       <p style="text-align:center"><img src="sankey/sankey_5col_v3.png" alt="需求流向汇总桑基图（五层溯源）" style="max-width:100%;border:1px solid var(--pale);border-radius:8px"></p>
       <div class="chart-note" style="max-width:760px;margin:8px auto 0">说明：桑基图完整呈现 701 条需求在五层之间的流向。颜色按原始业务域贯穿全图——例如"销售与渠道"域的橙红色从第一列一直贯穿到 S04 销售订单全链路、再到 PC06 销售订单与信用全链路，实现端到端可追溯。五层明细版（含 23 主痛点、78 子痛点、4A 逐节点着色）见《企业架构设计报告 V4》第 1.5 节。</div>
@@ -412,13 +412,13 @@ tr:hover td{background:#E0EEFF}
 
 <!-- ===== CH3 项目清单 ===== -->
 <div class="chapter" id="ch3">
-  <div class="ch-header"><div class="ch-num">3</div><h2>数字化项目清单（17个项目卡片 · SAP 11 + 外围 6 · 基于 TOGAF 架构设计）</h2></div>
+  <div class="ch-header"><div class="ch-num">3</div><h2>数字化项目清单（24个项目卡片 · PC01–PC24 · SAP 11 + 外围 13 · 基于 TOGAF 架构设计）</h2></div>
   <div class="ch-body">
     <div class="sec" id="ch3-1">
       <div class="sec-title"><i class="fa fa-search"></i>3.1 项目识别方法（五层追溯收敛）</div>
-      <p>项目卡片由企业架构设计阶段的需求追溯工作台<strong>自上而下逐层收敛</strong>得到，与诊断阶段 701 条需求一一对应：原始需求（701条）→ 业务痛点（23主+78子）→ TOGAF 4A 架构（BA/DA/AA/TA）→ 高价值场景（23个）→ SAP 体系项目卡片（24个）。在此基础上叠加 6 个横向使能类外围系统项目卡片，形成全部 17 个项目卡片。每个项目卡片须满足：有明确痛点/使能价值支撑、有对应 4A 架构改进目标、有可量化价值指标、归属确定实施年度。</p>
+      <p>项目卡片由企业架构设计阶段的需求追溯工作台<strong>自上而下逐层收敛</strong>得到，与诊断阶段 701 条需求一一对应：原始需求（701条）→ 业务痛点（23主+78子）→ TOGAF 4A 架构（BA/DA/AA/TA）→ 高价值场景（23个）→ SAP 体系项目卡片（24个）。在此基础上叠加 6 个横向使能类外围系统项目卡片，形成全部 24 个项目卡片。每个项目卡片须满足：有明确痛点/使能价值支撑、有对应 4A 架构改进目标、有可量化价值指标、归属确定实施年度。</p>
       <div class="box action">
-        <p><strong>与 V2 的差异：</strong>V2 采用 27 个离散项目（P-01~P-25）的识别口径；V3 升级为 TOGAF 架构设计成果口径——将 27 个项目按架构能力域与实施年度<strong>归并为 17 个项目卡片（SAP 体系 PC01–PC11 + 外围系统 PC12–PC17）</strong>，使其与 4A 架构、23 场景、成熟度等级严格对齐，避免项目与架构"两张皮"。</p>
+        <p><strong>与 V2 的差异：</strong>V2 采用 27 个离散项目（P-01~P-25）的识别口径；V3 升级为 TOGAF 架构设计成果口径——将 27 个项目按架构能力域与实施年度<strong>归并为 24 个项目卡片（SAP 体系 PC01–PC11 + 外围系统 PC12–PC24）</strong>，使其与 4A 架构、23 场景、成熟度等级严格对齐，避免项目与架构"两张皮"。</p>
       </div>
     </div>
     <div class="sec" id="ch3-2">
@@ -1040,7 +1040,7 @@ tr:hover td{background:#E0EEFF}
         </tbody>
       </table>
       <div style="background:#EBF4FF;border-left:4px solid #1B3A6B;border-radius:0 6px 6px 0;padding:10px 14px;margin-top:12px;font-size:12.5px">
-        <b>v3.0 更新说明（2026-08-23）：</b>A-01/A-02 标注已完成；A-03/A-04 标注进行中；新增 A-07 领星ERP集成专项、A-08 新业务接入路径确认。项目清单由 V2 的 27 个离散项目归并为 TOGAF 架构设计成果口径的 11 个项目卡片（PC01–PC11），与 4A 架构、23 高价值场景、GB/T 43439 成熟度等级严格对齐；综合成熟度目标路径更新为 2026→L2-L3 / 2027→L3-L4 / 2028→L4（部分 L5 愿景）。；2026-08-23（二次更新）：纳入 6 个外围系统改造项目卡片 PC12–PC17（数据中台 / AI 平台与应用 / APS / 智能 WMS / 设备 IoT / 供应链控制塔），含成本与资源测算，项目卡片总数由 11 扩展至 17。
+        <b>v3.0 更新说明（2026-08-23）：</b>A-01/A-02 标注已完成；A-03/A-04 标注进行中；新增 A-07 领星ERP集成专项、A-08 新业务接入路径确认。项目清单由 V2 的 27 个离散项目归并为 TOGAF 架构设计成果口径的 11 个项目卡片（PC01–PC11），与 4A 架构、23 高价值场景、GB/T 43439 成熟度等级严格对齐；综合成熟度目标路径更新为 2026→L2-L3 / 2027→L3-L4 / 2028→L4（部分 L5 愿景）。；2026-08-23（二次更新）：纳入 13 个外围系统改造项目卡片 PC12–PC24（数据中台 / AI 平台与应用 / APS / 智能 WMS / 设备 IoT / 供应链控制塔），含成本与资源测算，项目卡片总数由 11 扩展至 24。
       </div>
     </div>
   </div>
