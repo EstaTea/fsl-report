@@ -222,7 +222,7 @@ tr:hover td{background:#E0EEFF}
     <a href="#ch2-4" class="sub">2.4 成熟度评估（GB/T 43439）</a>
     <a href="#ch3"><i class="fa fa-list-ul fa-fw"></i> 第三章 项目清单</a>
     <a href="#ch3-1" class="sub">3.1 项目识别方法（五层追溯）</a>
-    <a href="#ch3-2" class="sub">3.2 17个项目卡片（PC01–PC17）</a>
+    <a href="#ch3-2" class="sub">3.2 24个项目卡片（PC01–PC24）</a>
     <a href="#ch3-3" class="sub">3.3 23个高价值场景专题（S01–S23）</a>
     <a href="#ch4"><i class="fa fa-sort-amount-down fa-fw"></i> 第四章 优先级排序</a>
     <a href="#ch4-1" class="sub">4.1 优先级评估模型</a>
@@ -276,12 +276,12 @@ tr:hover td{background:#E0EEFF}
   <div class="ch-body">
     <div class="sec" id="ch1-1">
       <div class="sec-title"><i class="fa fa-drafting-compass"></i>1.1 规划框架与方法论</div>
-      <p>本路径规划报告是佛照数字化转型咨询项目三份核心交付物的第三份，基于《现状分析与诊断报告》（AS-IS现状，689条需求（截至7.29最新，本次收集完整口径））和《企业架构设计报告》（TO-BE目标架构，L1-L3四层）的研究成果，遵循工信部/国资委2024年《制造业企业数字化转型实施指南》要求，制定涵盖2026-2028年的三年分阶段数字化转型路线图。</p>
+      <p>本路径规划报告是佛照数字化转型咨询项目三份核心交付物的第三份，基于《现状分析与诊断报告》（AS-IS现状，701条需求（截至2026-07-31最新完整口径））和《企业架构设计报告》（TO-BE目标架构，L1-L3四层）的研究成果，遵循工信部/国资委2024年《制造业企业数字化转型实施指南》要求，制定涵盖2026-2028年的三年分阶段数字化转型路线图。</p>
       <p>规划方法论采用<strong>"由近及远、由重及轻、由内及外"</strong>原则，结合佛照当前处于数字化成熟度Level 1.9（初始级→规范级下限）的实际情况，将三年规划划分为三个递进阶段：<strong>Phase 1 夯实底座（2026年）→ Phase 2 贯通协同（2027年）→ Phase 3 智慧跃升（2028年）</strong>。</p>
       <table>
         <thead><tr><th>规划依据文件</th><th>核心输入</th><th>对本报告的贡献</th></tr></thead>
         <tbody>
-          <tr><td>《现状分析与诊断报告》（交付物一）</td><td>689条业务需求（截至7.29）、8大业务域成熟度、AS-IS现状调研</td><td>提供项目识别的需求基础，确定优先解决的痛点领域</td></tr>
+          <tr><td>《现状分析与诊断报告》（交付物一）</td><td>701条业务需求（截至2026-07-31）、8大业务域成熟度、AS-IS现状调研</td><td>提供项目识别的需求基础，确定优先解决的痛点领域</td></tr>
           <tr><td>《企业架构设计报告》（交付物二）</td><td>L1-L3四层架构蓝图、25个系统处理策略、8条接口台账</td><td>定义每个项目的技术边界、依赖关系和验收标准</td></tr>
           <tr><td>《制造业企业数字化转型实施指南》（工信部2024）</td><td>分步实施方法、场景数字化分类、成效评估指标体系</td><td>指导规划原则、场景分类和KPI设计</td></tr>
           <tr><td>招标文件（★关键指标）</td><td>★6《数字化转型路线图（2026-2028）》交付要求</td><td>满足招标文件强制交付物要求，触发第3笔45%付款</td></tr>
@@ -301,7 +301,7 @@ tr:hover td{background:#E0EEFF}
         <thead><tr><th>约束维度</th><th>约束内容</th><th>规划影响</th></tr></thead>
         <tbody>
           <tr><td><strong>预算约束</strong></td><td>本次招标项目总预算950万元（咨询+SAP实施全包），不含其他系统改造费用</td><td>CRM/OA/MES等外围系统的内部改造须另行采购；规划中须标注哪些项目在本次预算内，哪些需要追加预算</td></tr>
-          <tr><td><strong>时间约束</strong></td><td>S/4HANA上线目标：2027年Q1；总工期240个日历天；两期并行</td><td>Phase 1的S/4HANA核心实施是绝对关键路径，所有依赖S/4HANA的后续项目不得早于2027年Q1启动</td></tr>
+          <tr><td><strong>时间约束</strong></td><td>S/4HANA 上线目标：2027-01-01（旧系统 2026-12-31 24:00 停用）；总工期240个日历天；两期并行</td><td>Phase 1的S/4HANA核心实施是绝对关键路径，所有依赖S/4HANA的后续项目不得早于2027年Q1启动</td></tr>
           <tr><td><strong>组织约束</strong></td><td>佛照关键用户时间有限；变革管理能力待建设；数智化部人员规模有限</td><td>每个阶段同时推进的项目数量不超过3个，避免关键用户精力分散</td></tr>
           <tr><td><strong>技术约束</strong></td><td>SAP PCE季度强制升级；Clean Core原则限制自定义开发；现有Z程序须评估迁移</td><td>Phase 1期间自定义开发工作量须控制在合理范围；优先采用标准功能配置</td></tr>
           <tr><td><strong>数据约束</strong></td><td>主数据清洗（6.2万物料→3.5万）是所有后续项目的前提；数据治理组织须先建立</td><td>主数据治理（PC02）是最高优先级，不能与其他项目并行推进</td></tr>
@@ -314,20 +314,20 @@ tr:hover td{background:#E0EEFF}
 
     <div class="sec" id="ch1-3">
       <div class="sec-title"><i class="fa fa-project-diagram"></i>1.3 需求溯源与五层追溯分析（701 条原始需求）</div>
-      <p>本路径规划以企业架构设计阶段沉淀的<strong>需求追溯工作台</strong>为唯一事实源：从现状诊断收集的 <strong>701 条原始需求</strong>（截至最新完整口径）出发，经过"原始需求域 → 业务痛点诊断 → TOGAF 4A 架构 → 高价值场景 → 项目卡片"五层抽象，逐层收敛为可实施的 11 个项目卡片。该链路确保每一条项目卡片都可向上回溯到具体需求与痛点，向下承接明确架构与场景。</p>
+      <p>本路径规划以企业架构设计阶段沉淀的<strong>需求追溯工作台</strong>为唯一事实源：从现状诊断收集的 <strong>701 条原始需求</strong>（截至最新完整口径）出发，经过"原始需求域 → 业务痛点诊断 → TOGAF 4A 架构 → 高价值场景 → 项目卡片"五层抽象，逐层收敛为可实施的 24 个项目卡片（SAP 体系 PC01–PC11 + 外围系统 PC12–PC24）。该链路确保每一条项目卡片都可向上回溯到具体需求与痛点，向下承接明确架构与场景。</p>
       <div class="box finding">
         <p><strong>五层追溯逻辑：</strong></p>
         <p>① <strong>原始需求域（第一层）</strong>：701 条需求按提出部门与业务主题归入 10 大原始需求域（销售与渠道、财务与资金、采购与供应、计划与制造、仓储物流、主数据与 IT、研发与 BOM、质量、数据分析、管理协同）。</p>
         <p>② <strong>业务痛点诊断（第二层）</strong>：对 701 条需求做语义聚类，抽象出 <strong>23 个一级业务痛点（P01–P23）+ 78 个二级子痛点</strong>，明确"为什么做"。</p>
         <p>③ <strong>TOGAF 4A 架构（第三层）</strong>：将每个痛点匹配到业务架构 BA / 数据架构 DA / 应用架构 AA / 技术架构 TA，界定"在哪一层解决"。</p>
         <p>④ <strong>高价值场景（第四层）</strong>：按价值密度与实施可行性收敛为 <strong>23 个高价值场景专题（S01–S23）</strong>，界定"解决什么业务问题"。</p>
-        <p>⑤ <strong>项目卡片（第五层）</strong>：按 2026 / 2027 / 2028 三年实施节奏，将场景与架构能力归集为 <strong>11 个项目卡片（PC01–PC11）</strong>，界定"谁来做、何时做"。</p>
+        <p>⑤ <strong>项目卡片（第五层）</strong>：按 2026 / 2027 / 2028 三年实施节奏，将场景与架构能力归集为 <strong>24 个项目卡片（PC01–PC24）</strong>，界定"谁来做、何时做"。</p>
       </div>
-      <div class="sec-sub">需求流向汇总桑基图（701 条原始需求 → 4A 架构 → 23 高价值场景 → 17 项目卡片）</div>
+      <div class="sec-sub">需求流向汇总桑基图（701 条原始需求 → 4A 架构 → 23 高价值场景 → 24 项目卡片）</div>
       <div class="box action">
         <p><strong>外围系统改造（PC12–PC17）的追溯定位：</strong>上述五层链路收敛出 11 个 SAP 体系项目卡片（PC01–PC11）。此外，规划将 6 个横向使能类外围系统——数据中台（PC12）、AI 平台与应用（PC13）、APS 高级计划排程（PC14）、智能仓储 WMS（PC15）、设备物联 IoT（PC16）、供应链控制塔（PC17）——作为独立项目卡片纳入三年路线图。它们不对应单一业务痛点，而是为 23 个场景与 SAP 11 卡片提供"数据底座 / 智能能力 / 计划引擎 / 仓储与设备物联 / 经营可视"的横向支撑，是五层追溯之外的<strong>"使能层"</strong>。其成本与资源测算见第三章 §3.2 与第六章 §6.3。</p>
       </div>
-      <p style="text-align:center"><img src="sankey/sankey_v4.png" alt="需求流向汇总桑基图" style="max-width:100%;border:1px solid var(--pale);border-radius:8px"></p>
+      <p style="text-align:center"><img src="sankey/sankey_5col_v3.png" alt="需求流向汇总桑基图（五层溯源）" style="max-width:100%;border:1px solid var(--pale);border-radius:8px"></p>
       <div class="chart-note" style="max-width:760px;margin:8px auto 0">说明：桑基图完整呈现 701 条需求在五层之间的流向。颜色按原始业务域贯穿全图——例如"销售与渠道"域的橙红色从第一列一直贯穿到 S04 销售订单全链路、再到 PC06 销售订单与信用全链路，实现端到端可追溯。五层明细版（含 23 主痛点、78 子痛点、4A 逐节点着色）见《企业架构设计报告 V4》第 1.5 节。</div>
     </div>
 
@@ -416,146 +416,192 @@ tr:hover td{background:#E0EEFF}
   <div class="ch-body">
     <div class="sec" id="ch3-1">
       <div class="sec-title"><i class="fa fa-search"></i>3.1 项目识别方法（五层追溯收敛）</div>
-      <p>项目卡片由企业架构设计阶段的需求追溯工作台<strong>自上而下逐层收敛</strong>得到，与诊断阶段 701 条需求一一对应：原始需求（701条）→ 业务痛点（23主+78子）→ TOGAF 4A 架构（BA/DA/AA/TA）→ 高价值场景（23个）→ SAP 体系项目卡片（11个）。在此基础上叠加 6 个横向使能类外围系统项目卡片，形成全部 17 个项目卡片。每个项目卡片须满足：有明确痛点/使能价值支撑、有对应 4A 架构改进目标、有可量化价值指标、归属确定实施年度。</p>
+      <p>项目卡片由企业架构设计阶段的需求追溯工作台<strong>自上而下逐层收敛</strong>得到，与诊断阶段 701 条需求一一对应：原始需求（701条）→ 业务痛点（23主+78子）→ TOGAF 4A 架构（BA/DA/AA/TA）→ 高价值场景（23个）→ SAP 体系项目卡片（24个）。在此基础上叠加 6 个横向使能类外围系统项目卡片，形成全部 17 个项目卡片。每个项目卡片须满足：有明确痛点/使能价值支撑、有对应 4A 架构改进目标、有可量化价值指标、归属确定实施年度。</p>
       <div class="box action">
         <p><strong>与 V2 的差异：</strong>V2 采用 27 个离散项目（P-01~P-25）的识别口径；V3 升级为 TOGAF 架构设计成果口径——将 27 个项目按架构能力域与实施年度<strong>归并为 17 个项目卡片（SAP 体系 PC01–PC11 + 外围系统 PC12–PC17）</strong>，使其与 4A 架构、23 场景、成熟度等级严格对齐，避免项目与架构"两张皮"。</p>
       </div>
     </div>
     <div class="sec" id="ch3-2">
-      <div class="sec-title"><i class="fa fa-th-list"></i>3.2 17个项目卡片（PC01–PC17）</div>
-      <p>下列 17 个项目卡片构成三年实施的核心载体，按 SAP 体系（PC01–PC11）与外围系统（PC12–PC17）分组，并标注其归属的 TOGAF 架构域（BA/DA/AA/TA）与 GB/T 43439 成熟度跃迁目标。</p>
-      <div class="sec-sub">Phase 1：基础建设与数据规范（2026年，L2→L3，★核心必做）</div>
-      <div class="proj-grid">
+          <div class="sec-title"><i class="fa fa-th-list"></i>3.2 24个项目卡片（PC01–PC24 · SAP 11 + 外围 13）</div>
+      <p>下列 24 个项目卡片构成三年实施的核心载体，按实施年度分组，并标注其归属的 TOGAF 架构域（BA/DA/AA/TA）与 GB/T 43439 成熟度跃迁目标。SAP 体系 11 张（PC01–PC11）为 Greenfield 实施；外围系统 13 张（PC12–PC24）涵盖数据中台、AI 深化、APS 重建、WMS 深化、MES/CRM 新建、预算/MRP 新建、安全体系，其中 AI 平台依托现有私有化底座深化，不重复建设。</p>
+      <div class="sec-sub">Phase 1：基础建设与数据规范（2026年，L2→L3，★核心必做 · 8张）</div>
+<div class="pc-grid">
         <div class="proj-card phase1">
           <div class="pc-id">PC01 <span class="badge y26">2026年</span> <span class="badge p2">TA架构</span></div>
-          <div class="pc-title">S/4HANA PCE 云平台数字底座</div>
-          <div class="pc-desc">PCE 私有云平台、HANA 数据库、Fiori 前端与安全基线建设，Greenfield 技术底座就绪，对应国标二级'完成转型基础与条件规划'。</div>
-          <div class="pc-meta"><span class="pc-tag">成熟度 L1-2 → L2-3</span><span class="pc-tag">全量需求底座</span></div>
-          <div class="pc-value">责任方：Eviden 实施 · 950万总包内</div>
+          <div class="pc-title">S/4HANA PCE 数字底座</div>
+          <div class="pc-desc">SAP S/4HANA Private Cloud Edition 环境规划、基线配置、Fiori 门户、安全基线；为所有后续项目提供统一技术底座。</div>
+          <div class="pc-meta"><span class="pc-tag">成熟度 L1–L2</span><span class="pc-tag">周期 12个月</span><span class="pc-tag">S01/S04/S09/S13</span></div>
+          <div class="pc-value">责任方：信息中心 ｜ 预算估算 350–450万 <span style="font-size:9px;opacity:.7">[E]</span></div>
         </div>
         <div class="proj-card phase1">
           <div class="pc-id">PC02 <span class="badge y26">2026年</span> <span class="badge p2">DA架构</span></div>
-          <div class="pc-title">主数据治理与数据规范专项</div>
-          <div class="pc-desc">SAP MDG-M/BP/GL 统一物料/客户/供应商/财务主数据编码与审批流，6.2万物料清洗至约3.5万，主数据准确率≥99%。</div>
-          <div class="pc-meta"><span class="pc-tag">成熟度 L1-2 → L2-3</span><span class="pc-tag">S01 物料主数据治理 / S08 财务组织+科目主数据（共34条需求）</span></div>
-          <div class="pc-value">责任方：数据治理委员会 · 最高优先</div>
+          <div class="pc-title">主数据治理与数据规范</div>
+          <div class="pc-desc">MDG 配置 + 6.2 万物料清洗 + 组织/客户/供应商主数据标准化；建立唯一可信数据源。</div>
+          <div class="pc-meta"><span class="pc-tag">成熟度 L1–L2</span><span class="pc-tag">周期 10个月</span><span class="pc-tag">S01/S08</span></div>
+          <div class="pc-value">责任方：数据管理组 ｜ 预算估算 180–280万 <span style="font-size:9px;opacity:.7">[E]</span></div>
         </div>
         <div class="proj-card phase1">
           <div class="pc-id">PC03 <span class="badge y26">2026年</span> <span class="badge p2">TA架构</span></div>
-          <div class="pc-title">集成架构与CPI接口收敛</div>
-          <div class="pc-desc">基于 SAP CPI 构建集成中枢，收敛 8 条核心接口（PLM/CRM/WMS/MES/SRM/用友/OA），消除系统'两张皮'。</div>
-          <div class="pc-meta"><span class="pc-tag">成熟度 L2 → L3</span><span class="pc-tag">S04 销售订单全链路 / S09 应收清账 / S13 供应商绩效（共161条需求）</span></div>
-          <div class="pc-value">责任方：集成架构组 · 高优先</div>
+          <div class="pc-title">集成架构与CPI（含 OA/SRM/HR/电子签章对接）</div>
+          <div class="pc-desc">SAP CPI 集成平台 + 8 条核心接口开发（OA/SRM/HR/电子签章/浪潮司库经财务共享平台对接）；奠定系统互联基础。</div>
+          <div class="pc-meta"><span class="pc-tag">成熟度 L1–L2</span><span class="pc-tag">周期 8个月</span><span class="pc-tag">S04/S09/S13</span></div>
+          <div class="pc-value">责任方：集成架构组 ｜ 预算估算 120–200万 <span style="font-size:9px;opacity:.7">[E]</span></div>
         </div>
         <div class="proj-card phase1">
           <div class="pc-id">PC04 <span class="badge y26">2026年</span> <span class="badge p2">BA架构</span></div>
-          <div class="pc-title">端到端流程蓝图与变革管理</div>
-          <div class="pc-desc">OTC/PTP/MTC 端到端流程蓝图设计、流程 Owner 机制与变革管理，为后续项目提供统一流程语言。</div>
-          <div class="pc-meta"><span class="pc-tag">成熟度 L1-2 → L2-3</span><span class="pc-tag">端到端流程（跨场景）</span></div>
-          <div class="pc-value">责任方：流程治理委员会 · 高优先</div>
+          <div class="pc-title">端到端流程蓝图</div>
+          <div class="pc-desc">OTC/PTP/MTC 端到端流程蓝图设计 + 变革管理 + 用户培训体系；确保流程与系统同步落地。</div>
+          <div class="pc-meta"><span class="pc-tag">成熟度 L1–L2</span><span class="pc-tag">周期 8个月</span><span class="pc-tag">S02/S03/S04/S05</span></div>
+          <div class="pc-value">责任方：业务流程组 ｜ 预算估算 100–180万 <span style="font-size:9px;opacity:.7">[E]</span></div>
+        </div>
+        <div class="proj-card phase1">
+          <div class="pc-id">PC12 <span class="badge y26">2026年</span> <span class="badge p2">DA架构</span></div>
+          <div class="pc-title">数据中台（Data Middle Platform）</div>
+          <div class="pc-desc">构建企业级数据湖仓 + 数据服务总线 + 指标管理平台，统一汇聚 SAP 交易数据、外围系统数据与 IoT 数据，形成“主数据 + 交易数据 + 分析数据”三层数据体系；与 PC02 主数据治理协同，为 AI / BI / APS 提供一致数据底座。</div>
+          <div class="pc-meta"><span class="pc-tag">成熟度 L2→L3</span><span class="pc-tag">周期 18个月</span><span class="pc-tag">S01/S08/S11/S17/S20/S22</span></div>
+          <div class="pc-value">责任方：数智化部 ｜ 预算估算 600–900万 <span style="font-size:9px;opacity:.7">[E]</span></div>
+        </div>
+        <div class="proj-card phase1">
+          <div class="pc-id">PC15 <span class="badge y26">2026年</span> <span class="badge p2">AA架构</span></div>
+          <div class="pc-title">智能仓储 WMS 深化</div>
+          <div class="pc-desc">基于 2023 年已部署 WMS 系统深化改造：对接 SAP IM/WM、条码/RFID 升级、库位优化、AGV 调度、与 MES(PC20) 联动；从“有系统”走向“深集成”。</div>
+          <div class="pc-meta"><span class="pc-tag">成熟度 L2→L3</span><span class="pc-tag">周期 14个月</span><span class="pc-tag">S17</span></div>
+          <div class="pc-value">责任方：供应链中心（仓储） ｜ 预算估算 200–350万 <span style="font-size:9px;opacity:.7">[E]</span></div>
+        </div>
+        <div class="proj-card phase1">
+          <div class="pc-id">PC20 <span class="badge y26">2026年</span> <span class="badge p2">AA架构</span></div>
+          <div class="pc-title">MES 系统新建与集成</div>
+          <div class="pc-desc">LED 车灯车间 MES 新建：工序报工、质量采集、设备对接、与 SAP PP/QM 双向集成；支撑 S/4HANA 上线后的制造透明化。</div>
+          <div class="pc-meta"><span class="pc-tag">成熟度 L2→L3</span><span class="pc-tag">周期 16个月</span><span class="pc-tag">S20/S14</span></div>
+          <div class="pc-value">责任方：生产制造部 ｜ 预算估算 400–650万 <span style="font-size:9px;opacity:.7">[E]</span></div>
+        </div>
+        <div class="proj-card phase1">
+          <div class="pc-id">PC21 <span class="badge y26">2026年</span> <span class="badge p2">BA架构</span></div>
+          <div class="pc-title">CRM 系统新建与集成</div>
+          <div class="pc-desc">CRM 新建：客户 360° 视图、销售漏斗、服务工单、与 SAP SD 双向集成；替代手工客户管理，支撑销售全链路数字化。</div>
+          <div class="pc-meta"><span class="pc-tag">成熟度 L2→L3</span><span class="pc-tag">周期 14个月</span><span class="pc-tag">S06/S07</span></div>
+          <div class="pc-value">责任方：销售中心 ｜ 预算估算 300–500万 <span style="font-size:9px;opacity:.7">[E]</span></div>
         </div>
       </div>
-      <div class="sec-sub">Phase 2：贯通协同（2027年，L3→L4）</div>
-      <div class="proj-grid">
+      <div class="sec-sub">Phase 2：贯通协同（2027年，L3→L4 · 9张）</div>
+<div class="pc-grid">
         <div class="proj-card phase2">
           <div class="pc-id">PC05 <span class="badge y27">2027年</span> <span class="badge p2">BA架构</span></div>
           <div class="pc-title">财务核心与全球合并</div>
-          <div class="pc-desc">S/4HANA FICO 核心（标准成本/获利分析）+ Group Reporting 19家法人自动合并 + DRC 电子发票合规。</div>
-          <div class="pc-meta"><span class="pc-tag">成熟度 L3 → L4</span><span class="pc-tag">S07 制造成本还原 / S09 应收清账 / S10 集团合并 / S11 销售项目核算（共92条需求）</span></div>
-          <div class="pc-value">责任方：财务管理部 · 高优先</div>
+          <div class="pc-desc">SAP FI/CO 标准成本 + 合并报表 + DRC 上线；经由财务共享平台对接浪潮司库与 PC18 预算系统；支撑全球合并与实时经营分析。</div>
+          <div class="pc-meta"><span class="pc-tag">成熟度 L3→L4</span><span class="pc-tag">周期 12个月</span><span class="pc-tag">S07/S09/S10/S11</span></div>
+          <div class="pc-value">责任方：财务中心 ｜ 预算估算 250–400万 <span style="font-size:9px;opacity:.7">[E]</span></div>
         </div>
         <div class="proj-card phase2">
           <div class="pc-id">PC06 <span class="badge y27">2027年</span> <span class="badge p2">BA架构</span></div>
           <div class="pc-title">销售订单与信用全链路</div>
-          <div class="pc-desc">SD 订单承诺(ATP)/交期预警/在途可视 + FI-CA 三维信用控制 + 完整价格条件方案，贯通商城/CRM/SAP。</div>
-          <div class="pc-meta"><span class="pc-tag">成熟度 L3 → L4</span><span class="pc-tag">S02 客户信用 / S03 跨公司转卖 / S04 销售订单全链路 / S05 销售价格体系（共171条需求）</span></div>
-          <div class="pc-value">责任方：国际事业部 · 高优先</div>
+          <div class="pc-desc">SAP SD + ATP + 信用管理 + 价格管理；对接 CRM(PC21)、聚水潭电商 ERP、佛照商城、防伪防窜系统；实现订单到收款全链路贯通。</div>
+          <div class="pc-meta"><span class="pc-tag">成熟度 L3→L4</span><span class="pc-tag">周期 10个月</span><span class="pc-tag">S02/S03/S04/S05</span></div>
+          <div class="pc-value">责任方：销售中心 ｜ 预算估算 200–320万 <span style="font-size:9px;opacity:.7">[E]</span></div>
         </div>
         <div class="proj-card phase2">
           <div class="pc-id">PC07 <span class="badge y27">2027年</span> <span class="badge p2">BA架构</span></div>
           <div class="pc-title">供应链计划与制造协同</div>
-          <div class="pc-desc">MRP Live + MPS + DDMRP 优化、产前齐套性预警、库存可视化、采购价格透明化，贯通计划-采购-仓储-制造。</div>
-          <div class="pc-meta"><span class="pc-tag">成熟度 L3 → L4</span><span class="pc-tag">S13 供应商绩效 / S14 采购价格 / S15 采购配额 / S16 产前齐套 / S17 库存可视化 / S18 MPS / S19 MRP（共151条需求）</span></div>
-          <div class="pc-value">责任方：供应链中心 · 高优先</div>
+          <div class="pc-desc">SAP PP/MM + MRP Live + MPS + 库存可视化；对接 MES(PC20)、SRM、WMS(PC15)；支撑计划制造一体化。</div>
+          <div class="pc-meta"><span class="pc-tag">成熟度 L3→L4</span><span class="pc-tag">周期 12个月</span><span class="pc-tag">S13/S14/S15/S16/S17/S18/S19</span></div>
+          <div class="pc-value">责任方：供应链中心 ｜ 预算估算 220–350万 <span style="font-size:9px;opacity:.7">[E]</span></div>
         </div>
         <div class="proj-card phase2">
           <div class="pc-id">PC08 <span class="badge y27">2027年</span> <span class="badge p2">AA架构</span></div>
           <div class="pc-title">质量追溯与研发一体化</div>
-          <div class="pc-desc">QM 全链路质量追溯 + BOM 全生命周期(EBOM→MBOM) + 生产进度看板，质量与研发数据贯通。</div>
-          <div class="pc-meta"><span class="pc-tag">成熟度 L3 → L4</span><span class="pc-tag">S12 研发投入产出 / S20 生产进度看板 / S21 质量追溯 / S22 QM合格率 / S23 BOM全生命周期（共132条需求）</span></div>
-          <div class="pc-value">责任方：技术品控中心 · 高优先</div>
+          <div class="pc-desc">SAP QM + EBOM→MBOM 贯通 + 全链路质量追溯；对接 MES(PC20)、PLM；支撑研发制造一体化。</div>
+          <div class="pc-meta"><span class="pc-tag">成熟度 L3→L4</span><span class="pc-tag">周期 10个月</span><span class="pc-tag">S12/S20/S21/S22/S23</span></div>
+          <div class="pc-value">责任方：质量部 + 研究院 ｜ 预算估算 180–280万 <span style="font-size:9px;opacity:.7">[E]</span></div>
         </div>
         <div class="proj-card phase2">
-          <div class="pc-id">PC09 <span class="badge y27">2027年</span> <span class="badge p2">AA架构</span></div>
+          <div class="pc-id">PC09 <span class="badge y27">2027年</span> <span class="badge p2">BA架构</span></div>
           <div class="pc-title">海外本地化合规</div>
-          <div class="pc-desc">泰国(FZ40)增值税/预提税/e-Tax Invoice 与德国(FZ33) IFRS 本地化配置，满足海外法人合规。</div>
-          <div class="pc-meta"><span class="pc-tag">成熟度 L3 → L4</span><span class="pc-tag">S06 海外合规（12条需求）</span></div>
-          <div class="pc-value">责任方：国际事业部 · 高优先</div>
+          <div class="pc-desc">泰国 FZ40/FZ33 本地化 + 税务规则 + 多币种 + 跨国报表；支撑海外工厂合规运营。</div>
+          <div class="pc-meta"><span class="pc-tag">成熟度 L3→L4</span><span class="pc-tag">周期 8个月</span><span class="pc-tag">—</span></div>
+          <div class="pc-value">责任方：国际事业部 ｜ 预算估算 150–250万 <span style="font-size:9px;opacity:.7">[E]</span></div>
+        </div>
+        <div class="proj-card phase2">
+          <div class="pc-id">PC13 <span class="badge y27">2027年</span> <span class="badge p2">DA架构</span></div>
+          <div class="pc-title">AI 平台深化与场景落地</div>
+          <div class="pc-desc">依托现有私有化 GLM5.1/Qwen3.5 底座深化：算力调度、模型评测、统一 MCP/API 网关、知识中台化（接 PC12 数据中台）。首批 SAP 强相关场景：AI-OCR 发票校验(A0622)→MIR7、物料智能检索(A0172)→MDG/MM、合同/供应商风控(A0244/A0250)→SRM/MM、需求预测增强→MRP(PC19)。</div>
+          <div class="pc-meta"><span class="pc-tag">成熟度 L3→L4</span><span class="pc-tag">周期 24个月</span><span class="pc-tag">S11/S17/S20/S22 + SAP</span></div>
+          <div class="pc-value">责任方：数智化部 + 业务条线 ｜ 预算估算 200–350万 <span style="font-size:9px;opacity:.7">[E]</span></div>
+        </div>
+        <div class="proj-card phase2">
+          <div class="pc-id">PC18 <span class="badge y27">2027年</span> <span class="badge p2">BA架构</span></div>
+          <div class="pc-title">全面预算管理系统</div>
+          <div class="pc-desc">新建全面预算管理系统：预算编制、执行监控、分析调整；经由财务共享平台对接 SAP S/4HANA 与浪潮司库；替代 2026 年手工预算，达成实质三大系统互联互通。</div>
+          <div class="pc-meta"><span class="pc-tag">成熟度 L3→L4</span><span class="pc-tag">周期 12个月</span><span class="pc-tag">S10/S11</span></div>
+          <div class="pc-value">责任方：财务中心 ｜ 预算估算 200–350万 <span style="font-size:9px;opacity:.7">[E]</span></div>
+        </div>
+        <div class="proj-card phase2">
+          <div class="pc-id">PC19 <span class="badge y27">2027年</span> <span class="badge p2">BA架构</span></div>
+          <div class="pc-title">优化供应链·启用 MRP</div>
+          <div class="pc-desc">S/4HANA 上线后 MRP 跑通专项：物料分类策略、批量大小优化、安全库存校准、替代料规则、与 APS(PC14) 预测数据联动；解决上线首日 MRP 运行不起来的痛点。</div>
+          <div class="pc-meta"><span class="pc-tag">成熟度 L3→L4</span><span class="pc-tag">周期 8个月</span><span class="pc-tag">S16/S18/S19</span></div>
+          <div class="pc-value">责任方：供应链中心 ｜ 预算估算 100–180万 <span style="font-size:9px;opacity:.7">[E]</span></div>
+        </div>
+        <div class="proj-card phase2">
+          <div class="pc-id">PC23 <span class="badge y27">2027年</span> <span class="badge p2">TA架构</span></div>
+          <div class="pc-title">信息安全体系治理与等保合规深化</div>
+          <div class="pc-desc">统一信息安全治理：信息安全委员会/制度、数据分类分级（接 PC02 主数据）、等保 2.0 三级对标、关基安全。SAP 安全专项：SoD 职责分离(A0286)、权限最小化与角色治理(A0495/A0478)、敏感字段加密、审计日志告警。零信任接入、DLP 深化。</div>
+          <div class="pc-meta"><span class="pc-tag">成熟度 L3→L4</span><span class="pc-tag">周期 12个月</span><span class="pc-tag">跨系统</span></div>
+          <div class="pc-value">责任方：信息管理部 ｜ 预算估算 150–300万 <span style="font-size:9px;opacity:.7">[E]</span></div>
         </div>
       </div>
-      <div class="sec-sub">Phase 3：智慧跃升（2028年，L4深化 / L5愿景）</div>
-      <div class="proj-grid">
+      <div class="sec-sub">Phase 3：智慧跃升（2028年，L4深化 / L5愿景 · 7张）</div>
+<div class="pc-grid">
         <div class="proj-card phase3">
           <div class="pc-id">PC10 <span class="badge y28">2028年</span> <span class="badge p2">DA架构</span></div>
           <div class="pc-title">数据智能分析平台</div>
-          <div class="pc-desc">SAC + 数据资产目录 + 预测分析，将分散报表升级为 T+0 实时数据智能，支撑经营决策。</div>
-          <div class="pc-meta"><span class="pc-tag">成熟度 L4 深化</span><span class="pc-tag">S11 销售项目核算 / S17 库存可视化 / S20 生产进度 / S22 QM合格率（共174条需求复用）</span></div>
-          <div class="pc-value">责任方：数智化部 · 中优先</div>
+          <div class="pc-desc">SAP SAC + 数据资产目录 + T+0 实时分析；接 PC12 数据中台；支撑经营分析实时化与 AI 预测分析。</div>
+          <div class="pc-meta"><span class="pc-tag">成熟度 L4深化</span><span class="pc-tag">周期 10个月</span><span class="pc-tag">S11/S17/S20/S22</span></div>
+          <div class="pc-value">责任方：数智化部 ｜ 预算估算 追加 SAC 许可万 <span style="font-size:9px;opacity:.7">[E]</span></div>
         </div>
         <div class="proj-card phase3">
           <div class="pc-id">PC11 <span class="badge y28">2028年</span> <span class="badge p2">BA架构</span></div>
           <div class="pc-title">生态协同与模式创新</div>
-          <div class="pc-desc">经销商协同、供应商协同门户与 IoT 智慧照明生态，推动从产品销售向解决方案服务转型（L5 愿景）。</div>
-          <div class="pc-meta"><span class="pc-tag">成熟度 L4 → L5 愿景</span><span class="pc-tag">生态协同（跨场景，L5 愿景）</span></div>
-          <div class="pc-value">责任方：战略投资部 · 中优先</div>
+          <div class="pc-desc">供应商协同门户、客户自助平台、产业数据共享、碳足迹追溯；支撑 L5 生态协同。</div>
+          <div class="pc-meta"><span class="pc-tag">成熟度 L4→L5</span><span class="pc-tag">周期 8个月</span><span class="pc-tag">—</span></div>
+          <div class="pc-value">责任方：战略运营部 ｜ 预算估算 生态运营万 <span style="font-size:9px;opacity:.7">[E]</span></div>
         </div>
-      </div>
-      <div class="sec-sub">外围系统改造项目卡片（PC12–PC17 · 横向使能层）</div>
-      <div class="proj-grid">
-        <div class="proj-card phase1">
-          <div class="pc-id">PC12 <span class="badge y26">2026年</span> <span class="badge p2">DA/TA架构</span></div>
-          <div class="pc-title">数据中台（Data Middle Platform）</div>
-          <div class="pc-desc">构建企业级数据湖仓 + 数据服务总线 + 指标管理平台，统一汇聚 SAP 交易数据、外围系统数据与 IoT 数据，形成“主数据 + 交易数据 + 分析数据”三层数据体系；与 PC02 主数据治理协同，为 AI / BI / APS 提供一致数据底座。</div>
-          <div class="pc-meta"><span class="pc-tag">成熟度 L2 → L3（使能）</span><span class="pc-tag">周期 18个月</span><span class="pc-tag">横向使能 · 支撑 S01/S08/S11/S17/S20/S22</span></div>
-          <div class="pc-value">责任方：数智化部 ｜ 预算估算 600–900万 <span style="font-size:9px;opacity:.7">[E]</span></div>
-        </div>
-        <div class="proj-card phase2">
-          <div class="pc-id">PC13 <span class="badge y27">2027年</span> <span class="badge p2">AA/TA架构</span></div>
-          <div class="pc-title">AI 平台与应用（AI Platform & Apps）</div>
-          <div class="pc-desc">搭建 MLOps / 大模型应用平台，落地高价值 AI 场景：需求预测（增强计划）、AI 视觉质检（接入 PC08 QM）、智能客服 / 报价助手（接入 PC06）、经营预测（接入 PC10）；采用“平台 + 场景”双轨。</div>
-          <div class="pc-meta"><span class="pc-tag">成熟度 L3 → L4</span><span class="pc-tag">周期 24个月</span><span class="pc-tag">支撑 S11/S17/S20/S22 智能 + S21 视觉质检</span></div>
-          <div class="pc-value">责任方：数智化部 + 业务条线 ｜ 预算估算 400–700万 <span style="font-size:9px;opacity:.7">[E]</span></div>
-        </div>
-        <div class="proj-card phase2">
-          <div class="pc-id">PC14 <span class="badge y27">2027年</span> <span class="badge p2">AA架构</span></div>
-          <div class="pc-title">APS 高级计划排程</div>
-          <div class="pc-desc">部署 APS 替代 / 增强 SAP 标准 MRP，实现工序级排程、产能约束优化、齐套性联动，与 SAP PP / MM 双向集成；支撑 S16 / S18 / S19 计划制造场景。</div>
-          <div class="pc-meta"><span class="pc-tag">成熟度 L3 → L4</span><span class="pc-tag">周期 12个月</span><span class="pc-tag">S16 产前齐套 / S18 MPS / S19 MRP（与 PC07 协同）</span></div>
+        <div class="proj-card phase3">
+          <div class="pc-id">PC14 <span class="badge y28">2028年</span> <span class="badge p2">AA架构</span></div>
+          <div class="pc-title">APS 高级计划排程（重建·替代 Asprova）</div>
+          <div class="pc-desc">重建 APS 替代已停用 Asprova：工序级排程、产能约束优化、齐套性联动、与 SAP PP/MM 双向集成；接 PC19 MRP 优化结果与 PC13 AI 需求预测。</div>
+          <div class="pc-meta"><span class="pc-tag">成熟度 L4深化</span><span class="pc-tag">周期 12个月</span><span class="pc-tag">S16/S18/S19</span></div>
           <div class="pc-value">责任方：供应链中心 ｜ 预算估算 200–350万 <span style="font-size:9px;opacity:.7">[E]</span></div>
         </div>
-        <div class="proj-card phase1">
-          <div class="pc-id">PC15 <span class="badge y26">2026年</span> <span class="badge p2">AA架构</span></div>
-          <div class="pc-title">智能仓储 WMS</div>
-          <div class="pc-desc">部署智能仓储管理系统，对接 SAP IM / WM，实现条码 / RFID、库位优化、AGV 调度、出入库自动化；支撑 S17 库存可视化，降低人工作业。</div>
-          <div class="pc-meta"><span class="pc-tag">成熟度 L2 → L3</span><span class="pc-tag">周期 14个月</span><span class="pc-tag">S17 库存可视化（与 PC07/PC10 协同）</span></div>
-          <div class="pc-value">责任方：供应链中心（仓储） ｜ 预算估算 300–500万 <span style="font-size:9px;opacity:.7">[E]</span></div>
-        </div>
-        <div class="proj-card phase2">
-          <div class="pc-id">PC16 <span class="badge y27">2027年</span> <span class="badge p2">TA/AA架构</span></div>
+        <div class="proj-card phase3">
+          <div class="pc-id">PC16 <span class="badge y28">2028年</span> <span class="badge p2">AA架构</span></div>
           <div class="pc-title">设备物联 IoT / 工业互联网</div>
-          <div class="pc-desc">设备联网与边缘采集（OPC-UA / Modbus），构建 OEE 监控、设备预测性维护、能耗管理；支撑 S20 生产进度、制造透明化。</div>
-          <div class="pc-meta"><span class="pc-tag">成熟度 L3 → L4</span><span class="pc-tag">周期 12个月</span><span class="pc-tag">S20 生产进度看板（与 PC08/PC10 协同）</span></div>
+          <div class="pc-desc">设备联网与边缘采集（OPC-UA / Modbus），构建 OEE 监控、设备预测性维护、能耗管理；接 MES(PC20) 与 PC12 数据中台；支撑制造透明化。</div>
+          <div class="pc-meta"><span class="pc-tag">成熟度 L4深化</span><span class="pc-tag">周期 12个月</span><span class="pc-tag">S20</span></div>
           <div class="pc-value">责任方：生产制造部 ｜ 预算估算 250–400万 <span style="font-size:9px;opacity:.7">[E]</span></div>
         </div>
         <div class="proj-card phase3">
-          <div class="pc-id">PC17 <span class="badge y28">2028年</span> <span class="badge p2">BA/AA架构</span></div>
+          <div class="pc-id">PC17 <span class="badge y28">2028年</span> <span class="badge p2">DA架构</span></div>
           <div class="pc-title">供应链控制塔 / BI 经营驾驶舱</div>
-          <div class="pc-desc">构建供应链控制塔与经营驾驶舱，整合需求-计划-采购-生产-库存-物流端到端可视与异常预警，支撑 L5 生态协同与实时决策；与 PC10 / PC11 协同。</div>
-          <div class="pc-meta"><span class="pc-tag">成熟度 L4 → L5</span><span class="pc-tag">周期 10个月</span><span class="pc-tag">跨场景（L5）· 整合 S11/S17/S20/S22</span></div>
+          <div class="pc-desc">供应链控制塔与经营驾驶舱：需求-计划-采购-生产-库存-物流端到端可视与异常预警；接 PC12 数据中台 + PC10 SAC；与 Finereport 并存或替代。</div>
+          <div class="pc-meta"><span class="pc-tag">成熟度 L4→L5</span><span class="pc-tag">周期 10个月</span><span class="pc-tag">跨场景（L5）</span></div>
           <div class="pc-value">责任方：战略运营部 ｜ 预算估算 150–250万 <span style="font-size:9px;opacity:.7">[E]</span></div>
-        </div>      </div>
-    </div>
-    <div class="sec" id="ch3-3">
+        </div>
+        <div class="proj-card phase3">
+          <div class="pc-id">PC22 <span class="badge y28">2028年</span> <span class="badge p2">DA架构</span></div>
+          <div class="pc-title">AI 深化二期·智能体编排与决策闭环</div>
+          <div class="pc-desc">MCP 打通 S/4HANA / MES / 数据中台 / 控制塔：从问答升级到 agentic workflow。经营决策 copilot（接 PC10+PC17）、视觉质检大模型（接 PC08/PC16）、智能客服/报价助手（接 PC06/PC21）、AIGC 报表/标书/文档准生产化。</div>
+          <div class="pc-meta"><span class="pc-tag">成熟度 L4→L5</span><span class="pc-tag">周期 12个月</span><span class="pc-tag">跨场景（L5）</span></div>
+          <div class="pc-value">责任方：数智化部 ｜ 预算估算 150–300万 <span style="font-size:9px;opacity:.7">[E]</span></div>
+        </div>
+        <div class="proj-card phase3">
+          <div class="pc-id">PC24 <span class="badge y28">2028年</span> <span class="badge p2">TA架构</span></div>
+          <div class="pc-title">IT/OT 融合安全与数据安全运营 SOC</div>
+          <div class="pc-desc">OT/ICS 安全（IEC 62443）：随 MES(PC20)/IoT(PC16) 上线保护工业网络（车间隔离、PLC/SCADA 防护、OT 资产清点）。SOC/SIEM 统一日志、UEBA、威胁检测、应急演练。AI 安全：提示注入防护、推理数据防泄漏、AI 输出审计（接 PC13/PC22）。信创安全 + 业务连续性（灾备/勒索防护）。</div>
+          <div class="pc-meta"><span class="pc-tag">成熟度 L4→L5</span><span class="pc-tag">周期 12个月</span><span class="pc-tag">跨系统</span></div>
+          <div class="pc-value">责任方：信息管理部 ｜ 预算估算 250–450万 <span style="font-size:9px;opacity:.7">[E]</span></div>
+        </div>
+      </div>
+    </div><div class="sec" id="ch3-3">
       <div class="sec-title"><i class="fa fa-star"></i>3.3 23个高价值场景专题（S01–S23）</div>
       <p>以下 23 个高价值场景专题由 701 条需求经痛点聚类与架构匹配后收敛确认，作为 S/4HANA 实施的核心聚焦范围，每个场景明确归属 4A 架构域、优先级与对应项目卡片。</p>
       <table>
@@ -587,7 +633,29 @@ tr:hover td{background:#E0EEFF}
         </tbody>
       </table>
       <div class="chart-note">说明：场景覆盖需求数基于 701 条原始需求的 s（场景）字段聚合；部分场景（如 S17 库存可视化）被多个项目卡片复用。治理类需求（管理需求移出 70 条、数字化规划非专题 23 条、平台技术底座 16 条）作为跨项目支撑，不单列场景。</div>
-      <div class="chart-note" style="margin-top:10px">注：PC12–PC17 为横向使能类外围系统，不直接对应上表业务场景，而是通过统一数据底座（数据中台）、智能能力（AI 平台）、计划引擎（APS）、仓储 / 设备物联（WMS / IoT）、经营可视（控制塔）对 23 个场景提供支撑；其归属与成本见 §3.2 与第六章 §6.3。</div>
+      <div class="chart-note" style="margin-top:10px">注：PC12–PC24 为横向使能类外围系统，不直接对应上表业务场景，而是通过统一数据底座（数据中台）、智能能力（AI 平台 ×2）、计划引擎（APS）、仓储 / 设备物联（WMS / IoT / MES）、销售（CRM）、经营可视（控制塔）、预算、安全（×2）对 23 个场景提供支撑；其归属与成本见 §3.2 与第六章 §6.3。</div>
+      <div class="sec-sub">AI 与信息安全需求溯源（来自 701 条原始需求）</div>
+      <p>下列需求溯源表将 701 条原始需求中强语义匹配的 AI（11 条）与信息安全（21 条）需求直接挂接到项目卡片，确保每张 AI/安全卡都有真实需求编号支撑。</p>
+      <table>
+        <thead><tr><th style="width:8%">需求ID</th><th style="width:10%">提出部门</th><th style="width:22%">痛点简述</th><th style="width:25%">对应 AI/安全能力</th><th style="width:10%">落卡</th><th style="width:10%">SAP模块</th><th style="width:8%">优先级</th></tr></thead>
+        <tbody>
+          <tr><td><strong>A0505</strong></td><td>数智化部</td><td>SAP 缺少 AI 插件集成</td><td>私有 LLM 业务问答助手（API 挂接 SAP 数据字典）</td><td>PC13</td><td>跨模块</td><td>高</td></tr>
+          <tr><td><strong>A0622</strong></td><td>财务管理部</td><td>发票手工录入效率低</td><td>AI-OCR 自动识别 → CPI 写入 MIR7</td><td>PC13</td><td>MM-FI</td><td>中</td></tr>
+          <tr><td><strong>A0172</strong></td><td>研究院</td><td>物料检索效率低、重复创建</td><td>语义检索 + 智能推荐（MDG/MM API）</td><td>PC13</td><td>MDG/MM</td><td><strong>高</strong></td></tr>
+          <tr><td><strong>A0190</strong></td><td>研究院</td><td>物料查询按价格/库存智能排序</td><td>基于 SAP 库存/价格/成本数据智能排序</td><td>PC13</td><td>MM</td><td>中</td></tr>
+          <tr><td><strong>A0244</strong></td><td>法律与风控</td><td>合同审查效率低、遗漏风险</td><td>智能合同审查 + 条款风险识别</td><td>PC13</td><td>非 SAP</td><td><strong>高</strong></td></tr>
+          <tr><td><strong>A0250</strong></td><td>法律与风控</td><td>合作主体法律风险难评估</td><td>供应商风控（SAP SRM/MM 供应商主数据 + 外部征信）</td><td>PC13</td><td>SRM/MM</td><td><strong>高</strong></td></tr>
+          <tr><td><strong>A0330</strong></td><td>供应链</td><td>需求预测不准导致库存积压</td><td>AI 需求预测增强 → feeding MRP(PC19)</td><td>PC13</td><td>PP/MM</td><td>中</td></tr>
+          <tr><td><strong>A0523</strong></td><td>财务管理部</td><td>月结报告手工汇总耗时</td><td>大模型自动生成经营月报</td><td>PC13</td><td>FI-CO</td><td>低</td></tr>
+          <tr><td><strong>A0286</strong></td><td>财务管理部</td><td>对账职责分离不满足审计</td><td>SAP SoD 职责分离治理</td><td>PC23</td><td>FI</td><td><strong>高</strong></td></tr>
+          <tr><td><strong>A0298</strong></td><td>信息管理部</td><td>关基安全等级保护要求</td><td>等保 2.0 三级对标 + 关基安全</td><td>PC23</td><td>跨系统</td><td>中</td></tr>
+          <tr><td><strong>A0183</strong></td><td>研究院</td><td>SAP-PLM 单点登录未打通</td><td>统一身份认证 / SSO 集成</td><td>PC23</td><td>跨系统</td><td>中</td></tr>
+          <tr><td><strong>A0495</strong></td><td>财务管理部</td><td>权限分配粗放、无定期复核</td><td>权限最小化与角色治理</td><td>PC23</td><td>跨模块</td><td><strong>高</strong></td></tr>
+          <tr><td><strong>A0517</strong></td><td>董事会办公室</td><td>敏感数据识别与保护不足</td><td>数据分类分级 + 脱敏</td><td>PC23</td><td>跨系统</td><td>中</td></tr>
+          <tr><td><strong>A0543</strong></td><td>董事会办公室</td><td>机密信息识别与防泄漏</td><td>敏感数据智能识别 + DLP + AI 输出审计</td><td>PC23/PC24</td><td>跨系统</td><td>中</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:11px;color:var(--muted)"><strong>说明：</strong>上表仅列出强语义匹配的 14 条代表性需求（AI 8 条 + 安全 6 条），完整 11 条 AI + 21 条安全需求详见需求追溯工作台。所有需求 ID 均可向上追溯至 701 条原始需求域与业务痛点。</p>
     </div>
   </div>
 </div>
@@ -613,7 +681,7 @@ tr:hover td{background:#E0EEFF}
       <div class="sec-title"><i class="fa fa-sort-numeric-down"></i>4.2 优先级矩阵评分结果</div>
       <div class="chart-grid">
         <div class="chart-card" style="grid-column:1/-1">
-          <h4>17个项目卡片综合优先级评分（SAP 11 + 外围 6）</h4>
+          <h4>24个项目卡片综合优先级评分（SAP 11 + 外围 13）</h4>
           <div class="chart-wrap" style="height:320px"><canvas id="priorityChart"></canvas></div>
         </div>
       </div>
@@ -624,19 +692,26 @@ tr:hover td{background:#E0EEFF}
           <tr><td>2</td><td>PC02 主数据治理与数据规范</td><td>15</td><td>20</td><td>15</td><td>20</td><td>20</td><td><strong>90</strong></td><td><span class="badge y26">Phase 1</span></td></tr>
           <tr><td>3</td><td>PC03 集成架构与CPI接口收敛</td><td>15</td><td>18</td><td>12</td><td>18</td><td>20</td><td><strong>85</strong></td><td><span class="badge y26">Phase 1</span></td></tr>
           <tr><td>4</td><td>PC04 端到端流程蓝图与变革管理</td><td>15</td><td>18</td><td>14</td><td>20</td><td>18</td><td><strong>83</strong></td><td><span class="badge y26">Phase 1</span></td></tr>
-          <tr><td>5</td><td>PC05 财务核心与全球合并</td><td>20</td><td>18</td><td>14</td><td>20</td><td>10</td><td><strong>80</strong></td><td><span class="badge y27">Phase 2</span></td></tr>
-          <tr><td>6</td><td>PC06 销售订单与信用全链路</td><td>18</td><td>18</td><td>15</td><td>16</td><td>8</td><td><strong>78</strong></td><td><span class="badge y27">Phase 2</span></td></tr>
-          <tr><td>7</td><td>PC07 供应链计划与制造协同</td><td>20</td><td>20</td><td>14</td><td>16</td><td>5</td><td><strong>76</strong></td><td><span class="badge y27">Phase 2</span></td></tr>
-          <tr><td>8</td><td>PC08 质量追溯与研发一体化</td><td>14</td><td>16</td><td>12</td><td>14</td><td>8</td><td><strong>74</strong></td><td><span class="badge y27">Phase 2</span></td></tr>
-          <tr><td>9</td><td>PC09 海外本地化合规</td><td>16</td><td>16</td><td>14</td><td>16</td><td>8</td><td><strong>72</strong></td><td><span class="badge y27">Phase 2</span></td></tr>
-          <tr><td>10</td><td>PC10 数据智能分析平台</td><td>16</td><td>14</td><td>12</td><td>12</td><td>5</td><td><strong>64</strong></td><td><span class="badge y28">Phase 3</span></td></tr>
-          <tr><td>11</td><td>PC11 生态协同与模式创新</td><td>14</td><td>12</td><td>12</td><td>16</td><td>5</td><td><strong>60</strong></td><td><span class="badge y28">Phase 3</span></td></tr>
-          <tr><td>12</td><td>PC12 数据中台（Data Middle Platform）</td><td>18</td><td>18</td><td>12</td><td>16</td><td>16</td><td><strong>80</strong></td><td><span class="badge y26">Phase 1</span></td></tr>
-          <tr><td>13</td><td>PC14 APS高级计划排程</td><td>18</td><td>16</td><td>13</td><td>14</td><td>12</td><td><strong>73</strong></td><td><span class="badge y27">Phase 2</span></td></tr>
-          <tr><td>14</td><td>PC13 AI平台与应用</td><td>16</td><td>16</td><td>14</td><td>12</td><td>12</td><td><strong>70</strong></td><td><span class="badge y27">Phase 2</span></td></tr>
-          <tr><td>15</td><td>PC16 设备物联 IoT</td><td>15</td><td>15</td><td>13</td><td>12</td><td>10</td><td><strong>65</strong></td><td><span class="badge y27">Phase 2</span></td></tr>
-          <tr><td>16</td><td>PC15 智能仓储 WMS</td><td>14</td><td>14</td><td>12</td><td>14</td><td>10</td><td><strong>64</strong></td><td><span class="badge y26">Phase 1</span></td></tr>
-          <tr><td>17</td><td>PC17 供应链控制塔 / BI</td><td>14</td><td>14</td><td>12</td><td>12</td><td>8</td><td><strong>60</strong></td><td><span class="badge y28">Phase 3</span></td></tr>
+          <tr><td>5</td><td>PC12 数据中台（Data Middle Platform）</td><td>18</td><td>18</td><td>12</td><td>16</td><td>16</td><td><strong>80</strong></td><td><span class="badge y26">Phase 1</span></td></tr>
+          <tr><td>6</td><td>PC05 财务核心与全球合并</td><td>20</td><td>18</td><td>14</td><td>20</td><td>10</td><td><strong>80</strong></td><td><span class="badge y27">Phase 2</span></td></tr>
+          <tr><td>7</td><td>PC06 销售订单与信用全链路</td><td>18</td><td>18</td><td>15</td><td>16</td><td>8</td><td><strong>78</strong></td><td><span class="badge y27">Phase 2</span></td></tr>
+          <tr><td>8</td><td>PC19 优化供应链·启用 MRP</td><td>18</td><td>18</td><td>14</td><td>14</td><td>12</td><td><strong>76</strong></td><td><span class="badge y27">Phase 2</span></td></tr>
+          <tr><td>9</td><td>PC07 供应链计划与制造协同</td><td>20</td><td>20</td><td>14</td><td>16</td><td>5</td><td><strong>76</strong></td><td><span class="badge y27">Phase 2</span></td></tr>
+          <tr><td>10</td><td>PC08 质量追溯与研发一体化</td><td>14</td><td>16</td><td>12</td><td>14</td><td>8</td><td><strong>74</strong></td><td><span class="badge y27">Phase 2</span></td></tr>
+          <tr><td>11</td><td>PC09 海外本地化合规</td><td>16</td><td>16</td><td>14</td><td>16</td><td>8</td><td><strong>72</strong></td><td><span class="badge y27">Phase 2</span></td></tr>
+          <tr><td>12</td><td>PC18 全面预算管理系统</td><td>18</td><td>16</td><td>12</td><td>16</td><td>10</td><td><strong>72</strong></td><td><span class="badge y27">Phase 2</span></td></tr>
+          <tr><td>13</td><td>PC23 信息安全体系治理</td><td>16</td><td>16</td><td>14</td><td>14</td><td>10</td><td><strong>70</strong></td><td><span class="badge y27">Phase 2</span></td></tr>
+          <tr><td>14</td><td>PC13 AI平台深化与场景落地</td><td>16</td><td>16</td><td>14</td><td>12</td><td>12</td><td><strong>70</strong></td><td><span class="badge y27">Phase 2</span></td></tr>
+          <tr><td>15</td><td>PC20 MES系统新建与集成</td><td>16</td><td>16</td><td>12</td><td>14</td><td>10</td><td><strong>68</strong></td><td><span class="badge y26">Phase 1</span></td></tr>
+          <tr><td>16</td><td>PC21 CRM系统新建与集成</td><td>16</td><td>14</td><td>12</td><td>14</td><td>10</td><td><strong>66</strong></td><td><span class="badge y26">Phase 1</span></td></tr>
+          <tr><td>17</td><td>PC14 APS高级计划排程（重建）</td><td>18</td><td>16</td><td>13</td><td>14</td><td>12</td><td><strong>73</strong></td><td><span class="badge y28">Phase 3</span></td></tr>
+          <tr><td>18</td><td>PC16 设备物联 IoT</td><td>15</td><td>15</td><td>13</td><td>12</td><td>10</td><td><strong>65</strong></td><td><span class="badge y28">Phase 3</span></td></tr>
+          <tr><td>19</td><td>PC15 智能仓储 WMS深化</td><td>14</td><td>14</td><td>12</td><td>14</td><td>10</td><td><strong>64</strong></td><td><span class="badge y26">Phase 1</span></td></tr>
+          <tr><td>20</td><td>PC10 数据智能分析平台</td><td>16</td><td>14</td><td>12</td><td>12</td><td>5</td><td><strong>64</strong></td><td><span class="badge y28">Phase 3</span></td></tr>
+          <tr><td>21</td><td>PC22 AI深化二期·智能体</td><td>14</td><td>12</td><td>12</td><td>14</td><td>10</td><td><strong>62</strong></td><td><span class="badge y28">Phase 3</span></td></tr>
+          <tr><td>22</td><td>PC11 生态协同与模式创新</td><td>14</td><td>12</td><td>12</td><td>16</td><td>5</td><td><strong>60</strong></td><td><span class="badge y28">Phase 3</span></td></tr>
+          <tr><td>23</td><td>PC24 IT/OT融合安全与SOC</td><td>14</td><td>14</td><td>12</td><td>12</td><td>8</td><td><strong>60</strong></td><td><span class="badge y28">Phase 3</span></td></tr>
+          <tr><td>24</td><td>PC17 供应链控制塔 / BI</td><td>14</td><td>14</td><td>12</td><td>12</td><td>8</td><td><strong>60</strong></td><td><span class="badge y28">Phase 3</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -716,7 +791,7 @@ tr:hover td{background:#E0EEFF}
           <div class="tl-body" style="border-color:#E65100">
             <h4>2026-08-20 — 需求诊断阶段关闭，蓝图初稿定稿 <span style="color:#E65100;font-size:11px">⟳ 进行中</span></h4>
             <div class="tl-date">关键里程碑（当前冲刺目标）</div>
-            <p>689条需求全部分类并映射至SAP功能模块；蓝图初稿（Blueprint Draft v1.0）经业务确认；范围变更冻结，进入系统配置阶段</p>
+            <p>701条需求全部分类并映射至SAP功能模块；蓝图初稿（Blueprint Draft v1.0）经业务确认；范围变更冻结，进入系统配置阶段</p>
           </div>
         </div>
         <div class="tl-item">
@@ -760,40 +835,46 @@ tr:hover td{background:#E0EEFF}
           <tr><td><strong>PC03 集成架构与CPI接口</strong></td><td colspan="5" style="background:var(--pale);text-align:center;font-size:11px;color:var(--muted)">接口规划(含于PC01范围)</td><td colspan="4" style="background:var(--primary);text-align:center;font-size:11px;color:#fff">8条接口开发+联调</td><td style="background:var(--navy);text-align:center;font-size:11px;color:#fff">上线</td><td><span class="badge y26">规划中</span></td></tr>
           <tr><td><strong>PC04 端到端流程蓝图</strong></td><td colspan="5" style="background:var(--pale);text-align:center;font-size:11px;color:var(--muted)">含于PC01蓝图设计</td><td colspan="4" style="background:var(--primary);text-align:center;font-size:11px;color:#fff">OTC/PTP/MTC蓝图确认+变革</td><td style="background:var(--navy);text-align:center;font-size:11px;color:#fff">上线</td><td><span class="badge y26">规划中</span></td></tr>
           <tr><td><strong>PC12 数据中台（启动）</strong></td><td colspan="5" style="background:var(--pale);text-align:center;font-size:11px;color:var(--muted)">含于PC01底座规划</td><td colspan="4" style="background:var(--mid);text-align:center;font-size:11px;color:#fff">湖仓+数据服务总线+指标平台</td><td style="background:var(--navy);text-align:center;font-size:11px;color:#fff">底座就绪(L3)</td><td><span class="badge y26">启动</span></td></tr>
-          <tr><td><strong>PC15 智能仓储 WMS</strong></td><td colspan="7" style="background:var(--pale);text-align:center;font-size:11px;color:var(--muted)">需求+选型(含于外围窗口)</td><td colspan="2" style="background:var(--mid);text-align:center;font-size:11px;color:#fff">条码/AGV+对接SAP</td><td style="background:var(--navy);text-align:center;font-size:11px;color:#fff">上线(L3)</td><td><span class="badge y26">启动</span></td></tr>
+          <tr><td><strong>PC15 智能仓储 WMS深化</strong></td><td colspan="7" style="background:var(--pale);text-align:center;font-size:11px;color:var(--muted)">需求梳理+深化方案(已存在系统)</td><td colspan="2" style="background:var(--mid);text-align:center;font-size:11px;color:#fff">条码/AGV+对接SAP/MES</td><td style="background:var(--navy);text-align:center;font-size:11px;color:#fff">上线(L3)</td><td><span class="badge y26">启动</span></td></tr>
+          <tr><td><strong>PC20 MES系统新建与集成</strong></td><td colspan="5" style="background:var(--pale);text-align:center;font-size:11px;color:var(--muted)">需求+选型+招标</td><td colspan="3" style="background:var(--primary);text-align:center;font-size:11px;color:#fff">LED车间MES实施</td><td colspan="1" style="background:var(--mid);text-align:center;font-size:11px;color:#fff">与SAP联调</td><td style="background:var(--navy);text-align:center;font-size:11px;color:#fff">上线</td><td><span class="badge y26">启动</span></td></tr>
+          <tr><td><strong>PC21 CRM系统新建与集成</strong></td><td colspan="5" style="background:var(--pale);text-align:center;font-size:11px;color:var(--muted)">需求+选型+招标</td><td colspan="3" style="background:var(--primary);text-align:center;font-size:11px;color:#fff">CRM实施+客户360</td><td colspan="1" style="background:var(--mid);text-align:center;font-size:11px;color:#fff">与SAP联调</td><td style="background:var(--navy);text-align:center;font-size:11px;color:#fff">上线</td><td><span class="badge y26">启动</span></td></tr>
         </tbody>
       </table>
     </div>
 
     <div class="sec" id="ch5-2">
       <div class="sec-title"><i class="fa fa-network-wired"></i>5.2 Phase 2：贯通协同（2027年 · 成熟度 L3→L4）</div>
-      <p><strong>主题：</strong>"联系统、通流程、强管控"。Phase 2在S/4HANA稳定运行的基础上，深化系统集成（MES/PLM）、优化核心业务流程（MRP/质量追溯）、扩展管理视图（驾驶舱/泰国合规），并启动 APS（PC14）、设备 IoT（PC16）、AI 平台（PC13）、数据中台深化（PC12）等外围系统。</p>
+      <p><strong>主题：</strong>"联系统、通流程、强管控"。Phase 2在S/4HANA稳定运行的基础上，深化系统集成（MES PC20/PLM）、优化核心业务流程（MRP PC19/质量追溯）、扩展管理视图（驾驶舱/泰国合规），并启动 AI 平台深化（PC13）、数据中台深化（PC12）、全面预算（PC18）、安全治理（PC23）等外围系统。APS（PC14）与设备IoT（PC16）移至2028年。</p>
       <table>
         <thead><tr><th>项目</th><th>2027Q1-Q2</th><th>2027Q3</th><th>2027Q4</th><th>预期交付成果</th></tr></thead>
                 <tbody>
-          <tr><td><strong>PC05 财务核心与全球合并</strong></td><td style="background:var(--pale);font-size:11px">FICO配置+GR设计</td><td colspan="2" style="background:var(--primary);font-size:11px;color:#fff">标准成本+合并报表+DRC上线</td><td>合并效率+60%；成本颗粒度到产品/渠道（L4）</td></tr>
-          <tr><td><strong>PC06 销售订单与信用全链路</strong></td><td style="background:var(--pale);font-size:11px">SD+FI-CA方案设计</td><td colspan="2" style="background:var(--primary);font-size:11px;color:#fff">ATP+信用+价格方案上线</td><td>信用自动冻结；DSO 90→75天（L4）</td></tr>
-          <tr><td><strong>PC07 供应链计划与制造协同</strong></td><td colspan="2" style="background:var(--mid);font-size:11px;color:#fff">MRP Live+MPS+库存可视化</td><td style="background:var(--primary);font-size:11px;color:#fff">全面推广</td><td>MRP有效≥85%；库存109→75天（L4）</td></tr>
-          <tr><td><strong>PC08 质量追溯与研发一体化</strong></td><td style="background:var(--pale);font-size:11px">QM+BOM规则设计</td><td colspan="2" style="background:var(--primary);font-size:11px;color:#fff">全链路追溯+EBOM→MBOM</td><td>追溯30分钟内；研发制造贯通（L4）</td></tr>
+          <tr><td><strong>PC05 财务核心与全球合并</strong></td><td style="background:var(--pale);font-size:11px">FICO配置+GR设计</td><td colspan="2" style="background:var(--primary);font-size:11px;color:#fff">标准成本+合并报表+DRC上线（经财务共享平台对接浪潮司库）</td><td>合并效率+60%；成本颗粒度到产品/渠道（L4）</td></tr>
+          <tr><td><strong>PC06 销售订单与信用全链路</strong></td><td style="background:var(--pale);font-size:11px">SD+FI-CA方案设计</td><td colspan="2" style="background:var(--primary);font-size:11px;color:#fff">ATP+信用+价格方案上线（接CRM PC21）</td><td>信用自动冻结；DSO 90→75天（L4）</td></tr>
+          <tr><td><strong>PC07 供应链计划与制造协同</strong></td><td colspan="2" style="background:var(--mid);font-size:11px;color:#fff">MRP Live+MPS+库存可视化（接MES PC20）</td><td style="background:var(--primary);font-size:11px;color:#fff">全面推广</td><td>MRP有效≥85%；库存109→75天（L4）</td></tr>
+          <tr><td><strong>PC08 质量追溯与研发一体化</strong></td><td style="background:var(--pale);font-size:11px">QM+BOM规则设计</td><td colspan="2" style="background:var(--primary);font-size:11px;color:#fff">全链路追溯+EBOM→MBOM（接MES PC20+PLM）</td><td>追溯30分钟内；研发制造贯通（L4）</td></tr>
           <tr><td><strong>PC09 海外本地化合规</strong></td><td style="background:var(--pale);font-size:11px">泰国税务规则设计</td><td colspan="2" style="background:var(--primary);font-size:11px;color:#fff">FZ40/FZ33本地化+联调</td><td>泰国增值税/预提税100%合规（L4）</td></tr>
           <tr><td><strong>PC12 数据中台（深化）</strong></td><td style="background:var(--pale);font-size:11px">数据服务总线+指标平台</td><td colspan="2" style="background:var(--primary);font-size:11px;color:#fff">AI/BI/APS供数就绪(L3)</td><td>统一数据底座；主数据+交易+分析三层（L3）</td></tr>
-          <tr><td><strong>PC13 AI平台与应用（启动）</strong></td><td style="background:var(--pale);font-size:11px">MLOps/大模型平台搭建</td><td colspan="2" style="background:var(--primary);font-size:11px;color:#fff">需求预测+视觉质检试点</td><td>AI中台就绪；首批场景上线（L4）</td></tr>
-          <tr><td><strong>PC14 APS高级计划排程</strong></td><td style="background:var(--pale);font-size:11px">APS方案+SAP PP集成</td><td colspan="2" style="background:var(--primary);font-size:11px;color:#fff">工序排程+产能约束上线</td><td>排程到工序级；齐套联动（L4）</td></tr>
-          <tr><td><strong>PC16 设备物联 IoT</strong></td><td style="background:var(--pale);font-size:11px">采集网关+边缘部署</td><td colspan="2" style="background:var(--primary);font-size:11px;color:#fff">OEE+预测性维护上线</td><td>设备透明化；OEE提升（L4）</td></tr>
+          <tr><td><strong>PC13 AI平台深化与场景落地</strong></td><td style="background:var(--pale);font-size:11px">底座加固+MCP/API网关</td><td colspan="2" style="background:var(--primary);font-size:11px;color:#fff">OCR发票+物料检索+合同风控+需求预测试点</td><td>AI中台就绪；首批SAP强相关场景上线（L4）</td></tr>
+          <tr><td><strong>PC18 全面预算管理系统</strong></td><td style="background:var(--pale);font-size:11px">预算编制+执行监控设计</td><td colspan="2" style="background:var(--primary);font-size:11px;color:#fff">预算系统上线（经财务共享平台对接SAP+司库）</td><td>替代手工预算；三大系统实质互联互通（L4）</td></tr>
+          <tr><td><strong>PC19 优化供应链·启用 MRP</strong></td><td style="background:var(--pale);font-size:11px">物料分类策略+批量大小优化</td><td colspan="2" style="background:var(--primary);font-size:11px;color:#fff">MRP跑通+安全库存校准+替代料规则</td><td>MRP运行有效率≥85%；解决上线首日痛点（L4）</td></tr>
+          <tr><td><strong>PC23 信息安全体系治理</strong></td><td style="background:var(--pale);font-size:11px">等保2.0对标+SAP SoD治理</td><td colspan="2" style="background:var(--primary);font-size:11px;color:#fff">权限最小化+审计日志+DLP深化上线</td><td>等保三级达标；SAP安全合规（L4）</td></tr>
         </tbody>
       </table>
     </div>
 
     <div class="sec" id="ch5-3">
       <div class="sec-title"><i class="fa fa-brain"></i>5.3 Phase 3：智慧跃升（2028年 · 成熟度 L4深化）</div>
-      <p><strong>主题：</strong>"用智能、建生态、立文化"。Phase 3在坚实的数字化底座上，深化 AI 平台（PC13）与供应链控制塔（PC17）等外围系统，建立数字化运营新模式，推动佛照从数字化管理向智慧化运营跨越。</p>
+      <p><strong>主题：</strong>"用智能、建生态、立文化"。Phase 3在坚实的数字化底座上，深化 AI 智能体（PC22）、APS 重建（PC14）、设备 IoT（PC16）、供应链控制塔（PC17）、IT/OT 安全（PC24）等外围系统，建立数字化运营新模式，推动佛照从数字化管理向智慧化运营跨越。</p>
       <table>
         <thead><tr><th>项目</th><th>2028上半年</th><th>2028下半年</th><th>核心价值</th><th>预算来源</th></tr></thead>
                 <tbody>
           <tr><td><strong>PC10 数据智能分析平台</strong></td><td style="background:var(--pale);font-size:11px">SAC+数据资产目录设计</td><td style="background:var(--primary);font-size:11px;color:#fff">T+0实时分析上线</td><td>经营分析实时化；AI预测分析（L4深化）</td><td>追加预算（SAC许可）</td></tr>
           <tr><td><strong>PC11 生态协同与模式创新</strong></td><td colspan="2" style="background:var(--navy);font-size:11px;color:#fff">经销商/供应商协同门户+IoT生态</td><td>新商业模式；生态价值（L5愿景）</td><td>单独立项（较大投入）</td></tr>
-          <tr><td><strong>PC13 AI平台与应用（深化）</strong></td><td style="background:var(--pale);font-size:11px">智能客服/报价助手+经营预测</td><td style="background:var(--primary);font-size:11px;color:#fff">规模化推广</td><td>多场景AI赋能；决策智能化（L4深化）</td><td>追加预算（算力+许可）</td></tr>
-          <tr><td><strong>PC17 供应链控制塔 / BI</strong></td><td colspan="2" style="background:var(--navy);font-size:11px;color:#fff">端到端可视+异常预警</td><td>实时决策；生态协同（L5愿景）</td><td>单独立项（中等投入）</td></tr>
+          <tr><td><strong>PC14 APS高级计划排程（重建）</strong></td><td style="background:var(--pale);font-size:11px">APS方案+SAP PP集成（替代已停用Asprova）</td><td style="background:var(--primary);font-size:11px;color:#fff">工序排程+产能约束+齐套联动上线</td><td>排程到工序级；接PC19 MRP优化结果（L4深化）</td><td>单独立项（中等投入）</td></tr>
+          <tr><td><strong>PC16 设备物联 IoT</strong></td><td style="background:var(--pale);font-size:11px">采集网关+边缘部署（接MES PC20）</td><td style="background:var(--primary);font-size:11px;color:#fff">OEE+预测性维护上线</td><td>设备透明化；制造数据闭环（L4深化）</td><td>单独立项（中等投入）</td></tr>
+          <tr><td><strong>PC17 供应链控制塔 / BI</strong></td><td colspan="2" style="background:var(--navy);font-size:11px;color:#fff">端到端可视+异常预警+经营驾驶舱</td><td>实时决策；生态协同（L5愿景）</td><td>单独立项（中等投入）</td></tr>
+          <tr><td><strong>PC22 AI深化二期·智能体</strong></td><td style="background:var(--pale);font-size:11px">MCP打通S/4HANA/MES/数据中台/控制塔</td><td style="background:var(--primary);font-size:11px;color:#fff">Agentic工作流+经营决策copilot上线</td><td>从问答到自主决策；多场景AI赋能（L5）</td><td>追加预算（算力+场景开发）</td></tr>
+          <tr><td><strong>PC24 IT/OT融合安全与SOC</strong></td><td style="background:var(--pale);font-size:11px">OT/ICS安全（IEC 62443）+SOC建设</td><td style="background:var(--primary);font-size:11px;color:#fff">统一日志+UEBA+AI安全审计上线</td><td>工业网络安全；AI推理数据防泄漏（L5）</td><td>单独立项（较大投入）</td></tr>
         </tbody>
       </table>
     </div>
@@ -865,21 +946,28 @@ tr:hover td{background:#E0EEFF}
 </div>
 
     <div class="sec" id="ch6-3">
-      <div class="sec-title"><i class="fa fa-calculator"></i>6.3 外围系统改造成本与资源测算（PC12–PC17）</div>
-      <p>下列 6 个外围系统改造项目卡片作为横向使能层，独立于 SAP 招标范围（950万）之外，需另行立项与采购。成本与人力为<strong>基于行业可比项目的估算 [E]</strong>，最终以供应商招标报价为准；成熟度跃迁与第三章 §3.2 项目卡片一致。</p>
+      <div class="sec-title"><i class="fa fa-calculator"></i>6.3 外围系统改造成本与资源测算（含 AI/安全/MES/CRM/预算/MRP）</div>
+      <p>下列 13 个外围系统改造项目卡片作为横向使能层，独立于 SAP 招标范围（950万）之外，需另行立项与采购。成本与人力为<strong>基于行业可比项目的估算 [E]</strong>，最终以供应商招标报价为准；成熟度跃迁与第三章 §3.2 项目卡片一致。</p>
       <table>
         <thead><tr><th>项目卡片</th><th>外围系统</th><th>主实施年</th><th>成熟度跃迁</th><th>预算估算（万元）[E]</th><th>内部团队</th><th>外部实施</th><th>周期</th><th>关键依赖</th></tr></thead>
         <tbody>
           <tr><td><strong>PC12 数据中台</strong></td><td>企业级数据湖仓 + 数据服务总线 + 指标平台</td><td>2026–2027</td><td>L2→L3</td><td>600–900</td><td>数据架构/ETL/治理 8人</td><td>实施商 10人</td><td>18个月</td><td>PC01/PC02</td></tr>
-          <tr><td><strong>PC13 AI平台与应用</strong></td><td>MLOps/大模型平台 + 需求预测/视觉质检/智能客服</td><td>2027–2028</td><td>L3→L4</td><td>400–700</td><td>AI/算法 5人</td><td>8人</td><td>24个月</td><td>PC12</td></tr>
-          <tr><td><strong>PC14 APS排程</strong></td><td>工序级排程 + 产能约束 + 齐套联动</td><td>2027</td><td>L3→L4</td><td>200–350</td><td>计划/IT 4人</td><td>6人</td><td>12个月</td><td>PC01/PC07</td></tr>
-          <tr><td><strong>PC15 智能WMS</strong></td><td>条码/RFID + 库位优化 + AGV调度</td><td>2026–2027</td><td>L2→L3</td><td>300–500</td><td>仓储IT 5人</td><td>6人</td><td>14个月</td><td>PC01/PC03</td></tr>
-          <tr><td><strong>PC16 设备IoT</strong></td><td>OPC-UA采集 + OEE + 预测性维护</td><td>2027</td><td>L3→L4</td><td>250–400</td><td>制造IT 4人</td><td>6人</td><td>12个月</td><td>PC01/车间网络</td></tr>
+          <tr><td><strong>PC13 AI平台深化</strong></td><td>底座加固 + MCP/API网关 + OCR/检索/风控/预测（SAP API挂接）</td><td>2027</td><td>L3→L4</td><td>200–350</td><td>AI/算法 5人</td><td>8人</td><td>24个月</td><td>PC12</td></tr>
+          <tr><td><strong>PC14 APS（重建）</strong></td><td>替代已停用Asprova：工序级排程 + 产能约束 + 齐套联动</td><td>2028</td><td>L4深化</td><td>200–350</td><td>计划/IT 4人</td><td>6人</td><td>12个月</td><td>PC07/PC19/PC12</td></tr>
+          <tr><td><strong>PC15 WMS深化</strong></td><td>已存在系统深化：条码/RFID + 库位优化 + AGV + 对接SAP/MES</td><td>2026–2027</td><td>L2→L3</td><td>200–350</td><td>仓储IT 5人</td><td>6人</td><td>14个月</td><td>PC07/PC20</td></tr>
+          <tr><td><strong>PC16 设备物联IoT</strong></td><td>OPC-UA采集 + OEE + 预测性维护（接MES PC20）</td><td>2028</td><td>L4深化</td><td>250–400</td><td>制造IT 4人</td><td>6人</td><td>12个月</td><td>PC08/PC20/PC12</td></tr>
           <tr><td><strong>PC17 控制塔/BI</strong></td><td>端到端可视 + 异常预警 + 经营驾驶舱</td><td>2028</td><td>L4→L5</td><td>150–250</td><td>运营分析 4人</td><td>5人</td><td>10个月</td><td>PC12/PC10</td></tr>
-          <tr style="background:var(--pale);font-weight:700"><td>合计</td><td>—</td><td>—</td><td>—</td><td>1,900–3,100</td><td>内部约30–40人年</td><td>外部峰值约40人/累计约600人月</td><td>—</td><td>—</td></tr>
+          <tr><td><strong>PC18 全面预算系统</strong></td><td>预算编制 + 执行监控 + 分析调整（经财务共享平台对接SAP+司库）</td><td>2027</td><td>L3→L4</td><td>200–350</td><td>财务顾问 3人</td><td>5人</td><td>12个月</td><td>PC05/PC01</td></tr>
+          <tr><td><strong>PC19 MRP优化</strong></td><td>物料分类策略 + 批量大小优化 + 安全库存校准 + 替代料规则</td><td>2027</td><td>L3→L4</td><td>100–180</td><td>供应链顾问 2人</td><td>4人</td><td>8个月</td><td>PC07/PC05</td></tr>
+          <tr><td><strong>PC20 MES新建</strong></td><td>LED车间MES：工序报工 + 质量采集 + 设备对接 + 与SAP集成</td><td>2026</td><td>L2→L3</td><td>400–650</td><td>MES顾问 4人</td><td>8人</td><td>16个月</td><td>PC07/PC08/PC01</td></tr>
+          <tr><td><strong>PC21 CRM新建</strong></td><td>客户360° + 销售漏斗 + 服务工单 + 与SAP SD集成</td><td>2026</td><td>L2→L3</td><td>300–500</td><td>CRM顾问 3人</td><td>6人</td><td>14个月</td><td>PC06/PC01</td></tr>
+          <tr><td><strong>PC22 AI二期·智能体</strong></td><td>MCP打通 + Agentic工作流 + 经营决策copilot + 视觉质检 + AIGC</td><td>2028</td><td>L4→L5</td><td>150–300</td><td>算法工程师 3人</td><td>5人</td><td>12个月</td><td>PC13/PC10/PC17</td></tr>
+          <tr><td><strong>PC23 信息安全治理</strong></td><td>等保2.0 + SAP SoD + 权限治理 + DLP + 零信任接入</td><td>2027</td><td>L3→L4</td><td>150–300</td><td>安全顾问 3人</td><td>5人</td><td>12个月</td><td>PC02/PC01</td></tr>
+          <tr><td><strong>PC24 IT/OT安全SOC</strong></td><td>OT/ICS安全（IEC 62443）+ SOC/SIEM + AI安全审计 + 灾备</td><td>2028</td><td>L4→L5</td><td>250–450</td><td>安全顾问 4人</td><td>6人</td><td>12个月</td><td>PC20/PC16/PC13</td></tr>
+          <tr style="background:var(--pale);font-weight:700"><td>合计</td><td>—</td><td>—</td><td>—</td><td>3,100–5,100</td><td>内部约50–70人年</td><td>外部峰值约80人/累计约1,000人月</td><td>—</td><td>—</td></tr>
         </tbody>
       </table>
-      <div class="chart-note" style="margin-top:10px">说明：① 预算为软件许可 + 实施 + 硬件（WMS/IoT 含 AGV/传感器）的三年合计估算 [E]；② PC12 数据中台为最优先使能项，须先于 AI/控制塔启动；③ 外围系统与 SAP 实施并行推进，但合同与预算独立，建议由数智化部统一归口立项以避免重复投资。</div>
+      <div class="chart-note" style="margin-top:10px">说明：① 预算为软件许可 + 实施 + 硬件（WMS/IoT 含 AGV/传感器）的三年合计估算 [E]；② PC12 数据中台与 PC20 MES 为最优先使能项，须先于 AI/控制塔启动；③ 外围系统与 SAP 实施并行推进，但合同与预算独立，建议由数智化部统一归口立项以避免重复投资；④ AI 平台（PC13/PC22）依托现有私有化 GLM5.1/Qwen3.5 底座深化，不重复建设服务器；⑤ 安全体系（PC23/PC24）是 2026–2028 集中上线期的关键保障。</div>
     </div>
 
 <!-- ===== CH7 风险管控 ===== -->
@@ -928,7 +1016,7 @@ tr:hover td{background:#E0EEFF}
         <thead><tr><th>#</th><th>结论</th><th>依据</th><th>优先行动</th></tr></thead>
         <tbody>
           <tr><td>1</td><td><strong>主数据治理是数字化转型的第一优先级</strong>，不是可选项</td><td>701条原始需求（截至最新完整口径）中数据类问题占比最高；MRP跑不起来的根本原因；合并报表手工的根本原因</td><td>2026年6月立即启动P-01数据清洗</td></tr>
-          <tr><td>2</td><td><strong>S/4HANA上线（2027Q1）是所有Phase 2项目的绝对前提</strong>，不能并行压缩</td><td>Phase 2的9个项目全部依赖S/4HANA稳定运行；MRP优化需要干净的主数据和PP配置</td><td>严格遵守240天工期，不轻易压缩</td></tr>
+          <tr><td>2</td><td><strong>S/4HANA 于 2027-01-01 上线（旧系统 2026-12-31 24:00 停用），是所有 Phase 2 项目的绝对前提</strong>，不能并行压缩</td><td>Phase 2的9个项目全部依赖S/4HANA稳定运行；MRP优化需要干净的主数据和PP配置</td><td>严格遵守240天工期，不轻易压缩</td></tr>
           <tr><td>3</td><td><strong>三年总投入约2,000万，预期回报7.8亿</strong>，ROI约3.9倍，投资合理</td><td>价值来源：库存降低1.8亿+应收提速1.2亿+采购降本1.1亿+运营效率1.2亿+合规0.8亿+质量0.7亿</td><td>向董事会报告数字化投资ROI，获得Phase 2-3追加预算批准</td></tr>
           <tr><td>4</td><td><strong>组织变革是技术变革的前置条件</strong>，数字化文化建设不能等系统上线后再启动</td><td>欧普照明的成功源于专项数字化团队和绩效考核与数字化KPI挂钩</td><td>2026年7月前成立DGC+DMO；CDO职位列入2027年组织编制计划</td></tr>
           <tr><td>5</td><td><strong>GTS（CBAM合规）和ESG数字化是2028年的战略必选项</strong>，不是可选</td><td>欧盟CBAM 2026年正式全面实施；欧洲出口收入受合规要求约束；Signify已实现CSRD全口径合规</td><td>2027年评估GTS采购；与欧洲客户确认供应链ESG要求清单</td></tr>
@@ -1099,10 +1187,12 @@ tr:hover td{background:#E0EEFF}
   });
 
   // 5. priorityChart
-  var pLabels=['PC01 S/4HANA数字底座','PC02 主数据治理','PC03 集成架构CPI','PC04 流程蓝图','PC05 财务核心合并',
-    'PC06 销售信用全链路','PC07 供应链计划制造','PC08 质量研发一体','PC09 海外合规','PC10 数据智能平台',
-    'PC11 生态协同创新','PC12 数据中台','PC13 AI平台','PC14 APS排程','PC15 智能WMS','PC16 设备IoT','PC17 控制塔'];
-  var pScores=[92,90,85,83,80,78,76,74,72,64,60,80,70,73,64,65,60];
+  var pLabels=['PC01 S/4HANA数字底座','PC02 主数据治理','PC03 集成架构CPI','PC04 流程蓝图','PC12 数据中台',
+    'PC15 WMS深化','PC20 MES新建','PC21 CRM新建',
+    'PC05 财务核心合并','PC06 销售信用全链路','PC19 MRP优化','PC07 供应链计划制造','PC08 质量研发一体','PC09 海外合规',
+    'PC13 AI深化','PC18 预算系统','PC23 安全治理',
+    'PC10 数据智能平台','PC11 生态协同创新','PC14 APS重建','PC16 设备IoT','PC17 控制塔','PC22 AI智能体','PC24 IT/OT安全'];
+  var pScores=[92,90,85,83,80,64,68,66,80,78,76,76,74,72,70,72,70,64,60,73,65,60,62,60];
   var pColors=pScores.map(function(s){return s>=85?C.navy:s>=70?C.primary:C.steel;});
   mkChart('priorityChart', {
     type:'bar',
@@ -1119,10 +1209,15 @@ tr:hover td{background:#E0EEFF}
   });
 
   // 6. timelineChart
-  var tProjects=['PC01 数字底座','PC02 主数据治理','PC03 集成CPI','PC04 流程蓝图','PC05 财务合并',
-    'PC06 销售信用','PC07 供应链制造','PC08 质量研发','PC09 海外合规','PC10 数据智能',
-    'PC11 生态创新','PC12 数据中台','PC13 AI平台','PC14 APS排程','PC15 智能WMS','PC16 设备IoT','PC17 控制塔'];
-  var tData=[[0,3],[0,3],[1,2],[1,2],[3,3],[3,3],[3,4],[3,3],[4,2],[7,2],[8,3],[1,6],[3,8],[3,4],[2,5],[4,3],[7,4]];
+  var tProjects=['PC01 数字底座','PC02 主数据治理','PC03 集成CPI','PC04 流程蓝图','PC12 数据中台',
+    'PC15 WMS深化','PC20 MES新建','PC21 CRM新建',
+    'PC05 财务合并','PC06 销售信用','PC19 MRP优化','PC07 供应链制造','PC08 质量研发','PC09 海外合规',
+    'PC13 AI深化','PC18 预算系统','PC23 安全治理',
+    'PC10 数据智能','PC11 生态创新','PC14 APS重建','PC16 设备IoT','PC17 控制塔','PC22 AI智能体','PC24 IT/OT安全'];
+  var tData=[[0,3],[0,3],[1,2],[1,2],[1,6],[2,5],[2,6],[2,5],
+    [3,3],[3,3],[3,3],[3,4],[3,3],[4,2],
+    [3,8],[3,3],[3,3],
+    [7,2],[8,3],[7,3],[7,3],[7,4],[7,3],[7,3]];
   var qLabels=['26Q2','26Q3','26Q4','27Q1','27Q2','27Q3','27Q4','28Q1','28Q2','28Q3','28Q4'];
   function getCol(start){ return start<=3?C.navy:start<=6?C.primary:C.steel; }
   var tDatasets=[];
