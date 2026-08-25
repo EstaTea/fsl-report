@@ -40,9 +40,11 @@
             <a href="/fsl-report/consulting/diagnosis/report-01.html">1. 现状诊断报告</a>
             <a href="/fsl-report/consulting/diagnosis/report-02.html" style="padding-left:28px;font-size:11.5px;opacity:.85">└ V2（2026-08）</a>
             <a href="/fsl-report/consulting/diagnosis/report-03.html" style="padding-left:28px;font-size:11.5px;opacity:.85">└ V3（2026-08）架构图同步</a>
+            <a href="/fsl-report/consulting/diagnosis/report-v6.html" style="padding-left:28px;font-size:11.5px;opacity:.85">└ V6（2026-08-25）现状诊断V6</a>
             <a href="/fsl-report/consulting/blueprint/ea-report.html">2. 企业架构设计报告</a>
             <a href="/fsl-report/consulting/blueprint/ea-report-v2.html" style="padding-left:28px;font-size:11.5px;opacity:.85">└ V2（2026-08）</a>
             <a href="/fsl-report/consulting/blueprint/ea-report-v4.html" style="padding-left:28px;font-size:11.5px;opacity:.85">└ V4（2026-08）五层追溯+成熟度</a>
+            <a href="/fsl-report/consulting/blueprint/ea-report-v6.html" style="padding-left:28px;font-size:11.5px;opacity:.85">└ V6（2026-08-25）企业架构V6</a>
             <a href="/fsl-report/consulting/solutions/">3. 专项方案设计报告</a>
             <a href="/fsl-report/consulting/solutions/s05-overseas-finance.html" style="padding-left:28px;font-size:11.5px;opacity:.85">└ S05 海外财务本地化体系建设</a>
             <a href="/fsl-report/consulting/blueprint/data-survey.html">4.1 数据调研分析报告</a>
@@ -55,7 +57,7 @@
             <a href="/fsl-report/consulting/blueprint/org-design-v2.html" style="padding-left:28px;font-size:11.5px;opacity:.85">└ V2（2026-08）</a>
             <a href="/fsl-report/consulting/roadmap/roadmap-report.html">6. 数字化转型路径规划</a>
             <a href="/fsl-report/consulting/roadmap/roadmap-report-v2.html" style="padding-left:28px;font-size:11.5px;opacity:.85">└ V2（2026-08）</a>
-            <a href="/fsl-report/consulting/roadmap/roadmap-report-v3.html" style="padding-left:28px;font-size:11.5px;opacity:.85">└ V3（2026-08）11项目卡片+五层追溯</a>
+            <a href="/fsl-report/consulting/roadmap/roadmap-report-v3.html" style="padding-left:28px;font-size:11.5px;opacity:.85">└ V3（2026-08-25）24项目卡片+五层追溯</a>
           </div>
           <div class="nav-dd-col nav-dd-panel">
             <div class="nav-dd-group-title">SAP 实施交付</div>
