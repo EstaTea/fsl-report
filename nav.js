@@ -39,6 +39,7 @@
             <div class="nav-dd-group-title">管理咨询交付</div>
             <a href="/fsl-report/consulting/diagnosis/report-01.html">1. 现状诊断报告</a>
             <a href="/fsl-report/consulting/diagnosis/report-02.html" style="padding-left:28px;font-size:11.5px;opacity:.85">└ V2（2026-08）</a>
+            <a href="/fsl-report/consulting/diagnosis/report-03.html" style="padding-left:28px;font-size:11.5px;opacity:.85">└ V3（2026-08）架构图同步</a>
             <a href="/fsl-report/consulting/blueprint/ea-report.html">2. 企业架构设计报告</a>
             <a href="/fsl-report/consulting/blueprint/ea-report-v2.html" style="padding-left:28px;font-size:11.5px;opacity:.85">└ V2（2026-08）</a>
             <a href="/fsl-report/consulting/blueprint/ea-report-v4.html" style="padding-left:28px;font-size:11.5px;opacity:.85">└ V4（2026-08）五层追溯+成熟度</a>
