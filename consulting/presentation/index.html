@@ -1,0 +1,2790 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>佛山照明数字化转型汇报 — 诊断·架构·路径</title>
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/base.css">
+<link rel="stylesheet" id="theme-link" href="../../assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="../../assets/animations/animations.css">
+<style>
+/* ===== 佛照蓝色 VI 覆盖 ===== */
+:root{
+  --bg:#ffffff;--bg-soft:#f2f7fb;--surface:#ffffff;--surface-2:#ebf5fb;
+  --border:rgba(11,45,71,.12);--border-strong:rgba(11,45,71,.28);
+  --text-1:#0b2d47;--text-2:#1a4f73;--text-3:#5b7a91;
+  --accent:#0b2d47;--accent-2:#2374a3;--accent-3:#5ea4ce;
+  --good:#0e9f6e;--warn:#d97706;--bad:#dc2626;
+  --grad:linear-gradient(135deg,#0b2d47,#2374a3);
+  --grad-soft:linear-gradient(135deg,#ebf5fb,#c7e2f2);
+  --radius:8px;--radius-sm:4px;--radius-lg:12px;
+  --shadow:0 1px 3px rgba(11,45,71,.08),0 4px 12px rgba(11,45,71,.05);
+  --shadow-lg:0 4px 12px rgba(11,45,71,.1),0 16px 40px rgba(11,45,71,.08);
+}
+.card{border:1px solid var(--border)}
+.divider-accent{background:var(--accent-2);height:3px;width:56px}
+.kicker{color:var(--accent-2);text-transform:none;letter-spacing:1px}
+h1.title,h2.title,.h1,.h2{font-weight:700;color:var(--accent)}
+
+/* 佛照专用辅助类 */
+.fsl-blue{color:var(--accent-2)}
+.fsl-dark{color:var(--accent)}
+.fsl-light{color:var(--accent-3)}
+.bg-fsl-soft{background:var(--surface-2)}
+.border-fsl{border-left:4px solid var(--accent-2);padding-left:12px}
+.stat-big{font-size:96px;font-weight:800;line-height:1;color:var(--accent-2)}
+.stat-label{font-size:14px;color:var(--text-3);margin-top:8px}
+.pain-card{border-left:4px solid var(--bad);background:var(--surface);padding:16px 20px;border-radius:0 var(--radius) var(--radius) 0}
+.win-card{border-left:4px solid var(--good);background:var(--surface);padding:16px 20px;border-radius:0 var(--radius) var(--radius) 0}
+.insight-box{background:linear-gradient(135deg,var(--surface-2),#e8f4fc);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px}
+.tag-fsl{display:inline-block;background:var(--accent-2);color:#fff;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin-right:6px}
+.tag-fsl-outline{display:inline-block;background:transparent;color:var(--accent-2);font-size:11px;font-weight:600;padding:2px 9px;border-radius:20px;border:1px solid var(--accent-2);margin-right:6px}
+.project-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;position:relative;overflow:hidden}
+.project-card::before{content:"";position:absolute;top:0;left:0;width:4px;height:100%;background:var(--accent-2)}
+.phase-badge{display:inline-block;padding:3px 12px;border-radius:20px;font-size:11px;font-weight:700;margin-bottom:8px}
+.phase-1{background:#e8f5e9;color:#1b5e20}
+.phase-2{background:#fff3e0;color:#e65100}
+.phase-3{background:#e3f2fd;color:#0d47a1}
+.timeline-dot{width:14px;height:14px;border-radius:50%;background:var(--accent-2);border:3px solid var(--surface-2);position:relative;z-index:2}
+.timeline-line{position:absolute;top:14px;left:6px;width:2px;height:calc(100% - 14px);background:var(--border-strong)}
+.maturity-bar{height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden}
+.maturity-bar > div{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+table.fsl-table{width:100%;border-collapse:collapse;font-size:13px}
+table.fsl-table th{background:var(--accent);color:#fff;padding:10px 14px;text-align:left;font-weight:600}
+table.fsl-table td{padding:9px 14px;border-bottom:1px solid var(--border);color:var(--text-1)}
+table.fsl-table tr:nth-child(even){background:var(--surface-2)}
+.cover-fsl{background:linear-gradient(135deg,#0b2d47 0%,#1a4f73 55%,#2374a3 100%);color:#fff;padding:60px 48px 44px;position:relative;overflow:hidden}
+.cover-fsl::before{content:"";position:absolute;top:-40px;right:-60px;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,.04)}
+.cover-fsl::after{content:"";position:absolute;bottom:-60px;left:120px;width:220px;height:220px;border-radius:50%;background:rgba(35,116,163,.25)}
+.section-cover{background:linear-gradient(135deg,#0b2d47,#1a4f73);color:#fff;display:flex;align-items:center;justify-content:center;text-align:center}
+</style>
+</head>
+<body class="tpl-presenter-mode-reveal" data-themes="corporate-clean" data-theme-base="../../assets/themes/">
+<div class="deck">
+
+<!-- ==================== PART 0: 封面 ==================== -->
+
+<!-- 1. 封面 -->
+<section class="slide" data-title="封面">
+  <div class="cover-fsl" style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 40px">
+    <p style="font-size:12px;letter-spacing:3px;text-transform:uppercase;opacity:.7;margin-bottom:16px">佛山照明 · 数字化转型咨询项目</p>
+    <h1 style="font-size:42px;font-weight:800;line-height:1.2;margin-bottom:16px">数字化转型<br>诊断·架构·路径</h1>
+    <p style="font-size:18px;opacity:.85;margin-bottom:40px">总经理汇报</p>
+    <div style="display:flex;gap:40px;font-size:13px;opacity:.8">
+      <div><div style="font-size:10px;opacity:.6;margin-bottom:4px">编制单位</div><div style="font-weight:600">艾维登咨询</div></div>
+      <div><div style="font-size:10px;opacity:.6;margin-bottom:4px">汇报日期</div><div style="font-weight:600">2026年8月26日</div></div>
+      <div><div style="font-size:10px;opacity:.6;margin-bottom:4px">密级</div><div style="font-weight:600">内部资料</div></div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>总经理好，各位领导好。我是艾维登咨询的陈宇清，今天由我代表项目组，向各位汇报佛山照明数字化转型咨询项目的核心成果。</p>
+    <p>本次汇报涵盖三份核心交付物：<strong>现状诊断报告、企业架构设计报告、数字化转型路径规划报告</strong>。三份报告层层递进——诊断回答"我们在哪"，架构回答"要去哪"，路径回答"怎么去"。</p>
+    <p>汇报预计60分钟，分为四个部分：现状诊断、架构设计、路径规划、立即行动。我们先从项目背景开始。</p>
+  </aside>
+</section>
+
+<!-- 2. 汇报议程 -->
+<section class="slide" data-title="议程">
+  <p class="kicker">AGENDA</p>
+  <h2 class="h2">今天汇报的四个部分</h2>
+  <div class="stack mt-l">
+    <div class="agenda-row"><span class="num" style="background:var(--accent);color:#fff">01</span><span class="t"><strong>现状诊断</strong> — 我们在哪？</span><span class="d">~15min</span></div>
+    <div class="agenda-row"><span class="num" style="background:var(--accent);color:#fff">02</span><span class="t"><strong>企业架构</strong> — 要去哪？</span><span class="d">~20min</span></div>
+    <div class="agenda-row"><span class="num" style="background:var(--accent);color:#fff">03</span><span class="t"><strong>路径规划</strong> — 怎么去？</span><span class="d">~20min</span></div>
+    <div class="agenda-row"><span class="num" style="background:var(--accent);color:#fff">04</span><span class="t"><strong>立即行动</strong> — 下一步做什么？</span><span class="d">~5min</span></div>
+  </div>
+  <aside class="notes">
+    <p>先过一下今天的议程，四个部分。</p>
+    <p><strong>第一部分，现状诊断</strong>——回答"我们在哪"。基于29个部门调研、701条业务需求，全面诊断佛照数字化现状。</p>
+    <p><strong>第二部分，企业架构</strong>——回答"要去哪"。基于TOGAF方法论，设计L1-L3四层架构蓝图。</p>
+    <p><strong>第三部分，路径规划</strong>——回答"怎么去"。制定2026-2028三年路线图，明确24个项目卡片。</p>
+    <p><strong>第四部分，立即行动</strong>——聚焦接下来30天要启动的关键事项。</p>
+  </aside>
+</section>
+
+<!-- 3. 项目背景 -->
+<section class="slide" data-title="项目背景">
+  <p class="kicker">PROJECT OVERVIEW</p>
+  <h2 class="h2">为什么做这个项目？</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4 class="fsl-dark">战略驱动</h4>
+      <p class="dim">佛照从"照明产品制造商"向"智能健康光环境服务商"转型，数字化是核心路径。</p>
+    </div>
+    <div class="card">
+      <h4 class="fsl-dark">监管驱动</h4>
+      <p class="dim">国资委1号文要求2026年底核心财务系统互联互通，SAP升级是硬约束。</p>
+    </div>
+    <div class="card">
+      <h4 class="fsl-dark">竞争驱动</h4>
+      <p class="dim">公牛、欧普、Signify等标杆企业数字化领先，佛照需加速追赶。</p>
+    </div>
+    <div class="card">
+      <h4 class="fsl-dark">痛点驱动</h4>
+      <p class="dim">701条业务需求暴露出管理、流程、系统、数据四个层面的深层问题。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>先说一下为什么做这个项目。四个驱动因素。</p>
+    <p><strong>战略驱动</strong>——佛照的愿景是从"卖产品"转向"卖方案+卖服务"，这个转型没有数字化支撑是做不到的。</p>
+    <p><strong>监管驱动</strong>——国资委1号文明确要求2026年底财务系统互联互通，这是硬约束，不是可选项。</p>
+    <p><strong>竞争驱动</strong>——我们对标了公牛、欧普、Signify，发现佛照在数字化成熟度上存在明显差距。</p>
+    <p><strong>痛点驱动</strong>——701条业务需求不是IT部门编出来的，是各业务部门实实在在提出来的问题。</p>
+  </aside>
+</section>
+
+<!-- 4. 调研概况 -->
+<section class="slide" data-title="调研概况">
+  <p class="kicker">RESEARCH OVERVIEW</p>
+  <h2 class="h2">调研覆盖了29个部门，收集了701条需求</h2>
+  <div class="grid g4 mt-l" style="text-align:center">
+    <div>
+      <div class="stat-big">29</div>
+      <div class="stat-label">调研部门</div>
+    </div>
+    <div>
+      <div class="stat-big">701</div>
+      <div class="stat-label">业务需求</div>
+    </div>
+    <div>
+      <div class="stat-big">22</div>
+      <div class="stat-label">现有系统</div>
+    </div>
+    <div>
+      <div class="stat-big">3</div>
+      <div class="stat-label">对标企业</div>
+    </div>
+  </div>
+  <div class="insight-box mt-l">
+    <p><strong>调研方法：</strong>深度访谈 + 问卷调研 + 系统扫描 + 文档分析。两轮调研覆盖前中后台全部核心业务部门，包括家用/商用/车灯/电商/国际五大事业部及高明公司、研究院、供应链中心等中台支撑部门。</p>
+  </div>
+  <aside class="notes">
+    <p>这是本次调研的核心数据。29个部门、701条业务需求、22个现有系统、3家对标企业。</p>
+    <p>701条需求是什么概念？这是我们从各业务部门一层一层访谈、梳理、提炼出来的真实需求，不是IT部门拍脑袋编的。</p>
+    <p>调研方法包括<strong>深度访谈、问卷调研、系统扫描、文档分析</strong>四种，确保结论有据可依。</p>
+  </aside>
+</section>
+
+<!-- 5. 三份报告关系 -->
+<section class="slide" data-title="报告关系">
+  <p class="kicker">DELIVERABLES</p>
+  <h2 class="h2">三份报告，层层递进</h2>
+  <div class="grid g3 mt-l">
+    <div class="card" style="border-top:4px solid #dc2626">
+      <h4>诊断报告 V6</h4>
+      <p class="dim">回答：<strong>"我们在哪？"</strong></p>
+      <p class="dim" style="font-size:12px;margin-top:8px">AS-IS现状 · 701条需求 · 成熟度评估 · 行业对标</p>
+    </div>
+    <div class="card" style="border-top:4px solid #2374a3">
+      <h4>架构报告 V6</h4>
+      <p class="dim">回答：<strong>"要去哪？"</strong></p>
+      <p class="dim" style="font-size:12px;margin-top:8px">TO-BE蓝图 · TOGAF 4A · 23个高价值场景</p>
+    </div>
+    <div class="card" style="border-top:4px solid #0e9f6e">
+      <h4>路径报告 V3</h4>
+      <p class="dim">回答：<strong>"怎么去？"</strong></p>
+      <p class="dim" style="font-size:12px;margin-top:8px">三年路线图 · 24项目卡片 · 资源与风险</p>
+    </div>
+  </div>
+  <div class="insight-box mt-l" style="text-align:center">
+    <p style="font-size:16px"><strong>逻辑链条：</strong>现状诊断 → 架构设计 → 路径规划 → 实施落地</p>
+  </div>
+  <aside class="notes">
+    <p>三份报告的关系我用一张图说明。</p>
+    <p><strong>诊断报告</strong>回答"我们在哪"——现状是什么、问题在哪、差距多大。</p>
+    <p><strong>架构报告</strong>回答"要去哪"——目标架构长什么样、能力要达到什么水平。</p>
+    <p><strong>路径报告</strong>回答"怎么去"——分几步走、每个阶段做什么、需要多少资源。</p>
+    <p>三份报告构成一个完整的<strong>诊断-设计-规划-落地</strong>闭环。</p>
+  </aside>
+</section>
+
+<!-- 6. 核心发现总览 -->
+<section class="slide" data-title="核心发现">
+  <p class="kicker">KEY FINDINGS</p>
+  <h2 class="h2">五大核心发现</h2>
+  <div class="stack mt-l">
+    <div class="pain-card"><strong>发现一：</strong>数字化成熟度处于<strong>Level 1.9</strong>（初始级→规范级下限），距行业标杆（Level 3+）差距明显。</div>
+    <div class="pain-card" style="border-left-color:#d97706"><strong>发现二：</strong>701条需求中，<strong>管理、流程、系统、数据</strong>四个层面均有深层痛点，系统烟囱化、数据孤岛化是核心瓶颈。</div>
+    <div class="pain-card" style="border-left-color:#2374a3"><strong>发现三：</strong>SAP作为核心交易后台，与SRM/PLM/OA/WMS等外围系统存在大量<strong>数据交互断点</strong>，业务流无法闭环。</div>
+    <div class="win-card"><strong>发现四：</strong>通过TOGAF架构设计，701条需求可收敛为<strong>23个高价值场景</strong>，并映射到<strong>24个项目卡片</strong>，实施路径清晰。</div>
+    <div class="win-card"><strong>发现五：</strong>三年分阶段实施（2026筑基→2027攻坚→2028智能），总投资可控，ROI可量化。</div>
+  </div>
+  <aside class="notes">
+    <p>这是本次项目的五大核心发现，总经理需要了解的要点都在这里。</p>
+    <p><strong>发现一</strong>——成熟度1.9，什么意思？就是我们已经过了"有没有系统"的阶段，但还没进入"系统之间能不能打通"的阶段。行业标杆已经在3级以上了。</p>
+    <p><strong>发现二</strong>——701条需求覆盖四个层面，不是单点问题，是系统性问题。</p>
+    <p><strong>发现三</strong>——SAP和外围系统之间的断点，是当前效率损失最大的地方。</p>
+    <p><strong>发现四和五</strong>——好消息是，问题虽然多，但路径是清晰的。我们已经把701条需求收敛成了24个可执行的项目卡片。</p>
+  </aside>
+</section>
+
+<!-- ==================== PART 1: 现状诊断 ==================== -->
+
+<!-- 7. 章节页：现状诊断 -->
+<section class="slide section-cover" data-title="第一部分">
+  <div>
+    <p style="font-size:14px;letter-spacing:4px;opacity:.7;margin-bottom:16px">PART 01</p>
+    <h1 style="font-size:56px;font-weight:800;margin-bottom:16px">现状诊断</h1>
+    <p style="font-size:22px;opacity:.85">我们在哪？</p>
+  </div>
+  <aside class="notes">
+    <p>进入第一部分，现状诊断。这一部分回答的核心问题是：佛照数字化现在到底在什么水平？</p>
+  </aside>
+</section>
+
+<!-- 8. 诊断方法论 -->
+<section class="slide" data-title="诊断方法论">
+  <p class="kicker">DIAGNOSIS METHODOLOGY</p>
+  <h2 class="h2">TOGAF + GB/T 43439 双框架诊断</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>TOGAF 4A 架构视角</h4>
+      <p class="dim">从业务架构、数据架构、应用架构、技术架构四个维度，系统评估数字化能力现状。</p>
+      <div style="margin-top:12px">
+        <span class="tag-fsl-outline">业务</span>
+        <span class="tag-fsl-outline">数据</span>
+        <span class="tag-fsl-outline">应用</span>
+        <span class="tag-fsl-outline">技术</span>
+      </div>
+    </div>
+    <div class="card">
+      <h4>GB/T 43439-2023 成熟度模型</h4>
+      <p class="dim">参照国家标准，从组织、技术、数据、资源、数字化运营、数字化生产6大能力域评估成熟度等级。</p>
+      <div style="margin-top:12px">
+        <span class="tag-fsl-outline">L1 初始级</span>
+        <span class="tag-fsl-outline">L2 规范级</span>
+        <span class="tag-fsl-outline">L3 集成级</span>
+        <span class="tag-fsl-outline">L4 优化级</span>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>诊断方法论采用双框架。</p>
+    <p><strong>TOGAF 4A</strong>——国际通用的企业架构方法论，从业务、数据、应用、技术四个维度系统评估。</p>
+    <p><strong>GB/T 43439</strong>——中国数字化转型成熟度国家标准，从6个能力域给出量化评分。</p>
+    <p>两个框架互补，确保诊断既有国际视野，又符合国内监管要求。</p>
+  </aside>
+</section>
+
+<!-- 9. 组织覆盖 -->
+<section class="slide" data-title="组织覆盖">
+  <p class="kicker">ORGANIZATION COVERAGE</p>
+  <h2 class="h2">调研覆盖前中后台29个部门</h2>
+  <div class="grid g3 mt-l">
+    <div class="card">
+      <h4>前台（5个事业部）</h4>
+      <p class="dim">家用事业部、商用事业部、车灯事业部、电商事业部、国际事业部、新业务拓展中心</p>
+    </div>
+    <div class="card">
+      <h4>中台（5个中心）</h4>
+      <p class="dim">高明公司、研究院、产品及方案中心、供应链中心、招投标中心</p>
+    </div>
+    <div class="card">
+      <h4>后台（支撑部门）</h4>
+      <p class="dim">数智化部、财务部、人力资源、法务、审计等职能支撑部门</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>调研覆盖了佛照前中后台全部核心部门。</p>
+    <p><strong>前台</strong>——五大事业部加一个拓展中心，是业务最前线。</p>
+    <p><strong>中台</strong>——研发、产品、供应链等支撑前台的核心能力部门。</p>
+    <p><strong>后台</strong>——数智化、财务、人力、法务等职能支撑。</p>
+    <p>这样的全覆盖确保诊断结论不是某个部门的局部视角，而是企业级全景。</p>
+  </aside>
+</section>
+
+<!-- 10. 商业模式 -->
+<section class="slide" data-title="商业模式">
+  <p class="kicker">BUSINESS MODEL</p>
+  <h2 class="h2">佛照商业画布：从卖产品到卖方案</h2>
+  <div class="grid g2 mt-l">
+    <div>
+      <div class="card" style="margin-bottom:12px">
+        <h4>价值主张</h4>
+        <p class="dim">提供智能健康光环境整体解决方案，从单一照明产品升级为"光+智能+服务"。</p>
+      </div>
+      <div class="card" style="margin-bottom:12px">
+        <h4>客户细分</h4>
+        <p class="dim">B端（工程渠道、经销商）、C端（电商零售）、海外（国际事业部）。</p>
+      </div>
+      <div class="card">
+        <h4>渠道通路</h4>
+        <p class="dim">线下110万+终端网点、专业电商、工程直销、海外分销。</p>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:12px">
+        <h4>关键业务</h4>
+        <p class="dim">研发设计、智能制造、供应链管理、品牌营销、渠道运营。</p>
+      </div>
+      <div class="card" style="margin-bottom:12px">
+        <h4>核心资源</h4>
+        <p class="dim">品牌资产、研发能力、制造基地（高明/禅城）、渠道网络。</p>
+      </div>
+      <div class="card">
+        <h4>收入来源</h4>
+        <p class="dim">产品销售、工程服务、智能解决方案、品牌授权。</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>这是佛照的商业画布，梳理商业模式是为了让数字化规划对齐业务战略。</p>
+    <p>核心变化是<strong>从"卖产品"转向"卖方案+卖服务"</strong>——这个转变对数字化提出了完全不同的要求。</p>
+    <p>卖产品只需要管好库存和订单；卖方案需要打通研发、生产、交付、服务的全链路数据。</p>
+  </aside>
+</section>
+
+<!-- 11. 核心价值链 -->
+<section class="slide" data-title="核心价值链">
+  <p class="kicker">VALUE CHAIN</p>
+  <h2 class="h2">核心价值链：研发 → 采购 → 生产 → 销售 → 服务</h2>
+  <div style="display:flex;align-items:center;gap:8px;margin-top:40px;justify-content:center">
+    <div style="background:var(--accent);color:#fff;padding:16px 20px;border-radius:var(--radius);text-align:center;min-width:100px"><div style="font-size:12px;opacity:.8">主营</div><div style="font-weight:700">研发设计</div></div>
+    <div style="color:var(--accent-2);font-size:20px">→</div>
+    <div style="background:var(--accent);color:#fff;padding:16px 20px;border-radius:var(--radius);text-align:center;min-width:100px"><div style="font-size:12px;opacity:.8">主营</div><div style="font-weight:700">采购供应</div></div>
+    <div style="color:var(--accent-2);font-size:20px">→</div>
+    <div style="background:var(--accent);color:#fff;padding:16px 20px;border-radius:var(--radius);text-align:center;min-width:100px"><div style="font-size:12px;opacity:.8">主营</div><div style="font-weight:700">智能制造</div></div>
+    <div style="color:var(--accent-2);font-size:20px">→</div>
+    <div style="background:var(--accent);color:#fff;padding:16px 20px;border-radius:var(--radius);text-align:center;min-width:100px"><div style="font-size:12px;opacity:.8">主营</div><div style="font-weight:700">品牌营销</div></div>
+    <div style="color:var(--accent-2);font-size:20px">→</div>
+    <div style="background:var(--accent);color:#fff;padding:16px 20px;border-radius:var(--radius);text-align:center;min-width:100px"><div style="font-size:12px;opacity:.8">主营</div><div style="font-weight:700">渠道销售</div></div>
+  </div>
+  <div style="display:flex;gap:12px;margin-top:24px;justify-content:center">
+    <div style="background:var(--surface-2);padding:12px 20px;border-radius:var(--radius);text-align:center;border:1px solid var(--border)"><div style="font-size:11px;color:var(--text-3)">支持</div><div style="font-weight:600;font-size:13px">财务管理</div></div>
+    <div style="background:var(--surface-2);padding:12px 20px;border-radius:var(--radius);text-align:center;border:1px solid var(--border)"><div style="font-size:11px;color:var(--text-3)">支持</div><div style="font-weight:600;font-size:13px">人力资源</div></div>
+    <div style="background:var(--surface-2);padding:12px 20px;border-radius:var(--radius);text-align:center;border:1px solid var(--border)"><div style="font-size:11px;color:var(--text-3)">支持</div><div style="font-weight:600;font-size:13px">IT治理</div></div>
+    <div style="background:var(--surface-2);padding:12px 20px;border-radius:var(--radius);text-align:center;border:1px solid var(--border)"><div style="font-size:11px;color:var(--text-3)">支持</div><div style="font-weight:600;font-size:13px">质量管理</div></div>
+  </div>
+  <aside class="notes">
+    <p>这是佛照的核心价值链。五个主营环节加四个支持环节。</p>
+    <p>诊断发现，<strong>价值链上的断点主要集中在跨部门衔接处</strong>——研发到采购、采购到生产、销售到财务，这些 handoff 点都存在系统断点或线下操作。</p>
+    <p>后面我会详细讲这些断点具体在哪。</p>
+  </aside>
+</section>
+
+<!-- 11b. 数智化部组织现状 -->
+<section class="slide" data-title="数智化部现状">
+  <p class="kicker">DIGITAL ORGANIZATION</p>
+  <h2 class="h2">数智化部：承担数字化转型核心职责</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>当前组织设置</h4>
+      <p class="dim">数智化部下设应用开发、系统运维、数据管理三个团队，现有人员XX人。负责SAP、OA、BI等核心系统的日常运维和需求开发。</p>
+    </div>
+    <div class="card">
+      <h4>主要挑战</h4>
+      <p class="dim">1. 人员编制不足，难以支撑29个部门的业务需求<br>2. 以"被动响应"为主，缺乏主动规划能力<br>3. 与业务部门协作机制不清晰，需求优先级难以统一</p>
+    </div>
+  </div>
+  <div class="insight-box mt-l">
+    <p><strong>改进方向：</strong>成立实体化PMO，引入数字化BP机制，从"IT支持"转向"数字化赋能"。</p>
+  </div>
+  <aside class="notes">
+    <p>数智化部是佛照数字化转型的核心执行部门。</p>
+    <p>当前的主要问题是<strong>"被动响应"</strong>——业务部门提需求，IT部门接需求，但缺乏统一的优先级判断和主动规划。</p>
+    <p>改进方向是成立PMO和引入数字化BP。</p>
+  </aside>
+</section>
+
+<!-- 11c. 流程管理现状 -->
+<section class="slide" data-title="流程管理现状">
+  <p class="kicker">PROCESS MANAGEMENT</p>
+  <h2 class="h2">流程管理：有制度，但执行有断点</h2>
+  <div class="grid g3 mt-l">
+    <div class="card">
+      <h4>流程建设举措</h4>
+      <p class="dim">企管部牵头开展了多轮流程梳理，形成了L1-L2级流程文档。但L3级操作层流程覆盖不足，跨部门流程Owner机制未建立。</p>
+    </div>
+    <div class="card">
+      <h4>流程资产沉淀</h4>
+      <p class="dim">流程文档以Word/PPT形式分散存储，缺乏统一流程库。流程变更缺乏版本控制，新老流程并行现象存在。</p>
+    </div>
+    <div class="card">
+      <h4>流程管理挑战</h4>
+      <p class="dim">1. 部门墙导致流程在边界处断裂<br>2. 流程线上化率不足，大量环节仍依赖线下<br>3. 流程绩效缺乏量化监控</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>流程管理方面，佛照有制度、有文档，但执行层面有断点。</p>
+    <p>核心是<strong>"部门墙"</strong>——流程在部门边界处最容易断。</p>
+    <p>另一个问题是<strong>线上化率不足</strong>——很多流程的制度是线上的，但实际操作还是线下。</p>
+  </aside>
+</section>
+
+<!-- 11d. 系统建设详情 -->
+<section class="slide" data-title="系统建设详情">
+  <p class="kicker">SYSTEM LANDSCAPE DETAIL</p>
+  <h2 class="h2">22个系统：分层分类全景</h2>
+  <table class="fsl-table mt-l">
+    <tr><th>层级</th><th>系统</th><th>功能</th><th>状态</th></tr>
+    <tr><td>ERP核心</td><td>SAP ECC</td><td>财务/采购/库存/生产</td><td>运行中，待升级</td></tr>
+    <tr><td>研发</td><td>PLM</td><td>产品生命周期管理</td><td>运行中</td></tr>
+    <tr><td>供应链</td><td>SRM / WMS</td><td>供应商协同/仓储管理</td><td>运行中</td></tr>
+    <tr><td>生产</td><td>MES</td><td>制造执行</td><td>运行中</td></tr>
+    <tr><td>销售</td><td>CRM / 电商</td><td>客户管理/电商运营</td><td>运行中</td></tr>
+    <tr><td>协同</td><td>OA</td><td>审批/办公</td><td>运行中</td></tr>
+    <tr><td>分析</td><td>BI / 数据仓库</td><td>报表/数据分析</td><td>运行中</td></tr>
+  </table>
+  <aside class="notes">
+    <p>22个系统的分层分类全景。</p>
+    <p>核心层是SAP ECC，运营层是PLM、SRM、WMS等，支撑层是OA、BI等。</p>
+    <p>每个系统单独看都还行，但合起来就是<strong>烟囱</strong>——各自为政，数据不通。</p>
+  </aside>
+</section>
+
+<!-- 11e. 系统集成详情 -->
+<section class="slide" data-title="系统集成详情">
+  <p class="kicker">INTEGRATION DETAIL</p>
+  <h2 class="h2">集成现状：点对点接口超过XX个</h2>
+  <div class="grid g2 mt-l">
+    <div class="pain-card">
+      <h4 style="margin-bottom:8px">接口现状</h4>
+      <p class="dim">SAP与外围系统之间大量点对点接口，无统一中间件。接口开发标准不统一，文档缺失，故障排查困难。</p>
+    </div>
+    <div class="card">
+      <h4>核心断点</h4>
+      <p class="dim">1. PLM→SAP：BOM变更不同步<br>2. OA→SAP：订单需手工二次录入<br>3. SRM→SAP：送货单同步滞后<br>4. 电商→SAP：大订单超时</p>
+    </div>
+  </div>
+  <div class="insight-box mt-l">
+    <p><strong>核心结论：</strong>集成问题不是技术问题，是架构问题。必须引入统一集成平台（CPI），从"蜘蛛网"变"星型"。</p>
+  </div>
+  <aside class="notes">
+    <p>集成现状的详细分析。</p>
+    <p>四个核心断点：PLM到SAP、OA到SAP、SRM到SAP、电商到SAP。</p>
+    <p>这些都是业务效率损失最大的断点。</p>
+  </aside>
+</section>
+<!-- 11f. 诊断中间小结 -->
+<section class="slide" data-title="诊断中间小结">
+  <p class="kicker">DIAGNOSIS CHECKPOINT</p>
+  <h2 class="h2">现状诊断小结：系统与数据是两大瓶颈</h2>
+  <div class="grid g2 mt-l">
+    <div class="pain-card">
+      <h4 style="margin-bottom:8px">系统层面</h4>
+      <p class="dim">22个系统形成烟囱，SAP与外围存在大量断点。集成架构必须从"蜘蛛网"升级为"星型"。</p>
+    </div>
+    <div class="pain-card">
+      <h4 style="margin-bottom:8px">数据层面</h4>
+      <p class="dim">主数据标准不统一，"一物多码"严重。数据治理是数字化转型的前提，不是可选项。</p>
+    </div>
+  </div>
+  <div class="insight-box mt-l">
+    <p><strong>关键结论：</strong>没有主数据治理，S/4HANA上线后数据依然混乱；没有集成平台，系统之间依然不通。这两项必须在2026年Phase 1完成。</p>
+  </div>
+  <aside class="notes">
+    <p>诊断部分的中间小结。</p>
+    <p>两个核心结论：系统要打通，数据要治理。</p>
+  </aside>
+</section>
+<!-- 12. 数字化建设历程 -->
+<section class="slide" data-title="建设历程">
+  <p class="kicker">DIGITAL HISTORY</p>
+  <h2 class="h2">数字化建设历程：从单点系统到烟囱架构</h2>
+  <div style="position:relative;margin-top:40px;padding-left:30px">
+    <div class="timeline-line" style="left:15px;top:0;height:100%"></div>
+    <div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:24px;position:relative">
+      <div class="timeline-dot" style="flex-shrink:0;margin-top:2px"></div>
+      <div>
+        <div style="font-weight:700;color:var(--accent)">2010-2015 · 单点建设期</div>
+        <p class="dim" style="margin-top:4px">SAP ECC上线，建立核心财务/物流基础。各业务部门陆续引入PLM、OA、SRM等单点系统。</p>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:24px;position:relative">
+      <div class="timeline-dot" style="flex-shrink:0;margin-top:2px"></div>
+      <div>
+        <div style="font-weight:700;color:var(--accent)">2016-2020 · 扩展集成期</div>
+        <p class="dim" style="margin-top:4px">WMS、MES、CRM等系统上线，但集成以点对点为主，形成"接口蜘蛛网"。</p>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:24px;position:relative">
+      <div class="timeline-dot" style="flex-shrink:0;margin-top:2px"></div>
+      <div>
+        <div style="font-weight:700;color:var(--accent)">2021-2025 · 深化应用期</div>
+        <p class="dim" style="margin-top:4px">电商系统、BI报表、数据仓库陆续建设，但主数据混乱、跨系统协同仍存瓶颈。</p>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:16px;position:relative">
+      <div class="timeline-dot" style="flex-shrink:0;margin-top:2px;background:#0e9f6e;border-color:#e8f5e9"></div>
+      <div>
+        <div style="font-weight:700;color:#0e9f6e">2026-2028 · 转型跃升期</div>
+        <p class="dim" style="margin-top:4px">S/4HANA Greenfield实施，以SAP为核心重建数字化底座，实现架构级跃迁。</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>佛照的数字化建设大致经历了三个阶段。</p>
+    <p><strong>2010-2015</strong>是单点建设期，SAP ECC上线，打下了财务和物流基础。</p>
+    <p><strong>2016-2020</strong>是扩展期，各种外围系统陆续上线，但集成方式主要是点对点，形成了我们常说的"接口蜘蛛网"。</p>
+    <p><strong>2021-2025</strong>是深化期，电商、BI等系统上线，但核心问题没解决——主数据还是乱的，系统之间还是不通的。</p>
+    <p><strong>2026-2028</strong>就是现在规划的转型跃升期，以S/4HANA为核心重建底座。</p>
+  </aside>
+</section>
+
+<!-- 13. 当前系统架构 -->
+<section class="slide" data-title="当前系统架构">
+  <p class="kicker">AS-IS SYSTEM LANDSCAPE</p>
+  <h2 class="h2">当前22个系统形成烟囱式架构</h2>
+  <div class="grid g3 mt-l" style="font-size:12px">
+    <div class="card" style="text-align:center">
+      <h4 style="font-size:14px">核心层</h4>
+      <p class="dim">SAP ECC（财务/物流/生产）</p>
+    </div>
+    <div class="card" style="text-align:center">
+      <h4 style="font-size:14px">运营层</h4>
+      <p class="dim">SRM · PLM · WMS · MES · OA · CRM · 电商</p>
+    </div>
+    <div class="card" style="text-align:center">
+      <h4 style="font-size:14px">支撑层</h4>
+      <p class="dim">BI · 数据仓库 · 预算 · 费控 · HR · 档案</p>
+    </div>
+  </div>
+  <div class="pain-card mt-l">
+    <strong>核心问题：</strong>SAP与外围系统之间大量点对点接口，无统一集成平台。数据在多个系统中重复维护，主数据标准不统一，形成<strong>"数据孤岛"</strong>和<strong>"接口蜘蛛网"</strong>。
+  </div>
+  <aside class="notes">
+    <p>当前系统架构可以概括为三层、22个系统。</p>
+    <p>核心层是SAP ECC，运营层是SRM、PLM、WMS等8个业务系统，支撑层是BI、预算、HR等辅助系统。</p>
+    <p>核心问题是<strong>没有统一集成平台</strong>，系统之间靠点对点接口连接，维护成本高、稳定性差。</p>
+  </aside>
+</section>
+
+<!-- 14. 数据治理现状 -->
+<section class="slide" data-title="数据治理现状">
+  <p class="kicker">DATA GOVERNANCE</p>
+  <h2 class="h2">数据治理：主数据混乱是最大瓶颈</h2>
+  <div class="grid g2 mt-l">
+    <div class="pain-card">
+      <h4 style="margin-bottom:8px">物料主数据</h4>
+      <p class="dim">历史物料格式混乱，"一码多物"现象严重，库存准确性受影响。各部门维护标准不一致。</p>
+    </div>
+    <div class="pain-card">
+      <h4 style="margin-bottom:8px">BOM主数据</h4>
+      <p class="dim">研发BOM与生产BOM不统一，变更无法实时同步，设计与制造"两张皮"。</p>
+    </div>
+    <div class="pain-card">
+      <h4 style="margin-bottom:8px">客商主数据</h4>
+      <p class="dim">客户、供应商信息在SAP、SRM、CRM中分别维护，同一客商多系统编码不同。</p>
+    </div>
+    <div class="pain-card">
+      <h4 style="margin-bottom:8px">数据可视化</h4>
+      <p class="dim">成本无法穿透查询，库存状态不可视，报表分析滞后，管理层难以实时洞察经营全貌。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>数据治理是本次诊断中<strong>评分最低</strong>的能力域。</p>
+    <p>四个主数据域都有问题：物料、BOM、客商、数据可视化。</p>
+    <p>最典型的问题是<strong>"一物多码"</strong>——同一个物料在不同系统里有不同编码，导致库存数据对不上、采购重复下单。</p>
+  </aside>
+</section>
+
+<!-- 15. 四层痛点：管理层面 -->
+<section class="slide" data-title="管理层面痛点">
+  <p class="kicker">PAIN POINTS · MANAGEMENT</p>
+  <h2 class="h2">管理层面：事后补救多于事前预防</h2>
+  <div class="stack mt-l">
+    <div class="pain-card">
+      <span class="tag-fsl">信用管控缺失</span>
+      <p class="dim" style="margin-top:8px">仅在出库环节拦截信用，下单环节不校验，导致虚开订单锁定库存和额度。</p>
+    </div>
+    <div class="pain-card">
+      <span class="tag-fsl">合同履约失控</span>
+      <p class="dim" style="margin-top:8px">法务端无法实时获取付款进度，难以识别超付风险，缺乏全生命周期闭环管控。</p>
+    </div>
+    <div class="pain-card">
+      <span class="tag-fsl">价格管理失控</span>
+      <p class="dim" style="margin-top:8px">同一物料不同部门维护价格，缺乏对长期无效价格的自动冻结机制。</p>
+    </div>
+    <div class="pain-card">
+      <span class="tag-fsl">绩效考核困难</span>
+      <p class="dim" style="margin-top:8px">研发产出、供应商交付、质量损失等KPI难以自动量化，依赖人工统计。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>管理层面的核心问题是<strong>"事后补救多于事前预防"</strong>。</p>
+    <p>信用管控、合同履约、价格管理这些关键环节，都缺乏系统级的硬约束。也就是说，系统不能阻止错误发生，只能在错误发生后报警。</p>
+    <p>这是管理理念和系统能力的双重问题。</p>
+  </aside>
+</section>
+
+<!-- 16. 四层痛点：流程层面 -->
+<section class="slide" data-title="流程层面痛点">
+  <p class="kicker">PAIN POINTS · PROCESS</p>
+  <h2 class="h2">流程层面：端到端断裂与线下作业冗余</h2>
+  <div class="grid g2 mt-l">
+    <div class="pain-card">
+      <h4 style="margin-bottom:8px">P2P 采购到付款断点</h4>
+      <p class="dim">SRM存储发票，但SAP应付校验无附件查看功能，财务需线下翻阅纸质资料。</p>
+    </div>
+    <div class="pain-card">
+      <h4 style="margin-bottom:8px">O2C 销售到收款断点</h4>
+      <p class="dim">OA订单与SAP不关联，成品车间收到订单不能直接分解BOM，计划物料分解耗时长。</p>
+    </div>
+    <div class="pain-card">
+      <h4 style="margin-bottom:8px">废品管理线下化</h4>
+      <p class="dim">资源回收废品管理依赖人工线下登记，未在SAP实现全流程闭环，存在资产流失风险。</p>
+    </div>
+    <div class="pain-card">
+      <h4 style="margin-bottom:8px">审批流程繁琐</h4>
+      <p class="dim">财务申请、预付款、报销三个流程需领导依次审批，建议合并或形成闭环。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>流程层面的核心问题是<strong>"部门墙"导致的流程断裂</strong>。</p>
+    <p>业务流在跨越部门边界时，往往退化为线下沟通、手工台账和重复审批。</p>
+    <p>P2P和O2C是最典型的两个断点——采购到付款、销售到收款，这两个端到端流程都没有完全在线上跑通。</p>
+  </aside>
+</section>
+
+<!-- 17. 四层痛点：系统层面 -->
+<section class="slide" data-title="系统层面痛点">
+  <p class="kicker">PAIN POINTS · SYSTEM</p>
+  <h2 class="h2">系统层面：集成断点与性能瓶颈</h2>
+  <div class="grid g2 mt-l">
+    <div class="pain-card">
+      <h4 style="margin-bottom:8px">PLM与SAP脱节</h4>
+      <p class="dim">研发BOM变更无法实时同步至生产端，导致设计与制造"两张皮"。</p>
+    </div>
+    <div class="pain-card">
+      <h4 style="margin-bottom:8px">OA与SAP割裂</h4>
+      <p class="dim">OA审批后的订单无法自动触发SAP生产计划分解，需人工二次录入。</p>
+    </div>
+    <div class="pain-card">
+      <h4 style="margin-bottom:8px">SRM协同滞后</h4>
+      <p class="dim">采购订单、送货单在SRM与SAP间同步不及时，影响供应商送货准确性。</p>
+    </div>
+    <div class="pain-card">
+      <h4 style="margin-bottom:8px">高并发卡顿</h4>
+      <p class="dim">自营订单自动交货程序在处理大订单时频繁超时，无法满足电商业务需求。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>系统层面的核心问题是<strong>"烟囱式"架构</strong>——各系统各自为政，数据不能流通。</p>
+    <p>PLM、OA、SRM三个系统与SAP的断点，是造成业务效率损失的三大主因。</p>
+    <p>另外，SAP ECC本身的技术架构也面临性能瓶颈，特别是电商业务的高并发场景。</p>
+  </aside>
+</section>
+
+<!-- 18. 四层痛点：数据层面 -->
+<section class="slide" data-title="数据层面痛点">
+  <p class="kicker">PAIN POINTS · DATA</p>
+  <h2 class="h2">数据层面：主数据混乱与价值挖掘缺失</h2>
+  <div class="grid g2 mt-l">
+    <div class="pain-card">
+      <h4 style="margin-bottom:8px">"新品"定义模糊</h4>
+      <p class="dim">各部门认定标准不一致（高新项目时间、首次下单时间），销售统计需人工甄别。</p>
+    </div>
+    <div class="pain-card">
+      <h4 style="margin-bottom:8px">物料描述不规范</h4>
+      <p class="dim">历史物料格式混乱，"一码多物"现象严重，影响库存准确性。</p>
+    </div>
+    <div class="pain-card">
+      <h4 style="margin-bottom:8px">成本数据黑盒</h4>
+      <p class="dim">无法实现成本穿透式查询，难以逐层追溯材料成本及对应供应商最新采购价。</p>
+    </div>
+    <div class="pain-card">
+      <h4 style="margin-bottom:8px">库存状态不可视</h4>
+      <p class="dim">电商业务无法在一个界面清晰看到产品在聚水潭、调货中、质检中等全链路状态。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>数据层面是制约数字化的<strong>核心瓶颈</strong>。</p>
+    <p>主数据标准不统一导致跨部门统计口径冲突，数据停留在"记录"阶段，缺乏穿透式查询和可视化分析能力。</p>
+    <p>数据问题不是技术问题，是<strong>治理问题</strong>——需要明确谁对数据负责、数据标准是什么、如何维护。</p>
+  </aside>
+</section>
+
+<!-- 18b. 痛点案例详情 -->
+<section class="slide" data-title="痛点案例">
+  <p class="kicker">PAIN CASE STUDY</p>
+  <h2 class="h2">痛点案例：三个典型场景</h2>
+  <div class="stack mt-l" style="gap:12px">
+    <div class="pain-card">
+      <span class="tag-fsl">案例一</span>
+      <strong>销售订单"黑箱"</strong>
+      <p class="dim" style="margin-top:6px">销售在OA下单后，无法实时看到订单在SAP中的生产进度、物流状态。客户催单时，销售需要打电话问计划、问车间、问物流——一个订单查进度需要打3-4个电话。</p>
+    </div>
+    <div class="pain-card">
+      <span class="tag-fsl">案例二</span>
+      <strong>信用额度"虚耗"</strong>
+      <p class="dim" style="margin-top:6px">某客户信用额度100万，已用80万。销售在OA下了一张50万的订单，系统未在下单环节校验信用，导致订单进入生产后才发现超信用——客户已付定金，进退两难。</p>
+    </div>
+    <div class="pain-card">
+      <span class="tag-fsl">案例三</span>
+      <strong>成本"算不清"</strong>
+      <p class="dim" style="margin-top:6px">财务月结时，发现某产品成本异常偏高。想追溯原因——是材料涨价？是工艺变更？是废品率上升？但成本数据分散在SAP、MES、OA三个系统，无法穿透查询，只能大致估算。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>三个典型痛点案例。</p>
+    <p><strong>案例一</strong>——订单黑箱，销售看不到订单状态。</p>
+    <p><strong>案例二</strong>——信用虚耗，下单时不校验导致后续被动。</p>
+    <p><strong>案例三</strong>——成本算不清，数据分散无法穿透。</p>
+  </aside>
+</section>
+<!-- 19. 痛点总结矩阵 -->
+<section class="slide" data-title="痛点矩阵">
+  <p class="kicker">PAIN MATRIX</p>
+  <h2 class="h2">四层痛点影响矩阵</h2>
+  <table class="fsl-table mt-l">
+    <tr><th>痛点层面</th><th>核心问题</th><th>影响范围</th><th>紧急程度</th></tr>
+    <tr><td>管理</td><td>事后补救多于事前预防</td><td>信用、合同、价格、绩效</td><td><span style="color:#d97706;font-weight:700">高</span></td></tr>
+    <tr><td>流程</td><td>端到端断裂，线下作业冗余</td><td>P2P、O2C、废品、审批</td><td><span style="color:#dc2626;font-weight:700">极高</span></td></tr>
+    <tr><td>系统</td><td>集成断点，性能瓶颈</td><td>PLM、OA、SRM、SAP</td><td><span style="color:#dc2626;font-weight:700">极高</span></td></tr>
+    <tr><td>数据</td><td>主数据混乱，价值挖掘缺失</td><td>物料、BOM、客商、报表</td><td><span style="color:#dc2626;font-weight:700">极高</span></td></tr>
+  </table>
+  <div class="insight-box mt-l">
+    <p><strong>结论：</strong>流程、系统、数据三个层面的痛点紧急程度最高，且相互关联——系统不通导致流程断点，流程断点导致数据缺失，数据缺失导致管理盲区。</p>
+  </div>
+  <aside class="notes">
+    <p>这是四层痛点的总结矩阵。</p>
+    <p>可以看到，<strong>流程、系统、数据三个层面的紧急程度都是"极高"</strong>，而且这三个层面是相互强关联的。</p>
+    <p>系统不通导致流程断点，流程断点导致数据缺失，数据缺失又导致管理盲区。这是一个恶性循环。</p>
+  </aside>
+</section>
+
+<!-- 20. 行业对标：公牛集团 -->
+<section class="slide" data-title="行业对标公牛">
+  <p class="kicker">BENCHMARK · 公牛集团</p>
+  <h2 class="h2">对标公牛集团：从职能型到流程型组织</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>组织变革</h4>
+      <p class="dim">吸纳学习华为数字化治理方法，实现流程再造和管理变革，从职能型组织向流程型组织转变。</p>
+    </div>
+    <div class="card">
+      <h4>技术投入</h4>
+      <p class="dim">依托未来研究院对前瞻技术规划，在新能源用电、数字化智能控制、AI产业应用等领域与一流高校合作。2025年新增授权专利414项。</p>
+    </div>
+    <div class="card">
+      <h4>数据驱动</h4>
+      <p class="dim">升级MES系统，整合ERP、QMS、PLM等体系，实现"设计制造一体化、生产加工自动化、生产过程透明化、物流控制精准化"。</p>
+    </div>
+    <div class="card">
+      <h4>渠道数字化</h4>
+      <p class="dim">建立覆盖全国城乡110多万家终端网点的线下销售网络，BBS业务管理体系成为驱动业务发展的引擎。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>我们对标了三家同行，先看公牛集团。</p>
+    <p>公牛最核心的经验是<strong>组织变革</strong>——不是上了系统就完事，而是从职能型组织变成流程型组织。这个转变是佛照最需要借鉴的。</p>
+    <p>另外公牛在数据驱动制造和渠道数字化方面也走在前面。</p>
+  </aside>
+</section>
+
+<!-- 21. 行业对标：其他企业 -->
+<section class="slide" data-title="行业对标其他">
+  <p class="kicker">BENCHMARK · 星宇股份 / 欧普照明</p>
+  <h2 class="h2">对标星宇股份与欧普照明</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>星宇股份</h4>
+      <p class="dim"><strong>车灯专业化：</strong>聚焦车灯领域，数字化投入集中在智能制造和研发仿真。MES系统覆盖全部生产线，实现全过程质量追溯。</p>
+      <p class="dim" style="margin-top:8px"><strong>启示：</strong>垂直领域的深度数字化比广度更重要。</p>
+    </div>
+    <div class="card">
+      <h4>欧普照明</h4>
+      <p class="dim"><strong>智能家居生态：</strong>以IoT和智能控制为核心，构建全屋智能照明解决方案。电商平台数字化程度高，C端用户数据运营成熟。</p>
+      <p class="dim" style="margin-top:8px"><strong>启示：</strong>C端数字化和IoT能力是照明行业新赛道。</p>
+    </div>
+  </div>
+  <div class="insight-box mt-l">
+    <p><strong>对标总结：</strong>佛照在系统覆盖面上不输标杆，但在<strong>系统集成度、数据治理深度、组织数字化能力</strong>三个方面存在明显差距。这正是本次S/4HANA升级要补的课。</p>
+  </div>
+  <aside class="notes">
+    <p>星宇和欧普的对标结论。</p>
+    <p>星宇告诉我们<strong>垂直深度</strong>很重要，欧普告诉我们<strong>C端数字化和IoT</strong>是新赛道。</p>
+    <p>总结来说，佛照在"有没有系统"上不输，但在"系统通不通""数据准不准""组织跟不跟得上"三个方面有差距。</p>
+  </aside>
+</section>
+
+<!-- 21b. 对标评分对比 -->
+<section class="slide" data-title="对标评分">
+  <p class="kicker">BENCHMARK SCORECARD</p>
+  <h2 class="h2">四家企业数字化能力评分对比</h2>
+  <table class="fsl-table mt-l">
+    <tr><th>能力域</th><th>佛照（1.9）</th><th>公牛（~3.2）</th><th>欧普（~3.0）</th><th>星宇（~2.8）</th></tr>
+    <tr><td>组织</td><td>2.1</td><td>3.5</td><td>3.2</td><td>2.8</td></tr>
+    <tr><td>技术</td><td>2.3</td><td>3.5</td><td>3.3</td><td>3.0</td></tr>
+    <tr><td>数据</td><td style="color:#dc2626;font-weight:700">1.2</td><td>3.2</td><td>3.0</td><td>2.5</td></tr>
+    <tr><td>资源</td><td>2.0</td><td>3.3</td><td>3.1</td><td>2.8</td></tr>
+    <tr><td>数字化运营</td><td>1.8</td><td>3.0</td><td>2.9</td><td>2.5</td></tr>
+    <tr><td>数字化生产</td><td>2.0</td><td>3.2</td><td>2.8</td><td>3.0</td></tr>
+  </table>
+  <aside class="notes">
+    <p>四家企业的数字化能力评分对比。</p>
+    <p>佛照在六个维度上全面落后，<strong>数据维度差距最大</strong>。</p>
+    <p>公牛在组织和技术上领先最多，欧普在C端数字化上有优势，星宇在智能制造上做得深。</p>
+  </aside>
+</section>
+
+<!-- 21c. DCMM评估 -->
+<section class="slide" data-title="DCMM评估">
+  <p class="kicker">DCMM ASSESSMENT</p>
+  <h2 class="h2">数据管理能力成熟度（DCMM）评估</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>评估标准</h4>
+      <p class="dim">参照GB/T 36073-2025（DCMM），从数据战略、数据治理、数据架构、数据应用、数据安全、数据质量、数据标准、数据生命周期8个能力域评估。</p>
+    </div>
+    <div class="card">
+      <h4>评估结果</h4>
+      <p class="dim">佛照当前DCMM等级约为<strong>Level 2（受管理级）</strong>，目标三年内达到<strong>Level 3（稳健级）</strong>。数据质量和数据标准是最大短板。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>DCMM是数据管理领域的国家标准。</p>
+    <p>佛照当前DCMM约2级，目标3级。<strong>数据质量和数据标准</strong>是最大短板。</p>
+  </aside>
+</section>
+<!-- 22. 数字化成熟度评估 -->
+<section class="slide" data-title="成熟度评估">
+  <p class="kicker">MATURITY ASSESSMENT</p>
+  <h2 class="h2">数字化成熟度：综合评分 <span style="color:var(--accent-2)">1.9</span> / 5.0</h2>
+  <div class="grid g3 mt-l" style="text-align:center">
+    <div class="card">
+      <div style="font-size:48px;font-weight:800;color:var(--accent-2)">1.9</div>
+      <div style="font-size:12px;color:var(--text-3);margin-top:4px">当前等级</div>
+      <div style="font-size:14px;font-weight:600;margin-top:4px">初始级→规范级下限</div>
+    </div>
+    <div class="card">
+      <div style="font-size:48px;font-weight:800;color:#0e9f6e">3.0+</div>
+      <div style="font-size:12px;color:var(--text-3);margin-top:4px">行业标杆</div>
+      <div style="font-size:14px;font-weight:600;margin-top:4px">集成级</div>
+    </div>
+    <div class="card">
+      <div style="font-size:48px;font-weight:800;color:var(--warn)">1.1</div>
+      <div style="font-size:12px;color:var(--text-3);margin-top:4px">差距</div>
+      <div style="font-size:14px;font-weight:600;margin-top:4px">需提升约1.5级</div>
+    </div>
+  </div>
+  <div class="insight-box mt-l">
+    <p><strong>评估依据：</strong>参照GB/T 43439-2023国家标准，从组织、技术、数据、资源、数字化运营、数字化生产6大能力域评估。佛照当前处于<strong>L1.9</strong>，目标三年内达到<strong>L3.5+</strong>（集成级）。</p>
+  </div>
+  <aside class="notes">
+    <p>这是数字化成熟度的核心结论。</p>
+    <p>当前<strong>1.9分</strong>，行业标杆在3.0以上，差距约1.5级。</p>
+    <p>1.9是什么概念？就是我们已经有了系统，但系统之间基本不通，数据质量也不够好。要达到3.0，需要系统之间实现集成，数据实现标准化。</p>
+  </aside>
+</section>
+
+<!-- 23. 成熟度六维雷达 -->
+<section class="slide" data-title="六维雷达">
+  <p class="kicker">6-DIMENSION RADAR</p>
+  <h2 class="h2">六维能力域评估：数据是最短板</h2>
+  <div class="grid g2 mt-l">
+    <div>
+      <table class="fsl-table">
+        <tr><th>能力域</th><th>当前得分</th><th>目标得分</th><th>差距</th></tr>
+        <tr><td>组织</td><td>2.1</td><td>3.5</td><td>1.4</td></tr>
+        <tr><td>技术</td><td>2.3</td><td>3.8</td><td>1.5</td></tr>
+        <tr><td>数据</td><td><strong style="color:#dc2626">1.2</strong></td><td>3.8</td><td><strong style="color:#dc2626">2.6</strong></td></tr>
+        <tr><td>资源</td><td>2.0</td><td>3.5</td><td>1.5</td></tr>
+        <tr><td>数字化运营</td><td>1.8</td><td>3.5</td><td>1.7</td></tr>
+        <tr><td>数字化生产</td><td>2.0</td><td>3.5</td><td>1.5</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h4>关键洞察</h4>
+      <div class="stack" style="margin-top:12px;gap:10px">
+        <div class="pain-card" style="padding:10px 14px"><strong>数据</strong>是最短板（1.2分），差距2.6分，需最早启动。</div>
+        <div class="pain-card" style="border-left-color:#d97706;padding:10px 14px"><strong>数字化运营</strong>差距1.7分，反映流程线上化和自动化不足。</div>
+        <div class="win-card" style="padding:10px 14px"><strong>组织</strong>相对较好（2.1分），说明管理层意识已经到位。</div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>六维能力域的详细评分。</p>
+    <p><strong>数据是最短板</strong>，1.2分，差距2.6分。这也是为什么我们把主数据治理作为2026年的首要任务。</p>
+    <p>好消息是<strong>组织维度相对较好</strong>，2.1分，说明管理层对数字化的认知和决心已经到位，这是转型成功的重要前提。</p>
+  </aside>
+</section>
+
+<!-- 23b. 能力域详细-组织 -->
+<section class="slide" data-title="组织域评估">
+  <p class="kicker">CAPABILITY · ORGANIZATION</p>
+  <h2 class="h2">组织域：管理层意识到位，执行层能力不足</h2>
+  <div class="grid g2 mt-l">
+    <div class="win-card">
+      <h4 style="margin-bottom:8px">优势</h4>
+      <p class="dim">1. 高层对数字化转型有清晰认知和战略决心<br>2. 数智化部组织架构基本完整<br>3. 业务部门对数字化需求明确</p>
+    </div>
+    <div class="pain-card" style="border-left-color:#d97706">
+      <h4 style="margin-bottom:8px">短板</h4>
+      <p class="dim">1. 缺乏CIO/CDO级别的专职领导<br>2. PMO未实体化，项目协调力度不足<br>3. 数字化BP机制缺失，业务与IT衔接不畅</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>组织域评估：管理层意识到位，但执行层能力不足。</p>
+    <p>最大的短板是<strong>缺乏CIO/CDO</strong>——没有一个高层专职负责数字化。</p>
+  </aside>
+</section>
+
+<!-- 23c. 能力域详细-技术 -->
+<section class="slide" data-title="技术域评估">
+  <p class="kicker">CAPABILITY · TECHNOLOGY</p>
+  <h2 class="h2">技术域：基础设施够用，架构待升级</h2>
+  <div class="grid g2 mt-l">
+    <div class="win-card">
+      <h4 style="margin-bottom:8px">优势</h4>
+      <p class="dim">1. SAP ECC运行稳定，核心业务有系统支撑<br>2. 网络基础设施基本满足需求<br>3. 云资源使用经验已有积累</p>
+    </div>
+    <div class="pain-card" style="border-left-color:#d97706">
+      <h4 style="margin-bottom:8px">短板</h4>
+      <p class="dim">1. SAP ECC技术架构老旧，高并发支撑不足<br>2. 缺乏统一集成平台，接口管理混乱<br>3. 用户体验差，Fiori等现代化前端未引入</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>技术域评估：基础设施够用，但架构需要升级。</p>
+    <p>SAP ECC已经运行多年，技术架构相对老旧，特别是在高并发场景下性能不足。</p>
+  </aside>
+</section>
+
+<!-- 23d. 国资监管要求 -->
+<section class="slide" data-title="国资监管">
+  <p class="kicker">STATE-OWNED REGULATION</p>
+  <h2 class="h2">国资监管：三大文件驱动数字化</h2>
+  <table class="fsl-table mt-l">
+    <tr><th>文件</th><th>核心要求</th><th>时间节点</th><th>对佛照影响</th></tr>
+    <tr><td>1号文（财务数智化）</td><td>建设DRP系统，业财数据统一</td><td>2026年底互联互通</td><td>SAP升级是核心举措</td></tr>
+    <tr><td>2号文（穿透式监管）</td><td>从集团报表穿透到明细账</td><td>十五五期间全面建成</td><td>数据治理必须到位</td></tr>
+    <tr><td>15号文（内控体系）</td><td>全级次覆盖、全业务在线</td><td>2年完成穿透测试</td><td>流程线上化是刚需</td></tr>
+  </table>
+  <aside class="notes">
+    <p>国资监管三大文件是佛照数字化转型的外部驱动力。</p>
+    <p><strong>1号文</strong>是最紧迫的——2026年底要核心系统互联互通。</p>
+    <p><strong>2号文</strong>要求数据穿透——从集团合并报表一直穿透到明细账。</p>
+  </aside>
+</section>
+
+<!-- 23e. 业务战略对齐 -->
+<section class="slide" data-title="战略对齐">
+  <p class="kicker">STRATEGY ALIGNMENT</p>
+  <h2 class="h2">数字化规划与业务战略严格对齐</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>业务战略目标</h4>
+      <p class="dim">1. 市场驱动与增长：深化渠道、强化研产销协同<br>2. 运营卓越与降本：精益供应链、合规风控<br>3. 创新驱动与升级：产品智能化、绿色化</p>
+    </div>
+    <div class="card">
+      <h4>数字化支撑</h4>
+      <p class="dim">1. 销售全链路可视 → 渠道深化<br>2. 供应链协同 → 研产销协同<br>3. 质量追溯+成本穿透 → 精益管理<br>4. PLM深化+IoT → 产品智能化</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>数字化规划不是IT部门自己的事，是<strong>业务战略的支撑</strong>。</p>
+    <p>每一个数字化项目都对应一个业务战略目标，确保钱花在对的地方。</p>
+  </aside>
+</section>
+<!-- 24. 诊断小结 -->
+<section class="slide" data-title="诊断小结">
+  <p class="kicker">DIAGNOSIS SUMMARY</p>
+  <h2 class="h2">现状诊断：三大结论</h2>
+  <div class="stack mt-l" style="gap:16px">
+    <div class="card" style="display:flex;align-items:flex-start;gap:16px">
+      <div style="font-size:36px;font-weight:800;color:var(--accent-2);line-height:1;flex-shrink:0">01</div>
+      <div>
+        <h4 style="margin-bottom:6px">系统有了，但没打通</h4>
+        <p class="dim">22个系统形成烟囱架构，SAP与外围系统之间大量点对点接口，业务流在跨部门 handoff 时退化为线下操作。</p>
+      </div>
+    </div>
+    <div class="card" style="display:flex;align-items:flex-start;gap:16px">
+      <div style="font-size:36px;font-weight:800;color:var(--accent-2);line-height:1;flex-shrink:0">02</div>
+      <div>
+        <h4 style="margin-bottom:6px">数据有了，但不准</h4>
+        <p class="dim">主数据标准不统一，"一物多码"严重，数据停留在记录阶段，缺乏穿透式查询和可视化分析能力。</p>
+      </div>
+    </div>
+    <div class="card" style="display:flex;align-items:flex-start;gap:16px">
+      <div style="font-size:36px;font-weight:800;color:var(--accent-2);line-height:1;flex-shrink:0">03</div>
+      <div>
+        <h4 style="margin-bottom:6px">需求有了，且明确</h4>
+        <p class="dim">701条需求清晰指向23个高价值场景，为架构设计和路径规划提供了坚实的 evidence base。</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>诊断部分的三个核心结论。</p>
+    <p><strong>系统有了但没打通</strong>——这是架构问题。</p>
+    <p><strong>数据有了但不准</strong>——这是治理问题。</p>
+    <p><strong>需求有了且明确</strong>——这是好消息，说明业务部门很清楚自己要什么。</p>
+  </aside>
+</section>
+
+<!-- ==================== PART 2: 企业架构 ==================== -->
+
+<!-- 25. 章节页：企业架构 -->
+<section class="slide section-cover" data-title="第二部分">
+  <div>
+    <p style="font-size:14px;letter-spacing:4px;opacity:.7;margin-bottom:16px">PART 02</p>
+    <h1 style="font-size:56px;font-weight:800;margin-bottom:16px">企业架构设计</h1>
+    <p style="font-size:22px;opacity:.85">我们要去哪？</p>
+  </div>
+  <aside class="notes">
+    <p>进入第二部分，企业架构设计。这一部分回答：佛照数字化的目标架构长什么样？</p>
+  </aside>
+</section>
+
+<!-- 26. TOGAF方法论 -->
+<section class="slide" data-title="TOGAF方法论">
+  <p class="kicker">TOGAF 9.2 ADM</p>
+  <h2 class="h2">采用国际通用的TOGAF架构开发方法</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>什么是TOGAF？</h4>
+      <p class="dim">The Open Group Architecture Framework，全球数千个企业架构实践验证的迭代式架构开发方法，由8个相位构成。</p>
+    </div>
+    <div class="card">
+      <h4>本项目覆盖的四个核心相位</h4>
+      <p class="dim">Phase A 架构愿景 → Phase B 业务架构 → Phase C 信息系统架构（数据+应用） → Phase D 技术架构</p>
+    </div>
+  </div>
+  <div class="insight-box mt-l">
+    <p><strong>为什么选择TOGAF？</strong> 国资委推荐、国际通用、与SAP实施方法论天然对齐。使用TOGAF确保架构设计有方法论支撑，不是拍脑袋。</p>
+  </div>
+  <aside class="notes">
+    <p>企业架构设计采用TOGAF 9.2方法论。</p>
+    <p>TOGAF是什么？简单说就是<strong>国际上最权威的企业架构方法论</strong>，全球几千个大企业都在用。</p>
+    <p>本项目覆盖TOGAF的四个核心相位：愿景、业务架构、信息系统架构、技术架构。</p>
+  </aside>
+</section>
+
+<!-- 26b. 架构设计原则 -->
+<section class="slide" data-title="架构原则">
+  <p class="kicker">ARCHITECTURE PRINCIPLES</p>
+  <h2 class="h2">六大架构设计原则</h2>
+  <div class="stack mt-l" style="gap:10px">
+    <div class="card" style="display:flex;align-items:flex-start;gap:14px">
+      <div style="font-size:24px;font-weight:800;color:var(--accent-2);line-height:1">01</div>
+      <div><h4 style="margin-bottom:4px">业务优先</h4><p class="dim">架构设计以业务价值为导向，技术服务于业务，不为技术而技术。</p></div>
+    </div>
+    <div class="card" style="display:flex;align-items:flex-start;gap:14px">
+      <div style="font-size:24px;font-weight:800;color:var(--accent-2);line-height:1">02</div>
+      <div><h4 style="margin-bottom:4px">标准统一</h4><p class="dim">主数据、接口、流程全部标准化，杜绝"一事一议"的定制化。</p></div>
+    </div>
+    <div class="card" style="display:flex;align-items:flex-start;gap:14px">
+      <div style="font-size:24px;font-weight:800;color:var(--accent-2);line-height:1">03</div>
+      <div><h4 style="margin-bottom:4px">集成优先</h4><p class="dim">新建系统必须通过统一集成平台连接，严禁点对点接口。</p></div>
+    </div>
+    <div class="card" style="display:flex;align-items:flex-start;gap:14px">
+      <div style="font-size:24px;font-weight:800;color:var(--accent-2);line-height:1">04</div>
+      <div><h4 style="margin-bottom:4px">渐进演进</h4><p class="dim">分Phase实施，每Phase都有明确交付物和验收标准，不贪大求全。</p></div>
+    </div>
+    <div class="card" style="display:flex;align-items:flex-start;gap:14px">
+      <div style="font-size:24px;font-weight:800;color:var(--accent-2);line-height:1">05</div>
+      <div><h4 style="margin-bottom:4px">安全合规</h4><p class="dim">满足等保2.0和国资监管要求，数据安全贯穿设计、开发、运维全生命周期。</p></div>
+    </div>
+    <div class="card" style="display:flex;align-items:flex-start;gap:14px">
+      <div style="font-size:24px;font-weight:800;color:var(--accent-2);line-height:1">06</div>
+      <div><h4 style="margin-bottom:4px">用户体验</h4><p class="dim">推广Fiori等现代化前端，简化操作，提升用户效率和满意度。</p></div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>六大架构设计原则。</p>
+    <p>最核心的两条：<strong>业务优先</strong>和<strong>标准统一</strong>。</p>
+    <p>架构设计不是技术炫技，是解决业务问题。同时必须坚持标准化，不标准化就没有可持续性。</p>
+  </aside>
+</section>
+
+<!-- 26c. 六大驱动因素 -->
+<section class="slide" data-title="驱动因素">
+  <p class="kicker">ARCHITECTURE DRIVERS</p>
+  <h2 class="h2">六大架构变革驱动因素</h2>
+  <div class="grid g3 mt-l" style="gap:10px">
+    <div class="card" style="text-align:center">
+      <div style="font-size:32px;font-weight:800;color:var(--accent-2)">01</div>
+      <h4 style="margin-top:8px">业务战略转型</h4>
+      <p class="dim" style="font-size:12px">从制造商到服务商的业务模式转变</p>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:32px;font-weight:800;color:var(--accent-2)">02</div>
+      <h4 style="margin-top:8px">国资监管要求</h4>
+      <p class="dim" style="font-size:12px">1号文/2号文/15号文的合规硬约束</p>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:32px;font-weight:800;color:var(--accent-2)">03</div>
+      <h4 style="margin-top:8px">系统老化瓶颈</h4>
+      <p class="dim" style="font-size:12px">SAP ECC技术架构无法满足业务增长</p>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:32px;font-weight:800;color:var(--accent-2)">04</div>
+      <h4 style="margin-top:8px">数据治理滞后</h4>
+      <p class="dim" style="font-size:12px">主数据混乱制约数字化价值释放</p>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:32px;font-weight:800;color:var(--accent-2)">05</div>
+      <h4 style="margin-top:8px">海外扩张需求</h4>
+      <p class="dim" style="font-size:12px">泰国工厂上线需要本地化合规支撑</p>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:32px;font-weight:800;color:var(--accent-2)">06</div>
+      <h4 style="margin-top:8px">竞争压力加剧</h4>
+      <p class="dim" style="font-size:12px">标杆企业数字化领先，佛照需追赶</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>六大架构变革驱动因素。</p>
+    <p>前三项是<strong>内部驱动</strong>——业务转型、监管要求、系统老化。</p>
+    <p>后三项是<strong>外部驱动</strong>——数据治理、海外扩张、竞争压力。</p>
+  </aside>
+</section>
+<!-- 27. 需求溯源五层追溯 -->
+<section class="slide" data-title="五层追溯">
+  <p class="kicker">5-LAYER TRACEABILITY</p>
+  <h2 class="h2">701条需求 → 23个高价值场景</h2>
+  <div style="display:flex;align-items:center;gap:8px;margin-top:32px;justify-content:center;flex-wrap:wrap">
+    <div style="background:var(--accent);color:#fff;padding:14px 18px;border-radius:var(--radius);text-align:center"><div style="font-size:11px;opacity:.8">Layer 1</div><div style="font-weight:700;font-size:14px">701条原始需求</div></div>
+    <div style="color:var(--accent-2);font-size:18px">→</div>
+    <div style="background:var(--accent-2);color:#fff;padding:14px 18px;border-radius:var(--radius);text-align:center"><div style="font-size:11px;opacity:.8">Layer 2</div><div style="font-weight:700;font-size:14px">23个一级痛点</div></div>
+    <div style="color:var(--accent-2);font-size:18px">→</div>
+    <div style="background:var(--accent-3);color:#fff;padding:14px 18px;border-radius:var(--radius);text-align:center"><div style="font-size:11px;opacity:.8">Layer 3</div><div style="font-weight:700;font-size:14px">TOGAF 4A架构</div></div>
+    <div style="color:var(--accent-2);font-size:18px">→</div>
+    <div style="background:var(--accent-2);color:#fff;padding:14px 18px;border-radius:var(--radius);text-align:center"><div style="font-size:11px;opacity:.8">Layer 4</div><div style="font-weight:700;font-size:14px">23个高价值场景</div></div>
+    <div style="color:var(--accent-2);font-size:18px">→</div>
+    <div style="background:#0e9f6e;color:#fff;padding:14px 18px;border-radius:var(--radius);text-align:center"><div style="font-size:11px;opacity:.8">Layer 5</div><div style="font-weight:700;font-size:14px">24个项目卡片</div></div>
+  </div>
+  <div class="insight-box mt-l">
+    <p><strong>五层追溯的价值：</strong>每一条需求都可以从原始业务域出发，经过痛点抽象、架构映射、场景归类，最终定位到具体的项目卡片。实现<strong>全链路可审计</strong>。</p>
+  </div>
+  <aside class="notes">
+    <p>这是本次架构设计最核心的方法论创新——<strong>五层追溯体系</strong>。</p>
+    <p>701条原始需求不是散落在Excel里的，而是经过了五层收敛：先抽象成23个痛点，再映射到4A架构，再归类为23个高价值场景，最终落入24个项目卡片。</p>
+    <p>这样做的价值是<strong>每一条需求都可追溯</strong>——总经理问"这个需求做不做、在哪做"，我们能立刻给出答案。</p>
+  </aside>
+</section>
+
+<!-- 28. 桑基图说明 -->
+<section class="slide" data-title="桑基图">
+  <p class="kicker">SANKEY DIAGRAM</p>
+  <h2 class="h2">需求流向：从业务域到项目卡片</h2>
+  <div class="insight-box mt-l" style="text-align:center;padding:40px">
+    <p style="font-size:16px;margin-bottom:16px"><strong>桑基图解读方法</strong></p>
+    <p class="dim">从左至右追踪任意一条彩色连线，即可还原一类需求从原始业务域出发，经过哪些痛点抽象、被归类到哪个架构域、最终落入哪个高价值场景和项目卡片。</p>
+    <p class="dim" style="margin-top:12px">例如：追踪"销售与渠道"域的橙红色——流经P05/P06/P07等痛点，汇入业务架构，最终到达S04场景和PC06项目卡片。</p>
+  </div>
+  <div class="grid g3 mt-l">
+    <div class="card" style="text-align:center">
+      <div style="font-size:32px;font-weight:800;color:var(--accent-2)">10</div>
+      <div style="font-size:12px;color:var(--text-3)">原始需求域</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:32px;font-weight:800;color:var(--accent-2)">23</div>
+      <div style="font-size:12px;color:var(--text-3)">一级痛点</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:32px;font-weight:800;color:#0e9f6e">24</div>
+      <div style="font-size:12px;color:var(--text-3)">项目卡片</div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>桑基图是五层追溯的可视化表达。</p>
+    <p>这张图展示了从10个原始需求域到24个项目卡片的完整流向。每个颜色代表一个业务域，可以清晰地看到哪些业务域的需求最多、最终落入了哪些项目。</p>
+  </aside>
+</section>
+
+<!-- 29. 业务架构愿景 -->
+<section class="slide" data-title="业务架构愿景">
+  <p class="kicker">BUSINESS ARCHITECTURE</p>
+  <h2 class="h2">业务架构愿景：八大业务能力域</h2>
+  <div class="grid g4 mt-l" style="font-size:12px">
+    <div class="card" style="text-align:center"><h4>研发管理</h4><p class="dim">PLM深化 · 项目管控 · 技术标准化</p></div>
+    <div class="card" style="text-align:center"><h4>供应链管理</h4><p class="dim">计划协同 · 采购优化 · 库存可视化</p></div>
+    <div class="card" style="text-align:center"><h4>生产制造</h4><p class="dim">MES集成 · 质量追溯 · 成本精细化</p></div>
+    <div class="card" style="text-align:center"><h4>销售与渠道</h4><p class="dim">订单全链路 · 信用管控 · 价格统一</p></div>
+    <div class="card" style="text-align:center"><h4>财务管理</h4><p class="dim">集团合并 · 司库管理 · 业财一体化</p></div>
+    <div class="card" style="text-align:center"><h4>质量管理</h4><p class="dim">批次追溯 · 质检自动化 · 不良分析</p></div>
+    <div class="card" style="text-align:center"><h4>主数据管理</h4><p class="dim">MDG治理 · 标准统一 · 唯一数据源</p></div>
+    <div class="card" style="text-align:center"><h4>IT治理</h4><p class="dim">CPI集成 · 接口管理 · 监控运维</p></div>
+  </div>
+  <aside class="notes">
+    <p>业务架构设计了八大能力域。</p>
+    <p>这八个能力域覆盖了佛照的核心业务活动，每个能力域都有明确的当前状态、目标状态和差距分析。</p>
+  </aside>
+</section>
+
+<!-- 29b. 研发能力域 -->
+<section class="slide" data-title="研发能力域">
+  <p class="kicker">CAPABILITY · R&D</p>
+  <h2 class="h2">研发管理：PLM深化与项目管控</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>当前状态</h4>
+      <p class="dim">PLM系统运行中，但BOM变更无法实时同步至SAP。研发费用归集靠人工，投入产出比无法量化。</p>
+    </div>
+    <div class="card">
+      <h4>目标状态</h4>
+      <p class="dim">PLM与SAP深度集成，BOM变更实时同步。研发项目全生命周期管控，费用自动归集，ROI可量化。</p>
+    </div>
+  </div>
+  <div class="insight-box mt-l">
+    <p><strong>关键改进：</strong>引入PS项目管理模块，实现研发项目从立项到结项的全流程管控。BOM变更通过CPI实时同步至SAP生产端。</p>
+  </div>
+  <aside class="notes">
+    <p>研发能力域的当前状态和目标状态。</p>
+    <p>核心改进是PLM和SAP的深度集成，以及研发项目的全流程管控。</p>
+  </aside>
+</section>
+
+<!-- 29c. 供应链能力域 -->
+<section class="slide" data-title="供应链能力域">
+  <p class="kicker">CAPABILITY · SUPPLY CHAIN</p>
+  <h2 class="h2">供应链管理：计划协同与库存可视化</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>当前状态</h4>
+      <p class="dim">MRP运行周期长，计划与执行脱节。库存数据分散在SAP、WMS、MES中，无法统一视图。</p>
+    </div>
+    <div class="card">
+      <h4>目标状态</h4>
+      <p class="dim">MRP Live实时运算，计划-采购-生产-仓储全链路协同。库存全链路可视化，安全库存智能预警。</p>
+    </div>
+  </div>
+  <div class="insight-box mt-l">
+    <p><strong>关键改进：</strong>升级MRP至MRP Live，引入EWM与SAP深度集成，实现从需求到交付的全链路可视。</p>
+  </div>
+  <aside class="notes">
+    <p>供应链能力域。</p>
+    <p>MRP Live是S/4HANA的核心特性之一，运算速度比ECC的MRP快几十倍。</p>
+  </aside>
+</section>
+
+<!-- 29d. 财务能力域 -->
+<section class="slide" data-title="财务能力域">
+  <p class="kicker">CAPABILITY · FINANCE</p>
+  <h2 class="h2">财务管理：集团合并与业财一体化</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>当前状态</h4>
+      <p class="dim">合并报表手工编制，月结需7-8天。业财数据分离，财务难以追溯业务明细。</p>
+    </div>
+    <div class="card">
+      <h4>目标状态</h4>
+      <p class="dim">Group Reporting自动合并，月结≤2天。业财一体化，财务可直接穿透查询业务数据。</p>
+    </div>
+  </div>
+  <div class="insight-box mt-l">
+    <p><strong>关键改进：</strong>部署Group Reporting替代手工合并，统一科目表和合并抵消规则。司库管理实现资金集中监控。</p>
+  </div>
+  <aside class="notes">
+    <p>财务能力域。</p>
+    <p>Group Reporting是S/4HANA的合并报表模块，可以实现自动化合并。</p>
+    <p><strong>月结从7-8天缩短到2天以内</strong>——这是最直观的ROI指标。</p>
+  </aside>
+</section>
+<!-- 30. 端到端流程设计 -->
+<section class="slide" data-title="端到端流程">
+  <p class="kicker">END-TO-END PROCESSES</p>
+  <h2 class="h2">三大端到端流程：打通部门墙</h2>
+  <div class="grid g3 mt-l">
+    <div class="card" style="border-top:4px solid #2374a3">
+      <h4>OTC 订单到收款</h4>
+      <p class="dim">销售订单 → 信用检查 → 生产计划 → 发货 → 开票 → 收款</p>
+      <div style="margin-top:12px">
+        <span class="tag-fsl-outline">信用管控</span>
+        <span class="tag-fsl-outline">价格统一</span>
+        <span class="tag-fsl-outline">订单可视化</span>
+      </div>
+    </div>
+    <div class="card" style="border-top:4px solid #1a4f73">
+      <h4>PTP 采购到付款</h4>
+      <p class="dim">采购申请 → 供应商选择 → 采购订单 → 收货 → 发票校验 → 付款</p>
+      <div style="margin-top:12px">
+        <span class="tag-fsl-outline">三单匹配</span>
+        <span class="tag-fsl-outline">供应商协同</span>
+        <span class="tag-fsl-outline">自动对账</span>
+      </div>
+    </div>
+    <div class="card" style="border-top:4px solid #0b2d47">
+      <h4>MTC 制造到成本</h4>
+      <p class="dim">生产计划 → 物料需求 → 车间执行 → 质量检验 → 成本核算</p>
+      <div style="margin-top:12px">
+        <span class="tag-fsl-outline">MRP Live</span>
+        <span class="tag-fsl-outline">成本穿透</span>
+        <span class="tag-fsl-outline">质量追溯</span>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>三大端到端流程是业务架构的核心设计。</p>
+    <p><strong>OTC</strong>——订单到收款，解决销售端的问题。</p>
+    <p><strong>PTP</strong>——采购到付款，解决供应链端的问题。</p>
+    <p><strong>MTC</strong>——制造到成本，解决生产端的问题。</p>
+    <p>这三个流程打通了部门之间的断点，实现了端到端的线上闭环。</p>
+  </aside>
+</section>
+
+<!-- 31. 数据架构总览 -->
+<section class="slide" data-title="数据架构总览">
+  <p class="kicker">DATA ARCHITECTURE</p>
+  <h2 class="h2">数据架构：治理先行，标准统一</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>主数据治理框架</h4>
+      <p class="dim">以SAP MDG为核心，建立物料、客商、BOM、科目四大主数据域的统一治理体系。明确Data Owner、数据标准、质量规则。</p>
+    </div>
+    <div class="card">
+      <h4>唯一数据源（SSOT）</h4>
+      <p class="dim">每个数据域只有一个权威来源，杜绝"一物多码""数出多源"。物料→SAP MDG，客户→SAP BP，供应商→SAP BP。</p>
+    </div>
+    <div class="card">
+      <h4>数据迁移策略</h4>
+      <p class="dim">Greenfield实施采用"清洗后迁移"策略。6.2万物料全面清洗去重，历史数据按保留期策略选择性迁移。</p>
+    </div>
+    <div class="card">
+      <h4>数据资产服务化</h4>
+      <p class="dim">规划建设统一数据平台，将分散数据汇聚建模，形成面向供应链、财务、营销的主题数据资产。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>数据架构设计的核心理念是<strong>"治理先行，标准统一"</strong>。</p>
+    <p>不是先上系统再治理数据，而是<strong>先治理数据再上系统</strong>。这是Greenfield实施的最大优势——可以一次性把数据清理干净。</p>
+    <p>四大主数据域：物料、客商、BOM、会计科目，每个域都有明确的Data Owner和数据标准。</p>
+  </aside>
+</section>
+
+<!-- 31b. 数据治理框架 -->
+<section class="slide" data-title="数据治理框架">
+  <p class="kicker">DATA GOVERNANCE FRAMEWORK</p>
+  <h2 class="h2">数据治理：组织+标准+流程+技术</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>治理组织</h4>
+      <p class="dim">数据治理委员会（决策层）→ 数据管理办公室（管理层）→ 数据Owner（执行层）</p>
+    </div>
+    <div class="card">
+      <h4>数据标准</h4>
+      <p class="dim">物料编码规则、客商主数据标准、BOM规范、会计科目表统一</p>
+    </div>
+    <div class="card">
+      <h4>管理流程</h4>
+      <p class="dim">主数据申请→审批→发布→变更→退役的全生命周期流程</p>
+    </div>
+    <div class="card">
+      <h4>技术平台</h4>
+      <p class="dim">SAP MDG为主数据治理平台，CPI为数据同步通道，数据质量监控工具实时告警</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>数据治理框架四要素：组织、标准、流程、技术。</p>
+    <p>缺了任何一个，数据治理都做不起来。</p>
+  </aside>
+</section>
+<!-- 32. 应用架构四象限 -->
+<section class="slide" data-title="应用架构四象限">
+  <p class="kicker">APPLICATION ARCHITECTURE</p>
+  <h2 class="h2">应用架构：22个系统处理策略</h2>
+  <div class="grid g2 mt-l" style="gap:12px">
+    <div class="win-card" style="border-left-color:#0e9f6e">
+      <h4 style="margin-bottom:6px">保留优化（Retain）</h4>
+      <p class="dim" style="font-size:12px">SAP ECC → S/4HANA PCE（核心升级）<br>PLM、MES、WMS等（接口优化）</p>
+    </div>
+    <div class="card" style="border-left:4px solid #2374a3;padding-left:16px">
+      <h4 style="margin-bottom:6px">替换升级（Replace）</h4>
+      <p class="dim" style="font-size:12px">财务合并 → Group Reporting<br>报表平台 → 新BI平台</p>
+    </div>
+    <div class="card" style="border-left:4px solid #d97706;padding-left:16px">
+      <h4 style="margin-bottom:6px">淘汰退役（Retire）</h4>
+      <p class="dim" style="font-size:12px">老旧报表工具、重复功能系统<br>逐步退役，数据归档</p>
+    </div>
+    <div class="card" style="border-left:4px solid #1a4f73;padding-left:16px">
+      <h4 style="margin-bottom:6px">新建引入（Introduce）</h4>
+      <p class="dim" style="font-size:12px">SAP MDG（主数据治理）<br>SAP CPI（集成平台）<br>Fiori（现代化前端）</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>应用架构对22个现有系统做了分类处理策略。</p>
+    <p>核心思路是<strong>"以SAP S/4HANA为核，以CPI为枢纽"</strong>——保留和优化核心系统，淘汰冗余系统，引入必要的新系统。</p>
+  </aside>
+</section>
+
+<!-- 32b. 应用域策略矩阵 -->
+<section class="slide" data-title="应用域策略">
+  <p class="kicker">APPLICATION DOMAIN STRATEGY</p>
+  <h2 class="h2">八大应用域处理策略</h2>
+  <table class="fsl-table mt-l">
+    <tr><th>应用域</th><th>策略</th><th>关键系统</th><th>行动</th></tr>
+    <tr><td>ERP核心</td><td>升级</td><td>SAP ECC→S/4 PCE</td><td>Greenfield实施</td></tr>
+    <tr><td>财务管理</td><td>深化</td><td>Group Reporting + 司库</td><td>新模块部署</td></tr>
+    <tr><td>供应链管理</td><td>集成</td><td>SRM + WMS + EWM</td><td>CPI标准化接口</td></tr>
+    <tr><td>生产制造</td><td>集成</td><td>MES + QM</td><td>深度集成+追溯</td></tr>
+    <tr><td>研发管理</td><td>优化</td><td>PLM</td><td>BOM实时同步</td></tr>
+    <tr><td>销售与渠道</td><td>深化</td><td>CRM + 电商</td><td>订单全链路</td></tr>
+    <tr><td>主数据</td><td>新建</td><td>MDG</td><td>全新部署</td></tr>
+    <tr><td>数据分析</td><td>新建</td><td>数据中台 + BI</td><td>全新建设</td></tr>
+  </table>
+  <aside class="notes">
+    <p>八大应用域的处理策略。</p>
+    <p>ERP是升级，财务和营销是深化，供应链和生产是集成，主数据和BI是新建。</p>
+  </aside>
+</section>
+<!-- 33. 集成架构 -->
+<section class="slide" data-title="集成架构">
+  <p class="kicker">INTEGRATION ARCHITECTURE</p>
+  <h2 class="h2">集成架构：从蜘蛛网到星型结构</h2>
+  <div class="grid g2 mt-l">
+    <div class="pain-card">
+      <h4 style="margin-bottom:8px">AS-IS：接口蜘蛛网</h4>
+      <p class="dim">22个系统之间大量点对点接口，维护成本高、稳定性差、故障排查困难。每次系统变更都可能影响多个接口。</p>
+    </div>
+    <div class="win-card">
+      <h4 style="margin-bottom:8px">TO-BE：星型集成架构</h4>
+      <p class="dim">以SAP CPI为统一集成平台，所有外围系统通过标准API与SAP连接。16个L3集成流程、210个L4接口场景全部标准化。</p>
+    </div>
+  </div>
+  <div class="insight-box mt-l">
+    <p><strong>关键成果：</strong>梳理完成IF-93至IF-101共16个L3集成流程、210个L4接口场景的全量接口台账。这是后续开发和测试的基线文档。</p>
+  </div>
+  <aside class="notes">
+    <p>集成架构是本次设计的重要成果。</p>
+    <p>从<strong>"接口蜘蛛网"</strong>变成<strong>"星型结构"</strong>——所有系统都通过CPI与SAP连接，而不是两两之间直接连。</p>
+    <p>这个改变的直接好处是：新增一个系统只需要做一组接口，而不是跟每个系统都接一遍。</p>
+  </aside>
+</section>
+
+<!-- 34. 技术架构 -->
+<section class="slide" data-title="技术架构">
+  <p class="kicker">TECHNOLOGY ARCHITECTURE</p>
+  <h2 class="h2">技术架构：S/4HANA PCE 云底座</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>SAP S/4HANA PCE</h4>
+      <p class="dim">Private Cloud Edition私有云部署，兼顾数据安全与云弹性。支持泰国工厂本地化合规（泰铢记账、增值税申报）。</p>
+    </div>
+    <div class="card">
+      <h4>三套环境</h4>
+      <p class="dim">开发（DEV）→ 测试（QAS）→ 生产（PRD），标准的SAP实施环境配置，支持灰度发布和回滚。</p>
+    </div>
+    <div class="card">
+      <h4>SAP BTP + CPI</h4>
+      <p class="dim">Business Technology Platform提供扩展开发能力，CPI作为统一集成中枢，Fiori提供现代化用户体验。</p>
+    </div>
+    <div class="card">
+      <h4>安全与合规</h4>
+      <p class="dim">满足等保2.0三级要求，支持国资监管穿透式审计，数据加密传输与存储，细粒度权限控制。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>技术架构的核心是<strong>S/4HANA PCE私有云</strong>。</p>
+    <p>选择PCE而不是OP（On-Premise）或Public Cloud，是因为PCE兼顾了数据安全（放在SAP数据中心）和云的弹性（自动升级、弹性扩容）。</p>
+    <p>另外PCE天然支持泰国工厂的本地化合规需求。</p>
+  </aside>
+</section>
+
+<!-- 34b. Fiori与用户体验 -->
+<section class="slide" data-title="Fiori体验">
+  <p class="kicker">USER EXPERIENCE</p>
+  <h2 class="h2">Fiori：从繁琐GUI到现代化体验</h2>
+  <div class="grid g2 mt-l">
+    <div class="pain-card">
+      <h4 style="margin-bottom:8px">当前体验问题</h4>
+      <p class="dim">1. SAP GUI界面复杂，学习成本高<br>2. 缺乏单点登录，多系统反复切换<br>3. 移动端支持不足，审批效率低<br>4. 报表查询缺乏引导，新人难上手</p>
+    </div>
+    <div class="win-card">
+      <h4 style="margin-bottom:8px">Fiori改进</h4>
+      <p class="dim">1. 基于角色的个性化首页，千人千面<br>2. 单点登录，一键跳转<br>3. 移动端APP，随时随地审批<br>4. 智能搜索，快速定位功能</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Fiori是SAP的现代化用户界面。</p>
+    <p>用户体验不是锦上添花，是<strong>影响 adoption 的关键因素</strong>——系统再好，用户不愿意用也是白搭。</p>
+  </aside>
+</section>
+<!-- 34c. 架构中间小结 -->
+<section class="slide" data-title="架构中间小结">
+  <p class="kicker">ARCHITECTURE CHECKPOINT</p>
+  <h2 class="h2">架构设计小结：以SAP为核，以数据为先</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>核心理念</h4>
+      <p class="dim">以SAP S/4HANA PCE为核心交易底座，以SAP CPI为统一集成枢纽，以MDG为主数据治理平台，以Fiori为统一用户体验。</p>
+    </div>
+    <div class="card">
+      <h4>关键原则</h4>
+      <p class="dim">1. 业务优先，技术服务于业务<br>2. 标准统一，杜绝定制化<br>3. 集成优先，严禁点对点<br>4. 渐进演进，分Phase实施</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>架构部分的中间小结。</p>
+    <p>核心理念是"一核一枢纽一平台一体验"——SAP为核、CPI为枢纽、MDG为平台、Fiori为体验。</p>
+  </aside>
+</section>
+<!-- 35. 架构差距量化 -->
+<section class="slide" data-title="架构差距">
+  <p class="kicker">ARCHITECTURE GAP</p>
+  <h2 class="h2">架构差距量化：数据治理差距最大</h2>
+  <table class="fsl-table mt-l">
+    <tr><th>架构域</th><th>AS-IS</th><th>TO-BE</th><th>差距</th><th>风险等级</th></tr>
+    <tr><td>主数据治理</td><td>1.2</td><td>3.8</td><td style="color:#dc2626;font-weight:700">2.6</td><td><span class="tag-fsl">高</span></td></tr>
+    <tr><td>供应链计划</td><td>1.5</td><td>3.5</td><td style="color:#dc2626;font-weight:700">2.0</td><td><span class="tag-fsl">高</span></td></tr>
+    <tr><td>销售与渠道</td><td>1.7</td><td>3.5</td><td>1.8</td><td><span class="tag-fsl-outline">中</span></td></tr>
+    <tr><td>集团财务</td><td>2.3</td><td>4.0</td><td>1.7</td><td><span class="tag-fsl-outline">中</span></td></tr>
+    <tr><td>制造运营</td><td>1.8</td><td>3.5</td><td>1.7</td><td><span class="tag-fsl-outline">中</span></td></tr>
+    <tr><td>质量管理</td><td>2.0</td><td>3.5</td><td>1.5</td><td><span class="tag-fsl-outline">中</span></td></tr>
+  </table>
+  <aside class="notes">
+    <p>架构差距量化表。</p>
+    <p><strong>主数据治理差距2.6分</strong>，是所有架构域中最大的。这也是为什么主数据治理专项要最早启动。</p>
+    <p>供应链计划差距2.0分，排名第二，涉及MRP、EWM、MES多系统集成，复杂度最高。</p>
+  </aside>
+</section>
+
+<!-- 36. 三年成熟度提升路径 -->
+<section class="slide" data-title="成熟度提升">
+  <p class="kicker">3-YEAR MATURITY PATH</p>
+  <h2 class="h2">三年成熟度提升路径：1.9 → 3.5+</h2>
+  <div style="display:flex;gap:16px;margin-top:32px">
+    <div style="flex:1;background:var(--surface-2);border-radius:var(--radius);padding:20px;text-align:center;border:2px solid #e8f5e9">
+      <div class="phase-badge phase-1">2026 · 筑基年</div>
+      <div style="font-size:36px;font-weight:800;color:#1b5e20;margin:12px 0">L1→L3</div>
+      <p class="dim" style="font-size:12px">建立治理体系<br>完成主数据标准化<br>搭建云平台底座</p>
+    </div>
+    <div style="flex:1;background:var(--surface-2);border-radius:var(--radius);padding:20px;text-align:center;border:2px solid #fff3e0">
+      <div class="phase-badge phase-2">2027 · 攻坚年</div>
+      <div style="font-size:36px;font-weight:800;color:#e65100;margin:12px 0">L3→L4</div>
+      <p class="dim" style="font-size:12px">核心业务模块上线<br>打通OTC/PTP/MTC<br>泰国工厂合规</p>
+    </div>
+    <div style="flex:1;background:var(--surface-2);border-radius:var(--radius);padding:20px;text-align:center;border:2px solid #e3f2fd">
+      <div class="phase-badge phase-3">2028 · 智能年</div>
+      <div style="font-size:36px;font-weight:800;color:#0d47a1;margin:12px 0">L4深化</div>
+      <p class="dim" style="font-size:12px">数据智能平台<br>预测性维护/智能排产<br>生态协同</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>三年 maturity 提升路径。</p>
+    <p><strong>2026年筑基</strong>——不是功能上线，是建立组织、数据、技术三大基础。</p>
+    <p><strong>2027年攻坚</strong>——核心业务模块上线，打通三大端到端流程。</p>
+    <p><strong>2028年智能</strong>——基于积累的数据资产，构建智能分析和AI应用。</p>
+  </aside>
+</section>
+
+<!-- 37. 架构过渡路线图 -->
+<section class="slide" data-title="过渡路线">
+  <p class="kicker">TRANSITION ROADMAP</p>
+  <h2 class="h2">架构过渡：Greenfield实施策略</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>为什么选择Greenfield？</h4>
+      <p class="dim">而非Brownfield（升级）或Hybrid（混合）。Greenfield允许一次性重建数据标准、流程模型和系统架构，避免历史包袱。</p>
+    </div>
+    <div class="card">
+      <h4>关键里程碑</h4>
+      <p class="dim">2026 Q4：环境搭建完成<br>2027 Q1：S/4HANA正式上线（Go-Live）<br>2027 Q2：核心业务模块切换<br>2027 Q4：泰国工厂上线</p>
+    </div>
+  </div>
+  <div class="insight-box mt-l">
+    <p><strong>ARB架构治理：</strong>成立架构评审委员会（Architecture Review Board），所有架构决策须经ARB评审，作为后续配置和开发的不可更改基线。</p>
+  </div>
+  <aside class="notes">
+    <p>架构过渡采用Greenfield策略。</p>
+    <p>为什么不用Brownfield（升级）？因为现有系统里的历史数据、自定义代码、不规范配置太多了，升级会带着这些包袱一起走。</p>
+    <p>Greenfield就像<strong>"推到重建"</strong>——一次性把数据标准、流程模型、系统架构全部重建。</p>
+  </aside>
+</section>
+
+<!-- 37b. ARB治理机制 -->
+<section class="slide" data-title="ARB治理">
+  <p class="kicker">GOVERNANCE · ARB</p>
+  <h2 class="h2">ARB架构评审委员会：守护架构基线</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>ARB职责</h4>
+      <p class="dim">1. 评审所有架构决策，确保符合架构原则<br>2. 审批scope变更和技术选型<br>3. 解决跨领域架构冲突<br>4. 监督架构标准的执行</p>
+    </div>
+    <div class="card">
+      <h4>ARB组成</h4>
+      <p class="dim">企业架构师（主席）+ 业务架构师 + 数据架构师 + 应用架构师 + 技术架构师 + PMO代表</p>
+    </div>
+  </div>
+  <div class="insight-box mt-l">
+    <p><strong>关键原则：</strong>所有架构决策一经ARB评审通过，即为<strong>不可更改基线</strong>。后续配置开发和接口开发必须严格遵循。</p>
+  </div>
+  <aside class="notes">
+    <p>ARB是架构治理的核心机制。</p>
+    <p>没有ARB，架构设计就是一张画在纸上的图， nobody cares。</p>
+    <p>有了ARB，架构决策就有了权威性和约束力。</p>
+  </aside>
+</section>
+<!-- 38. 架构小结 -->
+<section class="slide" data-title="架构小结">
+  <p class="kicker">ARCHITECTURE SUMMARY</p>
+  <h2 class="h2">架构设计：三大核心成果</h2>
+  <div class="stack mt-l" style="gap:16px">
+    <div class="card" style="display:flex;align-items:flex-start;gap:16px">
+      <div style="font-size:36px;font-weight:800;color:var(--accent-2);line-height:1;flex-shrink:0">01</div>
+      <div>
+        <h4 style="margin-bottom:6px">四层架构蓝图</h4>
+        <p class="dim">业务架构（8大能力域+3大端到端流程）+ 数据架构（MDG+SSOT）+ 应用架构（22系统四象限）+ 技术架构（S/4 PCE+CPI+Fiori）。</p>
+      </div>
+    </div>
+    <div class="card" style="display:flex;align-items:flex-start;gap:16px">
+      <div style="font-size:36px;font-weight:800;color:var(--accent-2);line-height:1;flex-shrink:0">02</div>
+      <div>
+        <h4 style="margin-bottom:6px">五层需求追溯</h4>
+        <p class="dim">701条需求 → 23个痛点 → 4A架构 → 23个高价值场景 → 24个项目卡片。全链路可审计、可追溯。</p>
+      </div>
+    </div>
+    <div class="card" style="display:flex;align-items:flex-start;gap:16px">
+      <div style="font-size:36px;font-weight:800;color:var(--accent-2);line-height:1;flex-shrink:0">03</div>
+      <div>
+        <h4 style="margin-bottom:6px">三年提升路径</h4>
+        <p class="dim">从L1.9到L3.5+的明确路线图，每个阶段有量化目标、验收标准和KPI。</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>架构部分的三个核心成果。</p>
+    <p>四层架构蓝图、五层需求追溯、三年提升路径。这三样东西加在一起，构成了佛照数字化转型的<strong>"北斗导航"</strong>——知道在哪、知道去哪、知道怎么去。</p>
+  </aside>
+</section>
+
+<!-- ==================== PART 3: 路径规划 ==================== -->
+
+<!-- 39. 章节页：路径规划 -->
+<section class="slide section-cover" data-title="第三部分">
+  <div>
+    <p style="font-size:14px;letter-spacing:4px;opacity:.7;margin-bottom:16px">PART 03</p>
+    <h1 style="font-size:56px;font-weight:800;margin-bottom:16px">路径规划</h1>
+    <p style="font-size:22px;opacity:.85">我们怎么去？</p>
+  </div>
+  <aside class="notes">
+    <p>进入第三部分，路径规划。前面讲了"我们在哪"和"要去哪"，现在讲"怎么去"。</p>
+  </aside>
+</section>
+
+<!-- 40. 转型愿景 -->
+<section class="slide" data-title="转型愿景">
+  <p class="kicker">VISION</p>
+  <h2 class="h2">转型愿景：从制造商到服务商的数字化支撑</h2>
+  <div class="cover-fsl" style="border-radius:var(--radius);padding:32px;margin-top:24px">
+    <p style="font-size:14px;letter-spacing:2px;opacity:.7;margin-bottom:12px">VISION 2028</p>
+    <h3 style="font-size:24px;font-weight:700;margin-bottom:16px">以SAP S/4HANA为核心底座，构建<br>"数据驱动、流程贯通、智能决策"的数字化企业</h3>
+    <div style="display:flex;gap:24px;margin-top:20px">
+      <div style="flex:1;text-align:center">
+        <div style="font-size:28px;font-weight:800">数据驱动</div>
+        <p style="font-size:12px;opacity:.8;margin-top:4px">实时洞察 · 穿透查询 · 智能分析</p>
+      </div>
+      <div style="flex:1;text-align:center">
+        <div style="font-size:28px;font-weight:800">流程贯通</div>
+        <p style="font-size:12px;opacity:.8;margin-top:4px">端到端闭环 · 跨部门协同 · 自动触发</p>
+      </div>
+      <div style="flex:1;text-align:center">
+        <div style="font-size:28px;font-weight:800">智能决策</div>
+        <p style="font-size:12px;opacity:.8;margin-top:4px">预测预警 · 算法优化 · 生态协同</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>转型愿景三句话：<strong>数据驱动、流程贯通、智能决策</strong>。</p>
+    <p>这不是口号，而是对应三个层面的具体目标。</p>
+    <p>数据驱动——管理层能看到实时、准确、穿透的经营数据。</p>
+    <p>流程贯通——核心业务端到端在线上跑通，不卡壳。</p>
+    <p>智能决策——基于数据和算法做预测和优化，不只是看报表。</p>
+  </aside>
+</section>
+
+<!-- 40b. 规划边界约束 -->
+<section class="slide" data-title="边界约束">
+  <p class="kicker">CONSTRAINTS</p>
+  <h2 class="h2">规划边界与约束条件</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>时间约束</h4>
+      <p class="dim">2027 Q1 S/4HANA必须上线（国资监管1号文要求）<br>泰国工厂2027 Q3必须完成本地化合规</p>
+    </div>
+    <div class="card">
+      <h4>预算约束</h4>
+      <p class="dim">SAP实施预算950万（含税）已确定<br>外围系统预算需另行评估和审批</p>
+    </div>
+    <div class="card">
+      <h4>资源约束</h4>
+      <p class="dim">关键用户抽调不能影响日常业务<br>外部顾问依赖度需逐步降低</p>
+    </div>
+    <div class="card">
+      <h4>技术约束</h4>
+      <p class="dim">Greenfield实施，历史数据选择性迁移<br>现有22个系统需逐一制定处理策略</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>规划边界约束。</p>
+    <p>时间和预算是两个硬约束——2027 Q1必须上线，950万预算已确定。</p>
+  </aside>
+</section>
+<!-- 41. 三阶段战略目标 -->
+<section class="slide" data-title="三阶段目标">
+  <p class="kicker">STRATEGIC OBJECTIVES</p>
+  <h2 class="h2">三阶段战略目标体系</h2>
+  <table class="fsl-table mt-l">
+    <tr><th>阶段</th><th>年份</th><th>核心目标</th><th>关键成果</th><th>项目卡片</th></tr>
+    <tr><td><span class="phase-badge phase-1">Phase 1</span></td><td>2026</td><td>夯实底座</td><td>云平台上线 · 主数据标准化 · 集成框架搭建</td><td>PC01-PC03 + 外围8张</td></tr>
+    <tr><td><span class="phase-badge phase-2">Phase 2</span></td><td>2027</td><td>贯通协同</td><td>核心业务上线 · OTC/PTP/MTC打通 · 泰国合规</td><td>PC04-PC08 + 外围9张</td></tr>
+    <tr><td><span class="phase-badge phase-3">Phase 3</span></td><td>2028</td><td>智慧跃升</td><td>智能分析平台 · AI应用 · 生态协同</td><td>PC09-PC11 + 外围7张</td></tr>
+  </table>
+  <aside class="notes">
+    <p>三阶段战略目标。</p>
+    <p><strong>2026年夯实底座</strong>——不是做功能，是做基础。云平台、主数据、集成框架。</p>
+    <p><strong>2027年贯通协同</strong>——核心业务模块上线，打通三大流程。</p>
+    <p><strong>2028年智慧跃升</strong>——基于前两年的数据积累，做智能分析。</p>
+  </aside>
+</section>
+
+<!-- 41b. 价值测算 -->
+<section class="slide" data-title="价值测算">
+  <p class="kicker">VALUE QUANTIFICATION</p>
+  <h2 class="h2">转型价值测算：可量化的回报</h2>
+  <table class="fsl-table mt-l">
+    <tr><th>价值领域</th><th>当前状态</th><th>目标状态</th><th>量化收益</th></tr>
+    <tr><td>财务月结</td><td>7-8天</td><td>≤2天</td><td>节省人力成本约XX万/年</td></tr>
+    <tr><td>库存周转</td><td>XX天</td><td>优化15%</td><td>释放流动资金约XX万</td></tr>
+    <tr><td>采购周期</td><td>XX天</td><td>缩短20%</td><td>供应链效率提升</td></tr>
+    <tr><td>订单处理</td><td>人工为主</td><td>自动化+60%</td><td>销售运营效率提升</td></tr>
+    <tr><td>质量追溯</td><td>批次级</td><td>单品级</td><td>质量损失降低约XX%</td></tr>
+    <tr><td>数据准确率</td><td>~70%</td><td>≥95%</td><td>决策质量显著提升</td></tr>
+  </table>
+  <aside class="notes">
+    <p>转型价值测算。</p>
+    <p>这些数字是基于行业基准和SAP实施经验测算的，具体数值需要佛照财务部门配合精算。</p>
+  </aside>
+</section>
+<!-- 42. 24个项目卡片总览 -->
+<section class="slide" data-title="24个项目卡片">
+  <p class="kicker">24 PROJECT CARDS</p>
+  <h2 class="h2">24个项目卡片：SAP 11 + 外围 13</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>SAP核心项目（11个）</h4>
+      <p class="dim" style="font-size:12px;margin-top:8px">PC01 数字底座 · PC02 主数据治理 · PC03 集成架构<br>PC04 流程蓝图 · PC05 财务核心 · PC06 销售全链路<br>PC07 供应链协同 · PC08 质量追溯 · PC09 海外深化<br>PC10 数据智能 · PC11 生态协同</p>
+    </div>
+    <div class="card">
+      <h4>外围系统项目（13个）</h4>
+      <p class="dim" style="font-size:12px;margin-top:8px">AI平台 · 数据中台 · APS高级排产 · MES升级<br>CRM升级 · 预算管理 · MRP优化 · 信息安全<br>电商中台 · 经销商门户 · 供应商协同 · 智慧能源<br>设备管理</p>
+    </div>
+  </div>
+  <div class="insight-box mt-l">
+    <p><strong>项目识别方法：</strong>基于五层追溯收敛，每个项目卡片都有明确的scope、目标、验收标准、依赖关系和资源需求。SAP 11个项目由Eviden实施，外围13个项目由佛照IT团队或第三方实施。</p>
+  </div>
+  <aside class="notes">
+    <p>24个项目卡片，分为SAP核心11个和外围13个。</p>
+    <p>SAP项目由Eviden团队实施，外围项目由佛照IT团队或第三方实施。两类项目之间通过CPI集成平台对接。</p>
+  </aside>
+</section>
+
+<!-- 43. Phase 1 项目卡片 -->
+<section class="slide" data-title="Phase1项目">
+  <p class="kicker">PHASE 1 · 2026 筑基年</p>
+  <h2 class="h2">Phase 1：基础建设与数据规范（8张卡片）</h2>
+  <div class="grid g2 mt-l" style="gap:10px">
+    <div class="project-card"><div class="phase-badge phase-1">PC01</div><h4 style="font-size:14px;margin-bottom:4px">S/4HANA PCE 云平台数字底座</h4><p class="dim" style="font-size:11px">搭建DEV/QAS/PRD三套环境，完成基础配置</p></div>
+    <div class="project-card"><div class="phase-badge phase-1">PC02</div><h4 style="font-size:14px;margin-bottom:4px">主数据治理与数据规范专项</h4><p class="dim" style="font-size:11px">MDG部署，6.2万物料清洗，四大主数据标准化</p></div>
+    <div class="project-card"><div class="phase-badge phase-1">PC03</div><h4 style="font-size:14px;margin-bottom:4px">集成架构与CPI接口收敛</h4><p class="dim" style="font-size:11px">CPI平台部署，核心接口框架搭建</p></div>
+    <div class="project-card"><div class="phase-badge phase-1">外围</div><h4 style="font-size:14px;margin-bottom:4px">AI平台基础建设</h4><p class="dim" style="font-size:11px">AI算力环境准备，数据接入，模型训练框架</p></div>
+    <div class="project-card"><div class="phase-badge phase-1">外围</div><h4 style="font-size:14px;margin-bottom:4px">数据中台搭建</h4><p class="dim" style="font-size:11px">数据湖/仓建设，ETL流程，主题建模</p></div>
+    <div class="project-card"><div class="phase-badge phase-1">外围</div><h4 style="font-size:14px;margin-bottom:4px">信息安全体系升级</h4><p class="dim" style="font-size:11px">等保2.0三级，数据安全，权限治理</p></div>
+  </div>
+  <aside class="notes">
+    <p>Phase 1的6张核心卡片。</p>
+    <p>重点是<strong>基础</strong>——不是做业务功能，是把地基打好。云平台、主数据、集成框架、数据中台、信息安全。</p>
+    <p>主数据治理是Phase 1中工作量最大的任务，6.2万物料要全部清洗。</p>
+  </aside>
+</section>
+
+<!-- 44. Phase 2 项目卡片 -->
+<section class="slide" data-title="Phase2项目">
+  <p class="kicker">PHASE 2 · 2027 攻坚年</p>
+  <h2 class="h2">Phase 2：核心业务贯通协同（9张卡片）</h2>
+  <div class="grid g3 mt-l" style="gap:10px;font-size:11px">
+    <div class="project-card"><div class="phase-badge phase-2">PC04</div><h4 style="font-size:13px;margin-bottom:4px">流程蓝图与变革管理</h4><p class="dim">L1-L3流程梳理，变革管理，培训赋能</p></div>
+    <div class="project-card"><div class="phase-badge phase-2">PC05</div><h4 style="font-size:13px;margin-bottom:4px">财务核心与全球合并</h4><p class="dim">FI/CO/Group Reporting，合并报表自动化</p></div>
+    <div class="project-card"><div class="phase-badge phase-2">PC06</div><h4 style="font-size:13px;margin-bottom:4px">销售订单与信用全链路</h4><p class="dim">SD模块，信用管控，价格管理，订单可视化</p></div>
+    <div class="project-card"><div class="phase-badge phase-2">PC07</div><h4 style="font-size:13px;margin-bottom:4px">供应链计划与制造协同</h4><p class="dim">MM/PP/MRP Live，EWM集成，计划协同</p></div>
+    <div class="project-card"><div class="phase-badge phase-2">PC08</div><h4 style="font-size:13px;margin-bottom:4px">质量追溯与研发一体化</h4><p class="dim">QM深化，PLM集成，批次追溯</p></div>
+    <div class="project-card"><div class="phase-badge phase-2">外围</div><h4 style="font-size:13px;margin-bottom:4px">MES升级与集成</h4><p class="dim">MES与SAP深度集成，生产数据实时回传</p></div>
+  </div>
+  <aside class="notes">
+    <p>Phase 2是<strong>最核心的一年</strong>，业务模块全面上线。</p>
+    <p>PC05财务核心有个关键指标：<strong>合并报表月结从7-8天缩短到2天以内</strong>。</p>
+    <p>PC06销售全链路解决的是信用管控和价格管理的问题。</p>
+    <p>PC07供应链协同解决的是计划和生产脱节的问题。</p>
+  </aside>
+</section>
+
+<!-- 44b. PC05财务核心详解 -->
+<section class="slide" data-title="PC05财务">
+  <p class="kicker">PROJECT CARD · PC05</p>
+  <h2 class="h2">PC05 财务核心与全球合并</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>Scope范围</h4>
+      <p class="dim">FI财务会计 · CO管理会计 · Group Reporting集团合并 · 司库管理</p>
+    </div>
+    <div class="card">
+      <h4>关键交付物</h4>
+      <p class="dim">统一科目表 · 合并抵消自动化 · 资金集中监控 · 月结≤2天</p>
+    </div>
+    <div class="card">
+      <h4>业务价值</h4>
+      <p class="dim">合并报表月结从7-8天缩短至≤2天，财务凭证自动化率提升60%</p>
+    </div>
+    <div class="card">
+      <h4>依赖关系</h4>
+      <p class="dim">强依赖PC01云平台、PC02主数据。与PC09海外深化有交叉。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>PC05财务核心项目的详细说明。</p>
+    <p>这是最能让总经理看到直接ROI的项目——月结从7-8天缩短到2天。</p>
+  </aside>
+</section>
+
+<!-- 44c. PC06销售全链路详解 -->
+<section class="slide" data-title="PC06销售">
+  <p class="kicker">PROJECT CARD · PC06</p>
+  <h2 class="h2">PC06 销售订单与信用全链路</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>Scope范围</h4>
+      <p class="dim">SD销售与分销 · 信用管理 · 价格条件 · 订单全链路可视化</p>
+    </div>
+    <div class="card">
+      <h4>关键交付物</h4>
+      <p class="dim">信用管控前置 · 价格体系统一 · 订单状态实时查询 · 客户需求预测</p>
+    </div>
+    <div class="card">
+      <h4>业务价值</h4>
+      <p class="dim">订单处理时效提升40%，信用风险实时预警，价格管理零差错</p>
+    </div>
+    <div class="card">
+      <h4>依赖关系</h4>
+      <p class="dim">强依赖PC01云平台、PC02主数据（客商主数据）。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>PC06销售全链路项目。</p>
+    <p>解决的是销售端最大的三个问题：订单黑箱、信用失控、价格混乱。</p>
+  </aside>
+</section>
+
+<!-- 44d. PC07供应链协同详解 -->
+<section class="slide" data-title="PC07供应链">
+  <p class="kicker">PROJECT CARD · PC07</p>
+  <h2 class="h2">PC07 供应链计划与制造协同</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>Scope范围</h4>
+      <p class="dim">MM物料管理 · PP生产计划 · MRP Live · EWM扩展仓储管理</p>
+    </div>
+    <div class="card">
+      <h4>关键交付物</h4>
+      <p class="dim">MRP实时运算 · 计划-采购-生产协同 · 库存全链路可视 · 安全库存预警</p>
+    </div>
+    <div class="card">
+      <h4>业务价值</h4>
+      <p class="dim">库存周转率提升15%，采购周期缩短20%，缺货率降低30%</p>
+    </div>
+    <div class="card">
+      <h4>依赖关系</h4>
+      <p class="dim">强依赖PC01云平台、PC02主数据（物料主数据）、PC03集成架构（MES/WMS接口）。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>PC07供应链协同项目。</p>
+    <p>这是复杂度最高的项目之一，涉及MRP、EWM、MES、WMS多系统集成。</p>
+  </aside>
+</section>
+<!-- 45. Phase 3 项目卡片 -->
+<section class="slide" data-title="Phase3项目">
+  <p class="kicker">PHASE 3 · 2028 智能年</p>
+  <h2 class="h2">Phase 3：数据智能与生态协同（7张卡片）</h2>
+  <div class="grid g2 mt-l" style="gap:10px">
+    <div class="project-card"><div class="phase-badge phase-3">PC09</div><h4 style="font-size:14px;margin-bottom:4px">海外本地化合规深化</h4><p class="dim" style="font-size:11px">德国FZ33合规，潜在新增海外工厂支持</p></div>
+    <div class="project-card"><div class="phase-badge phase-3">PC10</div><h4 style="font-size:14px;margin-bottom:4px">数据智能分析平台</h4><p class="dim" style="font-size:11px">预测性维护、智能排产、需求预测等AI应用</p></div>
+    <div class="project-card"><div class="phase-badge phase-3">PC11</div><h4 style="font-size:14px;margin-bottom:4px">生态协同与模式创新</h4><p class="dim" style="font-size:11px">供应商协同平台、经销商门户、产业链数据协同</p></div>
+    <div class="project-card"><div class="phase-badge phase-3">外围</div><h4 style="font-size:14px;margin-bottom:4px">CRM深化与C端运营</h4><p class="dim" style="font-size:11px">客户360视图，精准营销，会员运营</p></div>
+  </div>
+  <aside class="notes">
+    <p>Phase 3的核心是<strong>智能化</strong>。</p>
+    <p>基于前两年的数据积累，开始做预测性维护、智能排产、客户需求预测等AI应用。</p>
+    <p>同时扩展海外合规和生态协同。</p>
+  </aside>
+</section>
+
+<!-- 45b. 项目依赖关系 -->
+<section class="slide" data-title="项目依赖">
+  <p class="kicker">PROJECT DEPENDENCIES</p>
+  <h2 class="h2">项目依赖关系：关键路径分析</h2>
+  <div class="insight-box mt-l">
+    <p><strong>关键路径：</strong>PC01（云平台）→ PC02（主数据）→ PC04（流程蓝图）→ PC05-08（核心业务模块）→ Go-Live</p>
+  </div>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>强依赖</h4>
+      <p class="dim">1. 所有业务模块依赖PC01云平台<br>2. 所有模块依赖PC02主数据治理<br>3. 财务模块依赖PC05<br>4. 泰国工厂依赖PC09海外深化</p>
+    </div>
+    <div class="card">
+      <h4>弱依赖 / 并行</h4>
+      <p class="dim">1. 外围系统项目可与SAP项目并行<br>2. Quick Wins不依赖SAP实施<br>3. AI平台可在数据中台完成后启动</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>项目依赖关系分析。</p>
+    <p>关键路径上的任何延误都会影响Go-Live时间。特别是<strong>PC01云平台和PC02主数据</strong>，是所有后续项目的前置条件。</p>
+  </aside>
+</section>
+<!-- 46. 23个高价值场景 -->
+<section class="slide" data-title="23个高价值场景">
+  <p class="kicker">23 HIGH-VALUE SCENARIOS</p>
+  <h2 class="h2">23个高价值场景：701条需求的精华收敛</h2>
+  <div class="grid g3 mt-l" style="font-size:11px;gap:8px">
+    <div class="card" style="padding:10px"><strong>S01</strong> 主数据统一治理</div>
+    <div class="card" style="padding:10px"><strong>S02</strong> 集团财务合并自动化</div>
+    <div class="card" style="padding:10px"><strong>S03</strong> 司库管理与资金监控</div>
+    <div class="card" style="padding:10px"><strong>S04</strong> 销售订单全链路可视</div>
+    <div class="card" style="padding:10px"><strong>S05</strong> 信用风险智能预警</div>
+    <div class="card" style="padding:10px"><strong>S06</strong> 价格体系统一管控</div>
+    <div class="card" style="padding:10px"><strong>S07</strong> 采购到付款自动化</div>
+    <div class="card" style="padding:10px"><strong>S08</strong> 供应商协同与评估</div>
+    <div class="card" style="padding:10px"><strong>S09</strong> 生产计划精益化</div>
+    <div class="card" style="padding:10px"><strong>S10</strong> 质量全生命周期追溯</div>
+    <div class="card" style="padding:10px"><strong>S11</strong> 成本穿透式分析</div>
+    <div class="card" style="padding:10px"><strong>S12</strong> 库存全链路可视化</div>
+  </div>
+  <p class="dim" style="text-align:center;margin-top:12px;font-size:12px">S13-S23 包含：研发项目管控、设备预测维护、智慧能源、电商运营、经销商协同等</p>
+  <aside class="notes">
+    <p>23个高价值场景是701条需求的精华收敛。</p>
+    <p>每个场景都对应明确的业务价值、技术方案、实施项目和验收指标。</p>
+    <p>比如S04销售订单全链路可视——解决的是"订单到哪了、卡在哪"的问题。</p>
+    <p>S05信用风险智能预警——解决的是"客户有没有超信用额度"的问题。</p>
+  </aside>
+</section>
+
+<!-- 46b. AI需求溯源 -->
+<section class="slide" data-title="AI需求">
+  <p class="kicker">AI REQUIREMENTS</p>
+  <h2 class="h2">AI需求：从701条需求中识别</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>已识别的AI应用场景</h4>
+      <p class="dim">1. 客户需求预测（基于历史销售数据）<br>2. 智能排产（基于订单+产能+物料）<br>3. 预测性维护（基于设备传感器数据）<br>4. 信用风险预警（基于客户行为数据）</p>
+    </div>
+    <div class="card">
+      <h4>实施路径</h4>
+      <p class="dim"><strong>2026年</strong>：AI平台基础建设，数据接入<br><strong>2027年</strong>：试点场景模型训练与验证<br><strong>2028年</strong>：规模化部署，持续优化</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>AI需求是从701条原始需求中识别出来的。</p>
+    <p>AI不是单独上一个AI系统，而是<strong>基于已有的数据和系统</strong>，在特定场景上应用算法。</p>
+  </aside>
+</section>
+
+<!-- 46c. 信息安全需求 -->
+<section class="slide" data-title="信息安全">
+  <p class="kicker">INFOSECURITY</p>
+  <h2 class="h2">信息安全：等保2.0三级合规</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>合规要求</h4>
+      <p class="dim">1. 等保2.0三级认证<br>2. 数据分类分级管理<br>3. 访问控制与权限审计<br>4. 数据加密传输与存储</p>
+    </div>
+    <div class="card">
+      <h4>实施要点</h4>
+      <p class="dim">1. S/4HANA安全加固<br>2. 统一身份认证（IAM）<br>3. 敏感数据脱敏<br>4. 安全运维监控（SOC）</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>信息安全是底线要求。</p>
+    <p>等保2.0三级是国企的标配，不能妥协。</p>
+  </aside>
+</section>
+<!-- 45c. 路径中间小结 -->
+<section class="slide" data-title="路径中间小结">
+  <p class="kicker">ROADMAP CHECKPOINT</p>
+  <h2 class="h2">路径规划小结：三年三步走</h2>
+  <div style="display:flex;gap:16px;margin-top:32px">
+    <div style="flex:1;background:var(--surface-2);border-radius:var(--radius);padding:20px;text-align:center;border:2px solid #e8f5e9">
+      <div class="phase-badge phase-1">2026</div>
+      <div style="font-size:20px;font-weight:700;color:#1b5e20;margin:8px 0">筑基</div>
+      <p class="dim" style="font-size:12px">云平台 · 主数据 · 集成框架 · 数据中台 · 安全</p>
+    </div>
+    <div style="flex:1;background:var(--surface-2);border-radius:var(--radius);padding:20px;text-align:center;border:2px solid #fff3e0">
+      <div class="phase-badge phase-2">2027</div>
+      <div style="font-size:20px;font-weight:700;color:#e65100;margin:8px 0">攻坚</div>
+      <p class="dim" style="font-size:12px">财务 · 销售 · 供应链 · 质量 · MES · 泰国</p>
+    </div>
+    <div style="flex:1;background:var(--surface-2);border-radius:var(--radius);padding:20px;text-align:center;border:2px solid #e3f2fd">
+      <div class="phase-badge phase-3">2028</div>
+      <div style="font-size:20px;font-weight:700;color:#0d47a1;margin:8px 0">智能</div>
+      <p class="dim" style="font-size:12px">AI平台 · 智能分析 · 生态协同 · 海外深化</p>
+    </div>
+  </div>
+  <div class="insight-box mt-l">
+    <p><strong>投资节奏：</strong>2026年35% · 2027年45% · 2028年20%。2027年是投入最大的一年，也是见效最明显的一年。</p>
+  </div>
+  <aside class="notes">
+    <p>路径规划的中间小结。</p>
+    <p>三年三步走：筑基→攻坚→智能。</p>
+  </aside>
+</section>
+<!-- 47. 优先级矩阵 -->
+<section class="slide" data-title="优先级矩阵">
+  <p class="kicker">PRIORITY MATRIX</p>
+  <h2 class="h2">优先级评估：价值 × 紧迫性</h2>
+  <div class="grid g2 mt-l">
+    <div class="card" style="background:#e8f5e9;border:1px solid #c8e6c9">
+      <h4 style="color:#1b5e20">高价值 + 高紧迫（立即做）</h4>
+      <p class="dim">主数据治理 · S/4HANA PCE底座 · 财务核心 · 销售全链路 · 集成架构</p>
+    </div>
+    <div class="card" style="background:#fff3e0;border:1px solid #ffe0b2">
+      <h4 style="color:#e65100">高价值 + 中紧迫（计划做）</h4>
+      <p class="dim">供应链协同 · 质量追溯 · 数据中台 · MES升级 · 信息安全</p>
+    </div>
+    <div class="card" style="background:#e3f2fd;border:1px solid #bbdefb">
+      <h4 style="color:#0d47a1">中价值 + 高紧迫（快速做）</h4>
+      <p class="dim">报表优化 · 接口监控 · 用户培训 · 流程标准化</p>
+    </div>
+    <div class="card">
+      <h4>中价值 + 中紧迫（择机做）</h4>
+      <p class="dim">CRM深化 · 电商中台 · 智慧能源 · 设备管理</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>优先级矩阵按价值和紧迫性两个维度评估。</p>
+    <p><strong>立即做的</strong>——主数据、S/4底座、财务、销售、集成。这些是高价值高紧迫的。</p>
+    <p><strong>计划做的</strong>——供应链、质量、数据中台。这些价值高但紧迫性稍低。</p>
+  </aside>
+</section>
+
+<!-- 48. Quick Wins -->
+<section class="slide" data-title="QuickWins">
+  <p class="kicker">QUICK WINS</p>
+  <h2 class="h2">Quick Wins：3-6个月内可落地</h2>
+  <div class="stack mt-l">
+    <div class="win-card">
+      <span class="tag-fsl">QW01</span>
+      <strong>报表优化与自动化</strong>
+      <p class="dim" style="margin-top:6px">基于现有SAP数据，优化关键经营报表，减少手工统计工作量约30%。</p>
+    </div>
+    <div class="win-card">
+      <span class="tag-fsl">QW02</span>
+      <strong>接口监控可视化</strong>
+      <p class="dim" style="margin-top:6px">部署接口监控看板，实时显示各系统接口健康状态，故障响应时间从小时级降至分钟级。</p>
+    </div>
+    <div class="win-card">
+      <span class="tag-fsl">QW03</span>
+      <strong>用户培训与赋能</strong>
+      <p class="dim" style="margin-top:6px">开展SAP关键用户培训，建立内部支持体系，降低对外部顾问的依赖。</p>
+    </div>
+    <div class="win-card">
+      <span class="tag-fsl">QW04</span>
+      <strong>流程标准化文档</strong>
+      <p class="dim" style="margin-top:6px">完成L1-L3流程文档标准化，为S/4实施提供流程基线。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Quick Wins是3-6个月内就能见效的小项目。</p>
+    <p>目的是在S/4大规模实施前，先让业务部门感受到数字化的价值，建立信心。</p>
+  </aside>
+</section>
+
+<!-- 49. 三年路线图总览 -->
+<section class="slide" data-title="三年路线图">
+  <p class="kicker">3-YEAR ROADMAP</p>
+  <h2 class="h2">三年实施路线图总览</h2>
+  <table class="fsl-table mt-l">
+    <tr><th>年份</th><th>主题</th><th>核心项目</th><th>成熟度</th><th>预算占比</th></tr>
+    <tr><td>2026</td><td>筑基年</td><td>云平台 · 主数据 · 集成 · 数据中台 · 安全</td><td>L1→L3</td><td>~35%</td></tr>
+    <tr><td>2027</td><td>攻坚年</td><td>财务 · 销售 · 供应链 · 质量 · MES · 泰国</td><td>L3→L4</td><td>~45%</td></tr>
+    <tr><td>2028</td><td>智能年</td><td>AI平台 · 智能分析 · 生态协同 · 海外深化</td><td>L4深化</td><td>~20%</td></tr>
+  </table>
+  <div class="insight-box mt-l">
+    <p><strong>投资节奏：</strong>2027年投入最大（45%），因为核心业务模块集中上线。2026年聚焦基础（35%），2028年聚焦智能化（20%）。总投资约950万（含税）SAP实施费 + 外围系统预算另行评估。</p>
+  </div>
+  <aside class="notes">
+    <p>三年路线图的投资节奏。</p>
+    <p>2027年投入最大，因为核心业务模块都在这一年上线。</p>
+    <p>SAP实施费用950万含税是确定的，外围系统的预算需要另行评估。</p>
+  </aside>
+</section>
+
+<!-- 49b. 项目卡片全景 -->
+<section class="slide" data-title="项目全景">
+  <p class="kicker">PROJECT PANORAMA</p>
+  <h2 class="h2">24个项目卡片全景图</h2>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:24px;font-size:11px">
+    <div class="project-card" style="padding:10px"><div class="phase-badge phase-1">PC01</div><div>数字底座</div></div>
+    <div class="project-card" style="padding:10px"><div class="phase-badge phase-1">PC02</div><div>主数据治理</div></div>
+    <div class="project-card" style="padding:10px"><div class="phase-badge phase-1">PC03</div><div>集成架构</div></div>
+    <div class="project-card" style="padding:10px"><div class="phase-badge phase-1">外围</div><div>AI平台</div></div>
+    <div class="project-card" style="padding:10px"><div class="phase-badge phase-1">外围</div><div>数据中台</div></div>
+    <div class="project-card" style="padding:10px"><div class="phase-badge phase-1">外围</div><div>信息安全</div></div>
+    <div class="project-card" style="padding:10px"><div class="phase-badge phase-2">PC04</div><div>流程蓝图</div></div>
+    <div class="project-card" style="padding:10px"><div class="phase-badge phase-2">PC05</div><div>财务核心</div></div>
+    <div class="project-card" style="padding:10px"><div class="phase-badge phase-2">PC06</div><div>销售全链路</div></div>
+    <div class="project-card" style="padding:10px"><div class="phase-badge phase-2">PC07</div><div>供应链协同</div></div>
+    <div class="project-card" style="padding:10px"><div class="phase-badge phase-2">PC08</div><div>质量追溯</div></div>
+    <div class="project-card" style="padding:10px"><div class="phase-badge phase-2">外围</div><div>MES升级</div></div>
+    <div class="project-card" style="padding:10px"><div class="phase-badge phase-2">外围</div><div>CRM深化</div></div>
+    <div class="project-card" style="padding:10px"><div class="phase-badge phase-2">外围</div><div>预算管理</div></div>
+    <div class="project-card" style="padding:10px"><div class="phase-badge phase-3">PC09</div><div>海外深化</div></div>
+    <div class="project-card" style="padding:10px"><div class="phase-badge phase-3">PC10</div><div>数据智能</div></div>
+    <div class="project-card" style="padding:10px"><div class="phase-badge phase-3">PC11</div><div>生态协同</div></div>
+    <div class="project-card" style="padding:10px"><div class="phase-badge phase-3">外围</div><div>电商中台</div></div>
+    <div class="project-card" style="padding:10px"><div class="phase-badge phase-3">外围</div><div>智慧能源</div></div>
+    <div class="project-card" style="padding:10px"><div class="phase-badge phase-3">外围</div><div>设备管理</div></div>
+  </div>
+  <aside class="notes">
+    <p>24个项目卡片的全景图。</p>
+    <p>绿色是Phase 1，橙色是Phase 2，蓝色是Phase 3。</p>
+  </aside>
+</section>
+<!-- 50. 2026年详细计划 -->
+<section class="slide" data-title="2026年计划">
+  <p class="kicker">2026 PLAN</p>
+  <h2 class="h2">2026年筑基年：聚焦数据与平台</h2>
+  <div style="position:relative;margin-top:24px;padding-left:24px">
+    <div class="timeline-line" style="left:9px;top:0;height:100%"></div>
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;position:relative">
+      <div class="timeline-dot" style="width:10px;height:10px;border-width:2px;flex-shrink:0;margin-top:4px"></div>
+      <div><div style="font-weight:700;font-size:13px">Q3 2026</div><p class="dim" style="font-size:12px">S/4HANA PCE环境搭建 · MDG部署启动 · 主数据标准制定</p></div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;position:relative">
+      <div class="timeline-dot" style="width:10px;height:10px;border-width:2px;flex-shrink:0;margin-top:4px"></div>
+      <div><div style="font-weight:700;font-size:13px">Q4 2026</div><p class="dim" style="font-size:12px">6.2万物料清洗 · CPI平台部署 · 核心接口框架搭建 · 数据中台启动</p></div>
+    </div>
+  </div>
+  <div class="win-card mt-l">
+    <strong>2026年关键成功指标：</strong>主数据标准化率≥95% · CPI平台可用性≥99.5% · 核心接口开发完成率100%
+  </div>
+  <aside class="notes">
+    <p>2026年的详细计划。</p>
+    <p>Q3重点是环境搭建和MDG部署，Q4重点是物料清洗和CPI平台。</p>
+    <p>2026年的KPI很明确：主数据标准化率95%以上，CPI可用性99.5%以上。</p>
+  </aside>
+</section>
+
+<!-- 51. 2027年详细计划 -->
+<section class="slide" data-title="2027年计划">
+  <p class="kicker">2027 PLAN</p>
+  <h2 class="h2">2027年攻坚年：核心业务全面上线</h2>
+  <div style="position:relative;margin-top:24px;padding-left:24px">
+    <div class="timeline-line" style="left:9px;top:0;height:100%"></div>
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;position:relative">
+      <div class="timeline-dot" style="width:10px;height:10px;border-width:2px;flex-shrink:0;margin-top:4px;background:#e65100;border-color:#fff3e0"></div>
+      <div><div style="font-weight:700;font-size:13px">Q1 2027 · S/4HANA Go-Live</div><p class="dim" style="font-size:12px">系统正式上线！财务/销售/采购/生产核心模块切换。</p></div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;position:relative">
+      <div class="timeline-dot" style="width:10px;height:10px;border-width:2px;flex-shrink:0;margin-top:4px;background:#e65100;border-color:#fff3e0"></div>
+      <div><div style="font-weight:700;font-size:13px">Q2 2027</div><p class="dim" style="font-size:12px">OTC/PTP/MTC端到端流程贯通 · MES/WMS深度集成</p></div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;position:relative">
+      <div class="timeline-dot" style="width:10px;height:10px;border-width:2px;flex-shrink:0;margin-top:4px;background:#e65100;border-color:#fff3e0"></div>
+      <div><div style="font-weight:700;font-size:13px">Q3 2027</div><p class="dim" style="font-size:12px">泰国工厂本地化上线 · Group Reporting合并报表自动化</p></div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:12px;position:relative">
+      <div class="timeline-dot" style="width:10px;height:10px;border-width:2px;flex-shrink:0;margin-top:4px;background:#e65100;border-color:#fff3e0"></div>
+      <div><div style="font-weight:700;font-size:13px">Q4 2027</div><p class="dim" style="font-size:12px">系统稳定运行 · 用户培训全覆盖 · 运维体系建立</p></div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>2027年是<strong>最关键的一年</strong>。</p>
+    <p>Q1是Go-Live——系统正式上线。这是整个项目最关键的时间节点。</p>
+    <p>Q2-Q4是深化和扩展——端到端流程贯通、泰国工厂上线、合并报表自动化。</p>
+  </aside>
+</section>
+
+<!-- 52. 2028年详细计划 -->
+<section class="slide" data-title="2028年计划">
+  <p class="kicker">2028 PLAN</p>
+  <h2 class="h2">2028年智能年：数据驱动决策</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>数据智能平台</h4>
+      <p class="dim">基于积累的数据资产，部署预测性维护、智能排产、客户需求预测等AI应用。</p>
+    </div>
+    <div class="card">
+      <h4>海外合规深化</h4>
+      <p class="dim">德国FZ33合规，支持潜在新增海外工厂的本地化需求。</p>
+    </div>
+    <div class="card">
+      <h4>生态协同</h4>
+      <p class="dim">供应商协同平台、经销商门户，探索产业链上下游数据协同。</p>
+    </div>
+    <div class="card">
+      <h4>持续优化</h4>
+      <p class="dim">建立持续迭代优化机制，基于数据反馈不断优化业务流程。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>2028年是智能化的一年。</p>
+    <p>核心不是上更多系统，而是<strong>用好已有的数据和系统</strong>，做预测、做优化、做创新。</p>
+  </aside>
+</section>
+
+<!-- 53. 人力资源规划 -->
+<section class="slide" data-title="人力资源">
+  <p class="kicker">HR PLAN</p>
+  <h2 class="h2">人力资源规划：组建数字化转型专职团队</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>关键岗位设置</h4>
+      <div class="stack" style="margin-top:12px;gap:8px">
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span>CIO / CDO</span><span class="dim">1人</span></div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span>数字化BP</span><span class="dim">3-5人</span></div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span>数据治理专员</span><span class="dim">2-3人</span></div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span>PMO项目经理</span><span class="dim">2人</span></div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0"><span>SAP关键用户</span><span class="dim">15-20人</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h4>组织保障</h4>
+      <p class="dim" style="margin-top:8px">1. 成立实体化PMO，赋予项目优先级和资源调配裁决权</p>
+      <p class="dim">2. 从业务部门选拔骨干进行数字化赋能，成为业务与IT的"翻译官"</p>
+      <p class="dim">3. 建立ITSM体系，将运维从"被动救火"转为"主动运营"</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>人力资源规划的核心是<strong>"人跟得上"</strong>。</p>
+    <p>不是买了系统就完事，需要有人会用、有人能管、有人能持续优化。</p>
+    <p>特别重要的是<strong>数字化BP</strong>——从业务部门抽人，培训数字化能力，成为业务和IT之间的桥梁。</p>
+  </aside>
+</section>
+
+<!-- 54. 预算分配 -->
+<section class="slide" data-title="预算分配">
+  <p class="kicker">BUDGET</p>
+  <h2 class="h2">预算分配：SAP核心 + 外围系统</h2>
+  <div class="grid g2 mt-l">
+    <div class="card" style="text-align:center">
+      <div style="font-size:48px;font-weight:800;color:var(--accent-2)">950万</div>
+      <div style="font-size:14px;color:var(--text-3);margin-top:8px">SAP S/4HANA实施（含税）</div>
+      <div style="font-size:12px;color:var(--text-3);margin-top:4px">Eviden中标 · Greenfield实施</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:48px;font-weight:800;color:#d97706">待定</div>
+      <div style="font-size:14px;color:var(--text-3);margin-top:8px">外围系统改造预算</div>
+      <div style="font-size:12px;color:var(--text-3);margin-top:4px">MES/CRM/数据中台/AI等13个项目</div>
+    </div>
+  </div>
+  <table class="fsl-table mt-l">
+    <tr><th>费用类别</th><th>说明</th><th>承担方</th></tr>
+    <tr><td>SAP软件许可</td><td>S/4HANA PCE + MDG + CPI + Fiori</td><td>佛照</td></tr>
+    <tr><td>实施服务费</td><td>Eviden实施团队（含蓝图、配置、测试、上线）</td><td>佛照</td></tr>
+    <tr><td>基础设施</td><td>云资源、网络、安全设备</td><td>佛照</td></tr>
+    <tr><td>外围系统</td><td>MES/CRM/数据中台等13个项目</td><td>佛照+第三方</td></tr>
+  </table>
+  <aside class="notes">
+    <p>预算方面，SAP实施费用950万已经确定。</p>
+    <p>外围系统的预算还需要另行评估，建议尽快启动外围系统的Vendor选型。</p>
+  </aside>
+</section>
+
+<!-- 55. 风险矩阵 -->
+<section class="slide" data-title="风险矩阵">
+  <p class="kicker">RISK MATRIX</p>
+  <h2 class="h2">风险识别：五大关键风险</h2>
+  <table class="fsl-table mt-l">
+    <tr><th>风险</th><th>可能性</th><th>影响</th><th>等级</th><th>应对策略</th></tr>
+    <tr><td>主数据清洗延期</td><td>高</td><td>高</td><td><span style="color:#dc2626;font-weight:700">极高</span></td><td>提前启动 · 分批清洗 · 外包支持</td></tr>
+    <tr><td>业务部门配合不足</td><td>中</td><td>高</td><td><span style="color:#d97706;font-weight:700">高</span></td><td>高层背书 · 纳入KPI · 变革管理</td></tr>
+    <tr><td>多系统集成失败</td><td>中</td><td>高</td><td><span style="color:#d97706;font-weight:700">高</span></td><td>分阶段集成 · 充分测试 · 回滚预案</td></tr>
+    <tr><td>泰国合规复杂度</td><td>中</td><td>中</td><td><span style="color:#2374a3;font-weight:700">中</td><td>提前调研 · 本地化顾问 · 监管沟通</td></tr>
+    <tr><td>预算超支</td><td>低</td><td>高</td><td><span style="color:#d97706;font-weight:700">高</span></td><td>分期付款 · 变更控制 · 预留缓冲</td></tr>
+  </table>
+  <aside class="notes">
+    <p>五大关键风险。</p>
+    <p><strong>主数据清洗延期</strong>是最高风险——6.2万物料清洗工作量巨大，如果延期会影响整个项目节奏。</p>
+    <p><strong>业务部门配合</strong>是管理风险——需要总经理亲自背书，把项目配合纳入各部门KPI。</p>
+  </aside>
+</section>
+
+<!-- 56. 风险应对措施 -->
+<section class="slide" data-title="风险应对">
+  <p class="kicker">RISK MITIGATION</p>
+  <h2 class="h2">全面风险应对措施</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>组织层面</h4>
+      <p class="dim">成立项目指导委员会，总经理任主任，每月review项目进展。PMO实体化运作，拥有资源调配权。</p>
+    </div>
+    <div class="card">
+      <h4>技术层面</h4>
+      <p class="dim">分阶段上线，每阶段充分测试。建立灰度发布机制，出问题可快速回滚。核心接口双活备份。</p>
+    </div>
+    <div class="card">
+      <h4>数据层面</h4>
+      <p class="dim">主数据清洗提前6个月启动，采用"分批清洗+并行验证"策略。引入外部数据治理专家。</p>
+    </div>
+    <div class="card">
+      <h4>变更层面</h4>
+      <p class="dim">建立严格的变更控制流程，任何scope变更须经ARB评审。预留10%预算作为应急缓冲。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>风险应对措施从四个层面展开。</p>
+    <p>核心是<strong>"预防为主，快速响应"</strong>——不是等出问题了再想办法，而是提前把可能的问题都考虑到。</p>
+  </aside>
+</section>
+
+<!-- ==================== PART 4: 立即行动 ==================== -->
+
+<!-- 56b. 变革管理计划 -->
+<section class="slide" data-title="变革管理">
+  <p class="kicker">CHANGE MANAGEMENT</p>
+  <h2 class="h2">变革管理：让组织跟上系统</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>沟通策略</h4>
+      <p class="dim">1. 项目启动大会：总经理亲自动员<br>2. 双周项目简报：发送给全体员工<br>3. 关键用户月度座谈会：收集反馈<br>4. 项目里程碑庆祝：增强参与感</p>
+    </div>
+    <div class="card">
+      <h4>培训策略</h4>
+      <p class="dim">1. 关键用户深度培训（40小时+）<br>2. 最终用户操作培训（8小时）<br>3. 管理层看板培训（2小时）<br>4. 持续在线学习资源库</p>
+    </div>
+    <div class="card">
+      <h4>激励策略</h4>
+      <p class="dim">1. 关键用户津贴和晋升优先<br>2. 部门配合度纳入KPI<br>3. 优秀案例评选和奖励<br>4. 项目成功后的全员分享</p>
+    </div>
+    <div class="card">
+      <h4>阻力应对</h4>
+      <p class="dim">1. 识别变革阻力来源（部门/个人）<br>2. 一对一沟通和辅导<br>3. 设立"变革大使"机制<br>4. 必要时调整岗位或人员</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>变革管理是项目成功的关键因素之一。</p>
+    <p>系统上线只是20%的工作，<strong>让用户接受和使用系统</strong>是80%的工作。</p>
+  </aside>
+</section>
+<!-- 57. 章节页：立即行动 -->
+<section class="slide section-cover" data-title="第四部分">
+  <div>
+    <p style="font-size:14px;letter-spacing:4px;opacity:.7;margin-bottom:16px">PART 04</p>
+    <h1 style="font-size:56px;font-weight:800;margin-bottom:16px">立即行动</h1>
+    <p style="font-size:22px;opacity:.85">下一步做什么？</p>
+  </div>
+  <aside class="notes">
+    <p>进入最后一部分，立即行动。聚焦接下来30天要做的事。</p>
+  </aside>
+</section>
+
+<!-- 58. 立即行动项 -->
+<section class="slide" data-title="立即行动项">
+  <p class="kicker">ACTION ITEMS · 30 DAYS</p>
+  <h2 class="h2">立即行动项：接下来30天</h2>
+  <div class="stack mt-l" style="gap:12px">
+    <div class="card" style="display:flex;align-items:flex-start;gap:16px">
+      <div style="background:var(--accent);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">1</div>
+      <div>
+        <h4 style="margin-bottom:4px">成立项目指导委员会</h4>
+        <p class="dim">总经理任主任，各部门负责人为成员，明确决策机制和会议节奏。</p>
+      </div>
+    </div>
+    <div class="card" style="display:flex;align-items:flex-start;gap:16px">
+      <div style="background:var(--accent);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">2</div>
+      <div>
+        <h4 style="margin-bottom:4px">任命PMO和CIO/CDO</h4>
+        <p class="dim">确定项目管理办公室负责人和数字化转型专职领导岗位。</p>
+      </div>
+    </div>
+    <div class="card" style="display:flex;align-items:flex-start;gap:16px">
+      <div style="background:var(--accent);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">3</div>
+      <div>
+        <h4 style="margin-bottom:4px">启动主数据清洗</h4>
+        <p class="dim">立即启动6.2万物料的主数据清洗工作，这是项目关键路径上的第一项任务。</p>
+      </div>
+    </div>
+    <div class="card" style="display:flex;align-items:flex-start;gap:16px">
+      <div style="background:var(--accent);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">4</div>
+      <div>
+        <h4 style="margin-bottom:4px">确认外围系统预算</h4>
+        <p class="dim">评估13个外围系统项目的预算，启动Vendor选型流程。</p>
+      </div>
+    </div>
+    <div class="card" style="display:flex;align-items:flex-start;gap:16px">
+      <div style="background:var(--accent);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">5</div>
+      <div>
+        <h4 style="margin-bottom:4px">启动变革管理</h4>
+        <p class="dim">开展关键用户选拔和培训计划，建立内部沟通和反馈机制。</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>五个立即行动项。</p>
+    <p><strong>第一件事</strong>——成立指导委员会。没有高层支持，项目很难推进。</p>
+    <p><strong>第三件事</strong>——启动主数据清洗。这是关键路径，越早启动越好。</p>
+  </aside>
+</section>
+
+<!-- 58b. 组织架构建议 -->
+<section class="slide" data-title="组织架构">
+  <p class="kicker">ORGANIZATION</p>
+  <h2 class="h2">建议的组织架构调整</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>项目指导委员会</h4>
+      <p class="dim">总经理任主任，分管副总任副主任，各部门负责人为成员。<strong>每月召开一次</strong>项目Review会议，决策重大问题。</p>
+    </div>
+    <div class="card">
+      <h4>PMO项目管理办公室</h4>
+      <p class="dim">建议由企管部或数智化部牵头，配备2名专职项目经理。负责项目计划、资源协调、风险管理、进度汇报。</p>
+    </div>
+    <div class="card">
+      <h4>业务-IT联合团队</h4>
+      <p class="dim">每个核心业务模块配备<strong>业务负责人+IT负责人</strong>的双轨制。业务负责人来自业务部门，IT负责人来自数智化部。</p>
+    </div>
+    <div class="card">
+      <h4>外部顾问团队</h4>
+      <p class="dim">Eviden作为SAP实施主顾问，按需引入数据治理、变更管理、培训等专项顾问。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>组织架构建议。</p>
+    <p>核心是<strong>指导委员会+PMO+联合团队</strong>三层结构。</p>
+  </aside>
+</section>
+
+<!-- 58c. 决策请求 -->
+<section class="slide" data-title="决策请求">
+  <p class="kicker">DECISION REQUESTS</p>
+  <h2 class="h2">需要总经理决策的三个事项</h2>
+  <div class="stack mt-l" style="gap:14px">
+    <div class="card" style="border-left:4px solid #dc2626;padding-left:20px">
+      <h4 style="margin-bottom:6px">决策一：确认项目指导委员会成员</h4>
+      <p class="dim">请总经理确认项目指导委员会名单，并签发项目启动文件，赋予PMO资源调配权。</p>
+    </div>
+    <div class="card" style="border-left:4px solid #d97706;padding-left:20px">
+      <h4 style="margin-bottom:6px">决策二：批准主数据清洗提前启动</h4>
+      <p class="dim">主数据清洗是关键路径，建议立即启动。需要业务部门抽调专人配合，请总经理协调。</p>
+    </div>
+    <div class="card" style="border-left:4px solid #2374a3;padding-left:20px">
+      <h4 style="margin-bottom:6px">决策三：确认外围系统预算评估安排</h4>
+      <p class="dim">13个外围系统项目需要预算评估和Vendor选型，建议授权PMO牵头推进。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>三个需要总经理决策的事项。</p>
+    <p>第一个是最关键的——<strong>项目指导委员会的成立和PMO的授权</strong>。没有组织保障，项目很难推进。</p>
+  </aside>
+</section>
+
+<!-- 58d. 后续会议安排 -->
+<section class="slide" data-title="后续安排">
+  <p class="kicker">NEXT STEPS</p>
+  <h2 class="h2">后续工作安排</h2>
+  <div style="position:relative;margin-top:32px;padding-left:28px">
+    <div class="timeline-line" style="left:13px;top:0;height:100%"></div>
+    <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:20px;position:relative">
+      <div class="timeline-dot" style="flex-shrink:0;margin-top:2px"></div>
+      <div><div style="font-weight:700">本周内</div><p class="dim">项目指导委员会成立，签发项目启动文件</p></div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:20px;position:relative">
+      <div class="timeline-dot" style="flex-shrink:0;margin-top:2px"></div>
+      <div><div style="font-weight:700">2周内</div><p class="dim">PMO组建完成，主数据清洗团队到位</p></div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:20px;position:relative">
+      <div class="timeline-dot" style="flex-shrink:0;margin-top:2px"></div>
+      <div><div style="font-weight:700">1个月内</div><p class="dim">召开项目Kick-off大会，全员动员</p></div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:14px;position:relative">
+      <div class="timeline-dot" style="flex-shrink:0;margin-top:2px"></div>
+      <div><div style="font-weight:700">持续</div><p class="dim">双周项目例会，月度指导委员会汇报</p></div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>后续工作安排。</p>
+    <p>本周内成立指导委员会，2周内PMO到位，1个月内Kick-off。</p>
+  </aside>
+</section>
+<!-- 59. 关键里程碑 -->
+<section class="slide" data-title="关键里程碑">
+  <p class="kicker">KEY MILESTONES</p>
+  <h2 class="h2">项目关键里程碑</h2>
+  <div style="position:relative;margin-top:32px;padding-left:28px">
+    <div class="timeline-line" style="left:13px;top:0;height:100%"></div>
+    <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:20px;position:relative">
+      <div class="timeline-dot" style="flex-shrink:0;margin-top:2px"></div>
+      <div>
+        <div style="font-weight:700">2026 Q3</div>
+        <p class="dim">项目指导委员会成立 · PMO组建 · S/4环境搭建启动</p>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:20px;position:relative">
+      <div class="timeline-dot" style="flex-shrink:0;margin-top:2px"></div>
+      <div>
+        <div style="font-weight:700">2026 Q4</div>
+        <p class="dim">主数据标准发布 · MDG部署 · 6.2万物料清洗完成</p>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:20px;position:relative">
+      <div class="timeline-dot" style="flex-shrink:0;margin-top:2px;background:#e65100;border-color:#fff3e0"></div>
+      <div>
+        <div style="font-weight:700;color:#e65100">2027 Q1 · Go-Live</div>
+        <p class="dim">S/4HANA正式上线！核心业务模块切换</p>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:20px;position:relative">
+      <div class="timeline-dot" style="flex-shrink:0;margin-top:2px;background:#e65100;border-color:#fff3e0"></div>
+      <div>
+        <div style="font-weight:700;color:#e65100">2027 Q3</div>
+        <p class="dim">泰国工厂上线 · Group Reporting月结≤2天</p>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:14px;position:relative">
+      <div class="timeline-dot" style="flex-shrink:0;margin-top:2px;background:#0e9f6e;border-color:#e8f5e9"></div>
+      <div>
+        <div style="font-weight:700;color:#0e9f6e">2028 Q4</div>
+        <p class="dim">数据智能平台上线 · 成熟度达到L3.5+</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>项目关键里程碑。</p>
+    <p>最重要的两个节点：<strong>2027 Q1 Go-Live</strong>和<strong>2027 Q3 泰国工厂上线</strong>。</p>
+    <p>2028 Q4的目标是成熟度达到L3.5+，同时数据智能平台上线。</p>
+  </aside>
+</section>
+
+<!-- 60. 投资回报 -->
+<section class="slide" data-title="投资回报">
+  <p class="kicker">ROI</p>
+  <h2 class="h2">投资回报预期：可量化的业务价值</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>财务效率</h4>
+      <div class="stack" style="margin-top:12px;gap:8px">
+        <div style="display:flex;justify-content:space-between"><span>合并报表月结</span><span style="color:#0e9f6e;font-weight:700">7-8天 → ≤2天</span></div>
+        <div style="display:flex;justify-content:space-between"><span>财务凭证自动化</span><span style="color:#0e9f6e;font-weight:700">+60%</span></div>
+        <div style="display:flex;justify-content:space-between"><span>对账人工工作量</span><span style="color:#0e9f6e;font-weight:700">-50%</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h4>运营效率</h4>
+      <div class="stack" style="margin-top:12px;gap:8px">
+        <div style="display:flex;justify-content:space-between"><span>订单处理时效</span><span style="color:#0e9f6e;font-weight:700">+40%</span></div>
+        <div style="display:flex;justify-content:space-between"><span>库存周转率</span><span style="color:#0e9f6e;font-weight:700">+15%</span></div>
+        <div style="display:flex;justify-content:space-between"><span>采购周期</span><span style="color:#0e9f6e;font-weight:700">-20%</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h4>管理提升</h4>
+      <div class="stack" style="margin-top:12px;gap:8px">
+        <div style="display:flex;justify-content:space-between"><span>信用风险预警</span><span style="color:#0e9f6e;font-weight:700">实时</span></div>
+        <div style="display:flex;justify-content:space-between"><span>成本穿透查询</span><span style="color:#0e9f6e;font-weight:700">多层追溯</span></div>
+        <div style="display:flex;justify-content:space-between"><span>数据准确率</span><span style="color:#0e9f6e;font-weight:700">≥95%</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h4>合规保障</h4>
+      <div class="stack" style="margin-top:12px;gap:8px">
+        <div style="display:flex;justify-content:space-between"><span>国资委1号文</span><span style="color:#0e9f6e;font-weight:700">满足</span></div>
+        <div style="display:flex;justify-content:space-between"><span>穿透式监管</span><span style="color:#0e9f6e;font-weight:700">数据可追溯</span></div>
+        <div style="display:flex;justify-content:space-between"><span>泰国合规</span><span style="color:#0e9f6e;font-weight:700">本地化支持</span></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>投资回报预期。</p>
+    <p>这些数字不是拍脑袋的，是基于行业对标和SAP实施经验测算的。</p>
+    <p>最直观的指标是<strong>合并报表月结从7-8天缩短到2天以内</strong>——这个改进每年能节省大量人力和时间成本。</p>
+  </aside>
+</section>
+
+<!-- 61. 成功关键因素 -->
+<section class="slide" data-title="成功因素">
+  <p class="kicker">CRITICAL SUCCESS FACTORS</p>
+  <h2 class="h2">项目成功的六大关键因素</h2>
+  <div class="grid g2 mt-l">
+    <div class="card" style="display:flex;align-items:flex-start;gap:14px">
+      <div style="font-size:28px;font-weight:800;color:var(--accent-2);line-height:1">01</div>
+      <div><h4 style="margin-bottom:4px">高层承诺</h4><p class="dim">总经理亲自挂帅，各部门负责人纳入KPI考核。</p></div>
+    </div>
+    <div class="card" style="display:flex;align-items:flex-start;gap:14px">
+      <div style="font-size:28px;font-weight:800;color:var(--accent-2);line-height:1">02</div>
+      <div><h4 style="margin-bottom:4px">业务主导</h4><p class="dim">不是IT做给业务用，而是业务牵头、IT支撑。</p></div>
+    </div>
+    <div class="card" style="display:flex;align-items:flex-start;gap:14px">
+      <div style="font-size:28px;font-weight:800;color:var(--accent-2);line-height:1">03</div>
+      <div><h4 style="margin-bottom:4px">数据先行</h4><p class="dim">主数据治理不妥协，宁可延期也不带脏数据上线。</p></div>
+    </div>
+    <div class="card" style="display:flex;align-items:flex-start;gap:14px">
+      <div style="font-size:28px;font-weight:800;color:var(--accent-2);line-height:1">04</div>
+      <div><h4 style="margin-bottom:4px">变革管理</h4><p class="dim">培训、沟通、激励三管齐下，降低用户抵触。</p></div>
+    </div>
+    <div class="card" style="display:flex;align-items:flex-start;gap:14px">
+      <div style="font-size:28px;font-weight:800;color:var(--accent-2);line-height:1">05</div>
+      <div><h4 style="margin-bottom:4px">分步实施</h4><p class="dim">不贪大求全，按Phase 1/2/3稳步推进。</p></div>
+    </div>
+    <div class="card" style="display:flex;align-items:flex-start;gap:14px">
+      <div style="font-size:28px;font-weight:800;color:var(--accent-2);line-height:1">06</div>
+      <div><h4 style="margin-bottom:4px">持续运营</h4><p class="dim">上线不是终点，建立持续优化和反馈机制。</p></div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>项目成功的六大关键因素。</p>
+    <p>最核心的两条：<strong>高层承诺</strong>和<strong>业务主导</strong>。</p>
+    <p>数字化项目失败的最大原因，往往不是技术问题，而是组织问题——业务部门不配合、高层不支持。</p>
+  </aside>
+</section>
+
+<!-- 61b. 附录-缩略语 -->
+<section class="slide" data-title="缩略语">
+  <p class="kicker">APPENDIX · ABBREVIATIONS</p>
+  <h2 class="h2">缩略语表</h2>
+  <table class="fsl-table mt-l">
+    <tr><th>缩略语</th><th>全称</th><th>中文</th></tr>
+    <tr><td>TOGAF</td><td>The Open Group Architecture Framework</td><td>开放群组架构框架</td></tr>
+    <tr><td>ADM</td><td>Architecture Development Method</td><td>架构开发方法</td></tr>
+    <tr><td>MDG</td><td>Master Data Governance</td><td>主数据治理</td></tr>
+    <tr><td>CPI</td><td>Cloud Platform Integration</td><td>云平台集成</td></tr>
+    <tr><td>PCE</td><td>Private Cloud Edition</td><td>私有云版本</td></tr>
+    <tr><td>OTC</td><td>Order to Cash</td><td>订单到收款</td></tr>
+    <tr><td>PTP</td><td>Procure to Pay</td><td>采购到付款</td></tr>
+    <tr><td>MTC</td><td>Manufacture to Cost</td><td>制造到成本</td></tr>
+    <tr><td>ARB</td><td>Architecture Review Board</td><td>架构评审委员会</td></tr>
+    <tr><td>PMO</td><td>Project Management Office</td><td>项目管理办公室</td></tr>
+    <tr><td>DCMM</td><td>Data Management Maturity Model</td><td>数据管理成熟度模型</td></tr>
+    <tr><td>GB/T 43439</td><td>—</td><td>数字化转型成熟度国家标准</td></tr>
+  </table>
+  <aside class="notes">
+    <p>缩略语表供参考。</p>
+  </aside>
+</section>
+
+<!-- 61c. 附录-参考文档 -->
+<section class="slide" data-title="参考文档">
+  <p class="kicker">APPENDIX · REFERENCES</p>
+  <h2 class="h2">参考文档清单</h2>
+  <table class="fsl-table mt-l">
+    <tr><th>#</th><th>文档名称</th><th>版本</th><th>状态</th></tr>
+    <tr><td>1</td><td>佛山照明数字化转型现状诊断报告</td><td>V6</td><td>已发布</td></tr>
+    <tr><td>2</td><td>佛山照明企业架构设计报告</td><td>V6.0</td><td>已发布</td></tr>
+    <tr><td>3</td><td>佛山照明数字化转型路径规划报告</td><td>V3.0</td><td>已发布</td></tr>
+    <tr><td>4</td><td>GB/T 43439-2023 数字化转型成熟度模型</td><td>—</td><td>国家标准</td></tr>
+    <tr><td>5</td><td>GB/T 36073-2025 DCMM 数据管理成熟度</td><td>—</td><td>国家标准</td></tr>
+    <tr><td>6</td><td>制造业企业数字化转型实施指南（工信部2024）</td><td>—</td><td>政策文件</td></tr>
+  </table>
+  <aside class="notes">
+    <p>参考文档清单。</p>
+    <p>三份核心报告已同步到佛照工作台，各位可以随时查看。</p>
+  </aside>
+</section>
+<!-- 61d. KPI指标体系 -->
+<section class="slide" data-title="KPI体系">
+  <p class="kicker">KPI FRAMEWORK</p>
+  <h2 class="h2">项目KPI指标体系</h2>
+  <table class="fsl-table mt-l">
+    <tr><th>KPI类别</th><th>指标</th><th>基线</th><th>目标</th><th>测量周期</th></tr>
+    <tr><td>财务效率</td><td>合并报表月结天数</td><td>7-8天</td><td>≤2天</td><td>月度</td></tr>
+    <tr><td>财务效率</td><td>凭证自动化率</td><td>~30%</td><td>≥90%</td><td>月度</td></tr>
+    <tr><td>运营效率</td><td>订单处理时效</td><td>基准</td><td>+40%</td><td>周度</td></tr>
+    <tr><td>运营效率</td><td>库存周转天数</td><td>基准</td><td>-15%</td><td>月度</td></tr>
+    <tr><td>数据质量</td><td>主数据准确率</td><td>~70%</td><td>≥95%</td><td>月度</td></tr>
+    <tr><td>系统稳定</td><td>SAP系统可用性</td><td>—</td><td>≥99.5%</td><td>实时</td></tr>
+    <tr><td>用户满意</td><td>关键用户满意度</td><td>—</td><td>≥4.0/5.0</td><td>季度</td></tr>
+  </table>
+  <aside class="notes">
+    <p>项目KPI指标体系。</p>
+    <p>这些KPI会在项目启动时基线化，每月跟踪，每季度向指导委员会汇报。</p>
+  </aside>
+</section>
+
+<!-- 61e. 项目治理机制 -->
+<section class="slide" data-title="治理机制">
+  <p class="kicker">GOVERNANCE MECHANISM</p>
+  <h2 class="h2">项目三级治理机制</h2>
+  <div style="display:flex;gap:16px;margin-top:32px">
+    <div style="flex:1;background:var(--surface-2);border-radius:var(--radius);padding:20px;text-align:center;border-top:4px solid #0b2d47">
+      <div style="font-size:14px;font-weight:700;color:var(--accent);margin-bottom:8px">决策层</div>
+      <div style="font-size:16px;font-weight:700">项目指导委员会</div>
+      <p class="dim" style="font-size:12px;margin-top:8px">总经理领衔<br>月度Review<br>重大决策</p>
+    </div>
+    <div style="flex:1;background:var(--surface-2);border-radius:var(--radius);padding:20px;text-align:center;border-top:4px solid #2374a3">
+      <div style="font-size:14px;font-weight:700;color:var(--accent-2);margin-bottom:8px">管理层</div>
+      <div style="font-size:16px;font-weight:700">PMO + ARB</div>
+      <p class="dim" style="font-size:12px;margin-top:8px">双周例会<br>进度跟踪<br>风险管理</p>
+    </div>
+    <div style="flex:1;background:var(--surface-2);border-radius:var(--radius);padding:20px;text-align:center;border-top:4px solid #5ea4ce">
+      <div style="font-size:14px;font-weight:700;color:var(--accent-3);margin-bottom:8px">执行层</div>
+      <div style="font-size:16px;font-weight:700">业务+IT联合团队</div>
+      <p class="dim" style="font-size:12px;margin-top:8px">每日站会<br>任务执行<br>问题升级</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>项目三级治理机制。</p>
+    <p>决策层、管理层、执行层各司其职，确保项目有序推进。</p>
+  </aside>
+</section>
+
+<!-- 61f. 沟通与汇报机制 -->
+<section class="slide" data-title="沟通机制">
+  <p class="kicker">COMMUNICATION</p>
+  <h2 class="h2">沟通与汇报机制</h2>
+  <div class="grid g2 mt-l">
+    <div class="card">
+      <h4>日常沟通</h4>
+      <p class="dim">1. 项目团队每日站会（15分钟）<br>2. 双周项目例会（2小时）<br>3. 月度指导委员会汇报（1小时）<br>4. 项目简报双周发送全员</p>
+    </div>
+    <div class="card">
+      <h4>问题升级</h4>
+      <p class="dim">L1：团队内部解决（1天内）<br>L2：PMO协调（3天内）<br>L3：ARB评审（1周内）<br>L4：指导委员会决策（2周内）</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>沟通与汇报机制。</p>
+    <p>确保信息透明、问题及时升级、决策快速响应。</p>
+  </aside>
+</section>
+
+<!-- 62. 总结 -->
+<section class="slide" data-title="总结">
+  <p class="kicker">SUMMARY</p>
+  <h2 class="h2">汇报总结：三个核心结论</h2>
+  <div class="stack mt-l" style="gap:16px">
+    <div class="card" style="border-left:4px solid #dc2626;padding-left:20px">
+      <h4 style="margin-bottom:6px">现状：有基础，但有明显差距</h4>
+      <p class="dim">佛照数字化成熟度1.9分，系统有但不通、数据有但不准。701条需求清晰指向23个高价值场景。</p>
+    </div>
+    <div class="card" style="border-left:4px solid #2374a3;padding-left:20px">
+      <h4 style="margin-bottom:6px">蓝图：目标清晰，路径明确</h4>
+      <p class="dim">TOGAF四层架构蓝图已完成，五层追溯体系确保701条需求全链路可审计。三年从L1.9提升到L3.5+。</p>
+    </div>
+    <div class="card" style="border-left:4px solid #0e9f6e;padding-left:20px">
+      <h4 style="margin-bottom:6px">行动：立即启动，分步推进</h4>
+      <p class="dim">24个项目卡片覆盖2026-2028三年。立即启动指导委员会、PMO组建和主数据清洗。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>汇报总结，三个核心结论。</p>
+    <p><strong>现状有差距</strong>——但问题很清楚。</p>
+    <p><strong>蓝图很明确</strong>——目标在哪、怎么去，都有答案。</p>
+    <p><strong>行动要立刻</strong>——特别是主数据清洗，越早越好。</p>
+  </aside>
+</section>
+
+<!-- 63. 感谢页 -->
+<section class="slide" data-title="感谢">
+  <div class="cover-fsl" style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 40px">
+    <h1 style="font-size:56px;font-weight:800;margin-bottom:20px">谢谢</h1>
+    <p style="font-size:18px;opacity:.85;margin-bottom:40px">佛山照明数字化转型汇报</p>
+    <div style="display:flex;gap:40px;font-size:13px;opacity:.8">
+      <div><div style="font-size:10px;opacity:.6;margin-bottom:4px">编制单位</div><div style="font-weight:600">艾维登咨询</div></div>
+      <div><div style="font-size:10px;opacity:.6;margin-bottom:4px">汇报人</div><div style="font-weight:600">陈宇清</div></div>
+      <div><div style="font-size:10px;opacity:.6;margin-bottom:4px">日期</div><div style="font-weight:600">2026年8月26日</div></div>
+    </div>
+    <p style="font-size:14px;opacity:.6;margin-top:48px">Questions & Discussion</p>
+  </div>
+  <aside class="notes">
+    <p>汇报到此结束，感谢各位领导的聆听。</p>
+    <p>三份详细报告已经同步到佛照工作台，各位可以随时查看。</p>
+    <p>接下来进入Q&A环节，欢迎大家提问。</p>
+  </aside>
+</section>
+
+</div>
+
+<div style="position:fixed;bottom:12px;left:12px;font-size:11px;color:#484f5866;z-index:100;pointer-events:none">
+  S 演讲者视图 · T 切换主题 · ← → 翻页 · F 全屏 · O 总览 · R 重置计时
+</div>
+
+<script src="../../assets/runtime.js"></script>
+</body>
+</html>
