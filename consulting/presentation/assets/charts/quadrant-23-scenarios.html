@@ -75,18 +75,18 @@
         // 根据气泡位置智能选择标签方向，避免被画布边缘裁剪与重叠
         var align = 'center', baseline = 'top';
         var dx = 0, dy = dist;
-        if (bv >= 4.3) {
+        if (bv >= 4.2) {
           align = 'right'; baseline = 'middle';
-          dx = -dist; dy = 0;
+          dx = -(dist + 18); dy = 0;
         } else if (bv <= 3.3) {
           align = 'left'; baseline = 'middle';
-          dx = dist; dy = 0;
+          dx = dist + 6; dy = 0;
         } else if (td >= 3.8) {
           align = 'center'; baseline = 'top';
-          dx = 0; dy = dist;
+          dx = 0; dy = dist + 4;
         } else if (td <= 2.2) {
           align = 'center'; baseline = 'bottom';
-          dx = 0; dy = -dist;
+          dx = 0; dy = -(dist + 4);
         }
 
         ctx.save();
@@ -146,7 +146,7 @@
     },
     options: {
       responsive: true, maintainAspectRatio: false,
-      layout: { padding: { top: 30, right: 200, bottom: 30, left: 30 } },
+      layout: { padding: { top: 30, right: 90, bottom: 30, left: 30 } },
       plugins: {
         legend: { display: false },
         tooltip: {
