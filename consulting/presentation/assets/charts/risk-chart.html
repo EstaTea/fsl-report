@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>风险分布</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; background: #fff; }
+  .chart-container { width: 100%; height: 100vh; padding: 20px; display: flex; flex-direction: column; }
+  h2 { font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif; font-size: 18px; color: #1B3A6B; margin-bottom: 12px; text-align: center; }
+  .canvas-wrap { flex: 1; position: relative; min-height: 0; }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+<div class="chart-container">
+  <h2>风险分布</h2>
+  <div class="canvas-wrap"><canvas id="riskChart"></canvas></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<script>
+Chart.register(ChartDataLabels);
+var C = {
+  navy:'#003087', dark:'#1B3A6B', primary:'#005EB8', mid:'#1F70C1',
+  steel:'#4A6FA5', muted:'#6B8CB8', light:'#A8C4E0', pale:'#D0E4F7'
+};
+
+var riskData=[
+  {x:0.8,y:0.9,r:20,label:'R-01 主数据清洗',color:C.navy},
+  {x:0.7,y:0.6,r:16,label:'R-02 MES供应商',color:C.navy},
+  {x:0.5,y:0.9,r:18,label:'R-03 广晟边界',color:C.dark},
+  {x:0.6,y:0.6,r:14,label:'R-04 用户参与',color:C.primary},
+  {x:0.5,y:0.4,r:10,label:'R-05 PCE升级',color:C.mid},
+  {x:0.3,y:0.6,r:10,label:'R-06 泰国合规',color:C.steel},
+  {x:0.6,y:0.5,r:12,label:'R-07 变革阻力',color:C.steel},
+  {x:0.3,y:0.9,r:14,label:'R-08 上市合规',color:C.dark}
+];
+
+new Chart(document.getElementById('riskChart'), {
+  type:'bubble',
+  data:{datasets:riskData.map(function(r){return {
+    label:r.label, data:[{x:r.x,y:r.y,r:r.r}],
+    backgroundColor:r.color+'CC', borderColor:r.color, borderWidth:1.5
+  };})},
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      datalabels:{
+        anchor:'center',align:'center',color:'#fff',font:{size:9,weight:'600'},
+        formatter:function(v,ctx){return ctx.dataset.label.split(' ')[0];}
+      }
+    },
+    scales:{
+      x:{min:0,max:1.0,title:{display:true,text:'发生概率（低→高）'},
+         ticks:{callback:function(v){return v<=0.3?'低':v<=0.6?'中':'高';}}},
+      y:{min:0,max:1.1,title:{display:true,text:'影响程度（低→高）'},
+         ticks:{callback:function(v){return v<=0.3?'低':v<=0.6?'中':'高';}}}
+    }
+  }
+});
+</script>
+</body>
+</html>

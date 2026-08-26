@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>23个高价值场景四象限评估</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;width:100%;background:#fff}
+  body{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px}
+  h1{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+     font-size:16px;font-weight:700;color:#1B3A6B;margin-bottom:8px;text-align:center}
+  .chart-box{position:relative;width:100%;max-width:900px;height:68vh;min-height:340px}
+  .legend{display:flex;gap:16px;margin-top:8px;font-size:12px;color:#5B7A91}
+  .legend span{display:flex;align-items:center;gap:4px}
+  .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+</style>
+</head>
+<body>
+<h1>23个高价值场景：业务价值 × 技术难度 四象限评估</h1>
+<div class="chart-box">
+  <canvas id="quadrantChart"></canvas>
+</div>
+<div class="legend">
+  <span><i class="dot" style="background:#003087"></i>P0 优先级高 · 2026（10个）</span>
+  <span><i class="dot" style="background:#2374a3"></i>P1 优先级中 · 2027（9个）</span>
+  <span><i class="dot" style="background:#89c4e8"></i>P2 优先级低 · 2028（4个）</span>
+</div>
+<script>
+(function(){
+  var scenarios = [
+    // P0 - 2026
+    {id:'S01',name:'物料主数据治理',bv:5.0,td:3.0,p:'P0',c:'#003087'},
+    {id:'S04',name:'销售价格管理',bv:4.5,td:3.0,p:'P0',c:'#003087'},
+    {id:'S08',name:'海外财务合规',bv:5.0,td:3.5,p:'P0',c:'#003087'},
+    {id:'S10',name:'财务主数据治理',bv:4.5,td:3.0,p:'P0',c:'#003087'},
+    {id:'S11',name:'应收清账',bv:4.0,td:2.5,p:'P0',c:'#003087'},
+    {id:'S12',name:'集团法定合并',bv:4.5,td:3.5,p:'P0',c:'#003087'},
+    {id:'S15',name:'采购配额',bv:4.0,td:2.5,p:'P0',c:'#003087'},
+    {id:'S18',name:'主生产计划',bv:4.5,td:3.5,p:'P0',c:'#003087'},
+    {id:'S19',name:'MRP',bv:5.0,td:3.5,p:'P0',c:'#003087'},
+    {id:'S25',name:'研发产出分析',bv:4.0,td:2.5,p:'P0',c:'#003087'},
+    // P1 - 2027
+    {id:'S02',name:'客户信用管理',bv:4.5,td:4.0,p:'P1',c:'#2374a3'},
+    {id:'S03',name:'跨公司转卖',bv:4.0,td:4.0,p:'P1',c:'#2374a3'},
+    {id:'S05',name:'订单全链路跟踪',bv:4.5,td:4.0,p:'P1',c:'#2374a3'},
+    {id:'S09',name:'制造成本还原',bv:4.0,td:4.0,p:'P1',c:'#2374a3'},
+    {id:'S13',name:'供应商绩效管理',bv:4.0,td:3.5,p:'P1',c:'#2374a3'},
+    {id:'S14',name:'采购价格透明化',bv:4.0,td:3.5,p:'P1',c:'#2374a3'},
+    {id:'S16',name:'产前齐套预警',bv:3.5,td:4.0,p:'P1',c:'#2374a3'},
+    {id:'S23',name:'BOM全生命周期',bv:4.0,td:4.0,p:'P1',c:'#2374a3'},
+    {id:'S24',name:'客户项目核算',bv:3.5,td:4.0,p:'P1',c:'#2374a3'},
+    // P2 - 2028
+    {id:'S17',name:'库存可视化',bv:3.0,td:2.0,p:'P2',c:'#89c4e8'},
+    {id:'S20',name:'生产进度看板',bv:3.0,td:2.0,p:'P2',c:'#89c4e8'},
+    {id:'S21',name:'质量追溯',bv:3.5,td:2.5,p:'P2',c:'#89c4e8'},
+    {id:'S22',name:'质量合格率统计',bv:3.0,td:2.0,p:'P2',c:'#89c4e8'}
+  ];
+
+  new Chart(document.getElementById('quadrantChart'), {
+    type: 'scatter',
+    data: {
+      datasets: scenarios.map(function(s){
+        return {
+          label: s.id + ' ' + s.name,
+          data: [{x:s.bv, y:s.td}],
+          backgroundColor: s.c,
+          pointRadius: 10,
+          pointHoverRadius: 13
+        };
+      })
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function(ctx) {
+              return ctx.dataset.label + ' (BV:' + ctx.raw.x + ' TD:' + ctx.raw.y + ')';
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          min: 1.5, max: 5.5,
+          title: { display: true, text: '业务价值（Business Value）', font: { size: 12 } },
+          ticks: { stepSize: 0.5 }
+        },
+        y: {
+          min: 1.5, max: 4.5,
+          title: { display: true, text: '技术难度（Technical Difficulty）', font: { size: 12 } },
+          ticks: { stepSize: 0.5 }
+        }
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>

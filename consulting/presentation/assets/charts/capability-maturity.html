@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>八大业务能力域成熟度对比</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;width:100%;background:#fff}
+  body{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+  h1{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+     font-size:18px;font-weight:700;color:#1B3A6B;margin-bottom:12px;text-align:center}
+  .chart-box{position:relative;width:100%;max-width:950px;height:70vh;min-height:320px}
+</style>
+</head>
+<body>
+<h1>佛照8大业务能力域成熟度评估（AS-IS vs TO-BE）</h1>
+<div class="chart-box">
+  <canvas id="capabilityChart"></canvas>
+</div>
+<script>
+(function(){
+  Chart.register(ChartDataLabels);
+  var C = {
+    navy:'#003087', dark:'#1B3A6B', primary:'#005EB8', mid:'#1F70C1',
+    steel:'#4A6FA5', muted:'#6B8CB8', light:'#A8C4E0', pale:'#D0E4F7'
+  };
+  new Chart(document.getElementById('capabilityChart'), {
+    type: 'bar',
+    data: {
+      labels: ['集团财务管控','主数据治理','供应链协同','销售渠道','制造运营','质量管理','研发产品','IT治理'],
+      datasets: [{
+        label: 'AS-IS 当前成熟度',
+        data: [2.3, 1.2, 1.5, 1.7, 1.8, 2.0, 2.0, 2.0],
+        backgroundColor: 'rgba(168,196,224,0.8)',
+        borderRadius: 4
+      },{
+        label: 'TO-BE 目标成熟度',
+        data: [4.0, 3.8, 3.5, 3.5, 3.5, 3.5, 3.5, 3.8],
+        backgroundColor: 'rgba(0,48,135,0.85)',
+        borderRadius: 4
+      },{
+        label: '工信部大型企业标准线 (3.0)',
+        data: Array(8).fill(3.0),
+        type: 'line',
+        borderColor: C.steel,
+        borderDash: [6,3],
+        borderWidth: 2,
+        pointRadius: 0,
+        fill: false
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      layout: { padding: { top: 16 } },
+      plugins: {
+        legend: { position:'top', labels:{font:{size:11},padding:10} },
+        datalabels: {
+          anchor:'end', align:'top', font:{size:9,weight:'600'}, color: C.dark,
+          formatter: function(v, ctx) { return ctx.datasetIndex < 2 ? v.toFixed(1) : ''; }
+        }
+      },
+      scales: {
+        y:{beginAtZero:true,max:5,title:{display:true,text:'成熟度（1-5分）'}},
+        x:{ticks:{font:{size:10}}}
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>

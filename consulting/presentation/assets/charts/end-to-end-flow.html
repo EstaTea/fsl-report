@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三大端到端流程架构</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+       background:#fff;color:#1a1a2e;padding:20px;line-height:1.5}
+  .wrap{max-width:1100px;margin:0 auto}
+  h1{font-size:18px;font-weight:700;color:#1B3A6B;text-align:center;margin-bottom:16px}
+  h3{font-size:14px;font-weight:700;color:#0b2d47;margin:16px 0 8px}
+  .flow{display:flex;align-items:center;flex-wrap:wrap;gap:0;margin:10px 0}
+  .flow-step{background:#fff;border:1.5px solid #D0E4F7;border-radius:6px;padding:8px 12px;
+             font-size:11px;font-weight:600;color:#1B3A6B;white-space:nowrap}
+  .flow-step.active{background:#005EB8;color:#fff;border-color:#005EB8}
+  .flow-step.navy{background:#003087;color:#fff;border-color:#003087}
+  .flow-arrow{color:#4A6FA5;font-size:16px;padding:0 4px}
+  .note{font-size:12px;color:#5B7A91;margin-top:6px;margin-bottom:14px}
+  .finding{background:#f7fafd;border-left:4px solid #005EB8;padding:12px 16px;border-radius:0 6px 6px 0;
+           font-size:13px;color:#334155;margin-top:16px}
+  .finding strong{color:#0b2d47}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>三大端到端流程架构（OTC / PTP / MTC）</h1>
+
+  <h3>流程一：OTC（订单到收款，Order-to-Cash）</h3>
+  <div class="flow">
+    <div class="flow-step navy">客户主数据<br><span style="font-size:10px;opacity:.8">BP+MDG</span></div><div class="flow-arrow">→</div>
+    <div class="flow-step active">询报价<br><span style="font-size:10px;opacity:.8">VA21</span></div><div class="flow-arrow">→</div>
+    <div class="flow-step active">销售订单<br><span style="font-size:10px;opacity:.8">VA01</span></div><div class="flow-arrow">→</div>
+    <div class="flow-step active">信用检查<br><span style="font-size:10px;opacity:.8">FI-CA</span></div><div class="flow-arrow">→</div>
+    <div class="flow-step active">ATP承诺<br><span style="font-size:10px;opacity:.8">MD04</span></div><div class="flow-arrow">→</div>
+    <div class="flow-step active">交货单<br><span style="font-size:10px;opacity:.8">VL01N</span></div><div class="flow-arrow">→</div>
+    <div class="flow-step active">出库过账<br><span style="font-size:10px;opacity:.8">EWM</span></div><div class="flow-arrow">→</div>
+    <div class="flow-step active">开票<br><span style="font-size:10px;opacity:.8">VF01</span></div><div class="flow-arrow">→</div>
+    <div class="flow-step active">DRC电子发票<br><span style="font-size:10px;opacity:.8">DRC</span></div><div class="flow-arrow">→</div>
+    <div class="flow-step navy">应收清账<br><span style="font-size:10px;opacity:.8">F-28</span></div>
+  </div>
+  <p class="note">关键改进：信用检查从线下台账→系统自动控制；定价条件从OA审批→SAP价格记录自动更新；DRC模块替代金税接口实现电子发票直连；ATP可承诺量检查基于实时库存（MRP Live）</p>
+
+  <h3>流程二：PTP（采购到付款，Procure-to-Pay）</h3>
+  <div class="flow">
+    <div class="flow-step navy">供应商主数据<br><span style="font-size:10px;opacity:.8">BP+MDG</span></div><div class="flow-arrow">→</div>
+    <div class="flow-step active">采购申请<br><span style="font-size:10px;opacity:.8">PR/MRP</span></div><div class="flow-arrow">→</div>
+    <div class="flow-step active">询竞价(SRM)<br><span style="font-size:10px;opacity:.8">SRM→CPI</span></div><div class="flow-arrow">→</div>
+    <div class="flow-step active">采购订单<br><span style="font-size:10px;opacity:.8">ME21N</span></div><div class="flow-arrow">→</div>
+    <div class="flow-step active">供应商确认<br><span style="font-size:10px;opacity:.8">SRM</span></div><div class="flow-arrow">→</div>
+    <div class="flow-step active">EWM收货<br><span style="font-size:10px;opacity:.8">EWM</span></div><div class="flow-arrow">→</div>
+    <div class="flow-step active">来料检验<br><span style="font-size:10px;opacity:.8">QM-IQC</span></div><div class="flow-arrow">→</div>
+    <div class="flow-step active">发票核验<br><span style="font-size:10px;opacity:.8">MIRO</span></div><div class="flow-arrow">→</div>
+    <div class="flow-step navy">付款<br><span style="font-size:10px;opacity:.8">F110</span></div>
+  </div>
+  <p class="note">关键改进：SRM→CPI→MM接口重构消除尾差（IF-004）；收货与QM检验自动触发关联；发票三角校验（PO/收货/发票）系统自动；合同执行跟踪由系统管控</p>
+
+  <h3>流程三：MTC（制造到成本，Make-to-Cost）</h3>
+  <div class="flow">
+    <div class="flow-step navy">销售预测<br><span style="font-size:10px;opacity:.8">SD-PI</span></div><div class="flow-arrow">→</div>
+    <div class="flow-step active">需求计划<br><span style="font-size:10px;opacity:.8">PP-MRP Live</span></div><div class="flow-arrow">→</div>
+    <div class="flow-step active">MBOM展开<br><span style="font-size:10px;opacity:.8">CS11</span></div><div class="flow-arrow">→</div>
+    <div class="flow-step active">生产工单<br><span style="font-size:10px;opacity:.8">CO01/PP</span></div><div class="flow-arrow">→</div>
+    <div class="flow-step active">物料发料<br><span style="font-size:10px;opacity:.8">MIGO</span></div><div class="flow-arrow">→</div>
+    <div class="flow-step active">MES执行<br><span style="font-size:10px;opacity:.8">MES+IF-006</span></div><div class="flow-arrow">→</div>
+    <div class="flow-step active">生产报工<br><span style="font-size:10px;opacity:.8">CPI→PP</span></div><div class="flow-arrow">→</div>
+    <div class="flow-step active">质检FQC<br><span style="font-size:10px;opacity:.8">QM</span></div><div class="flow-arrow">→</div>
+    <div class="flow-step active">工单结算<br><span style="font-size:10px;opacity:.8">KO88</span></div><div class="flow-arrow">→</div>
+    <div class="flow-step navy">成本差异分析<br><span style="font-size:10px;opacity:.8">CO-PA</span></div>
+  </div>
+  <p class="note">关键改进：MRP Live基于HANA实时运算（替代ECC批量跑批）；MES报工通过CPI实时回传（IF-006）；成本差异自动计算并归集至CO-PA（盈利分析）；物料分类账（MLCCS）替代传统物料账</p>
+
+  <div class="finding">
+    <p><strong>L3流程架构关键发现：</strong>三大端到端流程中，最关键的集成点是"MES→CPI→PP"（MTC流程中的生产报工）和"OA→CPI→SD"（OTC流程中的定价审批），这两个集成点是解决佛照"系统与业务两张皮"问题的关键突破口。</p>
+  </div>
+</div>
+</body>
+</html>

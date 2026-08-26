@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数字化成熟度评估维度对比</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;width:100%;background:#fff}
+  body{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px}
+  h1{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+     font-size:18px;font-weight:700;color:#1B3A6B;margin-bottom:16px;text-align:center;letter-spacing:.5px}
+  .chart-box{position:relative;width:100%;max-width:900px;height:70vh;min-height:360px}
+</style>
+</head>
+<body>
+<h1>数字化成熟度评估维度对比</h1>
+<div class="chart-box">
+  <canvas id="maturityCompare"></canvas>
+</div>
+<script>
+(function(){
+  Chart.register(ChartDataLabels);
+
+  var C1 = '#1B3A6B'; // 佛山照明（当前）
+  var C2 = '#A5C8E4'; // 欧普照明（参照）
+  var C3 = '#0070C0'; // 目标（2027）
+  var MUTED = '#5B7A91';
+  var RULE  = '#D6E8F2';
+
+  new Chart(document.getElementById('maturityCompare'), {
+    type: 'bar',
+    data: {
+      labels: ['研产供销服','主数据治理','财务数字化','供应链制造','数字化组织','AI/IoT'],
+      datasets: [
+        { label: '佛山照明（当前）', data: [1,1,2,2,1,1], backgroundColor: C1, borderRadius: 3, barPercentage: 0.7 },
+        { label: '欧普照明（参照）', data: [4,3,3,3,4,2], backgroundColor: C2, borderRadius: 3, barPercentage: 0.7 },
+        { label: '目标（2027）',      data: [3,3,4,3,2,2], backgroundColor: C3, borderRadius: 3, barPercentage: 0.7 }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: { padding: { top: 28 } },
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: { font: { size: 12, family: "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif" }, padding: 16, color: C1 }
+        },
+        datalabels: {
+          anchor: 'end',
+          align: 'top',
+          clamp: true,
+          font: { size: 10, weight: '600', family: "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif" },
+          color: C1,
+          formatter: function(v) { return v; }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 5,
+          ticks: { font: { size: 11, family: "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif" }, color: MUTED, stepSize: 1 },
+          grid: { color: RULE },
+          title: { display: true, text: '成熟度等级（1–5）', font: { size: 11, family: "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif" }, color: MUTED }
+        },
+        x: {
+          ticks: { font: { size: 11, family: "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif" }, color: MUTED },
+          grid: { display: false }
+        }
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>

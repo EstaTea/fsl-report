@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>架构差距量化分析</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;width:100%;background:#fff}
+  body{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+  h1{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+     font-size:18px;font-weight:700;color:#1B3A6B;margin-bottom:12px;text-align:center}
+  .chart-box{position:relative;width:100%;max-width:950px;height:70vh;min-height:320px}
+</style>
+</head>
+<body>
+<h1>架构差距量化分析：AS-IS 当前 vs 需提升差距</h1>
+<div class="chart-box">
+  <canvas id="gapChart"></canvas>
+</div>
+<script>
+(function(){
+  Chart.register(ChartDataLabels);
+  var C = {
+    navy:'#003087', dark:'#1B3A6B', primary:'#005EB8', mid:'#1F70C1',
+    steel:'#4A6FA5', muted:'#6B8CB8', light:'#A8C4E0', pale:'#D0E4F7'
+  };
+  var domains = ['主数据治理','供应链协同','销售渠道管理','IT治理','集团财务管控','制造运营','研发产品管理','质量管理'];
+  var asIs   = [1.2, 1.5, 1.7, 2.0, 2.3, 1.8, 2.0, 2.0];
+  var toBe   = [3.8, 3.5, 3.5, 3.8, 4.0, 3.5, 3.5, 3.5];
+  var gaps   = toBe.map(function(t,i){ return +(t - asIs[i]).toFixed(1); });
+  new Chart(document.getElementById('gapChart'), {
+    type: 'bar',
+    data: {
+      labels: domains,
+      datasets: [{
+        label: 'AS-IS当前成熟度',
+        data: asIs,
+        backgroundColor: 'rgba(168,196,224,0.8)',
+        borderRadius: 3,
+        stack: 'stack'
+      },{
+        label: '架构差距（需提升）',
+        data: gaps,
+        backgroundColor: domains.map(function(_,i){
+          var g = gaps[i];
+          return g >= 2.0 ? 'rgba(0,48,135,0.85)' : g >= 1.6 ? 'rgba(0,94,184,0.8)' : 'rgba(74,111,165,0.75)';
+        }),
+        borderRadius: 3,
+        stack: 'stack'
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true, maintainAspectRatio: false,
+      layout: { padding: { right: 50 } },
+      plugins: {
+        legend: { position:'top', labels:{font:{size:11},padding:10} },
+        datalabels: {
+          anchor:'end', align:'right', font:{size:9,weight:'600'}, color: C.dark,
+          formatter: function(v, ctx) { return ctx.datasetIndex === 1 ? '+' + v : ''; }
+        }
+      },
+      scales: {
+        x:{min:0,max:5,stacked:true,title:{display:true,text:'成熟度分值'}},
+        y:{stacked:true,ticks:{font:{size:11}}}
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>

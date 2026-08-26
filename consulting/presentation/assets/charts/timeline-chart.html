@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>里程碑时间轴</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; background: #fff; }
+  .chart-container { width: 100%; height: 100vh; padding: 20px; display: flex; flex-direction: column; }
+  h2 { font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif; font-size: 18px; color: #1B3A6B; margin-bottom: 12px; text-align: center; }
+  .canvas-wrap { flex: 1; position: relative; min-height: 0; }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+<div class="chart-container">
+  <h2>里程碑时间轴</h2>
+  <div class="canvas-wrap"><canvas id="timelineChart"></canvas></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<script>
+Chart.register(ChartDataLabels);
+var C = {
+  navy:'#003087', dark:'#1B3A6B', primary:'#005EB8', mid:'#1F70C1',
+  steel:'#4A6FA5', muted:'#6B8CB8', light:'#A8C4E0', pale:'#D0E4F7'
+};
+
+var tProjects=['P-01 MDG主数据','P-02 S/4HANA核心','P-03 Group Rpt','P-04 DRC','P-05 CPI接口',
+  'P-06 EWM仓储','P-07 销售信用','P-08 成本核算','P-09 MES集成','P-10 PLM集成',
+  'P-11 MRP优化','P-12 质量追溯','P-15 泰国合规','P-18 IBP','P-22 GTS'];
+var tData=[[0,8],[1,7],[2,6],[2,6],[2,6],[2,6],[2,6],[2,6],[6,4],[6,4],[5,5],[6,4],[5,5],[9,2],[9,2]];
+var qLabels=['26Q2','26Q3','26Q4','27Q1','27Q2','27Q3','27Q4','28Q1','28Q2','28Q3','28Q4'];
+function getCol(start){ return start<=3?C.navy:start<=6?C.primary:C.steel; }
+var tDatasets=[];
+for(var q=0;q<11;q++){
+  var bData=tProjects.map(function(_,pi){
+    return (q>=tData[pi][0] && q<tData[pi][0]+tData[pi][1])?1:0;
+  });
+  tDatasets.push({
+    label:qLabels[q], data:bData, stack:'s',
+    backgroundColor:bData.map(function(v,pi){
+      return v===0?'transparent':getCol(tData[pi][0])+(q%2===0?'CC':'AA');
+    }),
+    borderRadius:2
+  });
+}
+
+new Chart(document.getElementById('timelineChart'), {
+  type:'bar',
+  data:{labels:tProjects, datasets:tDatasets},
+  options:{
+    indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      datalabels:{display:false},
+      tooltip:{
+        callbacks:{
+          title:function(i){return i[0].label;},
+          label:function(i){return i.raw===0?null:'实施中：'+qLabels[i.datasetIndex];}
+        },
+        filter:function(i){return i.raw>0;}
+      }
+    },
+    scales:{
+      x:{stacked:true,min:0,max:11,ticks:{callback:function(v){return qLabels[v]||'';},stepSize:1,font:{size:9}},grid:{color:'rgba(0,0,0,.05)'}},
+      y:{stacked:true,ticks:{font:{size:10}}}
+    }
+  }
+});
+</script>
+</body>
+</html>

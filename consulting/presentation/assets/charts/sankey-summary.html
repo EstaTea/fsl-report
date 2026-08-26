@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>701条原始需求 → 4A架构 → 高价值场景 → 项目卡片</title>
+<style>
+  :root{
+    --c1:#1B3A6B; --c2:#2E5C9E; --c3:#0070C0; --c4:#2374a3; --c5:#5B9BD5; --c6:#A5C8E4;
+    --bg:#F5F8FC; --white:#FFFFFF; --text:#0D1B2A;
+  }
+  body{font-family:"Microsoft YaHei",Arial,sans-serif;background:var(--bg);color:var(--text);margin:0;padding:24px}
+  h2{font-size:18px;font-weight:700;color:var(--c1);margin:0 0 4px}
+  .subtitle{font-size:12px;color:var(--c5);margin-bottom:16px}
+  .wrap{max-width:1100px;margin:0 auto;background:var(--white);border-radius:10px;padding:20px 24px;box-shadow:0 2px 10px rgba(27,58,107,.08)}
+  svg{display:block;width:100%;height:auto}
+  .node-label{font-size:10px;font-weight:600;fill:#fff;pointer-events:none}
+  .node-label-out{font-size:10px;font-weight:600;fill:var(--c1);pointer-events:none}
+  .col-title{font-size:11px;font-weight:700;fill:var(--c1);text-anchor:middle}
+  .flow{fill:none;stroke-linecap:round;opacity:.55}
+  .pc-box{fill:#fff;stroke:var(--c5);stroke-width:1;rx:3}
+  .pc-text{font-size:8px;fill:var(--c1)}
+  .year-label{font-size:9px;font-weight:700;fill:var(--c1)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h2>701 条原始需求 → 4A 架构 → 高价值场景 → 项目卡片</h2>
+<div class="subtitle">五层追溯汇总视图 | 连线宽度 ∝ 需求条数</div>
+<svg id="sankey" viewBox="0 0 980 520" xmlns="http://www.w3.org/2000/svg"></svg>
+</div>
+
+<script>
+(function(){
+const svg = document.getElementById('sankey');
+const NS = "http://www.w3.org/2000/svg";
+
+const colors = ['#1B3A6B','#2E5C9E','#0070C0','#2374a3','#5B9BD5','#A5C8E4','#1B3A6B','#2E5C9E','#0070C0','#2374a3'];
+
+// ===== Column 1: Original Demand Domains =====
+const col1 = [
+  {name:'销售与渠道', value:189, y:0},
+  {name:'财务与资金', value:149, y:0},
+  {name:'采购与供应', value:104, y:0},
+  {name:'管理协同',   value:107, y:0},
+  {name:'计划与制造', value:81,  y:0},
+  {name:'仓储物流',   value:69,  y:0},
+  {name:'主数据与IT', value:70,  y:0},
+  {name:'研发与BOM',  value:49,  y:0},
+  {name:'质量管理',   value:36,  y:0},
+  {name:'数据分析',   value:19,  y:0},
+];
+
+// ===== Column 2: 4A Architecture =====
+const col2 = [
+  {name:'BA\n业务架构', value:372, y:0},
+  {name:'DA\n数据架构', value:218, y:0},
+  {name:'AA\n应用架构', value:135, y:0},
+  {name:'TA\n技术架构', value:77,  y:0},
+];
+
+// ===== Column 3: Key Scenarios (condensed from 23) =====
+const col3 = [
+  {name:'销售订单\n全链路', value:140, y:0},
+  {name:'集团合并\n报表', value:110, y:0},
+  {name:'供应链计划\n与制造协同', value:95, y:0},
+  {name:'主数据治理\n与标准化', value:85, y:0},
+  {name:'质量追溯\n与研发一体', value:75, y:0},
+  {name:'集成架构\n与CPI中枢', value:65, y:0},
+  {name:'海外本地化\n合规', value:45, y:0},
+  {name:'数据智能\n分析平台', value:35, y:0},
+];
+
+// ===== Column 4: Project Cards by Year =====
+const col4 = [
+  {
+    year:'2026 筑基年',
+    cards:['PC01 数字底座','PC02 主数据治理','PC03 集成架构'],
+    value:190, y:0
+  },
+  {
+    year:'2027 攻坚年',
+    cards:['PC04 流程蓝图','PC05 财务核心','PC06 销售全链路','PC07 供应链协同','PC08 质量追溯'],
+    value:360, y:0
+  },
+  {
+    year:'2028 智能年',
+    cards:['PC09 海外深化','PC10 数据智能','PC11 生态协同'],
+    value:151, y:0
+  },
+];
+
+// Layout constants
+const W = 980, H = 520;
+const padTop = 60, padBot = 30;
+const x1 = 70, x2 = 280, x3 = 510, x4 = 740;
+const nodeW = 22;
+const gap = 6;
+const totalVal = 701;
+const usableH = H - padTop - padBot;
+
+function layoutColumn(nodes, startX){
+  let total = nodes.reduce((s,n)=>s+n.value,0);
+  let scale = usableH / total;
+  let cy = padTop;
+  nodes.forEach((n,i) => {
+    n.h = Math.max(n.value * scale, 14);
+    n.x = startX;
+    n.y = cy;
+    n.cx = startX + nodeW/2;
+    n.cy = cy + n.h/2;
+    cy += n.h + gap;
+  });
+}
+
+layoutColumn(col1, x1);
+layoutColumn(col2, x2);
+layoutColumn(col3, x3);
+
+// Layout col4 (year buckets with cards inside)
+let c4total = col4.reduce((s,n)=>s+n.value,0);
+let c4scale = usableH / c4total;
+let c4y = padTop;
+col4.forEach((n,i) => {
+  n.h = Math.max(n.value * c4scale, 60);
+  n.x = x4;
+  n.y = c4y;
+  n.cx = x4 + nodeW/2;
+  n.cy = c4y + n.h/2;
+  c4y += n.h + gap;
+});
+
+function makePath(x0,y0,x1,y1,x2,y2,x3,y3){
+  return `M${x0},${y0} C${x1},${y1} ${x2},${y2} ${x3},${y3}`;
+}
+
+function drawFlow(y0, y0h, y1, y1h, color, strokeW){
+  const p = document.createElementNS(NS, 'path');
+  const c0 = x1 + nodeW, c1 = x2;
+  const mx = (c0 + c1) / 2;
+  p.setAttribute('d', makePath(c0, y0, mx, y0, mx, y1, c1, y1));
+  p.setAttribute('stroke', color);
+  p.setAttribute('stroke-width', Math.max(strokeW, 1.5));
+  p.setAttribute('class', 'flow');
+  svg.appendChild(p);
+}
+
+function drawFlow2(y0, y0h, y1, y1h, color, strokeW){
+  const p = document.createElementNS(NS, 'path');
+  const c0 = x2 + nodeW, c1 = x3;
+  const mx = (c0 + c1) / 2;
+  p.setAttribute('d', makePath(c0, y0, mx, y0, mx, y1, c1, y1));
+  p.setAttribute('stroke', color);
+  p.setAttribute('stroke-width', Math.max(strokeW, 1.5));
+  p.setAttribute('class', 'flow');
+  svg.appendChild(p);
+}
+
+function drawFlow3(y0, y0h, y1, y1h, color, strokeW){
+  const p = document.createElementNS(NS, 'path');
+  const c0 = x3 + nodeW, c1 = x4;
+  const mx = (c0 + c1) / 2;
+  p.setAttribute('d', makePath(c0, y0, mx, y0, mx, y1, c1, y1));
+  p.setAttribute('stroke', color);
+  p.setAttribute('stroke-width', Math.max(strokeW, 1.5));
+  p.setAttribute('class', 'flow');
+  svg.appendChild(p);
+}
+
+function addText(x, y, text, cls, anchor){
+  const t = document.createElementNS(NS, 'text');
+  t.setAttribute('x', x);
+  t.setAttribute('y', y);
+  t.setAttribute('class', cls);
+  if(anchor) t.setAttribute('text-anchor', anchor);
+  text.split('\n').forEach((line, i) => {
+    const span = document.createElementNS(NS, 'tspan');
+    span.setAttribute('x', x);
+    span.setAttribute('dy', i===0 ? 0 : 12);
+    span.textContent = line;
+    t.appendChild(span);
+  });
+  svg.appendChild(t);
+}
+
+function addRect(x, y, w, h, color){
+  const r = document.createElementNS(NS, 'rect');
+  r.setAttribute('x', x);
+  r.setAttribute('y', y);
+  r.setAttribute('width', w);
+  r.setAttribute('height', h);
+  r.setAttribute('fill', color);
+  r.setAttribute('rx', 3);
+  svg.appendChild(r);
+}
+
+// Title headers
+addText(x1+nodeW/2, 28, '原始需求域', 'col-title', 'middle');
+addText(x2+nodeW/2, 28, 'TOGAF 4A 架构域', 'col-title', 'middle');
+addText(x3+nodeW/2, 28, '高价值场景', 'col-title', 'middle');
+addText(x4+nodeW/2, 28, '项目卡片', 'col-title', 'middle');
+
+// Draw column 1 nodes
+let c1out = {};
+col1.forEach((n,i) => {
+  addRect(n.x, n.y, nodeW, n.h, colors[i]);
+  addText(n.x+nodeW+6, n.cy+3, n.name + ' ('+n.value+')', 'node-label-out', 'start');
+  c1out[i] = {y:n.y, h:n.h, used:0};
+});
+
+// Draw column 2 nodes
+let c2in = {}, c2out = {};
+col2.forEach((n,i) => {
+  addRect(n.x, n.y, nodeW, n.h, colors[i+2]);
+  addText(n.x+nodeW/2, n.cy+3, n.name, 'node-label', 'middle');
+  c2in[i] = {y:n.y, h:n.h, used:0};
+  c2out[i] = {y:n.y, h:n.h, used:0};
+});
+
+// Draw column 3 nodes
+let c3in = {}, c3out = {};
+col3.forEach((n,i) => {
+  addRect(n.x, n.y, nodeW, n.h, colors[i%colors.length]);
+  addText(n.x+nodeW/2, n.cy+3, n.name, 'node-label', 'middle');
+  c3in[i] = {y:n.y, h:n.h, used:0};
+  c3out[i] = {y:n.y, h:n.h, used:0};
+});
+
+// Draw column 4 year buckets
+col4.forEach((n,i) => {
+  // Outer bucket
+  const r = document.createElementNS(NS, 'rect');
+  r.setAttribute('x', n.x);
+  r.setAttribute('y', n.y);
+  r.setAttribute('width', 180);
+  r.setAttribute('height', n.h);
+  r.setAttribute('fill', 'rgba(165,200,228,0.15)');
+  r.setAttribute('stroke', '#A5C8E4');
+  r.setAttribute('stroke-width', 1);
+  r.setAttribute('rx', 4);
+  svg.appendChild(r);
+
+  // Year label
+  addText(n.x+8, n.y+16, n.year, 'year-label', 'start');
+
+  // Cards
+  n.cards.forEach((c, ci) => {
+    const cr = document.createElementNS(NS, 'rect');
+    cr.setAttribute('x', n.x+8);
+    cr.setAttribute('y', n.y+22+ci*18);
+    cr.setAttribute('width', 164);
+    cr.setAttribute('height', 14);
+    cr.setAttribute('class', 'pc-box');
+    svg.appendChild(cr);
+    const ct = document.createElementNS(NS, 'text');
+    ct.setAttribute('x', n.x+14);
+    ct.setAttribute('y', n.y+32+ci*18);
+    ct.setAttribute('class', 'pc-text');
+    ct.textContent = c;
+    svg.appendChild(ct);
+  });
+});
+
+// ===== Flow mappings (simplified for presentation) =====
+// Domain → Architecture (proportional distribution)
+const d2a = [
+  [0, 0.55, 0.25, 0.15, 0.05], // Sales → BA/DA/AA/TA
+  [1, 0.40, 0.45, 0.10, 0.05], // Finance → BA/DA/AA/TA
+  [2, 0.50, 0.20, 0.25, 0.05], // Procurement → BA/DA/AA/TA
+  [3, 0.45, 0.15, 0.25, 0.15], // Mgmt → BA/DA/AA/TA
+  [4, 0.50, 0.35, 0.10, 0.05], // Planning → BA/DA/AA/TA
+  [5, 0.45, 0.20, 0.30, 0.05], // Warehouse → BA/DA/AA/TA
+  [6, 0.20, 0.55, 0.15, 0.10], // MasterData → BA/DA/AA/TA
+  [7, 0.40, 0.40, 0.15, 0.05], // R&D → BA/DA/AA/TA
+  [8, 0.55, 0.30, 0.10, 0.05], // Quality → BA/DA/AA/TA
+  [9, 0.15, 0.50, 0.25, 0.10], // DataAnalytics → BA/DA/AA/TA
+];
+
+// Architecture → Scenario
+const a2s = [
+  [0, 0.22, 0.18, 0.20, 0.15, 0.12, 0.08, 0.03, 0.02], // BA → scenarios
+  [1, 0.10, 0.25, 0.15, 0.25, 0.10, 0.05, 0.05, 0.05], // DA → scenarios
+  [2, 0.35, 0.05, 0.20, 0.05, 0.15, 0.15, 0.03, 0.02], // AA → scenarios
+  [3, 0.10, 0.05, 0.15, 0.10, 0.10, 0.35, 0.10, 0.05], // TA → scenarios
+];
+
+// Scenario → Year bucket
+const s2y = [
+  [0, 0.10, 0.75, 0.15], // Sales order → 2026/2027/2028
+  [1, 0.05, 0.85, 0.10], // Consolidation → 2026/2027/2028
+  [2, 0.05, 0.80, 0.15], // Supply chain → 2026/2027/2028
+  [3, 0.70, 0.25, 0.05], // Master data → 2026/2027/2028
+  [4, 0.05, 0.80, 0.15], // Quality → 2026/2027/2028
+  [5, 0.80, 0.15, 0.05], // Integration → 2026/2027/2028
+  [6, 0.05, 0.30, 0.65], // Overseas → 2026/2027/2028
+  [7, 0.05, 0.20, 0.75], // Data intelligence → 2026/2027/2028
+];
+
+function emitFlow(src, dst, srcIdx, dstIdx, srcArr, dstArr, color, drawFn, ratioMap){
+  let srcNode = srcArr[srcIdx];
+  let dstNode = dstArr[dstIdx];
+  let ratio = ratioMap[srcIdx][dstIdx+1];
+  let val = srcNode.value * ratio;
+  let scale = usableH / totalVal;
+  let sw = Math.max(val * scale, 1);
+
+  let sy = src.y + src.h * (srcArr === col4 ? 0.5 : 0.3); // simplified center flow
+  let dy = dst.y + dst.h * 0.5;
+
+  // Better: track used heights per node
+  if(!src._used) src._used = 0;
+  if(!dst._used) dst._used = 0;
+  let srcSlot = src._used;
+  let dstSlot = dst._used;
+  src._used += sw;
+  dst._used += sw;
+
+  let sy0 = src.y + srcSlot + sw/2;
+  let dy0 = dst.y + dstSlot + sw/2;
+
+  drawFn(sy0, sw, dy0, sw, color, sw);
+}
+
+// Draw domain → architecture flows
+let flowColors = ['#1B3A6B','#2E5C9E','#0070C0','#2374a3','#5B9BD5','#A5C8E4','#1B3A6B','#2E5C9E','#0070C0','#2374a3'];
+d2a.forEach((row, di) => {
+  let src = col1[di];
+  for(let ai=0; ai<4; ai++){
+    let ratio = row[ai+1];
+    let val = src.value * ratio;
+    let scale = usableH / totalVal;
+    let sw = Math.max(val * scale, 0.8);
+    if(!src._used) src._used = 0;
+    if(!col2[ai]._used) col2[ai]._used = 0;
+    let sy = src.y + src._used + sw/2;
+    let dy = col2[ai].y + col2[ai]._used + sw/2;
+    src._used += sw;
+    col2[ai]._used += sw;
+    drawFlow(sy, sw, dy, sw, flowColors[di], sw);
+  }
+});
+
+// Draw architecture → scenario flows
+let aColors = ['#2E5C9E','#0070C0','#2374a3','#5B9BD5'];
+a2s.forEach((row, ai) => {
+  let src = col2[ai];
+  for(let si=0; si<8; si++){
+    let ratio = row[si+1];
+    let val = src.value * ratio;
+    let scale = usableH / totalVal;
+    let sw = Math.max(val * scale, 0.8);
+    if(!src._used2) src._used2 = 0;
+    if(!col3[si]._used) col3[si]._used = 0;
+    let sy = src.y + src._used2 + sw/2;
+    let dy = col3[si].y + col3[si]._used + sw/2;
+    src._used2 += sw;
+    col3[si]._used += sw;
+    drawFlow2(sy, sw, dy, sw, aColors[ai], sw);
+  }
+});
+
+// Draw scenario → year bucket flows
+let sColors = ['#1B3A6B','#2E5C9E','#0070C0','#2374a3','#5B9BD5','#A5C8E4','#1B3A6B','#2E5C9E'];
+s2y.forEach((row, si) => {
+  let src = col3[si];
+  for(let yi=0; yi<3; yi++){
+    let ratio = row[yi+1];
+    let val = src.value * ratio;
+    let scale = usableH / totalVal;
+    let sw = Math.max(val * scale, 0.8);
+    if(!src._used2) src._used2 = 0;
+    if(!col4[yi]._used) col4[yi]._used = 0;
+    let sy = src.y + src._used2 + sw/2;
+    let dy = col4[yi].y + col4[yi]._used + sw/2;
+    src._used2 += sw;
+    col4[yi]._used += sw;
+    drawFlow3(sy, sw, dy, sw, sColors[si], sw);
+  }
+});
+
+// Node labels on top
+[col1, col2, col3].forEach((col, ci) => {
+  col.forEach((n,i) => {
+    // Already drawn above
+  });
+});
+
+})();
+</script>
+</body>
+</html>
