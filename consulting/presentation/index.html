@@ -626,20 +626,36 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 <!-- 11d. 系统建设详情 -->
 <section class="slide" data-title="系统建设详情">
   <p class="kicker">SYSTEM LANDSCAPE DETAIL</p>
-  <h2 class="h2">22个系统：分层分类全景</h2>
-  <table class="fsl-table mt-l">
-    <tr><th>层级</th><th>系统</th><th>功能</th><th>状态</th></tr>
-    <tr><td>ERP核心</td><td>SAP ECC</td><td>财务/采购/库存/生产</td><td>运行中，待升级</td></tr>
-    <tr><td>研发</td><td>PLM</td><td>产品生命周期管理</td><td>运行中</td></tr>
-    <tr><td>供应链</td><td>SRM / WMS</td><td>供应商协同/仓储管理</td><td>运行中</td></tr>
-    <tr><td>生产</td><td>MES</td><td>制造执行</td><td>运行中</td></tr>
-    <tr><td>销售</td><td>CRM / 电商</td><td>客户管理/电商运营</td><td>运行中</td></tr>
-    <tr><td>协同</td><td>OA</td><td>审批/办公</td><td>运行中</td></tr>
-    <tr><td>分析</td><td>BI / 数据仓库</td><td>报表/数据分析</td><td>运行中</td></tr>
-  </table>
+  <h2 class="h2" style="font-size:18px;margin-bottom:8px">22个系统：分层分类全景</h2>
+  <div style="height:calc(100% - 90px);overflow:auto;border:1px solid var(--border);border-radius:var(--radius);">
+    <table class="fsl-table" style="font-size:11px">
+      <tr><th style="padding:6px 10px">系统</th><th style="padding:6px 10px">建设部门</th><th style="padding:6px 10px">运维部门</th></tr>
+      <tr><td style="padding:5px 10px"><strong>SAP ECC</strong></td><td style="padding:5px 10px">数智化部（技术支持）</td><td style="padding:5px 10px">外部顾问、数智化部</td></tr>
+      <tr><td style="padding:5px 10px">用友财务共享平台</td><td style="padding:5px 10px">财务管理部（主导）、数智化部</td><td style="padding:5px 10px">用友实施团队、财务管理部</td></tr>
+      <tr><td style="padding:5px 10px">聚水潭电商ERP</td><td style="padding:5px 10px">电商事业部、数智化部</td><td style="padding:5px 10px">聚水潭厂商、电商事业部</td></tr>
+      <tr><td style="padding:5px 10px">顺丰WMS</td><td style="padding:5px 10px">电商事业部、数智化部</td><td style="padding:5px 10px">顺丰厂商</td></tr>
+      <tr><td style="padding:5px 10px">MES（生产执行系统）</td><td style="padding:5px 10px">车灯事业部、研究院、数智化部</td><td style="padding:5px 10px">车灯事业部、MES厂商</td></tr>
+      <tr><td style="padding:5px 10px">PLM（产品生命周期管理）</td><td style="padding:5px 10px">研究院、产品及方案中心、数智化部</td><td style="padding:5px 10px">研究院、PLM厂商</td></tr>
+      <tr><td style="padding:5px 10px">OA系统（泛微）</td><td style="padding:5px 10px">企业管理部、数智化部</td><td style="padding:5px 10px">数智化部、泛微厂商</td></tr>
+      <tr><td style="padding:5px 10px">SRM（供应商关系管理系统）</td><td style="padding:5px 10px">招投标中心、供应链中心、数智化部</td><td style="padding:5px 10px">招投标中心、SRM厂商</td></tr>
+      <tr><td style="padding:5px 10px">佛照商城（B2B订货平台）</td><td style="padding:5px 10px">家用事业部、电商事业部、数智化部</td><td style="padding:5px 10px">电商事业部、商城厂商</td></tr>
+      <tr><td style="padding:5px 10px">AI平台/知识库</td><td style="padding:5px 10px">数智化部（自研）</td><td style="padding:5px 10px">数智化部</td></tr>
+      <tr><td style="padding:5px 10px">Finereport</td><td style="padding:5px 10px">数智化部</td><td style="padding:5px 10px">数智化部</td></tr>
+      <tr><td style="padding:5px 10px">防伪防窜系统</td><td style="padding:5px 10px">高明仓库、数智化部</td><td style="padding:5px 10px">数智化部</td></tr>
+      <tr><td style="padding:5px 10px">加密系统</td><td style="padding:5px 10px">研究院、数智化部</td><td style="padding:5px 10px">数智化部</td></tr>
+      <tr><td style="padding:5px 10px">官网</td><td style="padding:5px 10px">企业管理部、数智化部</td><td style="padding:5px 10px">/</td></tr>
+      <tr><td style="padding:5px 10px">企业云盘</td><td style="padding:5px 10px">数智化部</td><td style="padding:5px 10px">数智化部</td></tr>
+      <tr><td style="padding:5px 10px">人力资源系统</td><td style="padding:5px 10px">人力资源部、数智化部</td><td style="padding:5px 10px">/</td></tr>
+      <tr><td style="padding:5px 10px">档案管理系统</td><td style="padding:5px 10px">办公室（党委办、维稳办）、数智化部</td><td style="padding:5px 10px">数智化部</td></tr>
+      <tr><td style="padding:5px 10px">电子签章系统</td><td style="padding:5px 10px">法律与风控事务部、数智化部</td><td style="padding:5px 10px">数智化部、契约锁厂商</td></tr>
+      <tr><td style="padding:5px 10px">司库系统</td><td style="padding:5px 10px">财务管理部、数智化部</td><td style="padding:5px 10px">浪潮厂商、财务管理部</td></tr>
+      <tr><td style="padding:5px 10px">CRM（客户关系管理系统）</td><td style="padding:5px 10px">商用事业部、家用事业部、数智化部</td><td style="padding:5px 10px">纷扬科技厂商、数智化部</td></tr>
+      <tr><td style="padding:5px 10px">企业微信/邮箱</td><td style="padding:5px 10px">数智化部</td><td style="padding:5px 10px">腾讯厂商、数智化部</td></tr>
+    </table>
+  </div>
   <aside class="notes">
-    <p>22个系统的分层分类全景。</p>
-    <p>核心层是SAP ECC，运营层是PLM、SRM、WMS等，支撑层是OA、BI等。</p>
+    <p>22个系统的完整清单，来自诊断报告。</p>
+    <p>核心层是SAP ECC，运营层是PLM、SRM、WMS、MES等，支撑层是OA、BI、HR等。</p>
     <p>每个系统单独看都还行，但合起来就是<strong>烟囱</strong>——各自为政，数据不通。</p>
   </aside>
 </section>
