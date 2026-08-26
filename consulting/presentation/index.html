@@ -15,7 +15,7 @@
   --border:rgba(11,45,71,.12);--border-strong:rgba(11,45,71,.28);
   --text-1:#0b2d47;--text-2:#1a4f73;--text-3:#5b7a91;
   --accent:#0b2d47;--accent-2:#2374a3;--accent-3:#5ea4ce;
-  --good:#0e9f6e;--warn:#d97706;--bad:#dc2626;
+  --good:#2374a3;--warn:#2374a3;--bad:#0b2d47;
   --grad:linear-gradient(135deg,#0b2d47,#2374a3);
   --grad-soft:linear-gradient(135deg,#ebf5fb,#c7e2f2);
   --radius:8px;--radius-sm:4px;--radius-lg:12px;
@@ -43,8 +43,8 @@ h1.title,h2.title,.h1,.h2{font-weight:700;color:var(--accent)}
 .project-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;position:relative;overflow:hidden}
 .project-card::before{content:"";position:absolute;top:0;left:0;width:4px;height:100%;background:var(--accent-2)}
 .phase-badge{display:inline-block;padding:3px 12px;border-radius:20px;font-size:11px;font-weight:700;margin-bottom:8px}
-.phase-1{background:#e8f5e9;color:#1b5e20}
-.phase-2{background:#fff3e0;color:#e65100}
+.phase-1{background:#e8f1f8;color:#0b2d47}
+.phase-2{background:#f2f7fb;color:#1a4f73}
 .phase-3{background:#e3f2fd;color:#0d47a1}
 .timeline-dot{width:14px;height:14px;border-radius:50%;background:var(--accent-2);border:3px solid var(--surface-2);position:relative;z-index:2}
 .timeline-line{position:absolute;top:14px;left:6px;width:2px;height:calc(100% - 14px);background:var(--border-strong)}
@@ -205,7 +205,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
   <p class="kicker">DELIVERABLES</p>
   <h2 class="h2">三份报告，层层递进</h2>
   <div class="grid g3 mt-l">
-    <div class="card" style="border-top:4px solid #dc2626">
+    <div class="card" style="border-top:4px solid #0b2d47">
       <h4>诊断报告 V6</h4>
       <p class="dim">回答：<strong>"我们在哪？"</strong></p>
       <p class="dim" style="font-size:12px;margin-top:8px">AS-IS现状 · 701条需求 · 成熟度评估 · 行业对标</p>
@@ -215,7 +215,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
       <p class="dim">回答：<strong>"要去哪？"</strong></p>
       <p class="dim" style="font-size:12px;margin-top:8px">TO-BE蓝图 · TOGAF 4A · 23个高价值场景</p>
     </div>
-    <div class="card" style="border-top:4px solid #0e9f6e">
+    <div class="card" style="border-top:4px solid #5ea4ce">
       <h4>路径报告 V3</h4>
       <p class="dim">回答：<strong>"怎么去？"</strong></p>
       <p class="dim" style="font-size:12px;margin-top:8px">三年路线图 · 24项目卡片 · 资源与风险</p>
@@ -239,7 +239,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
   <h2 class="h2">五大核心发现</h2>
   <div class="stack mt-l">
     <div class="pain-card"><strong>发现一：</strong>数字化成熟度处于<strong>Level 1.9</strong>（初始级→规范级下限），距行业标杆（Level 3+）差距明显。</div>
-    <div class="pain-card" style="border-left-color:#d97706"><strong>发现二：</strong>701条需求中，<strong>管理、流程、系统、数据</strong>四个层面均有深层痛点，系统烟囱化、数据孤岛化是核心瓶颈。</div>
+    <div class="pain-card" style="border-left-color:#2374a3"><strong>发现二：</strong>701条需求中，<strong>管理、流程、系统、数据</strong>四个层面均有深层痛点，系统烟囱化、数据孤岛化是核心瓶颈。</div>
     <div class="pain-card" style="border-left-color:#2374a3"><strong>发现三：</strong>SAP作为核心交易后台，与SRM/PLM/OA/WMS等外围系统存在大量<strong>数据交互断点</strong>，业务流无法闭环。</div>
     <div class="win-card"><strong>发现四：</strong>通过TOGAF架构设计，701条需求可收敛为<strong>23个高价值场景</strong>，并映射到<strong>24个项目卡片</strong>，实施路径清晰。</div>
     <div class="win-card"><strong>发现五：</strong>三年分阶段实施（2026筑基→2027攻坚→2028智能），总投资可控，ROI可量化。</div>
@@ -540,9 +540,9 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
       </div>
     </div>
     <div style="display:flex;align-items:flex-start;gap:16px;position:relative">
-      <div class="timeline-dot" style="flex-shrink:0;margin-top:2px;background:#0e9f6e;border-color:#e8f5e9"></div>
+      <div class="timeline-dot" style="flex-shrink:0;margin-top:2px;background:#2374a3;border-color:#e8f1f8"></div>
       <div>
-        <div style="font-weight:700;color:#0e9f6e">2026-2028 · 转型跃升期</div>
+        <div style="font-weight:700;color:#2374a3">2026-2028 · 转型跃升期</div>
         <p class="dim" style="margin-top:4px">S/4HANA Greenfield实施，以SAP为核心重建数字化底座，实现架构级跃迁。</p>
       </div>
     </div>
@@ -772,10 +772,10 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
   <h2 class="h2">四层痛点影响矩阵</h2>
   <table class="fsl-table mt-l">
     <tr><th>痛点层面</th><th>核心问题</th><th>影响范围</th><th>紧急程度</th></tr>
-    <tr><td>管理</td><td>事后补救多于事前预防</td><td>信用、合同、价格、绩效</td><td><span style="color:#d97706;font-weight:700">高</span></td></tr>
-    <tr><td>流程</td><td>端到端断裂，线下作业冗余</td><td>P2P、O2C、废品、审批</td><td><span style="color:#dc2626;font-weight:700">极高</span></td></tr>
-    <tr><td>系统</td><td>集成断点，性能瓶颈</td><td>PLM、OA、SRM、SAP</td><td><span style="color:#dc2626;font-weight:700">极高</span></td></tr>
-    <tr><td>数据</td><td>主数据混乱，价值挖掘缺失</td><td>物料、BOM、客商、报表</td><td><span style="color:#dc2626;font-weight:700">极高</span></td></tr>
+    <tr><td>管理</td><td>事后补救多于事前预防</td><td>信用、合同、价格、绩效</td><td><span style="color:#2374a3;font-weight:700">高</span></td></tr>
+    <tr><td>流程</td><td>端到端断裂，线下作业冗余</td><td>P2P、O2C、废品、审批</td><td><span style="color:#0b2d47;font-weight:700">极高</span></td></tr>
+    <tr><td>系统</td><td>集成断点，性能瓶颈</td><td>PLM、OA、SRM、SAP</td><td><span style="color:#0b2d47;font-weight:700">极高</span></td></tr>
+    <tr><td>数据</td><td>主数据混乱，价值挖掘缺失</td><td>物料、BOM、客商、报表</td><td><span style="color:#0b2d47;font-weight:700">极高</span></td></tr>
   </table>
   <div class="insight-box mt-l">
     <p><strong>结论：</strong>流程、系统、数据三个层面的痛点紧急程度最高，且相互关联——系统不通导致流程断点，流程断点导致数据缺失，数据缺失导致管理盲区。</p>
@@ -826,7 +826,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
       <div style="font-size:14px;font-weight:600;margin-top:4px">初始级→规范级下限</div>
     </div>
     <div class="card">
-      <div style="font-size:48px;font-weight:800;color:#0e9f6e">3.0+</div>
+      <div style="font-size:48px;font-weight:800;color:#2374a3">3.0+</div>
       <div style="font-size:12px;color:var(--text-3);margin-top:4px">行业标杆</div>
       <div style="font-size:14px;font-weight:600;margin-top:4px">集成级</div>
     </div>
@@ -865,7 +865,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
         <tr><th>能力域</th><th>当前得分</th><th>目标得分</th><th>差距</th></tr>
         <tr><td>组织</td><td>2.1</td><td>3.5</td><td>1.4</td></tr>
         <tr><td>技术</td><td>2.3</td><td>3.8</td><td>1.5</td></tr>
-        <tr><td>数据</td><td><strong style="color:#dc2626">1.2</strong></td><td>3.8</td><td><strong style="color:#dc2626">2.6</strong></td></tr>
+        <tr><td>数据</td><td><strong style="color:#0b2d47">1.2</strong></td><td>3.8</td><td><strong style="color:#0b2d47">2.6</strong></td></tr>
         <tr><td>资源</td><td>2.0</td><td>3.5</td><td>1.5</td></tr>
         <tr><td>数字化运营</td><td>1.8</td><td>3.5</td><td>1.7</td></tr>
         <tr><td>数字化生产</td><td>2.0</td><td>3.5</td><td>1.5</td></tr>
@@ -875,7 +875,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
       <h4>关键洞察</h4>
       <div class="stack" style="margin-top:12px;gap:10px">
         <div class="pain-card" style="padding:10px 14px"><strong>数据</strong>是最短板（1.2分），差距2.6分，需最早启动。</div>
-        <div class="pain-card" style="border-left-color:#d97706;padding:10px 14px"><strong>数字化运营</strong>差距1.7分，反映流程线上化和自动化不足。</div>
+        <div class="pain-card" style="border-left-color:#2374a3;padding:10px 14px"><strong>数字化运营</strong>差距1.7分，反映流程线上化和自动化不足。</div>
         <div class="win-card" style="padding:10px 14px"><strong>组织</strong>相对较好（2.1分），说明管理层意识已经到位。</div>
       </div>
     </div>
@@ -896,7 +896,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
       <h4 style="margin-bottom:8px">优势</h4>
       <p class="dim">1. 高层对数字化转型有清晰认知和战略决心<br>2. 数智化部组织架构基本完整<br>3. 业务部门对数字化需求明确</p>
     </div>
-    <div class="pain-card" style="border-left-color:#d97706">
+    <div class="pain-card" style="border-left-color:#2374a3">
       <h4 style="margin-bottom:8px">短板</h4>
       <p class="dim">1. 缺乏CIO/CDO级别的专职领导<br>2. PMO未实体化，项目协调力度不足<br>3. 数字化BP机制缺失，业务与IT衔接不畅</p>
     </div>
@@ -925,7 +925,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
       <h4 style="margin-bottom:8px">优势</h4>
       <p class="dim">1. SAP ECC运行稳定，核心业务有系统支撑<br>2. 网络基础设施基本满足需求<br>3. 云资源使用经验已有积累</p>
     </div>
-    <div class="pain-card" style="border-left-color:#d97706">
+    <div class="pain-card" style="border-left-color:#2374a3">
       <h4 style="margin-bottom:8px">短板</h4>
       <p class="dim">1. SAP ECC技术架构老旧，高并发支撑不足<br>2. 缺乏统一集成平台，接口管理混乱<br>3. 用户体验差，Fiori等现代化前端未引入</p>
     </div>
@@ -1137,7 +1137,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     <div style="color:var(--accent-2);font-size:18px">→</div>
     <div style="background:var(--accent-2);color:#fff;padding:14px 18px;border-radius:var(--radius);text-align:center"><div style="font-size:11px;opacity:.8">Layer 4</div><div style="font-weight:700;font-size:14px">23个高价值场景</div></div>
     <div style="color:var(--accent-2);font-size:18px">→</div>
-    <div style="background:#0e9f6e;color:#fff;padding:14px 18px;border-radius:var(--radius);text-align:center"><div style="font-size:11px;opacity:.8">Layer 5</div><div style="font-weight:700;font-size:14px">24个项目卡片</div></div>
+    <div style="background:#2374a3;color:#fff;padding:14px 18px;border-radius:var(--radius);text-align:center"><div style="font-size:11px;opacity:.8">Layer 5</div><div style="font-weight:700;font-size:14px">24个项目卡片</div></div>
   </div>
   <div class="insight-box mt-l">
     <p><strong>五层追溯的价值：</strong>每一条需求都可以从原始业务域出发，经过痛点抽象、架构映射、场景归类，最终定位到具体的项目卡片。实现<strong>全链路可审计</strong>。</p>
@@ -1176,7 +1176,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
       <div style="font-size:11px;color:var(--text-3)">一级痛点</div>
     </div>
     <div class="card" style="text-align:center;padding:10px">
-      <div style="font-size:28px;font-weight:800;color:#0e9f6e">24</div>
+      <div style="font-size:28px;font-weight:800;color:#2374a3">24</div>
       <div style="font-size:11px;color:var(--text-3)">项目卡片</div>
     </div>
   </div>
@@ -1405,7 +1405,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
   <p class="kicker">APPLICATION ARCHITECTURE</p>
   <h2 class="h2">应用架构：22个系统处理策略</h2>
   <div class="grid g2 mt-l" style="gap:12px">
-    <div class="win-card" style="border-left-color:#0e9f6e">
+    <div class="win-card" style="border-left-color:#2374a3">
       <h4 style="margin-bottom:6px">保留优化（Retain）</h4>
       <p class="dim" style="font-size:12px">SAP ECC → S/4HANA PCE（核心升级）<br>PLM、MES、WMS等（接口优化）</p>
     </div>
@@ -1413,7 +1413,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
       <h4 style="margin-bottom:6px">替换升级（Replace）</h4>
       <p class="dim" style="font-size:12px">财务合并 → Group Reporting<br>报表平台 → 新BI平台</p>
     </div>
-    <div class="card" style="border-left:4px solid #d97706;padding-left:16px">
+    <div class="card" style="border-left:4px solid #2374a3;padding-left:16px">
       <h4 style="margin-bottom:6px">淘汰退役（Retire）</h4>
       <p class="dim" style="font-size:12px">老旧报表工具、重复功能系统<br>逐步退役，数据归档</p>
     </div>
@@ -1554,8 +1554,8 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
   <h2 class="h2">架构差距量化：数据治理差距最大</h2>
   <table class="fsl-table mt-l">
     <tr><th>架构域</th><th>AS-IS</th><th>TO-BE</th><th>差距</th><th>风险等级</th></tr>
-    <tr><td>主数据治理</td><td>1.2</td><td>3.8</td><td style="color:#dc2626;font-weight:700">2.6</td><td><span class="tag-fsl">高</span></td></tr>
-    <tr><td>供应链计划</td><td>1.5</td><td>3.5</td><td style="color:#dc2626;font-weight:700">2.0</td><td><span class="tag-fsl">高</span></td></tr>
+    <tr><td>主数据治理</td><td>1.2</td><td>3.8</td><td style="color:#0b2d47;font-weight:700">2.6</td><td><span class="tag-fsl">高</span></td></tr>
+    <tr><td>供应链计划</td><td>1.5</td><td>3.5</td><td style="color:#0b2d47;font-weight:700">2.0</td><td><span class="tag-fsl">高</span></td></tr>
     <tr><td>销售与渠道</td><td>1.7</td><td>3.5</td><td>1.8</td><td><span class="tag-fsl-outline">中</span></td></tr>
     <tr><td>集团财务</td><td>2.3</td><td>4.0</td><td>1.7</td><td><span class="tag-fsl-outline">中</span></td></tr>
     <tr><td>制造运营</td><td>1.8</td><td>3.5</td><td>1.7</td><td><span class="tag-fsl-outline">中</span></td></tr>
@@ -1573,14 +1573,14 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
   <p class="kicker">3-YEAR MATURITY PATH</p>
   <h2 class="h2">三年成熟度提升路径：1.9 → 3.5+</h2>
   <div style="display:flex;gap:16px;margin-top:32px">
-    <div style="flex:1;background:var(--surface-2);border-radius:var(--radius);padding:20px;text-align:center;border:2px solid #e8f5e9">
+    <div style="flex:1;background:var(--surface-2);border-radius:var(--radius);padding:20px;text-align:center;border:2px solid #e8f1f8">
       <div class="phase-badge phase-1">2026 · 筑基年</div>
-      <div style="font-size:36px;font-weight:800;color:#1b5e20;margin:12px 0">L1→L3</div>
+      <div style="font-size:36px;font-weight:800;color:#0b2d47;margin:12px 0">L1→L3</div>
       <p class="dim" style="font-size:12px">建立治理体系<br>完成主数据标准化<br>搭建云平台底座</p>
     </div>
-    <div style="flex:1;background:var(--surface-2);border-radius:var(--radius);padding:20px;text-align:center;border:2px solid #fff3e0">
+    <div style="flex:1;background:var(--surface-2);border-radius:var(--radius);padding:20px;text-align:center;border:2px solid #f2f7fb">
       <div class="phase-badge phase-2">2027 · 攻坚年</div>
-      <div style="font-size:36px;font-weight:800;color:#e65100;margin:12px 0">L3→L4</div>
+      <div style="font-size:36px;font-weight:800;color:#1a4f73;margin:12px 0">L3→L4</div>
       <p class="dim" style="font-size:12px">核心业务模块上线<br>打通OTC/PTP/MTC<br>泰国工厂合规</p>
     </div>
     <div style="flex:1;background:var(--surface-2);border-radius:var(--radius);padding:20px;text-align:center;border:2px solid #e3f2fd">
@@ -2126,14 +2126,14 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
   <p class="kicker">ROADMAP CHECKPOINT</p>
   <h2 class="h2">路径规划小结：三年三步走</h2>
   <div style="display:flex;gap:16px;margin-top:32px">
-    <div style="flex:1;background:var(--surface-2);border-radius:var(--radius);padding:20px;text-align:center;border:2px solid #e8f5e9">
+    <div style="flex:1;background:var(--surface-2);border-radius:var(--radius);padding:20px;text-align:center;border:2px solid #e8f1f8">
       <div class="phase-badge phase-1">2026</div>
-      <div style="font-size:20px;font-weight:700;color:#1b5e20;margin:8px 0">筑基</div>
+      <div style="font-size:20px;font-weight:700;color:#0b2d47;margin:8px 0">筑基</div>
       <p class="dim" style="font-size:12px">云平台 · 主数据 · 集成框架 · 数据中台 · 安全</p>
     </div>
-    <div style="flex:1;background:var(--surface-2);border-radius:var(--radius);padding:20px;text-align:center;border:2px solid #fff3e0">
+    <div style="flex:1;background:var(--surface-2);border-radius:var(--radius);padding:20px;text-align:center;border:2px solid #f2f7fb">
       <div class="phase-badge phase-2">2027</div>
-      <div style="font-size:20px;font-weight:700;color:#e65100;margin:8px 0">攻坚</div>
+      <div style="font-size:20px;font-weight:700;color:#1a4f73;margin:8px 0">攻坚</div>
       <p class="dim" style="font-size:12px">财务 · 销售 · 供应链 · 质量 · MES · 泰国</p>
     </div>
     <div style="flex:1;background:var(--surface-2);border-radius:var(--radius);padding:20px;text-align:center;border:2px solid #e3f2fd">
@@ -2155,12 +2155,12 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
   <p class="kicker">PRIORITY MATRIX</p>
   <h2 class="h2">优先级评估：价值 × 紧迫性</h2>
   <div class="grid g2 mt-l">
-    <div class="card" style="background:#e8f5e9;border:1px solid #c8e6c9">
-      <h4 style="color:#1b5e20">高价值 + 高紧迫（立即做）</h4>
+    <div class="card" style="background:#e8f1f8;border:1px solid #c8dce8">
+      <h4 style="color:#0b2d47">高价值 + 高紧迫（立即做）</h4>
       <p class="dim">主数据治理 · S/4HANA PCE底座 · 财务核心 · 销售全链路 · 集成架构</p>
     </div>
-    <div class="card" style="background:#fff3e0;border:1px solid #ffe0b2">
-      <h4 style="color:#e65100">高价值 + 中紧迫（计划做）</h4>
+    <div class="card" style="background:#f2f7fb;border:1px solid #d0e0f0">
+      <h4 style="color:#1a4f73">高价值 + 中紧迫（计划做）</h4>
       <p class="dim">供应链协同 · 质量追溯 · 数据中台 · MES升级 · 信息安全</p>
     </div>
     <div class="card" style="background:#e3f2fd;border:1px solid #bbdefb">
@@ -2303,19 +2303,19 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
   <div style="position:relative;margin-top:24px;padding-left:24px">
     <div class="timeline-line" style="left:9px;top:0;height:100%"></div>
     <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;position:relative">
-      <div class="timeline-dot" style="width:10px;height:10px;border-width:2px;flex-shrink:0;margin-top:4px;background:#e65100;border-color:#fff3e0"></div>
+      <div class="timeline-dot" style="width:10px;height:10px;border-width:2px;flex-shrink:0;margin-top:4px;background:#1a4f73;border-color:#f2f7fb"></div>
       <div><div style="font-weight:700;font-size:13px">Q1 2027 · S/4HANA Go-Live</div><p class="dim" style="font-size:12px">系统正式上线！财务/销售/采购/生产核心模块切换。</p></div>
     </div>
     <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;position:relative">
-      <div class="timeline-dot" style="width:10px;height:10px;border-width:2px;flex-shrink:0;margin-top:4px;background:#e65100;border-color:#fff3e0"></div>
+      <div class="timeline-dot" style="width:10px;height:10px;border-width:2px;flex-shrink:0;margin-top:4px;background:#1a4f73;border-color:#f2f7fb"></div>
       <div><div style="font-weight:700;font-size:13px">Q2 2027</div><p class="dim" style="font-size:12px">OTC/PTP/MTC端到端流程贯通 · MES/WMS深度集成</p></div>
     </div>
     <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;position:relative">
-      <div class="timeline-dot" style="width:10px;height:10px;border-width:2px;flex-shrink:0;margin-top:4px;background:#e65100;border-color:#fff3e0"></div>
+      <div class="timeline-dot" style="width:10px;height:10px;border-width:2px;flex-shrink:0;margin-top:4px;background:#1a4f73;border-color:#f2f7fb"></div>
       <div><div style="font-weight:700;font-size:13px">Q3 2027</div><p class="dim" style="font-size:12px">泰国工厂本地化上线 · Group Reporting合并报表自动化</p></div>
     </div>
     <div style="display:flex;align-items:flex-start;gap:12px;position:relative">
-      <div class="timeline-dot" style="width:10px;height:10px;border-width:2px;flex-shrink:0;margin-top:4px;background:#e65100;border-color:#fff3e0"></div>
+      <div class="timeline-dot" style="width:10px;height:10px;border-width:2px;flex-shrink:0;margin-top:4px;background:#1a4f73;border-color:#f2f7fb"></div>
       <div><div style="font-weight:700;font-size:13px">Q4 2027</div><p class="dim" style="font-size:12px">系统稳定运行 · 用户培训全覆盖 · 运维体系建立</p></div>
     </div>
   </div>
@@ -2394,7 +2394,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
       <div style="font-size:12px;color:var(--text-3);margin-top:4px">Eviden中标 · Greenfield实施</div>
     </div>
     <div class="card" style="text-align:center">
-      <div style="font-size:48px;font-weight:800;color:#d97706">待定</div>
+      <div style="font-size:48px;font-weight:800;color:#2374a3">待定</div>
       <div style="font-size:14px;color:var(--text-3);margin-top:8px">外围系统改造预算</div>
       <div style="font-size:12px;color:var(--text-3);margin-top:4px">MES/CRM/数据中台/AI等13个项目</div>
     </div>
@@ -2427,11 +2427,11 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
   <h2 class="h2">风险识别：五大关键风险</h2>
   <table class="fsl-table mt-l">
     <tr><th>风险</th><th>可能性</th><th>影响</th><th>等级</th><th>应对策略</th></tr>
-    <tr><td>主数据清洗延期</td><td>高</td><td>高</td><td><span style="color:#dc2626;font-weight:700">极高</span></td><td>提前启动 · 分批清洗 · 外包支持</td></tr>
-    <tr><td>业务部门配合不足</td><td>中</td><td>高</td><td><span style="color:#d97706;font-weight:700">高</span></td><td>高层背书 · 纳入KPI · 变革管理</td></tr>
-    <tr><td>多系统集成失败</td><td>中</td><td>高</td><td><span style="color:#d97706;font-weight:700">高</span></td><td>分阶段集成 · 充分测试 · 回滚预案</td></tr>
+    <tr><td>主数据清洗延期</td><td>高</td><td>高</td><td><span style="color:#0b2d47;font-weight:700">极高</span></td><td>提前启动 · 分批清洗 · 外包支持</td></tr>
+    <tr><td>业务部门配合不足</td><td>中</td><td>高</td><td><span style="color:#2374a3;font-weight:700">高</span></td><td>高层背书 · 纳入KPI · 变革管理</td></tr>
+    <tr><td>多系统集成失败</td><td>中</td><td>高</td><td><span style="color:#2374a3;font-weight:700">高</span></td><td>分阶段集成 · 充分测试 · 回滚预案</td></tr>
     <tr><td>泰国合规复杂度</td><td>中</td><td>中</td><td><span style="color:#2374a3;font-weight:700">中</td><td>提前调研 · 本地化顾问 · 监管沟通</td></tr>
-    <tr><td>预算超支</td><td>低</td><td>高</td><td><span style="color:#d97706;font-weight:700">高</span></td><td>分期付款 · 变更控制 · 预留缓冲</td></tr>
+    <tr><td>预算超支</td><td>低</td><td>高</td><td><span style="color:#2374a3;font-weight:700">高</span></td><td>分期付款 · 变更控制 · 预留缓冲</td></tr>
   </table>
   <aside class="notes">
     <p>五大关键风险。</p>
@@ -2590,11 +2590,11 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
   <p class="kicker">DECISION REQUESTS</p>
   <h2 class="h2">需要总经理决策的三个事项</h2>
   <div class="stack mt-l" style="gap:14px">
-    <div class="card" style="border-left:4px solid #dc2626;padding-left:20px">
+    <div class="card" style="border-left:4px solid #0b2d47;padding-left:20px">
       <h4 style="margin-bottom:6px">决策一：确认项目指导委员会成员</h4>
       <p class="dim">请总经理确认项目指导委员会名单，并签发项目启动文件，赋予PMO资源调配权。</p>
     </div>
-    <div class="card" style="border-left:4px solid #d97706;padding-left:20px">
+    <div class="card" style="border-left:4px solid #2374a3;padding-left:20px">
       <h4 style="margin-bottom:6px">决策二：批准主数据清洗提前启动</h4>
       <p class="dim">主数据清洗是关键路径，建议立即启动。需要业务部门抽调专人配合，请总经理协调。</p>
     </div>
@@ -2658,23 +2658,23 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
       </div>
     </div>
     <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:20px;position:relative">
-      <div class="timeline-dot" style="flex-shrink:0;margin-top:2px;background:#e65100;border-color:#fff3e0"></div>
+      <div class="timeline-dot" style="flex-shrink:0;margin-top:2px;background:#1a4f73;border-color:#f2f7fb"></div>
       <div>
-        <div style="font-weight:700;color:#e65100">2027 Q1 · Go-Live</div>
+        <div style="font-weight:700;color:#1a4f73">2027 Q1 · Go-Live</div>
         <p class="dim">S/4HANA正式上线！核心业务模块切换</p>
       </div>
     </div>
     <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:20px;position:relative">
-      <div class="timeline-dot" style="flex-shrink:0;margin-top:2px;background:#e65100;border-color:#fff3e0"></div>
+      <div class="timeline-dot" style="flex-shrink:0;margin-top:2px;background:#1a4f73;border-color:#f2f7fb"></div>
       <div>
-        <div style="font-weight:700;color:#e65100">2027 Q3</div>
+        <div style="font-weight:700;color:#1a4f73">2027 Q3</div>
         <p class="dim">泰国工厂上线 · Group Reporting月结≤2天</p>
       </div>
     </div>
     <div style="display:flex;align-items:flex-start;gap:14px;position:relative">
-      <div class="timeline-dot" style="flex-shrink:0;margin-top:2px;background:#0e9f6e;border-color:#e8f5e9"></div>
+      <div class="timeline-dot" style="flex-shrink:0;margin-top:2px;background:#2374a3;border-color:#e8f1f8"></div>
       <div>
-        <div style="font-weight:700;color:#0e9f6e">2028 Q4</div>
+        <div style="font-weight:700;color:#2374a3">2028 Q4</div>
         <p class="dim">数据智能平台上线 · 成熟度达到L3.5+</p>
       </div>
     </div>
@@ -2694,33 +2694,33 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     <div class="card">
       <h4>财务效率</h4>
       <div class="stack" style="margin-top:12px;gap:8px">
-        <div style="display:flex;justify-content:space-between"><span>合并报表月结</span><span style="color:#0e9f6e;font-weight:700">7-8天 → ≤2天</span></div>
-        <div style="display:flex;justify-content:space-between"><span>财务凭证自动化</span><span style="color:#0e9f6e;font-weight:700">+60%</span></div>
-        <div style="display:flex;justify-content:space-between"><span>对账人工工作量</span><span style="color:#0e9f6e;font-weight:700">-50%</span></div>
+        <div style="display:flex;justify-content:space-between"><span>合并报表月结</span><span style="color:#2374a3;font-weight:700">7-8天 → ≤2天</span></div>
+        <div style="display:flex;justify-content:space-between"><span>财务凭证自动化</span><span style="color:#2374a3;font-weight:700">+60%</span></div>
+        <div style="display:flex;justify-content:space-between"><span>对账人工工作量</span><span style="color:#2374a3;font-weight:700">-50%</span></div>
       </div>
     </div>
     <div class="card">
       <h4>运营效率</h4>
       <div class="stack" style="margin-top:12px;gap:8px">
-        <div style="display:flex;justify-content:space-between"><span>订单处理时效</span><span style="color:#0e9f6e;font-weight:700">+40%</span></div>
-        <div style="display:flex;justify-content:space-between"><span>库存周转率</span><span style="color:#0e9f6e;font-weight:700">+15%</span></div>
-        <div style="display:flex;justify-content:space-between"><span>采购周期</span><span style="color:#0e9f6e;font-weight:700">-20%</span></div>
+        <div style="display:flex;justify-content:space-between"><span>订单处理时效</span><span style="color:#2374a3;font-weight:700">+40%</span></div>
+        <div style="display:flex;justify-content:space-between"><span>库存周转率</span><span style="color:#2374a3;font-weight:700">+15%</span></div>
+        <div style="display:flex;justify-content:space-between"><span>采购周期</span><span style="color:#2374a3;font-weight:700">-20%</span></div>
       </div>
     </div>
     <div class="card">
       <h4>管理提升</h4>
       <div class="stack" style="margin-top:12px;gap:8px">
-        <div style="display:flex;justify-content:space-between"><span>信用风险预警</span><span style="color:#0e9f6e;font-weight:700">实时</span></div>
-        <div style="display:flex;justify-content:space-between"><span>成本穿透查询</span><span style="color:#0e9f6e;font-weight:700">多层追溯</span></div>
-        <div style="display:flex;justify-content:space-between"><span>数据准确率</span><span style="color:#0e9f6e;font-weight:700">≥95%</span></div>
+        <div style="display:flex;justify-content:space-between"><span>信用风险预警</span><span style="color:#2374a3;font-weight:700">实时</span></div>
+        <div style="display:flex;justify-content:space-between"><span>成本穿透查询</span><span style="color:#2374a3;font-weight:700">多层追溯</span></div>
+        <div style="display:flex;justify-content:space-between"><span>数据准确率</span><span style="color:#2374a3;font-weight:700">≥95%</span></div>
       </div>
     </div>
     <div class="card">
       <h4>合规保障</h4>
       <div class="stack" style="margin-top:12px;gap:8px">
-        <div style="display:flex;justify-content:space-between"><span>国资委1号文</span><span style="color:#0e9f6e;font-weight:700">满足</span></div>
-        <div style="display:flex;justify-content:space-between"><span>穿透式监管</span><span style="color:#0e9f6e;font-weight:700">数据可追溯</span></div>
-        <div style="display:flex;justify-content:space-between"><span>泰国合规</span><span style="color:#0e9f6e;font-weight:700">本地化支持</span></div>
+        <div style="display:flex;justify-content:space-between"><span>国资委1号文</span><span style="color:#2374a3;font-weight:700">满足</span></div>
+        <div style="display:flex;justify-content:space-between"><span>穿透式监管</span><span style="color:#2374a3;font-weight:700">数据可追溯</span></div>
+        <div style="display:flex;justify-content:space-between"><span>泰国合规</span><span style="color:#2374a3;font-weight:700">本地化支持</span></div>
       </div>
     </div>
   </div>
@@ -2882,7 +2882,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
   <p class="kicker">SUMMARY</p>
   <h2 class="h2">汇报总结：三个核心结论</h2>
   <div class="stack mt-l" style="gap:16px">
-    <div class="card" style="border-left:4px solid #dc2626;padding-left:20px">
+    <div class="card" style="border-left:4px solid #0b2d47;padding-left:20px">
       <h4 style="margin-bottom:6px">现状：有基础，但有明显差距</h4>
       <p class="dim">佛照数字化成熟度1.9分，系统有但不通、数据有但不准。701条需求清晰指向23个高价值场景。</p>
     </div>
@@ -2890,7 +2890,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
       <h4 style="margin-bottom:6px">蓝图：目标清晰，路径明确</h4>
       <p class="dim">TOGAF四层架构蓝图已完成，五层追溯体系确保701条需求全链路可审计。三年从L1.9提升到L3.5+。</p>
     </div>
-    <div class="card" style="border-left:4px solid #0e9f6e;padding-left:20px">
+    <div class="card" style="border-left:4px solid #2374a3;padding-left:20px">
       <h4 style="margin-bottom:6px">行动：立即启动，分步推进</h4>
       <p class="dim">24个项目卡片覆盖2026-2028三年。立即启动指导委员会、PMO组建和主数据清洗。</p>
     </div>
