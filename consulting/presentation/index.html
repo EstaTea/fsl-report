@@ -1231,30 +1231,48 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 <section class="slide" data-title="架构原则">
   <p class="kicker">ARCHITECTURE PRINCIPLES</p>
   <h2 class="h2">六大架构设计原则</h2>
-  <div class="stack mt-l" style="gap:10px">
-    <div class="card" style="display:flex;align-items:flex-start;gap:14px">
-      <div style="font-size:24px;font-weight:800;color:var(--accent-2);line-height:1">01</div>
-      <div><h4 style="margin-bottom:4px">业务优先</h4><p class="dim">架构设计以业务价值为导向，技术服务于业务，不为技术而技术。</p></div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px;">
+    <div class="card" style="padding:16px 14px 14px;position:relative;overflow:hidden;border-left:4px solid var(--accent-2);display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <div style="background:var(--accent-2);color:#fff;width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;">01</div>
+        <h4 style="margin:0;font-size:15px;color:var(--accent);">业务优先</h4>
+      </div>
+      <p class="dim" style="margin:0;font-size:12px;line-height:1.55;">架构设计以业务价值为导向，技术服务于业务，不为技术而技术。</p>
     </div>
-    <div class="card" style="display:flex;align-items:flex-start;gap:14px">
-      <div style="font-size:24px;font-weight:800;color:var(--accent-2);line-height:1">02</div>
-      <div><h4 style="margin-bottom:4px">标准统一</h4><p class="dim">主数据、接口、流程全部标准化，杜绝"一事一议"的定制化。</p></div>
+    <div class="card" style="padding:16px 14px 14px;position:relative;overflow:hidden;border-left:4px solid var(--accent-2);display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <div style="background:var(--accent-2);color:#fff;width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;">02</div>
+        <h4 style="margin:0;font-size:15px;color:var(--accent);">标准统一</h4>
+      </div>
+      <p class="dim" style="margin:0;font-size:12px;line-height:1.55;">主数据、接口、流程全部标准化，杜绝"一事一议"的定制化。</p>
     </div>
-    <div class="card" style="display:flex;align-items:flex-start;gap:14px">
-      <div style="font-size:24px;font-weight:800;color:var(--accent-2);line-height:1">03</div>
-      <div><h4 style="margin-bottom:4px">集成优先</h4><p class="dim">新建系统必须通过统一集成平台连接，严禁点对点接口。</p></div>
+    <div class="card" style="padding:16px 14px 14px;position:relative;overflow:hidden;border-left:4px solid var(--accent-2);display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <div style="background:var(--accent-2);color:#fff;width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;">03</div>
+        <h4 style="margin:0;font-size:15px;color:var(--accent);">集成优先</h4>
+      </div>
+      <p class="dim" style="margin:0;font-size:12px;line-height:1.55;">新建系统必须通过统一集成平台连接，严禁点对点接口。</p>
     </div>
-    <div class="card" style="display:flex;align-items:flex-start;gap:14px">
-      <div style="font-size:24px;font-weight:800;color:var(--accent-2);line-height:1">04</div>
-      <div><h4 style="margin-bottom:4px">渐进演进</h4><p class="dim">分Phase实施，每Phase都有明确交付物和验收标准，不贪大求全。</p></div>
+    <div class="card" style="padding:16px 14px 14px;position:relative;overflow:hidden;border-left:4px solid var(--accent-2);display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <div style="background:var(--accent-2);color:#fff;width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;">04</div>
+        <h4 style="margin:0;font-size:15px;color:var(--accent);">渐进演进</h4>
+      </div>
+      <p class="dim" style="margin:0;font-size:12px;line-height:1.55;">分Phase实施，每Phase都有明确交付物和验收标准，不贪大求全。</p>
     </div>
-    <div class="card" style="display:flex;align-items:flex-start;gap:14px">
-      <div style="font-size:24px;font-weight:800;color:var(--accent-2);line-height:1">05</div>
-      <div><h4 style="margin-bottom:4px">安全合规</h4><p class="dim">满足等保2.0和国资监管要求，数据安全贯穿设计、开发、运维全生命周期。</p></div>
+    <div class="card" style="padding:16px 14px 14px;position:relative;overflow:hidden;border-left:4px solid var(--accent-2);display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <div style="background:var(--accent-2);color:#fff;width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;">05</div>
+        <h4 style="margin:0;font-size:15px;color:var(--accent);">安全合规</h4>
+      </div>
+      <p class="dim" style="margin:0;font-size:12px;line-height:1.55;">满足等保2.0和国资监管要求，数据安全贯穿设计、开发、运维全生命周期。</p>
     </div>
-    <div class="card" style="display:flex;align-items:flex-start;gap:14px">
-      <div style="font-size:24px;font-weight:800;color:var(--accent-2);line-height:1">06</div>
-      <div><h4 style="margin-bottom:4px">用户体验</h4><p class="dim">推广Fiori等现代化前端，简化操作，提升用户效率和满意度。</p></div>
+    <div class="card" style="padding:16px 14px 14px;position:relative;overflow:hidden;border-left:4px solid var(--accent-2);display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <div style="background:var(--accent-2);color:#fff;width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;">06</div>
+        <h4 style="margin:0;font-size:15px;color:var(--accent);">用户体验</h4>
+      </div>
+      <p class="dim" style="margin:0;font-size:12px;line-height:1.55;">推广Fiori等现代化前端，简化操作，提升用户效率和满意度。</p>
     </div>
   </div>
   <aside class="notes">
