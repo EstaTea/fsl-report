@@ -947,34 +947,6 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
   </aside>
 </section>
 
-<!-- 18b. 痛点案例详情 -->
-<section class="slide" data-title="痛点案例">
-  <p class="kicker">PAIN CASE STUDY</p>
-  <h2 class="h2">痛点案例：三个典型场景</h2>
-  <div class="stack mt-l" style="gap:12px">
-    <div class="pain-card">
-      <span class="tag-fsl">案例一</span>
-      <strong>销售订单"黑箱"</strong>
-      <p class="dim" style="margin-top:6px">销售在OA下单后，无法实时看到订单在SAP中的生产进度、物流状态。客户催单时，销售需要打电话问计划、问车间、问物流——一个订单查进度需要打3-4个电话。</p>
-    </div>
-    <div class="pain-card">
-      <span class="tag-fsl">案例二</span>
-      <strong>信用额度"虚耗"</strong>
-      <p class="dim" style="margin-top:6px">某客户信用额度100万，已用80万。销售在OA下了一张50万的订单，系统未在下单环节校验信用，导致订单进入生产后才发现超信用——客户已付定金，进退两难。</p>
-    </div>
-    <div class="pain-card">
-      <span class="tag-fsl">案例三</span>
-      <strong>成本"算不清"</strong>
-      <p class="dim" style="margin-top:6px">财务月结时，发现某产品成本异常偏高。想追溯原因——是材料涨价？是工艺变更？是废品率上升？但成本数据分散在SAP、MES、OA三个系统，无法穿透查询，只能大致估算。</p>
-    </div>
-  </div>
-  <aside class="notes">
-    <p>三个典型痛点案例。</p>
-    <p><strong>案例一</strong>——订单黑箱，销售看不到订单状态。</p>
-    <p><strong>案例二</strong>——信用虚耗，下单时不校验导致后续被动。</p>
-    <p><strong>案例三</strong>——成本算不清，数据分散无法穿透。</p>
-  </aside>
-</section>
 <!-- 19. 痛点总结矩阵 -->
 <section class="slide" data-title="痛点矩阵">
   <p class="kicker">PAIN MATRIX</p>
@@ -1512,48 +1484,6 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     <p><strong>月结从7-8天缩短到2天以内</strong>——这是最直观的ROI指标。</p>
   </aside>
 </section>
-<!-- 30. 端到端流程设计 -->
-<section class="slide" data-title="端到端流程">
-  <p class="kicker">END-TO-END PROCESSES</p>
-  <h2 class="h2">三大端到端流程：打通部门墙</h2>
-  <div class="grid g3 mt-l">
-    <div class="card" style="border-top:4px solid #2374a3">
-      <h4>OTC 订单到收款</h4>
-      <p class="dim">销售订单 → 信用检查 → 生产计划 → 发货 → 开票 → 收款</p>
-      <div style="margin-top:12px">
-        <span class="tag-fsl-outline">信用管控</span>
-        <span class="tag-fsl-outline">价格统一</span>
-        <span class="tag-fsl-outline">订单可视化</span>
-      </div>
-    </div>
-    <div class="card" style="border-top:4px solid #1a4f73">
-      <h4>PTP 采购到付款</h4>
-      <p class="dim">采购申请 → 供应商选择 → 采购订单 → 收货 → 发票校验 → 付款</p>
-      <div style="margin-top:12px">
-        <span class="tag-fsl-outline">三单匹配</span>
-        <span class="tag-fsl-outline">供应商协同</span>
-        <span class="tag-fsl-outline">自动对账</span>
-      </div>
-    </div>
-    <div class="card" style="border-top:4px solid #0b2d47">
-      <h4>MTC 制造到成本</h4>
-      <p class="dim">生产计划 → 物料需求 → 车间执行 → 质量检验 → 成本核算</p>
-      <div style="margin-top:12px">
-        <span class="tag-fsl-outline">MRP Live</span>
-        <span class="tag-fsl-outline">成本穿透</span>
-        <span class="tag-fsl-outline">质量追溯</span>
-      </div>
-    </div>
-  </div>
-  <aside class="notes">
-    <p>三大端到端流程是业务架构的核心设计。</p>
-    <p><strong>OTC</strong>——订单到收款，解决销售端的问题。</p>
-    <p><strong>PTP</strong>——采购到付款，解决供应链端的问题。</p>
-    <p><strong>MTC</strong>——制造到成本，解决生产端的问题。</p>
-    <p>这三个流程打通了部门之间的断点，实现了端到端的线上闭环。</p>
-  </aside>
-</section>
-
 
 <section class="slide" data-title="图：图4-2 三大端到端流程架构（OTC/P…">
   <p class="kicker">SOURCE CHART · 企业架构设计报告</p>
@@ -2724,30 +2654,6 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
   <aside class="notes">
     <p>组织架构建议。</p>
     <p>核心是<strong>指导委员会+PMO+联合团队</strong>三层结构。</p>
-  </aside>
-</section>
-
-<!-- 58c. 决策请求 -->
-<section class="slide" data-title="决策请求">
-  <p class="kicker">DECISION REQUESTS</p>
-  <h2 class="h2">需要总经理决策的三个事项</h2>
-  <div class="stack mt-l" style="gap:14px">
-    <div class="card" style="border-left:4px solid #0b2d47;padding-left:20px">
-      <h4 style="margin-bottom:6px">决策一：确认项目指导委员会成员</h4>
-      <p class="dim">请总经理确认项目指导委员会名单，并签发项目启动文件，赋予PMO资源调配权。</p>
-    </div>
-    <div class="card" style="border-left:4px solid #2374a3;padding-left:20px">
-      <h4 style="margin-bottom:6px">决策二：批准主数据清洗提前启动</h4>
-      <p class="dim">主数据清洗是关键路径，建议立即启动。需要业务部门抽调专人配合，请总经理协调。</p>
-    </div>
-    <div class="card" style="border-left:4px solid #2374a3;padding-left:20px">
-      <h4 style="margin-bottom:6px">决策三：确认外围系统预算评估安排</h4>
-      <p class="dim">13个外围系统项目需要预算评估和Vendor选型，建议授权PMO牵头推进。</p>
-    </div>
-  </div>
-  <aside class="notes">
-    <p>三个需要总经理决策的事项。</p>
-    <p>第一个是最关键的——<strong>项目指导委员会的成立和PMO的授权</strong>。没有组织保障，项目很难推进。</p>
   </aside>
 </section>
 
