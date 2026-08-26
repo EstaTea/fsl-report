@@ -31,31 +31,31 @@
 (function(){
   var scenarios = [
     // P0 - 2026 (10个)
-    {id:'S01',name:'物料主数据治理',bv:5.0,td:3.0,p:'P0',c:'#003087'},
-    {id:'S04',name:'销售价格管理',bv:4.5,td:3.15,p:'P0',c:'#003087'},
-    {id:'S08',name:'海外财务合规',bv:5.0,td:3.5,p:'P0',c:'#003087'},
-    {id:'S10',name:'财务主数据治理',bv:4.5,td:2.85,p:'P0',c:'#003087'},
-    {id:'S11',name:'应收清账',bv:4.0,td:2.5,p:'P0',c:'#003087'},
-    {id:'S12',name:'集团法定合并',bv:4.65,td:3.5,p:'P0',c:'#003087'},
-    {id:'S15',name:'采购配额',bv:4.0,td:2.65,p:'P0',c:'#003087'},
-    {id:'S18',name:'主生产计划',bv:4.35,td:3.5,p:'P0',c:'#003087'},
-    {id:'S19',name:'MRP',bv:5.0,td:3.65,p:'P0',c:'#003087'},
-    {id:'S25',name:'研发产出分析',bv:4.15,td:2.5,p:'P0',c:'#003087'},
+    {id:'S01',name:'物料主数据治理',bv:5.0,td:4.5,p:'P0',c:'#003087'},
+    {id:'S02',name:'客户信用管理',bv:4.5,td:4.5,p:'P0',c:'#003087'},
+    {id:'S06',name:'海外财务合规',bv:3.0,td:3.2,p:'P0',c:'#003087'},
+    {id:'S07',name:'制造成本还原',bv:4.8,td:4.5,p:'P0',c:'#003087'},
+    {id:'S08',name:'财务组织+科目主数据',bv:2.2,td:2.1,p:'P0',c:'#003087'},
+    {id:'S09',name:'应收清账+BIP接口',bv:2.8,td:2.3,p:'P0',c:'#003087'},
+    {id:'S11',name:'按客户销售项目核算和分析方案',bv:4.3,td:3.3,p:'P0',c:'#003087'},
+    {id:'S12',name:'研发投入产出分析体系建设',bv:4.5,td:3.5,p:'P0',c:'#003087'},
+    {id:'S15',name:'采购配额管理与订单分配智能化',bv:4.5,td:3.5,p:'P0',c:'#003087'},
+    {id:'S16',name:'产前齐套性预警与跟踪',bv:4.3,td:3.6,p:'P0',c:'#003087'},
     // P1 - 2027 (9个)
-    {id:'S02',name:'客户信用管理',bv:4.5,td:4.0,p:'P1',c:'#2374a3'},
-    {id:'S03',name:'跨公司转卖',bv:4.0,td:4.0,p:'P1',c:'#2374a3'},
-    {id:'S05',name:'订单全链路跟踪',bv:4.5,td:3.85,p:'P1',c:'#2374a3'},
-    {id:'S09',name:'制造成本还原',bv:4.0,td:3.85,p:'P1',c:'#2374a3'},
-    {id:'S13',name:'供应商绩效管理',bv:4.0,td:3.5,p:'P1',c:'#2374a3'},
-    {id:'S14',name:'采购价格透明化',bv:4.0,td:3.65,p:'P1',c:'#2374a3'},
-    {id:'S16',name:'产前齐套预警',bv:3.5,td:4.0,p:'P1',c:'#2374a3'},
-    {id:'S23',name:'BOM全生命周期',bv:4.0,td:4.15,p:'P1',c:'#2374a3'},
-    {id:'S24',name:'客户项目核算',bv:3.5,td:3.85,p:'P1',c:'#2374a3'},
+    {id:'S03',name:'跨公司转卖模式优化',bv:3.8,td:3.6,p:'P1',c:'#2374a3'},
+    {id:'S04',name:'销售价格与折扣管理体系优化',bv:3.2,td:4.2,p:'P1',c:'#2374a3'},
+    {id:'S05',name:'销售订单全链路追踪',bv:3.4,td:4.2,p:'P1',c:'#2374a3'},
+    {id:'S10',name:'集团合并报表建设',bv:3.2,td:4.5,p:'P1',c:'#2374a3'},
+    {id:'S13',name:'供应商交期与供应商绩效管理方案',bv:4.2,td:3.8,p:'P1',c:'#2374a3'},
+    {id:'S14',name:'采购价格透明化与比价分析体系',bv:4.1,td:3.8,p:'P1',c:'#2374a3'},
+    {id:'S18',name:'主生产计划MPS建设',bv:4.2,td:2.8,p:'P1',c:'#2374a3'},
+    {id:'S19',name:'MRP物料需求计划',bv:4.6,td:3.2,p:'P1',c:'#2374a3'},
+    {id:'S23',name:'BOM全生命周期建设',bv:3.3,td:3.8,p:'P1',c:'#2374a3'},
     // P2 - 2028 (4个)
-    {id:'S17',name:'库存可视化',bv:3.0,td:2.0,p:'P2',c:'#89c4e8'},
-    {id:'S20',name:'生产进度看板',bv:3.0,td:2.15,p:'P2',c:'#89c4e8'},
-    {id:'S21',name:'质量追溯',bv:3.5,td:2.5,p:'P2',c:'#89c4e8'},
-    {id:'S22',name:'质量合格率统计',bv:3.0,td:1.85,p:'P2',c:'#89c4e8'}
+    {id:'S17',name:'库存可视化与多维度查询体系',bv:3.6,td:4.5,p:'P2',c:'#89c4e8'},
+    {id:'S20',name:'生产进度看板',bv:3.9,td:3.6,p:'P2',c:'#89c4e8'},
+    {id:'S21',name:'质量追溯建设',bv:3.0,td:2.6,p:'P2',c:'#89c4e8'},
+    {id:'S22',name:'质量合格率统计分析',bv:3.0,td:2.3,p:'P2',c:'#89c4e8'}
   ];
 
   var labelPlugin = {
@@ -170,20 +170,13 @@
         if (!moved) break;
       }
 
-      // 绘制：先画引线，再画标签盒
+      // 绘制：仅画标签盒（不绘制气泡-标签引线）
       ctx.save();
       ctx.font = font;
       ctx.lineWidth = 1;
       pts.forEach(function(p){
         // 标签盒中心
         var lcx = p.boxX + p.w/2, lcy = p.boxY + p.h/2;
-        // 从气泡边缘到标签盒边缘的引线
-        ctx.strokeStyle = p.s.c;
-        ctx.beginPath();
-        ctx.moveTo(p.x + (lcx - p.x >= 0 ? p.r*0.6 : -p.r*0.6),
-                   p.y + (lcy - p.y >= 0 ? p.r*0.6 : -p.r*0.6));
-        ctx.lineTo(lcx, lcy);
-        ctx.stroke();
 
         // 白色底框 + 阶段色细边框
         ctx.fillStyle = 'rgba(255,255,255,0.96)';
@@ -222,7 +215,7 @@
     },
     options: {
       responsive: true, maintainAspectRatio: false,
-      layout: { padding: { top: 40, right: 140, bottom: 40, left: 40 } },
+      layout: { padding: { top: 40, right: 150, bottom: 36, left: 40 } },
       plugins: {
         legend: { display: false },
         tooltip: {
@@ -236,7 +229,7 @@
       },
       scales: {
         x: {
-          min: 2.5, max: 5.0,
+          min: 2.0, max: 5.0,
           title: { display: true, text: '业务价值（Business Value）', font: { size: 12 } },
           ticks: { stepSize: 0.5, font: { size: 11 } }
         },
