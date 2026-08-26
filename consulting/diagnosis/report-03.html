@@ -47,7 +47,8 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:"Microsoft YaHei","Helvetica Neue",system-ui,sans-serif;
-     background:var(--bg);color:var(--text);font-size:14px;line-height:1.8;}
+     background:var(--bg);color:var(--text);font-size:14px;line-height:1.8;
+     overflow-x:hidden;}
 a{color:var(--b500);text-decoration:none;}
 strong{font-weight:700;color:var(--b900);}
 
@@ -372,8 +373,9 @@ footer{background:var(--b900);color:rgba(255,255,255,.4);text-align:center;
 .sb-menu a{display:block;padding:6px 14px;color:rgba(255,255,255,.72);text-decoration:none;font-size:12px;border-left:3px solid transparent;transition:all .2s;line-height:1.4;}
 .sb-menu a:hover{color:#fff;background:rgba(255,255,255,.07);border-left-color:#A8C4E0;}
 .sb-menu a.active{color:#fff;background:rgba(0,94,184,.35);border-left-color:#005EB8;font-weight:600;}
-/* 主内容区让出 sidebar 空间 */
-.hero,.container{margin-left:var(--nav-w) !important;}
+/* 主内容区让出 sidebar 空间，并约束总宽占满"视口 − sidebar" */
+.hero,.container{margin-left:var(--nav-w) !important;
+                 width:calc(100% - var(--nav-w)) !important;}
 
 </style>
 <script src="/fsl-report/auth-guard.js"></script>
