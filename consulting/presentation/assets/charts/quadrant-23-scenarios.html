@@ -60,30 +60,39 @@
 
   var labelPlugin = {
     id: 'scenarioLabels',
-    afterDatasetsDraw: function(chart) {
+    afterDraw: function(chart) {
       var ctx = chart.ctx;
-      var gap = 5;
-      var offsets = [
-        {dx: 0, dy: 0, align: 'center', baseline: 'bottom'},
-        {dx: 0, dy: 0, align: 'left', baseline: 'middle'},
-        {dx: 0, dy: 0, align: 'center', baseline: 'top'},
-        {dx: 0, dy: 0, align: 'right', baseline: 'middle'}
-      ];
+      var gap = 6;
       chart.data.datasets.forEach(function(dataset, i) {
         var meta = chart.getDatasetMeta(i);
         if (meta.hidden) return;
         var point = meta.data[0];
         if (!point) return;
         var s = scenarios[i];
-        var off = offsets[i % 4];
-        var dist = point.r + gap;
-        var dx = off.align === 'left' ? dist : off.align === 'right' ? -dist : 0;
-        var dy = off.baseline === 'top' ? dist : off.baseline === 'bottom' ? -dist : 0;
+        var bv = Math.min(s.bv, 5.0), td = s.td;
+        var dist = (point.r || 10) + gap;
+
+        // 根据气泡位置智能选择标签方向，避免被画布边缘裁剪与重叠
+        var align = 'center', baseline = 'top';
+        var dx = 0, dy = dist;
+        if (bv >= 4.3) {
+          align = 'right'; baseline = 'middle';
+          dx = -dist; dy = 0;
+        } else if (bv <= 3.3) {
+          align = 'left'; baseline = 'middle';
+          dx = dist; dy = 0;
+        } else if (td >= 3.8) {
+          align = 'center'; baseline = 'top';
+          dx = 0; dy = dist;
+        } else if (td <= 2.2) {
+          align = 'center'; baseline = 'bottom';
+          dx = 0; dy = -dist;
+        }
 
         ctx.save();
-        ctx.font = '600 8px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-        ctx.textAlign = off.align;
-        ctx.textBaseline = off.baseline;
+        ctx.font = '600 9px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+        ctx.textAlign = align;
+        ctx.textBaseline = baseline;
 
         var line1 = s.id + ' ' + s.name;
         var x = point.x + dx;
@@ -92,16 +101,17 @@
         var m1 = ctx.measureText(line1);
         var w = m1.width;
         var h = 11;
-        var padX = 4, padY = 2;
+        var padX = 3, padY = 2;
 
         var boxX = x - w/2 - padX;
         var boxY = y - h - padY;
-        if (off.align === 'left') boxX = x - padX;
-        if (off.align === 'right') boxX = x - w - padX;
-        if (off.baseline === 'top') boxY = y - padY;
-        if (off.baseline === 'bottom') boxY = y - h - padY;
-        if (off.baseline === 'middle') boxY = y - h/2 - padY;
+        if (align === 'left') boxX = x - padX;
+        if (align === 'right') boxX = x - w - padX;
+        if (baseline === 'top') boxY = y - padY;
+        if (baseline === 'bottom') boxY = y - h - padY;
+        if (baseline === 'middle') boxY = y - h/2 - padY;
 
+        // 白色底框 + 阶段色细边框
         ctx.fillStyle = 'rgba(255,255,255,0.96)';
         ctx.strokeStyle = s.c;
         ctx.lineWidth = 1;
@@ -129,12 +139,14 @@
           pointRadius: r,
           pointHoverRadius: r + 3,
           pointBorderColor: '#fff',
-          pointBorderWidth: 1
+          pointBorderWidth: 1,
+          clip: false
         };
       })
     },
     options: {
       responsive: true, maintainAspectRatio: false,
+      layout: { padding: { top: 30, right: 200, bottom: 30, left: 30 } },
       plugins: {
         legend: { display: false },
         tooltip: {
