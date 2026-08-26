@@ -78,106 +78,91 @@
       });
       if (!pts.length) return;
 
-      // 集群质心，用于把标签向外推
-      var cx = 0, cy = 0;
-      pts.forEach(function(p){ cx += p.x; cy += p.y; });
-      cx /= pts.length; cy /= pts.length;
+      // 8 个候选方向：上、下、右、左、左上、右上、左下、右下
+      // 优先级：上下（文字横放，最省空间）> 左右 > 斜角
+      var DIRS = [
+        {key:'T',  dx:0,  dy:-1, ax:'center', bl:'bottom'}, // 上
+        {key:'B',  dx:0,  dy: 1, ax:'center', bl:'top'   }, // 下
+        {key:'R',  dx: 1, dy:0,  ax:'left',   bl:'middle'}, // 右
+        {key:'L',  dx:-1, dy:0,  ax:'right',  bl:'middle'}, // 左
+        {key:'TL', dx:-1, dy:-1, ax:'right',  bl:'bottom'}, // 左上
+        {key:'TR', dx: 1, dy:-1, ax:'left',   bl:'bottom'}, // 右上
+        {key:'BL', dx:-1, dy: 1, ax:'right',  bl:'top'   }, // 左下
+        {key:'BR', dx: 1, dy: 1, ax:'left',   bl:'top'   }  // 右下
+      ];
 
-      // 每个点的方向：远离质心（8 个离散方向）
-      function dirVec(p) {
-        var dx = p.x - cx, dy = p.y - cy;
-        if (dx === 0 && dy === 0) { dx = 0; dy = -1; }
-        var ang = Math.atan2(dy, dx);
-        var steps = [
-          {a: -Math.PI/2,           ax:'center', bl:'bottom', sx:-1, sy:-1}, // 上
-          {a: -Math.PI*0.75,        ax:'left',   bl:'bottom', sx: 0, sy:-1}, // 左上
-          {a: Math.PI,              ax:'right',  bl:'middle', sx:-1, sy: 0}, // 左
-          {a: -Math.PI*0.25,        ax:'left',   bl:'top',    sx: 0, sy: 0}, // 左下
-          {a:  Math.PI/2,           ax:'center', bl:'top',    sx:-1, sy: 1}, // 下
-          {a:  Math.PI*0.25,        ax:'right',  bl:'top',    sx:-1, sy: 0}, // 右下
-          {a:  0,                   ax:'left',   bl:'middle', sx: 1, sy: 0}, // 右
-          {a:  Math.PI*0.75,        ax:'right',  bl:'bottom', sx:-1, sy: 0}  // 右上
-        ];
-        var best = steps[0], bd = 1e9;
-        steps.forEach(function(st){
-          var d = Math.abs(((ang - st.a + Math.PI*3) % (Math.PI*2)) - Math.PI);
-          if (d < bd) { bd = d; best = st; }
-        });
-        return best;
+      function makeBox(p, dir, extraDist) {
+        var dist = p.r + 6 + (extraDist || 0); // 紧贴气泡，仅 6px 间隙
+        var text = p.s.id + ' ' + p.s.name;
+        var w = ctx.measureText(text).width + padX * 2;
+        var h = fontSize + padY * 2;
+        var bx = p.x + dir.dx * dist;
+        var by = p.y + dir.dy * dist;
+        // 根据 textAlign/textBaseline 换算盒子左上角
+        var boxX = bx, boxY = by;
+        if (dir.ax === 'center') boxX -= w / 2;
+        else if (dir.ax === 'right') boxX -= w;
+        if (dir.bl === 'middle') boxY -= h / 2;
+        else if (dir.bl === 'bottom') boxY -= h;
+        return { boxX: boxX, boxY: boxY, w: w, h: h, text: text, ax: dir.ax, bl: dir.bl, cx: bx, cy: by };
       }
 
-      // 计算标签盒子（先按方向放置）
-      pts.forEach(function(p){
-        var dv = dirVec(p);
-        p.align = dv.ax; p.baseline = dv.bl;
-        p.text = p.s.id + ' ' + p.s.name;
-        p.w = ctx.measureText(p.text).width + padX * 2;
-        p.h = fontSize + padY * 2;
-        var dist = p.r + 14; // 与气泡的固定间隙，确保不叠加
-        // 锚点坐标（标签盒子与气泡接触的边/角）
-        var bx, by;
-        if (dv.ax === 'center') { bx = p.x; }
-        else if (dv.ax === 'left') { bx = p.x + p.r + dist; }
-        else { bx = p.x - p.r - dist; }
-        if (dv.bl === 'middle') { by = p.y; }
-        else if (dv.bl === 'top') { by = p.y + p.r + dist; }
-        else { by = p.y - p.r - dist; }
-        // 盒子左上角
-        p.boxX = bx + (dv.sx < 0 ? -p.w : 0);
-        p.boxY = by + (dv.sy < 0 ? -p.h : 0);
-      });
-
-      // 碰撞避让：标签之间、标签与气泡之间分离
-      function overlapBoxes(a, b) {
+      function inArea(box) {
+        return box.boxX >= area.left - 2 &&
+               box.boxY >= area.top - 2 &&
+               box.boxX + box.w <= area.right + 2 &&
+               box.boxY + box.h <= area.bottom + 2;
+      }
+      function boxOverlap(a, b) {
         return a.boxX < b.boxX + b.w && a.boxX + a.w > b.boxX &&
                a.boxY < b.boxY + b.h && a.boxY + a.h > b.boxY;
       }
-      function overlapBubble(p) {
-        // 标签盒与任一气泡圆的最小矩形-圆碰撞
-        var nx = Math.max(p.boxX, Math.min(p.x, p.boxX + p.w));
-        var ny = Math.max(p.boxY, Math.min(p.y, p.boxY + p.h));
+      function bubbleOverlap(box, p) {
+        var nx = Math.max(box.boxX, Math.min(p.x, box.boxX + box.w));
+        var ny = Math.max(box.boxY, Math.min(p.y, box.boxY + box.h));
         var ddx = p.x - nx, ddy = p.y - ny;
-        return (ddx*ddx + ddy*ddy) < (p.r * p.r) - 4;
-      }
-      for (var iter = 0; iter < 60; iter++) {
-        var moved = false;
-        for (var a = 0; a < pts.length; a++) {
-          for (var b = a + 1; b < pts.length; b++) {
-            if (overlapBoxes(pts[a], pts[b])) {
-              // 沿竖直方向分开（盒子高度小，竖直推开更稳定）
-              var ca = pts[a].boxY + pts[a].h/2, cb = pts[b].boxY + pts[b].h/2;
-              var push = (pts[a].h)/2 + (pts[b].h)/2 + 2;
-              if (ca <= cb) { pts[a].boxY -= 3; pts[b].boxY += 3; }
-              else { pts[a].boxY += 3; pts[b].boxY -= 3; }
-              moved = true;
-            }
-          }
-          // 与气泡分离
-          if (overlapBubble(pts[a])) {
-            // 沿着远离质心方向再推开
-            var ddx2 = pts[a].boxX + pts[a].w/2 - cx;
-            var ddy2 = pts[a].boxY + pts[a].h/2 - cy;
-            if (ddy2 !== 0) pts[a].boxY += (ddy2 > 0 ? 3 : -3);
-            else pts[a].boxX += (ddx2 > 0 ? 3 : -3);
-            moved = true;
-          }
-          // 约束在画布内
-          if (pts[a].boxX < area.left + 2) pts[a].boxX = area.left + 2;
-          if (pts[a].boxY < area.top + 2) pts[a].boxY = area.top + 2;
-          if (pts[a].boxX + pts[a].w > area.right - 2) pts[a].boxX = area.right - 2 - pts[a].w;
-          if (pts[a].boxY + pts[a].h > area.bottom - 2) pts[a].boxY = area.bottom - 2 - pts[a].h;
-        }
-        if (!moved) break;
+        return (ddx*ddx + ddy*ddy) < (p.r * p.r);
       }
 
-      // 绘制：仅画标签盒（不绘制气泡-标签引线）
+      // 逐个放置标签：优先选离气泡最近的可用方向
+      var placed = [];
+      pts.forEach(function(p){
+        var best = null, bestScore = -1;
+        DIRS.forEach(function(dir){
+          for (var d = 0; d <= 30; d += 2) { // 最多额外外推 30px
+            var box = makeBox(p, dir, d);
+            if (!inArea(box)) continue;
+            var bad = false;
+            for (var k = 0; k < placed.length; k++) {
+              if (boxOverlap(box, placed[k])) { bad = true; break; }
+            }
+            for (var k = 0; k < pts.length; k++) {
+              if (pts[k].i !== p.i && bubbleOverlap(box, pts[k])) { bad = true; break; }
+            }
+            if (!bad) {
+              // 评分：优先方向靠前、距离气泡近
+              var score = (8 - DIRS.indexOf(dir)) * 1000 + (30 - d);
+              if (score > bestScore) { bestScore = score; best = box; }
+              break; // 该方向找到最近可用位置，停止外推
+            }
+          }
+        });
+        if (!best) {
+          // 如果实在没有不碰撞的位置，选方向优先级最高的，距离最近的位置
+          best = makeBox(p, DIRS[0], 0);
+        }
+        // 保存到点对象，供绘制使用
+        p.boxX = best.boxX; p.boxY = best.boxY;
+        p.w = best.w; p.h = best.h;
+        p.text = best.text; p.cx = best.cx; p.cy = best.cy;
+        placed.push(best);
+      });
+
+      // 绘制标签盒
       ctx.save();
       ctx.font = font;
       ctx.lineWidth = 1;
       pts.forEach(function(p){
-        // 标签盒中心
-        var lcx = p.boxX + p.w/2, lcy = p.boxY + p.h/2;
-
         // 白色底框 + 阶段色细边框
         ctx.fillStyle = 'rgba(255,255,255,0.96)';
         ctx.strokeStyle = p.s.c;
@@ -186,11 +171,11 @@
         ctx.fill();
         ctx.stroke();
 
-        // 文字（居中于盒子）
+        // 文字居中于盒子
         ctx.fillStyle = '#1B3A6B';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText(p.text, lcx, lcy);
+        ctx.fillText(p.text, p.boxX + p.w/2, p.boxY + p.h/2);
       });
       ctx.restore();
     }
