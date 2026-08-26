@@ -8,11 +8,11 @@
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
   html,body{height:100%;width:100%;background:#fff}
-  body{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px}
+  body{display:flex;flex-direction:column;align-items:center;padding:12px 16px}
   h1{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-     font-size:16px;font-weight:700;color:#1B3A6B;margin-bottom:8px;text-align:center}
-  .chart-box{position:relative;width:100%;max-width:900px;height:68vh;min-height:340px}
-  .legend{display:flex;gap:16px;margin-top:8px;font-size:12px;color:#5B7A91}
+     font-size:16px;font-weight:700;color:#1B3A6B;margin-bottom:6px;text-align:center}
+  .chart-box{position:relative;width:100%;height:calc(100% - 50px);min-height:260px}
+  .legend{display:flex;gap:20px;margin-top:6px;font-size:11px;color:#5B7A91}
   .legend span{display:flex;align-items:center;gap:4px}
   .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
 </style>
@@ -30,33 +30,88 @@
 <script>
 (function(){
   var scenarios = [
-    // P0 - 2026
+    // P0 - 2026 (10个)
     {id:'S01',name:'物料主数据治理',bv:5.0,td:3.0,p:'P0',c:'#003087'},
-    {id:'S04',name:'销售价格管理',bv:4.5,td:3.0,p:'P0',c:'#003087'},
+    {id:'S04',name:'销售价格管理',bv:4.5,td:3.15,p:'P0',c:'#003087'},
     {id:'S08',name:'海外财务合规',bv:5.0,td:3.5,p:'P0',c:'#003087'},
-    {id:'S10',name:'财务主数据治理',bv:4.5,td:3.0,p:'P0',c:'#003087'},
+    {id:'S10',name:'财务主数据治理',bv:4.5,td:2.85,p:'P0',c:'#003087'},
     {id:'S11',name:'应收清账',bv:4.0,td:2.5,p:'P0',c:'#003087'},
-    {id:'S12',name:'集团法定合并',bv:4.5,td:3.5,p:'P0',c:'#003087'},
-    {id:'S15',name:'采购配额',bv:4.0,td:2.5,p:'P0',c:'#003087'},
-    {id:'S18',name:'主生产计划',bv:4.5,td:3.5,p:'P0',c:'#003087'},
-    {id:'S19',name:'MRP',bv:5.0,td:3.5,p:'P0',c:'#003087'},
-    {id:'S25',name:'研发产出分析',bv:4.0,td:2.5,p:'P0',c:'#003087'},
-    // P1 - 2027
+    {id:'S12',name:'集团法定合并',bv:4.65,td:3.5,p:'P0',c:'#003087'},
+    {id:'S15',name:'采购配额',bv:4.0,td:2.65,p:'P0',c:'#003087'},
+    {id:'S18',name:'主生产计划',bv:4.35,td:3.5,p:'P0',c:'#003087'},
+    {id:'S19',name:'MRP',bv:5.15,td:3.65,p:'P0',c:'#003087'},
+    {id:'S25',name:'研发产出分析',bv:4.15,td:2.5,p:'P0',c:'#003087'},
+    // P1 - 2027 (9个)
     {id:'S02',name:'客户信用管理',bv:4.5,td:4.0,p:'P1',c:'#2374a3'},
     {id:'S03',name:'跨公司转卖',bv:4.0,td:4.0,p:'P1',c:'#2374a3'},
-    {id:'S05',name:'订单全链路跟踪',bv:4.5,td:4.0,p:'P1',c:'#2374a3'},
-    {id:'S09',name:'制造成本还原',bv:4.0,td:4.0,p:'P1',c:'#2374a3'},
+    {id:'S05',name:'订单全链路跟踪',bv:4.5,td:3.85,p:'P1',c:'#2374a3'},
+    {id:'S09',name:'制造成本还原',bv:4.0,td:3.85,p:'P1',c:'#2374a3'},
     {id:'S13',name:'供应商绩效管理',bv:4.0,td:3.5,p:'P1',c:'#2374a3'},
-    {id:'S14',name:'采购价格透明化',bv:4.0,td:3.5,p:'P1',c:'#2374a3'},
+    {id:'S14',name:'采购价格透明化',bv:4.0,td:3.65,p:'P1',c:'#2374a3'},
     {id:'S16',name:'产前齐套预警',bv:3.5,td:4.0,p:'P1',c:'#2374a3'},
-    {id:'S23',name:'BOM全生命周期',bv:4.0,td:4.0,p:'P1',c:'#2374a3'},
-    {id:'S24',name:'客户项目核算',bv:3.5,td:4.0,p:'P1',c:'#2374a3'},
-    // P2 - 2028
+    {id:'S23',name:'BOM全生命周期',bv:4.0,td:4.15,p:'P1',c:'#2374a3'},
+    {id:'S24',name:'客户项目核算',bv:3.5,td:3.85,p:'P1',c:'#2374a3'},
+    // P2 - 2028 (4个)
     {id:'S17',name:'库存可视化',bv:3.0,td:2.0,p:'P2',c:'#89c4e8'},
-    {id:'S20',name:'生产进度看板',bv:3.0,td:2.0,p:'P2',c:'#89c4e8'},
+    {id:'S20',name:'生产进度看板',bv:3.0,td:2.15,p:'P2',c:'#89c4e8'},
     {id:'S21',name:'质量追溯',bv:3.5,td:2.5,p:'P2',c:'#89c4e8'},
-    {id:'S22',name:'质量合格率统计',bv:3.0,td:2.0,p:'P2',c:'#89c4e8'}
+    {id:'S22',name:'质量合格率统计',bv:3.0,td:1.85,p:'P2',c:'#89c4e8'}
   ];
+
+  var labelPlugin = {
+    id: 'scenarioLabels',
+    afterDatasetsDraw: function(chart) {
+      var ctx = chart.ctx;
+      var offsets = [
+        {dx: 0, dy: -16, align: 'center', baseline: 'bottom'},
+        {dx: 14, dy: 0, align: 'left', baseline: 'middle'},
+        {dx: 0, dy: 16, align: 'center', baseline: 'top'},
+        {dx: -14, dy: 0, align: 'right', baseline: 'middle'}
+      ];
+      chart.data.datasets.forEach(function(dataset, i) {
+        var meta = chart.getDatasetMeta(i);
+        if (meta.hidden) return;
+        var point = meta.data[0];
+        if (!point) return;
+        var s = scenarios[i];
+        var off = offsets[i % 4];
+
+        ctx.save();
+        ctx.font = '600 8px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+        ctx.textAlign = off.align;
+        ctx.textBaseline = off.baseline;
+
+        var line1 = s.id + ' ' + s.name;
+        var x = point.x + off.dx;
+        var y = point.y + off.dy;
+
+        var m1 = ctx.measureText(line1);
+        var w = m1.width;
+        var h = 11;
+        var padX = 4, padY = 2;
+
+        var boxX = x - w/2 - padX;
+        var boxY = y - h - padY;
+        if (off.align === 'left') boxX = x - padX;
+        if (off.align === 'right') boxX = x - w - padX;
+        if (off.baseline === 'top') boxY = y - padY;
+        if (off.baseline === 'bottom') boxY = y - h - padY;
+        if (off.baseline === 'middle') boxY = y - h/2 - padY;
+
+        ctx.fillStyle = 'rgba(255,255,255,0.96)';
+        ctx.strokeStyle = s.c;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.roundRect(boxX, boxY, w + padX*2, h + padY*2, 3);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = '#1B3A6B';
+        ctx.fillText(line1, x, y);
+        ctx.restore();
+      });
+    }
+  };
 
   new Chart(document.getElementById('quadrantChart'), {
     type: 'scatter',
@@ -66,8 +121,10 @@
           label: s.id + ' ' + s.name,
           data: [{x:s.bv, y:s.td}],
           backgroundColor: s.c,
-          pointRadius: 10,
-          pointHoverRadius: 13
+          pointRadius: 12,
+          pointHoverRadius: 15,
+          pointBorderColor: '#fff',
+          pointBorderWidth: 1
         };
       })
     },
@@ -78,24 +135,26 @@
         tooltip: {
           callbacks: {
             label: function(ctx) {
-              return ctx.dataset.label + ' (BV:' + ctx.raw.x + ' TD:' + ctx.raw.y + ')';
+              var s = scenarios[ctx.datasetIndex];
+              return s.id + ' ' + s.name + ' (BV:' + s.bv + ' TD:' + s.td + ')';
             }
           }
         }
       },
       scales: {
         x: {
-          min: 1.5, max: 5.5,
+          min: 2.5, max: 5.5,
           title: { display: true, text: '业务价值（Business Value）', font: { size: 12 } },
-          ticks: { stepSize: 0.5 }
+          ticks: { stepSize: 0.5, font: { size: 11 } }
         },
         y: {
           min: 1.5, max: 4.5,
           title: { display: true, text: '技术难度（Technical Difficulty）', font: { size: 12 } },
-          ticks: { stepSize: 0.5 }
+          ticks: { stepSize: 0.5, font: { size: 11 } }
         }
       }
-    }
+    },
+    plugins: [labelPlugin]
   });
 })();
 </script>

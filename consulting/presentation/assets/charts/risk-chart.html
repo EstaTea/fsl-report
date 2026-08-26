@@ -20,24 +20,74 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <script>
-Chart.register(ChartDataLabels);
 var C = {
   navy:'#003087', dark:'#1B3A6B', primary:'#005EB8', mid:'#1F70C1',
   steel:'#4A6FA5', muted:'#6B8CB8', light:'#A8C4E0', pale:'#D0E4F7'
 };
 
 var riskData=[
-  {x:0.8,y:0.9,r:20,label:'R-01 主数据清洗',color:C.navy},
-  {x:0.7,y:0.6,r:16,label:'R-02 MES供应商',color:C.navy},
-  {x:0.5,y:0.9,r:18,label:'R-03 广晟边界',color:C.dark},
-  {x:0.6,y:0.6,r:14,label:'R-04 用户参与',color:C.primary},
-  {x:0.5,y:0.4,r:10,label:'R-05 PCE升级',color:C.mid},
-  {x:0.3,y:0.6,r:10,label:'R-06 泰国合规',color:C.steel},
-  {x:0.6,y:0.5,r:12,label:'R-07 变革阻力',color:C.steel},
-  {x:0.3,y:0.9,r:14,label:'R-08 上市合规',color:C.dark}
+  {x:0.8,y:0.9,r:24,label:'R-01 主数据清洗质量不达标',color:C.navy},
+  {x:0.7,y:0.6,r:20,label:'R-02 MES供应商交付延期',color:C.navy},
+  {x:0.5,y:0.9,r:22,label:'R-03 广晟边界管控合规风险',color:C.dark},
+  {x:0.6,y:0.6,r:18,label:'R-04 用户参与度和变革阻力',color:C.primary},
+  {x:0.5,y:0.4,r:16,label:'R-05 PCE版本升级兼容性',color:C.mid},
+  {x:0.3,y:0.6,r:16,label:'R-06 泰国本地化合规要求',color:C.steel},
+  {x:0.6,y:0.5,r:18,label:'R-07 组织变革管理不到位',color:C.steel},
+  {x:0.3,y:0.9,r:20,label:'R-08 上市合规与审计要求',color:C.dark}
 ];
+
+var labelPlugin = {
+  id: 'riskLabels',
+  afterDatasetsDraw: function(chart) {
+    var ctx = chart.ctx;
+    var offsets = [
+      {dx: 0, dy: -14, align: 'center', baseline: 'bottom'},
+      {dx: 12, dy: 0, align: 'left', baseline: 'middle'},
+      {dx: 0, dy: 14, align: 'center', baseline: 'top'},
+      {dx: -12, dy: 0, align: 'right', baseline: 'middle'}
+    ];
+    chart.data.datasets.forEach(function(dataset, i) {
+      var meta = chart.getDatasetMeta(i);
+      if (meta.hidden) return;
+      var point = meta.data[0];
+      if (!point) return;
+
+      var label = dataset.label;
+      var off = offsets[i % 4];
+      var x = point.x + off.dx;
+      var y = point.y + off.dy;
+
+      ctx.save();
+      ctx.font = '600 9px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      ctx.textAlign = off.align;
+      ctx.textBaseline = off.baseline;
+
+      var m = ctx.measureText(label);
+      var w = m.width, h = 11;
+      var padX = 5, padY = 2;
+      var boxX = x - w/2 - padX;
+      var boxY = y - h - padY;
+      if (off.align === 'left') boxX = x - padX;
+      if (off.align === 'right') boxX = x - w - padX;
+      if (off.baseline === 'top') boxY = y - padY;
+      if (off.baseline === 'bottom') boxY = y - h - padY;
+      if (off.baseline === 'middle') boxY = y - h/2 - padY;
+
+      ctx.fillStyle = 'rgba(255,255,255,0.94)';
+      ctx.strokeStyle = dataset.borderColor || '#1B3A6B';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.roundRect(boxX, boxY, w + padX*2, h + padY*2, 4);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = '#1B3A6B';
+      ctx.fillText(label, x, y);
+      ctx.restore();
+    });
+  }
+};
 
 new Chart(document.getElementById('riskChart'), {
   type:'bubble',
@@ -49,9 +99,10 @@ new Chart(document.getElementById('riskChart'), {
     responsive:true, maintainAspectRatio:false,
     plugins:{
       legend:{display:false},
-      datalabels:{
-        anchor:'center',align:'center',color:'#fff',font:{size:9,weight:'600'},
-        formatter:function(v,ctx){return ctx.dataset.label.split(' ')[0];}
+      tooltip:{
+        callbacks:{
+          label:function(ctx){return ctx.dataset.label;}
+        }
       }
     },
     scales:{
@@ -60,7 +111,8 @@ new Chart(document.getElementById('riskChart'), {
       y:{min:0,max:1.1,title:{display:true,text:'影响程度（低→高）'},
          ticks:{callback:function(v){return v<=0.3?'低':v<=0.6?'中':'高';}}}
     }
-  }
+  },
+  plugins: [labelPlugin]
 });
 </script>
 </body>

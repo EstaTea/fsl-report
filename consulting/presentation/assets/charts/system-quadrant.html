@@ -5,14 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>22系统处理策略四象限图</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
   html,body{height:100%;width:100%;background:#fff}
   body{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
   h1{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
      font-size:18px;font-weight:700;color:#1B3A6B;margin-bottom:12px;text-align:center}
-  .chart-box{position:relative;width:100%;max-width:900px;height:70vh;min-height:320px}
+  .chart-box{position:relative;width:100%;max-width:960px;height:72vh;min-height:340px}
 </style>
 </head>
 <body>
@@ -22,23 +21,77 @@
 </div>
 <script>
 (function(){
-  Chart.register(ChartDataLabels);
   var C = {
     navy:'#003087', dark:'#1B3A6B', primary:'#005EB8', mid:'#1F70C1',
     steel:'#4A6FA5', muted:'#6B8CB8', light:'#A8C4E0', pale:'#D0E4F7'
   };
   var systems = [
-    { x: 2, y: 4, label: 'ECC→S/4HANA', r: 32, color: C.navy },
-    { x: 3, y: 4, label: 'MDG(新引入)', r: 22, color: C.primary },
-    { x: 3, y: 3.5, label: 'Group Rpt(新引入)', r: 20, color: C.primary },
-    { x: 4, y: 2, label: 'PLM(保留+集成)', r: 18, color: C.steel },
-    { x: 4, y: 2.5, label: 'SRM(保留+集成)', r: 18, color: C.steel },
-    { x: 3.5, y: 2, label: 'CRM(保留+集成)', r: 18, color: C.steel },
-    { x: 2.5, y: 3, label: 'WMS→EWM(升级)', r: 20, color: C.mid },
-    { x: 4, y: 3, label: 'MES(保留+集成)', r: 18, color: C.steel },
-    { x: 3, y: 3, label: 'CPI(升级)', r: 20, color: C.mid },
-    { x: 4.5, y: 3, label: 'SmartBI(保留)', r: 15, color: C.muted }
+    { x: 2, y: 4, label: 'ECC→S/4HANA', r: 42, color: C.navy },
+    { x: 3.1, y: 4.3, label: 'MDG(新引入)', r: 28, color: C.primary },
+    { x: 2.9, y: 3.5, label: 'Group Rpt(新引入)', r: 26, color: C.primary },
+    { x: 4.2, y: 1.8, label: 'PLM(保留+集成)', r: 24, color: C.steel },
+    { x: 4.3, y: 2.5, label: 'SRM(保留+集成)', r: 24, color: C.steel },
+    { x: 3.3, y: 1.9, label: 'CRM(保留+集成)', r: 24, color: C.steel },
+    { x: 2.4, y: 3, label: 'WMS→EWM(升级)', r: 26, color: C.mid },
+    { x: 4.2, y: 3.2, label: 'MES(保留+集成)', r: 24, color: C.steel },
+    { x: 3, y: 2.7, label: 'CPI(升级)', r: 26, color: C.mid },
+    { x: 4.6, y: 3, label: 'SmartBI(保留)', r: 20, color: C.muted }
   ];
+
+  var labelPlugin = {
+    id: 'customLabels',
+    afterDatasetsDraw: function(chart) {
+      var ctx = chart.ctx;
+      var offsets = [
+        {dx: 0, dy: -16, align: 'center', baseline: 'bottom'},
+        {dx: 14, dy: 0, align: 'left', baseline: 'middle'},
+        {dx: 0, dy: 16, align: 'center', baseline: 'top'},
+        {dx: -14, dy: 0, align: 'right', baseline: 'middle'}
+      ];
+      chart.data.datasets.forEach(function(dataset, i) {
+        var meta = chart.getDatasetMeta(i);
+        if (meta.hidden) return;
+        var point = meta.data[0];
+        if (!point) return;
+        var off = offsets[i % 4];
+
+        ctx.save();
+        ctx.font = '600 9px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+        ctx.fillStyle = '#1B3A6B';
+        ctx.textAlign = off.align;
+        ctx.textBaseline = off.baseline;
+
+        var label = dataset.label;
+        var textMetrics = ctx.measureText(label);
+        var x = point.x + off.dx;
+        var y = point.y + off.dy;
+
+        var padX = 5, padY = 2;
+        var w = textMetrics.width;
+        var h = 12;
+        var boxX = x - w/2 - padX;
+        var boxY = y - h - padY;
+        if (off.align === 'left') boxX = x - padX;
+        if (off.align === 'right') boxX = x - w - padX;
+        if (off.baseline === 'top') boxY = y - padY;
+        if (off.baseline === 'bottom') boxY = y - h - padY;
+        if (off.baseline === 'middle') boxY = y - h/2 - padY;
+
+        ctx.fillStyle = 'rgba(255,255,255,0.94)';
+        ctx.strokeStyle = dataset.borderColor || '#1B3A6B';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.roundRect(boxX, boxY, w + padX*2, h + padY*2, 4);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = '#1B3A6B';
+        ctx.fillText(label, x, y);
+        ctx.restore();
+      });
+    }
+  };
+
   new Chart(document.getElementById('strategyChart'), {
     type: 'bubble',
     data: {
@@ -55,19 +108,15 @@
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: {
-        legend: { display:false },
-        datalabels: {
-          anchor: 'center', align: 'center',
-          color: '#fff', font: { size: 7, weight: '600' },
-          formatter: function(value, context) { return context.dataset.label; }
-        },
+        legend: { display: false },
         tooltip: { callbacks: { label: function(ctx) { return ctx.dataset.label; } } }
       },
       scales: {
         x: { min:1, max:5.5, title:{display:true,text:'当前满足业务需求程度（低→高）'}, ticks:{font:{size:10}} },
-        y: { min:1, max:5, title:{display:true,text:'更换代价（高→低）'}, ticks:{font:{size:10}} }
+        y: { min:1, max:5, title:{display:true,text:'更换代价（低→高）'}, ticks:{font:{size:10}} }
       }
-    }
+    },
+    plugins: [labelPlugin]
   });
 })();
 </script>
