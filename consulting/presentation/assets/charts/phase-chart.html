@@ -33,11 +33,11 @@ new Chart(document.getElementById('phaseChart'), {
   data: {
     labels: [['Phase 1','夯实底座'],['Phase 2','贯通协同'],['Phase 3','智慧跃升']],
     datasets: [
-      { label: '成熟度提升', data:[0.6,0.7,0.6],
-        backgroundColor:[C.navy,C.primary,C.steel], borderRadius:6, stack:'s' },
       { label: '已有成熟度基础', data:[1.9,2.5,3.2],
         backgroundColor:['rgba(168,196,224,0.35)','rgba(168,196,224,0.25)','rgba(168,196,224,0.15)'],
-        borderRadius:6, stack:'s' }
+        borderRadius:6, stack:'s' },
+      { label: '成熟度提升', data:[0.6,0.7,0.6],
+        backgroundColor:[C.navy,C.primary,C.steel], borderRadius:6, stack:'s' }
     ]
   },
   options: {
