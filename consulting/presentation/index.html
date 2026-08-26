@@ -1227,103 +1227,123 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
   </aside>
 </section>
 
-<!-- 26b. 架构设计原则 -->
-<section class="slide" data-title="架构原则">
-  <p class="kicker">ARCHITECTURE PRINCIPLES</p>
-  <h2 class="h2">六大架构设计原则</h2>
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px;">
-    <div class="card" style="padding:16px 14px 14px;position:relative;overflow:hidden;border-left:4px solid var(--accent-2);display:flex;flex-direction:column;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-        <div style="background:var(--accent-2);color:#fff;width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;">01</div>
-        <h4 style="margin:0;font-size:15px;color:var(--accent);">业务优先</h4>
-      </div>
-      <p class="dim" style="margin:0;font-size:12px;line-height:1.55;">架构设计以业务价值为导向，技术服务于业务，不为技术而技术。</p>
+<!-- 26b. 架构驱动因素与设计原则 -->
+<section class="slide" data-title="驱动与原则">
+  <p class="kicker">ARCHITECTURE DRIVERS & PRINCIPLES</p>
+  <h2 class="h2">架构驱动因素与设计原则</h2>
+
+  <!-- 变革驱动因素 -->
+  <div style="margin-top:16px;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+      <div style="font-size:12px;font-weight:700;color:#fff;background:var(--accent-2);padding:3px 10px;border-radius:4px;text-transform:uppercase;letter-spacing:.5px;">Why · 变革驱动因素</div>
+      <div style="flex:1;height:1px;background:var(--accent-3);opacity:.4;"></div>
     </div>
-    <div class="card" style="padding:16px 14px 14px;position:relative;overflow:hidden;border-left:4px solid var(--accent-2);display:flex;flex-direction:column;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-        <div style="background:var(--accent-2);color:#fff;width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;">02</div>
-        <h4 style="margin:0;font-size:15px;color:var(--accent);">标准统一</h4>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+      <div class="card" style="padding:10px 12px;border-left:3px solid var(--accent-3);">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="background:var(--accent-3);color:#fff;width:22px;height:22px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;">D1</div>
+          <h4 style="margin:0;font-size:12px;color:var(--accent);">业务战略转型</h4>
+        </div>
+        <p class="dim" style="margin:5px 0 0;font-size:10.5px;line-height:1.4;">从制造商到服务商的业务模式转变</p>
       </div>
-      <p class="dim" style="margin:0;font-size:12px;line-height:1.55;">主数据、接口、流程全部标准化，杜绝"一事一议"的定制化。</p>
-    </div>
-    <div class="card" style="padding:16px 14px 14px;position:relative;overflow:hidden;border-left:4px solid var(--accent-2);display:flex;flex-direction:column;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-        <div style="background:var(--accent-2);color:#fff;width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;">03</div>
-        <h4 style="margin:0;font-size:15px;color:var(--accent);">集成优先</h4>
+      <div class="card" style="padding:10px 12px;border-left:3px solid var(--accent-3);">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="background:var(--accent-3);color:#fff;width:22px;height:22px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;">D2</div>
+          <h4 style="margin:0;font-size:12px;color:var(--accent);">国资监管要求</h4>
+        </div>
+        <p class="dim" style="margin:5px 0 0;font-size:10.5px;line-height:1.4;">1号文/2号文/15号文的合规硬约束</p>
       </div>
-      <p class="dim" style="margin:0;font-size:12px;line-height:1.55;">新建系统必须通过统一集成平台连接，严禁点对点接口。</p>
-    </div>
-    <div class="card" style="padding:16px 14px 14px;position:relative;overflow:hidden;border-left:4px solid var(--accent-2);display:flex;flex-direction:column;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-        <div style="background:var(--accent-2);color:#fff;width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;">04</div>
-        <h4 style="margin:0;font-size:15px;color:var(--accent);">渐进演进</h4>
+      <div class="card" style="padding:10px 12px;border-left:3px solid var(--accent-3);">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="background:var(--accent-3);color:#fff;width:22px;height:22px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;">D3</div>
+          <h4 style="margin:0;font-size:12px;color:var(--accent);">系统老化瓶颈</h4>
+        </div>
+        <p class="dim" style="margin:5px 0 0;font-size:10.5px;line-height:1.4;">SAP ECC技术架构无法满足业务增长</p>
       </div>
-      <p class="dim" style="margin:0;font-size:12px;line-height:1.55;">分Phase实施，每Phase都有明确交付物和验收标准，不贪大求全。</p>
-    </div>
-    <div class="card" style="padding:16px 14px 14px;position:relative;overflow:hidden;border-left:4px solid var(--accent-2);display:flex;flex-direction:column;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-        <div style="background:var(--accent-2);color:#fff;width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;">05</div>
-        <h4 style="margin:0;font-size:15px;color:var(--accent);">安全合规</h4>
+      <div class="card" style="padding:10px 12px;border-left:3px solid var(--accent-3);">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="background:var(--accent-3);color:#fff;width:22px;height:22px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;">D4</div>
+          <h4 style="margin:0;font-size:12px;color:var(--accent);">数据治理滞后</h4>
+        </div>
+        <p class="dim" style="margin:5px 0 0;font-size:10.5px;line-height:1.4;">主数据混乱制约数字化价值释放</p>
       </div>
-      <p class="dim" style="margin:0;font-size:12px;line-height:1.55;">满足等保2.0和国资监管要求，数据安全贯穿设计、开发、运维全生命周期。</p>
-    </div>
-    <div class="card" style="padding:16px 14px 14px;position:relative;overflow:hidden;border-left:4px solid var(--accent-2);display:flex;flex-direction:column;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-        <div style="background:var(--accent-2);color:#fff;width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;">06</div>
-        <h4 style="margin:0;font-size:15px;color:var(--accent);">用户体验</h4>
+      <div class="card" style="padding:10px 12px;border-left:3px solid var(--accent-3);">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="background:var(--accent-3);color:#fff;width:22px;height:22px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;">D5</div>
+          <h4 style="margin:0;font-size:12px;color:var(--accent);">海外扩张需求</h4>
+        </div>
+        <p class="dim" style="margin:5px 0 0;font-size:10.5px;line-height:1.4;">泰国工厂上线需要本地化合规支撑</p>
       </div>
-      <p class="dim" style="margin:0;font-size:12px;line-height:1.55;">推广Fiori等现代化前端，简化操作，提升用户效率和满意度。</p>
+      <div class="card" style="padding:10px 12px;border-left:3px solid var(--accent-3);">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="background:var(--accent-3);color:#fff;width:22px;height:22px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;">D6</div>
+          <h4 style="margin:0;font-size:12px;color:var(--accent);">竞争压力加剧</h4>
+        </div>
+        <p class="dim" style="margin:5px 0 0;font-size:10.5px;line-height:1.4;">标杆企业数字化领先，佛照需追赶</p>
+      </div>
     </div>
   </div>
+
+  <!-- 设计原则 -->
+  <div style="margin-top:14px;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+      <div style="font-size:12px;font-weight:700;color:#fff;background:var(--accent);padding:3px 10px;border-radius:4px;text-transform:uppercase;letter-spacing:.5px;">How · 架构设计原则</div>
+      <div style="flex:1;height:1px;background:var(--accent-2);opacity:.4;"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+      <div class="card" style="padding:12px 14px;border-left:3px solid var(--accent-2);display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
+          <div style="background:var(--accent-2);color:#fff;width:24px;height:24px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;">P1</div>
+          <h4 style="margin:0;font-size:13px;color:var(--accent);">业务优先</h4>
+        </div>
+        <p class="dim" style="margin:0;font-size:11px;line-height:1.45;">架构设计以业务价值为导向，技术服务于业务。</p>
+      </div>
+      <div class="card" style="padding:12px 14px;border-left:3px solid var(--accent-2);display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
+          <div style="background:var(--accent-2);color:#fff;width:24px;height:24px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;">P2</div>
+          <h4 style="margin:0;font-size:13px;color:var(--accent);">标准统一</h4>
+        </div>
+        <p class="dim" style="margin:0;font-size:11px;line-height:1.45;">主数据、接口、流程标准化，杜绝一事一议。</p>
+      </div>
+      <div class="card" style="padding:12px 14px;border-left:3px solid var(--accent-2);display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
+          <div style="background:var(--accent-2);color:#fff;width:24px;height:24px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;">P3</div>
+          <h4 style="margin:0;font-size:13px;color:var(--accent);">集成优先</h4>
+        </div>
+        <p class="dim" style="margin:0;font-size:11px;line-height:1.45;">新建系统通过统一集成平台连接，严禁点对点。</p>
+      </div>
+      <div class="card" style="padding:12px 14px;border-left:3px solid var(--accent-2);display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
+          <div style="background:var(--accent-2);color:#fff;width:24px;height:24px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;">P4</div>
+          <h4 style="margin:0;font-size:13px;color:var(--accent);">渐进演进</h4>
+        </div>
+        <p class="dim" style="margin:0;font-size:11px;line-height:1.45;">分Phase实施，每Phase有明确交付物和验收标准。</p>
+      </div>
+      <div class="card" style="padding:12px 14px;border-left:3px solid var(--accent-2);display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
+          <div style="background:var(--accent-2);color:#fff;width:24px;height:24px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;">P5</div>
+          <h4 style="margin:0;font-size:13px;color:var(--accent);">安全合规</h4>
+        </div>
+        <p class="dim" style="margin:0;font-size:11px;line-height:1.45;">满足等保2.0和国资监管要求，数据安全贯穿全周期。</p>
+      </div>
+      <div class="card" style="padding:12px 14px;border-left:3px solid var(--accent-2);display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
+          <div style="background:var(--accent-2);color:#fff;width:24px;height:24px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;">P6</div>
+          <h4 style="margin:0;font-size:13px;color:var(--accent);">用户体验</h4>
+        </div>
+        <p class="dim" style="margin:0;font-size:11px;line-height:1.45;">推广Fiori等现代化前端，提升用户效率和满意度。</p>
+      </div>
+    </div>
+  </div>
+
   <aside class="notes">
-    <p>六大架构设计原则。</p>
-    <p>最核心的两条：<strong>业务优先</strong>和<strong>标准统一</strong>。</p>
-    <p>架构设计不是技术炫技，是解决业务问题。同时必须坚持标准化，不标准化就没有可持续性。</p>
+    <p>本页将架构变革的驱动因素与设计原则合二为一。</p>
+    <p><strong>驱动因素</strong>回答Why：业务战略转型、国资监管、系统老化、数据治理、海外扩张、竞争压力。</p>
+    <p><strong>设计原则</strong>回答How：业务优先、标准统一、集成优先、渐进演进、安全合规、用户体验。</p>
+    <p>最核心的两条原则：<strong>业务优先</strong>和<strong>标准统一</strong>。架构设计不是技术炫技，是解决业务问题；同时必须坚持标准化，不标准化就没有可持续性。</p>
   </aside>
 </section>
 
-<!-- 26c. 六大驱动因素 -->
-<section class="slide" data-title="驱动因素">
-  <p class="kicker">ARCHITECTURE DRIVERS</p>
-  <h2 class="h2">六大架构变革驱动因素</h2>
-  <div class="grid g3 mt-l" style="gap:10px">
-    <div class="card" style="text-align:center">
-      <div style="font-size:32px;font-weight:800;color:var(--accent-2)">01</div>
-      <h4 style="margin-top:8px">业务战略转型</h4>
-      <p class="dim" style="font-size:12px">从制造商到服务商的业务模式转变</p>
-    </div>
-    <div class="card" style="text-align:center">
-      <div style="font-size:32px;font-weight:800;color:var(--accent-2)">02</div>
-      <h4 style="margin-top:8px">国资监管要求</h4>
-      <p class="dim" style="font-size:12px">1号文/2号文/15号文的合规硬约束</p>
-    </div>
-    <div class="card" style="text-align:center">
-      <div style="font-size:32px;font-weight:800;color:var(--accent-2)">03</div>
-      <h4 style="margin-top:8px">系统老化瓶颈</h4>
-      <p class="dim" style="font-size:12px">SAP ECC技术架构无法满足业务增长</p>
-    </div>
-    <div class="card" style="text-align:center">
-      <div style="font-size:32px;font-weight:800;color:var(--accent-2)">04</div>
-      <h4 style="margin-top:8px">数据治理滞后</h4>
-      <p class="dim" style="font-size:12px">主数据混乱制约数字化价值释放</p>
-    </div>
-    <div class="card" style="text-align:center">
-      <div style="font-size:32px;font-weight:800;color:var(--accent-2)">05</div>
-      <h4 style="margin-top:8px">海外扩张需求</h4>
-      <p class="dim" style="font-size:12px">泰国工厂上线需要本地化合规支撑</p>
-    </div>
-    <div class="card" style="text-align:center">
-      <div style="font-size:32px;font-weight:800;color:var(--accent-2)">06</div>
-      <h4 style="margin-top:8px">竞争压力加剧</h4>
-      <p class="dim" style="font-size:12px">标杆企业数字化领先，佛照需追赶</p>
-    </div>
-  </div>
-  <aside class="notes">
-    <p>六大架构变革驱动因素。</p>
-    <p>前三项是<strong>内部驱动</strong>——业务转型、监管要求、系统老化。</p>
-    <p>后三项是<strong>外部驱动</strong>——数据治理、海外扩张、竞争压力。</p>
-  </aside>
-</section>
 <!-- 27. 需求溯源五层追溯 -->
 <section class="slide" data-title="五层追溯">
   <p class="kicker">5-LAYER TRACEABILITY</p>
