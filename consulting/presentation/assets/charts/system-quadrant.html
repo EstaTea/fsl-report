@@ -28,16 +28,16 @@
     steel:'#4A6FA5', muted:'#6B8CB8', light:'#A8C4E0', pale:'#D0E4F7'
   };
   var systems = [
-    { x: 2, y: 4, label: 'ECC→S/4HANA', r: 20, color: C.navy },
-    { x: 3, y: 4, label: 'MDG(新引入)', r: 14, color: C.primary },
-    { x: 3, y: 3.5, label: 'Group Rpt(新引入)', r: 12, color: C.primary },
-    { x: 4, y: 2, label: 'PLM(保留+集成)', r: 10, color: C.steel },
-    { x: 4, y: 2.5, label: 'SRM(保留+集成)', r: 10, color: C.steel },
-    { x: 3.5, y: 2, label: 'CRM(保留+集成)', r: 10, color: C.steel },
-    { x: 2.5, y: 3, label: 'WMS→EWM(升级)', r: 12, color: C.mid },
-    { x: 4, y: 3, label: 'MES(保留+集成)', r: 10, color: C.steel },
-    { x: 3, y: 3, label: 'CPI(升级)', r: 12, color: C.mid },
-    { x: 4.5, y: 3, label: 'SmartBI(保留)', r: 8, color: C.muted }
+    { x: 2, y: 4, label: 'ECC→S/4HANA', r: 32, color: C.navy },
+    { x: 3, y: 4, label: 'MDG(新引入)', r: 22, color: C.primary },
+    { x: 3, y: 3.5, label: 'Group Rpt(新引入)', r: 20, color: C.primary },
+    { x: 4, y: 2, label: 'PLM(保留+集成)', r: 18, color: C.steel },
+    { x: 4, y: 2.5, label: 'SRM(保留+集成)', r: 18, color: C.steel },
+    { x: 3.5, y: 2, label: 'CRM(保留+集成)', r: 18, color: C.steel },
+    { x: 2.5, y: 3, label: 'WMS→EWM(升级)', r: 20, color: C.mid },
+    { x: 4, y: 3, label: 'MES(保留+集成)', r: 18, color: C.steel },
+    { x: 3, y: 3, label: 'CPI(升级)', r: 20, color: C.mid },
+    { x: 4.5, y: 3, label: 'SmartBI(保留)', r: 15, color: C.muted }
   ];
   new Chart(document.getElementById('strategyChart'), {
     type: 'bubble',
@@ -58,7 +58,7 @@
         legend: { display:false },
         datalabels: {
           anchor: 'center', align: 'center',
-          color: '#fff', font: { size: 8, weight: '600' },
+          color: '#fff', font: { size: 7, weight: '600' },
           formatter: function(value, context) { return context.dataset.label; }
         },
         tooltip: { callbacks: { label: function(ctx) { return ctx.dataset.label; } } }
