@@ -59,13 +59,15 @@
 
 - 删除 5 页：Quick Wins、预算分配表、立即行动项、后续工作安排、投资回报预期
 - 汇报总结页行动号召改为：「行动：签署蓝图，跨入系统实现」
+- 修复图1.1-1桑基图iframe 404：将 `../../blueprint/sankey/sankey_5col_v3.html` 替换为 `assets/charts/sankey-summary.html`
 
 ## 部署状态
 
-- ✅ 本地提交完成（commit `390298b`）
+- ✅ 本地提交完成（commit `4a081dc`）
 - ✅ GitHub 推送成功（`main → origin/main`）
 - ✅ 线上可访问：`https://estatea.github.io/fsl-report/consulting/presentation/`
 - ✅ 本地 HTML 校验通过（当前 106 页 slide）
+- ✅ 桑基图iframe线上加载验证通过
 
 ## 使用建议
 
