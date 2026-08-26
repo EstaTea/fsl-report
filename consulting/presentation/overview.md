@@ -64,14 +64,16 @@
 - 将「六大架构变革驱动因素」合并到「架构设计原则」页：上下分区展示Why（驱动因素D1-D6）与How（设计原则P1-P6），删除独立驱动因素slide
 - 桑基图页（第42页）使用原始五层追溯桑基图 `sankey_5col_v3.html`，删除底部3个统计卡片，iframe最大化展示
 - 22系统处理策略四象限图（第51页）：所有系统名称标签统一移至对应气泡正下方，解决标签与气泡重叠问题
+- 按Gartner VI重新设计「转型愿景」页（第67页）：浅蓝色背景、三栏卡片布局、圆形白底图标+标题+描述，统一FSL蓝色系
 
 ## 部署状态
 
-- ✅ 本地提交完成（commit `8cf1630`）
-- ⏳ GitHub 推送暂时失败（已尝试3次：Empty reply / 502），变更已缓存在本地
-- ✅ 本地可预览：`http://localhost:8767/consulting/presentation/index.html`
+- ✅ 本地提交完成（commit `46a45a4`）
+- ✅ GitHub 推送成功（`main → origin/main`）
+- ✅ 线上可访问：`https://estatea.github.io/fsl-report/consulting/presentation/`
 - ✅ 本地 HTML 校验通过（当前 109 页 slide）
 - ✅ 四象限图Playwright验证：10个标签均位于气泡下方，无重叠
+- ✅ 转型愿景页Playwright验证：无溢出，三栏布局完整显示
 
 ## 使用建议
 
