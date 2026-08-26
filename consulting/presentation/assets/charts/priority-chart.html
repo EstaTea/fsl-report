@@ -55,7 +55,7 @@ var items=[
   {label:'PC24 IT/OT融合安全与SOC', score:60},
   {label:'PC17 供应链控制塔 / BI', score:60}
 ];
-items.sort(function(a,b){return b.score-a.score;});
+items.sort(function(a,b){var na=parseInt(a.label.substring(2,4),10),nb=parseInt(b.label.substring(2,4),10);return na-nb;});
 var pLabels=items.map(function(i){return i.label;});
 var pScores=items.map(function(i){return i.score;});
 var pColors=pScores.map(function(s){return s>=85?C.navy:s>=70?C.primary:C.steel;});
