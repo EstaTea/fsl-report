@@ -62,8 +62,10 @@
 
 ## 部署状态
 
+- ✅ 本地提交完成（commit `390298b`）
+- ✅ GitHub 推送成功（`main → origin/main`）
+- ✅ 线上可访问：`https://estatea.github.io/fsl-report/consulting/presentation/`
 - ✅ 本地 HTML 校验通过（当前 106 页 slide）
-- ⏳ 待推送到 GitHub Pages
 
 ## 使用建议
 
