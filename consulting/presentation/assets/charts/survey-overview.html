@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>调研分析</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+<style>
+:root{
+  --b900:#0B2D47;--b700:#1A4F73;--b500:#2374A3;--b300:#5EA4CE;--b100:#C7E2F2;--b050:#EBF5FB;
+  --text:#0F2233;--muted:#5B7A91;--rule:#D6E8F2;--r:6px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Microsoft YaHei","Helvetica Neue",system-ui,sans-serif;background:#fff;color:var(--text);font-size:13px;line-height:1.6;padding:22px 28px}
+.wrap{max-width:1200px;margin:0 auto}
+.row{display:flex;gap:20px}
+.col{flex:1;min-width:0}
+.chart-card{background:#fff;border:1px solid var(--rule);border-radius:var(--r);padding:18px 20px;box-shadow:0 1px 4px rgba(35,116,163,.07)}
+.cc-title{font-size:12px;font-weight:700;color:var(--b700);text-transform:uppercase;letter-spacing:.5px;padding-bottom:10px;border-bottom:1px solid var(--b100);margin-bottom:12px}
+.chart-wrap{position:relative;height:220px}
+.cc-source{font-size:11px;color:var(--muted);margin-top:10px;line-height:1.5}
+.dept-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.dept-card{background:var(--b050);border:1px solid var(--b100);border-radius:var(--r);padding:12px 14px;border-left:3px solid var(--b500)}
+.dept-card h4{font-size:12px;font-weight:700;color:var(--b700);margin-bottom:8px;letter-spacing:.3px}
+.dept-card ul{list-style:none;padding:0;margin:0}
+.dept-card li{font-size:11.5px;color:#2A3F52;line-height:1.6;padding-left:10px;position:relative}
+.dept-card li::before{content:"•";position:absolute;left:0;color:var(--b500);font-weight:700}
+.dept-card .new{color:var(--b700);font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="row">
+    <div class="col">
+      <div class="chart-card">
+        <div class="cc-title">调研需求分类分布（701条合计，2026年全量）</div>
+        <div class="chart-wrap"><canvas id="typeChart"></canvas></div>
+        <p class="cc-source">系统升级类需求最多（约35%），反映现有ERP系统功能缺失是首要矛盾；数据优化类需求（约19%）揭示主数据治理亟待解决。</p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="chart-card">
+        <div class="cc-title">各部门调研需求数量</div>
+        <div class="chart-wrap"><canvas id="deptChart"></canvas></div>
+        <p class="cc-source">数智化部（32条）、集团财务部（22条）、家用/商业事业部（22条）需求最集中，反映财务、销售、IT三大领域为改善重点。</p>
+      </div>
+    </div>
+  </div>
+  <div class="dept-grid">
+    <div class="dept-card">
+      <h4>总部职能与研发</h4>
+      <ul>
+        <li>集团研究院（王其远院长等）</li>
+        <li>集团财务部（虎部长、高部长等）</li>
+        <li>企业管理部/品牌管理部（钟吟、刘桓宇等）</li>
+        <li>产品及方案中心（廖总等）</li>
+        <li>数智化部（苏大明、刘琼、陈海波等）</li>
+        <li><span class="new">新增：董事办公室、审计部、法务部</span></li>
+      </ul>
+    </div>
+    <div class="dept-card">
+      <h4>业务事业部群</h4>
+      <ul>
+        <li>家用事业部（程明华）</li>
+        <li>商用事业部（杨程麟、梁月仪等）</li>
+        <li>国际事业部/佛照光电（赵俊杰）</li>
+        <li>车灯事业部（李传勤）</li>
+        <li>电商事业部（廖建祖）</li>
+        <li><span class="new">新增：新业务拓展中心、高明工厂深访</span></li>
+      </ul>
+    </div>
+    <div class="dept-card">
+      <h4>供应链、质量与分子公司</h4>
+      <ul>
+        <li>供应链中心（王志宏）、招投标中心（王强等）</li>
+        <li>质量与客服中心（陈勇、窦登富等）</li>
+        <li>高明分公司（张修波、马俊等）</li>
+        <li>航信公司、泰国公司、沪乐公司</li>
+        <li>生产运营中心（总经理张修波等）</li>
+        <li><span class="new">新增：人力资源部、战略投资部</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<script>
+Chart.register(ChartDataLabels);
+var B900='#0B2D47',B700='#1A4F73',B500='#2374A3',B300='#5EA4CE',B100='#C7E2F2',MUTED='#5B7A91',RULE='#D6E8F2';
+
+function dnutCfg(pos){
+  return {
+    responsive:true,maintainAspectRatio:false,
+    cutout:'58%',
+    plugins:{
+      legend:{position:pos,labels:{font:{size:11},color:B900,padding:12,usePointStyle:true,pointStyle:'circle'}},
+      datalabels:{color:'#fff',font:{size:10,weight:'600'},formatter:function(v){return v;}}
+    }
+  };
+}
+
+new Chart(document.getElementById('typeChart'),{
+  type:'doughnut',
+  data:{
+    labels:['系统升级 61','数据优化 34','管理提升 29','流程改善 19','IT技术 32'],
+    datasets:[{data:[61,34,29,19,32],backgroundColor:[B900,B700,B500,B300,B100],borderWidth:2,borderColor:'#fff'}]
+  },
+  options:dnutCfg('right')
+});
+
+new Chart(document.getElementById('deptChart'),{
+  type:'bar',
+  data:{
+    labels:['数智化部','集团财务部','家用/商业','高明品控','高明采购','集团质量','产品方案','招投标','生产运营','研究院','企业管理','子公司'],
+    datasets:[{data:[32,22,22,15,14,13,12,10,9,8,8,7],backgroundColor:[B900,B900,B900,B700,B700,B700,B500,B500,B300,B300,B100,MUTED],borderRadius:3}]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,layout:{padding:{top:24}},
+    plugins:{legend:{display:false},datalabels:{anchor:'end',align:'top',clamp:true,font:{size:10,weight:'600'},color:B900,formatter:function(v){return v;}}},
+    scales:{y:{beginAtZero:true,ticks:{font:{size:10},color:MUTED},grid:{color:RULE}},x:{ticks:{font:{size:9},color:MUTED},grid:{display:false}}}
+  }
+});
+</script>
+</body>
+</html>
