@@ -3206,7 +3206,7 @@ function buildJumpPanel(){
     const div = document.createElement('div');
     div.className = 'jump-item';
     div.textContent = (i+1)+'. '+title.trim();
-    div.onclick = function(){ goToSlide && goToSlide(i); closeJumpPanel(); };
+    div.onclick = function(){ window.location.hash = '#/' + (i+1); closeJumpPanel(); };
     panel.appendChild(div);
   });
 }
