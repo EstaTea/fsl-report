@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>核心业务流程数据断点地图</title>
+<style>
+  :root{
+    --navy:#1B3A6B; --dark:#1B3A6B; --primary:#0070C0; --mid:#2374a3;
+    --steel:#2E5C9E; --muted:#5B9BD5; --light:#A5C8E4; --pale:#A5C8E4;
+    --bg:#EBF4FF; --white:#FFFFFF; --text:#0D1B2A; --text2:#2C3E50;
+  }
+  body{font-family:"Microsoft YaHei",Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7;padding:24px}
+  h2{font-size:17px;font-weight:700;color:var(--dark);margin-bottom:4px}
+  .subtitle{font-size:12px;color:var(--muted);margin-bottom:16px}
+  .container{max-width:1100px;margin:0 auto}
+  .sec-title{font-size:15px;font-weight:700;color:var(--dark);border-left:4px solid var(--primary);padding-left:12px;margin:24px 0 14px;display:flex;align-items:center;gap:8px}
+  .sec-sub{font-size:13px;font-weight:700;color:var(--mid);margin:16px 0 8px;padding-left:8px;border-left:2px solid var(--pale)}
+  .flow{display:flex;align-items:center;flex-wrap:wrap;gap:0;margin:12px 0}
+  .flow-step{background:var(--white);border:1.5px solid var(--pale);border-radius:6px;padding:7px 11px;font-size:11.5px;font-weight:600;color:var(--dark);white-space:nowrap}
+  .flow-step.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+  .flow-step.navy{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .flow-step.red{background:#C0392B;color:#fff;border-color:#C0392B}
+  .flow-step.amber{background:#E67E22;color:#fff;border-color:#E67E22}
+  .flow-step.green{background:#27AE60;color:#fff;border-color:#27AE60}
+  .flow-arrow{color:var(--steel);font-size:15px;padding:0 4px}
+  .note{font-size:12px;color:var(--muted);margin-top:6px}
+  .box{background:#F0F7FF;border-left:4px solid var(--mid);border-radius:8px;padding:14px 18px;margin:12px 0;font-size:13px}
+  .arch-diagram{background:var(--bg);border:1px solid var(--pale);border-radius:10px;padding:20px;margin:16px 0;overflow-x:auto}
+  .arch-row{display:flex;gap:8px;margin-bottom:8px;align-items:stretch}
+  .arch-layer-label{writing-mode:vertical-rl;text-orientation:mixed;background:var(--dark);color:#fff;padding:8px 6px;border-radius:6px 0 0 6px;font-size:11px;font-weight:700;letter-spacing:1px;display:flex;align-items:center;justify-content:center;min-width:28px;text-align:center}
+  .arch-boxes{display:flex;gap:6px;flex:1;flex-wrap:wrap}
+  .arch-box{flex:1;min-width:100px;background:var(--white);border:1.5px solid var(--pale);border-radius:6px;padding:10px 12px;text-align:center}
+  .arch-box.primary-box{border-color:var(--primary);border-width:2px}
+  .arch-box.navy-box{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .arch-box .ab-title{font-size:12px;font-weight:700}
+  .arch-box .ab-sub{font-size:10px;color:var(--muted);margin-top:3px}
+  .arch-box.navy-box .ab-sub{color:var(--pale)}
+</style>
+</head>
+<body>
+<div class="container">
+<h2>核心业务流程数据断点地图</h2>
+<div class="subtitle">通过探索阶段12场业务访谈，在O2C、P2P、PP三大流程中共识别<strong>15个数据断点</strong>，其中10个（67%）与主数据质量直接相关。</div>
+
+<div class="sec-sub">订单到收款（O2C）— 6个断点</div>
+<div class="flow">
+  <div class="flow-step navy">客户下单</div><div class="flow-arrow">→</div>
+  <div class="flow-step red">①价格/折扣丢失</div><div class="flow-arrow">→</div>
+  <div class="flow-step">报价审批(SRM)</div><div class="flow-arrow">→</div>
+  <div class="flow-step red">②价格人工复制</div><div class="flow-arrow">→</div>
+  <div class="flow-step">生成订单</div><div class="flow-arrow">→</div>
+  <div class="flow-step red">③1000行上限</div><div class="flow-arrow">→</div>
+  <div class="flow-step">发货</div><div class="flow-arrow">→</div>
+  <div class="flow-step red">④库存口径混淆</div><div class="flow-arrow">→</div>
+  <div class="flow-step">开票</div><div class="flow-arrow">→</div>
+  <div class="flow-step red">⑤阶梯价不支持</div><div class="flow-arrow">→</div>
+  <div class="flow-step">收款</div><div class="flow-arrow">→</div>
+  <div class="flow-step red">⑥渠道应收不可见</div>
+</div>
+
+<div class="sec-sub">采购到付款（P2P）— 5个断点</div>
+<div class="flow">
+  <div class="flow-step navy">需求计划</div><div class="flow-arrow">→</div>
+  <div class="flow-step red">①MRP不被信任</div><div class="flow-arrow">→</div>
+  <div class="flow-step">询报价(SRM)</div><div class="flow-arrow">→</div>
+  <div class="flow-step red">②价格二次维护</div><div class="flow-arrow">→</div>
+  <div class="flow-step">采购订单</div><div class="flow-arrow">→</div>
+  <div class="flow-step amber">③空白页输出</div><div class="flow-arrow">→</div>
+  <div class="flow-step">收货对账</div><div class="flow-arrow">→</div>
+  <div class="flow-step red">④发票尾差人工</div><div class="flow-arrow">→</div>
+  <div class="flow-step">付款</div><div class="flow-arrow">→</div>
+  <div class="flow-step red">⑤合同无联动</div>
+</div>
+
+<div class="sec-sub">生产计划（PP）— 4个断点</div>
+<div class="flow">
+  <div class="flow-step navy">销售预测</div><div class="flow-arrow">→</div>
+  <div class="flow-step">MPS主计划</div><div class="flow-arrow">→</div>
+  <div class="flow-step red">①BOM错误→需求偏差</div><div class="flow-arrow">→</div>
+  <div class="flow-step red">②工时缺失→产能失效</div><div class="flow-arrow">→</div>
+  <div class="flow-step">生产工单</div><div class="flow-arrow">→</div>
+  <div class="flow-step red">③工作中心无描述</div><div class="flow-arrow">→</div>
+  <div class="flow-step">报工</div><div class="flow-arrow">→</div>
+  <div class="flow-step red">④料工费不可见</div><div class="flow-arrow">→</div>
+  <div class="flow-step">成本核算</div>
+</div>
+
+<div class="box">
+  <strong>关键问题：</strong>数智化部承担了大量本应由业务部门负责的主数据维护工作（如价格录入、物料建档）。供应链中心调研纪要（2026-06-25）明确记录："IT部门代替业务部门承担业务数据维护，权责不清"。这一问题在SAP S/4HANA上线后如不纠正，将直接延续到新系统，导致数据质量持续恶化。
+</div>
+
+<div class="sec-title">目标集成架构（S/4HANA后）</div>
+<div class="arch-diagram">
+  <div style="text-align:center;margin-bottom:12px;font-size:12px;color:var(--muted);font-weight:700;letter-spacing:1px;text-transform:uppercase">目标：以 SAP S/4HANA 为统一主数据黄金来源</div>
+  <div class="arch-row">
+    <div class="arch-layer-label">源系统</div>
+    <div class="arch-boxes">
+      <div class="arch-box"><div class="ab-title">PLM</div><div class="ab-sub">产品主数据→单向推送</div></div>
+      <div class="arch-box"><div class="ab-title">SRM</div><div class="ab-sub">采购价格→自动同步</div></div>
+      <div class="arch-box"><div class="ab-title">CRM</div><div class="ab-sub">客户订单→双向同步</div></div>
+      <div class="arch-box"><div class="ab-title">WMS</div><div class="ab-sub">库存→实时同步</div></div>
+    </div>
+  </div>
+  <div class="arch-row">
+    <div class="arch-layer-label">核心系统</div>
+    <div class="arch-boxes">
+      <div class="arch-box navy-box" style="flex:3"><div class="ab-title" style="font-size:15px">SAP S/4HANA PCE（主数据黄金来源）</div><div class="ab-sub">物料 · BOM · 工艺路线 · 科目表 · 成本中心 · 客户 · 供应商</div></div>
+    </div>
+  </div>
+  <div class="arch-row">
+    <div class="arch-layer-label">治理层</div>
+    <div class="arch-boxes">
+      <div class="arch-box primary-box"><div class="ab-title">数据Owner制度</div><div class="ab-sub">业务归口</div></div>
+      <div class="arch-box primary-box"><div class="ab-title">工作流审批</div><div class="ab-sub">创建/变更/停用</div></div>
+      <div class="arch-box primary-box"><div class="ab-title">质量仪表盘</div><div class="ab-sub">KPI月报</div></div>
+      <div class="arch-box primary-box"><div class="ab-title">变更追溯</div><div class="ab-sub">完整日志</div></div>
+    </div>
+  </div>
+</div>
+</div>
+</body>
+</html>
