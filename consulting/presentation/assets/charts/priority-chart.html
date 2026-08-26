@@ -28,10 +28,36 @@ var C = {
   steel:'#4A6FA5', muted:'#6B8CB8', light:'#A8C4E0', pale:'#D0E4F7'
 };
 
-var pLabels=['P-02 S/4HANA核心实施','P-01 MDG主数据治理','P-03 Group Reporting','P-05 CPI集成中枢','P-04 DRC电子发票',
-  'P-11 MRP计划精准化','P-07 销售信用定价','P-08 成本核算规范','P-06 EWM仓储','P-09 MES深度集成',
-  'P-15 泰国/德国合规','P-10 PLM集成深化','P-12 质量追溯','P-16 Fiori驾驶舱','P-22 GTS全球贸易'];
-var pScores=[92,90,87,83,80,75,75,74,74,68,70,64,64,61,59];
+// 24个项目卡片综合优先级评分（来源：《数字化转型路径规划报告 V3》§4.2）
+var items=[
+  {label:'PC01 S/4HANA PCE 数字底座', score:92},
+  {label:'PC02 主数据治理与数据规范', score:90},
+  {label:'PC03 集成架构与CPI接口收敛', score:85},
+  {label:'PC04 端到端流程蓝图与变革管理', score:83},
+  {label:'PC12 数据中台', score:80},
+  {label:'PC05 财务核心与全球合并', score:80},
+  {label:'PC06 销售订单与信用全链路', score:78},
+  {label:'PC19 优化供应链·启用 MRP', score:76},
+  {label:'PC07 供应链计划与制造协同', score:76},
+  {label:'PC08 质量追溯与研发一体化', score:74},
+  {label:'PC14 APS高级计划排程（重建）', score:73},
+  {label:'PC09 海外本地化合规', score:72},
+  {label:'PC18 全面预算管理系统', score:72},
+  {label:'PC23 信息安全体系治理', score:70},
+  {label:'PC13 AI平台深化与场景落地', score:70},
+  {label:'PC20 MES系统新建与集成', score:68},
+  {label:'PC21 CRM系统新建与集成', score:66},
+  {label:'PC16 设备物联 IoT', score:65},
+  {label:'PC15 智能仓储 WMS深化', score:64},
+  {label:'PC10 数据智能分析平台', score:64},
+  {label:'PC22 AI深化二期·智能体', score:62},
+  {label:'PC11 生态协同与模式创新', score:60},
+  {label:'PC24 IT/OT融合安全与SOC', score:60},
+  {label:'PC17 供应链控制塔 / BI', score:60}
+];
+items.sort(function(a,b){return b.score-a.score;});
+var pLabels=items.map(function(i){return i.label;});
+var pScores=items.map(function(i){return i.score;});
 var pColors=pScores.map(function(s){return s>=85?C.navy:s>=70?C.primary:C.steel;});
 
 new Chart(document.getElementById('priorityChart'), {
