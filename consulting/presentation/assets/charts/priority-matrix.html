@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>四象限优先级矩阵</title>
+<style>
+  :root{
+    --c1:#1B3A6B; --c2:#2E5C9E; --c3:#0070C0; --c4:#2374a3; --c5:#5B9BD5; --c6:#A5C8E4;
+    --bg:#F5F8FC; --white:#FFFFFF; --text:#0D1B2A; --text2:#2C3E50;
+  }
+  body{font-family:"Microsoft YaHei",Arial,sans-serif;background:var(--bg);color:var(--text);margin:0;padding:24px}
+  h2{font-size:18px;font-weight:700;color:var(--c1);margin:0 0 4px}
+  .subtitle{font-size:12px;color:var(--c5);margin-bottom:16px}
+  .wrap{max-width:800px;margin:0 auto;background:var(--white);border-radius:10px;padding:20px 24px;box-shadow:0 2px 10px rgba(27,58,107,.08)}
+  .matrix{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .quad{border:2px solid;border-radius:8px;padding:14px}
+  .quad-title{font-weight:800;margin-bottom:8px;font-size:12px}
+  .quad-items{font-size:12px;color:var(--text2);line-height:1.9}
+  .q1{background:rgba(27,58,107,0.06);border-color:var(--c1)}
+  .q1 .quad-title{color:var(--c1)}
+  .q2{background:rgba(0,112,192,0.06);border-color:var(--c3)}
+  .q2 .quad-title{color:var(--c3)}
+  .q3{background:rgba(35,116,163,0.06);border-color:var(--c4)}
+  .q3 .quad-title{color:var(--c4)}
+  .q4{background:rgba(165,200,228,0.2);border-color:var(--c6)}
+  .q4 .quad-title{color:var(--c2)}
+  .axis-label{display:flex;justify-content:space-between;font-size:10px;color:var(--c5);margin:4px 0 8px;font-weight:600}
+  .y-axis{position:absolute;left:-24px;top:50%;transform:rotate(-90deg) translateX(50%);transform-origin:center;font-size:10px;color:var(--c5);font-weight:600;white-space:nowrap}
+  .matrix-wrap{position:relative;padding-left:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h2>四象限优先级矩阵</h2>
+<div class="subtitle">数据治理专项行动优先级评估</div>
+
+<div class="matrix-wrap">
+  <div class="axis-label" style="margin-bottom:4px"><span>低影响</span><span>高影响</span></div>
+  <div class="matrix">
+    <div class="quad q1">
+      <div class="quad-title">Q1 · 立即行动（高影响·高紧迫）</div>
+      <div class="quad-items">
+        • ZEA→EA计量单位标准化<br>
+        • BOM研产分离+TOP 200确认<br>
+        • TOP 200工艺路线补全<br>
+        • WK19006工序描述补录<br>
+        • 物料关键字段补录（69码/旧料号/跨厂状态）
+      </div>
+    </div>
+    <div class="quad q2">
+      <div class="quad-title">Q2 · 战略投入（高影响·低紧迫）</div>
+      <div class="quad-items">
+        • 集团CoA统一（19法人）<br>
+        • AI数据底座建设<br>
+        • 17法人逐步纳入S/4HANA<br>
+        • MDM平台建设<br>
+        • DCMM 2级认证申请
+      </div>
+    </div>
+    <div class="quad q3">
+      <div class="quad-title">Q3 · 及时处置（低影响·高紧迫）</div>
+      <div class="quad-items">
+        • 科目异常修复（100201022）<br>
+        • 75个研发CC三分类清查<br>
+        • GB16404外协PIR配置<br>
+        • 产品分类SAP映射补全<br>
+        • 泰铢银行账户科目确认
+      </div>
+    </div>
+    <div class="quad q4">
+      <div class="quad-title">Q4 · 可以等待（低影响·低紧迫）</div>
+      <div class="quad-items">
+        • SET2→SET合并<br>
+        • 后装产品编码规则细化<br>
+        • 历史凭证归档规范<br>
+        • 停用物料清理（大批量）<br>
+        • 固定资产台账全新盘点
+      </div>
+    </div>
+  </div>
+  <div class="axis-label" style="margin-top:4px"><span>低紧迫</span><span>高紧迫</span></div>
+</div>
+
+</div>
+</body>
+</html>
