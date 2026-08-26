@@ -62,20 +62,21 @@
 - 修复图1.1-1桑基图iframe 404：将 `../../blueprint/sankey/sankey_5col_v3.html` 替换为 `assets/charts/sankey-summary.html`
 - 按Gartner VI重新设计「六大架构设计原则」页：3列2行网格卡片布局，解决纵向溢出截断问题
 - 将「六大架构变革驱动因素」合并到「架构设计原则」页：上下分区展示Why（驱动因素D1-D6）与How（设计原则P1-P6），删除独立驱动因素slide
+- 桑基图页（第42页）使用原始五层追溯桑基图 `sankey_5col_v3.html`，删除底部3个统计卡片，iframe最大化展示
 
 ## 部署状态
 
-- ✅ 本地提交完成（commit `a43f951`）
+- ✅ 本地提交完成（commit `d2703fc`）
 - ✅ GitHub 推送成功（`main → origin/main`）
 - ✅ 线上可访问：`https://estatea.github.io/fsl-report/consulting/presentation/`
 - ✅ 本地 HTML 校验通过（当前 109 页 slide）
 - ✅ 桑基图iframe线上加载验证通过
 - ✅ 六大原则页Playwright验证：6项完整显示，无溢出
 - ✅ 合并页Playwright验证：12项内容完整显示，scrollHeight=clientHeight=900
+- ✅ 桑基图页Playwright验证：底部卡片已删除，iframe最大化，无溢出
 
 ## 使用建议
 
 1. 直接用浏览器打开本地文件或线上地址
-2. 汇报时按 `S` 键打开演讲者视图（建议用双屏：主屏给观众，副屏给演讲者）
-3. 逐字稿在演讲者视图中以大字体显示，瞄一眼就能接得上
-4. 预计汇报时长约 60-70 分钟（按 2-3 分钟/页节奏）
+2. 汇报时禁用 `S` 键演讲者视图，直接使用浏览器全屏（F11 / ⌃⌘F）
+3. 预计汇报时长约 60-70 分钟（按 2-3 分钟/页节奏）
