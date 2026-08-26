@@ -63,17 +63,15 @@
 - 按Gartner VI重新设计「六大架构设计原则」页：3列2行网格卡片布局，解决纵向溢出截断问题
 - 将「六大架构变革驱动因素」合并到「架构设计原则」页：上下分区展示Why（驱动因素D1-D6）与How（设计原则P1-P6），删除独立驱动因素slide
 - 桑基图页（第42页）使用原始五层追溯桑基图 `sankey_5col_v3.html`，删除底部3个统计卡片，iframe最大化展示
+- 22系统处理策略四象限图（第51页）：所有系统名称标签统一移至对应气泡正下方，解决标签与气泡重叠问题
 
 ## 部署状态
 
-- ✅ 本地提交完成（commit `d2703fc`）
-- ✅ GitHub 推送成功（`main → origin/main`）
-- ✅ 线上可访问：`https://estatea.github.io/fsl-report/consulting/presentation/`
+- ✅ 本地提交完成（commit `8cf1630`）
+- ⏳ GitHub 推送暂时失败（已尝试3次：Empty reply / 502），变更已缓存在本地
+- ✅ 本地可预览：`http://localhost:8767/consulting/presentation/index.html`
 - ✅ 本地 HTML 校验通过（当前 109 页 slide）
-- ✅ 桑基图iframe线上加载验证通过
-- ✅ 六大原则页Playwright验证：6项完整显示，无溢出
-- ✅ 合并页Playwright验证：12项内容完整显示，scrollHeight=clientHeight=900
-- ✅ 桑基图页Playwright验证：底部卡片已删除，iframe最大化，无溢出
+- ✅ 四象限图Playwright验证：10个标签均位于气泡下方，无重叠
 
 ## 使用建议
 
