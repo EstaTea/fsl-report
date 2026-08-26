@@ -752,22 +752,25 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 <!-- 13. 当前系统架构 -->
 <section class="slide" data-title="当前系统架构">
   <p class="kicker">AS-IS SYSTEM LANDSCAPE</p>
-  <h2 class="h2">当前22个系统形成烟囱式架构</h2>
-  <div class="grid g3 mt-l" style="font-size:12px">
-    <div class="card" style="text-align:center">
-      <h4 style="font-size:14px">核心层</h4>
+  <h2 class="h2">当前系统架构按业务域分层展示</h2>
+  <div class="grid g3 mt-m" style="font-size:12px">
+    <div class="card" style="text-align:center;padding:10px">
+      <h4 style="font-size:13px">核心层</h4>
       <p class="dim">SAP ECC（财务/物流/生产）</p>
     </div>
-    <div class="card" style="text-align:center">
-      <h4 style="font-size:14px">运营层</h4>
+    <div class="card" style="text-align:center;padding:10px">
+      <h4 style="font-size:13px">运营层</h4>
       <p class="dim">SRM · PLM · WMS · MES · OA · CRM · 电商</p>
     </div>
-    <div class="card" style="text-align:center">
-      <h4 style="font-size:14px">支撑层</h4>
+    <div class="card" style="text-align:center;padding:10px">
+      <h4 style="font-size:13px">支撑层</h4>
       <p class="dim">BI · 数据仓库 · 预算 · 费控 · HR · 档案</p>
     </div>
   </div>
-  <div class="pain-card mt-l">
+  <div style="margin-top:8px;height:420px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-lg);">
+    <iframe src="assets/charts/sys-architecture.html" style="width:100%;height:100%;border:none;display:block;" loading="lazy" title="当前系统架构现状"></iframe>
+  </div>
+  <div class="pain-card" style="margin-top:8px;padding:10px 14px;font-size:12px">
     <strong>核心问题：</strong>SAP与外围系统之间大量点对点接口，无统一集成平台。数据在多个系统中重复维护，主数据标准不统一，形成<strong>"数据孤岛"</strong>和<strong>"接口蜘蛛网"</strong>。
   </div>
   <aside class="notes">
@@ -777,15 +780,6 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
   </aside>
 </section>
 
-
-<section class="slide" data-title="图：图7-1 当前系统架构现状（按业务域分层）">
-  <p class="kicker">SOURCE CHART · 诊断报告</p>
-  <h2 class="h2" style="font-size:20px;margin-bottom:4px">图7-1 当前系统架构现状（按业务域分层）</h2>
-  <div style="margin-top:6px;height:500px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-lg);">
-    <iframe src="assets/charts/sys-architecture.html" style="width:100%;height:100%;border:none;display:block;" loading="lazy" title="当前系统架构现状"></iframe>
-  </div>
-  <p style="text-align:center;font-size:11px;color:var(--text-3);margin-top:10px">数据来源：《数字化转型现状诊断报告 V6》（原生HTML渲染）</p>
-</section>
 <!-- 14. 数据治理现状 -->
 <section class="slide" data-title="数据治理现状">
   <p class="kicker">DATA GOVERNANCE</p>
