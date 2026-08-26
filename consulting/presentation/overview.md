@@ -61,15 +61,17 @@
 - 汇报总结页行动号召改为：「行动：签署蓝图，跨入系统实现」
 - 修复图1.1-1桑基图iframe 404：将 `../../blueprint/sankey/sankey_5col_v3.html` 替换为 `assets/charts/sankey-summary.html`
 - 按Gartner VI重新设计「六大架构设计原则」页：3列2行网格卡片布局，解决纵向溢出截断问题
+- 将「六大架构变革驱动因素」合并到「架构设计原则」页：上下分区展示Why（驱动因素D1-D6）与How（设计原则P1-P6），删除独立驱动因素slide
 
 ## 部署状态
 
-- ✅ 本地提交完成（commit `5c0827c`）
+- ✅ 本地提交完成（commit `a43f951`）
 - ✅ GitHub 推送成功（`main → origin/main`）
 - ✅ 线上可访问：`https://estatea.github.io/fsl-report/consulting/presentation/`
-- ✅ 本地 HTML 校验通过（当前 106 页 slide）
+- ✅ 本地 HTML 校验通过（当前 109 页 slide）
 - ✅ 桑基图iframe线上加载验证通过
 - ✅ 六大原则页Playwright验证：6项完整显示，无溢出
+- ✅ 合并页Playwright验证：12项内容完整显示，scrollHeight=clientHeight=900
 
 ## 使用建议
 
