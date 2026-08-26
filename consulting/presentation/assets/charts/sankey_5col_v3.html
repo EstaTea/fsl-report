@@ -5,8 +5,8 @@
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://unpkg.com/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>
 <style>
-body { margin:0; background:#fff; font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", sans-serif; }
-svg { display:block; }
+body { margin:0; background:#fff; font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", sans-serif; overflow:hidden; }
+svg { display:block; width:100%; height:100%; }
 .node rect { stroke:none; shape-rendering:crispEdges; }
 .node text { font-size:40px; fill:#101820; pointer-events:none; font-weight:700; }
 .node text.sub { font-size:36px; fill:#2F3E4D; font-weight:600; }
@@ -33,6 +33,7 @@ const width = 4800 - margin.left - margin.right;
 const height = 4600 - margin.top - margin.bottom;
 
 const svg = d3.select('#chart').append('svg')
+  .attr('viewBox', `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
   .attr('width', width + margin.left + margin.right)
   .attr('height', height + margin.top + margin.bottom)
   .append('g')
