@@ -332,33 +332,138 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 <section class="slide" data-title="商业模式">
   <p class="kicker">BUSINESS MODEL</p>
   <h2 class="h2">佛照商业画布：从卖产品到卖方案</h2>
-  <div class="grid g2 mt-l">
-    <div>
-      <div class="card" style="margin-bottom:12px">
-        <h4>价值主张</h4>
-        <p class="dim">提供智能健康光环境整体解决方案，从单一照明产品升级为"光+智能+服务"。</p>
-      </div>
-      <div class="card" style="margin-bottom:12px">
-        <h4>客户细分</h4>
-        <p class="dim">B端（工程渠道、经销商）、C端（电商零售）、海外（国际事业部）。</p>
-      </div>
-      <div class="card">
-        <h4>渠道通路</h4>
-        <p class="dim">线下110万+终端网点、专业电商、工程直销、海外分销。</p>
+  <style>
+    .bmc-grid{display:grid;grid-template-columns:1fr 1fr 1.3fr 1fr 1fr;grid-template-rows:1fr 1fr auto;gap:6px;margin-top:14px;height:calc(100% - 90px);min-height:460px}
+    .bmc-cell{background:#fff;border:1px solid #d0d5dd;border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;overflow:hidden}
+    .bmc-cell h4{font-size:12px;font-weight:700;color:#0b2d47;margin:0 0 6px 0;padding-bottom:4px;border-bottom:2px solid var(--bmc-accent,#2374a3);letter-spacing:.5px}
+    .bmc-cell ul{margin:0;padding-left:14px;font-size:10.5px;color:#3a4d63;line-height:1.55}
+    .bmc-cell li{margin-bottom:2px}
+    .bmc-cell p{margin:0;font-size:10.5px;color:#3a4d63;line-height:1.55}
+    .bmc-partners{grid-row:1/3;grid-column:1/2;--bmc-accent:#0b2d47}
+    .bmc-activities{grid-row:1/2;grid-column:2/3;--bmc-accent:#2374a3}
+    .bmc-resources{grid-row:2/3;grid-column:2/3;--bmc-accent:#1a4f73}
+    .bmc-value{grid-row:1/3;grid-column:3/4;--bmc-accent:#2374a3}
+    .bmc-relationships{grid-row:1/2;grid-column:4/5;--bmc-accent:#5ea4ce}
+    .bmc-channels{grid-row:2/3;grid-column:4/5;--bmc-accent:#2374a3}
+    .bmc-segments{grid-row:1/3;grid-column:5/6;--bmc-accent:#0b2d47}
+    .bmc-cost{grid-row:3/4;grid-column:1/3;--bmc-accent:#1a4f73}
+    .bmc-revenue{grid-row:3/4;grid-column:3/6;--bmc-accent:#0b2d47}
+    .bmc-subtitle{font-size:9px;color:#5b7a91;margin-top:auto;padding-top:4px;border-top:1px dashed #e5e7eb}
+  </style>
+  <div class="bmc-grid">
+    <!-- 关键合作伙伴 -->
+    <div class="bmc-cell bmc-partners">
+      <h4>关键合作伙伴 Key Partnerships</h4>
+      <ul>
+        <li><strong>上游供应商：</strong>LED芯片、驱动电源、光学材料等核心部件供应商</li>
+        <li><strong>OEM/ODM厂商：</strong>代工合作与委外加工伙伴</li>
+        <li><strong>下游渠道商：</strong>传统五金经销商、电商平台、家装公司、设计师</li>
+        <li><strong>海外代理商：</strong>欧洲、东南亚、中东等区域代理及大客户（商超）</li>
+        <li><strong>主机厂：</strong>上汽通用五菱、长安汽车等（车灯前装业务）</li>
+        <li><strong>战略联盟：</strong>智能家居生态（华为HiLink、米家等）</li>
+      </ul>
+      <div class="bmc-subtitle">涵盖材料供应、代工制造、渠道分销、海外拓展、生态合作全链条</div>
+    </div>
+    <!-- 关键活动 -->
+    <div class="bmc-cell bmc-activities">
+      <h4>关键活动 Key Activities</h4>
+      <ul>
+        <li><strong>产品研发与制造：</strong>照明产品（光源、灯具）及车灯自主研发与规模化生产</li>
+        <li><strong>供应链整合：</strong>涵盖自制、外购、委外加工的供应链管理与优化</li>
+        <li><strong>渠道运营与管理：</strong>统筹线上线下、国内海外、工程及零售的多渠道销售体系</li>
+      </ul>
+    </div>
+    <!-- 核心资源 -->
+    <div class="bmc-cell bmc-resources">
+      <h4>核心资源 Key Resources</h4>
+      <ul>
+        <li><strong>品牌与口碑：</strong>"中华老字号"，国内照明行业品牌价值第二（475.07亿）</li>
+        <li><strong>规模与制造：</strong>高明、新乡、南宁等多家生产基地，规模化制造能力</li>
+        <li><strong>技术与专利：</strong>长期研发投入积累的光学、散热、智能控制技术</li>
+        <li><strong>渠道网络：</strong>线下110万+终端网点，覆盖全国的经销体系</li>
+      </ul>
+    </div>
+    <!-- 价值主张 -->
+    <div class="bmc-cell bmc-value">
+      <h4>价值主张 Value Propositions</h4>
+      <ul>
+        <li><strong style="color:#0b2d47">产品价值：</strong>提供高品质、高性价比的照明产品（光源、灯具），覆盖家居到专业场景</li>
+        <li><strong style="color:#0b2d47">场景价值：</strong>针对家用、商用、汽车、海洋、体育、航空等场景提供专业化照明产品与解决方案</li>
+        <li><strong style="color:#0b2d47">战略升级价值：</strong>从"产品销售"向"品牌出海、产业出海"及"产品+方案+服务"的战略跃升，目标成为"国内领先的智能健康光环境服务商"</li>
+      </ul>
+      <div class="bmc-subtitle" style="margin-top:8px">核心转变：从"卖产品"到"卖方案+卖服务"</div>
+    </div>
+    <!-- 客户关系 -->
+    <div class="bmc-cell bmc-relationships">
+      <h4>客户关系 Customer Relationships</h4>
+      <ul>
+        <li><strong>B端客户：</strong>专人对接、项目制服务、长期战略合作</li>
+        <li><strong>C端消费者：</strong>通过电商与零售门店自助购买，品牌信任驱动复购</li>
+        <li><strong>海外客户：</strong>OEM/ODM定制化合作、自主品牌分销支持</li>
+        <li><strong>主机厂：</strong>联合开发、同步设计、质量绑定</li>
+      </ul>
+    </div>
+    <!-- 渠道通路 -->
+    <div class="bmc-cell bmc-channels">
+      <h4>渠道通路 Channels</h4>
+      <ul>
+        <li><strong>国内：</strong>传统五金流通、电商（京东/天猫/抖音/拼多多/自有商城/亚马逊）、家装公司及设计师</li>
+        <li><strong>海外：</strong>OEM/代工为主、自主品牌为辅；海外代理商、大客户（商超）及泰国工厂</li>
+        <li><strong>车灯：</strong>直供主机厂（前装）</li>
+      </ul>
+    </div>
+    <!-- 客户细分 -->
+    <div class="bmc-cell bmc-segments">
+      <h4>客户细分 Customer Segments</h4>
+      <ul>
+        <li><strong>国内及海外渠道客户：</strong>家用、商用、电商经销商、工程项目方</li>
+        <li><strong>主机厂客户：</strong>上汽通用五菱、长安汽车等（车灯业务）</li>
+        <li><strong>细分市场客户：</strong>海洋、体育、航空等领域的专业客户</li>
+        <li><strong>终端消费者：</strong>通过电商、零售门店触达；电商终端消费者已成为增速最快的细分客群</li>
+      </ul>
+    </div>
+    <!-- 成本结构 -->
+    <div class="bmc-cell bmc-cost">
+      <h4>成本结构 Cost Structure</h4>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <div style="flex:1;min-width:140px">
+          <p style="font-size:10px;color:#0b2d47;font-weight:700;margin-bottom:3px">研发成本</p>
+          <p>光源技术、智能控制、车灯前装等长期研发投入</p>
+        </div>
+        <div style="flex:1;min-width:140px">
+          <p style="font-size:10px;color:#0b2d47;font-weight:700;margin-bottom:3px">制造成本</p>
+          <p>高明/新乡/南宁多基地原材料、人工、能源及设备折旧</p>
+        </div>
+        <div style="flex:1;min-width:140px">
+          <p style="font-size:10px;color:#0b2d47;font-weight:700;margin-bottom:3px">营销成本</p>
+          <p>品牌建设、渠道推广、电商平台运营及海外市场拓展</p>
+        </div>
+        <div style="flex:1;min-width:140px">
+          <p style="font-size:10px;color:#0b2d47;font-weight:700;margin-bottom:3px">管理成本</p>
+          <p>多基地运营管理、供应链协调、数字化系统运维</p>
+        </div>
       </div>
     </div>
-    <div>
-      <div class="card" style="margin-bottom:12px">
-        <h4>关键业务</h4>
-        <p class="dim">研发设计、智能制造、供应链管理、品牌营销、渠道运营。</p>
-      </div>
-      <div class="card" style="margin-bottom:12px">
-        <h4>核心资源</h4>
-        <p class="dim">品牌资产、研发能力、制造基地（高明/禅城）、渠道网络。</p>
-      </div>
-      <div class="card">
-        <h4>收入来源</h4>
-        <p class="dim">产品销售、工程服务、智能解决方案、品牌授权。</p>
+    <!-- 收入来源 -->
+    <div class="bmc-cell bmc-revenue">
+      <h4>收入来源 Revenue Streams</h4>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <div style="flex:1;min-width:140px">
+          <p style="font-size:10px;color:#0b2d47;font-weight:700;margin-bottom:3px">产品销售</p>
+          <p>光源、灯具、车灯等照明产品批发与零售收入</p>
+        </div>
+        <div style="flex:1;min-width:140px">
+          <p style="font-size:10px;color:#0b2d47;font-weight:700;margin-bottom:3px">工程服务</p>
+          <p>商业照明、道路照明、体育场馆等工程项目设计+供货+安装</p>
+        </div>
+        <div style="flex:1;min-width:140px">
+          <p style="font-size:10px;color:#0b2d47;font-weight:700;margin-bottom:3px">智能解决方案</p>
+          <p>智慧照明系统、IoT控制平台、场景化光环境方案</p>
+        </div>
+        <div style="flex:1;min-width:140px">
+          <p style="font-size:10px;color:#0b2d47;font-weight:700;margin-bottom:3px">品牌授权</p>
+          <p>品牌使用权授权、技术输出、海外合资/合作分成</p>
+        </div>
       </div>
     </div>
   </div>
