@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><style>:root{
+  --navy:#003087; --dark:#1B3A6B; --primary:#005EB8; --mid:#1F70C1;
+  --steel:#4A6FA5; --muted:#6B8CB8; --light:#A8C4E0; --pale:#D0E4F7;
+  --bg:#EBF4FF; --white:#FFFFFF; --text:#0D1B2A; --text2:#2C3E50;
+  --nav-w:260px;
+}
+body{margin:0;padding:16px;font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:#fff;}
+.arch-diagram{background:var(--bg);border:1px solid var(--pale);border-radius:10px;padding:20px;margin:16px 0;overflow-x:auto}
+.arch-row{display:flex;gap:8px;margin-bottom:8px;align-items:stretch}
+.arch-boxes{display:flex;gap:6px;flex:1;flex-wrap:wrap}
+.arch-box{flex:1;min-width:100px;background:var(--white);border:1.5px solid var(--pale);border-radius:6px;padding:10px 12px;text-align:center}
+.arch-arrow{display:flex;align-items:center;justify-content:center;padding:4px;color:var(--steel);font-size:18px}
+.arch-row{flex-direction:column}
+</style></head><body><div class="arch-diagram">
+        <div style="font-weight:700;color:var(--dark);margin-bottom:12px;font-size:13px">佛照集团应用架构全景图（System Landscape Overview）</div>
+        <div style="display:grid;grid-template-columns:1fr;gap:6px">
+          <div style="background:var(--bg);border:1px solid var(--pale);border-radius:6px;padding:10px">
+            <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px">前端应用层 — Fiori应用 / 门户 / 电商前端 / 移动办公</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap">
+              <div class="arch-box" style="flex:1;min-width:78px"><div class="ab-title" style="font-size:11px">SAP Fiori</div><div class="ab-sub">自助服务应用</div></div>
+              <div class="arch-box" style="flex:1;min-width:78px"><div class="ab-title" style="font-size:11px">Finereport/SmartBI</div><div class="ab-sub">报表与分析</div></div>
+              <div class="arch-box" style="flex:1;min-width:78px"><div class="ab-title" style="font-size:11px">OA（致远A8）</div><div class="ab-sub">协同审批</div></div>
+              <div class="arch-box" style="flex:1;min-width:78px"><div class="ab-title" style="font-size:11px">佛照商城/O2O/官网</div><div class="ab-sub">B2C/B2B电商前端</div></div>
+              <div class="arch-box" style="flex:1;min-width:78px"><div class="ab-title" style="font-size:11px">智能客服</div><div class="ab-sub">在线客服/工单</div></div>
+              <div class="arch-box" style="flex:1;min-width:78px"><div class="ab-title" style="font-size:11px">企业微信/邮箱</div><div class="ab-sub">移动办公入口</div></div>
+            </div>
+          </div>
+          <div style="background:var(--pale);border:2px solid var(--primary);border-radius:6px;padding:10px">
+            <div style="font-size:11px;font-weight:700;color:var(--primary);margin-bottom:8px">核心业务系统层 — ERP核心 + 财务共享</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap">
+              <div class="arch-box primary-box" style="flex:3;min-width:180px"><div class="ab-title">SAP S/4HANA PCE</div><div class="ab-sub">FICO / SD / MM / PP / QM / EWM / MDG / Group Reporting / DRC / CPI</div></div>
+              <div class="arch-box dark-box" style="flex:1;min-width:80px"><div class="ab-title">财务共享+司库</div><div class="ab-sub">用友共享平台</div></div>
+            </div>
+          </div>
+          <div style="background:var(--bg);border:1px solid var(--pale);border-radius:6px;padding:10px">
+            <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px">业务支撑系统层 — 专业化系统（通过CPI集成）</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap">
+              <div class="arch-box" style="flex:1;min-width:76px"><div class="ab-title" style="font-size:11px">PLM</div><div class="ab-sub">研发/BOM管理</div></div>
+              <div class="arch-box" style="flex:1;min-width:76px"><div class="ab-title" style="font-size:11px">MES</div><div class="ab-sub">制造执行</div></div>
+              <div class="arch-box" style="flex:1;min-width:76px"><div class="ab-title" style="font-size:11px">APS（Asprova）</div><div class="ab-sub">高级排程</div></div>
+              <div class="arch-box" style="flex:1;min-width:76px"><div class="ab-title" style="font-size:11px">WMS/EWM</div><div class="ab-sub">仓储管理</div></div>
+              <div class="arch-box" style="flex:1;min-width:76px"><div class="ab-title" style="font-size:11px">SRM</div><div class="ab-sub">供应商管理</div></div>
+              <div class="arch-box" style="flex:1;min-width:76px"><div class="ab-title" style="font-size:11px">CRM</div><div class="ab-sub">客户关系</div></div>
+              <div class="arch-box" style="flex:1;min-width:76px"><div class="ab-title" style="font-size:11px">国内电商OMS</div><div class="ab-sub">聚水潭/万鸿</div></div>
+              <div class="arch-box" style="flex:1;min-width:76px"><div class="ab-title" style="font-size:11px">防伪防窜</div><div class="ab-sub">渠道管控</div></div>
+              <div class="arch-box" style="flex:1;min-width:76px"><div class="ab-title" style="font-size:11px">HR人力资源</div><div class="ab-sub">薪酬/考勤/组织</div></div>
+              <div class="arch-box" style="flex:1;min-width:76px"><div class="ab-title" style="font-size:11px">电子签章</div><div class="ab-sub">合同/单据签署</div></div>
+              <div class="arch-box" style="flex:1;min-width:76px"><div class="ab-title" style="font-size:11px">档案管理</div><div class="ab-sub">电子档案</div></div>
+              <div class="arch-box" style="flex:1;min-width:76px"><div class="ab-title" style="font-size:11px">企业云盘</div><div class="ab-sub">文档协同</div></div>
+            </div>
+          </div>
+          <div style="background:#F8FBFF;border:1px solid var(--light);border-radius:6px;padding:10px;text-align:center">
+            <div style="font-size:11px;font-weight:700;color:var(--steel)">集成中间件层 — SAP CPI（Integration Suite）</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:4px">16个L3集成流程 / 210个L4接口场景 + CPI集成中枢 + API网关 + 监控告警</div>
+          </div>
+          <div style="background:#FAFCFF;border:1px dashed var(--light);border-radius:6px;padding:10px">
+            <div style="font-size:11px;font-weight:700;color:var(--steel);margin-bottom:8px">IT基础设施与安全层 — 支撑平台（不进业务集成，纳入现状盘点）</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap">
+              <div class="arch-box" style="flex:1;min-width:110px"><div class="ab-title" style="font-size:11px">加密系统（国密+文档）</div><div class="ab-sub">数据加密/终端管控</div></div>
+            </div>
+          </div>
+        </div>
+      </div></body></html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><style>:root{
+  --navy:#003087; --dark:#1B3A6B; --primary:#005EB8; --mid:#1F70C1;
+  --steel:#4A6FA5; --muted:#6B8CB8; --light:#A8C4E0; --pale:#D0E4F7;
+  --bg:#EBF4FF; --white:#FFFFFF; --text:#0D1B2A; --text2:#2C3E50;
+  --nav-w:260px;
+}
+body{margin:0;padding:16px;font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:#fff;}
+.arch-diagram{background:var(--bg);border:1px solid var(--pale);border-radius:10px;padding:20px;margin:16px 0;overflow-x:auto}
+.arch-row{display:flex;gap:8px;margin-bottom:8px;align-items:stretch}
+.arch-boxes{display:flex;gap:6px;flex:1;flex-wrap:wrap}
+.arch-box{flex:1;min-width:100px;background:var(--white);border:1.5px solid var(--pale);border-radius:6px;padding:10px 12px;text-align:center}
+.arch-arrow{display:flex;align-items:center;justify-content:center;padding:4px;color:var(--steel);font-size:18px}
+.arch-row{flex-direction:column}
+</style></head><body><div class="arch-diagram">
+        <div style="text-align:center;font-size:12px;color:var(--muted);margin-bottom:12px">数据流向：从研发→主数据→运营→分析的端到端数据链</div>
+        <div class="arch-row">
+          <div class="arch-boxes">
+            <div class="arch-box navy-box" style="flex:0.8"><div class="ab-title">PLM</div><div class="ab-sub">设计BOM/物料定义</div></div>
+          </div>
+          <div class="arch-arrow"><i class="fa fa-long-arrow-alt-right"></i></div>
+          <div class="arch-boxes">
+            <div class="arch-box dark-box" style="flex:0.8"><div class="ab-title">SAP MDG</div><div class="ab-sub">主数据治理中枢<br>物料/BP/财务</div></div>
+          </div>
+          <div class="arch-arrow"><i class="fa fa-long-arrow-alt-right"></i></div>
+          <div class="arch-boxes">
+            <div class="arch-box primary-box" style="flex:1.2"><div class="ab-title">SAP S/4HANA PCE</div><div class="ab-sub">核心运营系统<br>FICO/SD/MM/PP/QM/EWM</div></div>
+          </div>
+          <div class="arch-arrow"><i class="fa fa-long-arrow-alt-right"></i></div>
+          <div class="arch-boxes">
+            <div class="arch-box steel-box" style="flex:0.8"><div class="ab-title">Group Reporting</div><div class="ab-sub">合并报表/多准则</div></div>
+            <div class="arch-box steel-box" style="flex:0.8"><div class="ab-title">SmartBI/BIP</div><div class="ab-sub">BI分析与报表</div></div>
+          </div>
+        </div>
+        <div style="text-align:center;margin:10px 0;color:var(--muted)"><i class="fa fa-arrows-alt-v"></i></div>
+        <div class="arch-row">
+          <div class="arch-boxes">
+            <div class="arch-box" style="flex:1"><div class="ab-title">SRM / CRM</div><div class="ab-sub">外部主数据来源</div></div>
+            <div class="arch-box" style="flex:1;text-align:center;background:var(--pale)"><div class="ab-title">SAP CPI</div><div class="ab-sub">数据同步总线<br>（双向/单向接口）</div></div>
+            <div class="arch-box" style="flex:1"><div class="ab-title">MES / WMS</div><div class="ab-sub">实时运营数据</div></div>
+          </div>
+        </div>
+      </div></body></html>

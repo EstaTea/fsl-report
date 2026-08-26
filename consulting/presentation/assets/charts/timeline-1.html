@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><style>:root{
+  --navy:#003087;--dark:#1B3A6B;--primary:#005EB8;--mid:#1F70C1;
+  --steel:#4A6FA5;--muted:#6B8CB8;--light:#A8C4E0;--pale:#D0E4F7;
+  --bg:#EBF4FF;--white:#FFFFFF;--text:#0D1B2A;--text2:#2C3E50;
+  --nav-w:264px;
+}
+body{margin:0;padding:16px;font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:#fff;}
+
+</style></head><body><div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot navy">Q2</div>
+          <div class="tl-body">
+            <h4>2026年Q2（4-6月）— 规划与准备</h4>
+            <div class="tl-date">已启动（项目于2026年5月29日正式启动）</div>
+            <p>交付物一（现状分析）完成；交付物二（企业架构）完成；<strong>P-01数据清洗启动</strong>（物料主数据分析）；Quick Wins QW-1至QW-6启动；Cloud ALM部署；管理层访谈完成（6月22日预计）</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot navy" style="background:#27AE60">✓</div>
+          <div class="tl-body" style="border-color:#27AE60">
+            <h4>2026-07-31 — 需求收集全面截止 <span style="color:#27AE60;font-size:11px">✓ 已完成</span></h4>
+            <div class="tl-date">里程碑达成</div>
+            <p>共收集 <strong>689条需求</strong>，覆盖 <strong>29个部门</strong>；16个高价值专项场景正式确认（7月23日）；需求优先级分类完成（P0/P1/P2）</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot primary">Q3</div>
+          <div class="tl-body">
+            <h4>2026年Q3（7-9月）— 蓝图设计与系统配置启动</h4>
+            <div class="tl-date">付款节点：蓝图评审通过触发第2笔20%</div>
+            <p><strong>P-02蓝图方案设计</strong>：OTC/PTP/MTC流程确认、19家法人组织架构配置；<strong>P-01 MDG配置</strong>：编码规则/视图标准/审批工作流设计；<strong>P-03</strong> Group Reporting设计；<strong>P-04</strong> DRC配置；广晟系统边界协议签署；P-05接口设计方案锁定</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot primary" style="background:#E65100">!</div>
+          <div class="tl-body" style="border-color:#E65100">
+            <h4>2026-08-20 — 需求诊断阶段关闭，蓝图初稿定稿 <span style="color:#E65100;font-size:11px">⟳ 进行中</span></h4>
+            <div class="tl-date">关键里程碑（当前冲刺目标）</div>
+            <p>689条需求全部分类并映射至SAP功能模块；蓝图初稿（Blueprint Draft v1.0）经业务确认；范围变更冻结，进入系统配置阶段</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot navy">Q4</div>
+          <div class="tl-body">
+            <h4>2026年Q4（10-12月）— 系统实现与测试</h4>
+            <div class="tl-date">SIT测试：招标文件要求100%场景覆盖</div>
+            <p><strong>P-02</strong>系统配置完成（DEV→QAS传输）；<strong>P-05</strong> CPI 8条接口开发完成；主数据第二轮试迁移（QAS环境）；<strong>P-06</strong> EWM配置；<strong>P-07</strong> SD价格条件+信用管理配置；<strong>P-08</strong> CO成本核算配置；SIT集成测试启动；UAT培训完成</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot steel">外围</div>
+          <div class="tl-body" style="border-color:var(--steel)">
+            <h4>2026年9～11月 — 外围系统接口改造窗口期</h4>
+            <div class="tl-date">23个外围系统，12个已集成需同步改造</div>
+            <p>MES/WMS/CRM/PLM/SRM/OA等外围系统供应商接口改造并行推进；<strong>12个现有接口</strong>根据S/4HANA新接口规范同步更新；接口改造验收节点：2026年11月底前完成联调</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot primary" style="background:#8B0000">冲刺</div>
+          <div class="tl-body" style="border-color:#8B0000">
+            <h4>2026年12月初 — 冲刺目标：S/4HANA上线</h4>
+            <div class="tl-date">冲刺目标（如按时完成蓝图+配置+SIT+UAT，可争取提前上线）</div>
+            <p>如外围接口改造于11月底完成、UAT通过率≥95%，可于12月初启动正式切换；否则顺延至基准日期（2027-01-01）</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot navy">2027Q1</div>
+          <div class="tl-body">
+            <h4>2027年1月1日 — 基准目标：S/4HANA正式上线</h4>
+            <div class="tl-date">付款节点：上线验收触发第3笔45%</div>
+            <p><strong>S/4HANA PCE正式切换（Big Bang）</strong>：19家法人同步上线；数据迁移（静态数据100%准确；期初余额账账相符）；ECC进入只读模式；上线支持团队驻场30天；首月月结完成（目标≤4天）</p>
+          </div>
+        </div>
+      </div></body></html>

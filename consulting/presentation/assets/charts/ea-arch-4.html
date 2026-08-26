@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><style>:root{
+  --navy:#003087; --dark:#1B3A6B; --primary:#005EB8; --mid:#1F70C1;
+  --steel:#4A6FA5; --muted:#6B8CB8; --light:#A8C4E0; --pale:#D0E4F7;
+  --bg:#EBF4FF; --white:#FFFFFF; --text:#0D1B2A; --text2:#2C3E50;
+  --nav-w:260px;
+}
+body{margin:0;padding:16px;font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:#fff;}
+.arch-diagram{background:var(--bg);border:1px solid var(--pale);border-radius:10px;padding:20px;margin:16px 0;overflow-x:auto}
+.arch-row{display:flex;gap:8px;margin-bottom:8px;align-items:stretch}
+.arch-boxes{display:flex;gap:6px;flex:1;flex-wrap:wrap}
+.arch-box{flex:1;min-width:100px;background:var(--white);border:1.5px solid var(--pale);border-radius:6px;padding:10px 12px;text-align:center}
+.arch-arrow{display:flex;align-items:center;justify-content:center;padding:4px;color:var(--steel);font-size:18px}
+.arch-row{flex-direction:column}
+</style></head><body><div class="arch-diagram">
+        <div class="integration-hub">
+          <div class="int-box" style="grid-area:tl"><i class="fa fa-flask" style="color:var(--primary)"></i><br><strong>PLM系统</strong><br>IF-93 物料/BOM (10)<br><span style="color:var(--muted);font-size:10px">单向→S/4</span></div>
+          <div class="int-box" style="grid-area:tc"><i class="fa fa-industry" style="color:var(--primary)"></i><br><strong>MES系统</strong><br>IF-95a 报工/质检 (12)<br><span style="color:var(--muted);font-size:10px">单向→S/4</span></div>
+          <div class="int-box" style="grid-area:tr"><i class="fa fa-warehouse" style="color:var(--primary)"></i><br><strong>WMS系统</strong><br>IF-95b 库存出入库 (79)<br><span style="color:var(--muted);font-size:10px">双向</span></div>
+          <div class="int-box" style="grid-area:ml"><i class="fa fa-handshake" style="color:var(--primary)"></i><br><strong>SRM系统</strong><br>IF-94 采购回写 (21)<br><span style="color:var(--muted);font-size:10px">S/4→SRM</span></div>
+          <div class="int-box hub">
+            <i class="fa fa-cloud" style="font-size:20px;margin-bottom:6px"></i>
+            <div>SAP CPI</div>
+            <div class="int-sub">Integration Suite<br>集成中枢</div>
+          </div>
+          <div class="int-box" style="grid-area:mr"><i class="fa fa-users" style="color:var(--primary)"></i><br><strong>CRM系统</strong><br>IF-99a 客户 (待拆)<br><span style="color:var(--muted);font-size:10px">双向</span></div>
+          <div class="int-box" style="grid-area:bl"><i class="fa fa-file-invoice-dollar" style="color:var(--primary)"></i><br><strong>用友共享平台</strong><br>IF-96a 凭证同步 (39)<br><span style="color:var(--muted);font-size:10px">双向</span></div>
+          <div class="int-box" style="grid-area:bc"><i class="fa fa-shield-alt" style="color:var(--primary)"></i><br><strong>DRC（电子发票）</strong><br>自动触发<br><span style="color:var(--muted);font-size:10px">S/4内嵌</span></div>
+          <div class="int-box" style="grid-area:br"><i class="fa fa-shopping-cart" style="color:var(--primary)"></i><br><strong>OMS/防伪防窜</strong><br>订单/库存数据<br><span style="color:var(--muted);font-size:10px">双向</span></div>
+        </div>
+      </div></body></html>

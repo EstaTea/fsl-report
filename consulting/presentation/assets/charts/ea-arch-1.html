@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><style>:root{
+  --navy:#003087; --dark:#1B3A6B; --primary:#005EB8; --mid:#1F70C1;
+  --steel:#4A6FA5; --muted:#6B8CB8; --light:#A8C4E0; --pale:#D0E4F7;
+  --bg:#EBF4FF; --white:#FFFFFF; --text:#0D1B2A; --text2:#2C3E50;
+  --nav-w:260px;
+}
+body{margin:0;padding:16px;font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:#fff;}
+.arch-diagram{background:var(--bg);border:1px solid var(--pale);border-radius:10px;padding:20px;margin:16px 0;overflow-x:auto}
+.arch-row{display:flex;gap:8px;margin-bottom:8px;align-items:stretch}
+.arch-boxes{display:flex;gap:6px;flex:1;flex-wrap:wrap}
+.arch-box{flex:1;min-width:100px;background:var(--white);border:1.5px solid var(--pale);border-radius:6px;padding:10px 12px;text-align:center}
+.arch-arrow{display:flex;align-items:center;justify-content:center;padding:4px;color:var(--steel);font-size:18px}
+.arch-row{flex-direction:column}
+</style></head><body><div class="arch-diagram">
+        <div class="arch-row">
+          <div class="arch-layer-label">L1<br>战略</div>
+          <div class="arch-boxes">
+            <div class="arch-box navy-box"><div class="ab-title">战略能力愿景</div><div class="ab-sub">3-5年数字化终态</div></div>
+            <div class="arch-box navy-box"><div class="ab-title">业务战略地图</div><div class="ab-sub">BSC框架4个维度</div></div>
+            <div class="arch-box navy-box"><div class="ab-title">架构原则与约束</div><div class="ab-sub">12条架构原则</div></div>
+          </div>
+        </div>
+        <div class="arch-arrow"><i class="fa fa-chevron-down"></i></div>
+        <div class="arch-row">
+          <div class="arch-layer-label">L2<br>业务域</div>
+          <div class="arch-boxes">
+            <div class="arch-box dark-box"><div class="ab-title">研发域</div><div class="ab-sub">PLM/BOM/ECN</div></div>
+            <div class="arch-box dark-box"><div class="ab-title">生产域</div><div class="ab-sub">PP/MES/产能</div></div>
+            <div class="arch-box dark-box"><div class="ab-title">供应链域</div><div class="ab-sub">MM/EWM/SRM</div></div>
+            <div class="arch-box dark-box"><div class="ab-title">销售域</div><div class="ab-sub">SD/CRM/OMS</div></div>
+            <div class="arch-box dark-box"><div class="ab-title">质量域</div><div class="ab-sub">QM/追溯</div></div>
+            <div class="arch-box dark-box"><div class="ab-title">财务域</div><div class="ab-sub">FICO/GR/DRC</div></div>
+            <div class="arch-box dark-box"><div class="ab-title">主数据域</div><div class="ab-sub">MDG三大对象</div></div>
+            <div class="arch-box dark-box"><div class="ab-title">IT治理域</div><div class="ab-sub">CPI/BTP/安全</div></div>
+          </div>
+        </div>
+        <div class="arch-arrow"><i class="fa fa-chevron-down"></i></div>
+        <div class="arch-row">
+          <div class="arch-layer-label">L3<br>能力</div>
+          <div class="arch-boxes">
+            <div class="arch-box primary-box"><div class="ab-title">OTC流程（15步）</div><div class="ab-sub">客户→报价→订单→交货→开票→收款</div></div>
+            <div class="arch-box primary-box"><div class="ab-title">PTP流程（12步）</div><div class="ab-sub">需求→询价→PO→收货→检验→付款</div></div>
+            <div class="arch-box primary-box"><div class="ab-title">MTC流程（10步）</div><div class="ab-sub">计划→BOM→工单→执行→报工→成本</div></div>
+            <div class="arch-box primary-box"><div class="ab-title">接口设计（8条）</div><div class="ab-sub">CPI中枢集成架构</div></div>
+            <div class="arch-box primary-box"><div class="ab-title">主数据标准</div><div class="ab-sub">编码规则+视图+审批流</div></div>
+          </div>
+        </div>
+      </div></body></html>

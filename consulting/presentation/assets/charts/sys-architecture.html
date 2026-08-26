@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+  --b900:#0B2D47; --b700:#1A4F73; --b500:#2374A3;
+  --b300:#5EA4CE; --b100:#C7E2F2; --b050:#EBF5FB;
+  --bg:#F2F7FB;   --text:#0F2233; --muted:#5B7A91;
+  --rule:#D6E8F2; --r:6px;
+}
+body { margin:0; padding:16px; font-family:"Microsoft YaHei","PingFang SC","Helvetica Neue",sans-serif; background:#fff; }
+/* ── ARCHITECTURE DIAGRAM (IT landscape) ── */
+.arch-diagram{display:grid;gap:3px;margin:16px 0;}
+.arch-row{display:flex;gap:3px;align-items:stretch;}
+.arch-label{width:100px;flex-shrink:0;background:var(--b700);color:#fff;
+            font-size:11px;font-weight:700;display:flex;align-items:center;
+            justify-content:center;text-align:center;padding:8px 6px;
+            border-radius:3px;letter-spacing:.3px;line-height:1.35;}
+.arch-boxes{display:flex;gap:3px;flex:1;flex-wrap:wrap;}
+.arch-box{flex:1;min-width:100px;padding:10px 12px;border-radius:3px;
+          font-size:11.5px;line-height:1.4;text-align:center;font-weight:500;}
+/* Five blue shades for system status */
+.ab-core {background:var(--b900);color:#fff;}           /* SAP core */
+.ab-b700 {background:var(--b700);color:#fff;}           /* key system */
+.ab-b500 {background:var(--b500);color:#fff;}           /* integrated ok */
+.ab-b300 {background:var(--b100);color:var(--b900);border:1px solid var(--b300);} /* partial/new */
+.ab-b100 {background:var(--b050);color:var(--b700);border:1px solid var(--b100);} /* minor issues */
+.ab-muted{background:#EEF2F6;color:#3A5264;border:1px solid #CBD5E0;}             /* independent/missing */
+
+
+.cc-source { font-size:11px; color:#5A6A7D; margin-top:8px; text-align:center; }
+</style>
+</head>
+<body>
+<div class="arch-diagram">
+  <div class="arch-row">
+    <div class="arch-label">战略管理层</div>
+    <div class="arch-boxes">
+      <div class="arch-box ab-muted">智能分析与决策平台（SAC）</div>
+      <div class="arch-box ab-muted">投资管理</div>
+      <div class="arch-box ab-muted">战略绩效</div>
+      <div class="arch-box ab-b100">合并报表（手工）</div>
+      <div class="arch-box ab-muted">预算管理</div>
+      <div class="arch-box ab-b300">财务共享（2025新上线）</div>
+      <div class="arch-box ab-muted">综合办公 OA</div>
+    </div>
+  </div>
+  <div class="arch-row" style="margin-top:2px;">
+    <div class="arch-label">核心 ERP</div>
+    <div class="arch-boxes">
+      <div class="arch-box ab-core" style="flex:3;font-weight:700;font-size:13px;">
+        SAP ECC 6.0（2008年上线，已在役 17 年）<br>
+        <span style="font-size:11px;opacity:.8;">FICO · SD · MM · PP · QM · WM  |  MRP 未正常运行 · 信用管理未启用 · 标准成本估算未使用</span>
+      </div>
+      <div class="arch-box ab-red" style="font-size:11px;">SAP MDG<br><span style="font-size:10px;">未上线</span></div>
+    </div>
+  </div>
+  <div class="arch-row" style="margin-top:2px;">
+    <div class="arch-label">业务运营层</div>
+    <div class="arch-boxes">
+      <div class="arch-box ab-b300">PLM Windchill（2022上线）</div>
+      <div class="arch-box ab-b100">MES（局部覆盖）</div>
+      <div class="arch-box ab-b100">WMS（部分集成）</div>
+      <div class="arch-box ab-b100">SRM（接口尾差）</div>
+      <div class="arch-box ab-red">纷扬 CRM（2026上线，未完全集成）</div>
+      <div class="arch-box ab-b100">电商 OMS</div>
+    </div>
+  </div>
+  <div class="arch-row" style="margin-top:2px;">
+    <div class="arch-label">子公司</div>
+    <div class="arch-boxes">
+      <div class="arch-box ab-b100">泰国公司<br><span style="font-size:10px;">不支持泰铢/税制</span></div>
+      <div class="arch-box ab-red">沪乐（用友U8）<br><span style="font-size:10px;">未集成</span></div>
+      <div class="arch-box ab-accent">其他 18 家法人<br><span style="font-size:10px;">SAP ECC</span></div>
+      <div class="arch-box ab-muted">人力资源（i人事）<br><span style="font-size:10px;">独立</span></div>
+    </div>
+  </div>
+</div>
+<p class="cc-source" style="margin-top:4px;">图注：深蓝=SAP核心系统；中蓝=业务运营层；浅蓝=已集成（存在问题）；极浅蓝=部分集成；米黄底色=存在技术问题；浅橙底色=未集成或功能缺失</p>
+</body>
+</html>
