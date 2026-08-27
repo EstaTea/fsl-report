@@ -50,6 +50,8 @@ h1.title,h2.title,.h1,.h2{font-weight:700;color:var(--accent)}
 .timeline-line{position:absolute;top:14px;left:6px;width:2px;height:calc(100% - 14px);background:var(--border-strong)}
 .maturity-bar{height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden}
 .maturity-bar > div{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+.arch-box{display:inline-block;padding:4px 10px;border-radius:4px;border:1px solid #89c4e8;font-size:10px;font-weight:600;white-space:nowrap}
+.arch-arrow{text-align:center;color:#2374a3;font-size:10px;padding:3px 0;letter-spacing:2px}
 table.fsl-table{width:100%;border-collapse:collapse;font-size:13px}
 table.fsl-table th{background:var(--accent);color:#fff;padding:10px 14px;text-align:left;font-weight:600}
 table.fsl-table td{padding:9px 14px;border-bottom:1px solid var(--border);color:var(--text-1)}
@@ -781,24 +783,95 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 <section class="slide" data-title="当前系统架构">
   <p class="kicker">AS-IS SYSTEM LANDSCAPE</p>
   <h2 class="h2">当前系统架构按业务域分层展示</h2>
-  <div class="grid g3 mt-m" style="font-size:12px">
-    <div class="card" style="text-align:center;padding:10px">
-      <h4 style="font-size:13px">核心层</h4>
-      <p class="dim">SAP ECC（财务/物流/生产）</p>
+  <div style="margin-top:10px;font-size:11px;color:var(--text-2)">
+    候选集团应用架构全景图（System Landscape Overview）— 基于 TOGAF Phase C 应用架构设计
+  </div>
+
+  <!-- 分层架构图：纯 HTML+CSS -->
+  <div style="margin-top:10px;display:flex;flex-direction:column;gap:0;font-size:10.5px;line-height:1.4">
+
+    <!-- Layer 1: 顶层前端 -->
+    <div style="background:#f0f6fc;border:1px solid #c5d9ed;border-radius:6px 6px 0 0;padding:10px 14px">
+      <div style="font-weight:700;color:#1a4f73;margin-bottom:6px;font-size:11px">前端应用 / 门户层</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <span class="arch-box" style="background:#e8f0fe;color:#1a56a8;border-color:#b4d0f5">SAP Portal / Fiori</span>
+        <span class="arch-box" style="background:#e8f0fe;color:#1a56a8;border-color:#b4d0f5">Formsport / SmartBI</span>
+        <span class="arch-box" style="background:#e8f0fe;color:#1a56a8;border-color:#b4d0f5">OA（致远 A8）</span>
+        <span class="arch-box" style="background:#e8f0fe;color:#1a56a8;border-color:#b4d0f5">候选集成 OIDO / 信服</span>
+        <span class="arch-box" style="background:#e8f0fe;color:#1a56a8;border-color:#b4d0f5">智数管家</span>
+        <span class="arch-box" style="background:#e8f0fe;color:#1a56a8;border-color:#b4d0f5">企业微信 / 微面</span>
+      </div>
     </div>
-    <div class="card" style="text-align:center;padding:10px">
-      <h4 style="font-size:13px">运营层</h4>
-      <p class="dim">SRM · PLM · WMS · MES · OA · CRM · 电商</p>
+
+    <!-- Arrow 1→2 -->
+    <div class="arch-arrow"><span>▼</span></div>
+
+    <!-- Layer 2: 核心业务系统 -->
+    <div style="background:#fff;border:1px solid #2374a3;border-radius:6px;padding:10px 14px">
+      <div style="font-weight:700;color:#0b2d47;margin-bottom:6px;font-size:11px">核心业务系统 — ERP 核心 + 财务共享</div>
+      <div style="display:flex;gap:8px;align-items:stretch">
+        <div style="flex:1;border:1px solid #89c4e8;border-radius:4px;padding:8px 10px;background:#f5faff;text-align:center">
+          <div style="font-weight:700;color:#1a4f73;font-size:12px">SAP S/4HANA PCE</div>
+          <div style="color:#5b7a91;margin-top:3px;font-size:9.5px">FI/CO · SD · MM · PP · QM · EWM · MDG · Gross Reporting · EPC · CFI</div>
+        </div>
+        <div style="border:1px solid #0b2d47;border-radius:4px;padding:8px 14px;background:#0b2d47;color:#fff;text-align:center;display:flex;align-items:center;justify-content:center;min-width:110px">
+          <div>
+            <div style="font-weight:700;font-size:11.5px">财务共享 + 集团</div>
+            <div style="opacity:.8;font-size:9px;margin-top:2px">用友共享专业</div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="card" style="text-align:center;padding:10px">
-      <h4 style="font-size:13px">支撑层</h4>
-      <p class="dim">BI · 数据仓库 · 预算 · 费控 · HR · 档案</p>
+
+    <!-- Arrow 2→3 -->
+    <div class="arch-arrow"><span>▼</span></div>
+
+    <!-- Layer 3: 业务支撑系统 -->
+    <div style="background:#f0f6fc;border:1px solid #c5d9ed;border-radius:6px;padding:10px 14px">
+      <div style="font-weight:700;color:#1a4f73;margin-bottom:6px;font-size:11px">业务支撑系统 — 专业子系统（接过 CPH 集域）</div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap">
+        <span class="arch-box" style="background:#fff;color:#2374a3;border-color:#89c4e8">PLM</span>
+        <span class="arch-box" style="background:#fff;color:#2374a3;border-color:#89c4e8">MES</span>
+        <span class="arch-box" style="background:#fff;color:#2374a3;border-color:#89c4e8">APS（Aprove）</span>
+        <span class="arch-box" style="background:#fff;color:#2374a3;border-color:#89c4e8">WMS/EWM</span>
+        <span class="arch-box" style="background:#fff;color:#2374a3;border-color:#89c4e8">SFM</span>
+        <span class="arch-box" style="background:#fff;color:#2374a3;border-color:#89c4e8">CRM</span>
+        <span class="arch-box" style="background:#fff;color:#2374a3;border-color:#89c4e8">国内电 ROMS</span>
+        <span class="arch-box" style="background:#fff;color:#2374a3;border-color:#89c4e8">防伪防窜</span>
+        <span class="arch-box" style="background:#fff;color:#2374a3;border-color:#89c4e8">HRA 人力资源</span>
+        <span class="arch-box" style="background:#fff;color:#2374a3;border-color:#89c4e8">电子签章</span>
+        <span class="arch-box" style="background:#fff;color:#2374a3;border-color:#89c4e8">检验管理</span>
+        <span class="arch-box" style="background:#fff;color:#2374a3;border-color:#89c4e8">企业云盘</span>
+      </div>
+    </div>
+
+    <!-- Arrow 3→4 -->
+    <div class="arch-arrow"><span>▼</span></div>
+
+    <!-- Layer 4: 集中对接层 -->
+    <div style="background:#fff8ee;border:1px solid #e0d4b4;border-radius:6px;padding:10px 14px">
+      <div style="font-weight:700;color:#7a631a;margin-bottom:5px;font-size:11px">集中对接层 — SAP CP（Integration Suite）</div>
+      <div style="color:#8a773a;font-size:9.5px">18 个接口集成流 / 2015+ 接口量 &nbsp;·&nbsp; CP 集成对接 &nbsp;·&nbsp; API 网关 &nbsp;·&nbsp; 监控告警</div>
+    </div>
+
+    <!-- Arrow 4→5 -->
+    <div class="arch-arrow"><span>▼</span></div>
+
+    <!-- Layer 5: IT基础设施 -->
+    <div style="background:#f5f0fa;border:1px solid #d4c5e8;border-radius:6px;padding:8px 14px;text-align:center">
+      <div style="font-weight:700;color:#5a3d8a;font-size:11px">IT 基础设施与安全底座 — 管理平台（纳入规划重点）</div>
+    </div>
+
+    <!-- Arrow 5→6 -->
+    <div class="arch-arrow"><span>▼</span></div>
+
+    <!-- Layer 6: 加固系统 -->
+    <div style="background:#faf5f0;border:1px solid #e8d4c0;border-radius:6px 6px 0 0;padding:8px 14px;text-align:center">
+      <div style="font-weight:700;color:#8a5a3a;font-size:11px">加固系统（国产 + 交档）</div>
     </div>
   </div>
-  <div style="margin-top:8px;height:420px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-lg);">
-    <iframe src="assets/charts/sys-architecture.html" style="width:100%;height:100%;border:none;display:block;" loading="lazy" title="当前系统架构现状"></iframe>
-  </div>
-  <div class="pain-card" style="margin-top:8px;padding:10px 14px;font-size:12px">
+
+  <div class="pain-card" style="margin-top:10px;padding:10px 14px;font-size:12px">
     <strong>核心问题：</strong>SAP与外围系统之间大量点对点接口，无统一集成平台。数据在多个系统中重复维护，主数据标准不统一，形成<strong>"数据孤岛"</strong>和<strong>"接口蜘蛛网"</strong>。
   </div>
   <aside class="notes">
