@@ -26,31 +26,32 @@
     steel:'#4A6FA5', muted:'#6B8CB8', light:'#A8C4E0', pale:'#D0E4F7'
   };
   var systems = [
-    { x: 2, y: 4, label: 'ECC→S/4HANA', r: 42, color: C.navy },
-    { x: 3.1, y: 4.3, label: 'MDG(新引入)', r: 28, color: C.primary },
-    { x: 2.9, y: 3.5, label: 'Group Rpt(新引入)', r: 26, color: C.primary },
-    { x: 4.2, y: 1.8, label: 'PLM(保留+集成)', r: 24, color: C.steel },
-    { x: 4.3, y: 2.5, label: 'SRM(保留+集成)', r: 24, color: C.steel },
-    { x: 3.3, y: 1.9, label: 'CRM(保留+集成)', r: 24, color: C.steel },
-    { x: 2.4, y: 3, label: 'WMS→EWM(升级)', r: 26, color: C.mid },
-    { x: 4.2, y: 3.2, label: 'MES(保留+集成)', r: 24, color: C.steel },
-    { x: 3, y: 2.7, label: 'CPI(升级)', r: 26, color: C.mid },
-    { x: 4.6, y: 3, label: 'SmartBI(保留)', r: 20, color: C.muted },
-    /* ===== 新增系统 ===== */
-    /* 保留+集成：现有系统运行良好，与S/4HANA对接 */
-    { x: 4.0, y: 2.7, label: '聚水潭(保留+集成)', r: 20, color: C.steel },
-    { x: 3.7, y: 3.1, label: '财务共享(保留+集成)', r: 22, color: C.steel },
-    { x: 4.1, y: 2.2, label: '防伪防窜(保留+集成)', r: 18, color: C.muted },
-    { x: 3.8, y: 2.5, label: '迎才物流(保留+集成)', r: 19, color: C.muted },
-    /* 保留：独立运行良好，无需大改 */
-    { x: 4.5, y: 1.7, label: '电子签章(保留)', r: 17, color: C.light },
-    { x: 4.4, y: 1.85, label: '电商报价(保留)', r: 17, color: C.light },
-    { x: 4.35, y: 2.0, label: '领星电商(保留)', r: 17, color: C.light },
-    /* 新规划：待建设，业务价值高 */
-    { x: 2.0, y: 2.4, label: '经销商管理平台(新规划)', r: 21, color: C.primary },
-    { x: 2.2, y: 1.75, label: '差旅报销(新规划)', r: 18, color: C.mid },
-    { x: 2.5, y: 3.7, label: '数据中台(新规划)', r: 24, color: C.primary },
-    { x: 2.3, y: 4.15, label: '供应链控制塔(新规划)', r: 26, color: C.navy }
+    /* ===== 核心升级（深蓝，左上区域）===== */
+    { x: 1.8, y: 4.3, label: 'ECC→S/4HANA', r: 40, color: C.navy },
+    { x: 2.8, y: 4.6, label: 'MDG(新引入)', r: 26, color: C.primary },
+    { x: 2.6, y: 3.6, label: 'Group Rpt(新引入)', r: 24, color: C.primary },
+    /* ===== 新规划（主蓝，左下区域）===== */
+    { x: 1.6, y: 2.6, label: '经销商管理平台(新规划)', r: 20, color: C.primary },
+    { x: 1.9, y: 1.8, label: '差旅报销(新规划)', r: 18, color: C.mid },
+    { x: 2.3, y: 3.9, label: '数据中台(新规划)', r: 22, color: C.primary },
+    { x: 2.1, y: 4.5, label: '供应链控制塔(新规划)', r: 24, color: C.navy },
+    /* ===== 升级改造（中蓝，中左区域）===== */
+    { x: 2.5, y: 2.9, label: 'WMS→EWM(升级)', r: 24, color: C.mid },
+    { x: 3.0, y: 2.5, label: 'CPI(升级)', r: 24, color: C.mid },
+    /* ===== 保留+集成（钢蓝，均匀分布中右区域）===== */
+    { x: 3.8, y: 4.2, label: 'PLM(保留+集成)', r: 22, color: C.steel },
+    { x: 4.4, y: 3.6, label: 'SRM(保留+集成)', r: 22, color: C.steel },
+    { x: 3.2, y: 1.9, label: 'CRM(保留+集成)', r: 22, color: C.steel },
+    { x: 4.0, y: 2.8, label: 'MES(保留+集成)', r: 22, color: C.steel },
+    { x: 3.5, y: 3.3, label: '聚水潭(保留+集成)', r: 19, color: C.steel },
+    { x: 3.3, y: 3.8, label: '财务共享(保留+集成)', r: 20, color: C.steel },
+    { x: 4.2, y: 2.2, label: '防伪防窜(保留+集成)', r: 17, color: C.muted },
+    { x: 3.6, y: 2.4, label: '迎才物流(保留+集成)', r: 18, color: C.muted },
+    /* ===== 仅保留（浅蓝，右下角分散）===== */
+    { x: 4.8, y: 1.6, label: '电子签章(保留)', r: 16, color: C.light },
+    { x: 5.0, y: 2.0, label: '电商报价(保留)', r: 16, color: C.light },
+    { x: 4.7, y: 2.5, label: '领星电商(保留)', r: 16, color: C.light },
+    { x: 4.6, y: 3.0, label: 'SmartBI(保留)', r: 18, color: C.muted }
   ];
 
   var labelPlugin = {
