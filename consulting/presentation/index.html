@@ -456,46 +456,10 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
   </aside>
 </section>
 
-<!-- 9a. 需求溯源：701条需求 → 4A架构 → 23个高价值场景 -->
-<section class="slide" data-title="需求溯源">
-  <p class="kicker">REQUIREMENT TRACEABILITY</p>
-  <h2 class="h2">701条需求如何收敛到23个高价值场景</h2>
-  <div style="display:flex;gap:16px;margin-top:10px;height:calc(100% - 115px);">
-    <!-- 左侧：桑基图（最大化展示） -->
-    <div style="flex:2.8;display:flex;flex-direction:column;min-width:0;min-height:0">
-      <div style="flex:1;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:var(--shadow-lg);">
-        <iframe src="assets/charts/sankey_v4.html" loading="lazy" style="width:100%;height:100%;border:none;"></iframe>
-      </div>
-      <p style="font-size:10px;color:var(--text-3);text-align:center;margin-top:6px;">图：佛山照明 701 条原始需求 → TOGAF 4A 架构 → 23 个高价值场景流向图</p>
-    </div>
-    <!-- 右侧：三层解读卡片 -->
-    <div style="flex:1;display:flex;flex-direction:column;gap:12px;min-width:0;min-height:0;justify-content:space-around;">
-      <div class="card" style="padding:18px 16px;">
-        <h4 style="font-size:15px;margin-bottom:8px;font-weight:700;color:#0b2d47;">左侧：10个原始需求域</h4>
-        <p class="dim" style="font-size:13px;line-height:1.65;">颜色区分销售、采购、制造、仓储、财务等业务域，连线宽度代表需求条数流量。</p>
-      </div>
-      <div class="card" style="padding:18px 16px;">
-        <h4 style="font-size:15px;margin-bottom:8px;font-weight:700;color:#0b2d47;">中间：TOGAF 4A 架构</h4>
-        <p class="dim" style="font-size:13px;line-height:1.65;">BA 业务架构 / DA 数据架构 / AA 应用架构 / TA 技术架构，反映需求主要落在业务与数据层。</p>
-      </div>
-      <div class="card" style="padding:18px 16px;">
-        <h4 style="font-size:15px;margin-bottom:8px;font-weight:700;color:#0b2d47;">右侧：23个高价值场景</h4>
-        <p class="dim" style="font-size:13px;line-height:1.65;">跨域痛点汇聚为可交付场景，是后续 24 个项目卡片与三年路线图的基础。</p>
-      </div>
-    </div>
-  </div>
-  <aside class="notes">
-    <p>这是从 701 条原始需求到 23 个高价值场景的溯源图，是诊断和架构之间的关键衔接。</p>
-    <p>图里左侧是 10 个原始业务域，中间是 TOGAF 4A 架构归类，右侧是 23 个高价值场景。</p>
-    <p>总经理需要看到的重点是：我们不是拍脑袋定 23 个场景的，而是先把 701 条需求收敛成业务痛点，再映射到架构域，最后聚合成可落地的场景。</p>
-    <p>颜色从源头业务域贯穿到右侧，线条越粗代表这个域流向该场景的需求越多。比如销售域很粗地流向销售订单全链路场景，财务域很粗地流向集团合并报表场景。</p>
-  </aside>
-</section>
-
 <!-- 10. 商业模式 -->
 <section class="slide" data-title="商业模式">
   <p class="kicker">BUSINESS MODEL</p>
-  <h2 class="h2">佛照商业画布：从卖产品到卖方案</h2>
+  <h2 class="h2">佛照商业画布：卖产品到卖方案<br><span style="font-size:15px;font-weight:400;color:#4a6fa5;margin-top:4px;display:inline-block">——从"照明产品制造商"迈向"国内领先的智能健康光环境服务商"</span></h2>
   <style>
     .bmc-grid{display:grid;grid-template-columns:1fr 1fr 1.35fr 1fr 1fr;grid-template-rows:1fr 1fr auto;gap:8px;margin-top:12px;height:calc(100% - 90px);min-height:480px}
     .bmc-cell{background:#fff;border-radius:8px;padding:0;display:flex;flex-direction:column;overflow:hidden;
@@ -589,7 +553,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
       <div class="bmc-body">
       <ul>
         <li><strong>国内：</strong>传统五金流通、电商（京东/天猫/抖音/拼多多/自有商城/亚马逊）、家装公司及设计师</li>
-        <li><strong>海外：</strong>OEM/代工为主、自主品牌为辅；海外代理商、大客户（商超）及泰国工厂</li>
+        <li><strong>海外：</strong>OEM/代工为主、自主品牌为辅；海外代理商、大客户（商超市）及泰国工厂</li>
         <li><strong>车灯：</strong>直供主机厂（前装）</li>
       </ul>
       </div>
@@ -659,6 +623,42 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     <p>这是佛照的商业画布，梳理商业模式是为了让数字化规划对齐业务战略。</p>
     <p>核心变化是<strong>从"卖产品"转向"卖方案+卖服务"</strong>——这个转变对数字化提出了完全不同的要求。</p>
     <p>卖产品只需要管好库存和订单；卖方案需要打通研发、生产、交付、服务的全链路数据。</p>
+  </aside>
+</section>
+
+<!-- 9a. 需求溯源：701条需求 → 4A架构 → 23个高价值场景 -->
+<section class="slide" data-title="需求溯源">
+  <p class="kicker">REQUIREMENT TRACEABILITY</p>
+  <h2 class="h2">701条需求如何收敛到23个高价值场景</h2>
+  <div style="display:flex;gap:16px;margin-top:10px;height:calc(100% - 115px);">
+    <!-- 左侧：桑基图（最大化展示） -->
+    <div style="flex:2.8;display:flex;flex-direction:column;min-width:0;min-height:0">
+      <div style="flex:1;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:var(--shadow-lg);">
+        <iframe src="assets/charts/sankey_v4.html" loading="lazy" style="width:100%;height:100%;border:none;"></iframe>
+      </div>
+      <p style="font-size:10px;color:var(--text-3);text-align:center;margin-top:6px;">图：佛山照明 701 条原始需求 → TOGAF 4A 架构 → 23 个高价值场景流向图</p>
+    </div>
+    <!-- 右侧：三层解读卡片 -->
+    <div style="flex:1;display:flex;flex-direction:column;gap:12px;min-width:0;min-height:0;justify-content:space-around;">
+      <div class="card" style="padding:18px 16px;">
+        <h4 style="font-size:15px;margin-bottom:8px;font-weight:700;color:#0b2d47;">左侧：10个原始需求域</h4>
+        <p class="dim" style="font-size:13px;line-height:1.65;">颜色区分销售、采购、制造、仓储、财务等业务域，连线宽度代表需求条数流量。</p>
+      </div>
+      <div class="card" style="padding:18px 16px;">
+        <h4 style="font-size:15px;margin-bottom:8px;font-weight:700;color:#0b2d47;">中间：TOGAF 4A 架构</h4>
+        <p class="dim" style="font-size:13px;line-height:1.65;">BA 业务架构 / DA 数据架构 / AA 应用架构 / TA 技术架构，反映需求主要落在业务与数据层。</p>
+      </div>
+      <div class="card" style="padding:18px 16px;">
+        <h4 style="font-size:15px;margin-bottom:8px;font-weight:700;color:#0b2d47;">右侧：23个高价值场景</h4>
+        <p class="dim" style="font-size:13px;line-height:1.65;">跨域痛点汇聚为可交付场景，是后续 24 个项目卡片与三年路线图的基础。</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>这是从 701 条原始需求到 23 个高价值场景的溯源图，是诊断和架构之间的关键衔接。</p>
+    <p>图里左侧是 10 个原始业务域，中间是 TOGAF 4A 架构归类，右侧是 23 个高价值场景。</p>
+    <p>总经理需要看到的重点是：我们不是拍脑袋定 23 个场景的，而是先把 701 条需求收敛成业务痛点，再映射到架构域，最后聚合成可落地的场景。</p>
+    <p>颜色从源头业务域贯穿到右侧，线条越粗代表这个域流向该场景的需求越多。比如销售域很粗地流向销售订单全链路场景，财务域很粗地流向集团合并报表场景。</p>
   </aside>
 </section>
 
