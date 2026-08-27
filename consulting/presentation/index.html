@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>佛山照明数字化转型汇报 — 诊断·架构·路径</title>
+<title>佛照 SAP 升级及业务诊断咨询方案 — 诊断·架构·路径</title>
 <link rel="stylesheet" href="../../assets/fonts.css">
 <link rel="stylesheet" href="../../assets/base.css">
 <link rel="stylesheet" id="theme-link" href="../../assets/themes/corporate-clean.css">
@@ -52,6 +52,14 @@ h1.title,h2.title,.h1,.h2{font-weight:700;color:var(--accent)}
 .maturity-bar > div{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
 .arch-box{display:inline-block;padding:4px 10px;border-radius:4px;border:1px solid #89c4e8;font-size:10px;font-weight:600;white-space:nowrap}
 .arch-arrow{text-align:center;color:#2374a3;font-size:10px;padding:3px 0;letter-spacing:2px}
+/* ===== Gartner VI 架构分层样式 ===== */
+.arch-layer{position:relative}
+.arch-lbl{display:flex;align-items:center;gap:6px;font-weight:700;color:#0b2d47;font-size:11.5px;margin-bottom:7px}
+.arch-num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:5px;background:#2374a3;color:#fff;font-size:10px;font-weight:700;flex-shrink:0;border:1px solid rgba(35,116,163,.35)}
+.arch-tags{display:flex;gap:5px;flex-wrap:wrap}
+.arch-tag{display:inline-block;padding:4px 11px;border-radius:4px;background:#fff;color:#1a4f73;border:1px solid #b8d4e8;font-size:9.5px;font-weight:600;white-space:nowrap;transition:background .15s,border-color .15s}
+.arch-tag:hover{background:#eef6fc;border-color:#79b4eb}
+.arch-conn{text-align:center;padding:4px 0;color:#89c4e8;font-size:9px;letter-spacing:3px;line-height:1}
 /* ===== 纯 CSS 雷达图 (8轴) ===== */
 .radar-chart{position:relative;width:280px;height:280px;margin:0 auto}
 .radar-label{position:absolute;left:50%;top:50%;font-size:9.5px;color:#333;white-space:nowrap;transform-origin:0 0;
@@ -165,7 +173,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     <div class="cs-left">
       <div class="cs-logo">FSL <span style="color:#1a1a2e">佛山照明</span></div>
       <div class="cs-body">
-        <div class="cs-title">数字化转型</div>
+        <div class="cs-title">佛照 SAP 升级及<br>业务诊断咨询方案</div>
         <div class="cs-subtitle">诊断 · 架构 · 路径</div>
         <div class="cs-desc">阶段性评审</div>
         <div class="cs-meta">
@@ -856,95 +864,77 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 <section class="slide" data-title="当前系统架构">
   <p class="kicker">AS-IS SYSTEM LANDSCAPE</p>
   <h2 class="h2">当前系统架构按业务域分层展示</h2>
-  <div style="margin-top:10px;font-size:11px;color:var(--text-2)">
+  <div style="margin-top:8px;font-size:11px;color:var(--text-3)">
     候选集团应用架构全景图（System Landscape Overview）— 基于 TOGAF Phase C 应用架构设计
   </div>
 
-  <!-- 分层架构图：纯 HTML+CSS -->
-  <div style="margin-top:10px;display:flex;flex-direction:column;gap:0;font-size:10.5px;line-height:1.4">
+  <!-- ===== Gartner VI 分层架构图 ===== -->
+  <div style="margin-top:14px;display:flex;flex-direction:column;gap:0;font-size:10.5px;line-height:1.45">
 
-    <!-- Layer 1: 顶层前端 -->
-    <div style="background:#f0f6fc;border:1px solid #c5d9ed;border-radius:6px 6px 0 0;padding:10px 14px">
-      <div style="font-weight:700;color:#1a4f73;margin-bottom:6px;font-size:11px">前端应用 / 门户层</div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap">
-        <span class="arch-box" style="background:#e8f0fe;color:#1a56a8;border-color:#b4d0f5">SAP Portal / Fiori</span>
-        <span class="arch-box" style="background:#e8f0fe;color:#1a56a8;border-color:#b4d0f5">Formsport / SmartBI</span>
-        <span class="arch-box" style="background:#e8f0fe;color:#1a56a8;border-color:#b4d0f5">OA（致远 A8）</span>
-        <span class="arch-box" style="background:#e8f0fe;color:#1a56a8;border-color:#b4d0f5">候选集成 OIDO / 信服</span>
-        <span class="arch-box" style="background:#e8f0fe;color:#1a56a8;border-color:#b4d0f5">智数管家</span>
-        <span class="arch-box" style="background:#e8f0fe;color:#1a56a8;border-color:#b4d0f5">企业微信 / 微面</span>
+    <!-- L1 门户层 -->
+    <div class="arch-layer" style="background:linear-gradient(180deg,#f7fbff 0%,#eef6fc 100%);border:1px solid #cde2f2;border-radius:7px 7px 0 0;padding:11px 16px">
+      <div class="arch-lbl"><span class="arch-num">L1</span>前端应用 / 门户层</div>
+      <div class="arch-tags">
+        <span class="arch-tag">SAP Portal / Fiori</span>
+        <span class="arch-tag">Formsport / SmartBI</span>
+        <span class="arch-tag">OA（致远 A8）</span>
+        <span class="arch-tag">候选集成 OIDO / 信服</span>
+        <span class="arch-tag">智数管家</span>
+        <span class="arch-tag">企业微信 / 微面</span>
       </div>
     </div>
+    <div class="arch-conn"></div>
 
-    <!-- Arrow 1→2 -->
-    <div class="arch-arrow"><span>▼</span></div>
-
-    <!-- Layer 2: 核心业务系统 -->
-    <div style="background:#fff;border:1px solid #2374a3;border-radius:6px;padding:10px 14px">
-      <div style="font-weight:700;color:#0b2d47;margin-bottom:6px;font-size:11px">核心业务系统 — ERP 核心 + 财务共享</div>
-      <div style="display:flex;gap:8px;align-items:stretch">
-        <div style="flex:1;border:1px solid #89c4e8;border-radius:4px;padding:8px 10px;background:#f5faff;text-align:center">
-          <div style="font-weight:700;color:#1a4f73;font-size:12px">SAP S/4HANA PCE</div>
-          <div style="color:#5b7a91;margin-top:3px;font-size:9.5px">FI/CO · SD · MM · PP · QM · EWM · MDG · Gross Reporting · EPC · CFI</div>
+    <!-- L2 核心 ERP -->
+    <div class="arch-layer arch-core" style="background:linear-gradient(180deg,#0b2d47 0%,#154d73 100%);border:1.5px solid #0a2540;border-radius:7px;padding:12px 16px">
+      <div class="arch-lbl" style="color:#fff"><span class="arch-num" style="background:rgba(255,255,255,.18);color:#fff;border-color:rgba(255,255,255,.35)">L2</span>核心业务系统 — ERP 核心 + 财务共享</div>
+      <div style="display:flex;gap:10px;align-items:stretch;margin-top:8px">
+        <div style="flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:5px;padding:10px 12px;text-align:center">
+          <div style="font-weight:700;color:#fff;font-size:13px;letter-spacing:.3px">SAP S/4HANA PCE</div>
+          <div style="color:rgba(255,255,255,.65);margin-top:4px;font-size:9.5px">FI/CO · SD · MM · PP · QM · EWM · MDG · Gross Reporting · EPC · CFI</div>
         </div>
-        <div style="border:1px solid #0b2d47;border-radius:4px;padding:8px 14px;background:#0b2d47;color:#fff;text-align:center;display:flex;align-items:center;justify-content:center;min-width:110px">
+        <div style="background:rgba(94,164,206,.22);border:1px solid rgba(94,164,206,.5);border-radius:5px;padding:10px 16px;text-align:center;display:flex;align-items:center;justify-content:center;min-width:120px">
           <div>
-            <div style="font-weight:700;font-size:11.5px">财务共享 + 集团</div>
-            <div style="opacity:.8;font-size:9px;margin-top:2px">用友共享专业</div>
+            <div style="font-weight:700;color:#e8f4fc;font-size:11.5px">财务共享 + 集团</div>
+            <div style="color:rgba(255,255,255,.55);font-size:9px;margin-top:2px">用友共享专业</div>
           </div>
         </div>
       </div>
     </div>
+    <div class="arch-conn"></div>
 
-    <!-- Arrow 2→3 -->
-    <div class="arch-arrow"><span>▼</span></div>
-
-    <!-- Layer 3: 业务支撑系统 -->
-    <div style="background:#f0f6fc;border:1px solid #c5d9ed;border-radius:6px;padding:10px 14px">
-      <div style="font-weight:700;color:#1a4f73;margin-bottom:6px;font-size:11px">业务支撑系统 — 专业子系统（接过 CPH 集域）</div>
-      <div style="display:flex;gap:5px;flex-wrap:wrap">
-        <span class="arch-box" style="background:#fff;color:#2374a3;border-color:#89c4e8">PLM</span>
-        <span class="arch-box" style="background:#fff;color:#2374a3;border-color:#89c4e8">MES</span>
-        <span class="arch-box" style="background:#fff;color:#2374a3;border-color:#89c4e8">APS（Aprove）</span>
-        <span class="arch-box" style="background:#fff;color:#2374a3;border-color:#89c4e8">WMS/EWM</span>
-        <span class="arch-box" style="background:#fff;color:#2374a3;border-color:#89c4e8">SFM</span>
-        <span class="arch-box" style="background:#fff;color:#2374a3;border-color:#89c4e8">CRM</span>
-        <span class="arch-box" style="background:#fff;color:#2374a3;border-color:#89c4e8">国内电 ROMS</span>
-        <span class="arch-box" style="background:#fff;color:#2374a3;border-color:#89c4e8">防伪防窜</span>
-        <span class="arch-box" style="background:#fff;color:#2374a3;border-color:#89c4e8">HRA 人力资源</span>
-        <span class="arch-box" style="background:#fff;color:#2374a3;border-color:#89c4e8">电子签章</span>
-        <span class="arch-box" style="background:#fff;color:#2374a3;border-color:#89c4e8">检验管理</span>
-        <span class="arch-box" style="background:#fff;color:#2374a3;border-color:#89c4e8">企业云盘</span>
+    <!-- L3 业务支撑 -->
+    <div class="arch-layer" style="background:linear-gradient(180deg,#f7fbff 0%,#eef6fc 100%);border:1px solid #cde2f2;border-radius:7px;padding:11px 16px">
+      <div class="arch-lbl"><span class="arch-num">L3</span>业务支撑系统 — 专业子系统（接过 CPH 集域）</div>
+      <div class="arch-tags">
+        <span class="arch-tag">PLM</span><span class="arch-tag">MES</span><span class="arch-tag">APS（Aprove）</span><span class="arch-tag">WMS/EWM</span>
+        <span class="arch-tag">SFM</span><span class="arch-tag">CRM</span><span class="arch-tag">国内电 ROMS</span><span class="arch-tag">防伪防窜</span>
+        <span class="arch-tag">HRA 人力资源</span><span class="arch-tag">电子签章</span><span class="arch-tag">检验管理</span><span class="arch-tag">企业云盘</span>
       </div>
     </div>
+    <div class="arch-conn"></div>
 
-    <!-- Arrow 3→4 -->
-    <div class="arch-arrow"><span>▼</span></div>
-
-    <!-- Layer 4: 集中对接层 -->
-    <div style="background:#fff8ee;border:1px solid #e0d4b4;border-radius:6px;padding:10px 14px">
-      <div style="font-weight:700;color:#7a631a;margin-bottom:5px;font-size:11px">集中对接层 — SAP CP（Integration Suite）</div>
-      <div style="color:#8a773a;font-size:9.5px">18 个接口集成流 / 2015+ 接口量 &nbsp;·&nbsp; CP 集成对接 &nbsp;·&nbsp; API 网关 &nbsp;·&nbsp; 监控告警</div>
+    <!-- L4 集成层 -->
+    <div class="arch-layer" style="background:linear-gradient(180deg,#f0f7fb 0%,#e3f0f7 100%);border:1px solid #b8d4e8;border-radius:7px;padding:10px 16px">
+      <div class="arch-lbl"><span class="arch-num">L4</span>集中对接层 — SAP CPI（Integration Suite）</div>
+      <div style="color:var(--text-3);font-size:9.5px;margin-top:4px">18 个接口集成流 / 2015+ 接口量 &nbsp;·&nbsp; CP 集成对接 &nbsp;·&nbsp; API 网关 &nbsp;·&nbsp; 监控告警</div>
     </div>
+    <div class="arch-conn"></div>
 
-    <!-- Arrow 4→5 -->
-    <div class="arch-arrow"><span>▼</span></div>
-
-    <!-- Layer 5: IT基础设施 -->
-    <div style="background:#f5f0fa;border:1px solid #d4c5e8;border-radius:6px;padding:8px 14px;text-align:center">
-      <div style="font-weight:700;color:#5a3d8a;font-size:11px">IT 基础设施与安全底座 — 管理平台（纳入规划重点）</div>
+    <!-- L5 基础设施 -->
+    <div class="arch-layer" style="background:linear-gradient(180deg,#f5f8fb 0%,#eef3f8 100%);border:1px solid #cdd8e3;border-radius:7px;padding:9px 16px;text-align:center">
+      <div class="arch-lbl" style="justify-content:center"><span class="arch-num">L5</span>IT 基础设施与安全底座 — 管理平台<span style="color:#c0392b;font-weight:700;margin-left:6px;font-size:9.5px">（纳入规划重点）</span></div>
     </div>
+    <div class="arch-conn"></div>
 
-    <!-- Arrow 5→6 -->
-    <div class="arch-arrow"><span>▼</span></div>
-
-    <!-- Layer 6: 加固系统 -->
-    <div style="background:#faf5f0;border:1px solid #e8d4c0;border-radius:6px 6px 0 0;padding:8px 14px;text-align:center">
-      <div style="font-weight:700;color:#8a5a3a;font-size:11px">加固系统（国产 + 交档）</div>
+    <!-- L6 加固体系 -->
+    <div class="arch-layer" style="background:linear-gradient(180deg,#f0f4f8 0%,#e6eef5 100%);border:1px solid #c0ccd8;border-radius:0 0 7px 7px;padding:9px 16px;text-align:center">
+      <div class="arch-lbl" style="justify-content:center"><span class="arch-num">L6</span>加固体系（国产 + 交换）</div>
     </div>
   </div>
 
-  <div class="pain-card" style="margin-top:10px;padding:10px 14px;font-size:12px">
+  <!-- Insight -->
+  <div class="insight-box" style="margin-top:12px;padding:12px 16px;font-size:12px">
     <strong>核心问题：</strong>SAP与外围系统之间大量点对点接口，无统一集成平台。数据在多个系统中重复维护，主数据标准不统一，形成<strong>"数据孤岛"</strong>和<strong>"接口蜘蛛网"</strong>。
   </div>
   <aside class="notes">
@@ -1123,7 +1113,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 <!-- 21c. DCMM评估 -->
 <section class="slide" data-title="DCMM评估">
   <p class="kicker">DCMM ASSESSMENT</p>
-  <h2 class="h2">数据管理能力成熟度（DCMM）评估</h2>
+  <h2 class="h2">数据管理能力成熟度（DCMM）：综合评分 <span style="color:#c0392b;font-weight:800;font-size:1.15em">2.1</span> / 5.0</h2>
   <div class="grid g2 mt-l">
     <div class="card">
       <h4>评估标准</h4>
@@ -1565,11 +1555,11 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 
 
 <!-- 28. 桑基图说明 -->
-<section class="slide" data-title="桑基图" style="padding-top:58px;padding-bottom:58px;">
-  <p class="kicker" style="margin-bottom:6px">SANKEY DIAGRAM</p>
-  <h2 class="h2" style="margin:0 0 8px">701条原始需求 → 4A架构 → 高价值场景 汇总桑基图</h2>
-  <div style="flex:1;min-height:0;width:100%;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-lg);">
-    <iframe src="assets/charts/sankey_5col_v3.html" style="width:100%;height:100%;border:none;display:block;" loading="lazy" title="需求汇总桑基图"></iframe>
+<section class="slide" data-title="桑基图" style="padding-top:48px;padding-bottom:48px;">
+  <p class="kicker" style="margin-bottom:4px">SANKEY DIAGRAM</p>
+  <h2 class="h2" style="margin:0 0 6px">701条原始需求 → 4A架构 → 高价值场景 汇总桑基图</h2>
+  <div style="flex:1;min-height:0;width:100%;max-height:calc(100% - 72px);border:1px solid var(--border);border-radius:var(--radius);overflow:auto;box-shadow:var(--shadow-lg);">
+    <iframe src="assets/charts/sankey_5col_v3.html" style="width:1700px;height:1150px;border:none;display:block;" loading="lazy" title="需求汇总桑基图"></iframe>
   </div>
   <p style="text-align:center;font-size:11px;color:var(--text-3);margin:8px 0 0">数据来源：《企业架构设计报告 V6》</p>
   <aside class="notes">
@@ -3074,7 +3064,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 <section class="slide" data-title="感谢">
   <div class="cover-fsl" style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 40px">
     <h1 style="font-size:56px;font-weight:800;margin-bottom:20px">谢谢</h1>
-    <p style="font-size:18px;opacity:.85;margin-bottom:40px">佛山照明数字化转型汇报</p>
+    <p style="font-size:18px;opacity:.85;margin-bottom:40px">佛照 SAP 升级及业务诊断咨询方案</p>
     <div style="display:flex;gap:40px;font-size:13px;opacity:.8">
       <div><div style="font-size:10px;opacity:.6;margin-bottom:4px">编制单位</div><div style="font-weight:600">艾维登咨询</div></div>
       <div><div style="font-size:10px;opacity:.6;margin-bottom:4px">汇报人</div><div style="font-weight:600">陈宇清</div></div>
