@@ -144,6 +144,12 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 .jump-item{padding:7px 12px;font-size:12px;color:#333;cursor:pointer;border-radius:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .jump-item:hover{background:#f2f7fb;color:#0b2d47}
 .jump-item.active{background:#0b2d47;color:#fff}
+/* ===== TOGAF ADM 雷达图（纯CSS六边形） ===== */
+.togaf-radar{position:relative}
+.tr-ring{position:absolute;top:50%;left:50%;width:var(--r);height:calc(var(--r) * 0.96);border:1px solid #e0e6ee;border-radius:50%;transform:translate(-50%,-50%)}
+.tr-axis{position:absolute;top:50%;left:50%;width:55%;height:1px;background:linear-gradient(90deg,#d5dde6 0%,transparent 100%);transform-origin:left center;transform:rotate(var(--a))}
+.tr-axis span{position:absolute;right:-4px;top:-22px;font-size:9px;color:#444;text-align:right;line-height:1.2;white-space:nowrap;font-family:"Microsoft YaHei","PingFang SC",sans-serif}
+.tr-axis span small{color:#888;font-size:8px}
 
 
 </style>
@@ -1347,18 +1353,66 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 <section class="slide" data-title="TOGAF方法论">
   <p class="kicker">TOGAF 9.2 ADM</p>
   <h2 class="h2">采用国际通用的TOGAF架构开发方法</h2>
-  <div class="grid g2 mt-l">
-    <div class="card">
-      <h4>什么是TOGAF？</h4>
-      <p class="dim">The Open Group Architecture Framework，全球数千个企业架构实践验证的迭代式架构开发方法，由8个相位构成。</p>
+  <div style="display:flex;gap:20px;margin-top:14px;height:calc(100% - 115px);">
+    <!-- 左侧：TOGAF 说明卡片 -->
+    <div style="flex:1;display:flex;flex-direction:column;gap:14px;min-width:0">
+      <div class="card" style="padding:16px">
+        <h4>什么是TOGAF？</h4>
+        <p class="dim">The Open Group Architecture Framework，全球数千个企业架构实践验证的迭代式架构开发方法，由8个相位构成。</p>
+      </div>
+      <div class="card" style="padding:16px">
+        <h4>本项目覆盖的四个核心相位</h4>
+        <p class="dim">Phase A 架构愿景 → Phase B 业务架构 → Phase C 信息系统架构（数据+应用） → Phase D 技术架构</p>
+      </div>
+      <div class="insight-box" style="margin-top:auto">
+        <p><strong>为什么选择TOGAF？</strong> 国资委推荐、国际通用、与SAP实施方法论天然对齐。使用TOGAF确保架构设计有方法论支撑，不是拍脑袋。</p>
+      </div>
     </div>
-    <div class="card">
-      <h4>本项目覆盖的四个核心相位</h4>
-      <p class="dim">Phase A 架构愿景 → Phase B 业务架构 → Phase C 信息系统架构（数据+应用） → Phase D 技术架构</p>
+
+    <!-- 右侧：TOGAF ADM 相位雷达图 -->
+    <div style="flex:1.1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0">
+      <div style="font-weight:700;color:#0b2d47;font-size:12px;text-align:center;margin-bottom:6px">TOGAF ADM 相位与本项目映射关系</div>
+      <div class="togaf-radar" style="position:relative;width:320px;height:300px">
+        <!-- 背景网格：5 圈六边形 -->
+        <div class="tr-ring" style="--r:260px"></div>
+        <div class="tr-ring" style="--r:208px"></div>
+        <div class="tr-ring" style="--r:156px"></div>
+        <div class="tr-ring" style="--r:104px"></div>
+        <div class="tr-ring" style="--r:52px"></div>
+        <!-- 6 条轴线 -->
+        <div class="tr-axis" style="--a:0deg"><span>Phase A<br><small>架构愿景</small></span></div>
+        <div class="tr-axis" style="--a:60deg"><span>Phase B<br><small>业务架构</small></span></div>
+        <div class="tr-axis" style="--a:120deg"><span>Phase C<br><small>信息系统</small></span></div>
+        <div class="tr-axis" style="--a:180deg"><span>Phase D<br><small>技术架构</small></span></div>
+        <div class="tr-axis" style="--a:240deg"><span>Phase E/F<br><small>迁移规划</small></span></div>
+        <div class="tr-axis" style="--a:300deg"><span>Phase G/H<br><small>实施治理</small></span></div>
+        <!-- TO-BE 多边形（深蓝）— TOGAF 标准完整度（外圈） -->
+        <svg viewBox="0 0 320 300" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:3" aria-hidden="true">
+          <polygon points="160,22 293,82 293,218 160,278 27,218 27,82"
+                   fill="rgba(11,45,71,0.15)" stroke="#0b2d47" stroke-width="2"/>
+          <g fill="#0b2d47">
+            <circle cx="160" cy="22" r="4"/><circle cx="293" cy="82" r="4"/>
+            <circle cx="293" cy="218" r="4"/><circle cx="160" cy="278" r="4"/>
+            <circle cx="27" cy="218" r="4"/><circle cx="27" cy="82" r="4"/>
+          </g>
+        </svg>
+        <!-- AS-IS 多边形（浅蓝）— 本项目覆盖度（内圈，A/B/C/D 满格，E/F/G/H 半径较小） -->
+        <svg viewBox="0 0 320 300" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:2" aria-hidden="true">
+          <polygon points="160,22 293,82 293,218 160,278 103,195 103,105"
+                   fill="rgba(121,180,235,0.28)" stroke="#79b4eb" stroke-width="2"/>
+          <g fill="#79b4eb">
+            <circle cx="160" cy="22" r="4"/><circle cx="293" cy="82" r="4"/>
+            <circle cx="293" cy="218" r="4"/><circle cx="160" cy="278" r="4"/>
+            <circle cx="103" cy="195" r="4"/><circle cx="103" cy="105" r="4"/>
+          </g>
+        </svg>
+      </div>
+      <!-- 图例 -->
+      <div style="display:flex;align-items:center;gap:18px;margin-top:8px;font-size:10px;color:#555">
+        <span style="display:flex;align-items:center;gap:4px"><span style="width:20px;height:3px;background:#79b4eb;border-radius:2px"></span>本项目覆盖度</span>
+        <span style="display:flex;align-items:center;gap:4px"><span style="width:20px;height:3px;background:#0b2d47;border-radius:2px"></span>TOGAF标准完整度</span>
+      </div>
     </div>
-  </div>
-  <div class="insight-box mt-l">
-    <p><strong>为什么选择TOGAF？</strong> 国资委推荐、国际通用、与SAP实施方法论天然对齐。使用TOGAF确保架构设计有方法论支撑，不是拍脑袋。</p>
   </div>
   <aside class="notes">
     <p>企业架构设计采用TOGAF 9.2方法论。</p>
