@@ -914,7 +914,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 
     <!-- L5 基础设施 -->
     <div class="arch-layer" style="background:linear-gradient(180deg,#f5f8fb 0%,#eef3f8 100%);border:1px solid #cdd8e3;border-radius:7px;padding:9px 16px;text-align:center">
-      <div class="arch-lbl" style="justify-content:center"><span class="arch-num">L5</span>IT 基础设施与安全底座 — 管理平台<span style="color:#c0392b;font-weight:700;margin-left:6px;font-size:9.5px">（纳入规划重点）</span></div>
+      <div class="arch-lbl" style="justify-content:center"><span class="arch-num">L5</span>IT 基础设施与安全底座 — 管理平台<span style="color:#2374a3;font-weight:700;margin-left:6px;font-size:9.5px">（纳入规划重点）</span></div>
     </div>
     <div class="arch-conn"></div>
 
@@ -1103,36 +1103,34 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 
 <!-- 21c. DCMM评估 -->
 <section class="slide" data-title="DCMM评估">
-  <p class="kicker">MATURITY ASSESSMENT</p>
-  <h2 class="h2">数字化成熟度：综合评分 <span style="color:#0070C0;font-weight:800;font-size:1.2em">1.9</span> / 5.0</h2>
+  <p class="kicker">DCMM ASSESSMENT</p>
+  <h2 class="h2">数据管理能力成熟度（DCMM）：综合评分 <span style="color:var(--accent-2);font-weight:800;font-size:1.2em">2.1</span> / 5.0</h2>
 
-  <!-- 三指标卡片（红框区域） -->
-  <div style="margin-top:12px;border:2px solid #e74c3c;border-radius:8px;padding:16px 20px;display:flex;gap:16px;background:#fff">
-    <div style="flex:1;text-align:center;padding:14px 8px;border-radius:6px;border:1px solid #eee">
-      <div style="font-size:32px;font-weight:800;color:#0070C0;line-height:1.1">1.9</div>
-      <div style="font-size:10px;color:#888;margin-top:4px">当前阶段</div>
-      <div style="font-size:11px;color:#333;margin-top:2px;font-weight:600">初始级→规范级下限</div>
+  <div class="grid g3 mt-l" style="text-align:center">
+    <div class="card">
+      <div style="font-size:48px;font-weight:800;color:var(--accent-2)">2.1</div>
+      <div style="font-size:12px;color:var(--text-3);margin-top:4px">当前阶段</div>
+      <div style="font-size:14px;font-weight:600;margin-top:4px">受管理级（L2）</div>
     </div>
-    <div style="flex:1;text-align:center;padding:14px 8px;border-radius:6px;border:1px solid #eee">
-      <div style="font-size:32px;font-weight:800;color:#0070C0;line-height:1.1">3.0<span style="font-size:20px">+</span></div>
-      <div style="font-size:10px;color:#888;margin-top:4px">行动标杆</div>
-      <div style="font-size:11px;color:#333;margin-top:2px;font-weight:600">集成级</div>
+    <div class="card">
+      <div style="font-size:48px;font-weight:800;color:#2374a3">3.0+</div>
+      <div style="font-size:12px;color:var(--text-3);margin-top:4px">行动标杆</div>
+      <div style="font-size:14px;font-weight:600;margin-top:4px">稳健级（L3）</div>
     </div>
-    <div style="flex:1;text-align:center;padding:14px 8px;border-radius:6px;border:1px solid #eee">
-      <div style="font-size:32px;font-weight:800;color:#0070C0;line-height:1.1">1.1</div>
-      <div style="font-size:10px;color:#888;margin-top:4px">差距</div>
-      <div style="font-size:11px;color:#333;margin-top:2px;font-weight:600">需提升约1.5级</div>
+    <div class="card">
+      <div style="font-size:48px;font-weight:800;color:var(--warn)">0.9</div>
+      <div style="font-size:12px;color:var(--text-3);margin-top:4px">差距</div>
+      <div style="font-size:14px;font-weight:600;margin-top:4px">需提升约0.9级</div>
     </div>
   </div>
 
-  <!-- 评估依据 -->
-  <div class="insight-box" style="margin-top:12px">
-    <p><strong>评估依据：</strong>参照GB/T 43439-2023国家标准，从组织、技术、数据、资源、数字化运营、数字化生产六大能力域评估。佛照当前处于<strong>L1.9</strong>，目标三年内达到<strong>L3.5+</strong>（集成级）。</p>
+  <div class="insight-box mt-l">
+    <p><strong>评估依据：</strong>参照GB/T 36073-2025（DCMM）国家标准，从数据战略、数据治理、数据架构、数据应用、数据安全、数据质量、数据标准、数据生命周期8个能力域评估。佛照当前处于<strong>L2.1</strong>（受管理级），目标三年内达到<strong>L3.0+</strong>（稳健级），其中数据质量与数据标准是最大短板。</p>
   </div>
 
   <aside class="notes">
     <p>DCMM是数据管理领域的国家标准。</p>
-    <p>佛照当前DCMM约2级，目标3级。<strong>数据质量和数据标准</strong>是最大短板。</p>
+    <p>佛照当前DCMM约L2.1，目标L3.0+。<strong>数据质量和数据标准</strong>是最大短板。</p>
   </aside>
 </section>
 
@@ -2140,8 +2138,8 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
   <p class="kicker">VISION</p>
   <h2 class="h2">转型愿景：从制造商到服务商的数字化支撑</h2>
   <div style="background:#EAF4FA;border-radius:var(--radius);padding:34px 40px;margin-top:24px;">
-    <p style="font-size:12px;letter-spacing:2px;color:#2374a3;font-weight:700;margin-bottom:8px">VISION 2028</p>
-    <h3 style="font-size:22px;font-weight:700;color:#0B2D47;margin-bottom:28px;line-height:1.45;">以SAP S/4HANA为核心底座，构建<br>"数据驱动、流程贯通、智能决策"的数字化企业</h3>
+    <p style="font-size:12px;letter-spacing:2px;color:#2374a3;font-weight:700;margin-bottom:8px">VISION 2026</p>
+    <h3 style="font-size:18px;font-weight:600;color:#0B2D47;margin-bottom:24px;line-height:1.6;">以 SAP S/4HANA PCE 为数字化核心底座，以 SAP MDG 为主数据治理中枢，以 SAP CPI 为集成神经网络，构建覆盖佛照集团 19 家法人、贯通研产供销财全价值链的统一智造运营平台。通过数据标准化、流程标准化、管控一体化，实现从"分散管理的多元化集团"向"<span style="color:#2374a3;font-weight:800">数据驱动的智造型集团</span>"的跨越，支撑佛照在全球照明与汽车灯具市场的核心竞争力持续提升，成为"<span style="color:#2374a3;font-weight:800">数据驱动、流程贯通、智能决策</span>"的数字化企业。</h3>
     <div style="display:flex;gap:28px;">
       <div style="flex:1;text-align:center;">
         <div style="width:64px;height:64px;margin:0 auto 14px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(11,45,71,.08);">
