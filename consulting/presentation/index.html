@@ -61,7 +61,7 @@ h1.title,h2.title,.h1,.h2{font-weight:700;color:var(--accent)}
 .arch-tag:hover{background:#eef6fc;border-color:#79b4eb}
 .arch-conn{text-align:center;padding:4px 0;color:#89c4e8;font-size:9px;letter-spacing:3px;line-height:1}
 /* ===== 纯 CSS 雷达图 (8轴) ===== */
-.radar-chart{position:relative;width:280px;height:280px;margin:0 auto}
+.radar-chart{position:relative;width:280px;height:280px;min-width:280px;max-width:400px;aspect-ratio:1/1;margin:0 auto;flex-shrink:0}
 .radar-label{position:absolute;left:50%;top:50%;font-size:9.5px;color:#333;white-space:nowrap;transform-origin:0 0;
   transform:translate(-50%,-50%) rotate(calc(var(--i)*45deg - 90deg)) translateY(calc(-1 * (50% + 14px)))}
 .radar-ring{position:absolute;inset:0;border:1px solid #e0e8f0;border-radius:50%;clip-path:polygon(50% 2%, 85.3% 14.6%, 98% 50%, 85.3% 85.3%, 50% 98%, 14.6% 85.3%, 2% 50%, 14.6% 14.6%);
@@ -74,7 +74,7 @@ h1.title,h2.title,.h1,.h2{font-weight:700;color:var(--accent)}
 .radar-to-be{background:rgba(11,45,71,.15);border:2.2px solid #0b2d47;
   clip-path:polygon(50% 12%, 82% 25%, 94% 50%, 82% 75%, 50% 93%, 20% 75%, 8% 50%, 20% 25%)}
 .radar-dot{position:absolute;left:50%;top:50%;width:5px;height:5px;border-radius:50%;transform:translate(-50%,-50%) rotate(calc(var(--i)*45deg))
-  translate(0,calc(var(--dist) * -140px))}
+  translate(0,calc(var(--dist) * -50%))}
 .dot-as-is{background:#79b4eb;border:1.5px solid #fff;box-shadow:0 0 0 1px #79b4eb}
 .dot-to-be{background:#0b2d47;border:1.5px solid #fff;box-shadow:0 0 0 1px #0b2d47;width:6px;height:6px}
 table.fsl-table{width:100%;border-collapse:collapse;font-size:13px}
@@ -502,18 +502,18 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
       <p style="font-size:10px;color:var(--text-3);text-align:center;margin-top:6px;">图：佛山照明 701 条原始需求 → TOGAF 4A 架构 → 23 个高价值场景流向图</p>
     </div>
     <!-- 右侧：三层解读卡片 -->
-    <div style="flex:1;display:flex;flex-direction:column;gap:10px;min-width:0;min-height:0;overflow-y:auto;">
-      <div class="card" style="padding:14px;">
-        <h4 style="font-size:13px;margin-bottom:6px;">左侧：10个原始需求域</h4>
-        <p class="dim" style="font-size:11px;line-height:1.5;">颜色区分销售、采购、制造、仓储、财务等业务域，连线宽度代表需求条数流量。</p>
+    <div style="flex:1;display:flex;flex-direction:column;gap:12px;min-width:0;min-height:0;justify-content:space-around;">
+      <div class="card" style="padding:18px 16px;">
+        <h4 style="font-size:15px;margin-bottom:8px;font-weight:700;color:#0b2d47;">左侧：10个原始需求域</h4>
+        <p class="dim" style="font-size:13px;line-height:1.65;">颜色区分销售、采购、制造、仓储、财务等业务域，连线宽度代表需求条数流量。</p>
       </div>
-      <div class="card" style="padding:14px;">
-        <h4 style="font-size:13px;margin-bottom:6px;">中间：TOGAF 4A 架构</h4>
-        <p class="dim" style="font-size:11px;line-height:1.5;">BA 业务架构 / DA 数据架构 / AA 应用架构 / TA 技术架构，反映需求主要落在业务与数据层。</p>
+      <div class="card" style="padding:18px 16px;">
+        <h4 style="font-size:15px;margin-bottom:8px;font-weight:700;color:#0b2d47;">中间：TOGAF 4A 架构</h4>
+        <p class="dim" style="font-size:13px;line-height:1.65;">BA 业务架构 / DA 数据架构 / AA 应用架构 / TA 技术架构，反映需求主要落在业务与数据层。</p>
       </div>
-      <div class="card" style="padding:14px;">
-        <h4 style="font-size:13px;margin-bottom:6px;">右侧：23个高价值场景</h4>
-        <p class="dim" style="font-size:11px;line-height:1.5;">跨域痛点汇聚为可交付场景，是后续 24 个项目卡片与三年路线图的基础。</p>
+      <div class="card" style="padding:18px 16px;">
+        <h4 style="font-size:15px;margin-bottom:8px;font-weight:700;color:#0b2d47;">右侧：23个高价值场景</h4>
+        <p class="dim" style="font-size:13px;line-height:1.65;">跨域痛点汇聚为可交付场景，是后续 24 个项目卡片与三年路线图的基础。</p>
       </div>
     </div>
   </div>
@@ -530,27 +530,34 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
   <p class="kicker">BUSINESS MODEL</p>
   <h2 class="h2">佛照商业画布：从卖产品到卖方案</h2>
   <style>
-    .bmc-grid{display:grid;grid-template-columns:1fr 1fr 1.3fr 1fr 1fr;grid-template-rows:1fr 1fr auto;gap:6px;margin-top:14px;height:calc(100% - 90px);min-height:460px}
-    .bmc-cell{background:#fff;border:1px solid #d0d5dd;border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;overflow:hidden}
-    .bmc-cell h4{font-size:12px;font-weight:700;color:#0b2d47;margin:0 0 6px 0;padding-bottom:4px;border-bottom:2px solid var(--bmc-accent,#2374a3);letter-spacing:.5px}
-    .bmc-cell ul{margin:0;padding-left:14px;font-size:10.5px;color:#3a4d63;line-height:1.55}
-    .bmc-cell li{margin-bottom:2px}
-    .bmc-cell p{margin:0;font-size:10.5px;color:#3a4d63;line-height:1.55}
-    .bmc-partners{grid-row:1/3;grid-column:1/2;--bmc-accent:#0b2d47}
-    .bmc-activities{grid-row:1/2;grid-column:2/3;--bmc-accent:#2374a3}
-    .bmc-resources{grid-row:2/3;grid-column:2/3;--bmc-accent:#1a4f73}
-    .bmc-value{grid-row:1/3;grid-column:3/4;--bmc-accent:#2374a3}
-    .bmc-relationships{grid-row:1/2;grid-column:4/5;--bmc-accent:#5ea4ce}
-    .bmc-channels{grid-row:2/3;grid-column:4/5;--bmc-accent:#2374a3}
-    .bmc-segments{grid-row:1/3;grid-column:5/6;--bmc-accent:#0b2d47}
-    .bmc-cost{grid-row:3/4;grid-column:1/3;--bmc-accent:#1a4f73}
-    .bmc-revenue{grid-row:3/4;grid-column:3/6;--bmc-accent:#0b2d47}
-    .bmc-subtitle{font-size:9px;color:#5b7a91;margin-top:auto;padding-top:4px;border-top:1px dashed #e5e7eb}
+    .bmc-grid{display:grid;grid-template-columns:1fr 1fr 1.35fr 1fr 1fr;grid-template-rows:1fr 1fr auto;gap:8px;margin-top:12px;height:calc(100% - 90px);min-height:480px}
+    .bmc-cell{background:#fff;border-radius:8px;padding:0;display:flex;flex-direction:column;overflow:hidden;
+      box-shadow:0 1px 3px rgba(11,45,71,.06),0 1px 2px rgba(11,45,71,.04);border:1px solid #e2e8f0}
+    .bmc-hdr{padding:9px 14px 7px;font-size:11.5px;font-weight:700;color:#fff;letter-spacing:.3px;line-height:1.3;
+      background:linear-gradient(135deg,#0b2d47 0%,#154d73 100%)}
+    .bmc-body{padding:10px 13px 10px;flex:1;overflow-y:auto;font-size:10.2px;color:#334155;line-height:1.6}
+    .bmc-body ul{margin:0;padding-left:15px}
+    .bmc-body li{margin-bottom:3px}
+    .bmc-body strong{color:#0b2d47;font-weight:600}
+    .bmc-subtitle{font-size:9px;color:#64748b;margin-top:auto;padding-top:6px;border-top:1px dashed #cbd5e1}
+    /* Gartner 蓝色分层 */
+    .bmc-partners{grid-row:1/3;grid-column:1/2}.bmc-partners .bmc-hdr{background:linear-gradient(135deg,#0b2d47 0%,#1a4f73 100%)}
+    .bmc-activities{grid-row:1/2;grid-column:2/3}.bmc-activities .bmc-hdr{background:linear-gradient(135deg,#1a4f73 0%,#2374a3 100%)}
+    .bmc-resources{grid-row:2/3;grid-column:2/3}.bmc-resources .bmc-hdr{background:linear-gradient(135deg,#2374a3 0%,#3a8bc9 100%)}
+    .bmc-value{grid-row:1/3;grid-column:3/4;background:linear-gradient(180deg,#f0f6fc 0%,#e8f2fa 50%,#fff 100%);
+      border-color:#89c4e8}.bmc-value .bmc-hdr{background:linear-gradient(135deg,#0b2d47 0%,#164a70 100%)!important;
+      font-size:12.5px;text-align:center;letter-spacing:.8px}
+    .bmc-relationships{grid-row:1/2;grid-column:4/5}.bmc-relationships .bmc-hdr{background:linear-gradient(135deg,#2374a3 0%,#3a8bc9 100%)}
+    .bmc-channels{grid-row:2/3;grid-column:4/5}.bmc-channels .bmc-hdr{background:linear-gradient(135deg,#1a4f73 0%,#2374a3 100%)}
+    .bmc-segments{grid-row:1/3;grid-column:5/6}.bmc-segments .bmc-hdr{background:linear-gradient(135deg,#0b2d47 0%,#1a4f73 100%)}
+    .bmc-cost{grid-row:3/4;grid-column:1/3}.bmc-cost .bmc-hdr{background:linear-gradient(135deg,#1a4f73 0%,#2374a3 100%)}
+    .bmc-revenue{grid-row:3/4;grid-column:3/6}.bmc-revenue .bmc-hdr{background:linear-gradient(135deg,#0b2d47 0%,#164a70 100%)}
   </style>
   <div class="bmc-grid">
     <!-- 关键合作伙伴 -->
     <div class="bmc-cell bmc-partners">
-      <h4>关键合作伙伴 Key Partnerships</h4>
+      <div class="bmc-hdr">关键合作伙伴 Key Partnerships</div>
+      <div class="bmc-body">
       <ul>
         <li><strong>上游供应商：</strong>LED芯片、驱动电源、光学材料等核心部件供应商</li>
         <li><strong>OEM/ODM厂商：</strong>代工合作与委外加工伙伴</li>
@@ -560,107 +567,124 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
         <li><strong>战略联盟：</strong>智能家居生态（华为HiLink、米家等）</li>
       </ul>
       <div class="bmc-subtitle">涵盖材料供应、代工制造、渠道分销、海外拓展、生态合作全链条</div>
+      </div>
     </div>
     <!-- 关键活动 -->
     <div class="bmc-cell bmc-activities">
-      <h4>关键活动 Key Activities</h4>
+      <div class="bmc-hdr">关键活动 Key Activities</div>
+      <div class="bmc-body">
       <ul>
         <li><strong>产品研发与制造：</strong>照明产品（光源、灯具）及车灯自主研发与规模化生产</li>
         <li><strong>供应链整合：</strong>涵盖自制、外购、委外加工的供应链管理与优化</li>
         <li><strong>渠道运营与管理：</strong>统筹线上线下、国内海外、工程及零售的多渠道销售体系</li>
       </ul>
+      </div>
     </div>
     <!-- 核心资源 -->
     <div class="bmc-cell bmc-resources">
-      <h4>核心资源 Key Resources</h4>
+      <div class="bmc-hdr">核心资源 Key Resources</div>
+      <div class="bmc-body">
       <ul>
         <li><strong>品牌与口碑：</strong>"中华老字号"，国内照明行业品牌价值第二（475.07亿）</li>
         <li><strong>规模与制造：</strong>高明、新乡、南宁等多家生产基地，规模化制造能力</li>
         <li><strong>技术与专利：</strong>长期研发投入积累的光学、散热、智能控制技术</li>
         <li><strong>渠道网络：</strong>线下110万+终端网点，覆盖全国的经销体系</li>
       </ul>
+      </div>
     </div>
     <!-- 价值主张 -->
     <div class="bmc-cell bmc-value">
-      <h4>价值主张 Value Propositions</h4>
+      <div class="bmc-hdr">价值主张 Value Propositions</div>
+      <div class="bmc-body">
       <ul>
         <li><strong style="color:#0b2d47">产品价值：</strong>提供高品质、高性价比的照明产品（光源、灯具），覆盖家居到专业场景</li>
         <li><strong style="color:#0b2d47">场景价值：</strong>针对家用、商用、汽车、海洋、体育、航空等场景提供专业化照明产品与解决方案</li>
         <li><strong style="color:#0b2d47">战略升级价值：</strong>从"产品销售"向"品牌出海、产业出海"及"产品+方案+服务"的战略跃升，目标成为"国内领先的智能健康光环境服务商"</li>
       </ul>
-      <div class="bmc-subtitle" style="margin-top:8px">核心转变：从"卖产品"到"卖方案+卖服务"</div>
+      <div class="bmc-subtitle" style="margin-top:8px;color:#1a4f73;font-weight:600">核心转变：从"卖产品"到"卖方案+卖服务"</div>
+      </div>
     </div>
     <!-- 客户关系 -->
     <div class="bmc-cell bmc-relationships">
-      <h4>客户关系 Customer Relationships</h4>
+      <div class="bmc-hdr">客户关系 Customer Relationships</div>
+      <div class="bmc-body">
       <ul>
         <li><strong>B端客户：</strong>专人对接、项目制服务、长期战略合作</li>
         <li><strong>C端消费者：</strong>通过电商与零售门店自助购买，品牌信任驱动复购</li>
         <li><strong>海外客户：</strong>OEM/ODM定制化合作、自主品牌分销支持</li>
         <li><strong>主机厂：</strong>联合开发、同步设计、质量绑定</li>
       </ul>
+      </div>
     </div>
     <!-- 渠道通路 -->
     <div class="bmc-cell bmc-channels">
-      <h4>渠道通路 Channels</h4>
+      <div class="bmc-hdr">渠道通路 Channels</div>
+      <div class="bmc-body">
       <ul>
         <li><strong>国内：</strong>传统五金流通、电商（京东/天猫/抖音/拼多多/自有商城/亚马逊）、家装公司及设计师</li>
         <li><strong>海外：</strong>OEM/代工为主、自主品牌为辅；海外代理商、大客户（商超）及泰国工厂</li>
         <li><strong>车灯：</strong>直供主机厂（前装）</li>
       </ul>
+      </div>
     </div>
     <!-- 客户细分 -->
     <div class="bmc-cell bmc-segments">
-      <h4>客户细分 Customer Segments</h4>
+      <div class="bmc-hdr">客户细分 Customer Segments</div>
+      <div class="bmc-body">
       <ul>
         <li><strong>国内及海外渠道客户：</strong>家用、商用、电商经销商、工程项目方</li>
         <li><strong>主机厂客户：</strong>上汽通用五菱、长安汽车等（车灯业务）</li>
         <li><strong>细分市场客户：</strong>海洋、体育、航空等领域的专业客户</li>
         <li><strong>终端消费者：</strong>通过电商、零售门店触达；电商终端消费者已成为增速最快的细分客群</li>
       </ul>
+      </div>
     </div>
     <!-- 成本结构 -->
     <div class="bmc-cell bmc-cost">
-      <h4>成本结构 Cost Structure</h4>
+      <div class="bmc-hdr">成本结构 Cost Structure</div>
+      <div class="bmc-body">
       <div style="display:flex;gap:16px;flex-wrap:wrap">
         <div style="flex:1;min-width:140px">
-          <p style="font-size:10px;color:#0b2d47;font-weight:700;margin-bottom:3px">研发成本</p>
+          <p style="font-size:10.5px;color:#0b2d47;font-weight:700;margin-bottom:3px">研发成本</p>
           <p>光源技术、智能控制、车灯前装等长期研发投入</p>
         </div>
         <div style="flex:1;min-width:140px">
-          <p style="font-size:10px;color:#0b2d47;font-weight:700;margin-bottom:3px">制造成本</p>
+          <p style="font-size:10.5px;color:#0b2d47;font-weight:700;margin-bottom:3px">制造成本</p>
           <p>高明/新乡/南宁多基地原材料、人工、能源及设备折旧</p>
         </div>
         <div style="flex:1;min-width:140px">
-          <p style="font-size:10px;color:#0b2d47;font-weight:700;margin-bottom:3px">营销成本</p>
+          <p style="font-size:10.5px;color:#0b2d47;font-weight:700;margin-bottom:3px">营销成本</p>
           <p>品牌建设、渠道推广、电商平台运营及海外市场拓展</p>
         </div>
         <div style="flex:1;min-width:140px">
-          <p style="font-size:10px;color:#0b2d47;font-weight:700;margin-bottom:3px">管理成本</p>
+          <p style="font-size:10.5px;color:#0b2d47;font-weight:700;margin-bottom:3px">管理成本</p>
           <p>多基地运营管理、供应链协调、数字化系统运维</p>
         </div>
+      </div>
       </div>
     </div>
     <!-- 收入来源 -->
     <div class="bmc-cell bmc-revenue">
-      <h4>收入来源 Revenue Streams</h4>
+      <div class="bmc-hdr">收入来源 Revenue Streams</div>
+      <div class="bmc-body">
       <div style="display:flex;gap:16px;flex-wrap:wrap">
         <div style="flex:1;min-width:140px">
-          <p style="font-size:10px;color:#0b2d47;font-weight:700;margin-bottom:3px">产品销售</p>
+          <p style="font-size:10.5px;color:#0b2d47;font-weight:700;margin-bottom:3px">产品销售</p>
           <p>光源、灯具、车灯等照明产品批发与零售收入</p>
         </div>
         <div style="flex:1;min-width:140px">
-          <p style="font-size:10px;color:#0b2d47;font-weight:700;margin-bottom:3px">工程服务</p>
+          <p style="font-size:10.5px;color:#0b2d47;font-weight:700;margin-bottom:3px">工程服务</p>
           <p>商业照明、道路照明、体育场馆等工程项目设计+供货+安装</p>
         </div>
         <div style="flex:1;min-width:140px">
-          <p style="font-size:10px;color:#0b2d47;font-weight:700;margin-bottom:3px">智能解决方案</p>
+          <p style="font-size:10.5px;color:#0b2d47;font-weight:700;margin-bottom:3px">智能解决方案</p>
           <p>智慧照明系统、IoT控制平台、场景化光环境方案</p>
         </div>
         <div style="flex:1;min-width:140px">
-          <p style="font-size:10px;color:#0b2d47;font-weight:700;margin-bottom:3px">品牌授权</p>
+          <p style="font-size:10.5px;color:#0b2d47;font-weight:700;margin-bottom:3px">品牌授权</p>
           <p>品牌使用权授权、技术输出、海外合资/合作分成</p>
         </div>
+      </div>
       </div>
     </div>
   </div>
@@ -1555,10 +1579,10 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 
 
 <!-- 28. 桑基图说明 -->
-<section class="slide" data-title="桑基图" style="padding-top:48px;padding-bottom:48px;">
-  <p class="kicker" style="margin-bottom:4px">SANKEY DIAGRAM</p>
-  <h2 class="h2" style="margin:0 0 6px">701条原始需求 → 4A架构 → 高价值场景 汇总桑基图</h2>
-  <div style="flex:1;min-height:0;width:100%;max-height:calc(100% - 72px);border:1px solid var(--border);border-radius:var(--radius);overflow:auto;box-shadow:var(--shadow-lg);">
+<section class="slide" data-title="桑基图" style="padding-top:32px;padding-bottom:20px;">
+  <p class="kicker" style="margin-bottom:2px">SANKEY DIAGRAM</p>
+  <h2 class="h2" style="margin:0 0 4px;font-size:18px">701条原始需求 → 4A架构 → 高价值场景 汇总桑基图</h2>
+  <div style="width:100%;height:calc(100vh - 140px);min-height:600px;border:1px solid var(--border);border-radius:var(--radius);overflow:auto;box-shadow:var(--shadow-lg);">
     <iframe src="assets/charts/sankey_5col_v3.html" style="width:1700px;height:1150px;border:none;display:block;" loading="lazy" title="需求汇总桑基图"></iframe>
   </div>
   <p style="text-align:center;font-size:11px;color:var(--text-3);margin:8px 0 0">数据来源：《企业架构设计报告 V6》</p>
