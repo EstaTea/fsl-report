@@ -77,10 +77,62 @@ h1.title,h2.title,.h1,.h2{font-weight:700;color:var(--accent)}
   translate(0,calc(var(--dist) * -50%))}
 .dot-as-is{background:#79b4eb;border:1.5px solid #fff;box-shadow:0 0 0 1px #79b4eb}
 .dot-to-be{background:#0b2d47;border:1.5px solid #fff;box-shadow:0 0 0 1px #0b2d47;width:6px;height:6px}
-table.fsl-table{width:100%;border-collapse:collapse;font-size:13px}
-table.fsl-table th{background:var(--accent);color:#fff;padding:10px 14px;text-align:left;font-weight:600}
-table.fsl-table td{padding:9px 14px;border-bottom:1px solid var(--border);color:var(--text-1)}
+/* ===== V2 投影优化：字号放大 + 密度降低 ===== */
+table.fsl-table{width:100%;border-collapse:collapse;font-size:15px}
+table.fsl-table th{background:var(--accent);color:#fff;padding:12px 16px;text-align:left;font-weight:600;font-size:15px}
+table.fsl-table td{padding:11px 16px;border-bottom:1px solid var(--border);color:var(--text-1);font-size:14px;line-height:1.5}
 table.fsl-table tr:nth-child(even){background:var(--surface-2)}
+
+/* V2: 全局字号放大覆盖 */
+.slide .h2{font-size:30px !important}
+.slide h2.h2{font-size:30px !important;line-height:1.25 !important}
+.slide h3{font-size:20px !important}
+.slide h4{font-size:17px !important}
+.slide p,.slide .dim{font-size:15px !important;line-height:1.55 !important}
+.slide .kicker{font-size:13px !important;letter-spacing:2px !important}
+.tag-fsl{font-size:13px !important;padding:4px 12px !important}
+.tag-fsl-outline{font-size:13px !important;padding:3px 11px !important}
+.pain-card p,.win-card p{font-size:14px !important;line-height:1.5 !important}
+.pain-card h4,.win-card h4{font-size:16px !important}
+.card p.dim{font-size:14px !important;line-height:1.5 !important}
+.card h4{font-size:16px !important}
+.ag-title{font-size:19px !important}
+.ag-desc{font-size:15px !important}
+.ag-time{font-size:13px !important}
+.phase-badge{font-size:13px !important}
+.arch-tag{font-size:11px !important;padding:5px 13px !important}
+.arch-lbl{font-size:13px !important}
+.stat-label{font-size:16px !important}
+.insight-box{padding:24px 28px !important}
+.insight-box p{font-size:15px !important;line-height:1.55 !important}
+.project-card{padding:20px 24px !important}
+.project-card p{font-size:14px !important}
+
+/* V2: 图标卡片式内容块（参考 slide 67 转型愿景页风格） */
+.v2-hero-card{
+  background:#EAF4FA;border-radius:12px;padding:32px 36px;margin-top:20px;
+}
+.v2-hero-card .v2-kicker{
+  font-size:13px;letter-spacing:2px;color:#2374a3;font-weight:700;margin-bottom:8px;
+}
+.v2-hero-card .v2-body{
+  font-size:18px;font-weight:500;color:#0B2D47;line-height:1.65;margin-bottom:28px;
+}
+.v2-icon-row{display:flex;gap:24px;margin-top:8px;}
+.v2-icon-card{flex:1;text-align:center;background:#fff;border-radius:10px;padding:20px 16px;
+  box-shadow:0 2px 10px rgba(11,45,71,.06);border:1px solid rgba(11,45,71,.08);
+}
+.v2-icon-card .v2-icon-circle{
+  width:68px;height:68px;margin:0 auto 14px;background:linear-gradient(135deg,#f7fafc,#eef6fc);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(11,45,71,.08);border:1.5px solid rgba(35,116,163,.15);
+}
+.v2-icon-card .v2-icon-title{
+  font-size:18px;font-weight:700;color:#0B2D47;margin-bottom:6px;
+}
+.v2-icon-card .v2-icon-sub{
+  font-size:14px;color:#5b7a91;line-height:1.5;
+}
 .cover-fsl{background:linear-gradient(135deg,#0b2d47 0%,#1a4f73 55%,#2374a3 100%);color:#fff;padding:60px 48px 44px;position:relative;overflow:hidden}
 .cover-fsl::before{content:"";position:absolute;top:-40px;right:-60px;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,.04)}
 .cover-fsl::after{content:"";position:absolute;bottom:-60px;left:120px;width:220px;height:220px;border-radius:50%;background:rgba(35,116,163,.25)}
@@ -168,6 +220,137 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 <!-- ==================== PART 0: 封面 ==================== -->
 
 <!-- 1. 封面 -->
+<section class="slide" data-title="封面">
+  <div class="cover-slide">
+    <div class="cs-left">
+      <div class="cs-logo">FSL<span>佛山照明</span></div>
+      <div class="cs-body">
+        <div class="cs-title">佛山照明 SAP S/4HANA 升级<br>及业务诊断咨询方案</div>
+        <div class="cs-subtitle">诊断 · 架构 · 路径</div>
+        <div class="cs-desc">从制造商到服务商的数字化支撑 — 探索阶段蓝图汇报 V2</div>
+      </div>
+      <div class="cs-bottom">
+        <div class="cs-meta">
+          <div><span class="lbl">客户</span><span class="val">佛山照明股份有限公司</span></div>
+          <div><span class="lbl">咨询方</span><span class="val">艾维登（Eviden）咨询</span></div>
+          <div><span class="lbl">日期</span><span class="val">2026年8月27日</span></div>
+          <div><span class="lbl">版本</span><span class="val">V2 投影优化版</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="cs-right">
+      <img src="../../assets/images/fsl-cover-bg.jpg" alt="" onerror="this.style.background='linear-gradient(135deg,#0b2d47 60%,#2374a3)'">
+    </div>
+  </div>
+</section>
+
+<!-- 2. 思维脑图目录（V2 新增）-->
+<section class="slide" data-title="目录">
+  <p class="kicker" style="margin-bottom:6px">CONTENTS</p>
+  <h2 class="h2" style="margin-bottom:20px">汇报内容总览</h2>
+
+  <!-- 左向右展开的思维脑图 -->
+  <div style="position:relative;padding:20px 10px 10px;overflow:hidden;">
+    <!-- 根节点 -->
+    <div style="text-align:center;margin-bottom:18px;">
+      <div style="display:inline-block;background:linear-gradient(135deg,#0b2d47,#2374a3);color:#fff;
+                  padding:12px 36px;border-radius:30px;font-size:19px;font-weight:800;letter-spacing:1px;
+                  box-shadow:0 4px 16px rgba(11,45,71,.2);position:relative;z-index:2;">
+        🎯 佛照数字化转型蓝图
+      </div>
+    </div>
+
+    <!-- 连接线：根→四大分支 -->
+    <svg style="position:absolute;top:68px;left:0;width:100%;height:30px;z-index:0;pointer-events:none;" viewBox="0 0 1200 30" preserveAspectRatio="none">
+      <line x1="600" y1="0" x2="150" y2="28" stroke="#2374a3" stroke-width="2" opacity=".35"/>
+      <line x1="600" y1="0" x2="400" y2="28" stroke="#2374a3" stroke-width="2" opacity=".35"/>
+      <line x1="600" y1="0" x2="800" y2="28" stroke="#2374a3" stroke-width="2" opacity=".35"/>
+      <line x1="600" y1="0" x2="1050" y2="28" stroke="#2374a3" stroke-width="2" opacity=".35"/>
+    </svg>
+
+    <!-- 四大分支卡片 -->
+    <div style="display:flex;gap:14px;margin-top:4px;">
+
+      <!-- 分支1：转型背景 + 现状诊断 -->
+      <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
+        <div style="background:linear-gradient(135deg,#0b2d47,#1a4f73);color:#fff;border-radius:10px;padding:14px 16px;text-align:center;box-shadow:0 3px 12px rgba(11,45,71,.15);">
+          <div style="font-size:15px;font-weight:800;margin-bottom:4px;">🔍 第一部分</div>
+          <div style="font-size:17px;font-weight:700;">现状诊断</div>
+          <div style="font-size:12px;opacity:.8;margin-top:4px;">我们在哪？</div>
+        </div>
+        <div style="background:#fff;border:1px solid rgba(11,45,71,.12);border-radius:8px;padding:10px 12px;flex:1;">
+          <div style="font-size:13px;color:#2374a3;font-weight:700;margin-bottom:6px;">● 转型背景与调研</div>
+          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:4px;">· 29个部门调研</div>
+          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:4px;">· 701条业务需求</div>
+          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:6px;">· 商业模式梳理</div>
+          <div style="font-size:13px;color:#2374a3;font-weight:700;margin-bottom:6px;">● 四层痛点分析</div>
+          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:4px;">· 管理 / 流程 / 系统 / 数据</div>
+          <div style="font-size:12px;color:#5b7a91;line-height:1.55;">· DCMM成熟度评估</div>
+        </div>
+      </div>
+
+      <!-- 分支2：企业架构设计 -->
+      <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
+        <div style="background:linear-gradient(135deg,#1a4f73,#2374a3);color:#fff;border-radius:10px;padding:14px 16px;text-align:center;box-shadow:0 3px 12px rgba(11,45,71,.15);">
+          <div style="font-size:15px;font-weight:800;margin-bottom:4px;">🏛 第二部分</div>
+          <div style="font-size:17px;font-weight:700;">企业架构</div>
+          <div style="font-size:12px;opacity:.8;margin-top:4px;">要去哪？</div>
+        </div>
+        <div style="background:#fff;border:1px solid rgba(11,45,71,.12);border-radius:8px;padding:10px 12px;flex:1;">
+          <div style="font-size:13px;color:#2374a3;font-weight:700;margin-bottom:6px;">● TOGAF 方法论</div>
+          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:4px;">· 驱动因素与设计原则</div>
+          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:6px;">· 23项高价值场景</div>
+          <div style="font-size:13px;color:#2374a3;font-weight:700;margin-bottom:6px;">● 四层架构蓝图</div>
+          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:4px;">· 业务 / 数据 / 应用 / 技术</div>
+          <div style="font-size:12px;color:#5b7a91;line-height:1.55;">· 系统策略四象限</div>
+        </div>
+      </div>
+
+      <!-- 分支3：路径规划 -->
+      <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
+        <div style="background:linear-gradient(135deg,#2374a3,#5ea4ce);color:#fff;border-radius:10px;padding:14px 16px;text-align:center;box-shadow:0 3px 12px rgba(11,45,71,.15);">
+          <div style="font-size:15px;font-weight:800;margin-bottom:4px;">🗺 第三部分</div>
+          <div style="font-size:17px;font-weight:700;">路径规划</div>
+          <div style="font-size:12px;opacity:.8;margin-top:4px;">怎么去？</div>
+        </div>
+        <div style="background:#fff;border:1px solid rgba(11,45,71,.12);border-radius:8px;padding:10px 12px;flex:1;">
+          <div style="font-size:13px;color:#2374a3;font-weight:700;margin-bottom:6px;">● 转型愿景与目标</div>
+          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:4px;">· 三阶段目标 (2026-2028)</div>
+          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:6px;">· 24个项目卡片</div>
+          <div style="font-size:13px;color:#2374a3;font-weight:700;margin-bottom:6px;">● 实施保障体系</div>
+          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:4px;">· 三年路线图 / 风险应对</div>
+          <div style="font-size:12px;color:#5b7a91;line-height:1.55;">· 变革管理与人力资源</div>
+        </div>
+      </div>
+
+      <!-- 分支4：立即行动 -->
+      <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
+        <div style="background:linear-gradient(135deg,#5ea4ce,#89c4e8);color:#fff;border-radius:10px;padding:14px 16px;text-align:center;box-shadow:0 3px 12px rgba(11,45,71,.15);">
+          <div style="font-size:15px;font-weight:800;margin-bottom:4px;">🚀 第四部分</div>
+          <div style="font-size:17px;font-weight:700;">立即行动</div>
+          <div style="font-size:12px;opacity:.8;margin-top:4px;">下一步做什么？</div>
+        </div>
+        <div style="background:#fff;border:1px solid rgba(11,45,71,.12);border-radius:8px;padding:10px 12px;flex:1;">
+          <div style="font-size:13px;color:#2374a3;font-weight:700;margin-bottom:6px;">● 关键里程碑</div>
+          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:4px;">· 近期关键节点</div>
+          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:6px;">· 成功要素</div>
+          <div style="font-size:13px;color:#2374a3;font-weight:700;margin-bottom:6px;">● 治理与沟通</div>
+          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:4px;">· KPI体系 / 治理机制</div>
+          <div style="font-size:12px;color:#5b7a91;line-height:1.55;">· 总结与下一步计划</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>这是汇报的思维导图式目录，帮助领导在开始时快速建立全局认知。</p>
+    <p>四个部分对应四个核心问题：我们在哪？要去哪？怎么去？下一步做什么？</p>
+    <p>每个分支下列出了该部分的核心内容要点。</p>
+  </aside>
+</section>
+
+<!-- 3. 议程 -->
 <section class="slide" data-title="封面">
   <div class="cover-slide">
     <div class="cs-left">
@@ -1006,28 +1189,59 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 <section class="slide" data-title="管理层面痛点">
   <p class="kicker">PAIN POINTS · MANAGEMENT</p>
   <h2 class="h2">管理层面：事后补救多于事前预防</h2>
-  <div class="stack mt-l">
-    <div class="pain-card">
-      <span class="tag-fsl">信用管控缺失</span>
-      <p class="dim" style="margin-top:8px">仅在出库环节拦截信用，下单环节不校验，导致虚开订单锁定库存和额度。</p>
+
+  <div class="v2-hero-card">
+    <div class="v2-kicker">DIAGNOSIS · LAYER 1 OF 4</div>
+    <div class="v2-body">
+      管理层面的核心问题是<strong style="color:#2374a3">"事后补救多于事前预防"</strong>。
+      信用管控、合同履约、价格管理这些关键环节，都缺乏系统级的硬约束——
+      系统不能阻止错误发生，只能在错误发生后报警。
     </div>
-    <div class="pain-card">
-      <span class="tag-fsl">合同履约失控</span>
-      <p class="dim" style="margin-top:8px">法务端无法实时获取付款进度，难以识别超付风险，缺乏全生命周期闭环管控。</p>
+    <div class="v2-icon-row">
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="v2-icon-title">信用管控缺失</div>
+        <div class="v2-icon-sub">仅出库环节拦截信用<br>下单不校验 → 虚开订单锁定库存</div>
+      </div>
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div class="v2-icon-title">合同履约失控</div>
+        <div class="v2-icon-sub">法务端无法实时获取付款进度<br>难以识别超付风险</div>
+      </div>
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="v2-icon-title">价格管理失控</div>
+        <div class="v2-icon-sub">同一物料多部门维护价格<br>缺乏无效价格自动冻结机制</div>
+      </div>
     </div>
-    <div class="pain-card">
-      <span class="tag-fsl">价格管理失控</span>
-      <p class="dim" style="margin-top:8px">同一物料不同部门维护价格，缺乏对长期无效价格的自动冻结机制。</p>
-    </div>
-    <div class="pain-card">
-      <span class="tag-fsl">绩效考核困难</span>
-      <p class="dim" style="margin-top:8px">研发产出、供应商交付、质量损失等KPI难以自动量化，依赖人工统计。</p>
+    <div class="v2-icon-row" style="margin-top:14px;">
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="v2-icon-title">绩效考核困难</div>
+        <div class="v2-icon-sub">研发产出/供应商交付/质量损失等KPI<br>难以自动量化，依赖人工统计</div>
+      </div>
+      <div class="v2-icon-card" style="flex:1.6;background:linear-gradient(135deg,#eaf4fa,#fff);border:none;box-shadow:none;">
+        <div style="display:flex;align-items:center;gap:14px;height:100%;padding:0 10px;">
+          <div style="font-size:32px;">💡</div>
+          <div>
+            <div style="font-size:15px;font-weight:700;color:#0b2d47;margin-bottom:4px;">根因判断</div>
+            <div style="font-size:14px;color:#5b7a91;line-height:1.5;">这是<strong>管理理念+系统能力</strong>的双重问题。需要从"人治"转向"法治"，用系统规则固化管控要求。</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <aside class="notes">
-    <p>管理层面的核心问题是<strong>"事后补救多于事前预防"</strong>。</p>
-    <p>信用管控、合同履约、价格管理这些关键环节，都缺乏系统级的硬约束。也就是说，系统不能阻止错误发生，只能在错误发生后报警。</p>
-    <p>这是管理理念和系统能力的双重问题。</p>
+    <p>V2 重设计：从竖排 pain-card 改为图标卡片式（参考 slide 67 风格）。</p>
+    <p>每个痛点一个图标卡片：红色系图标 + 标题 + 两行描述 + 底部根因总结。</p>
   </aside>
 </section>
 
@@ -1035,28 +1249,58 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 <section class="slide" data-title="流程层面痛点">
   <p class="kicker">PAIN POINTS · PROCESS</p>
   <h2 class="h2">流程层面：端到端断裂与线下作业冗余</h2>
-  <div class="grid g2 mt-l">
-    <div class="pain-card">
-      <h4 style="margin-bottom:8px">P2P 采购到付款断点</h4>
-      <p class="dim">SRM存储发票，但SAP应付校验无附件查看功能，财务需线下翻阅纸质资料。</p>
+
+  <div class="v2-hero-card">
+    <div class="v2-kicker">DIAGNOSIS · LAYER 2 OF 4</div>
+    <div class="v2-body">
+      流程层面的核心问题是<strong style="color:#2374a3">"部门墙"导致的流程断裂</strong>。
+      业务流在跨越部门边界时，往往退化为线下沟通、手工台账和重复审批。
+      P2P 和 O2C 是最典型的两个断点。
     </div>
-    <div class="pain-card">
-      <h4 style="margin-bottom:8px">O2C 销售到收款断点</h4>
-      <p class="dim">OA订单与SAP不关联，成品车间收到订单不能直接分解BOM，计划物料分解耗时长。</p>
+    <div class="v2-icon-row">
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1l4 4 2.68 6.92a2 2 0 0 0 .86 1.15l6.07 4.54a2 2 0 0 0 2.52-.08l4.53-4.53a2 2 0 0 0 .08-2.52L15.57 6.46a2 2 0 0 1-1.15-.86L8.05 1.93A2 2 0 0 0 6.9 1.64L1 1z"/></svg>
+        </div>
+        <div class="v2-icon-title">P2P 采购到付款断点</div>
+        <div class="v2-icon-sub">SRM存发票但SAP无附件查看<br>财务需线下翻阅纸质资料</div>
+      </div>
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        </div>
+        <div class="v2-icon-title">O2C 销售到收款断点</div>
+        <div class="v2-icon-sub">OA订单与SAP不关联<br>车间收到订单不能直接分解BOM</div>
+      </div>
     </div>
-    <div class="pain-card">
-      <h4 style="margin-bottom:8px">废品管理线下化</h4>
-      <p class="dim">资源回收废品管理依赖人工线下登记，未在SAP实现全流程闭环，存在资产流失风险。</p>
-    </div>
-    <div class="pain-card">
-      <h4 style="margin-bottom:8px">审批流程繁琐</h4>
-      <p class="dim">财务申请、预付款、报销三个流程需领导依次审批，建议合并或形成闭环。</p>
+    <div class="v2-icon-row" style="margin-top:14px;">
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><polyline points="3 6 9 12 15 6"/><path d="M20 13V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7"/></svg>
+        </div>
+        <div class="v2-icon-title">废品管理线下化</div>
+        <div class="v2-icon-sub">资源回收废品依赖人工线下登记<br>未在SAP实现全流程闭环</div>
+      </div>
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <div class="v2-icon-title">审批流程繁琐</div>
+        <div class="v2-icon-sub">财务申请/预付款/报销三流程<br>需领导依次审批，建议合并闭环</div>
+      </div>
+      <div class="v2-icon-card" style="flex:1.4;background:linear-gradient(135deg,#eaf4fa,#fff);border:none;box-shadow:none;">
+        <div style="display:flex;align-items:center;gap:14px;height:100%;padding:0 10px;">
+          <div style="font-size:32px;">💡</div>
+          <div>
+            <div style="font-size:15px;font-weight:700;color:#0b2d47;margin-bottom:4px;">根因判断</div>
+            <div style="font-size:14px;color:#5b7a91;line-height:1.5;">核心是<strong>"部门墙"</strong>——业务流跨越部门时退化为线下手工操作。需要打通 OA↔SAP↔SRM 的系统连接。</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <aside class="notes">
-    <p>流程层面的核心问题是<strong>"部门墙"导致的流程断裂</strong>。</p>
-    <p>业务流在跨越部门边界时，往往退化为线下沟通、手工台账和重复审批。</p>
-    <p>P2P和O2C是最典型的两个断点——采购到付款、销售到收款，这两个端到端流程都没有完全在线上跑通。</p>
+    <p>V2 重设计：图标卡片式。P2P/O2C 是最典型的两个端到端流程断点。</p>
   </aside>
 </section>
 
@@ -1064,28 +1308,57 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 <section class="slide" data-title="系统层面痛点">
   <p class="kicker">PAIN POINTS · SYSTEM</p>
   <h2 class="h2">系统层面：集成断点与性能瓶颈</h2>
-  <div class="grid g2 mt-l">
-    <div class="pain-card">
-      <h4 style="margin-bottom:8px">PLM与SAP脱节</h4>
-      <p class="dim">研发BOM变更无法实时同步至生产端，导致设计与制造"两张皮"。</p>
+
+  <div class="v2-hero-card">
+    <div class="v2-kicker">DIAGNOSIS · LAYER 3 OF 4</div>
+    <div class="v2-body">
+      系统层面的核心问题是<strong style="color:#2374a3">"烟囱式"架构</strong>——各系统各自为政，数据不能流通。
+      PLM、OA、SRM 与 SAP 的三大断点是业务效率损失的主因。
     </div>
-    <div class="pain-card">
-      <h4 style="margin-bottom:8px">OA与SAP割裂</h4>
-      <p class="dim">OA审批后的订单无法自动触发SAP生产计划分解，需人工二次录入。</p>
+    <div class="v2-icon-row">
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div class="v2-icon-title">PLM与SAP脱节</div>
+        <div class="v2-icon-sub">研发BOM变更无法实时同步<br>设计与制造"两张皮"</div>
+      </div>
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div class="v2-icon-title">OA与SAP割裂</div>
+        <div class="v2-icon-sub">OA审批后订单无法触发SAP生产计划<br>需人工二次录入</div>
+      </div>
     </div>
-    <div class="pain-card">
-      <h4 style="margin-bottom:8px">SRM协同滞后</h4>
-      <p class="dim">采购订单、送货单在SRM与SAP间同步不及时，影响供应商送货准确性。</p>
-    </div>
-    <div class="pain-card">
-      <h4 style="margin-bottom:8px">高并发卡顿</h4>
-      <p class="dim">自营订单自动交货程序在处理大订单时频繁超时，无法满足电商业务需求。</p>
+    <div class="v2-icon-row" style="margin-top:14px;">
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+        </div>
+        <div class="v2-icon-title">SRM协同滞后</div>
+        <div class="v2-icon-sub">采购订单/送货单同步不及时<br>影响供应商送货准确性</div>
+      </div>
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <div class="v2-icon-title">高并发卡顿</div>
+        <div class="v2-icon-sub">自营订单自动交货大订单时超时<br>无法满足电商高并发需求</div>
+      </div>
+      <div class="v2-icon-card" style="flex:1.4;background:linear-gradient(135deg,#eaf4fa,#fff);border:none;box-shadow:none;">
+        <div style="display:flex;align-items:center;gap:14px;height:100%;padding:0 10px;">
+          <div style="font-size:32px;">💡</div>
+          <div>
+            <div style="font-size:15px;font-weight:700;color:#0b2d47;margin-bottom:4px;">根因判断</div>
+            <div style="font-size:14px;color:#5b7a91;line-height:1.5;"><strong>"烟囱式"</strong>架构 + SAP ECC 性能瓶颈。升级 S/4HANA + CPI 集成平台可系统性解决。</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <aside class="notes">
-    <p>系统层面的核心问题是<strong>"烟囱式"架构</strong>——各系统各自为政，数据不能流通。</p>
-    <p>PLM、OA、SRM三个系统与SAP的断点，是造成业务效率损失的三大主因。</p>
-    <p>另外，SAP ECC本身的技术架构也面临性能瓶颈，特别是电商业务的高并发场景。</p>
+    <p>V2 重设计：图标卡片式。PLM/OA/SRM 三大断点 + ECC 性能瓶颈。</p>
   </aside>
 </section>
 
@@ -1093,28 +1366,57 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 <section class="slide" data-title="数据层面痛点">
   <p class="kicker">PAIN POINTS · DATA</p>
   <h2 class="h2">数据层面：主数据混乱与价值挖掘缺失</h2>
-  <div class="grid g2 mt-l">
-    <div class="pain-card">
-      <h4 style="margin-bottom:8px">"新品"定义模糊</h4>
-      <p class="dim">各部门认定标准不一致（高新项目时间、首次下单时间），销售统计需人工甄别。</p>
+
+  <div class="v2-hero-card">
+    <div class="v2-kicker">DIAGNOSIS · LAYER 4 OF 4</div>
+    <div class="v2-body">
+      数据层面的核心问题是<strong style="color:#2374a3">"一物多码、一码多物"</strong>。
+      主数据缺乏统一标准，导致各系统数据口径不一致，管理层难以获取准确决策依据。
     </div>
-    <div class="pain-card">
-      <h4 style="margin-bottom:8px">物料描述不规范</h4>
-      <p class="dim">历史物料格式混乱，"一码多物"现象严重，影响库存准确性。</p>
+    <div class="v2-icon-row">
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="v2-icon-title">"新品"定义模糊</div>
+        <div class="v2-icon-sub">各部门认定标准不一致<br>销售统计需人工甄别</div>
+      </div>
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        </div>
+        <div class="v2-icon-title">物料描述不规范</div>
+        <div class="v2-icon-sub">同一物料多名称/多编码<br>无法跨系统追踪</div>
+      </div>
     </div>
-    <div class="pain-card">
-      <h4 style="margin-bottom:8px">成本数据黑盒</h4>
-      <p class="dim">无法实现成本穿透式查询，难以逐层追溯材料成本及对应供应商最新采购价。</p>
-    </div>
-    <div class="pain-card">
-      <h4 style="margin-bottom:8px">库存状态不可视</h4>
-      <p class="dim">电商业务无法在一个界面清晰看到产品在聚水潭、调货中、质检中等全链路状态。</p>
+    <div class="v2-icon-row" style="margin-top:14px;">
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        </div>
+        <div class="v2-icon-title">客户/供应商重复</div>
+        <div class="v2-icon-sub">同一客户多个编码<br>无法全景视图分析</div>
+      </div>
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <div class="v2-icon-title">数据孤岛无挖掘</div>
+        <div class="v2-icon-sub">大量交易数据沉睡在系统中<br>无法支撑智能分析与预测</div>
+      </div>
+      <div class="v2-icon-card" style="flex:1.4;background:linear-gradient(135deg,#eaf4fa,#fff);border:none;box-shadow:none;">
+        <div style="display:flex;align-items:center;gap:14px;height:100%;padding:0 10px;">
+          <div style="font-size:32px;">💡</div>
+          <div>
+            <div style="font-size:15px;font-weight:700;color:#0b2d47;margin-bottom:4px;">根因判断</div>
+            <div style="font-size:14px;color:#5b7a91;line-height:1.5;">核心是<strong>缺 MDG 主数据治理平台</strong>。需建立统一的主数据标准（物料/客户/供应商），实现"一物一码"。这是 S/4HANA 升级的基础前提。</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <aside class="notes">
-    <p>数据层面是制约数字化的<strong>核心瓶颈</strong>。</p>
-    <p>主数据标准不统一导致跨部门统计口径冲突，数据停留在"记录"阶段，缺乏穿透式查询和可视化分析能力。</p>
-    <p>数据问题不是技术问题，是<strong>治理问题</strong>——需要明确谁对数据负责、数据标准是什么、如何维护。</p>
+    <p>V2 重设计：图标卡片式。四层痛点诊断的最后一层，指向 MDG 主数据治理作为根本解决方案。</p>
   </aside>
 </section>
 
@@ -1634,52 +1936,134 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 <!-- 46a. 23个高价值场景 — 详细列表 -->
 <section class="slide" data-title="23个场景详细列表">
   <p class="kicker">SCENARIO DETAILS</p>
-  <h2 class="h2">23个高价值场景：详细描述与排序</h2>
-  <div style="display:flex;gap:12px;margin-top:10px;height:calc(100% - 82px);font-size:10px">
-    <div style="flex:1;overflow-y:auto;min-height:0">
-      <div style="background:#0b2d47;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;font-weight:700;font-size:12px">一期 · 2026年实施（14个）</div>
-      <table class="fsl-table" style="font-size:9.5px">
-        <tr><th style="padding:4px 6px;width:30px">编号</th><th style="padding:4px 6px">场景名称</th><th style="padding:4px 6px;width:42px">BV/TD</th><th style="padding:4px 6px;width:56px">业务域</th><th style="padding:4px 6px;width:42px">关联架构</th></tr>
-        <tr><td style="padding:4px 6px"><strong>S01</strong></td><td style="padding:4px 6px">物料主数据治理<br><span style="color:#5b7a91;font-size:9px">统一物料编码、分类和属性标准，建立主数据管理平台，实现'一码一物'</span></td><td style="padding:4px 6px">5/4.5</td><td style="padding:4px 6px">主数据域</td><td style="padding:4px 6px">DA</td></tr>
-        <tr><td style="padding:4px 6px"><strong>S02</strong></td><td style="padding:4px 6px">客户信用管理<br><span style="color:#5b7a91;font-size:9px">基于SAP标准信用管理，结合佛照特殊业务需求进行定制开发，降低坏账风险</span></td><td style="padding:4px 6px">4.5/4.5</td><td style="padding:4px 6px">销售域</td><td style="padding:4px 6px">BA</td></tr>
-        <tr><td style="padding:4px 6px"><strong>S05</strong></td><td style="padding:4px 6px">销售订单全链路追踪<br><span style="color:#5b7a91;font-size:9px">打通销售、生产、物流全链路，实现订单状态实时可视和交期智能预警</span></td><td style="padding:4px 6px">3.4/4.2</td><td style="padding:4px 6px">销售域</td><td style="padding:4px 6px">BA</td></tr>
-        <tr><td style="padding:4px 6px"><strong>S06</strong></td><td style="padding:4px 6px">海外财务合规<br><span style="color:#5b7a91;font-size:9px">实现多语言/多货币的海外系统支持</span></td><td style="padding:4px 6px">3/3.2</td><td style="padding:4px 6px">财务域</td><td style="padding:4px 6px">AA</td></tr>
-        <tr><td style="padding:4px 6px"><strong>S07</strong></td><td style="padding:4px 6px">制造成本还原<br><span style="color:#5b7a91;font-size:9px">一期核算，二期报表。基础核算，法人和集团成本视图一期实施</span></td><td style="padding:4px 6px">4.8/4.5</td><td style="padding:4px 6px">财务域</td><td style="padding:4px 6px">BA</td></tr>
-        <tr><td style="padding:4px 6px"><strong>S08</strong></td><td style="padding:4px 6px">财务组织+科目主数据<br><span style="color:#5b7a91;font-size:9px">会计科目从1800+变更为600个</span></td><td style="padding:4px 6px">2.2/2.1</td><td style="padding:4px 6px">财务域</td><td style="padding:4px 6px">DA</td></tr>
-        <tr><td style="padding:4px 6px"><strong>S09</strong></td><td style="padding:4px 6px">应收清账+BIP接口<br><span style="color:#5b7a91;font-size:9px">自动化应收清账流程，打通财务共享BIP接口</span></td><td style="padding:4px 6px">2.8/2.3</td><td style="padding:4px 6px">财务域</td><td style="padding:4px 6px">AA</td></tr>
-        <tr><td style="padding:4px 6px"><strong>S11</strong></td><td style="padding:4px 6px">按客户销售项目核算和分析方案<br><span style="color:#5b7a91;font-size:9px">基于SAP项目核算功能，实现按客户/项目的收入、成本、利润精细化分析</span></td><td style="padding:4px 6px">4.3/3.3</td><td style="padding:4px 6px">财务域</td><td style="padding:4px 6px">BA</td></tr>
-        <tr><td style="padding:4px 6px"><strong>S12</strong></td><td style="padding:4px 6px">研发投入产出分析体系建设<br><span style="color:#5b7a91;font-size:9px">建立研发项目成本归集和产出效益分析体系，支撑研发决策</span></td><td style="padding:4px 6px">4.5/3.5</td><td style="padding:4px 6px">研发BOM域</td><td style="padding:4px 6px">AA</td></tr>
-        <tr><td style="padding:4px 6px"><strong>S13</strong></td><td style="padding:4px 6px">供应商交期与供应商绩效管理方案<br><span style="color:#5b7a91;font-size:9px">优化SRM与SAP交期信息同步，做好交期管理的制度（跨一二期延续）</span></td><td style="padding:4px 6px">4.2/3.8</td><td style="padding:4px 6px">采购域</td><td style="padding:4px 6px">BA</td></tr>
-        <tr><td style="padding:4px 6px"><strong>S14</strong></td><td style="padding:4px 6px">采购价格透明化与比价分析体系<br><span style="color:#5b7a91;font-size:9px">建立采购价格数据库，实现历史价格追踪、比价分析和采购决策支持（跨一二期延续）</span></td><td style="padding:4px 6px">4.1/3.8</td><td style="padding:4px 6px">采购域</td><td style="padding:4px 6px">BA</td></tr>
-        <tr><td style="padding:4px 6px"><strong>S15</strong></td><td style="padding:4px 6px">采购配额管理与订单分配智能化<br><span style="color:#5b7a91;font-size:9px">基于SAP标准功能，实现采购配额自动分配和订单智能分单</span></td><td style="padding:4px 6px">4.5/3.5</td><td style="padding:4px 6px">采购域</td><td style="padding:4px 6px">BA</td></tr>
-        <tr><td style="padding:4px 6px"><strong>S16</strong></td><td style="padding:4px 6px">产前齐套性预警与跟踪<br><span style="color:#5b7a91;font-size:9px">基于MRP结果，实现生产前物料齐套性检查和缺料预警</span></td><td style="padding:4px 6px">4.3/3.6</td><td style="padding:4px 6px">计划制造域</td><td style="padding:4px 6px">BA</td></tr>
-        <tr><td style="padding:4px 6px"><strong>S17</strong></td><td style="padding:4px 6px">库存多维度查询体系<br><span style="color:#5b7a91;font-size:9px">开发库存多维查询报表，支持按物料、仓库、批次等维度实时查询</span></td><td style="padding:4px 6px">3.6/4.5</td><td style="padding:4px 6px">采购域</td><td style="padding:4px 6px">BA</td></tr>
-      </table>
+  <h2 class="h2">23个高价值场景：分期实施全景</h2>
+
+  <div class="v2-hero-card">
+    <div class="v2-kicker">23 SCENARIOS · FROM 701 REQUIREMENTS</div>
+    <div class="v2-body">
+      从 701 条业务需求中收敛出 <strong style="color:#2374a3">23 个高价值场景</strong>，
+      按业务价值(BV)与技术难度(TD)分为三期实施：
+      <strong style="color:#2374a3">一期14个（2026）</strong>快速赢 +
+      <strong style="color:#2374a3">二期6个（2027）</strong>战略深挖 +
+      <strong style="color:#2374a3">三期3个（2028）</strong>能力补全。
     </div>
-    <div style="flex:1;overflow-y:auto;min-height:0">
-      <div style="background:#2374a3;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;font-weight:700;font-size:12px">二期 · 2027年实施（6个）</div>
-      <table class="fsl-table" style="font-size:9.5px">
-        <tr><th style="padding:4px 6px;width:30px">编号</th><th style="padding:4px 6px">场景名称</th><th style="padding:4px 6px;width:42px">BV/TD</th><th style="padding:4px 6px;width:56px">业务域</th><th style="padding:4px 6px;width:42px">关联架构</th></tr>
-        <tr><td style="padding:4px 6px"><strong>S03</strong></td><td style="padding:4px 6px">跨公司转卖模式优化<br><span style="color:#5b7a91;font-size:9px">优化跨公司交易流程，实现内部结算自动化和利润中心核算</span></td><td style="padding:4px 6px">3.8/3.6</td><td style="padding:4px 6px">销售域</td><td style="padding:4px 6px">BA</td></tr>
-        <tr><td style="padding:4px 6px"><strong>S04</strong></td><td style="padding:4px 6px">销售价格与折扣管理体系优化<br><span style="color:#5b7a91;font-size:9px">建立统一的价格策略和折扣审批体系，实现价格全生命周期管控</span></td><td style="padding:4px 6px">3.2/4.2</td><td style="padding:4px 6px">销售域</td><td style="padding:4px 6px">BA</td></tr>
-        <tr><td style="padding:4px 6px"><strong>S10</strong></td><td style="padding:4px 6px">集团合并报表建设<br><span style="color:#5b7a91;font-size:9px">一期完成合并抵消底稿；二期系统自动出具3大合并报表及部分附注</span></td><td style="padding:4px 6px">3.2/4.5</td><td style="padding:4px 6px">财务域</td><td style="padding:4px 6px">BA</td></tr>
-        <tr><td style="padding:4px 6px"><strong>S18</strong></td><td style="padding:4px 6px">主生产计划MPS建设<br><span style="color:#5b7a91;font-size:9px">MTS+MTO场景结合的主生产计划</span></td><td style="padding:4px 6px">4.2/2.8</td><td style="padding:4px 6px">计划制造域</td><td style="padding:4px 6px">BA</td></tr>
-        <tr><td style="padding:4px 6px"><strong>S19</strong></td><td style="padding:4px 6px">MRP物料需求计划<br><span style="color:#5b7a91;font-size:9px">MRP需要BOM建立完善是前提条件</span></td><td style="padding:4px 6px">4.6/3.2</td><td style="padding:4px 6px">计划制造域</td><td style="padding:4px 6px">BA</td></tr>
-        <tr><td style="padding:4px 6px"><strong>S23</strong></td><td style="padding:4px 6px">BOM全生命周期建设<br><span style="color:#5b7a91;font-size:9px">MBOM在PLM系统搭建；ECN管理SAP标准功能启用</span></td><td style="padding:4px 6px">3.3/3.8</td><td style="padding:4px 6px">研发BOM域</td><td style="padding:4px 6px">AA</td></tr>
-      </table>
-      <div style="background:#5ea4ce;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;font-weight:700;font-size:12px;margin-top:8px">三期 · 2028年实施（3个）</div>
-      <table class="fsl-table" style="font-size:9.5px">
-        <tr><th style="padding:4px 6px;width:30px">编号</th><th style="padding:4px 6px">场景名称</th><th style="padding:4px 6px;width:42px">BV/TD</th><th style="padding:4px 6px;width:56px">业务域</th><th style="padding:4px 6px;width:42px">关联架构</th></tr>
-        <tr><td style="padding:4px 6px"><strong>S20</strong></td><td style="padding:4px 6px">生产进度看板<br><span style="color:#5b7a91;font-size:9px">开发报表（计划与生产订单完工实际产出对比）</span></td><td style="padding:4px 6px">3.9/3.6</td><td style="padding:4px 6px">计划制造域</td><td style="padding:4px 6px">AA</td></tr>
-        <tr><td style="padding:4px 6px"><strong>S21</strong></td><td style="padding:4px 6px">质量追溯建设<br><span style="color:#5b7a91;font-size:9px">开发质量追溯报表</span></td><td style="padding:4px 6px">3/2.6</td><td style="padding:4px 6px">计划制造域</td><td style="padding:4px 6px">AA</td></tr>
-        <tr><td style="padding:4px 6px"><strong>S22</strong></td><td style="padding:4px 6px">质量合格率统计分析<br><span style="color:#5b7a91;font-size:9px">开发质量合格率统计分析报表</span></td><td style="padding:4px 6px">3/2.3</td><td style="padding:4px 6px">计划制造域</td><td style="padding:4px 6px">AA</td></tr>
-      </table>
+
+    <!-- 一期：14个场景 - 3列图标卡片 -->
+    <div style="font-size:14px;font-weight:700;color:#0b2d47;margin-bottom:10px;">🔵 一期 · 2026年实施（14个）— 快速赢</div>
+    <div class="v2-icon-row" style="margin-bottom:18px;">
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M20 7h-9M14 17H5M15 12H3"/><circle cx="18" cy="12" r="3"/></svg>
+        </div>
+        <div class="v2-icon-title">S01 物料主数据治理</div>
+        <div class="v2-icon-sub">统一编码 · 一码一物<br>BV 5.0 / TD 4.5</div>
+      </div>
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        </div>
+        <div class="v2-icon-title">S02 客户信用管理</div>
+        <div class="v2-icon-sub">SAP标准信用 + 定制<br>BV 4.5 / TD 4.5</div>
+      </div>
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div class="v2-icon-title">S05 订单全链路追踪</div>
+        <div class="v2-icon-sub">销售→生产→物流可视<br>BV 3.4 / TD 4.2</div>
+      </div>
+    </div>
+    <div class="v2-icon-row" style="margin-bottom:18px;">
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <div class="v2-icon-title">S06 海外财务合规</div>
+        <div class="v2-icon-sub">多语言·多货币支持<br>BV 3.0 / TD 3.2</div>
+      </div>
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="v2-icon-title">S07 制造成本还原</div>
+        <div class="v2-icon-sub">法人+集团成本视图<br>BV 4.8 / TD 4.5</div>
+      </div>
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div class="v2-icon-title">S08 财务组织+科目</div>
+        <div class="v2-icon-sub">1800+科目→600个<br>BV 2.2 / TD 2.1</div>
+      </div>
+    </div>
+    <div class="v2-icon-row" style="margin-bottom:18px;">
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div class="v2-icon-title">S09 应收清账+BIP</div>
+        <div class="v2-icon-sub">自动化清账+财务共享<br>BV 2.8 / TD 2.3</div>
+      </div>
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        </div>
+        <div class="v2-icon-title">S11 客户项目核算</div>
+        <div class="v2-icon-sub">按客户/项目精细化分析<br>BV 4.3 / TD 3.3</div>
+      </div>
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        </div>
+        <div class="v2-icon-title">S12 研发投入产出分析</div>
+        <div class="v2-icon-sub">研发成本归集+效益分析<br>BV 4.5 / TD 3.5</div>
+      </div>
+    </div>
+    <div class="v2-icon-row" style="margin-bottom:6px;">
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1l4 4 2.68 6.92a2 2 0 0 0 .86 1.15l6.07 4.54a2 2 0 0 0 2.52-.08l4.53-4.53a2 2 0 0 0 .08-2.52L15.57 6.46a2 2 0 0 1-1.15-.86L8.05 1.93A2 2 0 0 0 6.9 1.64L1 1z"/></svg>
+        </div>
+        <div class="v2-icon-title">S13 供应商交期与绩效</div>
+        <div class="v2-icon-sub">SRM-SAP交期同步优化<br>BV 4.2 / TD 3.8</div>
+      </div>
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="v2-icon-title">S14 采购价格透明化</div>
+        <div class="v2-icon-sub">价格数据库+比价分析<br>BV 4.1 / TD 3.8</div>
+      </div>
+      <div class="v2-icon-card">
+        <div class="v2-icon-circle">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        </div>
+        <div class="v2-icon-title">S15-S17 配额/齐套/库存</div>
+        <div class="v2-icon-sub">采购配额·齐套预警·多维查询<br>BV 3.6~4.5 / TD 3.5~4.5</div>
+      </div>
+    </div>
+
+    <!-- 二期 + 三期：精简展示 -->
+    <div style="display:flex;gap:16px;margin-top:14px;">
+      <div style="flex:1;background:#fff;border-radius:10px;padding:16px;border:1px solid rgba(35,116,163,.2);">
+        <div style="font-size:15px;font-weight:700;color:#2374a3;margin-bottom:10px;">🟢 二期 · 2027年（6个）— 战略深挖</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+          <span class="tag-fsl">S03 跨公司转卖</span><span class="tag-fsl">S04 价格体系</span><span class="tag-fsl">S10 合并报表</span><span class="tag-fsl">S18 MPS计划</span><span class="tag-fsl">S19 MRP物料</span><span class="tag-fsl">S23 BOM全生命周期</span>
+        </div>
+      </div>
+      <div style="flex:.85;background:#fff;border-radius:10px;padding:16px;border:1px solid rgba(94,164,206,.3);">
+        <div style="font-size:15px;font-weight:700;color:#5ea4ce;margin-bottom:10px;">🔵 三期 · 2028年（3个）— 能力补全</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+          <span class="tag-fsl-outline">S20 生产进度看板</span><span class="tag-fsl-outline">S21 质量追溯</span><span class="tag-fsl-outline">S22 质量合格率分析</span>
+        </div>
+      </div>
     </div>
   </div>
+
   <aside class="notes">
-    <p>23个高价值场景的详细描述和排序依据。</p>
-    <p>每个场景都标注了业务价值(BV)和技术难度(TD)评分，以及一句话描述。</p>
-    <p>排序核心逻辑：高价值低难度的优先做（快速赢），高价值高难度的作为战略核心持续推进，低价值低难度的延后或作为报表类补充。</p>
+    <p>V2 重设计：从 9.5px 密集表格改为图标卡片式布局。</p>
+    <p>一期 14 个场景以 3 列图标卡片展示（编号+名称+一句话+BV/TD），二期和三期以标签云形式精简展示。</p>
+    <p>排序核心逻辑：高价值低难度的优先做（快速赢），高价值高难度的作为战略核心持续推进。</p>
   </aside>
 </section>
 
