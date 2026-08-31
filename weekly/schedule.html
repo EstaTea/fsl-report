@@ -15,7 +15,6 @@ body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;
      background:var(--bg);color:var(--text);font-size:14px;line-height:1.8;}
 a{color:inherit;text-decoration:none;}
 
-
 .hero{background:linear-gradient(135deg,var(--b900) 0%,var(--b700) 100%);
   color:#fff;padding:28px 48px 24px;border-bottom:3px solid var(--b500);}
 .hero-meta{font-size:11px;opacity:.55;margin-bottom:6px;letter-spacing:.4px;text-transform:uppercase;}
@@ -34,7 +33,14 @@ a{color:inherit;text-decoration:none;}
 .card-hd{font-size:13px;font-weight:800;color:var(--b900);
   border-bottom:2px solid var(--b050);padding-bottom:8px;margin-bottom:16px;}
 
-/* ── Legend ── */
+/* status band */
+.status-band{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
+.sb{flex:1;min-width:140px;background:var(--b050);border-radius:var(--r);
+    padding:10px 14px;border-left:3px solid var(--b300);}
+.sb .num{font-size:22px;font-weight:800;color:var(--b900);}
+.sb .lbl{font-size:11px;color:var(--muted);margin-top:2px;}
+
+/* Legend */
 .legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:16px;align-items:center;}
 .lg{display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--muted);}
 .lg-bar{width:24px;height:10px;border-radius:2px;}
@@ -44,7 +50,7 @@ a{color:inherit;text-decoration:none;}
 .lg-plan{background:var(--plan);border:1px solid var(--b300);}
 .lg-ms{width:10px;height:10px;border-radius:50%;background:#E53935;}
 
-/* ── Gantt table ── */
+/* Gantt table */
 .gantt-scroll{overflow-x:auto;}
 .gantt{border-collapse:collapse;font-size:11.5px;width:100%;}
 .gantt th{background:var(--b700);color:#fff;padding:5px 8px;
@@ -74,14 +80,7 @@ a{color:inherit;text-decoration:none;}
 .today-col{background:rgba(35,116,163,.06) !important;}
 .today-col .bar{outline:2px solid var(--b300);outline-offset:1px;}
 
-/* ── Risk / status band ── */
-.status-band{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
-.sb{flex:1;min-width:140px;background:var(--b050);border-radius:var(--r);
-    padding:10px 14px;border-left:3px solid var(--b300);}
-.sb .num{font-size:22px;font-weight:800;color:var(--b900);}
-.sb .lbl{font-size:11px;color:var(--muted);margin-top:2px;}
-
-/* ── Milestone list ── */
+/* Milestone list */
 .ms-list{display:flex;flex-direction:column;gap:6px;margin-top:4px;}
 .ms-row{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;
   border-radius:var(--r);background:var(--b050);border:1px solid var(--rule);}
@@ -110,12 +109,12 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
 <div class="hero">
   <div class="hero-meta">项目进度表</div>
   <h1>项目总体进度 — 计划 vs 实际</h1>
-  <p>基于项目章程里程碑与调研计划 v4，追踪两期并行推进的整体进度</p>
+  <p>基于项目总体实施计划 V1.1 与 W11 实际进展，追踪从启动到上线的全周期状态</p>
   <div class="hero-chips">
     <span class="chip">启动：2026-05-29</span>
     <span class="chip">目标上线：2027-01-01</span>
-    <span class="chip">今日：2026-06-26</span>
-    <span class="chip">总工期：240天</span>
+    <span class="chip">今日：2026-08-31</span>
+    <span class="chip">总工期：217天</span>
   </div>
 </div>
 
@@ -128,312 +127,256 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
     <span>项目进度表</span>
   </div>
 
-  <!-- ── 状态摘要 ── -->
+  <!-- status summary -->
   <div class="status-band">
-    <div class="sb" style="border-color:#43A047;">
-      <div class="num" style="color:#2E7D32;">18%</div>
-      <div class="lbl">整体进度（第4周）</div>
+    <div class="sb" style="border-color:var(--g-warn);">
+      <div class="num" style="color:#E65100;">40%</div>
+      <div class="lbl">整体进度（第11周）</div>
     </div>
     <div class="sb" style="border-color:var(--b500);">
-      <div class="num">W1</div>
-      <div class="lbl">当前周期（6/22–6/27）</div>
-    </div>
-    <div class="sb" style="border-color:#43A047;">
-      <div class="num" style="color:#2E7D32;">5/11</div>
-      <div class="lbl">调研天完成（D1–D5 ✅）</div>
-    </div>
-    <div class="sb" style="border-color:#FB8C00;">
-      <div class="num" style="color:#E65100;">⚠️ 2</div>
-      <div class="lbl">管理层待补充访谈（张学权/曾肖静）</div>
+      <div class="num">W11</div>
+      <div class="lbl">当前周期（8/31–9/4）</div>
     </div>
     <div class="sb" style="border-color:var(--b500);">
-      <div class="num">~7月中</div>
-      <div class="lbl">第1笔款预计触发时间</div>
+      <div class="num">23/23</div>
+      <div class="lbl">高价值场景分期定稿</div>
+    </div>
+    <div class="sb" style="border-color:var(--g-warn);">
+      <div class="num" style="color:#E65100;">2</div>
+      <div class="lbl">高风险项（收尾节点/WMS谈判）</div>
+    </div>
+    <div class="sb" style="border-color:var(--b500);">
+      <div class="num">~123天</div>
+      <div class="lbl">Go-Live 倒计时</div>
     </div>
   </div>
 
-  <!-- ── 主甘特图 ── -->
+  <!-- main gantt -->
   <div class="card">
-    <div class="card-hd">项目总体计划甘特图（2026年5月 — 2027年3月）</div>
+    <div class="card-hd">项目总体计划甘特图（2026年6月 — 2027年1月）</div>
 
     <div class="legend">
       <div class="lg"><div class="lg-bar lg-done"></div>已完成</div>
       <div class="lg"><div class="lg-bar lg-partial"></div>部分完成/有偏差</div>
       <div class="lg"><div class="lg-bar lg-now"></div>进行中（本周）</div>
       <div class="lg"><div class="lg-bar lg-plan"></div>计划中</div>
-      <div class="lg"><div class="lg-ms b-ms" style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#43A047;"></div>里程碑达成</div>
-      <div class="lg"><div class="lg-ms b-ms" style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#FB8C00;"></div>里程碑进行中</div>
-      <div class="lg"><div class="lg-ms b-ms" style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#C7E2F2;border:1px solid #5EA4CE;"></div>里程碑待到</div>
-      <span style="margin-left:auto;font-size:11px;color:var(--b500);font-weight:700;">▼ 今日：2026-06-26（W4）</span>
+      <div class="lg"><div class="lg-ms" style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#43A047;"></div>里程碑达成</div>
+      <div class="lg"><div class="lg-ms" style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#FB8C00;"></div>里程碑进行中</div>
+      <div class="lg"><div class="lg-ms" style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#C7E2F2;border:1px solid #5EA4CE;"></div>里程碑待到</div>
+      <span style="margin-left:auto;font-size:11px;color:var(--b500);font-weight:700;">▼ 今日：2026-08-31（W11）</span>
     </div>
 
     <div class="gantt-scroll">
     <table class="gantt">
       <colgroup>
-        <col style="width:168px;"><!-- label -->
-        <!-- 5月 W-2 W-1 -->
-        <col style="width:44px;"><col style="width:44px;">
-        <!-- 6月 W1 W2 W3 W4 -->
-        <col style="width:44px;"><col style="width:44px;"><col style="width:44px;"><col style="width:44px;">
-        <!-- 7月 W5 W6 W7 W8 -->
-        <col style="width:44px;"><col style="width:44px;"><col style="width:44px;"><col style="width:44px;">
-        <!-- 8月 W9 W10 -->
-        <col style="width:44px;"><col style="width:44px;">
-        <!-- 9月 W11 W12 -->
-        <col style="width:44px;"><col style="width:44px;">
-        <!-- 10月 W13 W14 -->
-        <col style="width:44px;"><col style="width:44px;">
-        <!-- 11月 W15 W16 -->
-        <col style="width:44px;"><col style="width:44px;">
-        <!-- 12月 W17 W18 -->
-        <col style="width:44px;"><col style="width:44px;">
-        <!-- 2027年 Q1上半 Q1下半 Hyper -->
-        <col style="width:44px;"><col style="width:44px;"><col style="width:44px;">
+        <col style="width:170px;">
+        <col style="width:38px;"><col style="width:38px;"><col style="width:38px;"><col style="width:38px;">
+        <col style="width:38px;"><col style="width:38px;"><col style="width:38px;"><col style="width:38px;">
+        <col style="width:38px;"><col style="width:38px;"><col style="width:38px;"><col style="width:38px;"><col style="width:38px;">
+        <col style="width:38px;"><col style="width:38px;"><col style="width:38px;"><col style="width:38px;">
+        <col style="width:38px;"><col style="width:38px;"><col style="width:38px;"><col style="width:38px;">
+        <col style="width:38px;"><col style="width:38px;"><col style="width:38px;"><col style="width:38px;">
+        <col style="width:38px;"><col style="width:38px;"><col style="width:38px;"><col style="width:38px;"><col style="width:38px;">
+        <col style="width:38px;"><col style="width:38px;"><col style="width:38px;">
       </colgroup>
       <thead>
         <tr>
           <th class="sticky">任务 / 里程碑</th>
-          <th colspan="2">5月</th>
           <th colspan="4">6月</th>
           <th colspan="4">7月</th>
-          <th colspan="2">8月</th>
-          <th colspan="2">9月</th>
-          <th colspan="2">10月</th>
-          <th colspan="2">11月</th>
-          <th colspan="2">12月</th>
+          <th colspan="5">8月</th>
+          <th colspan="4">9月</th>
+          <th colspan="4">10月</th>
+          <th colspan="4">11月</th>
+          <th colspan="5">12月</th>
           <th colspan="3">2027</th>
         </tr>
         <tr>
           <th class="sticky"></th>
-          <th>W-2</th><th>W-1</th>
-          <th>W1</th><th>W2</th><th>W3</th><th style="background:#1a3a5c;color:#fff;font-weight:900;">W4▼</th>
-          <th>W5</th><th>W6</th><th>W7</th><th>W8</th>
-          <th>W9</th><th>W10</th>
-          <th>W11</th><th>W12</th>
-          <th>W13</th><th>W14</th>
-          <th>W15</th><th>W16</th>
-          <th>W17</th><th>W18</th>
-          <th>Q1上</th><th>Q1下</th><th>Hyper</th>
+          <th>W-2</th><th>W-1</th><th>W1</th><th>W2</th>
+          <th>W3</th><th>W4</th><th>W5</th><th>W6</th>
+          <th>W7</th><th>W8</th><th>W9</th><th>W10</th><th style="background:#1a3a5c;color:#fff;font-weight:900;">W11▼</th>
+          <th>W12</th><th>W13</th><th>W14</th><th>W15</th>
+          <th>W16</th><th>W17</th><th>W18</th><th>W19</th>
+          <th>W20</th><th>W21</th><th>W22</th><th>W23</th>
+          <th>W24</th><th>W25</th><th>W26</th><th>W27</th><th>W28</th>
+          <th>W29</th><th>W30</th><th>Hyper</th>
         </tr>
       </thead>
       <tbody>
 
-        <!-- ═══ 阶段标题行：项目准备 ═══ -->
+        <!-- 项目准备 -->
         <tr class="phase-hd">
           <td class="label">◆ 项目准备阶段</td>
           <td colspan="2" style="text-align:center;background:var(--done);color:#fff;">已完成</td>
-          <td colspan="21" style="background:var(--b900);"></td>
+          <td colspan="31" style="background:var(--b900);"></td>
         </tr>
         <tr>
           <td class="sublabel">合同签订 / 项目启动</td>
-          <td class="gc"><span class="bar b-done" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-done" style="width:36px;"></span></td>
-          <td colspan="21" class="gc" style="text-align:left;padding-left:6px;font-size:10.5px;color:var(--muted);">✅ 2026-05-29 启动</td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td colspan="31" class="gc" style="text-align:left;padding-left:6px;font-size:10.5px;color:var(--muted);">2026-05-29 合同签订；2026-06-01 项目启动</td>
         </tr>
         <tr>
           <td class="sublabel">项目章程 / 调研计划</td>
           <td class="gc"></td>
-          <td class="gc"><span class="bar b-done" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-done" style="width:36px;"></span></td>
-          <td colspan="20" class="gc" style="text-align:left;padding-left:4px;font-size:10.5px;color:var(--muted);">✅ 章程v1 2026-06-22；调研计划v4 2026-06-26</td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td colspan="30" class="gc" style="text-align:left;padding-left:4px;font-size:10.5px;color:var(--muted);">章程v1 2026-06-22；调研计划v4 发布</td>
         </tr>
         <tr>
-          <td class="sublabel" style="color:#2E7D32;font-weight:700;">◉ M1 实施启动里程碑</td>
+          <td class="sublabel" style="color:#2E7D32;font-weight:700;">◉ M1 / M6 实施启动里程碑</td>
           <td></td>
           <td class="gc"><span class="b-ms b-ms-done" style="display:block;"></span></td>
           <td class="gc"><span class="b-ms b-ms-done" style="display:block;"></span></td>
-          <td colspan="20" style="font-size:10.5px;color:#2E7D32;padding-left:4px;">✅ 完成 — 第1笔款触发（约7月中旬到账）</td>
+          <td colspan="30" style="font-size:10.5px;color:#2E7D32;padding-left:4px;">完成 — 第1笔款约7月中旬到账</td>
         </tr>
 
-        <!-- ═══ 第一期：咨询 ═══ -->
+        <!-- 第一期：咨询 -->
         <tr class="phase-hd">
-          <td class="label">◆ 第一期：数字化转型规划咨询（18周）</td>
+          <td class="label">◆ 第一期：数字化转型规划咨询</td>
           <td></td><td></td>
-          <td colspan="6" style="text-align:center;background:var(--b500);color:#fff;">探索阶段 · 蓝图设计 · 路径规划</td>
-          <td colspan="15" style="background:var(--b900);"></td>
+          <td colspan="9" style="text-align:center;background:var(--b500);color:#fff;">现状诊断 · 蓝图设计</td>
+          <td colspan="4" style="text-align:center;background:var(--now);color:#fff;">路径规划</td>
+          <td colspan="19" style="background:var(--b900);"></td>
         </tr>
 
         <!-- 现状分析与诊断 -->
         <tr>
           <td class="label" style="font-size:11px;font-weight:700;color:var(--b700);">现状分析与诊断</td>
           <td></td><td></td>
-          <td class="gc"><span class="bar b-done" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-now"  style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc today-col"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td colspan="17"></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td colspan="28"></td>
         </tr>
         <tr>
-          <td class="sublabel">业务调研访谈 D1–D5（W1）</td>
+          <td class="sublabel">业务调研访谈 D1–D15</td>
           <td></td><td></td>
-          <td class="gc"><span class="bar b-done" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-part" style="width:36px;" title="管理层张学权/曾肖静待补充"></span></td>
-          <td></td><td class="today-col"></td>
-          <td colspan="17"></td>
-        </tr>
-        <tr>
-          <td class="sublabel" style="font-size:10px;">  └ D1 商用/家用（✅）</td>
-          <td></td><td></td>
-          <td class="gc"><span class="bar b-done" style="width:36px;"></span></td>
-          <td colspan="19"></td>
-        </tr>
-        <tr>
-          <td class="sublabel" style="font-size:10px;">  └ D2 管理层李泽华✅/国际/成本（⚠️张学权/曾肖静待预约）</td>
-          <td></td><td></td>
-          <td class="gc"><span class="bar b-part" style="width:36px;" title="李泽华完成，张学权/曾肖静待预约"></span></td>
-          <td colspan="19"></td>
-        </tr>
-        <tr>
-          <td class="sublabel" style="font-size:10px;">  └ D3 电商/数字化/Z程序（✅）</td>
-          <td></td><td></td>
-          <td class="gc"><span class="bar b-done" style="width:36px;"></span></td>
-          <td colspan="19"></td>
-        </tr>
-        <tr>
-          <td class="sublabel" style="font-size:10px;">  └ D4 供应链/招采/流程/AI/产品（✅）</td>
-          <td></td><td></td>
-          <td class="gc"><span class="bar b-done" style="width:36px;"></span></td>
-          <td colspan="19"></td>
-        </tr>
-        <tr>
-          <td class="sublabel" style="font-size:10px;">  └ D5 ★W1总结会（✅ 今日）</td>
-          <td></td><td></td>
-          <td class="gc today-col"><span class="bar b-now" style="width:36px;"></span></td>
-          <td colspan="19"></td>
-        </tr>
-        <tr>
-          <td class="sublabel">业务调研访谈 D6–D10（W2）</td>
-          <td></td><td></td><td></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td colspan="18"></td>
-        </tr>
-        <tr>
-          <td class="sublabel" style="font-size:10px;">  └ D6 生产/MES/BOM/PLM（6/29）</td>
-          <td></td><td></td><td></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td colspan="18"></td>
-        </tr>
-        <tr>
-          <td class="sublabel" style="font-size:10px;">  └ D7 十五五规划/质量/车灯（6/30）</td>
-          <td></td><td></td><td></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td colspan="18"></td>
-        </tr>
-        <tr>
-          <td class="sublabel" style="font-size:10px;">  └ D8 高明实地（7/1）</td>
-          <td></td><td></td><td></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td colspan="18"></td>
-        </tr>
-        <tr>
-          <td class="sublabel" style="font-size:10px;">  └ D9 质量/外汇/主数据取样（7/2）</td>
-          <td></td><td></td><td></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td colspan="18"></td>
-        </tr>
-        <tr>
-          <td class="sublabel" style="font-size:10px;">  └ D10 MDG规划/内部汇总（7/3）</td>
-          <td></td><td></td><td></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td colspan="18"></td>
-        </tr>
-        <tr>
-          <td class="sublabel">★D11 两周调研汇报 + 成果签字（7/6）</td>
-          <td></td><td></td><td></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td colspan="18"></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td colspan="28" style="font-size:10.5px;color:var(--muted);padding-left:4px;">2026-07-10 业务调研收官</td>
         </tr>
         <tr>
           <td class="sublabel" style="color:var(--muted);">◉ M2 调研完成里程碑</td>
-          <td></td><td></td><td></td>
-          <td class="gc"><span class="b-ms" style="display:block;background:var(--b300);border:1px solid var(--b500);"></span></td>
-          <td colspan="18" style="font-size:10.5px;color:var(--muted);padding-left:4px;">计划：6月下旬（D11，7月6日）— 调研成果确认签字</td>
+          <td></td><td></td><td></td><td></td>
+          <td class="gc"><span class="b-ms b-ms-done" style="display:block;"></span></td>
+          <td colspan="29" style="font-size:10.5px;color:#2E7D32;padding-left:4px;">完成 — D1-D15 调研收官（2026-07-10）</td>
         </tr>
 
         <!-- 蓝图与架构设计 -->
         <tr>
           <td class="label" style="font-size:11px;font-weight:700;color:var(--b700);">蓝图及架构设计</td>
           <td colspan="5"></td>
-          <td class="today-col"></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td colspan="13"></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-now"  style="width:30px;"></span></td>
+          <td class="gc today-col"><span class="bar b-now"  style="width:30px;"></span></td>
+          <td colspan="20"></td>
+        </tr>
+        <tr>
+          <td class="sublabel">需求归集与收敛（701→23）</td>
+          <td colspan="5"></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td colspan="24" style="font-size:10.5px;color:var(--muted);padding-left:4px;">2026-07-31 需求通道截止；23项高价值场景</td>
         </tr>
         <tr>
           <td class="sublabel">★1 企业现状诊断报告</td>
-          <td colspan="5"></td><td class="today-col"></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td colspan="15"></td>
+          <td colspan="5"></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td colspan="25"></td>
         </tr>
         <tr>
           <td class="sublabel">★2 企业架构设计报告（L1-L3）</td>
-          <td colspan="5"></td><td class="today-col"></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td colspan="13"></td>
+          <td colspan="5"></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-now"  style="width:30px;"></span></td>
+          <td class="gc today-col"><span class="bar b-now"  style="width:30px;"></span></td>
+          <td colspan="20"></td>
         </tr>
         <tr>
           <td class="sublabel">★3 专项方案设计（8个高价值场景）</td>
-          <td colspan="5"></td><td class="today-col"></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td colspan="14"></td>
+          <td colspan="5"></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-now"  style="width:30px;"></span></td>
+          <td class="gc today-col"><span class="bar b-now"  style="width:30px;"></span></td>
+          <td colspan="20"></td>
         </tr>
         <tr>
           <td class="sublabel">★4 数据治理三件套</td>
-          <td colspan="5"></td><td class="today-col"></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td colspan="14"></td>
+          <td colspan="5"></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-now"  style="width:30px;"></span></td>
+          <td class="gc today-col"><span class="bar b-now"  style="width:30px;"></span></td>
+          <td colspan="20"></td>
         </tr>
         <tr>
-          <td class="sublabel" style="color:var(--muted);">◉ M3 架构蓝图确认里程碑</td>
-          <td colspan="5"></td><td class="today-col"></td>
-          <td colspan="2"></td>
-          <td class="gc"><span class="b-ms" style="display:block;background:var(--b300);border:1px solid var(--b500);"></span></td>
-          <td colspan="14" style="font-size:10.5px;color:var(--muted);padding-left:4px;">计划：2026年7月中旬（W6）— 触发第2笔款20%</td>
+          <td class="sublabel" style="color:var(--g-warn);font-weight:700;">◉ M7 蓝图汇报与签署</td>
+          <td colspan="10"></td>
+          <td class="gc"><span class="b-ms b-ms-warn" style="display:block;"></span></td>
+          <td class="gc"><span class="b-ms b-ms-warn" style="display:block;"></span></td>
+          <td class="gc today-col"><span class="b-ms b-ms-warn" style="display:block;"></span></td>
+          <td colspan="20" style="font-size:10.5px;color:#E65100;padding-left:4px;">进行中 — 8/27 蓝图汇报评审通过；8/31 全量签署节点</td>
         </tr>
 
         <!-- 路径规划 -->
         <tr>
           <td class="label" style="font-size:11px;font-weight:700;color:var(--b700);">实施路径规划</td>
-          <td colspan="5"></td><td class="today-col"></td>
-          <td colspan="3"></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
           <td colspan="12"></td>
+          <td class="gc today-col"><span class="bar b-now"  style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td colspan="18"></td>
         </tr>
         <tr>
           <td class="sublabel">★6 数字化转型路径规划（2026-2028）</td>
-          <td colspan="5"></td><td class="today-col"></td>
-          <td colspan="3"></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
           <td colspan="12"></td>
+          <td class="gc today-col"><span class="bar b-now"  style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td colspan="18"></td>
         </tr>
         <tr>
           <td class="sublabel" style="color:var(--muted);">◉ M4 路径规划完成</td>
-          <td colspan="5"></td><td class="today-col"></td>
-          <td colspan="4"></td>
+          <td colspan="15"></td>
           <td class="gc"><span class="b-ms" style="display:block;background:var(--b300);border:1px solid var(--b500);"></span></td>
-          <td colspan="12" style="font-size:10.5px;color:var(--muted);padding-left:4px;">计划：2026年7月下旬（W8）— 触发第3笔款45%</td>
+          <td colspan="17" style="font-size:10.5px;color:var(--muted);padding-left:4px;">计划：2026年9月下旬（W15）— 触发第3笔款45%</td>
         </tr>
 
-        <!-- ═══ 第二期：SAP实施 ═══ -->
+        <!-- 第二期：SAP实施 -->
         <tr class="phase-hd">
-          <td class="label">◆ 第二期：SAP ERP 实施建设（8个月）</td>
-          <td></td><td></td>
-          <td colspan="4" style="text-align:center;background:var(--b700);color:#fff;">准备</td>
-          <td colspan="4" style="text-align:center;background:var(--b500);color:#fff;">蓝图设计</td>
-          <td colspan="4" style="text-align:center;background:#2374A3;color:#fff;">系统实现</td>
-          <td colspan="4" style="text-align:center;background:#5EA4CE;color:#fff;">UAT/培训</td>
+          <td class="label">◆ 第二期：SAP ERP 实施建设</td>
+          <td colspan="12" style="background:var(--b900);"></td>
+          <td colspan="4" style="text-align:center;background:var(--b700);color:#fff;">实施准备</td>
+          <td colspan="8" style="text-align:center;background:var(--b500);color:#fff;">系统实现 / SIT</td>
+          <td colspan="4" style="text-align:center;background:#2374A3;color:#fff;">UAT / 培训</td>
           <td colspan="4" style="text-align:center;background:#1A4F73;color:#fff;">上线切换</td>
           <td colspan="3" style="text-align:center;background:#C7E2F2;color:var(--b900);">Hyper-care</td>
         </tr>
@@ -441,265 +384,272 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
         <!-- 实施准备 -->
         <tr>
           <td class="label" style="font-size:11px;font-weight:700;color:var(--b700);">实施准备</td>
-          <td class="gc"><span class="bar b-done" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-done" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-done" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-now"  style="width:36px;"></span></td>
-          <td colspan="19"></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td colspan="29"></td>
         </tr>
         <tr>
           <td class="sublabel">项目总体计划 / 章程（实施版）</td>
-          <td class="gc"><span class="bar b-done" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-done" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-done" style="width:36px;"></span></td>
-          <td colspan="20"></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td colspan="30"></td>
         </tr>
         <tr>
           <td class="sublabel">自定义代码监控（SCMON，1个月）</td>
           <td></td><td></td>
-          <td class="gc"><span class="bar b-now"  style="width:36px;"></span></td>
-          <td class="gc today-col"><span class="bar b-now"  style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td colspan="17"></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td colspan="28"></td>
         </tr>
         <tr>
           <td class="sublabel">系统环境准备（PCE云环境）</td>
-          <td class="gc"><span class="bar b-done" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-done" style="width:36px;"></span></td>
-          <td colspan="21"></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td colspan="31"></td>
         </tr>
         <tr>
-          <td class="sublabel" style="color:var(--g-warn);font-weight:700;">◉ M6 实施启动里程碑</td>
-          <td></td>
-          <td class="gc"><span class="b-ms b-ms-warn" style="display:block;"></span></td>
-          <td colspan="21" style="font-size:10.5px;color:#E65100;padding-left:4px;">⏳ 进行中 — 第1笔款（约7月中旬，合同后30工作日）</td>
+          <td class="sublabel">历史数据清洗启动（物料/BOM/客商/财务）</td>
+          <td colspan="12"></td>
+          <td class="gc today-col"><span class="bar b-now"  style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td colspan="19"></td>
         </tr>
 
-        <!-- 蓝图方案设计 -->
+        <!-- 蓝图方案设计（实施BBP） -->
         <tr>
           <td class="label" style="font-size:11px;font-weight:700;color:var(--b700);">蓝图方案设计（BBP）</td>
-          <td colspan="5"></td><td class="today-col"></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td colspan="13"></td>
+          <td colspan="5"></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-now"  style="width:30px;"></span></td>
+          <td class="gc today-col"><span class="bar b-now"  style="width:30px;"></span></td>
+          <td colspan="20"></td>
         </tr>
         <tr>
           <td class="sublabel">各模块业务蓝图（FICO/SD/MM/PP/QM/EWM）</td>
-          <td colspan="5"></td><td class="today-col"></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td colspan="13"></td>
+          <td colspan="5"></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-done" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-now"  style="width:30px;"></span></td>
+          <td class="gc today-col"><span class="bar b-now"  style="width:30px;"></span></td>
+          <td colspan="20"></td>
+        </tr>
+        <tr>
+          <td class="sublabel">BOM同步接口最终方案</td>
+          <td colspan="10"></td>
+          <td class="gc"><span class="bar b-part" style="width:30px;" title="8/31前敲定"></span></td>
+          <td class="gc"><span class="bar b-now"  style="width:30px;"></span></td>
+          <td class="gc today-col"><span class="bar b-now"  style="width:30px;"></span></td>
+          <td colspan="20"></td>
         </tr>
         <tr>
           <td class="sublabel">接口设计（CPI 12+ 外围系统）</td>
-          <td colspan="5"></td><td class="today-col"></td>
-          <td colspan="3"></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
           <td colspan="12"></td>
-        </tr>
-        <tr>
-          <td class="sublabel" style="color:var(--muted);">◉ M7 蓝图签字里程碑</td>
-          <td colspan="5"></td><td class="today-col"></td>
-          <td colspan="4"></td>
-          <td class="gc"><span class="b-ms" style="display:block;background:var(--b300);border:1px solid var(--b500);"></span></td>
-          <td colspan="12" style="font-size:10.5px;color:var(--muted);padding-left:4px;">计划：2026年7-8月 — 触发实施第2笔款20%</td>
+          <td class="gc today-col"></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td colspan="17"></td>
         </tr>
 
         <!-- 系统实现 -->
         <tr>
           <td class="label" style="font-size:11px;font-weight:700;color:var(--b700);">系统实现 / SIT</td>
-          <td colspan="5"></td><td class="today-col"></td>
-          <td colspan="4"></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td colspan="9"></td>
+          <td colspan="13"></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td colspan="15"></td>
         </tr>
         <tr>
           <td class="sublabel">配置 / 开发 / 单元测试</td>
-          <td colspan="5"></td><td class="today-col"></td>
-          <td colspan="4"></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td colspan="10"></td>
+          <td colspan="13"></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td colspan="18"></td>
         </tr>
         <tr>
           <td class="sublabel">系统集成测试 SIT</td>
-          <td colspan="5"></td><td class="today-col"></td>
-          <td colspan="5"></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td colspan="10"></td>
+          <td colspan="16"></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td colspan="14"></td>
+        </tr>
+        <tr>
+          <td class="sublabel" style="color:var(--muted);">◉ M8 SIT 完成里程碑</td>
+          <td colspan="19"></td>
+          <td class="gc"><span class="b-ms" style="display:block;background:var(--b300);border:1px solid var(--b500);"></span></td>
+          <td colspan="13" style="font-size:10.5px;color:var(--muted);padding-left:4px;">计划：2026年10月下旬（W19）</td>
         </tr>
 
         <!-- UAT / 培训 -->
         <tr>
           <td class="label" style="font-size:11px;font-weight:700;color:var(--b700);">UAT / 用户培训</td>
-          <td colspan="5"></td><td class="today-col"></td>
-          <td colspan="8"></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td colspan="5"></td>
+          <td colspan="18"></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td colspan="12"></td>
         </tr>
         <tr>
           <td class="sublabel">用户验收测试 UAT</td>
-          <td colspan="5"></td><td class="today-col"></td>
-          <td colspan="8"></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td colspan="7"></td>
+          <td colspan="18"></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td colspan="13"></td>
         </tr>
         <tr>
           <td class="sublabel">终端用户培训（19家法人）</td>
-          <td colspan="5"></td><td class="today-col"></td>
-          <td colspan="9"></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td colspan="6"></td>
+          <td colspan="19"></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td colspan="11"></td>
         </tr>
 
         <!-- 上线切换 -->
         <tr>
           <td class="label" style="font-size:11px;font-weight:700;color:var(--b700);">上线准备 / Cut-over</td>
-          <td colspan="5"></td><td class="today-col"></td>
-          <td colspan="12"></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td colspan="2"></td>
+          <td colspan="22"></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td colspan="7"></td>
         </tr>
         <tr>
           <td class="sublabel">数据迁移 / 期初数据准备</td>
-          <td colspan="5"></td><td class="today-col"></td>
-          <td colspan="9"></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td colspan="5"></td>
+          <td colspan="21"></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td colspan="8"></td>
         </tr>
         <tr>
           <td class="sublabel">Cut-over 演练 / 正式切换</td>
-          <td colspan="5"></td><td class="today-col"></td>
-          <td colspan="13"></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td colspan="3"></td>
+          <td colspan="23"></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td colspan="7"></td>
         </tr>
         <tr>
           <td class="sublabel" style="color:var(--muted);">◉ M9 上线切换里程碑</td>
-          <td colspan="5"></td><td class="today-col"></td>
-          <td colspan="14"></td>
+          <td colspan="24"></td>
           <td class="gc"><span class="b-ms" style="display:block;background:var(--b300);border:1px solid var(--b500);"></span></td>
-          <td colspan="2" style="font-size:10.5px;color:var(--muted);padding-left:4px;">计划：2027-01-01 上线</td>
+          <td colspan="7" style="font-size:10.5px;color:var(--muted);padding-left:4px;">计划：2027-01-01 上线</td>
         </tr>
 
         <!-- Hyper-care -->
         <tr>
           <td class="label" style="font-size:11px;font-weight:700;color:var(--b700);">上线支持 / Hyper-care</td>
-          <td colspan="5"></td><td class="today-col"></td>
-          <td colspan="16"></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
-          <td class="gc"><span class="bar b-plan" style="width:36px;"></span></td>
+          <td colspan="25"></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
+          <td class="gc"><span class="bar b-plan" style="width:30px;"></span></td>
         </tr>
         <tr>
           <td class="sublabel" style="color:var(--muted);">◉ M11 最终验收（上线后6个月）</td>
-          <td colspan="5"></td><td class="today-col"></td>
-          <td colspan="17"></td>
+          <td colspan="26"></td>
           <td colspan="2" style="font-size:10.5px;color:var(--muted);padding-left:4px;">计划：2027年Q3（稳定运行6个月）</td>
         </tr>
 
       </tbody>
     </table>
-    </div><!-- /gantt-scroll -->
-    <div style="font-size:10.5px;color:var(--b500);margin-top:8px;font-style:italic;">
-      ▼ 今日列（W4，2026-06-26）· ■ 深蓝=完成 · ■ 橙色=部分完成/有偏差 · ■ 中蓝=进行中 · ■ 浅蓝=计划中
     </div>
-  </div><!-- /card -->
+    <div style="font-size:10.5px;color:var(--b500);margin-top:8px;font-style:italic;">
+      ▼ 今日列（W11，2026-08-31）· ■ 深蓝=完成 · ■ 橙色=部分完成/有偏差 · ■ 中蓝=进行中 · ■ 浅蓝=计划中
+    </div>
+  </div>
 
-  <!-- ── 里程碑状态列表 ── -->
+  <!-- milestone list -->
   <div class="card">
-    <div class="card-hd">关键里程碑状态（来源：项目章程 v1）</div>
+    <div class="card-hd">关键里程碑状态（来源：项目总体实施计划 V1.1）</div>
     <div class="ms-list">
 
       <div class="ms-row">
         <div class="ms-dot ms-done"></div>
         <div class="ms-content">
-          <b>M1 / M6 — 项目启动</b><span class="bdg bdg-g">✅ 完成</span>
-          <div style="color:var(--muted);font-size:11px;margin-top:2px;">2026-05-29 启动；项目章程 v1 已完成（2026-06-22）；调研计划 v4 发布（2026-06-26）</div>
+          <b>M1 / M6 — 项目启动</b><span class="bdg bdg-g">完成</span>
+          <div style="color:var(--muted);font-size:11px;margin-top:2px;">2026-05-29 合同签订；2026-06-01 项目启动；项目章程 v1 已完成</div>
         </div>
         <div class="ms-date">触发条件：合同签订<br>→ 第1笔款约7月中旬</div>
+      </div>
+
+      <div class="ms-row">
+        <div class="ms-dot ms-done"></div>
+        <div class="ms-content">
+          <b>M2 — 业务调研收官（D1-D15）</b><span class="bdg bdg-g">完成</span>
+          <div style="color:var(--muted);font-size:11px;margin-top:2px;">2026-07-10 完成全业务调研访谈；管理层补充访谈已闭环</div>
+        </div>
+        <div class="ms-date">2026-07-10</div>
+      </div>
+
+      <div class="ms-row">
+        <div class="ms-dot ms-done"></div>
+        <div class="ms-content">
+          <b>M3 — 需求归集与收敛</b><span class="bdg bdg-g">完成</span>
+          <div style="color:var(--muted);font-size:11px;margin-top:2px;">2026-07-31 需求通道截止；累计 701 条需求沉淀为 23 项高价值场景</div>
+        </div>
+        <div class="ms-date">2026-07-31</div>
       </div>
 
       <div class="ms-row" style="border-color:#FB8C00;">
         <div class="ms-dot ms-warn"></div>
         <div class="ms-content">
-          <b>管理层访谈专场</b><span class="bdg bdg-y">⚠️ 部分完成</span>
-          <div style="color:#E65100;font-size:11px;margin-top:2px;">李泽华（副总经理）✅ 已访谈；<b>张学权（总经理）/ 曾肖静（副总经理）待零星预约</b> — 需在 D11 汇报前完成</div>
+          <b>M7 — 蓝图汇报与签署</b><span class="bdg bdg-y">进行中</span>
+          <div style="color:#E65100;font-size:11px;margin-top:2px;">2026-08-27 蓝图汇报评审会顺利召开，23项场景分期策略定稿；<b>8/31 全量执行层用户蓝图签署 + BOM同步接口方案闭环</b>为刚性节点</div>
         </div>
-        <div class="ms-date">本周跟进项</div>
+        <div class="ms-date">2026-08-27~31</div>
       </div>
 
       <div class="ms-row">
         <div class="ms-dot" style="background:var(--b300);border:1px solid var(--b500);"></div>
         <div class="ms-content">
-          <b>M2 — 调研完成（D11 成果签字）</b><span class="bdg bdg-b">📋 计划中</span>
-          <div style="color:var(--muted);font-size:11px;margin-top:2px;">计划：2026-07-06（D11）· 甲方签字人：苏大明（数智化部）· 汇报对象：李一帜 / 苏大明 / 钟吟</div>
-        </div>
-        <div class="ms-date">2026-07-06</div>
-      </div>
-
-      <div class="ms-row">
-        <div class="ms-dot" style="background:var(--b300);border:1px solid var(--b500);"></div>
-        <div class="ms-content">
-          <b>M3 — 架构蓝图确认</b><span class="bdg bdg-b">📋 计划中</span>
-          <div style="color:var(--muted);font-size:11px;margin-top:2px;">交付：★1诊断报告 + ★2架构报告 + ★3专项方案 + ★4数据治理三件套 · 签字人：李泽华</div>
-        </div>
-        <div class="ms-date">2026年7月中旬<br>→ 触发第2笔款20%</div>
-      </div>
-
-      <div class="ms-row">
-        <div class="ms-dot" style="background:var(--b300);border:1px solid var(--b500);"></div>
-        <div class="ms-content">
-          <b>M4 — 路径规划完成</b><span class="bdg bdg-b">📋 计划中</span>
+          <b>M4 — 路径规划完成</b><span class="bdg bdg-b">计划中</span>
           <div style="color:var(--muted);font-size:11px;margin-top:2px;">交付：★6 数字化转型路径规划（2026-2028）· 最终验收后触发第3笔款45%</div>
         </div>
-        <div class="ms-date">2026年7月下旬</div>
+        <div class="ms-date">2026年9月下旬</div>
       </div>
 
       <div class="ms-row">
         <div class="ms-dot" style="background:var(--b300);border:1px solid var(--b500);"></div>
         <div class="ms-content">
-          <b>M7 — 蓝图签字</b><span class="bdg bdg-b">📋 计划中</span>
-          <div style="color:var(--muted);font-size:11px;margin-top:2px;">交付：BBP（业务蓝图文件）各模块 · 触发实施第2笔款20%</div>
-        </div>
-        <div class="ms-date">2026年7-8月</div>
-      </div>
-
-      <div class="ms-row">
-        <div class="ms-dot" style="background:var(--b300);border:1px solid var(--b500);"></div>
-        <div class="ms-content">
-          <b>M8 — SIT / UAT 完成</b><span class="bdg bdg-b">📋 计划中</span>
+          <b>M8 — SIT / UAT 完成</b><span class="bdg bdg-b">计划中</span>
           <div style="color:var(--muted);font-size:11px;margin-top:2px;">硬性门槛：蓝图场景100%覆盖；致命缺陷0；严重缺陷0；数据迁移准确率100%</div>
         </div>
-        <div class="ms-date">2026年9-11月</div>
+        <div class="ms-date">2026年10-11月</div>
       </div>
 
       <div class="ms-row">
         <div class="ms-dot" style="background:var(--b300);border:1px solid var(--b500);"></div>
         <div class="ms-content">
-          <b>M9 — 上线切换（目标上线日）</b><span class="bdg bdg-b">📋 计划中</span>
+          <b>M9 — 上线切换（目标上线日）</b><span class="bdg bdg-b">计划中</span>
           <div style="color:var(--muted);font-size:11px;margin-top:2px;">19家法人 Greenfield 切换 · 触发第3笔款45% · 首月月结完成报告</div>
         </div>
         <div class="ms-date" style="color:#E53935;font-weight:700;">2027-01-01</div>
@@ -708,7 +658,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
       <div class="ms-row">
         <div class="ms-dot" style="background:var(--b300);border:1px solid var(--b500);"></div>
         <div class="ms-content">
-          <b>M11 — 最终验收</b><span class="bdg bdg-b">📋 计划中</span>
+          <b>M11 — 最终验收</b><span class="bdg bdg-b">计划中</span>
           <div style="color:var(--muted);font-size:11px;margin-top:2px;">稳定运行6个月 · 3年维保期起算 · 触发第4笔款15%</div>
         </div>
         <div class="ms-date">2027年Q3</div>
@@ -717,7 +667,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
     </div>
   </div>
 
-</div><!-- /container -->
+</div>
 
 <footer>佛山照明 SAP S/4HANA 升级项目工作台 · 机密文件 · 仅供项目组内部使用 · 2026</footer>
 </body>
