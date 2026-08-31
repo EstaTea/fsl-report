@@ -12,8 +12,8 @@
   --text:#0F2233;--muted:#5B7A91;--rule:#D6E8F2;--r:6px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background:#fff;color:var(--text);font-size:12px;line-height:1.45;padding:14px 18px}
-.row{display:flex;gap:13px;margin-bottom:11px}
+body{font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background:#fff;color:var(--text);font-size:11.5px;line-height:1.45;padding:12px 14px}
+.row{display:flex;gap:10px;margin-bottom:9px}
 .col{flex:1;min-width:0}
 .col-wide{flex:1.35;min-width:0}
 .col-narrow{flex:0.75;min-width:0}
@@ -21,6 +21,7 @@ body{font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background
 .cc-title{font-size:11px;font-weight:700;color:var(--b700);letter-spacing:.3px;padding-bottom:5px;border-bottom:1px solid var(--b100);margin-bottom:7px}
 .chart-wrap{position:relative}
 .h170{height:170px}
+.h480{height:480px}
 .h155{height:155px}
 .h145{height:145px}
 .h130{height:130px}
@@ -69,8 +70,8 @@ body{font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background
   <div class="col-wide">
     <div class="card">
       <div class="cc-title">需求转换漏斗：从采集到项目卡片的收敛路径</div>
-      <div class="funnel-wrap" style="gap:5px;">
-        <div class="funnel-step" style="max-width:130px;">
+      <div class="funnel-wrap" style="gap:3px;">
+        <div class="funnel-step" style="max-width:112px;">
           <div class="funnel-bar" style="height:100px;background:linear-gradient(180deg,#0B2D47,#1A4F73);padding-top:36px;">
             <div class="funnel-num">701</div>
             <div style="font-size:9px;opacity:.85;">原始需求</div>
@@ -78,7 +79,7 @@ body{font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background
           <div class="funnel-label">需求采集<br>访谈 / 问卷 / 工作坊</div>
         </div>
         <div class="f-arrow">&#10140;</div>
-        <div class="funnel-step" style="max-width:130px;">
+        <div class="funnel-step" style="max-width:112px;">
           <div class="funnel-bar" style="height:84px;background:linear-gradient(180deg,#2374A3,#3A8DBD);padding-top:26px;">
             <div class="funnel-num">588</div>
             <div style="font-size:9px;opacity:.85;">范围筛选</div>
@@ -86,7 +87,7 @@ body{font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background
           <div class="funnel-label">范围界定<br>剔除管理类 / 规划类</div>
         </div>
         <div class="f-arrow">&#10140;</div>
-        <div class="funnel-step" style="max-width:130px;">
+        <div class="funnel-step" style="max-width:112px;">
           <div class="funnel-bar" style="height:64px;background:linear-gradient(180deg,#5EA4CE,#79BADE);padding-top:18px;">
             <div class="funnel-num" style="font-size:14px;">23</div>
             <div style="font-size:9px;opacity:.85;">专题</div>
@@ -94,7 +95,7 @@ body{font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background
           <div class="funnel-label">专题聚类<br>按业务域自然分组</div>
         </div>
         <div class="f-arrow">&#10140;</div>
-        <div class="funnel-step" style="max-width:130px;">
+        <div class="funnel-step" style="max-width:112px;">
           <div class="funnel-bar" style="height:48px;background:linear-gradient(180deg,#89C4E8,#A5D4EE);padding-top:12px;">
             <div class="funnel-num" style="font-size:13px;color:var(--b900);">16</div>
             <div style="font-size:8px;opacity:.75;color:var(--b700);">SNN 场景</div>
@@ -102,7 +103,7 @@ body{font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background
           <div class="funnel-label">价值优选<br>高价值场景筛选</div>
         </div>
         <div class="f-arrow">&#10140;</div>
-        <div class="funnel-step" style="max-width:130px;">
+        <div class="funnel-step" style="max-width:112px;">
           <div class="funnel-bar" style="height:36px;background:linear-gradient(180deg,#C7E2F2,#DCEAF5);border:1.5px solid #A5CBE0;padding-top:8px;">
             <div class="funnel-num" style="font-size:12px;color:var(--b700);">N</div>
             <div style="font-size:7.5px;opacity:.7;color:var(--b700);">项目卡片</div>
@@ -174,7 +175,7 @@ body{font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background
   <div class="col-narrow">
     <div class="card">
       <div class="cc-title">处置总览：是否纳入本次项目范围</div>
-      <div class="chart-wrap h170"><canvas id="scopeChart"></canvas></div>
+      <div class="chart-wrap h480"><canvas id="scopeChart"></canvas></div>
       <p class="cc-note"><strong>588条（83.9%）</strong>纳入 S/4HANA 实施范围；<br><strong>113条（16.1%）</strong>溢出 —— 其中 53 条转管理优化通道，60 条转数字化规划储备。</p>
     </div>
   </div>
