@@ -3313,6 +3313,24 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
   </aside>
 </section>
 
+<!-- 64. 附录：需求数据实时看板 -->
+<section class="slide" data-title="附录 · 需求数据实时看板" style="padding-top:22px;padding-bottom:14px;overflow:auto;display:flex;flex-direction:column;">
+  <p class="kicker" style="margin-bottom:2px;flex-shrink:0">APPENDIX · LIVE REQUIREMENTS DASHBOARD</p>
+  <h2 class="h2" style="margin:0 0 6px;font-size:17px;flex-shrink:0">附录：701 条需求数据实时看板（腾讯文档快照）</h2>
+  <div style="flex:1;min-height:0;width:100%;border:1px solid var(--border);border-radius:var(--radius);overflow:auto;box-shadow:var(--shadow-lg);">
+    <iframe src="assets/charts/appendix-dashboard.html" style="width:1600px;height:1180px;border:none;display:block;" loading="lazy" title="701条需求数据实时看板"></iframe>
+  </div>
+  <div class="insight-box" style="margin-top:8px;padding:10px 16px !important;flex-shrink:0">
+    <p style="font-size:12px !important;margin:0;line-height:1.5"><strong>数据说明：</strong>本看板数据由脚本从腾讯文档「需求总库」（701 条）实时提取并聚合，按 <strong>项目范围界定 / 优先级 / 所属专题 / 提出部门 / 问题类型 / 问题分类</strong> 多维透视。数据通过 GitHub Action 定时刷新（或本地脚本重算）生成 <code>requirements-data.json</code> 快照，确保与在线表格保持一致；点击右上角「刷新数据」可拉取最新快照。</p>
+  </div>
+  <aside class="notes">
+    <p>这是报告的附录页，提供一个<strong>实时数据看板</strong>，将 701 条需求以多维图表形式直观呈现，作为前面所有结论的"数据底座"入口。</p>
+    <p>数据来源是腾讯文档在线表格「需求总库」，通过脚本定时提取聚合。看板展示：处置总览（本期/二期/三期/非本期）、优先级分布、专题 TOP10、部门 TOP10、问题类型、问题分类、以及三阶段×优先级交叉矩阵。</p>
+    <p>与第42页「需求处置与阶段分布」的区别：第42页是咨询视角的"需求→专题→项目卡片"转换逻辑叙事；本附录是纯数据透视的实时看板，强调数据的可核查与可追溯。</p>
+    <p>刷新机制：GitHub Action 按周期运行提取脚本重算 JSON 并提交，页面自动同步最新数据。</p>
+  </aside>
+</section>
+
 </div>
 
 <script>

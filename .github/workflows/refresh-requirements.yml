@@ -1,0 +1,59 @@
+name: Refresh Requirements Dashboard Data
+
+# 定时重算「需求数据实时看板」的数据快照（requirements-data.json）
+# 数据源：腾讯文档「需求总库」(eAHMLRIYXXeO / 子表 000001)
+#
+# ⚠️ 前置条件（一次性配置）：
+#   本工作流运行在 GitHub 服务器，无法复用 WorkBuddy 宿主注入的腾讯文档票据，
+#   必须手动在仓库 Settings → Secrets and variables → Actions 中添加：
+#     Name : TDOC_OAUTH_ACCESS_TOKEN
+#     Value: 你在 WorkBuddy 中登录腾讯文档后、由宿主注入的 OAuth access token
+#   （即本地运行 `python3 tencentdocs.py tdoc_init` 显示 READY 时使用的那个 token）
+#   注意：该 token 为会话凭证，过期后需重新填入，届时 Action 会失败并邮件提醒。
+#   未配置前，本工作流会跳过提取步骤，看板继续沿用已提交的快照（不会报错中断）。
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'      # 每 6 小时刷新一次（UTC）
+  workflow_dispatch: {}        # 支持手动触发：Actions 页 → 右侧 Run workflow
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    env:
+      TDOC_OAUTH_ACCESS_TOKEN: ${{ secrets.TDOC_OAUTH_ACCESS_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Extract requirements (skip if no token)
+        id: extract
+        run: |
+          if [ -z "$TDOC_OAUTH_ACCESS_TOKEN" ]; then
+            echo "::warning::TDOC_OAUTH_ACCESS_TOKEN 未配置，跳过实时提取，沿用已提交快照。"
+            echo "ran=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          python3 consulting/presentation/scripts/extract_requirements.py \
+            consulting/presentation/data/requirements-data.json
+          echo "ran=true" >> "$GITHUB_OUTPUT"
+
+      - name: Commit and push if changed
+        if: steps.extract.outputs.ran == 'true'
+        run: |
+          git config user.name "FSL Requirements Bot"
+          git config user.email "req-bot@fsl-report.github.io"
+          git add consulting/presentation/data/requirements-data.json
+          git diff --cached --quiet && echo "No changes to commit" && exit 0
+          git commit -m "data: refresh 701 requirements snapshot ($(date -u +%Y-%m-%dT%H:%M:%SZ))"
+          git push

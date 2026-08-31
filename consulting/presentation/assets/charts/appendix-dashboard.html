@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>701条需求实时数据看板</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+<style>
+:root{
+  --b900:#0B2D47;--b700:#1A4F73;--b500:#2374A3;--b300:#5EA4CE;--b100:#C7E2F2;--b050:#EBF5FB;
+  --text:#0F2233;--muted:#5B7A91;--rule:#D6E8F2;--r:6px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background:#fff;color:var(--text);font-size:12px;line-height:1.45;padding:14px 18px}
+
+/* 顶部大屏标题条 */
+.dash-header{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#0B2D47,#2374A3);border-radius:var(--r);padding:12px 20px;margin-bottom:13px;color:#fff}
+.dash-title{font-size:17px;font-weight:800;letter-spacing:.5px}
+.dash-sub{font-size:10.5px;opacity:.8;margin-top:2px}
+.dash-meta{display:flex;align-items:center;gap:14px}
+.dash-time{font-size:10.5px;opacity:.85;text-align:right}
+.dash-btn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);color:#fff;font-size:11px;font-weight:600;padding:5px 14px;border-radius:18px;cursor:pointer;transition:background .15s}
+.dash-btn:hover{background:rgba(255,255,255,.3)}
+
+.row{display:flex;gap:13px;margin-bottom:11px}
+.col{flex:1;min-width:0}
+.card{background:#fff;border:1px solid var(--rule);border-radius:var(--r);padding:10px 13px;box-shadow:0 1px 4px rgba(35,116,163,.07)}
+.cc-title{font-size:11px;font-weight:700;color:var(--b700);letter-spacing:.3px;padding-bottom:5px;border-bottom:1px solid var(--b100);margin-bottom:7px}
+.chart-wrap{position:relative}
+.h200{height:200px}
+.h180{height:180px}
+.h160{height:160px}
+.cc-note{font-size:9.5px;color:var(--muted);margin-top:5px;line-height:1.4}
+
+.kpi-row{display:flex;gap:9px;margin-bottom:11px}
+.kpi-card{flex:1;background:linear-gradient(135deg,#f5fafd,#eef6fc);border:1px solid var(--b100);border-radius:var(--r);padding:10px 12px;text-align:center}
+.kpi-val{font-size:24px;font-weight:800;color:var(--b900);line-height:1.1}
+.kpi-lbl{font-size:9.5px;color:var(--muted);margin-top:3px;font-weight:600}
+.kpi-sub{font-size:8px;color:var(--b300);margin-top:1px}
+
+.err{background:#fff4f4;border:1px solid #f3c0c0;color:#a33;padding:10px 14px;border-radius:6px;font-size:11px;margin-bottom:11px;display:none}
+</style>
+</head>
+<body>
+
+<div class="dash-header">
+  <div>
+    <div class="dash-title">佛山照明 SAP S/4HANA 升级 — 需求数据实时看板</div>
+    <div class="dash-sub">数据源：腾讯文档「需求总库」· 实时快照 · 全量 701 条需求多维透视</div>
+  </div>
+  <div class="dash-meta">
+    <div class="dash-time" id="dashTime">数据更新：加载中…</div>
+    <button class="dash-btn" onclick="loadData(true)">刷新数据</button>
+  </div>
+</div>
+
+<div class="err" id="errBox"></div>
+
+<div class="kpi-row" id="kpiRow"></div>
+
+<div class="row">
+  <div class="col">
+    <div class="card">
+      <div class="cc-title">需求处置总览：项目范围界定口径</div>
+      <div class="chart-wrap h200"><canvas id="scopeChart"></canvas></div>
+      <p class="cc-note" id="scopeNote"></p>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="cc-title">需求优先级分布（优先级_标准）</div>
+      <div class="chart-wrap h200"><canvas id="prioChart"></canvas></div>
+      <p class="cc-note" id="prioNote"></p>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <div class="card">
+      <div class="cc-title">需求所属专题 TOP10（按归属条数）</div>
+      <div class="chart-wrap h180"><canvas id="topicChart"></canvas></div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="cc-title">需求提出部门 TOP10</div>
+      <div class="chart-wrap h180"><canvas id="deptChart"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <div class="card">
+      <div class="cc-title">需求问题类型分布</div>
+      <div class="chart-wrap h160"><canvas id="typeChart"></canvas></div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="cc-title">需求问题分类（数字化 / 管理咨询 / 未填写）</div>
+      <div class="chart-wrap h160"><canvas id="catChart"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="cc-title">三阶段 × 优先级 交叉分布：每阶段内部的高/中/低/待定构成</div>
+  <div class="chart-wrap h180"><canvas id="phasePrioChart"></canvas></div>
+</div>
+
+<script>
+Chart.register(ChartDataLabels);
+var B900='#0B2D47',B700='#1A4F73',B500='#2374A3',B300='#5EA4CE',B100='#C7E2F2',MUTED='#5B7A91',RULE='#D6E8F2';
+var charts=[];
+
+function fmt(v){return v;}
+
+function buildKPI(d){
+  var scope=d.scope||{};
+  var inScope=(scope['本期']||0)+(scope['二期']||0)+(scope['三期']||0);
+  var topics=(d.topic_top||[]).length;
+  var depts=(d.dept_top||[]).length;
+  var html=''
+    +kpi(d.meta.total,'需求总量','条 · 全量采集')
+    +kpi(inScope,'纳入实施范围','条 · 占 '+ (100*inScope/d.meta.total).toFixed(1) +'%')
+    +kpi(topics,'收敛专题数','个 · 业务域聚类')
+    +kpi(depts,'覆盖部门数','个 · 提出部门');
+  document.getElementById('kpiRow').innerHTML=html;
+}
+function kpi(v,l,s){return '<div class="kpi-card"><div class="kpi-val">'+v+'</div><div class="kpi-lbl">'+l+'</div><div class="kpi-sub">'+s+'</div></div>';}
+
+function destroyAll(){charts.forEach(function(c){if(c) c.destroy();});charts=[];}
+
+function render(d){
+  destroyAll();
+  buildKPI(d);
+  document.getElementById('dashTime').textContent='数据更新：'+d.meta.updated_at;
+
+  // 1. 处置总览 doughnut
+  var sc=d.scope||{};
+  var scLabels=['本期','二期','三期','非本期'];
+  var scData=scLabels.map(function(k){return sc[k]||0;});
+  var inSc=scData[0]+scData[1]+scData[2];
+  document.getElementById('scopeNote').innerHTML='纳入实施 <strong>'+(100*inSc/d.meta.total).toFixed(1)+'%</strong>（'+inSc+'条），非本期溢出 <strong>'+(100*(sc['非本期']||0)/d.meta.total).toFixed(1)+'%</strong>。';
+  charts.push(new Chart(document.getElementById('scopeChart'),{
+    type:'doughnut',
+    data:{labels:scLabels,datasets:[{data:scData,backgroundColor:[B900,B700,B500,MUTED],borderWidth:2,borderColor:'#fff'}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'56%',
+      plugins:{legend:{position:'bottom',labels:{font:{size:10.5},color:B900,padding:9,usePointStyle:true,pointStyle:'circle'}},datalabels:{color:'#fff',font:{size:10,weight:'600'},formatter:function(v){return v;}}}}
+  }));
+
+  // 2. 优先级 bar
+  var pr=d.priority_std||[];
+  var prOrder=['高','中','低','待定','未填写'];
+  var prMap={};pr.forEach(function(x){prMap[x.name]=x.count;});
+  var prLabels=prOrder.filter(function(k){return prMap[k]!==undefined;});
+  var prData=prLabels.map(function(k){return prMap[k];});
+  var prColor={'高':B900,'中':B500,'低':B300,'待定':B100,'未填写':'#cfd8dc'};
+  var high=prMap['高']||0, mid=prMap['中']||0;
+  document.getElementById('prioNote').innerHTML='高优先级 <strong>'+high+'条</strong>、中优先级 <strong>'+mid+'条</strong>，二者合计占 '+(100*(high+mid)/d.meta.total).toFixed(1)+'%。';
+  charts.push(new Chart(document.getElementById('prioChart'),{
+    type:'bar',
+    data:{labels:prLabels,datasets:[{data:prData,backgroundColor:prLabels.map(function(k){return prColor[k];}),borderRadius:4}]},
+    options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:14}},
+      plugins:{legend:{display:false},datalabels:{anchor:'end',align:'top',clamp:true,font:{size:10.5,weight:'700'},color:B900,formatter:function(v){return v+' 条';}}},
+      scales:{y:{beginAtZero:true,ticks:{font:{size:9.5},color:MUTED},grid:{color:RULE}},x:{ticks:{font:{size:10.5},color:B900},grid:{display:false}}}}
+  }));
+
+  // 3. 专题 TOP10
+  var tp=(d.topic_top||[]).slice().reverse();
+  charts.push(new Chart(document.getElementById('topicChart'),{
+    type:'bar',
+    data:{labels:tp.map(function(x){return x.name;}),datasets:[{data:tp.map(function(x){return x.count;}),backgroundColor:B500,borderRadius:3}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,layout:{padding:{right:28}},
+      plugins:{legend:{display:false},datalabels:{anchor:'end',align:'right',clamp:true,font:{size:9.5,weight:'600'},color:B900,formatter:function(v){return v;}}},
+      scales:{x:{beginAtZero:true,ticks:{font:{size:9.5},color:MUTED},grid:{color:RULE}},y:{ticks:{font:{size:9.5},color:B900},grid:{display:false}}}}
+  }));
+
+  // 4. 部门 TOP10
+  var dp=(d.dept_top||[]).slice().reverse();
+  charts.push(new Chart(document.getElementById('deptChart'),{
+    type:'bar',
+    data:{labels:dp.map(function(x){return x.name;}),datasets:[{data:dp.map(function(x){return x.count;}),backgroundColor:B700,borderRadius:3}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,layout:{padding:{right:28}},
+      plugins:{legend:{display:false},datalabels:{anchor:'end',align:'right',clamp:true,font:{size:9.5,weight:'600'},color:B900,formatter:function(v){return v;}}},
+      scales:{x:{beginAtZero:true,ticks:{font:{size:9.5},color:MUTED},grid:{color:RULE}},y:{ticks:{font:{size:9.5},color:B900},grid:{display:false}}}}
+  }));
+
+  // 5. 问题类型 bar
+  var qt=(d.q_type||[]);
+  charts.push(new Chart(document.getElementById('typeChart'),{
+    type:'bar',
+    data:{labels:qt.map(function(x){return x.name;}),datasets:[{data:qt.map(function(x){return x.count;}),backgroundColor:B300,borderRadius:3}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,layout:{padding:{right:24}},
+      plugins:{legend:{display:false},datalabels:{anchor:'end',align:'right',clamp:true,font:{size:9,weight:'600'},color:B900,formatter:function(v){return v;}}},
+      scales:{x:{beginAtZero:true,ticks:{font:{size:9},color:MUTED},grid:{color:RULE}},y:{ticks:{font:{size:8.5},color:B900},grid:{display:false}}}}
+  }));
+
+  // 6. 问题分类 doughnut
+  var ct=d.category||[];
+  charts.push(new Chart(document.getElementById('catChart'),{
+    type:'doughnut',
+    data:{labels:ct.map(function(x){return x.name;}),datasets:[{data:ct.map(function(x){return x.count;}),backgroundColor:[B500,B700,'#cfd8dc'],borderWidth:2,borderColor:'#fff'}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'58%',
+      plugins:{legend:{position:'bottom',labels:{font:{size:10},color:B900,padding:8,usePointStyle:true,pointStyle:'circle'}},datalabels:{color:'#fff',font:{size:10,weight:'600'},formatter:function(v){return v;}}}}
+  }));
+
+  // 7. 阶段 × 优先级 矩阵 (stacked horizontal)
+  var pp=d.phase_priority||{};
+  var phases=['本期','二期','三期','非本期'];
+  var prios=['高','中','低','待定','未填写'];
+  var pColor={'高':B900,'中':B500,'低':B300,'待定':B100,'未填写':'#cfd8dc'};
+  var datasets=prios.filter(function(p){return phases.some(function(ph){return (pp[ph]||{})[p];});})
+    .map(function(p){return {label:p,data:phases.map(function(ph){return (pp[ph]||{})[p]||0;}),backgroundColor:pColor[p],borderRadius:2};});
+  charts.push(new Chart(document.getElementById('phasePrioChart'),{
+    type:'bar',
+    data:{labels:phases,datasets:datasets},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,layout:{padding:{right:40,top:6}},
+      plugins:{legend:{position:'top',labels:{font:{size:9.5},color:MUTED,boxWidth:12,padding:8}},
+        datalabels:{anchor:'end',align:'right',clamp:true,font:{size:9,weight:'600'},color:B900,
+          display:function(ctx){return ctx.dataset.data[ctx.dataIndex]>=20;},formatter:function(v){return v;}}},
+      scales:{x:{stacked:true,beginAtZero:true,ticks:{font:{size:9.5},color:MUTED},grid:{color:RULE}},
+        y:{stacked:true,ticks:{font:{size:10.5},color:B900},grid:{display:false}}}}
+  }));
+}
+
+function showErr(msg){
+  var box=document.getElementById('errBox');
+  box.style.display='block';
+  box.innerHTML=msg;
+}
+
+async function loadData(force){
+  try{
+    var url='../../data/requirements-data.json'+(force?'?t='+Date.now():'');
+    var resp=await fetch(url,{cache:'no-store'});
+    if(!resp.ok) throw new Error('HTTP '+resp.status);
+    var d=await resp.json();
+    document.getElementById('errBox').style.display='none';
+    render(d);
+  }catch(e){
+    showErr('数据加载失败：'+e.message+'。请确认页面通过 GitHub Pages 同源访问（本地 file:// 直接打开会被浏览器 CORS 拦截）。');
+  }
+}
+loadData(false);
+</script>
+</body>
+</html>
