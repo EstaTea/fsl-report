@@ -133,6 +133,15 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 .v2-icon-card .v2-icon-sub{
   font-size:14px;color:#5b7a91;line-height:1.5;
 }
+
+/* ===== 可滚动幻灯片（内容超长时允许纵向滚动） ===== */
+.slide[style*="overflow:auto"],
+.slide[style*="overflow-y:auto"]{
+  overflow-y:auto !important;
+  justify-content:flex-start !important;
+  padding-top:48px !important;
+  padding-bottom:48px !important;
+}
 .cover-fsl{background:linear-gradient(135deg,#0b2d47 0%,#1a4f73 55%,#2374a3 100%);color:#fff;padding:60px 48px 44px;position:relative;overflow:hidden}
 .cover-fsl::before{content:"";position:absolute;top:-40px;right:-60px;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,.04)}
 .cover-fsl::after{content:"";position:absolute;bottom:-60px;left:120px;width:220px;height:220px;border-radius:50%;background:rgba(35,116,163,.25)}
@@ -219,136 +228,8 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 
 <!-- ==================== PART 0: 封面 ==================== -->
 
-<!-- 1. 封面 -->
-<section class="slide" data-title="封面">
-  <div class="cover-slide">
-    <div class="cs-left">
-      <div class="cs-logo">FSL<span>佛山照明</span></div>
-      <div class="cs-body">
-        <div class="cs-title">佛山照明 SAP S/4HANA 升级<br>及业务诊断咨询方案</div>
-        <div class="cs-subtitle">诊断 · 架构 · 路径</div>
-        <div class="cs-desc">从制造商到服务商的数字化支撑 — 探索阶段蓝图汇报 V2</div>
-      </div>
-      <div class="cs-bottom">
-        <div class="cs-meta">
-          <div><span class="lbl">客户</span><span class="val">佛山照明股份有限公司</span></div>
-          <div><span class="lbl">咨询方</span><span class="val">艾维登（Eviden）咨询</span></div>
-          <div><span class="lbl">日期</span><span class="val">2026年8月27日</span></div>
-          <div><span class="lbl">版本</span><span class="val">V2 投影优化版</span></div>
-        </div>
-      </div>
-    </div>
-    <div class="cs-right">
-      <img src="../../assets/images/fsl-cover-bg.jpg" alt="" onerror="this.style.background='linear-gradient(135deg,#0b2d47 60%,#2374a3)'">
-    </div>
-  </div>
-</section>
 
-<!-- 2. 思维脑图目录（V2 新增）-->
-<section class="slide" data-title="目录">
-  <p class="kicker" style="margin-bottom:6px">CONTENTS</p>
-  <h2 class="h2" style="margin-bottom:20px">汇报内容总览</h2>
-
-  <!-- 左向右展开的思维脑图 -->
-  <div style="position:relative;padding:20px 10px 10px;overflow:hidden;">
-    <!-- 根节点 -->
-    <div style="text-align:center;margin-bottom:18px;">
-      <div style="display:inline-block;background:linear-gradient(135deg,#0b2d47,#2374a3);color:#fff;
-                  padding:12px 36px;border-radius:30px;font-size:19px;font-weight:800;letter-spacing:1px;
-                  box-shadow:0 4px 16px rgba(11,45,71,.2);position:relative;z-index:2;">
-        🎯 佛照数字化转型蓝图
-      </div>
-    </div>
-
-    <!-- 连接线：根→四大分支 -->
-    <svg style="position:absolute;top:68px;left:0;width:100%;height:30px;z-index:0;pointer-events:none;" viewBox="0 0 1200 30" preserveAspectRatio="none">
-      <line x1="600" y1="0" x2="150" y2="28" stroke="#2374a3" stroke-width="2" opacity=".35"/>
-      <line x1="600" y1="0" x2="400" y2="28" stroke="#2374a3" stroke-width="2" opacity=".35"/>
-      <line x1="600" y1="0" x2="800" y2="28" stroke="#2374a3" stroke-width="2" opacity=".35"/>
-      <line x1="600" y1="0" x2="1050" y2="28" stroke="#2374a3" stroke-width="2" opacity=".35"/>
-    </svg>
-
-    <!-- 四大分支卡片 -->
-    <div style="display:flex;gap:14px;margin-top:4px;">
-
-      <!-- 分支1：转型背景 + 现状诊断 -->
-      <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
-        <div style="background:linear-gradient(135deg,#0b2d47,#1a4f73);color:#fff;border-radius:10px;padding:14px 16px;text-align:center;box-shadow:0 3px 12px rgba(11,45,71,.15);">
-          <div style="font-size:15px;font-weight:800;margin-bottom:4px;">🔍 第一部分</div>
-          <div style="font-size:17px;font-weight:700;">现状诊断</div>
-          <div style="font-size:12px;opacity:.8;margin-top:4px;">我们在哪？</div>
-        </div>
-        <div style="background:#fff;border:1px solid rgba(11,45,71,.12);border-radius:8px;padding:10px 12px;flex:1;">
-          <div style="font-size:13px;color:#2374a3;font-weight:700;margin-bottom:6px;">● 转型背景与调研</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:4px;">· 29个部门调研</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:4px;">· 701条业务需求</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:6px;">· 商业模式梳理</div>
-          <div style="font-size:13px;color:#2374a3;font-weight:700;margin-bottom:6px;">● 四层痛点分析</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:4px;">· 管理 / 流程 / 系统 / 数据</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;">· DCMM成熟度评估</div>
-        </div>
-      </div>
-
-      <!-- 分支2：企业架构设计 -->
-      <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
-        <div style="background:linear-gradient(135deg,#1a4f73,#2374a3);color:#fff;border-radius:10px;padding:14px 16px;text-align:center;box-shadow:0 3px 12px rgba(11,45,71,.15);">
-          <div style="font-size:15px;font-weight:800;margin-bottom:4px;">🏛 第二部分</div>
-          <div style="font-size:17px;font-weight:700;">企业架构</div>
-          <div style="font-size:12px;opacity:.8;margin-top:4px;">要去哪？</div>
-        </div>
-        <div style="background:#fff;border:1px solid rgba(11,45,71,.12);border-radius:8px;padding:10px 12px;flex:1;">
-          <div style="font-size:13px;color:#2374a3;font-weight:700;margin-bottom:6px;">● TOGAF 方法论</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:4px;">· 驱动因素与设计原则</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:6px;">· 23项高价值场景</div>
-          <div style="font-size:13px;color:#2374a3;font-weight:700;margin-bottom:6px;">● 四层架构蓝图</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:4px;">· 业务 / 数据 / 应用 / 技术</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;">· 系统策略四象限</div>
-        </div>
-      </div>
-
-      <!-- 分支3：路径规划 -->
-      <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
-        <div style="background:linear-gradient(135deg,#2374a3,#5ea4ce);color:#fff;border-radius:10px;padding:14px 16px;text-align:center;box-shadow:0 3px 12px rgba(11,45,71,.15);">
-          <div style="font-size:15px;font-weight:800;margin-bottom:4px;">🗺 第三部分</div>
-          <div style="font-size:17px;font-weight:700;">路径规划</div>
-          <div style="font-size:12px;opacity:.8;margin-top:4px;">怎么去？</div>
-        </div>
-        <div style="background:#fff;border:1px solid rgba(11,45,71,.12);border-radius:8px;padding:10px 12px;flex:1;">
-          <div style="font-size:13px;color:#2374a3;font-weight:700;margin-bottom:6px;">● 转型愿景与目标</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:4px;">· 三阶段目标 (2026-2028)</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:6px;">· 24个项目卡片</div>
-          <div style="font-size:13px;color:#2374a3;font-weight:700;margin-bottom:6px;">● 实施保障体系</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:4px;">· 三年路线图 / 风险应对</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;">· 变革管理与人力资源</div>
-        </div>
-      </div>
-
-      <!-- 分支4：立即行动 -->
-      <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
-        <div style="background:linear-gradient(135deg,#5ea4ce,#89c4e8);color:#fff;border-radius:10px;padding:14px 16px;text-align:center;box-shadow:0 3px 12px rgba(11,45,71,.15);">
-          <div style="font-size:15px;font-weight:800;margin-bottom:4px;">🚀 第四部分</div>
-          <div style="font-size:17px;font-weight:700;">立即行动</div>
-          <div style="font-size:12px;opacity:.8;margin-top:4px;">下一步做什么？</div>
-        </div>
-        <div style="background:#fff;border:1px solid rgba(11,45,71,.12);border-radius:8px;padding:10px 12px;flex:1;">
-          <div style="font-size:13px;color:#2374a3;font-weight:700;margin-bottom:6px;">● 关键里程碑</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:4px;">· 近期关键节点</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:6px;">· 成功要素</div>
-          <div style="font-size:13px;color:#2374a3;font-weight:700;margin-bottom:6px;">● 治理与沟通</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:4px;">· KPI体系 / 治理机制</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;">· 总结与下一步计划</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <aside class="notes">
-    <p>这是汇报的思维导图式目录，帮助领导在开始时快速建立全局认知。</p>
-    <p>四个部分对应四个核心问题：我们在哪？要去哪？怎么去？下一步做什么？</p>
-    <p>每个分支下列出了该部分的核心内容要点。</p>
-  </aside>
-</section>
+<!-- [已移除] 封面页 & 目录页（2026-08-31 用户要求删除） -->
 
 <!-- 3. 议程 -->
 <section class="slide" data-title="封面">
@@ -506,13 +387,13 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
         <div class="card" style="border-left:4px solid #164a70">
           <h4 style="font-size:12.5px;color:#164a70">② 企业架构设计报告</h4>
           <p class="dim" style="margin-top:3px">TOGAF ADM方法论 · BA/AA/DA/TA四架构 · 业务能力地图（L1-L3）· 应用蓝图 · 集成架构 · 技术底座</p>
-          <p class="dim" style="font-size:9.5px;color:#eab308;margin-top:4px">🔄 进行中 · V6迭代中</p>
+          <p class="dim" style="font-size:9.5px;color:#16a34a;margin-top:4px">✅ 已完成</p>
         </div>
         <!-- 3. 专项方案设计报告 -->
         <div class="card" style="border-left:4px solid #2374a3">
           <h4 style="font-size:12.5px;color:#2374a3">③ 专项方案设计报告</h4>
           <p class="dim" style="margin-top:3px">8个高价值场景深度方案（S01-S16精选）· 业务流程重设计 · SAP功能匹配 · 实施范围与验收标准</p>
-          <p class="dim" style="font-size:9.5px;color:#94a3b8;margin-top:4px">⏳ 待启动</p>
+          <p class="dim" style="font-size:9.5px;color:#16a34a;margin-top:4px">✅ 已完成</p>
         </div>
         <!-- 4.1 数据调研分析报告 -->
         <div class="card" style="border-left:4px solid #3a8bc9">
@@ -539,13 +420,13 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
         <div class="card" style="border-left:4px solid #64748b">
           <h4 style="font-size:12.5px;color:#475569">⑤ 数字化保障组织设计报告</h4>
           <p class="dim" style="margin-top:3px">PMO+ARB治理架构 · CDO角色设计 · 变更管理机制 · 培训与赋能计划</p>
-          <p class="dim" style="font-size:9.5px;color:#eab308;margin-top:4px">🔄 进行中（可选）</p>
+          <p class="dim" style="font-size:9.5px;color:#94a3b8;margin-top:4px">⏳ 未开始（可选）</p>
         </div>
         <!-- 6. 路径规划报告 -->
         <div class="card" style="border-left:4px solid #0b2d47">
           <h4 style="font-size:12.5px;color:#0b2d47">⑥ 数字化转型路径规划报告</h4>
           <p class="dim" style="margin-top:3px">三年实施路线图（2026-2028）· 24个项目卡片 · 资源预算分配 · 风险识别与应对 · 里程碑节点</p>
-          <p class="dim" style="font-size:9.5px;color:#eab308;margin-top:4px">🔄 进行中 · V3迭代中</p>
+          <p class="dim" style="font-size:9.5px;color:#eab308;margin-top:4px">🔄 汇报中</p>
         </div>
       </div>
       <div class="insight-box mt-m" style="text-align:center">
@@ -1199,22 +1080,22 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     </div>
     <div class="v2-icon-row">
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
         <div class="v2-icon-title">信用管控缺失</div>
         <div class="v2-icon-sub">仅出库环节拦截信用<br>下单不校验 → 虚开订单锁定库存</div>
       </div>
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         </div>
         <div class="v2-icon-title">合同履约失控</div>
         <div class="v2-icon-sub">法务端无法实时获取付款进度<br>难以识别超付风险</div>
       </div>
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
         </div>
         <div class="v2-icon-title">价格管理失控</div>
         <div class="v2-icon-sub">同一物料多部门维护价格<br>缺乏无效价格自动冻结机制</div>
@@ -1222,15 +1103,15 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     </div>
     <div class="v2-icon-row" style="margin-top:14px;">
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
         <div class="v2-icon-title">绩效考核困难</div>
         <div class="v2-icon-sub">研发产出/供应商交付/质量损失等KPI<br>难以自动量化，依赖人工统计</div>
       </div>
       <div class="v2-icon-card" style="flex:1.6;background:linear-gradient(135deg,#eaf4fa,#fff);border:none;box-shadow:none;">
         <div style="display:flex;align-items:center;gap:14px;height:100%;padding:0 10px;">
-          <div style="font-size:32px;">💡</div>
+          <div style="font-size:32px;color:#2374a3;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"/></svg></div>
           <div>
             <div style="font-size:15px;font-weight:700;color:#0b2d47;margin-bottom:4px;">根因判断</div>
             <div style="font-size:14px;color:#5b7a91;line-height:1.5;">这是<strong>管理理念+系统能力</strong>的双重问题。需要从"人治"转向"法治"，用系统规则固化管控要求。</div>
@@ -1241,7 +1122,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
   </div>
   <aside class="notes">
     <p>V2 重设计：从竖排 pain-card 改为图标卡片式（参考 slide 67 风格）。</p>
-    <p>每个痛点一个图标卡片：红色系图标 + 标题 + 两行描述 + 底部根因总结。</p>
+    <p>每个痛点一个图标卡片：蓝色系图标 + 标题 + 两行描述 + 底部根因总结。</p>
   </aside>
 </section>
 
@@ -1259,15 +1140,15 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     </div>
     <div class="v2-icon-row">
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1l4 4 2.68 6.92a2 2 0 0 0 .86 1.15l6.07 4.54a2 2 0 0 0 2.52-.08l4.53-4.53a2 2 0 0 0 .08-2.52L15.57 6.46a2 2 0 0 1-1.15-.86L8.05 1.93A2 2 0 0 0 6.9 1.64L1 1z"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1l4 4 2.68 6.92a2 2 0 0 0 .86 1.15l6.07 4.54a2 2 0 0 0 2.52-.08l4.53-4.53a2 2 0 0 0 .08-2.52L15.57 6.46a2 2 0 0 1-1.15-.86L8.05 1.93A2 2 0 0 0 6.9 1.64L1 1z"/></svg>
         </div>
         <div class="v2-icon-title">P2P 采购到付款断点</div>
         <div class="v2-icon-sub">SRM存发票但SAP无附件查看<br>财务需线下翻阅纸质资料</div>
       </div>
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
         </div>
         <div class="v2-icon-title">O2C 销售到收款断点</div>
         <div class="v2-icon-sub">OA订单与SAP不关联<br>车间收到订单不能直接分解BOM</div>
@@ -1275,22 +1156,22 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     </div>
     <div class="v2-icon-row" style="margin-top:14px;">
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><polyline points="3 6 9 12 15 6"/><path d="M20 13V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><polyline points="3 6 9 12 15 6"/><path d="M20 13V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7"/></svg>
         </div>
         <div class="v2-icon-title">废品管理线下化</div>
         <div class="v2-icon-sub">资源回收废品依赖人工线下登记<br>未在SAP实现全流程闭环</div>
       </div>
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
         </div>
         <div class="v2-icon-title">审批流程繁琐</div>
         <div class="v2-icon-sub">财务申请/预付款/报销三流程<br>需领导依次审批，建议合并闭环</div>
       </div>
       <div class="v2-icon-card" style="flex:1.4;background:linear-gradient(135deg,#eaf4fa,#fff);border:none;box-shadow:none;">
         <div style="display:flex;align-items:center;gap:14px;height:100%;padding:0 10px;">
-          <div style="font-size:32px;">💡</div>
+          <div style="font-size:32px;color:#2374a3;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"/></svg></div>
           <div>
             <div style="font-size:15px;font-weight:700;color:#0b2d47;margin-bottom:4px;">根因判断</div>
             <div style="font-size:14px;color:#5b7a91;line-height:1.5;">核心是<strong>"部门墙"</strong>——业务流跨越部门时退化为线下手工操作。需要打通 OA↔SAP↔SRM 的系统连接。</div>
@@ -1317,15 +1198,15 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     </div>
     <div class="v2-icon-row">
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
         </div>
         <div class="v2-icon-title">PLM与SAP脱节</div>
         <div class="v2-icon-sub">研发BOM变更无法实时同步<br>设计与制造"两张皮"</div>
       </div>
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
         </div>
         <div class="v2-icon-title">OA与SAP割裂</div>
         <div class="v2-icon-sub">OA审批后订单无法触发SAP生产计划<br>需人工二次录入</div>
@@ -1333,22 +1214,22 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     </div>
     <div class="v2-icon-row" style="margin-top:14px;">
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
         </div>
         <div class="v2-icon-title">SRM协同滞后</div>
         <div class="v2-icon-sub">采购订单/送货单同步不及时<br>影响供应商送货准确性</div>
       </div>
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         </div>
         <div class="v2-icon-title">高并发卡顿</div>
         <div class="v2-icon-sub">自营订单自动交货大订单时超时<br>无法满足电商高并发需求</div>
       </div>
       <div class="v2-icon-card" style="flex:1.4;background:linear-gradient(135deg,#eaf4fa,#fff);border:none;box-shadow:none;">
         <div style="display:flex;align-items:center;gap:14px;height:100%;padding:0 10px;">
-          <div style="font-size:32px;">💡</div>
+          <div style="font-size:32px;color:#2374a3;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"/></svg></div>
           <div>
             <div style="font-size:15px;font-weight:700;color:#0b2d47;margin-bottom:4px;">根因判断</div>
             <div style="font-size:14px;color:#5b7a91;line-height:1.5;"><strong>"烟囱式"</strong>架构 + SAP ECC 性能瓶颈。升级 S/4HANA + CPI 集成平台可系统性解决。</div>
@@ -1375,15 +1256,15 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     </div>
     <div class="v2-icon-row">
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         </div>
         <div class="v2-icon-title">"新品"定义模糊</div>
         <div class="v2-icon-sub">各部门认定标准不一致<br>销售统计需人工甄别</div>
       </div>
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
         </div>
         <div class="v2-icon-title">物料描述不规范</div>
         <div class="v2-icon-sub">同一物料多名称/多编码<br>无法跨系统追踪</div>
@@ -1391,22 +1272,22 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     </div>
     <div class="v2-icon-row" style="margin-top:14px;">
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
         </div>
         <div class="v2-icon-title">客户/供应商重复</div>
         <div class="v2-icon-sub">同一客户多个编码<br>无法全景视图分析</div>
       </div>
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
         </div>
         <div class="v2-icon-title">数据孤岛无挖掘</div>
         <div class="v2-icon-sub">大量交易数据沉睡在系统中<br>无法支撑智能分析与预测</div>
       </div>
       <div class="v2-icon-card" style="flex:1.4;background:linear-gradient(135deg,#eaf4fa,#fff);border:none;box-shadow:none;">
         <div style="display:flex;align-items:center;gap:14px;height:100%;padding:0 10px;">
-          <div style="font-size:32px;">💡</div>
+          <div style="font-size:32px;color:#2374a3;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"/></svg></div>
           <div>
             <div style="font-size:15px;font-weight:700;color:#0b2d47;margin-bottom:4px;">根因判断</div>
             <div style="font-size:14px;color:#5b7a91;line-height:1.5;">核心是<strong>缺 MDG 主数据治理平台</strong>。需建立统一的主数据标准（物料/客户/供应商），实现"一物一码"。这是 S/4HANA 升级的基础前提。</div>
@@ -1884,7 +1765,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 
 
 <!-- 28. 桑基图说明 -->
-<section class="slide" data-title="桑基图" style="padding-top:24px;padding-bottom:16px;overflow:hidden;display:flex;flex-direction:column;">
+<section class="slide" data-title="桑基图" style="padding-top:24px;padding-bottom:16px;overflow:auto;display:flex;flex-direction:column;">
   <p class="kicker" style="margin-bottom:2px;flex-shrink:0">SANKEY DIAGRAM</p>
   <h2 class="h2" style="margin:0 0 4px;font-size:17px;flex-shrink:0">701条原始需求 → 4A架构 → 高价值场景 汇总桑基图</h2>
   <div style="flex:1;min-height:0;width:100%;border:1px solid var(--border);border-radius:var(--radius);overflow:auto;box-shadow:var(--shadow-lg);">
@@ -1909,19 +1790,22 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     </div>
     <div style="flex:0.75;display:flex;flex-direction:column;gap:10px;font-size:11px;overflow-y:auto;min-width:0;min-height:0">
       <div style="background:linear-gradient(135deg,#0b2d47,#1a4f73);color:#fff;padding:10px 14px;border-radius:8px">
-        <div style="font-weight:700;font-size:13px;margin-bottom:4px">一期 · 2026年实施（14个）</div>
-        <div style="opacity:.9;line-height:1.5">S01物料主数据治理、S02客户信用管理、S05销售订单全链路追踪、S06海外财务合规、S07制造成本还原、S08财务组织+科目主数据、S09应收清账+BIP接口、S11按客户销售项目核算和分析方案、S12研发投入产出分析体系建设、S13供应商交期与绩效管理、S14采购价格透明化与比价分析、S15采购配额管理与订单分配智能化、S16产前齐套性预警与跟踪、S17库存多维度查询体系</div>
+        <div style="font-weight:700;font-size:13px;margin-bottom:2px">一期 · 夯实底座（2026 · 14个）</div>
+        <div style="opacity:.88;line-height:1.5;font-size:10.5px"><strong>战略定位：</strong>主数据治理 + 财务基础 + 核心业务闭环。先把"数据地基"打牢——物料/客户/供应商统一编码、财务科目重构、成本还原到位，后续所有高级应用才有可信数据源。</div>
+        <div style="opacity:.75;line-height:1.4;font-size:10px;margin-top:3px;border-top:1px solid rgba(255,255,255,.2);padding-top:3px">S01·S02·S05·S06·S07·S08·S09·S11·S12·S13·S14·S15·S16·S17</div>
       </div>
       <div style="background:linear-gradient(135deg,#2374a3,#5ea4ce);color:#fff;padding:10px 14px;border-radius:8px">
-        <div style="font-weight:700;font-size:13px;margin-bottom:4px">二期 · 2027年实施（8个）</div>
-        <div style="opacity:.9;line-height:1.5">S03跨公司转卖模式优化、S04销售价格与折扣管理体系优化、S10集团合并报表建设、S18主生产计划MPS建设、S19 MRP物料需求计划、S23 BOM全生命周期建设（注：S13/S14跨一二期延续）</div>
+        <div style="font-weight:700;font-size:13px;margin-bottom:2px">二期 · 贯通协同（2027 · 6个）</div>
+        <div style="opacity:.88;line-height:1.5;font-size:10.5px"><strong>战略定位：</strong>跨域流程打通 + 计划体系深化。在一期数据底座之上，打通跨公司转卖、价格体系、合并报表；同时引入MPS/MRP/BOM等生产计划核心模块，实现产供销协同。</div>
+        <div style="opacity:.75;line-height:1.4;font-size:10px;margin-top:3px;border-top:1px solid rgba(255,255,255,.2);padding-top:3px">S03·S04·S10·S18·S19·S23</div>
       </div>
-      <div style="background:linear-gradient(135deg,#5ea4ce,#89c4e8);color:#fff;padding:10px 14px;border-radius:8px">
-        <div style="font-weight:700;font-size:13px;margin-bottom:4px">三期 · 2028年实施（3个）</div>
-        <div style="opacity:.9;line-height:1.5">S20生产进度看板、S21质量追溯建设、S22质量合格率统计分析</div>
+      <div style="background:linear-gradient(135deg,#5ea4ce,#89c4e8);color:#0b2d47;padding:10px 14px;border-radius:8px">
+        <div style="font-weight:700;font-size:13px;margin-bottom:2px">三期 · 智慧跃升（2028 · 3个）</div>
+        <div style="opacity:.9;line-height:1.5;font-size:10.5px"><strong>战略定位：</strong>数据驱动决策 + 智能化运营。当数据和流程均已就绪，通过实时看板、质量追溯、合格率分析实现从"记录系统"到"智能系统"的跃升。</div>
+        <div style="opacity:.75;line-height:1.4;font-size:10px;margin-top:3px;border-top:1px solid rgba(11,45,71,.15);padding-top:3px">S20·S21·S22</div>
       </div>
       <div class="insight-box" style="padding:10px 14px;margin-top:4px">
-        <p style="font-size:11px;margin:0"><strong>排序依据：</strong>业务价值（BV 1-5）× 技术难度（TD 1-5）综合评分。P0以高价值+可快速落地为主；P1以高价值但实施周期长或依赖P0前置条件为主；P2以报表可视化类为主，技术难度低但业务价值相对有限。</p>
+        <p style="font-size:11px;margin:0"><strong>📐 分期逻辑：</strong>按<strong>依赖关系</strong>分层——一期是所有场景的"前置条件"（无主数据则无法做计划，无成本还原则无法做分析）；二期依赖一期的数据质量和业务闭环；三期依赖前两期的完整数据链路。同时结合<strong>BV×TD 四象限</strong>：高BV低TD的快速赢优先落地（一期为主），高BV高TD的战略深挖留足实施周期（二期），低TD可视化类作为能力补全收尾（三期）。</p>
       </div>
     </div>
   </div>
@@ -1934,7 +1818,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 </section>
 
 <!-- 46a. 23个高价值场景 — 详细列表 -->
-<section class="slide" data-title="23个场景详细列表">
+<section class="slide" data-title="23个场景详细列表" style="overflow-y:auto;">
   <p class="kicker">SCENARIO DETAILS</p>
   <h2 class="h2">23个高价值场景：分期实施全景</h2>
 
@@ -1942,118 +1826,133 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     <div class="v2-kicker">23 SCENARIOS · FROM 701 REQUIREMENTS</div>
     <div class="v2-body">
       从 701 条业务需求中收敛出 <strong style="color:#2374a3">23 个高价值场景</strong>，
-      按业务价值(BV)与技术难度(TD)分为三期实施：
-      <strong style="color:#2374a3">一期14个（2026）</strong>快速赢 +
-      <strong style="color:#2374a3">二期6个（2027）</strong>战略深挖 +
-      <strong style="color:#2374a3">三期3个（2028）</strong>能力补全。
+      按<strong>依赖关系</strong>与<strong>BV×TD 四象限评估</strong>分为三期实施：
+      <strong style="color:#0b2d47">一期14个（2026）夯实底座</strong> +
+      <strong style="color:#333">二期6个（2027）贯通协同</strong> +
+      <strong style="color:#333">三期3个（2028）智慧跃升</strong>。
     </div>
 
-    <!-- 一期：14个场景 - 3列图标卡片 -->
-    <div style="font-size:14px;font-weight:700;color:#0b2d47;margin-bottom:10px;">🔵 一期 · 2026年实施（14个）— 快速赢</div>
-    <div class="v2-icon-row" style="margin-bottom:18px;">
-      <div class="v2-icon-card">
-        <div class="v2-icon-circle">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M20 7h-9M14 17H5M15 12H3"/><circle cx="18" cy="12" r="3"/></svg>
-        </div>
-        <div class="v2-icon-title">S01 物料主数据治理</div>
-        <div class="v2-icon-sub">统一编码 · 一码一物<br>BV 5.0 / TD 4.5</div>
-      </div>
-      <div class="v2-icon-card">
-        <div class="v2-icon-circle">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-        </div>
-        <div class="v2-icon-title">S02 客户信用管理</div>
-        <div class="v2-icon-sub">SAP标准信用 + 定制<br>BV 4.5 / TD 4.5</div>
-      </div>
-      <div class="v2-icon-card">
-        <div class="v2-icon-circle">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-        </div>
-        <div class="v2-icon-title">S05 订单全链路追踪</div>
-        <div class="v2-icon-sub">销售→生产→物流可视<br>BV 3.4 / TD 4.2</div>
-      </div>
+    <!-- 分期逻辑说明卡片 -->
+    <div style="background:linear-gradient(135deg,#f7fafc,#eef6fc);border-left:4px solid #2374a3;border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:10px;font-size:12px;line-height:1.55;color:#0b2d47;">
+      <strong style="color:#2374a3;">📐 为什么这样划分？</strong>
+      一期是所有场景的<strong>前置条件</strong>——无主数据则无法做计划，无成本还原则无法做分析；二期依赖一期的数据质量和业务闭环；三期依赖前两期的完整数据链路。同时结合 BV×TD 四象限：高BV低TD快速赢优先（一期），高BV高TD战略深挖留周期（二期），低TD可视化收尾（三期）。
     </div>
-    <div class="v2-icon-row" style="margin-bottom:18px;">
-      <div class="v2-icon-card">
-        <div class="v2-icon-circle">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+
+    <!-- 一期：14个场景 - 横排紧凑卡片（图标在左，文字在右） -->
+    <div style="font-size:13px;font-weight:800;color:#0b2d47;margin-bottom:6px;">一期 · 夯实底座（2026 · 14个）— 快速赢</div>
+
+    <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
+      <!-- Row 1: S01 S02 S05 -->
+      <div style="display:flex;gap:10px;">
+        <div style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:8px 12px;box-shadow:0 1px 4px rgba(11,45,71,.04);">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;"><path d="M20 7h-9M14 17H5M15 12H3"/><circle cx="18" cy="12" r="3"/></svg>
+          <div style="min-width:0;">
+            <div style="font-size:14px;font-weight:700;color:#0b2d47;line-height:1.2;">S01 物料主数据治理</div>
+            <div style="font-size:11.5px;color:#5b7a91;margin-top:1px;">统一编码·一码一物 &nbsp;<span style="color:#2374a3;font-weight:600;">BV 5.0 / TD 4.5</span></div>
+          </div>
         </div>
-        <div class="v2-icon-title">S06 海外财务合规</div>
-        <div class="v2-icon-sub">多语言·多货币支持<br>BV 3.0 / TD 3.2</div>
+        <div style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:8px 12px;box-shadow:0 1px 4px rgba(11,45,71,.04);">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          <div style="min-width:0;">
+            <div style="font-size:14px;font-weight:700;color:#0b2d47;line-height:1.2;">S02 客户信用管理</div>
+            <div style="font-size:11.5px;color:#5b7a91;margin-top:1px;">SAP标准信用+定制 &nbsp;<span style="color:#2374a3;font-weight:600;">BV 4.5 / TD 4.5</span></div>
+          </div>
+        </div>
+        <div style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:8px 12px;box-shadow:0 1px 4px rgba(11,45,71,.04);">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <div style="min-width:0;">
+            <div style="font-size:14px;font-weight:700;color:#0b2d47;line-height:1.2;">S05 订单全链路追踪</div>
+            <div style="font-size:11.5px;color:#5b7a91;margin-top:1px;">销售→生产→物流可视 &nbsp;<span style="color:#2374a3;font-weight:600;">BV 3.4 / TD 4.2</span></div>
+          </div>
+        </div>
       </div>
-      <div class="v2-icon-card">
-        <div class="v2-icon-circle">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      <!-- Row 2: S06 S07 S08 -->
+      <div style="display:flex;gap:10px;">
+        <div style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:8px 12px;box-shadow:0 1px 4px rgba(11,45,71,.04);">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <div style="min-width:0;">
+            <div style="font-size:14px;font-weight:700;color:#0b2d47;line-height:1.2;">S06 海外财务合规</div>
+            <div style="font-size:11.5px;color:#5b7a91;margin-top:1px;">多语言·多货币支持 &nbsp;<span style="color:#2374a3;font-weight:600;">BV 3.0 / TD 3.2</span></div>
+          </div>
         </div>
-        <div class="v2-icon-title">S07 制造成本还原</div>
-        <div class="v2-icon-sub">法人+集团成本视图<br>BV 4.8 / TD 4.5</div>
+        <div style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:8px 12px;box-shadow:0 1px 4px rgba(11,45,71,.04);">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <div style="min-width:0;">
+            <div style="font-size:14px;font-weight:700;color:#0b2d47;line-height:1.2;">S07 制造成本还原</div>
+            <div style="font-size:11.5px;color:#5b7a91;margin-top:1px;">法人+集团成本视图 &nbsp;<span style="color:#2374a3;font-weight:600;">BV 4.8 / TD 4.5</span></div>
+          </div>
+        </div>
+        <div style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:8px 12px;box-shadow:0 1px 4px rgba(11,45,71,.04);">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <div style="min-width:0;">
+            <div style="font-size:14px;font-weight:700;color:#0b2d47;line-height:1.2;">S08 财务组织+科目</div>
+            <div style="font-size:11.5px;color:#5b7a91;margin-top:1px;">1800+科目→600个 &nbsp;<span style="color:#2374a3;font-weight:600;">BV 2.2 / TD 2.1</span></div>
+          </div>
+        </div>
       </div>
-      <div class="v2-icon-card">
-        <div class="v2-icon-circle">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      <!-- Row 3: S09 S11 S12 -->
+      <div style="display:flex;gap:10px;">
+        <div style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:8px 12px;box-shadow:0 1px 4px rgba(11,45,71,.04);">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <div style="min-width:0;">
+            <div style="font-size:14px;font-weight:700;color:#0b2d47;line-height:1.2;">S09 应收清账+BIP</div>
+            <div style="font-size:11.5px;color:#5b7a91;margin-top:1px;">自动化清账+财务共享 &nbsp;<span style="color:#2374a3;font-weight:600;">BV 2.8 / TD 2.3</span></div>
+          </div>
         </div>
-        <div class="v2-icon-title">S08 财务组织+科目</div>
-        <div class="v2-icon-sub">1800+科目→600个<br>BV 2.2 / TD 2.1</div>
+        <div style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:8px 12px;box-shadow:0 1px 4px rgba(11,45,71,.04);">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          <div style="min-width:0;">
+            <div style="font-size:14px;font-weight:700;color:#0b2d47;line-height:1.2;">S11 客户项目核算</div>
+            <div style="font-size:11.5px;color:#5b7a91;margin-top:1px;">按客户/项目精细化分析 &nbsp;<span style="color:#2374a3;font-weight:600;">BV 4.3 / TD 3.3</span></div>
+          </div>
+        </div>
+        <div style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:8px 12px;box-shadow:0 1px 4px rgba(11,45,71,.04);">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          <div style="min-width:0;">
+            <div style="font-size:14px;font-weight:700;color:#0b2d47;line-height:1.2;">S12 研发投入产出分析</div>
+            <div style="font-size:11.5px;color:#5b7a91;margin-top:1px;">研发成本归集+效益分析 &nbsp;<span style="color:#2374a3;font-weight:600;">BV 4.5 / TD 3.5</span></div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="v2-icon-row" style="margin-bottom:18px;">
-      <div class="v2-icon-card">
-        <div class="v2-icon-circle">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <!-- Row 4: S13 S14 S15-S17 -->
+      <div style="display:flex;gap:10px;">
+        <div style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:8px 12px;box-shadow:0 1px 4px rgba(11,45,71,.04);">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1l4 4 2.68 6.92a2 2 0 0 0 .86 1.15l6.07 4.54a2 2 0 0 0 2.52-.08l4.53-4.53a2 2 0 0 0 .08-2.52L15.57 6.46a2 2 0 0 1-1.15-.86L8.05 1.93A2 2 0 0 0 6.9 1.64L1 1z"/></svg>
+          <div style="min-width:0;">
+            <div style="font-size:14px;font-weight:700;color:#0b2d47;line-height:1.2;">S13 供应商交期与绩效</div>
+            <div style="font-size:11.5px;color:#5b7a91;margin-top:1px;">SRM-SAP交期同步优化 &nbsp;<span style="color:#2374a3;font-weight:600;">BV 4.2 / TD 3.8</span></div>
+          </div>
         </div>
-        <div class="v2-icon-title">S09 应收清账+BIP</div>
-        <div class="v2-icon-sub">自动化清账+财务共享<br>BV 2.8 / TD 2.3</div>
-      </div>
-      <div class="v2-icon-card">
-        <div class="v2-icon-circle">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        <div style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:8px 12px;box-shadow:0 1px 4px rgba(11,45,71,.04);">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <div style="min-width:0;">
+            <div style="font-size:14px;font-weight:700;color:#0b2d47;line-height:1.2;">S14 采购价格透明化</div>
+            <div style="font-size:11.5px;color:#5b7a91;margin-top:1px;">价格数据库+比价分析 &nbsp;<span style="color:#2374a3;font-weight:600;">BV 4.1 / TD 3.8</span></div>
+          </div>
         </div>
-        <div class="v2-icon-title">S11 客户项目核算</div>
-        <div class="v2-icon-sub">按客户/项目精细化分析<br>BV 4.3 / TD 3.3</div>
-      </div>
-      <div class="v2-icon-card">
-        <div class="v2-icon-circle">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        <div style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:8px 12px;box-shadow:0 1px 4px rgba(11,45,71,.04);">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <div style="min-width:0;">
+            <div style="font-size:14px;font-weight:700;color:#0b2d47;line-height:1.2;">S15-S17 配额/齐套/库存</div>
+            <div style="font-size:11.5px;color:#5b7a91;margin-top:1px;">采购配额·齐套预警·多维查询 &nbsp;<span style="color:#2374a3;font-weight:600;">BV 3.6~4.5 / TD 3.5~4.5</span></div>
+          </div>
         </div>
-        <div class="v2-icon-title">S12 研发投入产出分析</div>
-        <div class="v2-icon-sub">研发成本归集+效益分析<br>BV 4.5 / TD 3.5</div>
-      </div>
-    </div>
-    <div class="v2-icon-row" style="margin-bottom:6px;">
-      <div class="v2-icon-card">
-        <div class="v2-icon-circle">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1l4 4 2.68 6.92a2 2 0 0 0 .86 1.15l6.07 4.54a2 2 0 0 0 2.52-.08l4.53-4.53a2 2 0 0 0 .08-2.52L15.57 6.46a2 2 0 0 1-1.15-.86L8.05 1.93A2 2 0 0 0 6.9 1.64L1 1z"/></svg>
-        </div>
-        <div class="v2-icon-title">S13 供应商交期与绩效</div>
-        <div class="v2-icon-sub">SRM-SAP交期同步优化<br>BV 4.2 / TD 3.8</div>
-      </div>
-      <div class="v2-icon-card">
-        <div class="v2-icon-circle">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        </div>
-        <div class="v2-icon-title">S14 采购价格透明化</div>
-        <div class="v2-icon-sub">价格数据库+比价分析<br>BV 4.1 / TD 3.8</div>
-      </div>
-      <div class="v2-icon-card">
-        <div class="v2-icon-circle">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-        </div>
-        <div class="v2-icon-title">S15-S17 配额/齐套/库存</div>
-        <div class="v2-icon-sub">采购配额·齐套预警·多维查询<br>BV 3.6~4.5 / TD 3.5~4.5</div>
       </div>
     </div>
 
-    <!-- 二期 + 三期：精简展示 -->
-    <div style="display:flex;gap:16px;margin-top:14px;">
-      <div style="flex:1;background:#fff;border-radius:10px;padding:16px;border:1px solid rgba(35,116,163,.2);">
-        <div style="font-size:15px;font-weight:700;color:#2374a3;margin-bottom:10px;">🟢 二期 · 2027年（6个）— 战略深挖</div>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;">
-          <span class="tag-fsl">S03 跨公司转卖</span><span class="tag-fsl">S04 价格体系</span><span class="tag-fsl">S10 合并报表</span><span class="tag-fsl">S18 MPS计划</span><span class="tag-fsl">S19 MRP物料</span><span class="tag-fsl">S23 BOM全生命周期</span>
+    <!-- 二期 + 三期：精简展示（黑色文字） -->
+    <div style="display:flex;gap:14px;margin-top:10px;">
+      <div style="flex:1;background:#f8f9fa;border-radius:8px;padding:12px 14px;border:1px solid rgba(11,45,71,.1);">
+        <div style="font-size:13px;font-weight:800;color:#222;margin-bottom:4px;">二期 · 贯通协同（2027 · 6个）— 战略深挖</div>
+        <div style="font-size:11px;color:#555;margin-bottom:8px;line-height:1.45;">跨域流程打通 + 计划体系深化。在一期数据底座之上，打通跨公司转卖、价格体系、合并报表；引入 MPS/MRP/BOM 实现产供销协同。</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;">
+          <span class="tag-fsl-outline">S03 跨公司转卖</span><span class="tag-fsl-outline">S04 价格体系</span><span class="tag-fsl-outline">S10 合并报表</span><span class="tag-fsl-outline">S18 MPS计划</span><span class="tag-fsl-outline">S19 MRP物料</span><span class="tag-fsl-outline">S23 BOM全生命周期</span>
         </div>
       </div>
-      <div style="flex:.85;background:#fff;border-radius:10px;padding:16px;border:1px solid rgba(94,164,206,.3);">
-        <div style="font-size:15px;font-weight:700;color:#5ea4ce;margin-bottom:10px;">🔵 三期 · 2028年（3个）— 能力补全</div>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+      <div style="flex:.82;background:#f8f9fa;border-radius:8px;padding:12px 14px;border:1px solid rgba(11,45,71,.1);">
+        <div style="font-size:13px;font-weight:800;color:#222;margin-bottom:4px;">三期 · 智慧跃升（2028 · 3个）— 能力补全</div>
+        <div style="font-size:11px;color:#555;margin-bottom:8px;line-height:1.45;">数据驱动决策 + 智能化运营。数据和流程就绪后，通过实时看板、质量追溯实现从"记录系统"到"智能系统"的跃升。</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;">
           <span class="tag-fsl-outline">S20 生产进度看板</span><span class="tag-fsl-outline">S21 质量追溯</span><span class="tag-fsl-outline">S22 质量合格率分析</span>
         </div>
       </div>
