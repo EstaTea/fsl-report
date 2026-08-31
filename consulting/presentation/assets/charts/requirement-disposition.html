@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>701条需求的处理方法：专题归属与三阶段分布</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+<style>
+:root{
+  --b900:#0B2D47;--b700:#1A4F73;--b500:#2374A3;--b300:#5EA4CE;--b100:#C7E2F2;--b050:#EBF5FB;
+  --text:#0F2233;--muted:#5B7A91;--rule:#D6E8F2;--r:6px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background:#fff;color:var(--text);font-size:12px;line-height:1.45;padding:14px 18px}
+.row{display:flex;gap:13px;margin-bottom:11px}
+.col{flex:1;min-width:0}
+.col-narrow{flex:0.85;min-width:0}
+.card{background:#fff;border:1px solid var(--rule);border-radius:var(--r);padding:10px 13px;box-shadow:0 1px 4px rgba(35,116,163,.07)}
+.cc-title{font-size:11px;font-weight:700;color:var(--b700);letter-spacing:.3px;padding-bottom:5px;border-bottom:1px solid var(--b100);margin-bottom:7px}
+.chart-wrap{position:relative}
+.h170{height:170px}
+.h155{height:155px}
+.h145{height:145px}
+.h130{height:130px}
+.cc-note{font-size:9.5px;color:var(--muted);margin-top:5px;line-height:1.45}
+
+/* ===== 转换漏斗（纯 CSS） ===== */
+.funnel-wrap{display:flex;align-items:center;justify-content:center;gap:3px;padding:6px 0}
+.funnel-step{display:flex;flex-direction:column;align-items:center;flex:1;max-width:120px}
+.funnel-bar{width:100%;border-radius:4px 4px 0 0;text-align:center;color:#fff;font-weight:700;font-size:11px;padding:6px 2px 4px;position:relative;transition:opacity .2s}
+.funnel-bar:hover{opacity:.88}
+.funnel-label{font-size:9px;color:var(--muted);margin-top:4px;text-align:center;line-height:1.3;font-weight:600}
+.funnel-num{font-size:15px;font-weight:800;color:var(--b900)}
+.funnel-sub{font-size:8.5px;color:var(--muted);margin-top:1px}
+.f-arrow{color:var(--b300);font-size:14px;font-weight:700;padding:0 1px;flex-shrink:0;align-self:center;margin-bottom:10px}
+
+/* ===== KPI 数字卡片行 ===== */
+.kpi-row{display:flex;gap:9px;margin-bottom:10px}
+.kpi-card{flex:1;background:linear-gradient(135deg,#f5fafd,#eef6fc);border:1px solid var(--b100);border-radius:var(--r);padding:9px 10px;text-align:center}
+.kpi-val{font-size:22px;font-weight:800;color:var(--b900);line-height:1.1}
+.kpi-lbl{font-size:9px;color:var(--muted);margin-top:3px;font-weight:600}
+.kpi-sub{font-size:8px;color:var(--b300);margin-top:1px}
+</style>
+</head>
+<body>
+
+<!-- KPI 快速概览 -->
+<div class="kpi-row">
+  <div class="kpi-card"><div class="kpi-val">701</div><div class="kpi-lbl">原始需求采集</div><div class="kpi-sub">访谈+问卷+工作坊</div></div>
+  <div class="kpi-card"><div class="kpi-val">588</div><div class="kpi-lbl">纳入实施范围</div><div class="kpi-sub">占比 83.9%</div></div>
+  <div class="kpi-card"><div class="kpi-val">23</div><div class="kpi-lbl">专题聚类</div><div class="kpi-sub">自然收敛形成</div></div>
+  <div class="kpi-card"><div class="kpi-val">16</div><div class="kpi-lbl">高价值场景 SNN</div><div class="kpi-sub">优选核心场景</div></div>
+  <div class="kpi-card"><div class="kpi-val">3</div><div class="kpi-lbl">实施阶段</div><div class="kpi-sub">2026-2028 分期</div></div>
+</div>
+
+<!-- Row 1: 漏斗 + 处置总览 -->
+<div class="row">
+  <div class="col">
+    <div class="card">
+      <div class="cc-title">需求转换漏斗：从采集到项目卡片的收敛路径</div>
+      <div class="funnel-wrap">
+        <div class="funnel-step">
+          <div class="funnel-bar" style="height:90px;background:linear-gradient(180deg,#0B2D47,#1A4F73);padding-top:32px;">
+            <div class="funnel-num">701</div>
+            <div style="font-size:8.5px;opacity:.85;">原始需求</div>
+          </div>
+          <div class="funnel-label">需求采集<br>访谈 / 问卷 / 工作坊</div>
+        </div>
+        <div class="f-arrow">&#10140;</div>
+        <div class="funnel-step">
+          <div class="funnel-bar" style="height:76px;background:linear-gradient(180deg,#2374A3,#3A8DBD);padding-top:24px;">
+            <div class="funnel-num">588</div>
+            <div style="font-size:8.5px;opacity:.85;">范围筛选</div>
+          </div>
+          <div class="funnel-label">范围界定<br>剔除管理类 / 规划类</div>
+        </div>
+        <div class="f-arrow">&#10140;</div>
+        <div class="funnel-step">
+          <div class="funnel-bar" style="height:58px;background:linear-gradient(180deg,#5EA4CE,#79BADE);padding-top:16px;">
+            <div class="funnel-num" style="font-size:13px;">23</div>
+            <div style="font-size:8px;opacity:.85;">专题</div>
+          </div>
+          <div class="funnel-label">专题聚类<br>按业务域自然分组</div>
+        </div>
+        <div class="f-arrow">&#10140;</div>
+        <div class="funnel-step">
+          <div class="funnel-bar" style="height:44px;background:linear-gradient(180deg,#89C4E8,#A5D4EE);padding-top:10px;">
+            <div class="funnel-num" style="font-size:12px;color:var(--b900);">16</div>
+            <div style="font-size:7.5px;opacity:.75;color:var(--b700);">SNN 场景</div>
+          </div>
+          <div class="funnel-label">价值优选<br>高价值场景筛选</div>
+        </div>
+        <div class="f-arrow">&#10140;</div>
+        <div class="funnel-step">
+          <div class="funnel-bar" style="height:34px;background:linear-gradient(180deg,#C7E2F2,#DCEAF5);border:1.5px solid #A5CBE0;padding-top:7px;">
+            <div class="funnel-num" style="font-size:11px;color:var(--b700);">N</div>
+            <div style="font-size:7px;opacity:.7;color:var(--b700);">项目卡片</div>
+          </div>
+          <div class="funnel-label">项目卡片<br>可执行交付单元</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-narrow">
+    <div class="card">
+      <div class="cc-title">处置总览：是否纳入本次项目范围</div>
+      <div class="chart-wrap h170"><canvas id="scopeChart"></canvas></div>
+      <p class="cc-note">588条（83.9%）纳入S/4HANA实施；113条溢出——53条转<strong>管理优化通道</strong>，60条转<strong>数字化规划</strong>。</p>
+    </div>
+  </div>
+</div>
+
+<!-- Row 2: 架构域分布 + 需求类型矩阵 -->
+<div class="row">
+  <div class="col">
+    <div class="card">
+      <div class="cc-title">四大架构域的需求密度与专题覆盖</div>
+      <div class="chart-wrap h155"><canvas id="archChart"></canvas></div>
+      <p class="cc-note">A1 业务流程域需求最集中（298条），覆盖14个专题；A4 组织变革域需求最少但每个专题平均覆盖度高。</p>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="cc-title">需求类型在各架构域的交叉分布</div>
+      <div class="chart-wrap h155"><canvas id="typeArchChart"></canvas></div>
+      <p class="cc-note">系统功能构建类需求在A1/A2域占主导；报表与分析类集中在A2数据治理域。</p>
+    </div>
+  </div>
+</div>
+
+<!-- Row 3: 专题TOP8 + 三阶段 -->
+<div class="row">
+  <div class="col">
+    <div class="card">
+      <div class="cc-title">专题归属 TOP8（含 S17 / S10 标注）</div>
+      <div class="chart-wrap h145"><canvas id="topicChart"></canvas></div>
+      <p class="cc-note"><strong>S17</strong>=内部供应链可视化提升（58条）；<strong>S10</strong>=集团财务管控/合并报表（54条）。</p>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="cc-title">三阶段分布：2026夯实底座 · 2027贯通协同 · 2028智慧跃升</div>
+      <div class="chart-wrap h145"><canvas id="phaseChart"></canvas></div>
+      <p class="cc-note">基于主数据就绪度、跨域依赖、数据沉淀三条硬判据分阶段。</p>
+    </div>
+  </div>
+</div>
+
+<!-- Row 4: 优先级-阶段映射（全宽） -->
+<div class="card" style="margin-bottom:6px;">
+  <div class="cc-title">需求优先级在三阶段的映射：P0 必须本期 / P1 尽早启动 / P2 可延后规划</div>
+  <div class="chart-wrap h130"><canvas id="priorityChart"></canvas></div>
+</div>
+
+<script>
+Chart.register(ChartDataLabels);
+var B900='#0B2D47',B700='#1A4F73',B500='#2374A3',B300='#5EA4CE',B100='#C7E2F2',MUTED='#5B7A91',RULE='#D6E8F2';
+var DL={color:'#fff',font:{size:10,weight:'600'},formatter:function(v){return v;}};
+
+/* ── 图1：处置总览环形图 ── */
+new Chart(document.getElementById('scopeChart'),{
+  type:'doughnut',
+  data:{
+    labels:['纳入本次项目范围 588','溢出范围（非本期）113'],
+    datasets:[{data:[588,113],backgroundColor:[B500,B100],borderWidth:2,borderColor:'#fff'}]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,cutout:'58%',
+    plugins:{
+      legend:{position:'bottom',labels:{font:{size:9.5},color:B900,padding:8,usePointStyle:true,pointStyle:'circle'}},
+      datalabels:DL
+    }
+  }
+});
+
+/* ── 图2：四大架构域需求密度与专题覆盖（分组柱状） ── */
+new Chart(document.getElementById('archChart'),{
+  type:'bar',
+  data:{
+    labels:['A1 业务流程','A2 数据治理','A3 技术应用','A4 组织变革'],
+    datasets:[
+      {label:'需求数量',data:[298,168,82,40],backgroundColor:B900,borderRadius:[3,3,0,0]},
+      {label:'覆盖专题数',data:[14,5,3,1],backgroundColor:B300,borderRadius:[3,3,0,0]}
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,layout:{padding:{top:12}},
+    plugins:{
+      legend:{position:'top',labels:{font:{size:9},color:MUTED,boxWidth:12,padding:8}},
+      datalabels:{anchor:'end',align:'top',clamp:true,font:{size:9,weight:'600'},color:B900,
+        formatter:function(v,ctx){return v+(ctx.datasetIndex===0?' 条':' 个');}}
+    },
+    scales:{
+      x:{ticks:{font:{size:9.5},color:B900},grid:{display:false}},
+      y:{beginAtZero:true,ticks:{font:{size:9},color:MUTED},grid:{color:RULE}}
+    }
+  }
+});
+
+/* ── 图3：需求类型 × 架构域 交叉分布（堆叠横向柱） ── */
+new Chart(document.getElementById('typeArchChart'),{
+  type:'bar',
+  data:{
+    labels:['系统功能构建','新报表开发','报表数据分析','标准功能适配','体验优化','定制优化'],
+    datasets:[
+      {label:'A1 业务流程',data:[175,28,12,22,15,20],backgroundColor:B900},
+      {label:'A2 数据治理',data:[95,8,22,3,5,18],backgroundColor:B700},
+      {label:'A3 技术应用',data:[52,3,2,0,3,8],backgroundColor:B500},
+      {label:'A4 组织变革',data:[34,2,1,0,0,3],backgroundColor:B300}
+    ]
+  },
+  options:{
+    indexAxis:'y',responsive:true,maintainAspectRatio:false,layout:{padding:{right:20}},
+    plugins:{
+      legend:{position:'top',labels:{font:{size:8.5},color:MUTED,boxWidth:10,padding:6}},
+      datalabels:{anchor:'end',align:'right',clamp:true,font:{size:8.5,weight:'600'},color:B900,
+        display:function(ctx){return ctx.dataset.data[ctx.dataIndex]>15;}}
+    },
+    scales:{
+      x:{stacked:true,beginAtZero:true,ticks:{font:{size:8.5},color:MUTED},grid:{color:RULE}},
+      y:{stacked:true,ticks:{font:{size:9},color:B900},grid:{display:false}}
+    }
+  }
+});
+
+/* ── 图4：专题归属 TOP8（横向条形） ── */
+new Chart(document.getElementById('topicChart'),{
+  type:'bar',
+  data:{
+    labels:['销售全流程数字化管控','内部供应链可视化提升','采购集约化管理提升','集团财务管控','销售价格体系','质量追溯','生产计划与排程','电商渠道整合'],
+    datasets:[{
+      data:[102,58,58,54,51,30,28,25],
+      backgroundColor:[B900,B500,B700,B500,B300,B100,B700,B300],
+      borderRadius:3
+    }]
+  },
+  options:{
+    indexAxis:'y',responsive:true,maintainAspectRatio:false,layout:{padding:{right:24}},
+    plugins:{
+      legend:{display:false},
+      datalabels:{anchor:'end',align:'right',clamp:true,font:{size:9,weight:'600'},color:B900,
+        formatter:function(v,ctx){
+          var t=ctx.chart.data.labels[ctx.dataIndex];
+          if(t==='内部供应链可视化提升') return v+'  S17';
+          if(t==='集团财务管控') return v+'  S10';
+          return v;
+        }}
+    },
+    scales:{
+      x:{beginAtZero:true,max:120,ticks:{font:{size:9},color:MUTED},grid:{color:RULE}},
+      y:{ticks:{font:{size:9},color:B900},grid:{display:false}}
+    }
+  }
+});
+
+/* ── 图5：三阶段分布 ── */
+new Chart(document.getElementById('phaseChart'),{
+  type:'bar',
+  data:{
+    labels:['2026 夯实底座\n（本期）','2027 贯通协同\n（二期）','2028 智慧跃升\n（三期）','溢出范围\n（非本期）'],
+    datasets:[{
+      data:[278,203,107,113],
+      backgroundColor:[B900,B700,B500,'#cfd8dc'],
+      borderRadius:4,barPercentage:.58
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,layout:{padding:{top:18}},
+    plugins:{
+      legend:{display:false},
+      datalabels:{anchor:'end',align:'top',clamp:true,font:{size:10.5,weight:'700'},color:B900,
+        formatter:function(v){return v+' 条';}}
+    },
+    scales:{
+      y:{beginAtZero:true,ticks:{font:{size:9},color:MUTED},grid:{color:RULE}},
+      x:{ticks:{font:{size:9.5},color:B900},grid:{display:false}}
+    }
+  }
+});
+
+/* ── 图6：优先级 → 三阶段映射（堆叠横向柱） ── */
+new Chart(document.getElementById('priorityChart'),{
+  type:'bar',
+  data:{
+    labels:['2026 夯实底座（本期）','2027 贯通协同（二期）','2028 智慧跃升（三期）'],
+    datasets:[
+      {label:'P0 — 必须本期完成',data:[142,38,12],backgroundColor:B900,borderRadius:[3,0,0,0]},
+      {label:'P1 — 尽早启动',data:[98,115,45],backgroundColor:B500},
+      {label:'P2 — 可延后规划',data:[38,50,50],backgroundColor:B100,borderRadius:[0,0,3,0]}
+    ]
+  },
+  options:{
+    indexAxis:'y',responsive:true,maintainAspectRatio:false,layout:{padding:{right:36,top:8}},
+    plugins:{
+      legend:{position:'top',labels:{font:{size:9},color:MUTED,boxWidth:12,padding:8}},
+      datalabels:{anchor:'end',align:'right',clamp:true,font:{size:9,weight:'600'},color:B900,
+        display:function(ctx){return ctx.dataset.data[ctx.dataIndex]>=30;},
+        formatter:function(v){return v+' 条';}}
+    },
+    scales:{
+      x:{stacked:true,beginAtZero:true,ticks:{font:{size:9},color:MUTED},grid:{color:RULE}},
+      y:{stacked:true,ticks:{font:{size:10},color:B900},grid:{display:false}}
+    }
+  }
+});
+</script>
+</body>
+</html>
