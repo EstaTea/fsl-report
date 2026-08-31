@@ -14,18 +14,65 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background:#fff;color:var(--text);font-size:12px;line-height:1.45;padding:14px 18px}
 
-/* 顶部大屏标题条 */
-.dash-header{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#0B2D47,#2374A3);border-radius:var(--r);padding:12px 20px;margin-bottom:13px;color:#fff}
+/* ===== 动画基础 ===== */
+@keyframes fadeInUp {
+  from{opacity:0;transform:translateY(18px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes fadeIn {
+  from{opacity:0} to{opacity:1}
+}
+@keyframes shimmer {
+  0%{background-position:-200% center}
+  100%{background-position:200% center}
+}
+@keyframes pulse-ring {
+  0%{box-shadow:0 0 0 0 rgba(35,116,163,.35)}
+  70%{box-shadow:0 0 0 8px rgba(35,116,163,0)}
+  100%{box-shadow:0 0 0 0 rgba(35,116,163,0)}
+}
+@keyframes count-glow {
+  0%,100%{text-shadow:0 0 0 transparent}
+  50%{text-shadow:0 0 12px rgba(35,116,163,.25)}
+}
+@keyframes spin-slow {
+  from{transform:rotate(0deg)} to{transform:rotate(360deg)}
+}
+@keyframes dash-btn-loading {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* 顶部大屏标题条 — 流光渐变 */
+.dash-header{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#0B2D47 0%,#2374A3 40%,#1A4F73 70%,#0B2D47 100%);background-size:200% 200%;border-radius:var(--r);padding:12px 20px;margin-bottom:13px;color:#fff;animation:shimmer 6s ease-in-out infinite}
 .dash-title{font-size:17px;font-weight:800;letter-spacing:.5px}
 .dash-sub{font-size:10.5px;opacity:.8;margin-top:2px}
 .dash-meta{display:flex;align-items:center;gap:14px}
-.dash-time{font-size:10.5px;opacity:.85;text-align:right}
-.dash-btn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);color:#fff;font-size:11px;font-weight:600;padding:5px 14px;border-radius:18px;cursor:pointer;transition:background .15s}
-.dash-btn:hover{background:rgba(255,255,255,.3)}
+.dash-time{font-size:10.5px;opacity:.85;text-align:right;min-width:150px}
+.dash-btn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);color:#fff;font-size:11px;font-weight:600;padding:5px 14px;border-radius:18px;cursor:pointer;transition:all .2s ease;position:relative;overflow:hidden}
+.dash-btn:hover:not(.loading){background:rgba(255,255,255,.3);transform:scale(1.04)}
+.dash-btn.loading{pointer-events:none;background-image:linear-gradient(90deg,transparent 0%, rgba(255,255,255,.15) 50%, transparent 100%);background-size:200% 100%;animation:dash-btn-loading 1s linear infinite;color:rgba(255,255,255,.7)}
 
 .row{display:flex;gap:13px;margin-bottom:11px}
 .col{flex:1;min-width:0}
-.card{background:#fff;border:1px solid var(--rule);border-radius:var(--r);padding:10px 13px;box-shadow:0 1px 4px rgba(35,116,163,.07)}
+.card{background:#fff;border:1px solid var(--rule);border-radius:var(--r);padding:10px 13px;box-shadow:0 1px 4px rgba(35,116,163,.07);
+  opacity:0;transform:translateY(16px);animation:fadeInUp .55s ease forwards}
+/* 错开入场延迟 */
+.row:nth-child(1) .card:nth-child(1){animation-delay:.05s}
+.row:nth-child(1) .card:nth-child(2){animation-delay:.12s}
+.kpi-row .kpi-card:nth-child(1){animation-delay:.02s}
+.kpi-row .kpi-card:nth-child(2){animation-delay:.08s}
+.kpi-row .kpi-card:nth-child(3){animation-delay:.14s}
+.kpi-row .kpi-card:nth-child(4){animation-delay:.20s}
+.row:nth-child(2) .card{animation-delay:.22s}
+.row:nth-child(2) .card:nth-child(2){animation-delay:.28s}
+.row:nth-child(3) .card{animation-delay:.34s}
+.row:nth-child(3) .card:nth-child(2){animation-delay:.40s}
+.row:nth-child(4) .card{animation-delay:.46s}
+.row:nth-child(4) .card:nth-child(2){animation-delay:.52s}
+.row:last-of-type .card{animation-delay:.58s}
+
 .cc-title{font-size:11px;font-weight:700;color:var(--b700);letter-spacing:.3px;padding-bottom:5px;border-bottom:1px solid var(--b100);margin-bottom:7px}
 .chart-wrap{position:relative}
 .h200{height:200px}
@@ -33,13 +80,29 @@ body{font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background
 .h160{height:160px}
 .cc-note{font-size:9.5px;color:var(--muted);margin-top:5px;line-height:1.4}
 
+/* KPI 卡片 — 悬停 + 计数发光 */
 .kpi-row{display:flex;gap:9px;margin-bottom:11px}
-.kpi-card{flex:1;background:linear-gradient(135deg,#f5fafd,#eef6fc);border:1px solid var(--b100);border-radius:var(--r);padding:10px 12px;text-align:center}
-.kpi-val{font-size:24px;font-weight:800;color:var(--b900);line-height:1.1}
+.kpi-card{flex:1;background:linear-gradient(135deg,#f5fafd,#eef6fc);border:1px solid var(--b100);border-radius:var(--r);padding:10px 12px;text-align:center;
+  opacity:0;transform:translateY(16px) scale(.96);animation:fadeInUp .5s ease forwards;
+  transition:transform .25s ease, box-shadow .25s ease;cursor:default}
+.kpi-card:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 6px 20px rgba(35,116,163,.13)}
+.kpi-val{font-size:24px;font-weight:800;color:var(--b900);line-height:1.1;
+  /* 数字滚动时短暂发光 */ transition:text-shadow .3s ease}
+.kpi-val.counting{animation:count-glow .9s ease}
 .kpi-lbl{font-size:9.5px;color:var(--muted);margin-top:3px;font-weight:600}
 .kpi-sub{font-size:8px;color:var(--b300);margin-top:1px}
 
-.err{background:#fff4f4;border:1px solid #f3c0c0;color:#a33;padding:10px 14px;border-radius:6px;font-size:11px;margin-bottom:11px;display:none}
+.err{background:#fff4f4;border:1px solid #f3c0c0;color:#a33;padding:10px 14px;border-radius:6px;font-size:11px;margin-bottom:11px;display:none;
+  animation:fadeIn .3s ease}
+
+/* 刷新指示器 */
+.refresh-indicator{display:inline-block;width:12px;height:12px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;
+  vertical-align:middle;margin-right:5px;display:none;animation:spin-slow .8s linear infinite}
+.dash-btn.loading .refresh-indicator{display:inline-block}
+
+/* 底部数据来源条 — 渐入 */
+.footer-bar{text-align:center;font-size:8.5px;color:var(--muted);margin-top:10px;padding-top:8px;border-top:1px solid var(--b050);
+  opacity:0;animation:fadeIn .6s ease .7s forwards;line-height:1.5}
 </style>
 </head>
 <body>
@@ -50,8 +113,8 @@ body{font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background
     <div class="dash-sub">数据源：腾讯文档「需求总库」· 实时快照 · 全量 701 条需求多维透视</div>
   </div>
   <div class="dash-meta">
-    <div class="dash-time" id="dashTime">数据更新：加载中…</div>
-    <button class="dash-btn" onclick="loadData(true)">刷新数据</button>
+    <div class="dash-time" id="dashTime"><span class="refresh-indicator"></span>数据更新：加载中…</div>
+    <button class="dash-btn" id="refreshBtn" onclick="loadData(true)">刷新数据</button>
   </div>
 </div>
 
@@ -111,12 +174,36 @@ body{font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background
   <div class="chart-wrap h180"><canvas id="phasePrioChart"></canvas></div>
 </div>
 
+<div class="footer-bar" id="footerBar"></div>
+
 <script>
 Chart.register(ChartDataLabels);
 var B900='#0B2D47',B700='#1A4F73',B500='#2374A3',B300='#5EA4CE',B100='#C7E2F2',MUTED='#5B7A91',RULE='#D6E8F2';
 var charts=[];
 
 function fmt(v){return v;}
+
+/* ===== KPI 数字滚动计数 ===== */
+function animateCount(el, target, duration){
+  duration=duration||1200;
+  var start=0, startTime=null;
+  // 缓动函数：easeOutExpo
+  function easeOutExpo(t){return t===1?1:1-Math.pow(2,-10*t);}
+  function step(timestamp){
+    if(!startTime) startTime=timestamp;
+    var progress=Math.min((timestamp-startTime)/duration,1);
+    var eased=easeOutExpo(progress);
+    el.textContent=Math.round(eased*target);
+    if(progress<1){
+      requestAnimationFrame(step);
+    }else{
+      el.textContent=target;
+      el.classList.remove('counting');
+    }
+  }
+  el.classList.add('counting');
+  requestAnimationFrame(step);
+}
 
 function buildKPI(d){
   var scope=d.scope||{};
@@ -129,15 +216,35 @@ function buildKPI(d){
     +kpi(topics,'收敛专题数','个 · 业务域聚类')
     +kpi(depts,'覆盖部门数','个 · 提出部门');
   document.getElementById('kpiRow').innerHTML=html;
+
+  /* 触发数字滚动 */
+  setTimeout(function(){
+    var vals=document.querySelectorAll('.kpi-val');
+    vals.forEach(function(el){
+      var target=parseInt(el.getAttribute('data-target'),10);
+      if(target&&!isNaN(target)) animateCount(el,target,1100);
+    });
+  }, 350);
 }
-function kpi(v,l,s){return '<div class="kpi-card"><div class="kpi-val">'+v+'</div><div class="kpi-lbl">'+l+'</div><div class="kpi-sub">'+s+'</div></div>';}
+function kpi(v,l,s){return '<div class="kpi-card"><div class="kpi-val" data-target="'+v+'">'+v+'</div><div class="kpi-lbl">'+l+'</div><div class="kpi-sub">'+s+'</div></div>';}
 
 function destroyAll(){charts.forEach(function(c){if(c) c.destroy();});charts=[];}
+
+/* ===== 图表渲染（带动画配置）===== */
+var chartAnim={
+  duration:1200,
+  easing:'easeOutQuart',
+  delay:function(ctx){
+    /* 按数据索引错开，柱状图每根柱子依次出现 */
+    return ctx.dataIndex * 60;
+  }
+};
 
 function render(d){
   destroyAll();
   buildKPI(d);
-  document.getElementById('dashTime').textContent='数据更新：'+d.meta.updated_at;
+  document.getElementById('dashTime').innerHTML='<span class="refresh-indicator" style="display:none"></span>数据更新：'+d.meta.updated_at;
+  document.getElementById('footerBar').innerHTML='数据源：本表格数据由脚本从腾讯文档「需求总库」提取（701 条）· 实时级联聚合 · 项目范围界定 / 优先级 / 所属专题 / 提出部门 / 问题类型 / 问题分类 · 多维透视 · 数据通过 GitHub Action 定时刷新 | 版本:'+d.meta.version+' · json 快照 · 编辑与在线预览保持一致';
 
   // 1. 处置总览 doughnut
   var sc=d.scope||{};
@@ -149,6 +256,7 @@ function render(d){
     type:'doughnut',
     data:{labels:scLabels,datasets:[{data:scData,backgroundColor:[B900,B700,B500,MUTED],borderWidth:2,borderColor:'#fff'}]},
     options:{responsive:true,maintainAspectRatio:false,cutout:'56%',
+      animation:chartAnim,
       plugins:{legend:{position:'bottom',labels:{font:{size:10.5},color:B900,padding:9,usePointStyle:true,pointStyle:'circle'}},datalabels:{color:'#fff',font:{size:10,weight:'600'},formatter:function(v){return v;}}}}
   }));
 
@@ -165,6 +273,7 @@ function render(d){
     type:'bar',
     data:{labels:prLabels,datasets:[{data:prData,backgroundColor:prLabels.map(function(k){return prColor[k];}),borderRadius:4}]},
     options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:14}},
+      animation:Object.assign({},chartAnim,{delay:function(ctx){return ctx.dataIndex*180;}}),
       plugins:{legend:{display:false},datalabels:{anchor:'end',align:'top',clamp:true,font:{size:10.5,weight:'700'},color:B900,formatter:function(v){return v+' 条';}}},
       scales:{y:{beginAtZero:true,ticks:{font:{size:9.5},color:MUTED},grid:{color:RULE}},x:{ticks:{font:{size:10.5},color:B900},grid:{display:false}}}}
   }));
@@ -175,6 +284,7 @@ function render(d){
     type:'bar',
     data:{labels:tp.map(function(x){return x.name;}),datasets:[{data:tp.map(function(x){return x.count;}),backgroundColor:B500,borderRadius:3}]},
     options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,layout:{padding:{right:28}},
+      animation:Object.assign({},chartAnim,{delay:function(ctx){return ctx.dataIndex*80;}}),
       plugins:{legend:{display:false},datalabels:{anchor:'end',align:'right',clamp:true,font:{size:9.5,weight:'600'},color:B900,formatter:function(v){return v;}}},
       scales:{x:{beginAtZero:true,ticks:{font:{size:9.5},color:MUTED},grid:{color:RULE}},y:{ticks:{font:{size:9.5},color:B900},grid:{display:false}}}}
   }));
@@ -185,6 +295,7 @@ function render(d){
     type:'bar',
     data:{labels:dp.map(function(x){return x.name;}),datasets:[{data:dp.map(function(x){return x.count;}),backgroundColor:B700,borderRadius:3}]},
     options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,layout:{padding:{right:28}},
+      animation:Object.assign({},chartAnim,{delay:function(ctx){return ctx.dataIndex*80;}}),
       plugins:{legend:{display:false},datalabels:{anchor:'end',align:'right',clamp:true,font:{size:9.5,weight:'600'},color:B900,formatter:function(v){return v;}}},
       scales:{x:{beginAtZero:true,ticks:{font:{size:9.5},color:MUTED},grid:{color:RULE}},y:{ticks:{font:{size:9.5},color:B900},grid:{display:false}}}}
   }));
@@ -195,6 +306,7 @@ function render(d){
     type:'bar',
     data:{labels:qt.map(function(x){return x.name;}),datasets:[{data:qt.map(function(x){return x.count;}),backgroundColor:B300,borderRadius:3}]},
     options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,layout:{padding:{right:24}},
+      animation:Object.assign({},chartAnim,{delay:function(ctx){return ctx.dataIndex*60;}}),
       plugins:{legend:{display:false},datalabels:{anchor:'end',align:'right',clamp:true,font:{size:9,weight:'600'},color:B900,formatter:function(v){return v;}}},
       scales:{x:{beginAtZero:true,ticks:{font:{size:9},color:MUTED},grid:{color:RULE}},y:{ticks:{font:{size:8.5},color:B900},grid:{display:false}}}}
   }));
@@ -205,6 +317,7 @@ function render(d){
     type:'doughnut',
     data:{labels:ct.map(function(x){return x.name;}),datasets:[{data:ct.map(function(x){return x.count;}),backgroundColor:[B500,B700,'#cfd8dc'],borderWidth:2,borderColor:'#fff'}]},
     options:{responsive:true,maintainAspectRatio:false,cutout:'58%',
+      animation:chartAnim,
       plugins:{legend:{position:'bottom',labels:{font:{size:10},color:B900,padding:8,usePointStyle:true,pointStyle:'circle'}},datalabels:{color:'#fff',font:{size:10,weight:'600'},formatter:function(v){return v;}}}}
   }));
 
@@ -219,6 +332,7 @@ function render(d){
     type:'bar',
     data:{labels:phases,datasets:datasets},
     options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,layout:{padding:{right:40,top:6}},
+      animation:Object.assign({},chartAnim,{delay:function(ctx){return ctx.datasetIndex*120+ctx.dataIndex*60;}}),
       plugins:{legend:{position:'top',labels:{font:{size:9.5},color:MUTED,boxWidth:12,padding:8}},
         datalabels:{anchor:'end',align:'right',clamp:true,font:{size:9,weight:'600'},color:B900,
           display:function(ctx){return ctx.dataset.data[ctx.dataIndex]>=20;},formatter:function(v){return v;}}},
@@ -233,7 +347,14 @@ function showErr(msg){
   box.innerHTML=msg;
 }
 
+/* ===== 数据加载（含刷新按钮状态管理）===== */
 async function loadData(force){
+  var btn=document.getElementById('refreshBtn');
+  var timeEl=document.getElementById('dashTime');
+  if(force){
+    btn.classList.add('loading');
+    timeEl.innerHTML='<span class="refresh-indicator"></span>正在刷新…';
+  }
   try{
     var url='../../data/requirements-data.json'+(force?'?t='+Date.now():'');
     var resp=await fetch(url,{cache:'no-store'});
@@ -243,9 +364,24 @@ async function loadData(force){
     render(d);
   }catch(e){
     showErr('数据加载失败：'+e.message+'。请确认页面通过 GitHub Pages 同源访问（本地 file:// 直接打开会被浏览器 CORS 拦截）。');
+  }finally{
+    btn.classList.remove('loading');
   }
 }
+
+/* ===== 页面加载后启动 ===== */
 loadData(false);
+
+/* ===== 实时时钟（每秒刷新时间戳显示）===== */
+setInterval(function(){
+  var now=new Date();
+  var pad=function(n){return n<10?'0'+n:n};
+  var ts=now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())+' '+pad(now.getHours())+':'+pad(now.getMinutes())+':'+pad(now.getSeconds());
+  var el=document.getElementById('dashTime');
+  if(el && !el.innerHTML.includes('正在刷新')){
+    el.innerHTML='<span class="refresh-indicator" style="display:none"></span>'+ts;
+  }
+}, 1000);
 </script>
 </body>
 </html>
