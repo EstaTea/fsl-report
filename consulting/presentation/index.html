@@ -228,136 +228,8 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 
 <!-- ==================== PART 0: 封面 ==================== -->
 
-<!-- 1. 封面 -->
-<section class="slide" data-title="封面">
-  <div class="cover-slide">
-    <div class="cs-left">
-      <div class="cs-logo">FSL<span>佛山照明</span></div>
-      <div class="cs-body">
-        <div class="cs-title">佛山照明 SAP S/4HANA 升级<br>及业务诊断咨询方案</div>
-        <div class="cs-subtitle">诊断 · 架构 · 路径</div>
-        <div class="cs-desc">从制造商到服务商的数字化支撑 — 探索阶段蓝图汇报 V2</div>
-      </div>
-      <div class="cs-bottom">
-        <div class="cs-meta">
-          <div><span class="lbl">客户</span><span class="val">佛山照明股份有限公司</span></div>
-          <div><span class="lbl">咨询方</span><span class="val">艾维登（Eviden）咨询</span></div>
-          <div><span class="lbl">日期</span><span class="val">2026年8月27日</span></div>
-          <div><span class="lbl">版本</span><span class="val">V2 投影优化版</span></div>
-        </div>
-      </div>
-    </div>
-    <div class="cs-right">
-      <img src="../../assets/images/fsl-cover-bg.jpg" alt="" onerror="this.style.background='linear-gradient(135deg,#0b2d47 60%,#2374a3)'">
-    </div>
-  </div>
-</section>
 
-<!-- 2. 思维脑图目录（V2 新增）-->
-<section class="slide" data-title="目录">
-  <p class="kicker" style="margin-bottom:6px">CONTENTS</p>
-  <h2 class="h2" style="margin-bottom:20px">汇报内容总览</h2>
-
-  <!-- 左向右展开的思维脑图 -->
-  <div style="position:relative;padding:20px 10px 10px;overflow:hidden;">
-    <!-- 根节点 -->
-    <div style="text-align:center;margin-bottom:18px;">
-      <div style="display:inline-block;background:linear-gradient(135deg,#0b2d47,#2374a3);color:#fff;
-                  padding:12px 36px;border-radius:30px;font-size:19px;font-weight:800;letter-spacing:1px;
-                  box-shadow:0 4px 16px rgba(11,45,71,.2);position:relative;z-index:2;">
-        🎯 佛照数字化转型蓝图
-      </div>
-    </div>
-
-    <!-- 连接线：根→四大分支 -->
-    <svg style="position:absolute;top:68px;left:0;width:100%;height:30px;z-index:0;pointer-events:none;" viewBox="0 0 1200 30" preserveAspectRatio="none">
-      <line x1="600" y1="0" x2="150" y2="28" stroke="#2374a3" stroke-width="2" opacity=".35"/>
-      <line x1="600" y1="0" x2="400" y2="28" stroke="#2374a3" stroke-width="2" opacity=".35"/>
-      <line x1="600" y1="0" x2="800" y2="28" stroke="#2374a3" stroke-width="2" opacity=".35"/>
-      <line x1="600" y1="0" x2="1050" y2="28" stroke="#2374a3" stroke-width="2" opacity=".35"/>
-    </svg>
-
-    <!-- 四大分支卡片 -->
-    <div style="display:flex;gap:14px;margin-top:4px;">
-
-      <!-- 分支1：转型背景 + 现状诊断 -->
-      <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
-        <div style="background:linear-gradient(135deg,#0b2d47,#1a4f73);color:#fff;border-radius:10px;padding:14px 16px;text-align:center;box-shadow:0 3px 12px rgba(11,45,71,.15);">
-          <div style="font-size:15px;font-weight:800;margin-bottom:4px;">🔍 第一部分</div>
-          <div style="font-size:17px;font-weight:700;">现状诊断</div>
-          <div style="font-size:12px;opacity:.8;margin-top:4px;">我们在哪？</div>
-        </div>
-        <div style="background:#fff;border:1px solid rgba(11,45,71,.12);border-radius:8px;padding:10px 12px;flex:1;">
-          <div style="font-size:13px;color:#2374a3;font-weight:700;margin-bottom:6px;">● 转型背景与调研</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:4px;">· 29个部门调研</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:4px;">· 701条业务需求</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:6px;">· 商业模式梳理</div>
-          <div style="font-size:13px;color:#2374a3;font-weight:700;margin-bottom:6px;">● 四层痛点分析</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:4px;">· 管理 / 流程 / 系统 / 数据</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;">· DCMM成熟度评估</div>
-        </div>
-      </div>
-
-      <!-- 分支2：企业架构设计 -->
-      <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
-        <div style="background:linear-gradient(135deg,#1a4f73,#2374a3);color:#fff;border-radius:10px;padding:14px 16px;text-align:center;box-shadow:0 3px 12px rgba(11,45,71,.15);">
-          <div style="font-size:15px;font-weight:800;margin-bottom:4px;">🏛 第二部分</div>
-          <div style="font-size:17px;font-weight:700;">企业架构</div>
-          <div style="font-size:12px;opacity:.8;margin-top:4px;">要去哪？</div>
-        </div>
-        <div style="background:#fff;border:1px solid rgba(11,45,71,.12);border-radius:8px;padding:10px 12px;flex:1;">
-          <div style="font-size:13px;color:#2374a3;font-weight:700;margin-bottom:6px;">● TOGAF 方法论</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:4px;">· 驱动因素与设计原则</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:6px;">· 23项高价值场景</div>
-          <div style="font-size:13px;color:#2374a3;font-weight:700;margin-bottom:6px;">● 四层架构蓝图</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:4px;">· 业务 / 数据 / 应用 / 技术</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;">· 系统策略四象限</div>
-        </div>
-      </div>
-
-      <!-- 分支3：路径规划 -->
-      <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
-        <div style="background:linear-gradient(135deg,#2374a3,#5ea4ce);color:#fff;border-radius:10px;padding:14px 16px;text-align:center;box-shadow:0 3px 12px rgba(11,45,71,.15);">
-          <div style="font-size:15px;font-weight:800;margin-bottom:4px;">🗺 第三部分</div>
-          <div style="font-size:17px;font-weight:700;">路径规划</div>
-          <div style="font-size:12px;opacity:.8;margin-top:4px;">怎么去？</div>
-        </div>
-        <div style="background:#fff;border:1px solid rgba(11,45,71,.12);border-radius:8px;padding:10px 12px;flex:1;">
-          <div style="font-size:13px;color:#2374a3;font-weight:700;margin-bottom:6px;">● 转型愿景与目标</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:4px;">· 三阶段目标 (2026-2028)</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:6px;">· 24个项目卡片</div>
-          <div style="font-size:13px;color:#2374a3;font-weight:700;margin-bottom:6px;">● 实施保障体系</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:4px;">· 三年路线图 / 风险应对</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;">· 变革管理与人力资源</div>
-        </div>
-      </div>
-
-      <!-- 分支4：立即行动 -->
-      <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
-        <div style="background:linear-gradient(135deg,#5ea4ce,#89c4e8);color:#fff;border-radius:10px;padding:14px 16px;text-align:center;box-shadow:0 3px 12px rgba(11,45,71,.15);">
-          <div style="font-size:15px;font-weight:800;margin-bottom:4px;">第四部分</div>
-          <div style="font-size:17px;font-weight:700;">立即行动</div>
-          <div style="font-size:12px;opacity:.8;margin-top:4px;">下一步做什么？</div>
-        </div>
-        <div style="background:#fff;border:1px solid rgba(11,45,71,.12);border-radius:8px;padding:10px 12px;flex:1;">
-          <div style="font-size:13px;color:#2374a3;font-weight:700;margin-bottom:6px;">● 关键里程碑</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:4px;">· 近期关键节点</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:6px;">· 成功要素</div>
-          <div style="font-size:13px;color:#2374a3;font-weight:700;margin-bottom:6px;">● 治理与沟通</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;margin-bottom:4px;">· KPI体系 / 治理机制</div>
-          <div style="font-size:12px;color:#5b7a91;line-height:1.55;">· 总结与下一步计划</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <aside class="notes">
-    <p>这是汇报的思维导图式目录，帮助领导在开始时快速建立全局认知。</p>
-    <p>四个部分对应四个核心问题：我们在哪？要去哪？怎么去？下一步做什么？</p>
-    <p>每个分支下列出了该部分的核心内容要点。</p>
-  </aside>
-</section>
+<!-- [已移除] 封面页 & 目录页（2026-08-31 用户要求删除） -->
 
 <!-- 3. 议程 -->
 <section class="slide" data-title="封面">
@@ -515,13 +387,13 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
         <div class="card" style="border-left:4px solid #164a70">
           <h4 style="font-size:12.5px;color:#164a70">② 企业架构设计报告</h4>
           <p class="dim" style="margin-top:3px">TOGAF ADM方法论 · BA/AA/DA/TA四架构 · 业务能力地图（L1-L3）· 应用蓝图 · 集成架构 · 技术底座</p>
-          <p class="dim" style="font-size:9.5px;color:#eab308;margin-top:4px">🔄 进行中 · V6迭代中</p>
+          <p class="dim" style="font-size:9.5px;color:#16a34a;margin-top:4px">✅ 已完成</p>
         </div>
         <!-- 3. 专项方案设计报告 -->
         <div class="card" style="border-left:4px solid #2374a3">
           <h4 style="font-size:12.5px;color:#2374a3">③ 专项方案设计报告</h4>
           <p class="dim" style="margin-top:3px">8个高价值场景深度方案（S01-S16精选）· 业务流程重设计 · SAP功能匹配 · 实施范围与验收标准</p>
-          <p class="dim" style="font-size:9.5px;color:#94a3b8;margin-top:4px">⏳ 待启动</p>
+          <p class="dim" style="font-size:9.5px;color:#16a34a;margin-top:4px">✅ 已完成</p>
         </div>
         <!-- 4.1 数据调研分析报告 -->
         <div class="card" style="border-left:4px solid #3a8bc9">
@@ -548,13 +420,13 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
         <div class="card" style="border-left:4px solid #64748b">
           <h4 style="font-size:12.5px;color:#475569">⑤ 数字化保障组织设计报告</h4>
           <p class="dim" style="margin-top:3px">PMO+ARB治理架构 · CDO角色设计 · 变更管理机制 · 培训与赋能计划</p>
-          <p class="dim" style="font-size:9.5px;color:#eab308;margin-top:4px">🔄 进行中（可选）</p>
+          <p class="dim" style="font-size:9.5px;color:#94a3b8;margin-top:4px">⏳ 未开始（可选）</p>
         </div>
         <!-- 6. 路径规划报告 -->
         <div class="card" style="border-left:4px solid #0b2d47">
           <h4 style="font-size:12.5px;color:#0b2d47">⑥ 数字化转型路径规划报告</h4>
           <p class="dim" style="margin-top:3px">三年实施路线图（2026-2028）· 24个项目卡片 · 资源预算分配 · 风险识别与应对 · 里程碑节点</p>
-          <p class="dim" style="font-size:9.5px;color:#eab308;margin-top:4px">🔄 进行中 · V3迭代中</p>
+          <p class="dim" style="font-size:9.5px;color:#eab308;margin-top:4px">🔄 汇报中</p>
         </div>
       </div>
       <div class="insight-box mt-m" style="text-align:center">
