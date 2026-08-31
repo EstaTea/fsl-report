@@ -15,7 +15,8 @@
 body{font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background:#fff;color:var(--text);font-size:12px;line-height:1.45;padding:14px 18px}
 .row{display:flex;gap:13px;margin-bottom:11px}
 .col{flex:1;min-width:0}
-.col-narrow{flex:0.85;min-width:0}
+.col-wide{flex:1.35;min-width:0}
+.col-narrow{flex:0.75;min-width:0}
 .card{background:#fff;border:1px solid var(--rule);border-radius:var(--r);padding:10px 13px;box-shadow:0 1px 4px rgba(35,116,163,.07)}
 .cc-title{font-size:11px;font-weight:700;color:var(--b700);letter-spacing:.3px;padding-bottom:5px;border-bottom:1px solid var(--b100);margin-bottom:7px}
 .chart-wrap{position:relative}
@@ -34,6 +35,15 @@ body{font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background
 .funnel-num{font-size:15px;font-weight:800;color:var(--b900)}
 .funnel-sub{font-size:8.5px;color:var(--muted);margin-top:1px}
 .f-arrow{color:var(--b300);font-size:14px;font-weight:700;padding:0 1px;flex-shrink:0;align-self:center;margin-bottom:10px}
+
+/* ===== 113条溢出需求明细 ===== */
+.overflow-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;margin-top:8px}
+.overflow-item{display:flex;align-items:flex-start;gap:6px;background:var(--b050);border-radius:4px;padding:5px 8px;border-left:3px solid var(--b300)}
+.overflow-dot{width:7px;height:7px;border-radius:50%;background:var(--b300);flex-shrink:0;margin-top:4px}
+.overflow-text{flex:1;min-width:0}
+.overflow-cat{font-size:9.5px;font-weight:700;color:var(--b900);line-height:1.35}
+.overflow-desc{font-size:8.5px;color:var(--muted);margin-top:1px;line-height:1.35}
+.overflow-count{font-size:11px;font-weight:800;color:var(--b500);white-space:nowrap;flex-shrink:0}
 
 /* ===== KPI 数字卡片行 ===== */
 .kpi-row{display:flex;gap:9px;margin-bottom:10px}
@@ -54,51 +64,110 @@ body{font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background
   <div class="kpi-card"><div class="kpi-val">3</div><div class="kpi-lbl">实施阶段</div><div class="kpi-sub">2026-2028 分期</div></div>
 </div>
 
-<!-- Row 1: 漏斗 + 处置总览 -->
+<!-- Row 1: 漏斗（加大） + 处置总览（收窄） -->
 <div class="row">
-  <div class="col">
+  <div class="col-wide">
     <div class="card">
       <div class="cc-title">需求转换漏斗：从采集到项目卡片的收敛路径</div>
-      <div class="funnel-wrap">
-        <div class="funnel-step">
-          <div class="funnel-bar" style="height:90px;background:linear-gradient(180deg,#0B2D47,#1A4F73);padding-top:32px;">
+      <div class="funnel-wrap" style="gap:5px;">
+        <div class="funnel-step" style="max-width:130px;">
+          <div class="funnel-bar" style="height:100px;background:linear-gradient(180deg,#0B2D47,#1A4F73);padding-top:36px;">
             <div class="funnel-num">701</div>
-            <div style="font-size:8.5px;opacity:.85;">原始需求</div>
+            <div style="font-size:9px;opacity:.85;">原始需求</div>
           </div>
           <div class="funnel-label">需求采集<br>访谈 / 问卷 / 工作坊</div>
         </div>
         <div class="f-arrow">&#10140;</div>
-        <div class="funnel-step">
-          <div class="funnel-bar" style="height:76px;background:linear-gradient(180deg,#2374A3,#3A8DBD);padding-top:24px;">
+        <div class="funnel-step" style="max-width:130px;">
+          <div class="funnel-bar" style="height:84px;background:linear-gradient(180deg,#2374A3,#3A8DBD);padding-top:26px;">
             <div class="funnel-num">588</div>
-            <div style="font-size:8.5px;opacity:.85;">范围筛选</div>
+            <div style="font-size:9px;opacity:.85;">范围筛选</div>
           </div>
           <div class="funnel-label">范围界定<br>剔除管理类 / 规划类</div>
         </div>
         <div class="f-arrow">&#10140;</div>
-        <div class="funnel-step">
-          <div class="funnel-bar" style="height:58px;background:linear-gradient(180deg,#5EA4CE,#79BADE);padding-top:16px;">
-            <div class="funnel-num" style="font-size:13px;">23</div>
-            <div style="font-size:8px;opacity:.85;">专题</div>
+        <div class="funnel-step" style="max-width:130px;">
+          <div class="funnel-bar" style="height:64px;background:linear-gradient(180deg,#5EA4CE,#79BADE);padding-top:18px;">
+            <div class="funnel-num" style="font-size:14px;">23</div>
+            <div style="font-size:9px;opacity:.85;">专题</div>
           </div>
           <div class="funnel-label">专题聚类<br>按业务域自然分组</div>
         </div>
         <div class="f-arrow">&#10140;</div>
-        <div class="funnel-step">
-          <div class="funnel-bar" style="height:44px;background:linear-gradient(180deg,#89C4E8,#A5D4EE);padding-top:10px;">
-            <div class="funnel-num" style="font-size:12px;color:var(--b900);">16</div>
-            <div style="font-size:7.5px;opacity:.75;color:var(--b700);">SNN 场景</div>
+        <div class="funnel-step" style="max-width:130px;">
+          <div class="funnel-bar" style="height:48px;background:linear-gradient(180deg,#89C4E8,#A5D4EE);padding-top:12px;">
+            <div class="funnel-num" style="font-size:13px;color:var(--b900);">16</div>
+            <div style="font-size:8px;opacity:.75;color:var(--b700);">SNN 场景</div>
           </div>
           <div class="funnel-label">价值优选<br>高价值场景筛选</div>
         </div>
         <div class="f-arrow">&#10140;</div>
-        <div class="funnel-step">
-          <div class="funnel-bar" style="height:34px;background:linear-gradient(180deg,#C7E2F2,#DCEAF5);border:1.5px solid #A5CBE0;padding-top:7px;">
-            <div class="funnel-num" style="font-size:11px;color:var(--b700);">N</div>
-            <div style="font-size:7px;opacity:.7;color:var(--b700);">项目卡片</div>
+        <div class="funnel-step" style="max-width:130px;">
+          <div class="funnel-bar" style="height:36px;background:linear-gradient(180deg,#C7E2F2,#DCEAF5);border:1.5px solid #A5CBE0;padding-top:8px;">
+            <div class="funnel-num" style="font-size:12px;color:var(--b700);">N</div>
+            <div style="font-size:7.5px;opacity:.7;color:var(--b700);">项目卡片</div>
           </div>
           <div class="funnel-label">项目卡片<br>可执行交付单元</div>
         </div>
+      </div>
+
+      <!-- 113条溢出需求明细 -->
+      <div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--rule);">
+        <div style="font-size:10px;font-weight:700;color:var(--b700);margin-bottom:6px;display:flex;align-items:center;gap:6px;">
+          <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--b100);border:2px solid var(--b300);"></span>
+          溢出范围 113 条：不属于本期 S/4HANA 实施判断范围的详细分类
+        </div>
+        <div class="overflow-grid">
+          <div class="overflow-item">
+            <div class="overflow-dot"></div>
+            <div class="overflow-text">
+              <div class="overflow-cat">流程与组织优化</div>
+              <div class="overflow-desc">跨部门协作机制、岗位职责调整、审批流重组等管理咨询类问题</div>
+            </div>
+            <div class="overflow-count">28</div>
+          </div>
+          <div class="overflow-item">
+            <div class="overflow-dot"></div>
+            <div class="overflow-text">
+              <div class="overflow-cat">制度与规范建设</div>
+              <div class="overflow-desc">内控合规体系、数据管理制度、操作SOP标准化文档类需求</div>
+            </div>
+            <div class="overflow-count">25</div>
+          </div>
+          <div class="overflow-item">
+            <div class="overflow-dot"></div>
+            <div class="overflow-text">
+              <div class="overflow-cat">非 SAP 系统集成</div>
+              <div class="overflow-desc">MES/WMS/TMS 等第三方系统对接、IoT 设备数据采集接口类</div>
+            </div>
+            <div class="overflow-count">22</div>
+          </div>
+          <div class="overflow-item">
+            <div class="overflow-dot"></div>
+            <div class="overflow-text">
+              <div class="overflow-cat">基础设施与硬件</div>
+              <div class="overflow-desc">服务器扩容、网络架构升级、终端设备更新等IT基础环境类</div>
+            </div>
+            <div class="overflow-count">18</div>
+          </div>
+          <div class="overflow-item">
+            <div class="overflow-dot"></div>
+            <div class="overflow-text">
+              <div class="overflow-cat">数字化中长期规划</div>
+              <div class="overflow-desc">BI 分析平台、AI 预测模型、数字孪生工厂等需独立立项的规划类</div>
+            </div>
+            <div class="overflow-count">12</div>
+          </div>
+          <div class="overflow-item">
+            <div class="overflow-dot"></div>
+            <div class="overflow-text">
+              <div class="overflow-cat">其他溢出项</div>
+              <div class="overflow-desc">已由其他项目覆盖、重复提交、信息不足待澄清等杂项归集</div>
+            </div>
+            <div class="overflow-count">8</div>
+          </div>
+        </div>
+        <p class="cc-note" style="margin-top:6px;"><strong>处置原则：</strong>以上 113 条均经「是否依赖 S/4HANA 核心模块」+「是否可在实施周期内交付」双维度判定后划出，转入<strong>管理优化通道</strong>（53条，偏组织/流程/制度）或<strong>数字化规划储备库</strong>（60条，偏技术/集成/基建），不占用本次实施人天。</p>
       </div>
     </div>
   </div>
@@ -106,7 +175,7 @@ body{font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background
     <div class="card">
       <div class="cc-title">处置总览：是否纳入本次项目范围</div>
       <div class="chart-wrap h170"><canvas id="scopeChart"></canvas></div>
-      <p class="cc-note">588条（83.9%）纳入S/4HANA实施；113条溢出——53条转<strong>管理优化通道</strong>，60条转<strong>数字化规划</strong>。</p>
+      <p class="cc-note"><strong>588条（83.9%）</strong>纳入 S/4HANA 实施范围；<br><strong>113条（16.1%）</strong>溢出 —— 其中 53 条转管理优化通道，60 条转数字化规划储备。</p>
     </div>
   </div>
 </div>
