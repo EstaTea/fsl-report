@@ -133,6 +133,15 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 .v2-icon-card .v2-icon-sub{
   font-size:14px;color:#5b7a91;line-height:1.5;
 }
+
+/* ===== 可滚动幻灯片（内容超长时允许纵向滚动） ===== */
+.slide[style*="overflow:auto"],
+.slide[style*="overflow-y:auto"]{
+  overflow-y:auto !important;
+  justify-content:flex-start !important;
+  padding-top:48px !important;
+  padding-bottom:48px !important;
+}
 .cover-fsl{background:linear-gradient(135deg,#0b2d47 0%,#1a4f73 55%,#2374a3 100%);color:#fff;padding:60px 48px 44px;position:relative;overflow:hidden}
 .cover-fsl::before{content:"";position:absolute;top:-40px;right:-60px;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,.04)}
 .cover-fsl::after{content:"";position:absolute;bottom:-60px;left:120px;width:220px;height:220px;border-radius:50%;background:rgba(35,116,163,.25)}
@@ -1199,22 +1208,22 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     </div>
     <div class="v2-icon-row">
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
         <div class="v2-icon-title">信用管控缺失</div>
         <div class="v2-icon-sub">仅出库环节拦截信用<br>下单不校验 → 虚开订单锁定库存</div>
       </div>
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         </div>
         <div class="v2-icon-title">合同履约失控</div>
         <div class="v2-icon-sub">法务端无法实时获取付款进度<br>难以识别超付风险</div>
       </div>
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
         </div>
         <div class="v2-icon-title">价格管理失控</div>
         <div class="v2-icon-sub">同一物料多部门维护价格<br>缺乏无效价格自动冻结机制</div>
@@ -1222,8 +1231,8 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     </div>
     <div class="v2-icon-row" style="margin-top:14px;">
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
         <div class="v2-icon-title">绩效考核困难</div>
         <div class="v2-icon-sub">研发产出/供应商交付/质量损失等KPI<br>难以自动量化，依赖人工统计</div>
@@ -1241,7 +1250,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
   </div>
   <aside class="notes">
     <p>V2 重设计：从竖排 pain-card 改为图标卡片式（参考 slide 67 风格）。</p>
-    <p>每个痛点一个图标卡片：红色系图标 + 标题 + 两行描述 + 底部根因总结。</p>
+    <p>每个痛点一个图标卡片：蓝色系图标 + 标题 + 两行描述 + 底部根因总结。</p>
   </aside>
 </section>
 
@@ -1259,15 +1268,15 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     </div>
     <div class="v2-icon-row">
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1l4 4 2.68 6.92a2 2 0 0 0 .86 1.15l6.07 4.54a2 2 0 0 0 2.52-.08l4.53-4.53a2 2 0 0 0 .08-2.52L15.57 6.46a2 2 0 0 1-1.15-.86L8.05 1.93A2 2 0 0 0 6.9 1.64L1 1z"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1l4 4 2.68 6.92a2 2 0 0 0 .86 1.15l6.07 4.54a2 2 0 0 0 2.52-.08l4.53-4.53a2 2 0 0 0 .08-2.52L15.57 6.46a2 2 0 0 1-1.15-.86L8.05 1.93A2 2 0 0 0 6.9 1.64L1 1z"/></svg>
         </div>
         <div class="v2-icon-title">P2P 采购到付款断点</div>
         <div class="v2-icon-sub">SRM存发票但SAP无附件查看<br>财务需线下翻阅纸质资料</div>
       </div>
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
         </div>
         <div class="v2-icon-title">O2C 销售到收款断点</div>
         <div class="v2-icon-sub">OA订单与SAP不关联<br>车间收到订单不能直接分解BOM</div>
@@ -1275,15 +1284,15 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     </div>
     <div class="v2-icon-row" style="margin-top:14px;">
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><polyline points="3 6 9 12 15 6"/><path d="M20 13V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><polyline points="3 6 9 12 15 6"/><path d="M20 13V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7"/></svg>
         </div>
         <div class="v2-icon-title">废品管理线下化</div>
         <div class="v2-icon-sub">资源回收废品依赖人工线下登记<br>未在SAP实现全流程闭环</div>
       </div>
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
         </div>
         <div class="v2-icon-title">审批流程繁琐</div>
         <div class="v2-icon-sub">财务申请/预付款/报销三流程<br>需领导依次审批，建议合并闭环</div>
@@ -1317,15 +1326,15 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     </div>
     <div class="v2-icon-row">
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
         </div>
         <div class="v2-icon-title">PLM与SAP脱节</div>
         <div class="v2-icon-sub">研发BOM变更无法实时同步<br>设计与制造"两张皮"</div>
       </div>
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
         </div>
         <div class="v2-icon-title">OA与SAP割裂</div>
         <div class="v2-icon-sub">OA审批后订单无法触发SAP生产计划<br>需人工二次录入</div>
@@ -1333,15 +1342,15 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     </div>
     <div class="v2-icon-row" style="margin-top:14px;">
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
         </div>
         <div class="v2-icon-title">SRM协同滞后</div>
         <div class="v2-icon-sub">采购订单/送货单同步不及时<br>影响供应商送货准确性</div>
       </div>
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         </div>
         <div class="v2-icon-title">高并发卡顿</div>
         <div class="v2-icon-sub">自营订单自动交货大订单时超时<br>无法满足电商高并发需求</div>
@@ -1375,15 +1384,15 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     </div>
     <div class="v2-icon-row">
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         </div>
         <div class="v2-icon-title">"新品"定义模糊</div>
         <div class="v2-icon-sub">各部门认定标准不一致<br>销售统计需人工甄别</div>
       </div>
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
         </div>
         <div class="v2-icon-title">物料描述不规范</div>
         <div class="v2-icon-sub">同一物料多名称/多编码<br>无法跨系统追踪</div>
@@ -1391,15 +1400,15 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     </div>
     <div class="v2-icon-row" style="margin-top:14px;">
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
         </div>
         <div class="v2-icon-title">客户/供应商重复</div>
         <div class="v2-icon-sub">同一客户多个编码<br>无法全景视图分析</div>
       </div>
       <div class="v2-icon-card">
-        <div class="v2-icon-circle" style="border-color:rgba(220,53,69,.3);background:linear-gradient(135deg,#fff5f5,#ffe8e8);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        <div class="v2-icon-circle" style="border-color:rgba(35,116,163,.3);background:linear-gradient(135deg,#f7fafc,#eef6fc);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
         </div>
         <div class="v2-icon-title">数据孤岛无挖掘</div>
         <div class="v2-icon-sub">大量交易数据沉睡在系统中<br>无法支撑智能分析与预测</div>
@@ -1884,7 +1893,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 
 
 <!-- 28. 桑基图说明 -->
-<section class="slide" data-title="桑基图" style="padding-top:24px;padding-bottom:16px;overflow:hidden;display:flex;flex-direction:column;">
+<section class="slide" data-title="桑基图" style="padding-top:24px;padding-bottom:16px;overflow:auto;display:flex;flex-direction:column;">
   <p class="kicker" style="margin-bottom:2px;flex-shrink:0">SANKEY DIAGRAM</p>
   <h2 class="h2" style="margin:0 0 4px;font-size:17px;flex-shrink:0">701条原始需求 → 4A架构 → 高价值场景 汇总桑基图</h2>
   <div style="flex:1;min-height:0;width:100%;border:1px solid var(--border);border-radius:var(--radius);overflow:auto;box-shadow:var(--shadow-lg);">
@@ -1934,7 +1943,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 </section>
 
 <!-- 46a. 23个高价值场景 — 详细列表 -->
-<section class="slide" data-title="23个场景详细列表">
+<section class="slide" data-title="23个场景详细列表" style="overflow-y:auto;">
   <p class="kicker">SCENARIO DETAILS</p>
   <h2 class="h2">23个高价值场景：分期实施全景</h2>
 
