@@ -57,7 +57,7 @@ th.sortable:hover{background:var(--b700)}
 th.sortable::after{content:' \2195';opacity:.4;font-size:9px;margin-left:3px}
 th.sort-asc::after{content:' \2191';opacity:1}
 th.sort-desc::after{content:' \2193';opacity:1}
-td{padding:5px 8px;border-bottom:1px solid var(--border);vertical-align:top;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:normal}
+td{padding:5px 8px;border-bottom:1px solid var(--border);vertical-align:top;white-space:normal}
 tr:nth-child(even){background:rgba(94,164,206,.03)}
 tr:hover{background:rgba(35,116,163,.06)}
 .col-num{width:40px;text-align:center;font-weight:600;color:var(--b700);font-size:10.5px}
@@ -72,7 +72,7 @@ tr:hover{background:rgba(35,116,163,.06)}
 .col-phase{width:90px;text-align:center}
 .col-4a{width:110px;text-align:center}
 .col-snn{width:60px;text-align:center;font-weight:600;color:var(--b500)}
-.col-opinion{min-width:200px;color:var(--text2);font-size:10.5px}
+.col-opinion{min-width:280px;color:var(--text2);font-size:10.5px;word-break:break-all}
 .col-scope{width:50px;text-align:center}
 
 /* Tags */
@@ -262,7 +262,10 @@ function applyFilters() {
   filteredData = allData.filter(r => {
     if (phase && r.phase_label !== phase) return false;
     if (fa4 && r.togaf_4a_short !== fa4) return false;
-    if (scope && r.scope_class !== scope) return false;
+    if (scope) {
+      const scopeMap = {'in':'纳入','out':'溢出'};
+      if (r.scope_class !== (scopeMap[scope] || scope)) return false;
+    }
     if (dept && r.dept !== dept) return false;
     if (kw) {
       const searchable = [r.req_id,r.detail,r.topic,r.opinion,r.snn_full,r.domain,r.category,r.system_owner,r.sap_module,r.consultant].join(' ').toLowerCase();
@@ -321,8 +324,7 @@ function renderTable() {
       <td class="col-4a"><span class="tag ${tag4a}">${esc(r.togaf_4a || '')}</span></td>
       <td class="col-snn">${r.snn ? `<span class="tag tag-snn">${esc(r.snn)}</span>` : '<span style="color:#bbb">—</span>'}</td>
       <td class="col-opinion" style="position:relative">
-        <span title="${escAttr(r.opinion)}">${esc(truncate(r.opinion,50))}</span>
-        ${r.opinion && r.opinion.length > 50 ? `<div class="opinion-full">${esc(r.opinion).replace(/\n/g,'<br>')}</div>` : ''}
+        <span>${esc(r.opinion).replace(/\n/g,'<br>') || '<span style="color:#bbb">—</span>'}</span>
       </td>
       <td class="col-scope"><span class="tag ${scopeTag}">${esc(r.scope_class)}</span></td>
     </tr>`;
