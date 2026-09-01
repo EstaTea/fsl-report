@@ -42,7 +42,7 @@ const FULL = {
   "S16": "S16 产前齐套性预警", "S17": "S17 库存可视化", "S18": "S18 主生产计划MPS",
   "S19": "S19 MRP物料需求计划", "S20": "S20 生产进度看板", "S21": "S21 质量追溯",
   "S22": "S22 QM合格率统计", "S23": "S23 BOM全生命周期",
-  "管理需求-移出": "管理需求（移出范围）", "数字化规划-非专题": "数字化规划（非专题）",
+  "管理需求-移出": "管理需求（非专题）", "数字化规划-非专题": "数字化规划（非专题）",
 };
 
 const margin = {top: 80, right: 340, bottom: 60, left: 40};
@@ -123,6 +123,80 @@ const legend = svg.append("g").attr("class","legend").attr("transform", `transla
   legend.append("rect").attr("x", i*130).attr("y",0).attr("width",14).attr("height",14).attr("fill", colors[key]);
   legend.append("text").attr("x", i*130+20).attr("y",12).text(label);
 });
+
+// ── 右侧收敛方法论说明面板 ──
+const panelX = width + 20;
+const panelW = margin.right - 30;
+const panel = svg.append("foreignObject")
+    .attr("x", panelX)
+    .attr("y", 10)
+    .attr("width", panelW)
+    .attr("height", height)
+    .append("xhtml:div")
+    .style("font-family", '"Microsoft YaHei","PingFang SC",system-ui,sans-serif')
+    .style("font-size", "11px")
+    .style("color", "#333")
+    .style("line-height", "1.55");
+
+panel.html(`
+<div style="padding:2px 0;">
+  <div style="font-size:13px;font-weight:700;color:#0b2d47;margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid #2374a3;">收敛方法论</div>
+
+  <div style="margin-bottom:14px;">
+    <div style="font-size:11.5px;font-weight:700;color:#1B3A6B;margin-bottom:5px;display:flex;align-items:center;gap:5px;">
+      <span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#1B3A6B;"></span>
+      Step 1：701 条原始需求 → 需求域
+    </div>
+    <div style="font-size:10px;color:#555;padding-left:14px;">
+      按需求「所属专题」归入 9 大需求域（销售/采购/供应链/计划制造/财务/主数据/研发BOM/质量/其他），剔除重复与无效项后保留 701 条有效需求。
+    </div>
+  </div>
+
+  <div style="margin-bottom:14px;">
+    <div style="font-size:11.5px;font-weight:700;color:#2E75B6;margin-bottom:5px;display:flex;align-items:center;gap:5px;">
+      <span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#2E75B6;"></span>
+      Step 2：需求域 → TOGAF 4A 架构
+    </div>
+    <div style="font-size:10px;color:#555;padding-left:14px;margin-bottom:4px;">
+      每条需求按<strong>问题类型</strong>分流到 TOGAF 四层：
+    </div>
+    <div style="font-size:9.5px;color:#666;padding-left:14px;background:rgba(35,116,163,.04);border-radius:4px;padding:6px 8px;">
+      <div><strong style="color:#1B3A6B;">BA 业务架构</strong> — 战略/流程/组织类（160条）</div>
+      <div><strong style="color:#2E75B6;">DA 数据架构</strong> — 数据治理/主数据/报表类（436条）</div>
+      <div><strong style="color:#5B9BD5;">AA 应用架构</strong> — 系统功能/集成/优化类（75条）</div>
+      <div><strong style="color:#A6A6A6;">TA 技术架构</strong> — 基础设施/安全/平台类（30条）</div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:14px;">
+    <div style="font-size:11.5px;font-weight:700;color:#2374a3;margin-bottom:5px;display:flex;align-items:center;gap:5px;">
+      <span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#2374a3;"></span>
+      Step 3：TOGAF 4A → 23 个高价值场景
+    </div>
+    <div style="font-size:10px;color:#555;padding-left:14px;">
+      同一专题下按 4A 权重聚合，识别核心架构域；跨域交叉需求归入主导域。经<strong>业务价值 + 实施可行性</strong>双维评分，从 588 条纳入范围需求中筛选出 <strong style="color:#2374a3;">23 个高价值场景</strong>（覆盖 456 条需求，匹配率 78%）。
+    </div>
+  </div>
+
+  <div style="margin-bottom:10px;">
+    <div style="font-size:11.5px;font-weight:700;color:#C55A11;margin-bottom:5px;display:flex;align-items:center;gap:5px;">
+      <span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#C55A11;"></span>
+      管理需求（非专题）处理原则
+    </div>
+    <div style="font-size:10px;color:#555;padding-left:14px;margin-bottom:4px;">
+      113 条溢出需求经双维度判定后分流：
+    </div>
+    <div style="font-size:9.5px;color:#666;padding-left:14px;background:rgba(197,90,17,.04);border-radius:4px;padding:6px 8px;">
+      <div style="margin-bottom:3px;"><strong style="color:#C55A11;">管理优化通道（53条）</strong> — 偏组织/流程/制度 → 转入管理咨询通道，不占用 S/4HANA 实施人天</div>
+      <div><strong style="color:#ED7D31;">数字化规划储备库（60条）</strong> — 偏技术/集成/基建 → 纳入数字化中长期规划，待后续迭代评估</div>
+    </div>
+  </div>
+
+  <div style="font-size:9px;color:#999;padding-top:6px;border-top:1px solid #d8e2ef;margin-top:4px;">
+    判定标准：「是否依赖 S/4HANA 核心模块」+「是否可在实施周期内交付」
+  </div>
+</div>
+`);
 </script>
 </body>
 </html>
