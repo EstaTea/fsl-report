@@ -46,6 +46,8 @@ jobs:
           fi
           python3 consulting/presentation/scripts/extract_requirements.py \
             consulting/presentation/data/requirements-data.json
+          python3 consulting/presentation/scripts/extract_requirements_detail.py \
+            consulting/presentation/data/requirements-detail.json
           echo "ran=true" >> "$GITHUB_OUTPUT"
 
       - name: Commit and push if changed
@@ -53,7 +55,8 @@ jobs:
         run: |
           git config user.name "FSL Requirements Bot"
           git config user.email "req-bot@fsl-report.github.io"
-          git add consulting/presentation/data/requirements-data.json
+          git add consulting/presentation/data/requirements-data.json \
+                  consulting/presentation/data/requirements-detail.json
           git diff --cached --quiet && echo "No changes to commit" && exit 0
           git commit -m "data: refresh 701 requirements snapshot ($(date -u +%Y-%m-%dT%H:%M:%SZ))"
           git push
