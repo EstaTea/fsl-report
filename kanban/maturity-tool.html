@@ -612,7 +612,7 @@ table.resp-table tr:hover td{background:var(--panel-2)}
         <div class="kpi-delta" id="kpi-delta-level">二级</div>
       </div>
       <div class="kpi-label">综合成熟度等级</div>
-      <div class="kpi-value" id="kpi-score">2.34</div>
+      <div class="kpi-value" id="kpi-score">2.15</div>
       <div class="kpi-sub">GB/T 43439-2023 · 满分 5.0</div>
     </div>
     <div class="kpi-tile reveal">
@@ -736,11 +736,11 @@ table.resp-table tr:hover td{background:var(--panel-2)}
           <span>一级</span><span>二级</span><span>三级</span><span>四级</span><span>五级</span>
         </div>
       </div>
-      <div class="hero-score-val">综合得分 <strong id="brand-score-val" style="color:#5e8cff">2.34</strong> / 5.0</div>
+      <div class="hero-score-val">综合得分 <strong id="brand-score-val" style="color:#5e8cff">2.15</strong> / 5.0</div>
     </div>
     <div class="hero-stats">
       <div class="hero-stat">
-        <div class="stat-val accent-blue" id="b-stat1">2.34</div>
+        <div class="stat-val accent-blue" id="b-stat1">2.15</div>
         <div class="stat-label">成熟度总分</div>
       </div>
       <div class="hero-stat">
@@ -1592,7 +1592,7 @@ function updateRadar() {
 // ══════════════════════════════════════════
 function updateBrandPage(total, level) {
   setEl('brand-level-num', LEVEL_NAMES[level] || '二');
-  setEl('brand-score-val', total !== null ? displayScore(total).toFixed(2) : '2.34');
+  setEl('brand-score-val', total !== null ? displayScore(total).toFixed(2) : '2.15');
   setEl('b-stat1', total !== null ? displayScore(total).toFixed(2) : '—');
   setEl('b-stat3', countHighGaps());
 
