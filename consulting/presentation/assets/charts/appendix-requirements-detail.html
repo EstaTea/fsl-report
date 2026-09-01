@@ -66,7 +66,7 @@ tr:hover{background:rgba(35,116,163,.06)}
 .col-category{width:90px}
 .col-sys{width:70px;text-align:center}
 .col-sap{width:75px;text-align:center}
-.col-consultant{width:65px;text-align:center}
+.col-meeting{min-width:200px;font-size:10px;color:var(--text2);word-break:break-all}
 .col-topic{width:130px}
 .col-phase{width:90px;text-align:center}
 .col-4a{width:110px;text-align:center}
@@ -162,7 +162,7 @@ td:hover .opinion-full{display:block}
           <th class="col-4a sortable" data-col="togaf_4a_short">TOGAF 4A</th>
           <th class="col-snn sortable" data-col="snn">高价值场景</th>
           <th class="col-opinion">顾问处理意见</th>
-          <th class="col-consultant sortable" data-col="consultant">会议详情</th>
+          <th class="col-meeting sortable" data-col="meeting_detail">会议详情</th>
           <th class="col-scope sortable" data-col="scope_class">范围</th>
         </tr>
       </thead>
@@ -183,7 +183,7 @@ let allData = [];
 let filteredData = [];
 const COL_MAP = {
   req_id:'req_id', detail:'detail', dept:'dept', category:'category',
-  system_owner:'system_owner', sap_module:'sap_module', consultant:'consultant',
+  system_owner:'system_owner', sap_module:'sap_module', meeting_detail:'meeting_detail',
   topic:'topic', phase_label:'phase_label', togaf_4a_short:'togaf_4a_short',
   snn:'snn', opinion:'opinion', scope_class:'scope_class'
 };
@@ -266,7 +266,7 @@ function applyFilters() {
     }
     if (dept && r.dept !== dept) return false;
     if (kw) {
-      const searchable = [r.req_id,r.detail,r.topic,r.opinion,r.snn_full,r.domain,r.category,r.system_owner,r.sap_module,r.consultant].join(' ').toLowerCase();
+      const searchable = [r.req_id,r.detail,r.topic,r.opinion,r.snn_full,r.domain,r.category,r.system_owner,r.sap_module,r.meeting_detail].join(' ').toLowerCase();
       if (!searchable.includes(kw)) return false;
     }
     return true;
@@ -322,7 +322,7 @@ function renderTable() {
       <td class="col-opinion" style="position:relative">
         <span>${esc(r.opinion).replace(/\n/g,'<br>') || '<span style="color:#bbb">—</span>'}</span>
       </td>
-      <td class="col-consultant">${esc(r.consultant) || '<span style="color:#bbb">—</span>'}</td>
+      <td class="col-meeting">${esc(r.meeting_detail) || '<span style="color:#bbb">—</span>'}</td>
       <td class="col-scope"><span class="tag ${scopeTag}">${esc(r.scope_class)}</span></td>
     </tr>`;
   });

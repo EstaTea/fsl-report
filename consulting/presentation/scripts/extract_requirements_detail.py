@@ -44,9 +44,10 @@ COL = {
     "scope": 18,         # 项目范围界定
     "system_owner": 19,  # 系统归属
     "sap_module": 20,    # SAP模块
-    "consultant": 23,    # 顾问
+    "consultant": 23,    # 顾问(姓名)
     "opinion": 24,       # 顾问处理意见
     "detail": 25,        # 需求详细说明
+    "meeting_detail": 26,# 会议详情(AA列)
     "priority": 27,      # 优先级
 }
 MAX_COL = 28  # 0..27 一次性拉取（701×28≈19628 < 20000 上限）
@@ -229,6 +230,7 @@ def main():
             "consultant": clean(r[COL["consultant"]]),
             "opinion": clean(r[COL["opinion"]]),
             "detail": clean(r[COL["detail"]]),
+            "meeting_detail": clean(r[COL["meeting_detail"]]),
         })
 
     total = len(rows)
@@ -261,6 +263,7 @@ def main():
             "opinion": row["opinion"],
             "detail": row["detail"],
             "consultant": row["consultant"],
+            "meeting_detail": row["meeting_detail"],
             "system_owner": row["system_owner"],
             "sap_module": row["sap_module"],
         }
