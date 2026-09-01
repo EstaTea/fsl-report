@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>专项方案设计阶段（8个高价值场景） | FSL 工作台</title>
+<title>专项方案设计阶段（23个高价值场景） | FSL 工作台</title>
 <style>
 :root{--b900:#0B2D47;--b700:#1A4F73;--b500:#2374A3;--b300:#5EA4CE;
       --b100:#C7E2F2;--b050:#EBF5FB;--bg:#F2F7FB;--text:#0F2233;
@@ -12,7 +12,6 @@
 body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;
      background:var(--bg);color:var(--text);font-size:14px;line-height:1.8;}
 a{color:inherit;text-decoration:none;}
-
 
 .hero{background:linear-gradient(155deg,var(--b900) 0%,var(--b700) 100%);
       color:#fff;padding:48px 48px 42px;border-bottom:3px solid var(--b500);}
@@ -31,67 +30,65 @@ a{color:inherit;text-decoration:none;}
 .bc a:hover{color:var(--b700);}
 .bc .sep{color:var(--b100);}
 
-.section-hd{display:flex;align-items:center;gap:12px;margin:36px 0 16px;}
-.section-hd:first-child{margin-top:0;}
-.sec-icon{width:38px;height:38px;background:var(--b700);border-radius:var(--r);
-          display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;}
-.sec-title{font-size:17px;font-weight:800;color:var(--b900);}
-.sec-desc{font-size:12.5px;color:var(--muted);margin-top:2px;}
+/* Phase section */
+.phase-section{margin-bottom:32px;}
+.phase-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;
+               padding-bottom:10px;border-bottom:2px solid var(--b500);}
+.phase-num{background:var(--b500);color:#fff;font-size:11px;font-weight:800;
+            padding:4px 10px;border-radius:4px;letter-spacing:.5px;}
+.phase-title{font-size:17px;font-weight:800;color:var(--b900);}
+.phase-desc{font-size:12px;color:var(--muted);margin-left:auto;max-width:320px;
+             text-align:right;line-height:1.5;}
 
-.progress-bar{height:4px;background:var(--rule);border-radius:2px;margin-top:6px;max-width:200px;}
-.progress-fill{height:100%;border-radius:2px;background:var(--b500);}
-
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(252px,1fr));gap:14px;margin-bottom:8px;}
-.grid-3{grid-template-columns:repeat(auto-fill,minmax(320px,1fr));}
-
-.folder-card{background:#fff;border:1px solid var(--rule);border-radius:var(--r);
-             padding:18px 20px;display:flex;align-items:center;gap:14px;
-             box-shadow:0 1px 3px rgba(35,116,163,.05);
-             transition:box-shadow .15s,transform .15s;}
-.folder-card:hover{box-shadow:0 4px 14px rgba(35,116,163,.13);transform:translateY(-2px);}
-.fc-icon{font-size:24px;flex-shrink:0;}
-.fc-name{font-size:13.5px;font-weight:700;color:var(--b900);}
-.fc-meta{font-size:11.5px;color:var(--muted);margin-top:3px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
 
 .doc-card{background:#fff;border:1px solid var(--rule);border-radius:var(--r);
-          padding:18px 20px;display:flex;flex-direction:column;gap:6px;
+          padding:18px 20px;display:flex;flex-direction:column;gap:8px;
           box-shadow:0 1px 3px rgba(35,116,163,.05);
           transition:box-shadow .15s,transform .15s;}
 .doc-card:hover{box-shadow:0 4px 14px rgba(35,116,163,.13);transform:translateY(-2px);}
-.doc-card .dc-badge{font-size:10px;font-weight:800;letter-spacing:.5px;
-                    text-transform:uppercase;color:var(--b500);}
-.doc-card .dc-title{font-size:13.5px;font-weight:700;color:var(--b900);line-height:1.4;}
-.doc-card .dc-desc{font-size:12px;color:var(--muted);line-height:1.55;}
-.dc-footer{display:flex;align-items:center;justify-content:space-between;margin-top:4px;}
-.dc-tags{display:flex;gap:5px;flex-wrap:wrap;}
-.dc-tag{background:var(--b050);color:var(--b700);font-size:10.5px;font-weight:600;
+
+.dc-top{display:flex;align-items:center;gap:10px;}
+.dc-id{background:var(--b500);color:#fff;font-size:11px;font-weight:800;
+        padding:3px 8px;border-radius:4px;flex-shrink:0;min-width:42px;text-align:center;}
+.dc-title{font-size:14px;font-weight:700;color:var(--b900);line-height:1.3;}
+.dc-desc{font-size:12px;color:var(--muted);line-height:1.55;}
+.dc-meta{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--b300);
+           margin-top:auto;padding-top:8px;border-top:1px solid var(--rule);}
+.dc-bv{background:var(--b050);color:var(--b700);padding:2px 7px;border-radius:3px;
+         font-weight:700;}
+.dc-td{background:var(--b100);color:var(--b900);padding:2px 7px;border-radius:3px;
+         font-weight:700;}
+.dc-tags{display:flex;gap:5px;flex-wrap:wrap;margin-left:auto;}
+.dc-tag{background:var(--b050);color:var(--b700);font-size:10px;font-weight:600;
         padding:2px 7px;border-radius:3px;}
-.dc-arrow{font-size:13px;font-weight:700;color:var(--b300);margin-left:auto;flex-shrink:0;}
+.dc-arrow{font-size:13px;font-weight:700;color:var(--b300);flex-shrink:0;margin-left:4px;}
 
-.status{font-size:10.5px;font-weight:700;padding:2px 9px;border-radius:3px;letter-spacing:.3px;}
-.s-done{background:var(--b100);color:var(--b700);}
-.s-wip {background:var(--b050);color:var(--b500);border:1px solid var(--b100);}
-.s-todo{background:#EEF2F6;color:var(--muted);}
-
-.stats-row{display:flex;gap:1px;background:var(--rule);border-radius:var(--r);
-           overflow:hidden;border:1px solid var(--rule);margin-bottom:32px;}
+/* Stats bar */
+.stats-row{display:gap:1px;background:var(--rule);border-radius:var(--r);
+           overflow:hidden;border:1px solid var(--rule);margin-bottom:32px;
+           display:flex;}
 .stat{flex:1;background:#fff;padding:14px 18px;text-align:center;}
 .stat .sv{font-size:22px;font-weight:800;color:var(--b700);}
 .stat .sl{font-size:11px;color:var(--muted);margin-top:2px;}
 
-.divider{border:none;border-top:1px solid var(--rule);margin:28px 0;}
+/* Phase color accents */
+.phase-1 .phase-header{border-bottom-color:var(--b500);}
+.phase-1 .dc-id{background:var(--b500);}
+.phase-2 .phase-header{border-bottom-color:var(--b700);}
+.phase-2 .dc-id{background:var(--b700);}
+.phase-3 .phase-header{border-bottom-color:var(--b900);}
+.phase-3 .dc-id{background:var(--b900);}
 
 footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
        padding:18px;font-size:11px;margin-top:48px;letter-spacing:.2px;}
 
 @media(max-width:768px){
-  .hero{padding:28px 20px;}.container{padding:20px 16px;}.nav-project{display:none;}
+  .hero{padding:28px 20px;}.container{padding:20px 16px;}
+  .grid{grid-template-columns:1fr;}
   .stats-row{flex-wrap:wrap;}
+  .phase-desc{text-align:left;margin-left:0;width:100%;}
 }
-
-/* ── Dropdown Nav ── */
-
-/* dropdown overflow fix */
 </style>
 <script src="/fsl-report/auth-guard.js"></script>
 </head>
@@ -99,75 +96,286 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
 <div id="site-nav"></div>
 <script src="../../nav.js"></script>
 <div class="hero">
-  <h1>专项方案设计阶段（8个高价值场景）</h1>
-  <p>聚焦痛点、深化设计 — 按需推进</p>
-  <div class="hero-chips"><span class="chip">管理咨询交付物</span></div>
+  <h1>专项方案设计阶段（23个高价值场景）</h1>
+  <p>从701条业务需求收敛而来，按依赖关系与BVxTD四象限评估分为三期实施</p>
+  <div class="hero-chips">
+    <span class="chip">管理咨询交付物</span>
+    <span class="chip">S01 - S23 全覆盖</span>
+    <span class="chip">三期滚动实施</span>
+  </div>
 </div>
-<div class="container"><div class="bc"><a href="/fsl-report/">工作台</a><span class="sep">›</span><a href="/fsl-report/consulting/">管理咨询交付物</a><span class="sep">›</span><span>专项方案设计阶段（8个高价值场景）</span></div><div class="section-hd"><div class="sec-icon">🎯</div><div><div class="sec-title">专项方案设计阶段（8个高价值场景）</div><div class="sec-desc">聚焦痛点、深化设计 — 按需推进</div></div></div><div class="grid grid-3"><a href="/fsl-report/consulting/solutions/sol-masterdata.html" class="doc-card">
-  <div class="dc-badge">交付物</div>
-  <div class="dc-title">主数据标准化专项方案</div>
-  <div class='dc-desc'>物料/客商/财务主数据编码规范与治理（对应 MDG 实施方案）</div>
-  <div class="dc-footer">
-    <div class="dc-tags"><span class="status s-todo">⏳ 待开始</span><span class="dc-tag">MDG</span><span class="dc-tag">主数据</span></div>
-    
+
+<div class="container">
+  <div class="bc">
+    <a href="/fsl-report/">工作台</a><span class="sep">&rsaquo;</span>
+    <a href="/fsl-report/consulting/">管理咨询交付物</a><span class="sep">&rsaquo;</span>
+    <span>专项方案设计阶段（23个高价值场景）</span>
   </div>
-</a><a href="/fsl-report/consulting/solutions/sol-pricing.html" class="doc-card">
-  <div class="dc-badge">交付物</div>
-  <div class="dc-title">销售价格体系专项方案</div>
-  <div class='dc-desc'>多渠道定价策略、信用管理、经销商管理（对应 SD 模块方案）</div>
-  <div class="dc-footer">
-    <div class="dc-tags"><span class="status s-todo">⏳ 待开始</span><span class="dc-tag">SD</span><span class="dc-tag">定价</span></div>
-    
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat"><div class="sv">23</div><div class="sl">高价值场景</div></div>
+    <div class="stat"><div class="sv">701</div><div class="sl">原始需求</div></div>
+    <div class="stat"><div class="sv">14 + 6 + 3</div><div class="sl">一期 / 二期 / 三期</div></div>
+    <div class="stat"><div class="sv">2026-2028</div><div class="sl">实施周期</div></div>
   </div>
-</a><a href="/fsl-report/consulting/solutions/sol-costing.html" class="doc-card">
-  <div class="dc-badge">交付物</div>
-  <div class="dc-title">跨公司成本还原专项方案</div>
-  <div class='dc-desc'>平行评估三账簿、转移定价 PI01/PI02 + MDG 主数据治理 + Group Reporting 集团消除</div>
-  <div class="dc-footer">
-    <div class="dc-tags"><span class="status s-wip">🔵 进行中</span><span class="dc-tag">CO</span><span class="dc-tag">MDG</span><span class="dc-tag">Group Reporting</span><span class="dc-tag">DRC</span></div>
-    
+
+  <!-- ====== PHASE 1: 一期 · 夯实底座（14个）====== -->
+  <div class="phase-section phase-1">
+    <div class="phase-header">
+      <span class="phase-num">PHASE 1</span>
+      <span class="phase-title">一期 &middot; 夯实底座</span>
+      <span class="phase-desc">2026年 &middot; 14个场景 &middot; 前置条件：无主数据则无法做计划，无成本还原则无法做分析</span>
+    </div>
+    <div class="grid">
+
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F7AF4595C6AA44C08A774ED63EE55103F" target="_blank" class="doc-card">
+        <div class="dc-top"><span class="dc-id">S01</span><span class="dc-title">物料主数据治理</span></div>
+        <div class="dc-desc">统一编码规范、一码一物，物料/客商/财务主数据编码规范与治理（对应 MDG 实施方案）</div>
+        <div class="dc-meta">
+          <span class="dc-bv">BV 5.0</span><span class="dc-td">TD 4.5</span>
+          <div class="dc-tags"><span class="dc-tag">MDG</span><span class="dc-tag">主数据</span></div>
+          <span class="dc-arrow">&rsaquo;</span>
+        </div>
+      </a>
+
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2FD506FA776B8342BE89850FB86412F278" target="_blank" class="doc-card">
+        <div class="dc-top"><span class="dc-id">S02</span><span class="dc-title">客户信用管理</span></div>
+        <div class="dc-desc">SAP标准信用管控+定制化信用策略，多渠道信用检查与风险预警</div>
+        <div class="dc-meta">
+          <span class="dc-bv">BV 4.5</span><span class="dc-td">TD 4.5</span>
+          <div class="dc-tags"><span class="dc-tag">SD</span><span class="dc-tag">信用</span></div>
+          <span class="dc-arrow">&rsaquo;</span>
+        </div>
+      </a>
+
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2FE0DA0440B5C242F2B20B1658705E40A4" target="_blank" class="doc-card">
+        <div class="dc-top"><span class="dc-id">S05</span><span class="dc-title">订单全链路追踪</span></div>
+        <div class="dc-desc">销售到生产到物流的全流程可视化追踪，订单状态实时同步与异常预警</div>
+        <div class="dc-meta">
+          <span class="dc-bv">BV 3.4</span><span class="dc-td">TD 4.2</span>
+          <div class="dc-tags"><span class="dc-tag">SD</span><span class="dc-tag">物流</span></div>
+          <span class="dc-arrow">&rsaquo;</span>
+        </div>
+      </a>
+
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F15A214D6429A4D2E81B56772A1231DFF" target="_blank" class="doc-card">
+        <div class="dc-top"><span class="dc-id">S06</span><span class="dc-title">海外财务合规</span></div>
+        <div class="dc-desc">多语言、多货币支持，泰国/德国本地化财务合规，CBAM合规预备</div>
+        <div class="dc-meta">
+          <span class="dc-bv">BV 3.0</span><span class="dc-td">TD 3.2</span>
+          <div class="dc-tags"><span class="dc-tag">FI</span><span class="dc-tag">DRC</span><span class="dc-tag">合规</span></div>
+          <span class="dc-arrow">&rsaquo;</span>
+        </div>
+      </a>
+
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F8522A932B95242F1913759B3B371F398" target="_blank" class="doc-card">
+        <div class="dc-top"><span class="dc-id">S07</span><span class="dc-title">制造成本还原</span></div>
+        <div class="dc-desc">法人视图+集团成本视图，平行评估三账簿、转移定价 PI01/PI02</div>
+        <div class="dc-meta">
+          <span class="dc-bv">BV 4.8</span><span class="dc-td">TD 4.5</span>
+          <div class="dc-tags"><span class="dc-tag">CO</span><span class="dc-tag">成本</span></div>
+          <span class="dc-arrow">&rsaquo;</span>
+        </div>
+      </a>
+
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F4DBC50133EBD4D9B890563046F5D24B9" target="_blank" class="doc-card">
+        <div class="dc-top"><span class="dc-id">S08</span><span class="dc-title">财务组织与科目体系</span></div>
+        <div class="dc-desc">1800+科目精简至600个，财务组织重构与科目表标准化设计</div>
+        <div class="dc-meta">
+          <span class="dc-bv">BV 2.2</span><span class="dc-td">TD 2.1</span>
+          <div class="dc-tags"><span class="dc-tag">FI</span><span class="dc-tag">科目</span></div>
+          <span class="dc-arrow">&rsaquo;</span>
+        </div>
+      </a>
+
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F5DF58271682147939DF260DCA77B6223" target="_blank" class="doc-card">
+        <div class="dc-top"><span class="dc-id">S09</span><span class="dc-title">应收清账与BIP</span></div>
+        <div class="dc-desc">自动化清账规则引擎+财务共享中心对接，BIP集成对账</div>
+        <div class="dc-meta">
+          <span class="dc-bv">BV 2.8</span><span class="dc-td">TD 2.3</span>
+          <div class="dc-tags"><span class="dc-tag">FI</span><span class="dc-tag">BIP</span></div>
+          <span class="dc-arrow">&rsaquo;</span>
+        </div>
+      </a>
+
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2FA4988482CCED49A189B73D99FBF1B4DF" target="_blank" class="doc-card">
+        <div class="dc-top"><span class="dc-id">S11</span><span class="dc-title">客户项目核算</span></div>
+        <div class="dc-desc">按客户/项目维度的精细化收入成本分析，PS模块项目核算方案</div>
+        <div class="dc-meta">
+          <span class="dc-bv">BV 4.3</span><span class="dc-td">TD 3.3</span>
+          <div class="dc-tags"><span class="dc-tag">PS</span><span class="dc-tag">核算</span></div>
+          <span class="dc-arrow">&rsaquo;</span>
+        </div>
+      </a>
+
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F876AC84E607C497DBE8542CAE1A03050" target="_blank" class="doc-card">
+        <div class="dc-top"><span class="dc-id">S12</span><span class="dc-title">研发投入产出分析</span></div>
+        <div class="dc-desc">研发成本归集与分摊、研发项目效益分析、R&D投入产出比核算</div>
+        <div class="dc-meta">
+          <span class="dc-bv">BV 4.5</span><span class="dc-td">TD 3.5</span>
+          <div class="dc-tags"><span class="dc-tag">CO</span><span class="dc-tag">研发</span></div>
+          <span class="dc-arrow">&rsaquo;</span>
+        </div>
+      </a>
+
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F60E14EC95EED40DF9DC13E30A6E827CF" target="_blank" class="doc-card">
+        <div class="dc-top"><span class="dc-id">S13</span><span class="dc-title">供应商交期与绩效</span></div>
+        <div class="dc-desc">SRM-SAP交期同步优化、供应商评分卡与绩效看板、交期预警机制</div>
+        <div class="dc-meta">
+          <span class="dc-bv">BV 4.2</span><span class="dc-td">TD 3.8</span>
+          <div class="dc-tags"><span class="dc-tag">MM</span><span class="dc-tag">SRM</span></div>
+          <span class="dc-arrow">&rsaquo;</span>
+        </div>
+      </a>
+
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F2C40D47FD236465C80C946487D5EEE14" target="_blank" class="doc-card">
+        <div class="dc-top"><span class="dc-id">S14</span><span class="dc-title">采购价格透明化</span></div>
+        <div class="dc-desc">价格数据库建设、采购比价分析平台、价格变动趋势追踪</div>
+        <div class="dc-meta">
+          <span class="dc-bv">BV 4.1</span><span class="dc-td">TD 3.8</span>
+          <div class="dc-tags"><span class="dc-tag">MM</span><span class="dc-tag">采购</span></div>
+          <span class="dc-arrow">&rsaquo;</span>
+        </div>
+      </a>
+
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2FA861BE84F7CC48F1B35A7A2728DD7A9C" target="_blank" class="doc-card">
+        <div class="dc-top"><span class="dc-id">S15</span><span class="dc-title">采购配额管理</span></div>
+        <div class="dc-desc">配额智能分配算法、订单自动分配规则、供应商份额动态调整</div>
+        <div class="dc-meta">
+          <span class="dc-bv">BV 3.6</span><span class="dc-td">TD 3.5</span>
+          <div class="dc-tags"><span class="dc-tag">MM</span><span class="dc-tag">配额</span></div>
+          <span class="dc-arrow">&rsaquo;</span>
+        </div>
+      </a>
+
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F8E41A3C7EEDF4EB4B47160036CC7B719" target="_blank" class="doc-card">
+        <div class="dc-top"><span class="dc-id">S16/S18/S19</span><span class="dc-title">主生产计划与MRP</span></div>
+        <div class="dc-desc">MPS主生产计划、MRP物料需求计划、生产齐套性检查与缺料预警（含S16齐套预警+S18 MPS+S19 MRP）</div>
+        <div class="dc-meta">
+          <span class="dc-bv">BV 4.0</span><span class="dc-td">TD 4.0</span>
+          <div class="dc-tags"><span class="dc-tag">PP</span><span class="dc-tag">MRP</span><span class="dc-tag">MPS</span></div>
+          <span class="dc-arrow">&rsaquo;</span>
+        </div>
+      </a>
+
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2FC42EE2903C844785B90D741210F2C8B1" target="_blank" class="doc-card">
+        <div class="dc-top"><span class="dc-id">S17</span><span class="dc-title">库存可视化查询</span></div>
+        <div class="dc-desc">多维库存实时查询、库龄分析、安全库存动态计算与预警</div>
+        <div class="dc-meta">
+          <span class="dc-bv">BV 4.5</span><span class="dc-td">TD 4.5</span>
+          <div class="dc-tags"><span class="dc-tag">MM</span><span class="dc-tag">WM</span></div>
+          <span class="dc-arrow">&rsaquo;</span>
+        </div>
+      </a>
+
+    </div>
   </div>
-</a><a href="/fsl-report/consulting/solutions/sol-bom.html" class="doc-card">
-  <div class="dc-badge">交付物</div>
-  <div class="dc-title">研发与BOM管理专项方案</div>
-  <div class='dc-desc'>PLM-ERP集成、EBOM→MBOM自动化（对应 PP/PLM 方案）</div>
-  <div class="dc-footer">
-    <div class="dc-tags"><span class="status s-todo">⏳ 待开始</span><span class="dc-tag">PP</span><span class="dc-tag">PLM</span><span class="dc-tag">BOM</span></div>
-    
+
+  <!-- ====== PHASE 2: 二期 · 贯通协同（6个场景）====== -->
+  <div class="phase-section phase-2">
+    <div class="phase-header">
+      <span class="phase-num">PHASE 2</span>
+      <span class="phase-title">二期 &middot; 贯通协同</span>
+      <span class="phase-desc">2027年 &middot; 6个场景 &middot; 战略深挖：跨域流程打通+计划体系深化</span>
+    </div>
+    <div class="grid">
+
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2FB494BC36AFAC4101943BA445503F7C39" target="_blank" class="doc-card">
+        <div class="dc-top"><span class="dc-id">S03</span><span class="dc-title">跨公司转卖</span></div>
+        <div class="dc-desc">集团内部公司间转卖流程、转移定价与交叉销账、IC reconcilation</div>
+        <div class="dc-meta">
+          <span class="dc-bv">BV 4.6</span><span class="dc-td">TD 4.8</span>
+          <div class="dc-tags"><span class="dc-tag">SD</span><span class="dc-tag">FI</span><span class="dc-tag">IC</span></div>
+          <span class="dc-arrow">&rsaquo;</span>
+        </div>
+      </a>
+
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F795F79CC83E444AFA55CD4448DEFFF71" target="_blank" class="doc-card">
+        <div class="dc-top"><span class="dc-id">S04</span><span class="dc-title">销售价格体系</span></div>
+        <div class="dc-desc">多渠道定价策略、价格条件管理、折扣审批流与定价模拟</div>
+        <div class="dc-meta">
+          <span class="dc-bv">BV 4.4</span><span class="dc-td">TD 4.0</span>
+          <div class="dc-tags"><span class="dc-tag">SD</span><span class="dc-tag">定价</span></div>
+          <span class="dc-arrow">&rsaquo;</span>
+        </div>
+      </a>
+
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F0409A12AD1FE4EF09062DF06D1F8F2D6" target="_blank" class="doc-card">
+        <div class="dc-top"><span class="dc-id">S10</span><span class="dc-title">合并报表</span></div>
+        <div class="dc-desc">Group Reporting集团合并报表、内部交易自动抵消、多维度合并口径</div>
+        <div class="dc-meta">
+          <span class="dc-bv">BV 4.7</span><span class="dc-td">TD 4.6</span>
+          <div class="dc-tags"><span class="dc-tag">FI</span><span class="dc-tag">GR</span></div>
+          <span class="dc-arrow">&rsaquo;</span>
+        </div>
+      </a>
+
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F8E41A3C7EEDF4EB4B47160036CC7B719" target="_blank" class="doc-card">
+        <div class="dc-top"><span class="dc-id">S18/S19</span><span class="dc-title">MPS计划与MRP物料</span></div>
+        <div class="dc-desc">MPS主生产计划排程、MRP物料需求计划运行策略、计划版本管理（与S16齐套预警共用同一方案文档）</div>
+        <div class="dc-meta">
+          <span class="dc-bv">BV 4.0</span><span class="dc-td">TD 4.0</span>
+          <div class="dc-tags"><span class="dc-tag">PP</span><span class="dc-tag">MRP</span><span class="dc-tag">MPS</span></div>
+          <span class="dc-arrow">&rsaquo;</span>
+        </div>
+      </a>
+
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F27EBD007E0BD4018A81EB4E8ECEE9E6D" target="_blank" class="doc-card">
+        <div class="dc-top"><span class="dc-id">S23</span><span class="dc-title">BOM全生命周期</span></div>
+        <div class="dc-desc">PLM-ERP集成、EBOM到MBOM自动化转换、工程变更管理（ECN）、BOM版本控制与有效性管理</div>
+        <div class="dc-meta">
+          <span class="dc-bv">BV 4.2</span><span class="dc-td">TD 4.2</span>
+          <div class="dc-tags"><span class="dc-tag">PP</span><span class="dc-tag">PLM</span><span class="dc-tag">BOM</span></div>
+          <span class="dc-arrow">&rsaquo;</span>
+        </div>
+      </a>
+
+    </div>
   </div>
-</a><a href="/fsl-report/consulting/solutions/sol-planning.html" class="doc-card">
-  <div class="dc-badge">交付物</div>
-  <div class="dc-title">产供销协同计划专项方案</div>
-  <div class='dc-desc'>MRP Live启用、产销协同机制设计（对应 PP/MRP 方案）</div>
-  <div class="dc-footer">
-    <div class="dc-tags"><span class="status s-todo">⏳ 待开始</span><span class="dc-tag">PP</span><span class="dc-tag">MRP</span><span class="dc-tag">计划</span></div>
-    
+
+  <!-- ====== PHASE 3: 三期 · 智慧跃升（3个场景）====== -->
+  <div class="phase-section phase-3">
+    <div class="phase-header">
+      <span class="phase-num">PHASE 3</span>
+      <span class="phase-title">三期 &middot; 智慧跃升</span>
+      <span class="phase-desc">2028年 &middot; 3个场景 &middot; 能力补全：数据驱动决策+智能化运营</span>
+    </div>
+    <div class="grid">
+
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2FDCFC88D7A20C4441977D23EEADD26BEB" target="_blank" class="doc-card">
+        <div class="dc-top"><span class="dc-id">S20</span><span class="dc-title">生产进度看板</span></div>
+        <div class="dc-desc">实时生产进度可视化看板、工单执行监控、产线OEE分析与瓶颈识别</div>
+        <div class="dc-meta">
+          <span class="dc-bv">BV 3.8</span><span class="dc-td">TD 3.0</span>
+          <div class="dc-tags"><span class="dc-tag">PP</span><span class="dc-tag">MES</span><span class="dc-tag">看板</span></div>
+          <span class="dc-arrow">&rsaquo;</span>
+        </div>
+      </a>
+
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F3629D0A15152415CB82D5D71676DAEC1" target="_blank" class="doc-card">
+        <div class="dc-top"><span class="dc-id">S21/S22</span><span class="dc-title">质量追溯与合格率</span></div>
+        <div class="dc-desc">IATF认证支持、批次全链条追溯、质量合格率分析、质量成本管理（对应 QM 模块方案，S21与S22共用同一方案文档）</div>
+        <div class="dc-meta">
+          <span class="dc-bv">BV 3.9</span><span class="dc-td">TD 3.6</span>
+          <div class="dc-tags"><span class="dc-tag">QM</span><span class="dc-tag">IATF</span><span class="dc-tag">追溯</span></div>
+          <span class="dc-arrow">&rsaquo;</span>
+        </div>
+      </a>
+
+    </div>
   </div>
-</a><a href="/fsl-report/consulting/solutions/sol-finance.html" class="doc-card">
-  <div class="dc-badge">交付物</div>
-  <div class="dc-title">集团财务管控专项方案</div>
-  <div class='dc-desc'>合并报表、内部交易消除、泰国多币种（对应 FI/Group Reporting 方案）</div>
-  <div class="dc-footer">
-    <div class="dc-tags"><span class="status s-todo">⏳ 待开始</span><span class="dc-tag">FI</span><span class="dc-tag">Group Reporting</span></div>
-    
+
+  <!-- Note about phasing logic -->
+  <div style="background:linear-gradient(135deg,#f7fafc,#eef6fc);border-left:4px solid #2374a3;border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:32px;font-size:12px;line-height:1.6;color:#0b2d47;">
+    <strong style="color:#2374a3;">分期说明：</strong>
+    一期14个是所有场景的<strong>前置条件</strong>——无主数据则无法做计划，无成本还原则无法做分析；
+    二期在一期数据质量基础上打通跨域流程（跨公司转卖、价格体系、合并报表），深化计划体系（MPS/MRP），补全BOM生命周期；
+    三期依赖前两期的完整数据链路，通过实时看板、质量追溯实现从"记录系统"到"智能系统"的跃升。
   </div>
-</a><a href="/fsl-report/consulting/solutions/sol-quality.html" class="doc-card">
-  <div class="dc-badge">交付物</div>
-  <div class="dc-title">质量管理专项方案</div>
-  <div class='dc-desc'>IATF认证、批次追溯、质量成本管理（对应 QM 模块方案）</div>
-  <div class="dc-footer">
-    <div class="dc-tags"><span class="status s-todo">⏳ 待开始</span><span class="dc-tag">QM</span><span class="dc-tag">IATF</span></div>
-    
-  </div>
-</a><a href="/fsl-report/consulting/solutions/sol-global.html" class="doc-card">
-  <div class="dc-badge">交付物</div>
-  <div class="dc-title">全球化财务合规专项方案</div>
-  <div class='dc-desc'>泰国/德国本地化、CBAM合规预备（对应 DRC/GTS 方案）</div>
-  <div class="dc-footer">
-    <div class="dc-tags"><span class="status s-todo">⏳ 待开始</span><span class="dc-tag">DRC</span><span class="dc-tag">GTS</span><span class="dc-tag">合规</span></div>
-    
-  </div>
-</a></div></div>
-<footer>佛山照明 SAP S/4HANA 升级项目工作台 · 机密文件 · 仅供项目组内部使用 · 2026</footer>
+
+</div>
+
+<footer>佛山照明 SAP S/4HANA 升级项目工作台 &middot; 机密文件 &middot; 仅供项目组内部使用 &middot; 2026</footer>
 <script src="/fsl-report/status/status-loader.js"></script>
 </body></html>
