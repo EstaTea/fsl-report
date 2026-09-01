@@ -60,7 +60,6 @@ th.sort-desc::after{content:' \2193';opacity:1}
 td{padding:5px 8px;border-bottom:1px solid var(--border);vertical-align:top;white-space:normal}
 tr:nth-child(even){background:rgba(94,164,206,.03)}
 tr:hover{background:rgba(35,116,163,.06)}
-.col-num{width:40px;text-align:center;font-weight:600;color:var(--b700);font-size:10.5px}
 .col-id{width:65px;font-family:monospace;font-size:10px;color:var(--b500)}
 .col-detail{min-width:280px}
 .col-dept{width:95px}
@@ -152,19 +151,18 @@ td:hover .opinion-full{display:block}
     <table>
       <thead>
         <tr>
-          <th class="col-num">#</th>
           <th class="col-id sortable" data-col="req_id">需求编号</th>
           <th class="col-detail sortable" data-col="detail">需求详细说明</th>
           <th class="col-dept sortable" data-col="dept">提出部门</th>
           <th class="col-category sortable" data-col="category">问题分类</th>
           <th class="col-sys sortable" data-col="system_owner">系统归属</th>
           <th class="col-sap sortable" data-col="sap_module">SAP模块</th>
-          <th class="col-consultant sortable" data-col="consultant">会议详情</th>
           <th class="col-topic sortable" data-col="topic">所属专题</th>
           <th class="col-phase sortable" data-col="phase_label">实施阶段</th>
           <th class="col-4a sortable" data-col="togaf_4a_short">TOGAF 4A</th>
           <th class="col-snn sortable" data-col="snn">高价值场景</th>
           <th class="col-opinion">顾问处理意见</th>
+          <th class="col-consultant sortable" data-col="consultant">会议详情</th>
           <th class="col-scope sortable" data-col="scope_class">范围</th>
         </tr>
       </thead>
@@ -227,7 +225,7 @@ const COL_MAP = {
     document.getElementById('f-keyword').addEventListener('keydown', e => { if(e.key==='Enter') applyFilters(); });
   } catch(err) {
     document.getElementById('tbody').innerHTML =
-      '<tr><td colspan="14" style="text-align:center;padding:30px;color:#c00;">加载数据失败：' + err.message +
+      '<tr><td colspan="13" style="text-align:center;padding:30px;color:#c00;">加载数据失败：' + err.message +
       '<br><br>请确认 data/requirements-data.json 已部署到正确路径。</td></tr>';
   }
 })();
@@ -299,7 +297,7 @@ function sortTable(col, asc) {
 function renderTable() {
   const tbody = document.getElementById('tbody');
   if (!filteredData.length) {
-    tbody.innerHTML = '<tr><td colspan="14" class="empty-state"><div class="icon">&#128269;</div>无匹配数据，请调整筛选条件</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="13" class="empty-state"><div class="icon">&#128269;</div>无匹配数据，请调整筛选条件</td></tr>';
     document.getElementById('page-info').innerHTML = '<span>共 0 条</span>';
     return;
   }
@@ -311,14 +309,12 @@ function renderTable() {
     const scopeTag = r.scope_class === '纳入' ? 'tag-in' : 'tag-out';
 
     html += `<tr>
-      <td class="col-num">${r['#']}</td>
       <td class="col-id">${esc(r.req_id)}</td>
       <td class="col-detail" title="${escAttr(r.detail)}">${esc(r.detail)}</td>
       <td class="col-dept">${esc(r.dept)}</td>
       <td class="col-category">${esc(r.category) || '<span style="color:#bbb">—</span>'}</td>
       <td class="col-sys">${esc(r.system_owner) || '<span style="color:#bbb">—</span>'}</td>
       <td class="col-sap">${esc(r.sap_module) || '<span style="color:#bbb">—</span>'}</td>
-      <td class="col-consultant">${esc(r.consultant) || '<span style="color:#bbb">—</span>'}</td>
       <td class="col-topic" title="${escAttr(r.topic)}">${esc(truncate(r.topic,18))}</td>
       <td class="col-phase"><span class="tag ${phaseClass}">${esc(r.phase_label)}</span></td>
       <td class="col-4a"><span class="tag ${tag4a}">${esc(r.togaf_4a || '')}</span></td>
@@ -326,6 +322,7 @@ function renderTable() {
       <td class="col-opinion" style="position:relative">
         <span>${esc(r.opinion).replace(/\n/g,'<br>') || '<span style="color:#bbb">—</span>'}</span>
       </td>
+      <td class="col-consultant">${esc(r.consultant) || '<span style="color:#bbb">—</span>'}</td>
       <td class="col-scope"><span class="tag ${scopeTag}">${esc(r.scope_class)}</span></td>
     </tr>`;
   });
