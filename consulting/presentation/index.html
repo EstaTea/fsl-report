@@ -471,7 +471,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     <!-- 右侧：SVG 雷达图（独立 HTML 文件，iframe 引入） -->
     <div style="flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 10px">
       <div style="font-weight:700;color:#0b2d47;font-size:12px;text-align:center;margin-bottom:6px">当前架构 vs 目标架构 — 能力成熟度雷达</div>
-      <iframe src="assets/charts/capability-radar.html" style="width:400px;height:370px;border:none;display:block;" loading="lazy" title="能力成熟度雷达图"></iframe>
+      <iframe src="assets/charts/capability-radar.html" style="width:400px;height:370px;border:none;display:block;margin:0 auto;" loading="lazy" title="能力成熟度雷达图"></iframe>
     </div>
   </div>
   <aside class="notes">
@@ -747,7 +747,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
   <p class="kicker" style="margin-bottom:2px;flex-shrink:0">SANKEY DIAGRAM</p>
   <h2 class="h2" style="margin:0 0 4px;font-size:17px;flex-shrink:0">701条原始需求 → 4A架构 → 高价值场景 汇总桑基图</h2>
   <div style="flex:1;min-height:0;width:100%;border:1px solid var(--border);border-radius:var(--radius);overflow:auto;box-shadow:var(--shadow-lg);">
-    <iframe src="assets/charts/sankey_v4.html" style="width:1700px;height:1150px;border:none;display:block;" loading="lazy" title="需求汇总桑基图（三层追溯）"></iframe>
+    <iframe src="assets/charts/sankey_v4.html" style="width:1700px;height:1150px;border:none;display:block;margin:0 auto;" loading="lazy" title="需求汇总桑基图（三层追溯）"></iframe>
   </div>
   <p style="text-align:center;font-size:10px;color:var(--text-3);margin:6px 0 0;flex-shrink:0">数据来源：《企业架构设计报告 V6》 · 可在框内上下拖动查看完整图表</p>
   <aside class="notes">
@@ -1615,7 +1615,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 
     <!-- 右侧：TOGAF ADM 八相位雷达图 -->
     <div style="flex:1.5;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0">
-      <iframe src="assets/charts/togaf-adm-radar.html" style="width:100%;max-width:520px;height:460px;border:none;display:block" loading="lazy" title="TOGAF ADM八相位雷达图"></iframe>
+      <iframe src="assets/charts/togaf-adm-radar.html" style="width:100%;max-width:520px;height:460px;border:none;display:block;margin:0 auto;" loading="lazy" title="TOGAF ADM八相位雷达图"></iframe>
     </div>
   </div>
   <aside class="notes">
@@ -1773,7 +1773,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
   <p class="kicker" style="margin-bottom:2px;flex-shrink:0">REQUIREMENT TRACEABILITY</p>
   <h2 class="h2" style="margin:0 0 8px;font-size:17px;flex-shrink:0">701条原始需求 → 痛点 → TOGAF 4A架构 → 高价值场景 → 项目卡片（五层追溯）</h2>
   <div style="border:1px solid var(--border);border-radius:var(--radius);background:#fff;box-shadow:var(--shadow-lg);margin-top:6px;overflow:auto;">
-    <iframe src="assets/charts/sankey_5col_v3.html" loading="lazy" style="width:1700px;height:1400px;border:none;display:block;" title="五层桑基图：需求→痛点→4A→场景→项目卡片" scrolling="yes"></iframe>
+    <iframe src="assets/charts/sankey_5col_v3.html" loading="lazy" style="width:1700px;height:1400px;border:none;display:block;margin:0 auto;" title="五层桑基图：需求→痛点→4A→场景→项目卡片" scrolling="yes"></iframe>
   </div>
   <p style="font-size:10px;color:var(--text-3);text-align:center;margin-top:6px;flex-shrink:0;">数据来源：《企业架构设计报告 V6》 · 可在框内上下拖动查看完整图表（含 PC01–PC11 项目卡片）</p>
   <aside class="notes">
@@ -3318,7 +3318,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
   <p class="kicker" style="margin-bottom:2px;flex-shrink:0">APPENDIX · LIVE REQUIREMENTS DASHBOARD</p>
   <h2 class="h2" style="margin:0 0 6px;font-size:17px;flex-shrink:0">附录：701 条需求数据实时看板（腾讯文档快照）</h2>
   <div style="flex:1;min-height:0;width:100%;border:1px solid var(--border);border-radius:var(--radius);overflow:auto;box-shadow:var(--shadow-lg);">
-    <iframe src="assets/charts/appendix-dashboard.html" style="width:1600px;height:1180px;border:none;display:block;" loading="lazy" title="701条需求数据实时看板"></iframe>
+    <iframe src="assets/charts/appendix-dashboard.html" style="width:1600px;height:1180px;border:none;display:block;margin:0 auto;" loading="lazy" title="701条需求数据实时看板"></iframe>
   </div>
   <div class="insight-box" style="margin-top:8px;padding:10px 16px !important;flex-shrink:0">
     <p style="font-size:12px !important;margin:0;line-height:1.5"><strong>数据说明：</strong>本看板数据由脚本从腾讯文档「需求总库」（701 条）实时提取并聚合，按 <strong>项目范围界定 / 优先级 / 所属专题 / 提出部门 / 问题类型 / 问题分类</strong> 多维透视。数据通过 GitHub Action 定时刷新（或本地脚本重算）生成 <code>requirements-data.json</code> 快照，确保与在线表格保持一致；点击右上角「刷新数据」可拉取最新快照。</p>
@@ -3336,7 +3336,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
   <p class="kicker" style="margin-bottom:2px;flex-shrink:0">APPENDIX · REQUIREMENTS DETAIL LEDGER</p>
   <h2 class="h2" style="margin:0 0 6px;font-size:17px;flex-shrink:0">附录：701 条需求完整明细行（逐行透视）</h2>
   <div style="flex:1;min-height:0;width:100%;border:1px solid var(--border);border-radius:var(--radius);overflow:auto;box-shadow:var(--shadow-lg);">
-    <iframe src="assets/charts/appendix-requirements-detail.html" style="width:1280px;height:1180px;border:none;display:block;" loading="lazy" title="701条需求完整明细"></iframe>
+    <iframe src="assets/charts/appendix-requirements-detail.html" style="width:1280px;height:1180px;border:none;display:block;margin:0 auto;" loading="lazy" title="701条需求完整明细"></iframe>
   </div>
   <div class="insight-box" style="margin-top:8px;padding:10px 16px !important;flex-shrink:0">
     <p style="font-size:12px !important;margin:0;line-height:1.5"><strong>字段说明：</strong>本页逐行展示 701 条需求的核心信息，支持按<strong>实施阶段 / TOGAF 4A / 范围 / 优先级 / 部门</strong>筛选与关键词搜索。关键派生字段：<strong>实施阶段</strong>取自需求总库「项目范围界定」列（本期 / 二期 / 三期 / 非本期）；<strong>TOGAF 4A</strong> 与<strong>高价值场景</strong>依据「三层追溯桑基图」(sankey_v4.html) 由所属专题映射推导；<strong>顾问处理意见</strong>为需求总库原始字段实录。数据通过 GitHub Action 定时刷新 <code>requirements-detail.json</code> 快照保持与在线表格一致。</p>
