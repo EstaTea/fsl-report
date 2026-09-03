@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="r0OFlGsTyd2QRqAZb3ofm9">
+<head data-page-node-id="gQGNI7XzAE2yFXOsAFU8E7">
+<meta charset="UTF-8" data-page-node-id="zjnAM6RPvrathu2TyjBhtK">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="vaNe8xbCcd9xDcCtRtB05V">
+<link rel="icon" href="/fsl-report/favicon.ico">
+<title>SAP 系统集成 API 参考文档 · SAP Integration Suite (CPI) v1.4</title>
+<style>
+  :root{
+    --bg:#f6f7fa;
+    --panel:#ffffff;
+    --ink:#151d2e;
+    --ink-soft:#48526a;
+    --muted:#7b8499;
+    --line:#e5e9f0;
+    --line-soft:#eef1f6;
+    --accent:#4f56c9;
+    --accent-soft:#edeefc;
+    --code-bg:#0d1220;
+    --code-bg2:#151b2c;
+    --code-ink:#d7dcec;
+    --code-line:#232b41;
+    --get:#12855a;
+    --get-bg:#e2f5ec;
+    --post:#256fe0;
+    --post-bg:#e5eefd;
+    --patch:#b8710d;
+    --patch-bg:#fbf0da;
+    --del:#cf3a41;
+    --del-bg:#fce7e8;
+    --radius:14px;
+    --shadow:0 1px 2px rgba(16,24,40,.04),0 8px 28px rgba(16,24,40,.06);
+    --mono:"SF Mono",SFMono-Regular,ui-monospace,"JetBrains Mono","Roboto Mono",Menlo,Consolas,"Liberation Mono",monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--sans);
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    font-size:15px;
+  }
+  a{color:var(--accent);text-decoration:none;}
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;
+    display:flex;align-items:flex-end;
+    background:
+      radial-gradient(1200px 420px at 78% -10%,rgba(122,132,255,.42) 0%,rgba(122,132,255,0) 62%),
+      radial-gradient(760px 380px at 8% 110%,rgba(38,190,160,.30) 0%,rgba(38,190,160,0) 60%),
+      linear-gradient(112deg,#0d1226 0%,#1b1b46 48%,#26205c 100%);
+    color:#fff;overflow:hidden;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;opacity:.35;
+    background-image:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);
+    background-size:44px 44px;
+    mask-image:linear-gradient(to bottom,rgba(0,0,0,.85),rgba(0,0,0,0) 85%);
+    -webkit-mask-image:linear-gradient(to bottom,rgba(0,0,0,.85),rgba(0,0,0,0) 85%);
+  }
+  .hero-inner{position:relative;z-index:2;max-width:1240px;margin:0 auto;width:100%;padding:54px 40px 44px;}
+  .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px;}
+  .hbadge{
+    display:inline-flex;align-items:center;gap:7px;
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);
+    backdrop-filter:blur(6px);padding:6px 13px;border-radius:999px;
+    font-size:12.5px;font-weight:600;letter-spacing:.02em;color:#eef0ff;
+  }
+  .hbadge svg{display:block;}
+  .hero h1{font-size:41px;line-height:1.14;font-weight:800;letter-spacing:-.02em;margin-bottom:14px;text-shadow:0 2px 18px rgba(0,0,0,.32);}
+  .hero h1 .ver{
+    font-family:var(--mono);font-size:19px;font-weight:600;color:#c3c6ff;
+    vertical-align:middle;margin-left:10px;background:rgba(79,86,201,.34);
+    padding:3px 10px;border-radius:8px;
+  }
+  .hero p.lead{font-size:16.5px;max-width:760px;color:#dde1f2;text-shadow:0 1px 8px rgba(0,0,0,.28);}
+  .hero-meta{display:flex;gap:30px;flex-wrap:wrap;margin-top:26px;padding-top:22px;border-top:1px solid rgba(255,255,255,.16);}
+  .hm-item .k{font-size:11.5px;color:#a9b0d2;letter-spacing:.05em;text-transform:uppercase;margin-bottom:3px;}
+  .hm-item .v{font-size:14px;font-weight:600;color:#fff;font-family:var(--mono);}
+
+  /* ===== LAYOUT ===== */
+  .shell{max-width:1240px;margin:0 auto;padding:0 40px 80px;}
+  .layout{display:grid;grid-template-columns:270px 1fr;gap:34px;align-items:start;margin-top:32px;}
+
+  /* ===== SIDEBAR ===== */
+  .nav{
+    position:sticky;top:76px;background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 12px;
+    max-height:calc(100vh - 96px);overflow:auto;
+  }
+  .nav::-webkit-scrollbar{width:6px;}
+  .nav::-webkit-scrollbar-thumb{background:#dfe3ec;border-radius:3px;}
+  .nav-group{margin-bottom:14px;}
+  .nav-group:last-child{margin-bottom:0;}
+  .nav-title{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:6px 12px 8px;}
+  .nav button{
+    display:flex;align-items:center;gap:9px;width:100%;text-align:left;border:none;background:none;cursor:pointer;
+    font-family:var(--sans);font-size:13.2px;color:var(--ink-soft);padding:7px 12px;border-radius:8px;line-height:1.35;
+    transition:background .15s,color .15s;
+  }
+  .nav button:hover{background:var(--line-soft);color:var(--ink);}
+  .nav button.active{background:var(--accent-soft);color:var(--accent);font-weight:600;}
+  .m-tag{
+    font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 6px;border-radius:5px;
+    letter-spacing:.02em;flex-shrink:0;min-width:42px;text-align:center;
+  }
+  .m-get{color:var(--get);background:var(--get-bg);}
+  .m-post{color:var(--post);background:var(--post-bg);}
+  .m-patch{color:var(--patch);background:var(--patch-bg);}
+  .m-del{color:var(--del);background:var(--del-bg);}
+  .m-doc{color:var(--accent);background:var(--accent-soft);min-width:auto;padding:2px 8px;}
+
+  /* ===== CONTENT ===== */
+  .content{min-width:0;}
+  section.block{
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:32px 34px;margin-bottom:26px;scroll-margin-top:76px;
+  }
+  section.block h2{font-size:23px;font-weight:750;letter-spacing:-.01em;margin-bottom:8px;display:flex;align-items:center;gap:11px;flex-wrap:wrap;}
+  section.block h2 .icon{
+    width:30px;height:30px;border-radius:8px;flex-shrink:0;background:var(--accent-soft);
+    display:inline-flex;align-items:center;justify-content:center;
+  }
+  section.block > p.sub{color:var(--ink-soft);font-size:14.5px;margin-bottom:20px;max-width:820px;}
+  h3.sec{font-size:15.5px;font-weight:700;margin:24px 0 10px;color:var(--ink);}
+  h3.sec:first-of-type{margin-top:16px;}
+  p.body{color:var(--ink-soft);font-size:14.5px;margin-bottom:12px;}
+  p.body code,li code,td code,.callout code,.change code{
+    font-family:var(--mono);font-size:12.5px;background:var(--line-soft);
+    color:#4a44bd;padding:1.5px 6px;border-radius:5px;
+  }
+  ul.list{margin:0 0 12px 20px;color:var(--ink-soft);font-size:14.5px;}
+  ul.list li{margin-bottom:6px;}
+
+  .ep-head{
+    display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+    background:var(--code-bg);border-radius:10px;padding:13px 16px;margin:6px 0 18px;
+  }
+  .ep-head .m-tag{font-size:12px;padding:4px 10px;min-width:56px;}
+  .ep-head .path{font-family:var(--mono);font-size:14.5px;color:#e8ecf7;font-weight:500;word-break:break-all;}
+  .ep-head .path .seg{color:#8e96b3;}
+  .ep-head .path .var{color:#f0c674;}
+
+  .tbl-wrap{overflow-x:auto;margin:6px 0 18px;border:1px solid var(--line-soft);border-radius:10px;}
+  table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:560px;}
+  table.tbl th{
+    text-align:left;font-weight:700;color:var(--muted);font-size:11.5px;letter-spacing:.04em;
+    text-transform:uppercase;padding:10px 13px;border-bottom:2px solid var(--line);background:#fafbfd;white-space:nowrap;
+  }
+  table.tbl td{padding:10px 13px;border-bottom:1px solid var(--line-soft);color:var(--ink-soft);vertical-align:top;}
+  table.tbl tr:last-child td{border-bottom:none;}
+  table.tbl tbody tr:hover{background:#fbfcfe;}
+  table.tbl td .pn{font-family:var(--mono);color:#4a44bd;font-weight:600;font-size:12.5px;}
+  table.tbl td .ty{font-family:var(--mono);color:var(--muted);font-size:12px;}
+  table.tbl td .nest{font-family:var(--mono);color:#4a44bd;font-weight:600;font-size:12.5px;padding-left:14px;position:relative;}
+  table.tbl td .nest::before{content:"└";position:absolute;left:2px;color:#b9c0d4;}
+  .req-pill,.opt-pill,.cond-pill{font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:5px;white-space:nowrap;}
+  .req-pill{color:var(--del);background:var(--del-bg);}
+  .opt-pill{color:var(--muted);background:var(--line-soft);}
+  .cond-pill{color:var(--patch);background:var(--patch-bg);}
+
+  .code-wrap{margin:6px 0 18px;border-radius:10px;overflow:hidden;border:1px solid var(--code-line);}
+  .code-bar{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    background:var(--code-bg2);padding:8px 14px;border-bottom:1px solid var(--code-line);
+  }
+  .code-bar .label{
+    font-family:var(--mono);font-size:11.5px;color:#9aa3c0;letter-spacing:.03em;
+    display:flex;align-items:center;gap:8px;min-width:0;
+  }
+  .code-bar .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+  .copy{
+    font-family:var(--sans);font-size:11.5px;color:#a8b0cc;background:rgba(255,255,255,.06);
+    border:1px solid #2c3450;border-radius:6px;padding:3px 10px;cursor:pointer;flex-shrink:0;
+    transition:background .15s,color .15s;
+  }
+  .copy:hover{background:rgba(255,255,255,.14);color:#e8ecf7;}
+  .copy.done{color:#7ee0a8;border-color:#2f5a45;}
+  pre{
+    background:var(--code-bg);color:var(--code-ink);font-family:var(--mono);
+    font-size:12.8px;line-height:1.68;padding:15px 18px;overflow-x:auto;tab-size:2;
+  }
+  pre::-webkit-scrollbar{height:8px;}
+  pre::-webkit-scrollbar-thumb{background:#2b3350;border-radius:4px;}
+  pre code{font-family:inherit;font-size:inherit;white-space:pre;}
+  pre .k{color:#79b8ff;}
+  pre .s{color:#9ece6a;}
+  pre .n{color:#f0a35e;}
+  pre .b{color:#bb9af7;}
+  pre .c{color:#5f6a86;font-style:italic;}
+  pre .p{color:#6b7494;}
+  pre .cmd{color:#7dd3fc;font-weight:700;}
+  pre .flag{color:#bb9af7;}
+  pre .url{color:#e8ecf7;}
+  pre .var{color:#f0c674;}
+  pre .hk{color:#79b8ff;}
+  pre .ok{color:#5ed49a;font-weight:700;}
+  pre .bad{color:#ff8b91;font-weight:700;}
+
+  .codes{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px;}
+  .scode{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:8px;padding:6px 11px;font-size:12.5px;background:#fafbfd;}
+  .scode b{font-family:var(--mono);font-weight:700;}
+  .scode.ok{background:var(--get-bg);border-color:#c8ecd9;} .scode.ok b{color:var(--get);}
+  .scode.cl{background:var(--patch-bg);border-color:#f3e2c0;} .scode.cl b{color:var(--patch);}
+  .scode.er{background:var(--del-bg);border-color:#f6d3d4;} .scode.er b{color:var(--del);}
+  .scode span{color:var(--ink-soft);}
+
+  .callout{
+    display:flex;gap:13px;background:#f4f5fb;border:1px solid #e3e5f3;border-left:3px solid var(--accent);
+    border-radius:0 10px 10px 0;padding:14px 16px;margin:6px 0 18px;font-size:13.5px;color:var(--ink-soft);
+  }
+  .callout svg{flex-shrink:0;margin-top:2px;}
+  .callout b{color:var(--ink);}
+  .callout.warn{background:#fdf6ec;border-color:#f2e3c6;border-left-color:#d99518;}
+  .callout.danger{background:#fdf1f1;border-color:#f4d8d9;border-left-color:var(--del);}
+
+  .url-box{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--code-bg);border-radius:10px;padding:14px 16px;margin:6px 0 8px;}
+  .url-box .lbl{font-size:11.5px;color:#8e96b3;font-family:var(--mono);letter-spacing:.04em;}
+  .url-box .u{font-family:var(--mono);font-size:14.5px;color:#9ece6a;font-weight:600;word-break:break-all;}
+
+  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:8px 0 6px;}
+  .feat{border:1px solid var(--line);border-radius:11px;padding:16px;background:#fcfcfe;}
+  .feat .fi{width:34px;height:34px;border-radius:9px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+  .feat h4{font-size:14px;font-weight:700;margin-bottom:5px;}
+  .feat p{font-size:12.8px;color:var(--muted);line-height:1.55;}
+
+  .diagram{width:100%;height:auto;display:block;margin:8px 0 4px;}
+
+  .rl-row{display:flex;align-items:center;gap:14px;margin-bottom:12px;}
+  .rl-row .tier{width:132px;font-size:13px;font-weight:600;flex-shrink:0;}
+  .rl-row .tier small{display:block;font-weight:400;color:var(--muted);font-size:11.5px;font-family:var(--mono);}
+  .rl-bar{flex:1;height:24px;background:var(--line-soft);border-radius:7px;overflow:hidden;}
+  .rl-fill{height:100%;border-radius:7px;display:flex;align-items:center;padding-left:11px;color:#fff;font-size:11.5px;font-weight:700;font-family:var(--mono);}
+  .rl-num{width:104px;text-align:right;font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);flex-shrink:0;}
+
+  .change{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--line-soft);}
+  .change:last-child{border-bottom:none;}
+  .change .when{width:104px;flex-shrink:0;font-family:var(--mono);font-size:12.5px;color:var(--muted);}
+  .change .vtag{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;background:var(--accent-soft);color:var(--accent);margin-bottom:4px;}
+  .change .what{font-size:13.5px;color:var(--ink-soft);}
+  .change .what b{color:var(--ink);}
+  .tag-new,.tag-chg,.tag-dep{
+    font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:5px;margin-left:6px;font-family:var(--sans);
+  }
+  .tag-new{color:var(--get);background:var(--get-bg);}
+  .tag-chg{color:var(--patch);background:var(--patch-bg);}
+  .tag-dep{color:var(--del);background:var(--del-bg);}
+
+  footer{max-width:1240px;margin:0 auto;padding:28px 40px 0;border-top:1px solid var(--line);color:var(--muted);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+  footer b{color:var(--ink-soft);}
+
+  @media (max-width:920px){
+    .hero-inner{padding:38px 20px 32px;}
+    .hero h1{font-size:29px;}
+    .hero h1 .ver{font-size:15px;display:inline-block;margin-top:6px;}
+    .hero p.lead{font-size:15px;}
+    .hero-meta{gap:18px;}
+    .shell{padding:0 16px 56px;}
+    .layout{grid-template-columns:1fr;gap:16px;margin-top:20px;}
+    .nav{position:static;max-height:none;display:flex;flex-wrap:wrap;gap:6px;}
+    .nav-group{margin-bottom:0;width:100%;}
+    .nav-group .nav-title{padding:4px 8px;}
+    .nav-group > div{display:flex;flex-wrap:wrap;gap:6px;}
+    .nav button{width:auto;}
+    section.block{padding:22px 18px;}
+    section.block h2{font-size:19px;}
+    .feat-grid{grid-template-columns:1fr;}
+    .rl-row .tier{width:96px;font-size:12px;}
+    .rl-num{width:82px;font-size:11.5px;}
+    .change{flex-direction:column;gap:6px;}
+    .change .when{width:auto;}
+    footer{padding:22px 16px 0;}
+    pre{font-size:11.8px;}
+  }
+</style>
+<script src="/fsl-report/auth-guard.js"></script>
+</head>
+<body data-page-node-id="zrKlU5YMVAPO7SYsgdWxez">
+<div id="site-nav"></div>
+<script src="/fsl-report/nav.js"></script>
+<style>
+  /* 工作台导航条（54px）占位补偿 */
+  body{display:block;font-size:15px;line-height:1.7;min-height:auto;}
+  .doc-footer{
+    border-top:1px solid var(--line);background:#0d1226;color:rgba(255,255,255,.42);
+    text-align:center;padding:20px 16px;font-size:11.5px;letter-spacing:.2px;
+  }
+  .doc-footer a{color:rgba(255,255,255,.62);}
+  .doc-footer a:hover{color:#fff;}
+</style>
+
+<!-- ================= HERO ================= -->
+<header class="hero" data-page-node-id="LGFX1FxkaQAPp0RS7l4qE7">
+  <div class="hero-inner" data-page-node-id="DyKSXHFnCBAwwBoDh3KPMT">
+    <div class="hero-badges" data-page-node-id="OQ5MZ0SPFCDuDiEDXBqEb8">
+      <span class="hbadge" data-page-node-id="ukLUVjJP24ZlJfZiacon4x">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" data-page-node-id="NzU2RY34H4rhreHP2498fZ"><path d="M4 6h16M4 12h16M4 18h10" stroke="#c9ccf5" stroke-width="2.2" stroke-linecap="round" data-page-node-id="GEzXZk7mKqm3rYlnipyphP"/></svg>
+        REST 接口参考 · 集成中台
+      </span>
+      <span class="hbadge" data-page-node-id="eayEZfMwvnNgbGAeC2IyWj">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" data-page-node-id="P8OsoRhXpQnokjOvCSnbUN"><circle cx="12" cy="12" r="9" stroke="#c9ccf5" stroke-width="2" data-page-node-id="vk1iQh33MS2nKC13hqTTLE"/><path d="M12 7v5l3 2" stroke="#c9ccf5" stroke-width="2" stroke-linecap="round" data-page-node-id="KsfMPqO0SIfdid9ZMn55GO"/></svg>
+        最后更新 2026-08-15
+      </span>
+      <span class="hbadge" data-page-node-id="2I0wqT9YeREAToTKBZBVew">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" data-page-node-id="5FvjylK7YxtaE7RSbKF1Uz"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z" stroke="#c9ccf5" stroke-width="2" stroke-linejoin="round" data-page-node-id="961InDtEVLGIlXSifWo19k"/></svg>
+        生产可用 · Stable
+      </span>
+      <span class="hbadge" data-page-node-id="5APsiZtZq7v3MhDLEiAC4M">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" data-page-node-id="TxfxMiSjsg8GYuMEm1tIqs"><path d="M4 17V7a2 2 0 012-2h5l2 2h5a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="#c9ccf5" stroke-width="2" stroke-linejoin="round" data-page-node-id="tW3pkAtWamDX0IQWro9GXa"/></svg>
+        SAP Integration Suite (CPI)
+      </span>
+    </div>
+    <h1 data-page-node-id="GG7YapEFl1zfLcvN91BmvC">SAP 系统集成 API<span class="ver" data-page-node-id="4CeNnJ2xIWqX45x8SjZtED">v1.4</span></h1>
+    <p class="lead" data-page-node-id="6ffOzRCLmlgQYA3vQLs3qE">由 SAP Integration Suite（CPI）统一暴露的集成层 REST 接口。前端只用一套 JSON 契约与一套鉴权，背后编排 S/4HANA、MDG、MES、PLM、SRM 等十余个后端系统——协议转换、字段映射、异常重试与链路追踪全部收敛在集成层，让接入方在 15 分钟内完成第一笔成功调用。</p>
+    <div class="hero-meta" data-page-node-id="NDoJh0aEg3g6OCLlXS8JXP">
+      <div class="hm-item" data-page-node-id="n8zVvf78uZTStEiwmt3Q0i"><div class="k" data-page-node-id="UHUhRKHABzznz2pPmBPTa3">Base URL</div><div class="v" data-page-node-id="gzokQWnrC1nzBCFwPPL2E6">…/http/v1</div></div>
+      <div class="hm-item" data-page-node-id="UnqjPlCdUe5MLoHSIoidZl"><div class="k" data-page-node-id="ZZnDVZa9K3oaH5gDRnkN0m">鉴权方式</div><div class="v" data-page-node-id="n776jCDzurDws22jLJvFfH">OAuth 2.0 · Bearer</div></div>
+      <div class="hm-item" data-page-node-id="8ktv8Aho76HOMDL0cSWZvW"><div class="k" data-page-node-id="gXAa0TlFc7SnQpujlfMluX">数据格式</div><div class="v" data-page-node-id="h1T2V4W0g3zaUi9tLG2IzV">application/json</div></div>
+      <div class="hm-item" data-page-node-id="9lCeS4JCEAgyxwCf4cVzmD"><div class="k" data-page-node-id="aRArBdu6mctIxn6s37q4yD">已发布端点</div><div class="v" data-page-node-id="Yo158uIyXZqhV3fhwfecA0">5 + 16 系统接口</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="shell" data-page-node-id="FF00ovURxsdt7VryNHWClX">
+  <div class="layout" data-page-node-id="1MWJwYHo8ZzDlj7CsG9Upy">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="nav" id="nav" data-page-node-id="zvtlCKqTPkXtdjsLal289q">
+      <div class="nav-group" data-page-node-id="nKmXQJQzuQATPsNqJferid">
+        <div class="nav-title" data-page-node-id="iI3aJ3DA5AGaoitHx7Y8WL">入门</div>
+        <div data-page-node-id="QffpASY8dPYaeYT88mJ2v3">
+          <button data-target="overview" class="active" data-page-node-id="QgAw3IVsxfDpHOIFlVYG5c"><span class="m-tag m-doc" data-page-node-id="0B7iryQ16WW930qcs2Zgga">概览</span>API 概览</button>
+          <button data-target="auth" data-page-node-id="iYKMVvyozwmpH9wNnCgYPV"><span class="m-tag m-doc" data-page-node-id="O2hD2WjCKWNP87wd5uDGA7">鉴权</span>鉴权与基础 URL</button>
+        </div>
+      </div>
+      <div class="nav-group" data-page-node-id="EfitLdwvUG8AGA4bRFx4Hi">
+        <div class="nav-title" data-page-node-id="muF6vH0UqpGkk3HHPZmg9D">订单端点 · Orders</div>
+        <div data-page-node-id="S7dCzpViCAmNxrAja677i9">
+          <button data-target="ep-list" data-page-node-id="3ttcBEQmKKcQyvk5aPViDC"><span class="m-tag m-get" data-page-node-id="i7irSoQSmEkwDVXEXwrzYE">GET</span>查询订单列表</button>
+          <button data-target="ep-create" data-page-node-id="LErljgrfmKh67DenvpBEtv"><span class="m-tag m-post" data-page-node-id="aLuP0yKT5bRCGtF0wZPZu1">POST</span>创建订单</button>
+          <button data-target="ep-get" data-page-node-id="b0FfaRwk2THEBohKGpHUxN"><span class="m-tag m-get" data-page-node-id="gWLpyhuAd6nz1Z8G5EoqgC">GET</span>获取订单详情</button>
+          <button data-target="ep-patch" data-page-node-id="3B6BNsDOa7aa80mdXlSIEY"><span class="m-tag m-patch" data-page-node-id="zPREta8eIUX0ez1f1hLzPR">PATCH</span>更新订单</button>
+          <button data-target="ep-del" data-page-node-id="bc8C97UYe2hcDyEH9adDfI"><span class="m-tag m-del" data-page-node-id="2LakmyrfWxisbBgGkKzObZ">DEL</span>取消订单</button>
+        </div>
+      </div>
+      <div class="nav-group" data-page-node-id="JaBAekgZDG7sMuDdLkRQUG">
+        <div class="nav-title" data-page-node-id="zlitqH85g1g6fUW2TIAxDl">参考</div>
+        <div data-page-node-id="g35wjAsVdvTsyuFCoAPCQA">
+          <button data-target="catalog" data-page-node-id="GHwaKF3ERPVnVmDaa1yc2L"><span class="m-tag m-doc" data-page-node-id="m3fm8KD2LgAAagrtW5R8DG">全景</span>集成端点全景</button>
+          <button data-target="errors" data-page-node-id="wZov2p9q7XS6oNxaJmcHf6"><span class="m-tag m-doc" data-page-node-id="NxM0VFKxq23i14KaB6OvJg">错误</span>通用错误码</button>
+          <button data-target="ratelimit" data-page-node-id="kbXQDRGpTHMVG0EuW3aB8s"><span class="m-tag m-doc" data-page-node-id="x4YmrEG6r2gvCJVk2MSOBU">限流</span>限流说明</button>
+          <button data-target="changelog" data-page-node-id="Y7bAkAo2Kp21GcrGtCpwG3"><span class="m-tag m-doc" data-page-node-id="QzFTBElBdonrLXRWCaBiJy">版本</span>版本与变更</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ================= CONTENT ================= -->
+    <main class="content" data-page-node-id="9CiGFPuxSUlN5mXYN6btYF">
+
+      <!-- ---------- OVERVIEW ---------- -->
+      <section class="block" id="overview" data-page-node-id="hhGVVg6RCFTgmYo5LSOE5Q">
+        <h2 data-page-node-id="n3GoMv0FFbMiEBtaMktQLC"><span class="icon" data-page-node-id="ubHNHuBGIfxBYfjJIAzP3e"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" data-page-node-id="Oe15iZAh0pIiCyF4F0wghM"><path d="M4 5h16v14H4z" stroke="#4f56c9" stroke-width="2" stroke-linejoin="round" data-page-node-id="NAcCwHMWvLQbchJBxC7Ft0"/><path d="M4 9h16M8 5v14" stroke="#4f56c9" stroke-width="2" data-page-node-id="eVO435I8dNAjcU532QusNz"/></svg></span>API 概览</h2>
+        <p class="sub" data-page-node-id="oZo1RNPXU3J3nHYBejgezb">本套接口是集成层（CPI）对外的门面 API（Facade API）。调用方只面对统一的 REST/JSON 契约；集成层负责把它翻译成后端系统的原生协议——S/4HANA 走 OData V2（A2X），MDG 走 DRF/OData，MES 走 IDoc 或 REST，PLM 走 REST/JSON，SRM/Ariba 走 cXML。</p>
+
+        <div class="feat-grid" data-page-node-id="n8KGfpAWtiMwCeKYsYNOxB">
+          <div class="feat" data-page-node-id="CGVOqATRzhggG3uxEVJxFj">
+            <div class="fi" data-page-node-id="4iNucnDmDaW796wu62wwZ4"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" data-page-node-id="ow545jsY1T3H5YCYsBXF10"><path d="M5 12l5 5L19 7" stroke="#4f56c9" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="MrjuItynnPtGjOnyEAsHwj"/></svg></div>
+            <h4 data-page-node-id="PwGe3acdEyjHKHrK6Qqfz6">统一契约</h4>
+            <p data-page-node-id="KVu0H9pJs9fIQDDqGJBvL3">所有端点共用一套响应信封：<code data-page-node-id="Sj34gx6zvtrBLCrOwFrjdP">data</code> / <code data-page-node-id="DQR02B7TL8nqgtnKwcRv8C">paging</code> / <code data-page-node-id="AGQiAAr9mncHB8jutEV9Jw">meta</code>，错误统一为 <code data-page-node-id="98MN1TXCSBb4CIDwNEdHc8">error.code</code> 机器可读码。</p>
+          </div>
+          <div class="feat" data-page-node-id="ZgczIEWNf8OykpCSbYcEIn">
+            <div class="fi" data-page-node-id="D8QiCqsH482hrV1yvWDTY1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" data-page-node-id="yEPcFyQXpaEu6VkX4s7DDG"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z" stroke="#4f56c9" stroke-width="2" stroke-linejoin="round" data-page-node-id="ruSuCllrpTiRT4919xHhQM"/></svg></div>
+            <h4 data-page-node-id="ZNRGYmqibKlncCvP2spBED">端到端安全</h4>
+            <p data-page-node-id="yTfBqKKgGZXqUulwOy7fW9">OAuth 2.0 Client Credentials 换取 Bearer Token；写操作叠加 X-CSRF-Token 与 If-Match 并发控制。</p>
+          </div>
+          <div class="feat" data-page-node-id="gmyMWwxRJmrnXnjWCYe7KE">
+            <div class="fi" data-page-node-id="UIflhICd5kAwhUBrBcVlVF"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" data-page-node-id="CMDk7WXSeWGDjEGpnkFLsN"><path d="M3 12h4l3 7 4-14 3 7h4" stroke="#4f56c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="3vtnDTgxCv9cpMY3g7VsfM"/></svg></div>
+            <h4 data-page-node-id="Beu9L9iDBpIaitn4iOjMcR">可观测</h4>
+            <p data-page-node-id="MVBNVdcGkOPahFtrCd2D2p">每次调用返回 <code data-page-node-id="5wDpnyNXIbgRCAgVVgOL4F">meta.correlationId</code>，可直接在 CPI Message Processing Log 中定位到报文与后端往返耗时。</p>
+          </div>
+        </div>
+
+        <h3 class="sec" data-page-node-id="rGFHdSbuTIIKmTipi8MA9n">集成架构</h3>
+        <svg class="diagram" viewBox="0 0 900 470" role="img" aria-label="SAP CPI 集成架构图：渠道系统经由集成层对接后端系统" data-page-node-id="SLPluhS2Pkoeq34DY8rjke">
+          <defs data-page-node-id="K3kZF1BvdOI64jC0e5TA59">
+            <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse" data-page-node-id="P3rkhzHGkvjmAZ4vL6VLGc">
+              <path d="M0 0 L10 5 L0 10 z" fill="#7f8bb5" data-page-node-id="9GQyYjpCgRDJyngSTAoi1n"/>
+            </marker>
+            <linearGradient id="hub" x1="0" y1="0" x2="1" y2="1" data-page-node-id="Ae4iwrP0Ggrhio0n1PklIA">
+              <stop offset="0%" stop-color="#3b41a8" data-page-node-id="CG8Lki73kKKuBdXpgcuXwf"/>
+              <stop offset="100%" stop-color="#232055" data-page-node-id="JCU6lRRUCpR0VWMpOTExpD"/>
+            </linearGradient>
+          </defs>
+          <rect x="0" y="0" width="900" height="470" fill="#fbfcfe" rx="12" data-page-node-id="PoG0gaTx5L7ITF6NPNW4eG"/>
+
+          <text x="26" y="24" font-family="system-ui,-apple-system,sans-serif" font-size="12" font-weight="700" fill="#7b8499" letter-spacing="1" data-page-node-id="FHiZbgamhLRvPDrYMsysZi">调用方 / 渠道</text>
+          <text x="336" y="24" font-family="system-ui,-apple-system,sans-serif" font-size="12" font-weight="700" fill="#7b8499" letter-spacing="1" data-page-node-id="1CFhfa0tNFzwEwB1jvBeE6">集成层（门面 API）</text>
+          <text x="706" y="24" font-family="system-ui,-apple-system,sans-serif" font-size="12" font-weight="700" fill="#7b8499" letter-spacing="1" data-page-node-id="K6JRf4H7BLaagQjGYcdTd6">后端系统</text>
+
+          <!-- 调用方 -->
+          <g font-family="system-ui,-apple-system,sans-serif" data-page-node-id="O7JR1DNwRFVtDGDX7RXrNC">
+            <g data-page-node-id="WDNNAdqFKJHxGfxVTDlP3e">
+              <rect x="16" y="40" width="178" height="46" rx="9" fill="#eef1fd" stroke="#c9cff4" data-page-node-id="899s9y6L1NY4pSVsmPOWaL"/>
+              <text x="105" y="62" font-size="13" font-weight="700" fill="#262f5e" text-anchor="middle" data-page-node-id="mfWrRIa5DcH5ikhEoORXcE">电商平台 / 商城</text>
+              <text x="105" y="78" font-size="10.5" fill="#6b74a3" text-anchor="middle" font-family="ui-monospace,monospace" data-page-node-id="58B9bfFi1GArdgANfpbY7w">REST · JSON</text>
+            </g>
+            <g data-page-node-id="2RNKXm2RFWnTUdhZVmhDE9">
+              <rect x="16" y="104" width="178" height="46" rx="9" fill="#eef1fd" stroke="#c9cff4" data-page-node-id="79oRb3Xv4FlzMu51Ae7dtx"/>
+              <text x="105" y="126" font-size="13" font-weight="700" fill="#262f5e" text-anchor="middle" data-page-node-id="YGLgmO5GjZwFjJHdogEoqg">经销商门户 DMS</text>
+              <text x="105" y="142" font-size="10.5" fill="#6b74a3" text-anchor="middle" font-family="ui-monospace,monospace" data-page-node-id="b5spayMgnAkIns0yP6xPHa">REST · JSON</text>
+            </g>
+            <g data-page-node-id="nzx4U3ESTM4NsjmSS7dVys">
+              <rect x="16" y="168" width="178" height="46" rx="9" fill="#eef1fd" stroke="#c9cff4" data-page-node-id="UPFekE6msL0WwkcnmYozIF"/>
+              <text x="105" y="190" font-size="13" font-weight="700" fill="#262f5e" text-anchor="middle" data-page-node-id="s6fF0yCPGsnPz9eFPo8tRi">MES 车间终端</text>
+              <text x="105" y="206" font-size="10.5" fill="#6b74a3" text-anchor="middle" font-family="ui-monospace,monospace" data-page-node-id="GOq6L9dCXcJ3zEW3lVthqA">REST · JSON</text>
+            </g>
+            <g data-page-node-id="qQMkj5heVq6t6w5ghNYdhe">
+              <rect x="16" y="232" width="178" height="46" rx="9" fill="#eef1fd" stroke="#c9cff4" data-page-node-id="HTmJLlVunX6jM4Z2pDqXy3"/>
+              <text x="105" y="254" font-size="13" font-weight="700" fill="#262f5e" text-anchor="middle" data-page-node-id="hZKtfhYdE3pduErvaqCfzp">第三方伙伴 · EDI</text>
+              <text x="105" y="270" font-size="10.5" fill="#6b74a3" text-anchor="middle" font-family="ui-monospace,monospace" data-page-node-id="qmkoqgRrldN8BQRZrSf09N">REST · JSON</text>
+            </g>
+            <text x="105" y="308" font-size="11.5" fill="#8a93b3" text-anchor="middle" data-page-node-id="AUWR1PABhvAHX93Gtlqz7e">统一鉴权 · 统一限流</text>
+            <text x="105" y="324" font-size="11.5" fill="#8a93b3" text-anchor="middle" data-page-node-id="fSShgCVzUBa2ifgfcLkrOU">统一错误码 · 统一分页</text>
+          </g>
+
+          <!-- 连线 左 -> 中 -->
+          <g stroke="#7f8bb5" stroke-width="1.4" fill="none" opacity=".55" data-page-node-id="tq1bhE86pT9q19XDe3X7nT">
+            <path d="M194 63 L336 210" marker-end="url(#ar)" data-page-node-id="zZLEidfcTdxGsvErjqaB1K"/>
+            <path d="M194 127 L336 220" marker-end="url(#ar)" data-page-node-id="mzSEuAkHaP3aFKOfNL3tu7"/>
+            <path d="M194 191 L336 232" marker-end="url(#ar)" data-page-node-id="j2g4NZEUuU1H7HBJmN3i3F"/>
+            <path d="M194 255 L336 244" marker-end="url(#ar)" data-page-node-id="JvtmQBf6msWKSwFCTIxMU8"/>
+          </g>
+
+          <!-- 中心 -->
+          <g data-page-node-id="yuTVjykBYUd1Syh8CL5bnh">
+            <rect x="336" y="120" width="248" height="200" rx="14" fill="url(#hub)" data-page-node-id="VKBYaF9iO99fW6A3Km4PEV"/>
+            <rect x="336" y="120" width="248" height="200" rx="14" fill="none" stroke="#5b5bd6" stroke-width="1.4" data-page-node-id="klpmNJKyUizhjKnWpMjoxg"/>
+            <text x="460" y="152" font-size="15" font-weight="800" fill="#ffffff" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" data-page-node-id="QI1NuXYYwJXlZ3ceEHb6FU">SAP Integration Suite</text>
+            <text x="460" y="172" font-size="11.5" fill="#b9bef0" text-anchor="middle" font-family="ui-monospace,monospace" data-page-node-id="S3f3Jfsz657Jt0ZOLgVoUo">CPI · /http/v1</text>
+            <g font-family="system-ui,-apple-system,sans-serif" data-page-node-id="cA10CVBFqXdtMGp9jTkU64">
+              <rect x="356" y="188" width="104" height="30" rx="7" fill="rgba(255,255,255,.13)" data-page-node-id="0llp9i9Ru3rQW1zA5ySn9b"/>
+              <text x="408" y="207" font-size="11.5" fill="#e6e9fb" text-anchor="middle" data-page-node-id="bRh4G0ThfImecWhqkrEpS1">协议转换</text>
+              <rect x="466" y="188" width="104" height="30" rx="7" fill="rgba(255,255,255,.13)" data-page-node-id="ocDKNbquNrKiimYprlKixE"/>
+              <text x="518" y="207" font-size="11.5" fill="#e6e9fb" text-anchor="middle" data-page-node-id="gFRDh7N49XNtykJ5GsJ7hr">消息映射</text>
+              <rect x="356" y="226" width="104" height="30" rx="7" fill="rgba(255,255,255,.13)" data-page-node-id="oqAIwQ7kZIAWDl2DyA6Cqx"/>
+              <text x="408" y="245" font-size="11.5" fill="#e6e9fb" text-anchor="middle" data-page-node-id="jsa7vXaDgtYucg0foAs6hw">路由编排</text>
+              <rect x="466" y="226" width="104" height="30" rx="7" fill="rgba(255,255,255,.13)" data-page-node-id="6tH0EJvX1klCjVnKYpI5s9"/>
+              <text x="518" y="245" font-size="11.5" fill="#e6e9fb" text-anchor="middle" data-page-node-id="WOXt9VgVU2dGaGrAmdAXdy">异常重试</text>
+              <rect x="356" y="264" width="214" height="30" rx="7" fill="rgba(255,255,255,.13)" data-page-node-id="K3Raz42WgCZzW7Wgh7dXGb"/>
+              <text x="463" y="283" font-size="11.5" fill="#e6e9fb" text-anchor="middle" data-page-node-id="odvAHRhM8VtoJ2xtA39MbC">幂等 · 限流 · 日志追踪</text>
+            </g>
+          </g>
+
+          <!-- 连线 中 -> 右 -->
+          <g stroke="#7f8bb5" stroke-width="1.4" fill="none" opacity=".55" data-page-node-id="pEE9HrK3lHJwCDnOC11Wl2">
+            <path d="M584 160 L706 61" marker-end="url(#ar)" data-page-node-id="YpuTtBKMbIyHm2da0e8AnA"/>
+            <path d="M584 175 L706 112" marker-end="url(#ar)" data-page-node-id="UYfk7b5bBNfBcEe7tzSGgy"/>
+            <path d="M584 192 L706 163" marker-end="url(#ar)" data-page-node-id="ypSGl2hXo4f1VqkrYz2any"/>
+            <path d="M584 209 L706 214" marker-end="url(#ar)" data-page-node-id="AELZ2aRhFTkSq8CwH7wvPh"/>
+            <path d="M584 226 L706 265" marker-end="url(#ar)" data-page-node-id="Vi7aRYVhDIH5VAhrJ6Y5QX"/>
+            <path d="M584 243 L706 316" marker-end="url(#ar)" data-page-node-id="xggo0xnF8xk5TvdonhAakF"/>
+            <path d="M584 260 L706 367" marker-end="url(#ar)" data-page-node-id="uyXDD1AilHsCjrfq25jKYb"/>
+            <path d="M584 277 L706 418" marker-end="url(#ar)" data-page-node-id="BLsecAk6AlWrQUYonLkH3a"/>
+          </g>
+
+          <!-- 后端系统 -->
+          <g font-family="system-ui,-apple-system,sans-serif" data-page-node-id="ykqek9UknkSzTKUmoZaJg4">
+            <g data-page-node-id="do1nnM6afn8PgG9JTiu807"><rect x="706" y="40" width="178" height="42" rx="9" fill="#e6f2fb" stroke="#bcd9ee" data-page-node-id="1sXchX5qnsFYtzweoiWeJk"/><text x="795" y="59" font-size="12.5" font-weight="700" fill="#1d3f5c" text-anchor="middle" data-page-node-id="O6xRYDP7iCjC6cOkxRwoUp">S/4HANA（SD/MM/FI）</text><text x="795" y="74" font-size="10" fill="#5c7f99" text-anchor="middle" font-family="ui-monospace,monospace" data-page-node-id="c8oEf47fQlvMTx4X4CBIYH">OData V2 · A2X</text></g>
+            <g data-page-node-id="6F27lXOmICTJtDDfA7nBIa"><rect x="706" y="91" width="178" height="42" rx="9" fill="#e6f2fb" stroke="#bcd9ee" data-page-node-id="fofAdD112q2rQVdMRPxQjH"/><text x="795" y="110" font-size="12.5" font-weight="700" fill="#1d3f5c" text-anchor="middle" data-page-node-id="7kXCLgYss1uMyrCH80bZH0">SAP MDG 主数据</text><text x="795" y="125" font-size="10" fill="#5c7f99" text-anchor="middle" font-family="ui-monospace,monospace" data-page-node-id="GnuR0KOlVrdVgUS6sdiheh">OData · DRF</text></g>
+            <g data-page-node-id="HBPfBhkB5wxMbPZcI1ESuN"><rect x="706" y="142" width="178" height="42" rx="9" fill="#e6f2fb" stroke="#bcd9ee" data-page-node-id="FlUGTBdTrHCayQJhSWo1qg"/><text x="795" y="161" font-size="12.5" font-weight="700" fill="#1d3f5c" text-anchor="middle" data-page-node-id="WEzJ8oD4DRIlmdeI3gL8rZ">SAP EWM / WM</text><text x="795" y="176" font-size="10" fill="#5c7f99" text-anchor="middle" font-family="ui-monospace,monospace" data-page-node-id="WvH6Ke6RC3UDBMHR97L541">OData · IDoc</text></g>
+            <g data-page-node-id="8x84LFBb141Q7eQhDlLHgR"><rect x="706" y="193" width="178" height="42" rx="9" fill="#e6f2fb" stroke="#bcd9ee" data-page-node-id="Pczfz3HwmUEHq2FfsVpDCH"/><text x="795" y="212" font-size="12.5" font-weight="700" fill="#1d3f5c" text-anchor="middle" data-page-node-id="DuT5bPZLtgNLJamjJeVztd">SRM / Ariba</text><text x="795" y="227" font-size="10" fill="#5c7f99" text-anchor="middle" font-family="ui-monospace,monospace" data-page-node-id="KaCwBAELYdeBCZR1LF7kky">cXML</text></g>
+            <g data-page-node-id="Z2O9nqYepPj5MOV6TRsWrH"><rect x="706" y="244" width="178" height="42" rx="9" fill="#f2eefa" stroke="#d6cbf0" data-page-node-id="0eeskvUEs8kIZUSefuTOGK"/><text x="795" y="263" font-size="12.5" font-weight="700" fill="#3d2c62" text-anchor="middle" data-page-node-id="wjscWGlZlGcFMRZIn8ZTnJ">MES 制造执行</text><text x="795" y="278" font-size="10" fill="#7a68a8" text-anchor="middle" font-family="ui-monospace,monospace" data-page-node-id="GLBBogbsgL1tk2Bdf2W3la">REST · IDoc</text></g>
+            <g data-page-node-id="DbRK09nzlRWnfBLLnXB16v"><rect x="706" y="295" width="178" height="42" rx="9" fill="#f2eefa" stroke="#d6cbf0" data-page-node-id="KBHJNN1r1xkhMakoHd1Gnz"/><text x="795" y="314" font-size="12.5" font-weight="700" fill="#3d2c62" text-anchor="middle" data-page-node-id="uHY3a1uNGhru2ZXXVOTa0a">PLM（物料/BOM）</text><text x="795" y="329" font-size="10" fill="#7a68a8" text-anchor="middle" font-family="ui-monospace,monospace" data-page-node-id="dZr0tQlZQlD0X6al6T3d37">REST · JSON</text></g>
+            <g data-page-node-id="43FkqmgFbFm9sbKM67SR9n"><rect x="706" y="346" width="178" height="42" rx="9" fill="#f2eefa" stroke="#d6cbf0" data-page-node-id="juDkrYI9HFH0YMFbf6p3Or"/><text x="795" y="365" font-size="12.5" font-weight="700" fill="#3d2c62" text-anchor="middle" data-page-node-id="3GGltH3mvTKEAvX9ud3yE2">金税 / 发票平台</text><text x="795" y="380" font-size="10" fill="#7a68a8" text-anchor="middle" font-family="ui-monospace,monospace" data-page-node-id="zOBJodx3DPO6F5jPRKCW8q">HTTPS · 税控</text></g>
+            <g data-page-node-id="Xj17DCt2a11Ca3A5MYno8w"><rect x="706" y="397" width="178" height="42" rx="9" fill="#f2eefa" stroke="#d6cbf0" data-page-node-id="VzZuGxmvXiGI8N4eWxmTiP"/><text x="795" y="416" font-size="12.5" font-weight="700" fill="#3d2c62" text-anchor="middle" data-page-node-id="qSkMQeSChBDSQDQHx5XyRs">银企直连 / 资金</text><text x="795" y="431" font-size="10" fill="#7a68a8" text-anchor="middle" font-family="ui-monospace,monospace" data-page-node-id="pS49zEAWFCPauPs6lAgIpa">Socket · 报文</text></g>
+          </g>
+
+          <!-- 图例 -->
+          <g font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#7b8499" data-page-node-id="VvkTDf7d4Sia1XSbD9gisI">
+            <rect x="16" y="446" width="12" height="12" rx="3" fill="#e6f2fb" stroke="#bcd9ee" data-page-node-id="6q6zbFC5r1ZNcpg4aanCNo"/><text x="34" y="456" data-page-node-id="GzSoHlSWgrGQI3TJthZFbf">SAP 标准系统</text>
+            <rect x="146" y="446" width="12" height="12" rx="3" fill="#f2eefa" stroke="#d6cbf0" data-page-node-id="HN9qivBKWFaNvGAsKNQZ3K"/><text x="164" y="456" data-page-node-id="lshU225YCPK8YlqzmCnEuU">外部 / 第三方系统</text>
+            <rect x="316" y="446" width="12" height="12" rx="3" fill="url(#hub)" data-page-node-id="eMsgqoupvsFEYLRujWcoEV"/><text x="334" y="456" data-page-node-id="1jHsHGRpQyQPHBzMDpPKpK">集成层（本文档覆盖范围）</text>
+          </g>
+        </svg>
+
+        <h3 class="sec" data-page-node-id="FiXev6plCMLWGOlHnFsJFE">通用约定</h3>
+        <ul class="list" data-page-node-id="ImGHwUkwJcB7Y5sg4mpxpA">
+          <li data-page-node-id="8Ug6cjbzypHh3enbwk970J"><b data-page-node-id="YZgFQcnJYF9PoQMBI75684">传输</b>：强制 HTTPS（TLS 1.2+），明文 HTTP 请求会被拒绝并返回 <code data-page-node-id="cRRqD5JClAS7NNEi3UF6oW">403</code>。</li>
+          <li data-page-node-id="F6NMCXvAd717uu5NPubJzG"><b data-page-node-id="MJF0sN1x8DxkO5IFs09CJY">编码</b>：<code data-page-node-id="GOcVhPnC6l6WFUINbvV6xk">Content-Type: application/json;charset=utf-8</code>，所有响应均为 UTF-8。</li>
+          <li data-page-node-id="l7JVwProeqGa7z5H7CFqwf"><b data-page-node-id="qEE8r7A2Smp3NbDp5vaiTT">时间</b>：ISO 8601，UTC，精度到秒，例如 <code data-page-node-id="puSKsg6nGphTDcZvwodp1S">2026-09-03T02:41:07Z</code>；日期字段使用 <code data-page-node-id="JOptnkOFhvE2ti0ZudWy63">YYYY-MM-DD</code>。</li>
+          <li data-page-node-id="y31c0U8E9QLYES0xR2WJ6L"><b data-page-node-id="lI1GGplSymaeWQfd6VEFmL">金额</b>：字符串形式的十进制数字（<code data-page-node-id="wVDXouwHGAFxBmK0s2L6di">"126800.00"</code>），避免浮点误差；币种单独用 <code data-page-node-id="C5fLN2VG7MqWeVasyBroHf">currency</code> 字段给出（ISO 4217）。</li>
+          <li data-page-node-id="UYBimsCeddz7MbpACEFsFQ"><b data-page-node-id="B6tv98DxlWIJ2xaLQhUgm5">数量</b>：字符串三位小数，与 SAP 内部精度一致，例如 <code data-page-node-id="vfXmPeAgMsK5fqCNEK0F67">"500.000"</code>。</li>
+          <li data-page-node-id="6WNfHS5uc8jidABP0OOya4"><b data-page-node-id="82kRCCUNZvLigGwE5wf1v8">编号</b>：业务主键（如销售订单号）一律字符串返回，不做数字类型隐式转换。</li>
+          <li data-page-node-id="A33qEXRW2GBDs1TooUWyuJ"><b data-page-node-id="sa6HVcMDKESRPIzBZqWcee">分页</b>：<code data-page-node-id="VKu1OMT0VjviGO1mmBMvxF">page</code> + <code data-page-node-id="qCRBE30q12MvWNPCJHA78X">pageSize</code>，默认 <code data-page-node-id="Z0IHnivVZXFvsO2ySQeBpX">page=1</code>、<code data-page-node-id="kOF76GARwRbtK0qICSrmCz">pageSize=50</code>，最大 <code data-page-node-id="3zO0BvKmKpwXc0dNMxrXgD">200</code>。</li>
+          <li data-page-node-id="5u2gtGoajFF8IJwNWizZX8"><b data-page-node-id="3TmTvzKUcxTVUp2V3TbHxt">追踪</b>：请求可携带 <code data-page-node-id="854gOLsttaCFoybJfSCduu">X-Correlation-ID</code>；未携带时由集成层生成，并回显在响应头与 <code data-page-node-id="6Md8FhCvb0GFHUUKB5Yx7g">meta.correlationId</code>。</li>
+        </ul>
+
+        <div class="callout" data-page-node-id="0l7Z6b4fFp0oxe2m2kGE9X">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" data-page-node-id="GxOVD6DdAtG4DxGA7CLQlU"><circle cx="12" cy="12" r="9" stroke="#4f56c9" stroke-width="2" data-page-node-id="W4u7DVQ09jAT6s33WbBWdi"/><path d="M12 8h.01M11 12h1v4h1" stroke="#4f56c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="l3LUuUX0xKrvGFkdLwyczJ"/></svg>
+          <div data-page-node-id="YhA1HBWkw56lyCyx9PV3Of">本页所有示例均可直接复制运行。把 <code data-page-node-id="wM8XJqgdH3Hv3RcyR8gA5S">$CPI_TOKEN</code> 换成你换取的访问令牌、把 <code data-page-node-id="Hzsvdr80O1nHFaLeHAeztF">&lt;tenant-host&gt;</code> 换成你的 CPI 运行期主机名即可。写操作还需要先取一次 <code data-page-node-id="K9PQWijQAjXSQJvdMeurqU">X-CSRF-Token</code>，详见<a href="#auth" data-page-node-id="T2DTk1DdKRnXR5Rj4BxpTs">鉴权与基础 URL</a>。</div>
+        </div>
+      </section>
+
+      <!-- ---------- AUTH ---------- -->
+      <section class="block" id="auth" data-page-node-id="0At03DbV7xGEykmuw6HZ0D">
+        <h2 data-page-node-id="TzbLyxYcYd8RBg4RdzUdFJ"><span class="icon" data-page-node-id="redEaRksBNe8wZ3CJ2qWwB"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" data-page-node-id="BppPP7E15PNnUJZ6zsq9oj"><rect x="5" y="11" width="14" height="9" rx="2" stroke="#4f56c9" stroke-width="2" data-page-node-id="YrLCi4vtAy02gydUmajOd7"/><path d="M8 11V8a4 4 0 018 0v3" stroke="#4f56c9" stroke-width="2" data-page-node-id="jpsHs0RBbOn3zBHewe8uwb"/></svg></span>鉴权与基础 URL</h2>
+        <p class="sub" data-page-node-id="hvTOFkl0efTGzmjHGr2rwu">集成层使用 OAuth 2.0 <b data-page-node-id="w6nAdFdXfdtV7DPnFa4nJH">Client Credentials</b> 授权模式：用 <code data-page-node-id="L9ccHREbboDrJbPEiDO0CO">client_id</code> / <code data-page-node-id="NxccT8tFegWJDfLpKuC3fS">client_secret</code> 向令牌端点换取短期访问令牌，再以 Bearer Token 调用业务端点。令牌有效期 3600 秒，过期返回 <code data-page-node-id="VaeKSfxx6Eivx3LXuMpsYL">401 AUTH_TOKEN_EXPIRED</code>。</p>
+
+        <h3 class="sec" data-page-node-id="0Zpz5EqMZBWVbZ1uzFTKWE">基础 URL</h3>
+        <div class="url-box" data-page-node-id="SbNwzToxCNX88MTE8wlY7M">
+          <span class="lbl" data-page-node-id="bROhacLs7HfgQf7hHwFLKK">PROD</span>
+          <span class="u" data-page-node-id="IAPStHRFWBHEcfzDF8OK12">https://&lt;tenant-host&gt;.hana.ondemand.com/http/v1</span>
+        </div>
+        <div class="url-box" style="margin-top:10px;" data-page-node-id="JlXLNbPEcUR8OcYdZ0lICu">
+          <span class="lbl" data-page-node-id="fdFSeLHxmPcD993e6A9G8T">TEST</span>
+          <span class="u" data-page-node-id="uzvEsnymFVGMiGkNw4j9Uw">https://&lt;tenant-host&gt;-test.hana.ondemand.com/http/v1</span>
+        </div>
+        <p class="body" data-page-node-id="fs2R1886gH9ArqRlrSC61H">所有端点路径都基于该前缀拼接。例如查询订单列表的完整地址为 <code data-page-node-id="rcZIQSTvmpCGgBFk4tMlKO">https://&lt;tenant-host&gt;.hana.ondemand.com/http/v1/orders</code>。租户主机名由集成团队在开通时下发，形如 <code data-page-node-id="blrDDvv8R3xdNFO96SOroC">acme-cpi-prod.it-cpi01-rt.cfapps.cn40</code>。</p>
+
+        <h3 class="sec" data-page-node-id="daxoABw0XkupsW2lobT01q">第一步 · 获取访问令牌</h3>
+        <div class="code-wrap" data-page-node-id="8ZsGiDxGcovIlWQR6SsbPG">
+          <div class="code-bar" data-page-node-id="wY3tPRrDvCGsKNa3E9JVvU"><span class="label" data-page-node-id="hUk6YlljJe6MyaYT1tQDNO"><span class="dot" style="background:#9ece6a" data-page-node-id="7gIhbLxJyD9Jv7uGmtPhFc"></span>Shell · 换取 Bearer Token</span><button class="copy" type="button" data-page-node-id="uRXVgVSQysmBzwDHO0Jasg">复制</button></div>
+<pre data-page-node-id="Dt4DkdJCyzuOHpSI4xzjOM"><code class="lang-shell" data-page-node-id="XNSJYIcDpwMG4Ysze7LTzZ">curl -X POST "https://acme-cpi-prod.authentication.cn40.hana.ondemand.com/oauth/token" \
+  -u "$CPI_CLIENT_ID:$CPI_CLIENT_SECRET" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "grant_type=client_credentials" \
+  -d "scope=cpi.orders.read cpi.orders.write"
+
+# 建议缓存令牌，过期前 60 秒主动刷新，不要每次调用都换令牌</code></pre>
+        </div>
+        <div class="code-wrap" data-page-node-id="ybDMy5XP63rlxglUyo2zq7">
+          <div class="code-bar" data-page-node-id="BvGBbljqL08G2doFcCNJyr"><span class="label" data-page-node-id="Bzict3M4KsXoelhbe9B0WE"><span class="dot" style="background:#5ed49a" data-page-node-id="LLntBKkZuVNOoMumIGG5Cz"></span>200 OK · application/json</span><button class="copy" type="button" data-page-node-id="BURPzyKGdKXay78Bc0iri6">复制</button></div>
+<pre data-page-node-id="f3oziXgTAcBnYukgkEorq2"><code class="lang-json" data-page-node-id="Xq7HeHQVS8PHmTjgLg8TM5">{
+  "access_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijdm...",
+  "token_type": "Bearer",
+  "expires_in": 3600,
+  "scope": "cpi.orders.read cpi.orders.write"
+}</code></pre>
+        </div>
+
+        <h3 class="sec" data-page-node-id="dPmpGc91gsG9x3EZza6VOz">第二步 · 获取 CSRF Token（仅写操作）</h3>
+        <p class="body" data-page-node-id="lpJiRtTcSUKsQEsN1ueZps">对 <code data-page-node-id="7uG83H0oxlAgMq4vELKWGu">POST</code> / <code data-page-node-id="6WgDswLDNBW38h3TeLwSCQ">PATCH</code> / <code data-page-node-id="SdtgGWuorynPeUUKOwykPj">DELETE</code>，集成层要求携带 <code data-page-node-id="Fi93OxN9RAyK7AiUZXpomx">X-CSRF-Token</code>。先以 <code data-page-node-id="xsAuCnDf2NaDYcNljSN74g">Fetch</code> 取值，令牌在同一会话内可复用（默认 30 分钟），随响应头一并回传 <code data-page-node-id="ePgQUqnOCF17FGpl5P1FCd">Set-Cookie</code> / <code data-page-node-id="m5ypKf9Ldh7Zh40p5CpE2F">x-csrf-token</code>，请连同 Cookie 一起回传。</p>
+        <div class="code-wrap" data-page-node-id="8nHOtUK3PVxC9KtTUNvyJv">
+          <div class="code-bar" data-page-node-id="CkcV4sZHpmnHw9kuVcapnm"><span class="label" data-page-node-id="s5bIypGeWbSKHsl2FVSi6c"><span class="dot" style="background:#f0c674" data-page-node-id="cmj7eyV8pGvOxHg8UPjtA3"></span>Shell · 抓取 CSRF Token</span><button class="copy" type="button" data-page-node-id="pgx0ugDmjpE1hC0Vort97O">复制</button></div>
+<pre data-page-node-id="HZpjgPEbbt1DvXf2VFCfBF"><code class="lang-shell" data-page-node-id="CwGCnAmA64gRx7ggOHGfVl">CSRF=$(curl -s -X GET "https://acme-cpi-prod.it-cpi01-rt.cfapps.cn40.hana.ondemand.com/http/v1/orders?pageSize=1" \
+  -H "Authorization: Bearer $CPI_TOKEN" \
+  -H "X-CSRF-Token: Fetch" \
+  -c cookiejar.txt -D - -o /dev/null | grep -i '^x-csrf-token' | awk '{print $2}' | tr -d '\r')
+
+echo "$CSRF"</code></pre>
+        </div>
+
+        <h3 class="sec" data-page-node-id="i0dwV7Ds74mvgLgzTiDewJ">公共请求头</h3>
+        <div class="tbl-wrap" data-page-node-id="Gdu7vMHlEMTWCaT3GGB8zb">
+        <table class="tbl" data-page-node-id="LRKzv5TBLrpaSKxut3guON">
+          <thead data-page-node-id="xztUWDsc286UNdqE2JjmPS"><tr data-page-node-id="0GbH9Q1Jugh1D1WijIbCOs"><th data-page-node-id="3VINa1lRWgi3vBZC0XU5RD">请求头</th><th data-page-node-id="BL1EVNarS1k1iqwY3y72xH">示例值</th><th data-page-node-id="YdSDmaUvogf4zLytATs9hw">必填</th><th data-page-node-id="hxLpw7Mw4zpFmK4rhT8TqD">说明</th></tr></thead>
+          <tbody data-page-node-id="iOCQKodc6ZDuUV9Dg1SA4G">
+            <tr data-page-node-id="P8c3yC73F30u9px2cO8Aky"><td data-page-node-id="agY1RragJ854Mb2cydCjWz"><span class="pn" data-page-node-id="Vp9u10xJ8yjOL8azqG7EOl">Authorization</span></td><td data-page-node-id="8wEj0pnhSPl0sUGcfXvD6M"><span class="ty" data-page-node-id="HSZTdkGEHlWMOAnvdLdvd0">Bearer eyJhbGci…</span></td><td data-page-node-id="ubA8AyZAoScYnJ8tZfxzne"><span class="req-pill" data-page-node-id="tz1UtOcAxAgWH0aBZjKCds">必填</span></td><td data-page-node-id="dJTvddmln9ulF6p8yXCZR9">访问令牌。缺失或过期返回 <code data-page-node-id="kRNSPXqEhisUFmhR0uFMVP">401</code>。</td></tr>
+            <tr data-page-node-id="yjkRn4yEbZMqFewI0rysYI"><td data-page-node-id="gv68S2ggtJHIAZ67DLMCSz"><span class="pn" data-page-node-id="9SP0J01ZPcw5TwjGtMxYZO">X-CSRF-Token</span></td><td data-page-node-id="lto0bSUauAT4NTshAGFURs"><span class="ty" data-page-node-id="iUbh1ZGBoqm8DF0sSNrHTB">RkZSM…==</span></td><td data-page-node-id="Em3DOtwtWWgOWptOH55J0V"><span class="cond-pill" data-page-node-id="Dr8GSKNBkpQM8Or3Fc3Bbm">写操作</span></td><td data-page-node-id="KrpU7MgcpNZjONF8cycxl2">POST / PATCH / DELETE 必填；缺失返回 <code data-page-node-id="X2k6b0ZiGV0G1CyQPpuStb">403 CSRF_TOKEN_MISSING</code>。</td></tr>
+            <tr data-page-node-id="VTME0siFSldlLcNicjq6pj"><td data-page-node-id="RBTXe1ciSEKFq8luyxP5Si"><span class="pn" data-page-node-id="wT3410T1uJh0dEt1ilC9nD">Content-Type</span></td><td data-page-node-id="8ndzNJA5lvft0wZmqRDkrA"><span class="ty" data-page-node-id="dFEgmHyO85i6vDZCdSuDNU">application/json;charset=utf-8</span></td><td data-page-node-id="KfAfk59ih9jk7ATkD4KEEt"><span class="cond-pill" data-page-node-id="GCR6rdWh8VHrCVYvx2Ck7z">写操作</span></td><td data-page-node-id="bJ7jK9OoDfw93E54du66HP">其余类型返回 <code data-page-node-id="JsgdVyELHE4qUtMnpUkHrb">415 UNSUPPORTED_MEDIA_TYPE</code>。</td></tr>
+            <tr data-page-node-id="ofYvDM6kUSizLByUofg3Ds"><td data-page-node-id="ACsR64wZO5GNitFTtm2FAq"><span class="pn" data-page-node-id="xAGqYBXMzGUSSsTM2HHlJv">Accept</span></td><td data-page-node-id="aZpteBYEibesgdWxCrcQn5"><span class="ty" data-page-node-id="50CILWnMgFnmj9xV5bOczQ">application/json</span></td><td data-page-node-id="VVQsk6bi8yHgbRwIer6Ngf"><span class="opt-pill" data-page-node-id="BgZBMGemUdqEsNdXw5wnCN">可选</span></td><td data-page-node-id="1nZKoIm79k9Cnee6PhGx5X">默认 <code data-page-node-id="4fFm38p7wafWeg3dLMMQ5H">application/json</code>。</td></tr>
+            <tr data-page-node-id="iLmbjwAPAjkA5iaPBEEPHl"><td data-page-node-id="DDejfS9Fp5d3RbOUznHCws"><span class="pn" data-page-node-id="v9JsXVGmE1BP1m89sXeCKo">Idempotency-Key</span></td><td data-page-node-id="WDxUHe565keOZGnF4nrJRK"><span class="ty" data-page-node-id="tT5DghH7VbbsoKHzQbkQ8n">8f2c1b40-…-9a7d</span></td><td data-page-node-id="3P3UgBdxzfujUBduOGMmxf"><span class="cond-pill" data-page-node-id="Kj4HFyRR51ycmAanUBJfd6">POST 建议</span></td><td data-page-node-id="FK3wXr1Li4ZdKdSsHiCRs3">UUID v4，24 小时内重放返回首次结果，不重复过账。</td></tr>
+            <tr data-page-node-id="xTQMcOkg1uQuoEQ24m4mpI"><td data-page-node-id="8jt7zKCGhX8CKFKEgpXJwJ"><span class="pn" data-page-node-id="ujbYMC1zF9B1PaFIAZmAPC">If-Match</span></td><td data-page-node-id="V1aonQVUywFgOy3KLR4aTt"><span class="ty" data-page-node-id="FN1XrtGbHvVvODzQBFIqen">W/"20260815032211"</span></td><td data-page-node-id="cptKrsY4HI5sZag2Er0ZIH"><span class="cond-pill" data-page-node-id="LqjV6qkACjtuT3gG0Fp50a">PATCH/DELETE</span></td><td data-page-node-id="FOAXAHrlQBBjWb8hXlyVpC">取自资源的 <code data-page-node-id="yJZyhUVsE1P3iVjWS9E80J">etag</code>；不匹配返回 <code data-page-node-id="64t8UR637D9ZK1Zi0tKpT7">412 ETAG_MISMATCH</code>。</td></tr>
+            <tr data-page-node-id="aLHTkmkaKYD4rCIwEFRAo4"><td data-page-node-id="hhvQZJu5IvIKAccgeNEkbn"><span class="pn" data-page-node-id="RDA5bqFs40YjxOVfpjfxFt">X-Correlation-ID</span></td><td data-page-node-id="v1ibPxDZXkflFn6qfwsRae"><span class="ty" data-page-node-id="ifPQdHSs4DJR0FHVqNKLEW">ORD-20260903-0001</span></td><td data-page-node-id="DDeoA66ecODUywMjmw1uBO"><span class="opt-pill" data-page-node-id="LHXBLhMp4oNlIrqWEwSjjy">可选</span></td><td data-page-node-id="LYSImkBcL1EYFjGZGYXci2">端到端链路追踪，缺省由集成层生成 UUID。</td></tr>
+            <tr data-page-node-id="WgmieG2L7bV2Dbiz4xfODL"><td data-page-node-id="e6aMG8d6xFV4PaDsoVlonO"><span class="pn" data-page-node-id="UC2rVBvZ8V9eq7cSEP7JHo">SAP_Sender</span> / <span class="pn" data-page-node-id="CGbNcbEzSy5ZSfW73zySg8">SAP_Receiver</span></td><td data-page-node-id="uLVHYxI73J4CvO1pt4XDas"><span class="ty" data-page-node-id="4t9G1uAIIOmJTbbbo5qsMG">ECOM / S4H</span></td><td data-page-node-id="ifdvdadBp6fLPNN1VJpzMm"><span class="opt-pill" data-page-node-id="j4KV2TCiFPHmG0PKr0bfBl">可选</span></td><td data-page-node-id="g2HomRtpkEEzwnksCxNUnk">多接收方场景下的路由提示，用于 iFlow 分支与审计归档。</td></tr>
+            <tr data-page-node-id="6NV2FZUErwp97GiZPUeAx5"><td data-page-node-id="zL05d2R8XF7gBC1lP9feY5"><span class="pn" data-page-node-id="qcYNmnbg9MLRd9QPNziJsE">Accept-Language</span></td><td data-page-node-id="G3F6VCgoeWiScsO0cMP9uO"><span class="ty" data-page-node-id="zfmeB0ozmITazCwP2CJTIE">zh-CN</span></td><td data-page-node-id="0jCJ4tqwEPvD76LAoHkGh0"><span class="opt-pill" data-page-node-id="6427s2T0B20qCN48kDSNRg">可选</span></td><td data-page-node-id="70LJDopOKtOUiBulFBRzv2">影响 <code data-page-node-id="KmBVfc1MjABxh8rgBMEGZY">error.message</code> 与业务文本语言，默认 <code data-page-node-id="bTDjZollNBjqX5VqzDzRiZ">zh-CN</code>，支持 <code data-page-node-id="VdvW3UBh5SCAZ6pdEGHf54">en-US</code>。</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <div class="callout danger" data-page-node-id="kKDEeY9SzMbyjpNWIIF0Ek">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" data-page-node-id="9k36xlshUs0qCMYMocKw0A"><path d="M12 9v4m0 4h.01" stroke="#cf3a41" stroke-width="2" stroke-linecap="round" data-page-node-id="FaIRffzUH2IFt4OsosqqZ2"/><path d="M10.3 3.9 1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z" stroke="#cf3a41" stroke-width="2" stroke-linejoin="round" data-page-node-id="Lv8wFMtsjE6kCugLAbnDxm"/></svg>
+          <div data-page-node-id="4qFnbtPPpGSq3M3cBTRDOJ"><b data-page-node-id="G7GTRXZsat1eAZr9TRFoxl">严禁在浏览器端或公开仓库中暴露 client_secret 与访问令牌。</b>令牌只应在服务端使用；若疑似泄露，立即在租户控制台轮换密钥，旧令牌将在 5 分钟内失效。</div>
+        </div>
+      </section>
+
+      <!-- ---------- GET /orders ---------- -->
+      <section class="block" id="ep-list" data-page-node-id="PVM10vRi5iOoyoBbucxGSA">
+        <h2 data-page-node-id="7Zm1nXC36XqRqYwkDrCpfl"><span class="m-tag m-get" style="font-size:13px;padding:5px 11px;" data-page-node-id="N89wgFbq9oQFMTmqdcViUB">GET</span>查询订单列表</h2>
+        <div class="ep-head" data-page-node-id="jCJaCFfpGbqr4MHBc3rdsI">
+          <span class="m-tag m-get" data-page-node-id="RDZD57GCUXvyxIkypgPrJI">GET</span>
+          <span class="path" data-page-node-id="I2VpUQEGG4yL21RLX2FXJn"><span class="seg" data-page-node-id="C7OK1kiU1cijZWP6jQsmVb">/http/v1</span>/orders</span>
+        </div>
+        <p class="body" data-page-node-id="HDFo2rtNgeqnxFkzvGqo9W">分页返回授权范围内的销售订单摘要。后端路由至 S/4HANA <code data-page-node-id="e9KbKGmCmdTfB5BjXt6lwN">API_SALES_ORDER_SRV</code>，并按需合并 MDG 主数据治理状态。默认按 <code data-page-node-id="Qw85kQhOLslqmhHF3MnH3M">updatedAt</code> 倒序；单页最多 <code data-page-node-id="QUdMpjB0svrj1xEHpQ4HEe">200</code> 条。</p>
+
+        <h3 class="sec" data-page-node-id="Xqe7eEsmPqNYltHts2Y8zy">查询参数 Query</h3>
+        <div class="tbl-wrap" data-page-node-id="LeaWb9pAd9qn9F9PKTkb98">
+        <table class="tbl" data-page-node-id="xclGS18TTfKhQiNj2YAMa9">
+          <thead data-page-node-id="sMJMe24JA0zoCrt5BHeUhe"><tr data-page-node-id="FoFhPXY5vQctanKgPTzIfy"><th data-page-node-id="QymqLVm2BdFFHdDT8CTXLD">参数</th><th data-page-node-id="v1A4NNSCIa4wngGHIsFFbk">类型</th><th data-page-node-id="6hdVuIjQu1K8VkGt8Gcpec">必填</th><th data-page-node-id="E3IVITGQgo2ZObW0EahHl0">说明</th></tr></thead>
+          <tbody data-page-node-id="Rw5UFi13QNAaOY9gycD8Is">
+            <tr data-page-node-id="zpvBFZOXwYMJyFiLBnRNiY"><td data-page-node-id="7G5yPXviQzIdLJh701JHzL"><span class="pn" data-page-node-id="WOZTrcyr0Fefl7gM7jhnWT">status</span></td><td data-page-node-id="TRb2FNfAINrsuOo9WqJtEs"><span class="ty" data-page-node-id="HgWDczMiQGrtjjc8T1jKmC">string</span></td><td data-page-node-id="naPGi8eWNfm5W6DDi8PJMO"><span class="opt-pill" data-page-node-id="qUFKiYo41FzG7wiSqp8F4L">可选</span></td><td data-page-node-id="5BcdiGiJ0QohOC7ZD7yzAH">按状态过滤，可逗号分隔多值：<code data-page-node-id="AUJQ2WOUZ5D5MREkx9DlPn">draft</code>、<code data-page-node-id="0ojqWr67E27bjhrdgl5FUr">submitted</code>、<code data-page-node-id="djAsoT3lH94CDfrrgWTO2H">confirmed</code>、<code data-page-node-id="bRXzbLVC5v8I0NY0DMS1jQ">partially_delivered</code>、<code data-page-node-id="Ys9JyH6ZGdzF3kRHQmWEFt">delivered</code>、<code data-page-node-id="J3WFO4MFRRbJuTBzSiTJ7Y">invoiced</code>、<code data-page-node-id="B7w7CHZW8RjvNb0tREUjh9">cancelled</code>。</td></tr>
+            <tr data-page-node-id="8KXpinA5UuFyYIx6h3UQOC"><td data-page-node-id="FLLuJsbbBli5PzVvRd1Yoz"><span class="pn" data-page-node-id="CaXtaf35EDXyQeqrrhpknv">soldToParty</span></td><td data-page-node-id="ZuEEZ6mFAgJnU0G8OhF0Cx"><span class="ty" data-page-node-id="OyCDFBkzL3V3lfQW4E38io">string</span></td><td data-page-node-id="cktHI0d9RrPnMVTRJz2HsN"><span class="opt-pill" data-page-node-id="ThGzEM7A8ONWDB9uWEqo1J">可选</span></td><td data-page-node-id="jvGK1zLooU1GuYm368NShr">售达方客户编码（SAP 10 位，前导零保留）。</td></tr>
+            <tr data-page-node-id="2fjKLEbzhKBaxVNPtceYi6"><td data-page-node-id="dzYDnHvr4bLENrNCdTQs0e"><span class="pn" data-page-node-id="B6GzhotIJC5PKCHewShF7J">salesOrg</span></td><td data-page-node-id="NxyjBfbtpJV0svSW29g6Xz"><span class="ty" data-page-node-id="QHKJUwTzqkbLGkEqt0JbFe">string</span></td><td data-page-node-id="n662AEepnZiJNFPQvVyCaE"><span class="opt-pill" data-page-node-id="QvHdEBpSPPZzvOcsxwV29E">可选</span></td><td data-page-node-id="SBlmaIRV3oP7zBFEGURH6O">销售组织，如 <code data-page-node-id="KkPZIDv5hxjcLeb65eFVvT">CN01</code>；不传时按令牌授权范围返回全部。</td></tr>
+            <tr data-page-node-id="Yb9gX6yRmYDeJ9lDxxlPKk"><td data-page-node-id="vHHwp2gxpM3fktFv55iidY"><span class="pn" data-page-node-id="8aXBkiYXsyGja9GmBDarkR">documentType</span></td><td data-page-node-id="O9qCPgwBswhJJlAufrnueu"><span class="ty" data-page-node-id="5b0CeSMMl6rTAx4iKFUDgI">string</span></td><td data-page-node-id="h97Zs48yyFAC6PAkTqw6O8"><span class="opt-pill" data-page-node-id="1FDywVdPUdttirBzTGfjeF">可选</span></td><td data-page-node-id="9RG8cSNt3faRNalh0n7Hh2">订单类型：<code data-page-node-id="iiDsHm4H6753UGVayvDyAg">OR</code> 标准订单、<code data-page-node-id="XSy5ORkj77mRzgvoAaeV6q">RE</code> 退货、<code data-page-node-id="1sjVTEvxwgaLnaonQgeV9m">CR</code> 贷项。</td></tr>
+            <tr data-page-node-id="9pCceu38AzilKyU3ZUhTNW"><td data-page-node-id="XWuGH5jmpYzg8BNvsIZCKP"><span class="pn" data-page-node-id="2WwMGi0FvRoFXwKcxhLwe9">changedSince</span></td><td data-page-node-id="5iCii1opvwF9MJFG5PfVni"><span class="ty" data-page-node-id="VWw9prid55Fllij7oV3ExF">string(date-time)</span></td><td data-page-node-id="BdUJ8W2aDlvi2heO4pQZOL"><span class="opt-pill" data-page-node-id="NtjNSgOFTFX67KbfxustCD">可选</span></td><td data-page-node-id="QVXCf7BFQ9rY9Qdl2bSkey">ISO 8601，返回该时刻之后发生变更的订单，用于增量拉取；与 <code data-page-node-id="Y8Ug0GyHxuOc6AgGQTZHjG">status</code> 可叠加。</td></tr>
+            <tr data-page-node-id="Vx2bQxwW7LZTofw4RWCP1Q"><td data-page-node-id="rGPvfpukiNteg0q0c68e8t"><span class="pn" data-page-node-id="yhc3TX7YoLvZQS8l7HhLwP">page</span></td><td data-page-node-id="xV9CAiX6OxFBMUH33VA7m3"><span class="ty" data-page-node-id="7cNP6ZM42c6NTtnHjq8tqv">integer</span></td><td data-page-node-id="rwTZQhERjjUt5DTJN1sGjj"><span class="opt-pill" data-page-node-id="nCse2l5yKk5lu7ifVqK18D">可选</span></td><td data-page-node-id="RJeKlmbunEEjeC9nl0L3Mk">页码，从 <code data-page-node-id="qyCKi2VyHHGdmv4S3JdkXC">1</code> 开始，默认 <code data-page-node-id="aoOOQfFaIjFY1czObQI6a2">1</code>。</td></tr>
+            <tr data-page-node-id="MUkV41I8hfwOy4g1C5FOEw"><td data-page-node-id="akgKPGKArn3z1abtl8uMMd"><span class="pn" data-page-node-id="no3XMj1MmeR9X4nxmL2CR6">pageSize</span></td><td data-page-node-id="gklQNCWC6eqYuPETe1muly"><span class="ty" data-page-node-id="eBTy8UE3Wi48gDRGVKsgqw">integer</span></td><td data-page-node-id="x6GFaqERwJjiIBwB2Hae6x"><span class="opt-pill" data-page-node-id="oOxosqOAzeZqB1FdMe0Fjr">可选</span></td><td data-page-node-id="BHO3oO2WNLw7dt9VlJigF1">每页条数，1–200，默认 <code data-page-node-id="kFOszKVTGkuO01NwB9iDdT">50</code>。</td></tr>
+            <tr data-page-node-id="G9dJ0TBdqFwvc36ESdcnXy"><td data-page-node-id="zWguyHdDv1ZqaPss8cNrti"><span class="pn" data-page-node-id="qyZsuGuTmwRBHCULSV9Nrz">expand</span></td><td data-page-node-id="CK2Qkbtz7UgibPuFaJvPdJ"><span class="ty" data-page-node-id="J0CAIBoKLUnAPixmRvHKxj">string</span></td><td data-page-node-id="y7fQuHuzTA7AYQ1VGrVFTR"><span class="opt-pill" data-page-node-id="lNBlQJlagktvkwe1r23eLU">可选</span></td><td data-page-node-id="Ru8hf2rcyfRPDTVLTDoHAp">列表页展开子结构：<code data-page-node-id="4LC6QF2udjjMPQNy4JnFZT">items</code>、<code data-page-node-id="CQcop6VXWL9sQ9wNUge6eo">pricing</code>、<code data-page-node-id="DxuhgZZOSaLUeSFB4FfKDa">masterData</code>；逗号分隔，默认不展开。</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h3 class="sec" data-page-node-id="rD3w2nPQCJ1sCEC2L0ZHdN">请求示例</h3>
+        <div class="code-wrap" data-page-node-id="mPH7hYmtcggOso4EVPV1OH">
+          <div class="code-bar" data-page-node-id="CF2GBsUq78vcVOJBzj3GC9"><span class="label" data-page-node-id="kbX2OaqKGANiJHMUcm8QTr"><span class="dot" style="background:#79b8ff" data-page-node-id="OI4TuI6OhuMHqTYw4mr1fx"></span>Shell · curl</span><button class="copy" type="button" data-page-node-id="OyX1iZdhrbMYTq4kTmphYx">复制</button></div>
+<pre data-page-node-id="XmRx3Qf7Flcrp9XOn7ak6M"><code class="lang-shell" data-page-node-id="EMep6UzCFuJIVUEAytn0F3">curl -X GET "https://acme-cpi-prod.it-cpi01-rt.cfapps.cn40.hana.ondemand.com/http/v1/orders?status=confirmed&amp;page=1&amp;pageSize=2&amp;expand=pricing" \
+  -H "Authorization: Bearer $CPI_TOKEN" \
+  -H "Accept: application/json" \
+  -H "X-Correlation-ID: ORD-20260903-0001"</code></pre>
+        </div>
+
+        <h3 class="sec" data-page-node-id="ib5e2dQf1tDCjDgve9QP0f">响应示例</h3>
+        <div class="code-wrap" data-page-node-id="X0jRuyAsF1WG0kbI9Db0OB">
+          <div class="code-bar" data-page-node-id="zc5XcHO1QrOkp485U7ZbJP"><span class="label" data-page-node-id="UflgrPLJ7nUbbj3tE9yAEE"><span class="dot" style="background:#5ed49a" data-page-node-id="Z9r6zdeXfb2PTc7jAtPZpX"></span>200 OK · application/json</span><button class="copy" type="button" data-page-node-id="YxSAXzTOR9L0jPgn1FDwx0">复制</button></div>
+<pre data-page-node-id="CRwAOlPAvcuQn61b6rXUCu"><code class="lang-json" data-page-node-id="KxsBmD0ckbetUWTGBd0rxu">{
+  "data": [
+    {
+      "id": "0000004821",
+      "externalId": "ECOM-20260903-7781",
+      "documentType": "OR",
+      "salesOrg": "CN01",
+      "distributionChannel": "10",
+      "division": "00",
+      "soldToParty": "0001004821",
+      "soldToPartyName": "华东照明设备（集团）有限公司",
+      "status": "confirmed",
+      "requestedDeliveryDate": "2026-09-20",
+      "pricing": {
+        "currency": "CNY",
+        "netAmount": "126800.00",
+        "taxAmount": "16484.00",
+        "grossAmount": "143284.00"
+      },
+      "itemCount": 2,
+      "createdAt": "2026-09-03T02:41:07Z",
+      "updatedAt": "2026-09-03T02:44:19Z",
+      "etag": "W/\"20260903024419\""
+    },
+    {
+      "id": "0000004820",
+      "externalId": "DMS-20260902-1130",
+      "documentType": "OR",
+      "salesOrg": "CN01",
+      "distributionChannel": "20",
+      "division": "00",
+      "soldToParty": "0001003675",
+      "soldToPartyName": "粤海建材供应链有限公司",
+      "status": "confirmed",
+      "requestedDeliveryDate": "2026-09-25",
+      "pricing": {
+        "currency": "CNY",
+        "netAmount": "86400.00",
+        "taxAmount": "11232.00",
+        "grossAmount": "97632.00"
+      },
+      "itemCount": 1,
+      "createdAt": "2026-09-02T09:12:33Z",
+      "updatedAt": "2026-09-02T09:15:02Z",
+      "etag": "W/\"20260902091502\""
+    }
+  ],
+  "paging": {
+    "page": 1,
+    "pageSize": 2,
+    "totalCount": 1284,
+    "totalPages": 642,
+    "hasMore": true
+  },
+  "meta": {
+    "correlationId": "ORD-20260903-0001",
+    "iflow": "SD_SalesOrder_Query_v1",
+    "backend": "S4H/API_SALES_ORDER_SRV",
+    "durationMs": 412,
+    "serverTime": "2026-09-03T02:52:10Z"
+  }
+}</code></pre>
+        </div>
+
+        <h3 class="sec" data-page-node-id="dkagHcisu5vGv3y5L11M43">状态码</h3>
+        <div class="codes" data-page-node-id="xtHB1z5ZObQcC83dS5osXH">
+          <span class="scode ok" data-page-node-id="pahG8Sac5z9iGV8tobWBv6"><b data-page-node-id="BGUdzuK2rMFqdvGHmZFqrN">200</b><span data-page-node-id="HkYM4GaqAHwdjiUJHOi0ib">查询成功，可能返回空数组</span></span>
+          <span class="scode er" data-page-node-id="DMBaRCqhIGoN5vieDnZC0t"><b data-page-node-id="XFt4hJAKXmV1GsS3NRJPQW">400</b><span data-page-node-id="hH9HHUXvoajzvVaLFiWm1X">参数校验失败</span></span>
+          <span class="scode er" data-page-node-id="IaMCu4s9V86WWr7oWBdyvx"><b data-page-node-id="56TzHXBVvIkqzNwf3P5MAz">401</b><span data-page-node-id="kBXNwKkpsKKzzjcTyEccZV">令牌缺失或过期</span></span>
+          <span class="scode er" data-page-node-id="CkC87CRc76VYc88BQXIXVc"><b data-page-node-id="UHQAWbexoOmzCzajtAMKZt">403</b><span data-page-node-id="dfb14JKv7e8tX67FbDxplA">无该销售组织的数据权限</span></span>
+          <span class="scode cl" data-page-node-id="n9k34H7hLxX0SJwP8gnCJX"><b data-page-node-id="KFTmsLxIog3J39QMSOU9hr">429</b><span data-page-node-id="bogVhiII9g62bCk5b7O1Z4">触发限流</span></span>
+          <span class="scode er" data-page-node-id="P6BqasNBuO82DxXkXTuixu"><b data-page-node-id="ToTX9BFWLx1ydWNdKlYKNB">503</b><span data-page-node-id="EC7no72VhdUFgGDE0iN9uR">S/4HANA 不可用</span></span>
+        </div>
+      </section>
+
+      <!-- ---------- POST /orders ---------- -->
+      <section class="block" id="ep-create" data-page-node-id="R6305FCEFBr1C49Z8Als18">
+        <h2 data-page-node-id="u7f6GPQ5lhyr0iVoFX2k61"><span class="m-tag m-post" style="font-size:13px;padding:5px 11px;" data-page-node-id="xTiH851TJJXZ2q2pBmlajm">POST</span>创建订单</h2>
+        <div class="ep-head" data-page-node-id="MmRbIiFdEklGTT7pYQ006t">
+          <span class="m-tag m-post" data-page-node-id="DxxEV5m4PNi8atrZROGHxF">POST</span>
+          <span class="path" data-page-node-id="sIX1weF0870IxoVMgo3xuH"><span class="seg" data-page-node-id="5LOjCHIY1C2iRP6lTXPSgl">/http/v1</span>/orders</span>
+        </div>
+        <p class="body" data-page-node-id="ThSeOfirG8hCbcoWDiUoIv">创建一张销售订单。集成层按顺序执行三段编排：<b data-page-node-id="ERsrKbqhf4GdopdwXH69kb">①</b> 结构校验 → <b data-page-node-id="Yx4c7fN4WveM2jAIGf2VAf">②</b> MDG 主数据校验（物料/客户是否已治理通过）→ <b data-page-node-id="zXZRI0ghLZspdVnBwmTUla">③</b> S/4HANA A2X 过账（含定价与 ATP 可用性检查）。任一步失败则整体回滚，不产生半张订单。</p>
+
+        <h3 class="sec" data-page-node-id="vyyRh2C0B82oChflQiV58n">请求体参数 Body</h3>
+        <div class="tbl-wrap" data-page-node-id="vm7bLMMRo6UYtYHCvd4FKT">
+        <table class="tbl" data-page-node-id="SIQifYl24ElPj8OSGv7VCv">
+          <thead data-page-node-id="xVQn7jucr25xhU2nvCPM2I"><tr data-page-node-id="DkYxP8ePVrNOrRyImPX01N"><th data-page-node-id="WiSgrITlGzMjBGGaP6uTvw">字段</th><th data-page-node-id="Hsvyo1iifiAWnfkPQVcaRS">类型</th><th data-page-node-id="Kzuq5YsZLkitDJmEvZaLIg">必填</th><th data-page-node-id="aR7XmZwX554PHGlVUrp7sY">说明</th></tr></thead>
+          <tbody data-page-node-id="75qnHhV8yPRt0yQUoOMjic">
+            <tr data-page-node-id="MkQog9jeBY0EFQiqZdI8js"><td data-page-node-id="QPN6uGz6mZXtzXBzFzjend"><span class="pn" data-page-node-id="OcDVJMztsjvNbBHIIFAs0b">externalId</span></td><td data-page-node-id="EqEgZggr73Q5M6DIr90zOp"><span class="ty" data-page-node-id="7v4Gwr6v4OObnc1YnT2PcE">string(40)</span></td><td data-page-node-id="ipM5vxx4UtQxYQUEO9dKrr"><span class="req-pill" data-page-node-id="GAC1fNlgeXmw7YiKheddmq">必填</span></td><td data-page-node-id="mbaJJ6KPYzEHObwc0FnfQH">调用方业务单号，写入 S/4HANA 采购订单编号字段；同 <code data-page-node-id="XDZbVa0o8fiIWcxHDHVnKW">salesOrg</code> 下唯一，重复返回 <code data-page-node-id="crLfFVBjOLNAiOzdauMlpB">409</code>。</td></tr>
+            <tr data-page-node-id="BktHNzKHQWaIMetPIwLEYj"><td data-page-node-id="OB3lkblprY1bS234VNk9fS"><span class="pn" data-page-node-id="MH7HpNP8BzvoCJu1wSjrD6">documentType</span></td><td data-page-node-id="TcS0rRn8fmGjKXeqebIVnX"><span class="ty" data-page-node-id="MeNDFD9jwCnq2t0BZSxeAu">string</span></td><td data-page-node-id="VHJ6170MPRV7C0JXhfI9Gl"><span class="req-pill" data-page-node-id="Hwwa3QcnGEmXDR3NlpdgkF">必填</span></td><td data-page-node-id="ul77iAzs4JQ4gXvnvyZJow">订单类型：<code data-page-node-id="agaDJbutFlkpAjvbdnHpOY">OR</code> / <code data-page-node-id="wHEi6tECLOgqYC2k3dlQiA">RE</code> / <code data-page-node-id="uUuqLSnXl0pkJuHUfPEtiw">CR</code>。</td></tr>
+            <tr data-page-node-id="n7GyOBudb5FX3G9DQtEGPR"><td data-page-node-id="OCrD86h4bwjU1ilAKMwJYQ"><span class="pn" data-page-node-id="CLPDFZG23G0aoEXEdjvNXf">salesOrg</span></td><td data-page-node-id="OoV4Cxt9Omf0NvHIubFMtG"><span class="ty" data-page-node-id="pQCdmRXuGygO3GnbTJkpHz">string(4)</span></td><td data-page-node-id="A7Cutfq1KN7a2EdqaPNoQk"><span class="req-pill" data-page-node-id="K41ttPKedgxqIAc2MRObyy">必填</span></td><td data-page-node-id="GsOGsyJoZx6EobhsHn93AZ">销售组织。</td></tr>
+            <tr data-page-node-id="DqvB2OLuNZs6okVBJS8tw5"><td data-page-node-id="ySWOmXDAl4VvHAqNBHOXIJ"><span class="pn" data-page-node-id="liebeBRhDIIBxO84HlocPK">distributionChannel</span></td><td data-page-node-id="ETt5mefaZR2jFsJVBAxw0o"><span class="ty" data-page-node-id="79XiMkYkux03ugGmpy9VLs">string(2)</span></td><td data-page-node-id="sinoHip8cc633CQBvMLA5M"><span class="req-pill" data-page-node-id="7xXRiRb0vB5Rx8O2ZRPYWf">必填</span></td><td data-page-node-id="HiKLTgiMdKCVh70kaNxOUq">分销渠道。</td></tr>
+            <tr data-page-node-id="AJ2yfBFjVbEmQk12RJguJu"><td data-page-node-id="k9KhjvZWf44goGwHk0EM6V"><span class="pn" data-page-node-id="SZLMzv41wVpMNemkgdpmxK">division</span></td><td data-page-node-id="mDihN37UPzqAiZwFQLjFzS"><span class="ty" data-page-node-id="QFSeIE4lORQhjnD8Y8mB2L">string(2)</span></td><td data-page-node-id="OqSFarub54KXQBx7MLAv3f"><span class="req-pill" data-page-node-id="UbYnOnsiD5M0S4qdfQNSbP">必填</span></td><td data-page-node-id="JUJ3EJROAT3IEBAzwnAr3M">产品组。</td></tr>
+            <tr data-page-node-id="6QAX2x1rfuHLLH7atq0uGl"><td data-page-node-id="B3yzs9bbzB7tboHG6tPF78"><span class="pn" data-page-node-id="Xas45f7VvaHTcGmOQEL3FA">soldToParty</span></td><td data-page-node-id="MdqTgUgmbELuogLcRoirnh"><span class="ty" data-page-node-id="RPq8jUHZfU45WAQ4bNu3EC">string(10)</span></td><td data-page-node-id="UoUz0IyZQ7RxYDKmm0bViv"><span class="req-pill" data-page-node-id="6zEtenAorFPdvd1DCWd4Mm">必填</span></td><td data-page-node-id="lqErj0ZgI7LL6AdpDN8TNx">售达方客户编码。</td></tr>
+            <tr data-page-node-id="TpFAUVDuGyX7sS2xzeCIQ3"><td data-page-node-id="3uAZ1bEfav3mL9EegxQnga"><span class="pn" data-page-node-id="qZZbqyNnldcA6AQjYaaH61">shipToParty</span></td><td data-page-node-id="arQuOR4dITe6561mhzeBEg"><span class="ty" data-page-node-id="JCo8Su0Pw07vSiNon7rXye">string(10)</span></td><td data-page-node-id="f4B8MAdSXCYCyM9f8LuCaD"><span class="opt-pill" data-page-node-id="qAtd76HyVBRZkant8DBWPj">可选</span></td><td data-page-node-id="sKLYtstUxXpWZWBEFlOKT7">送达方，缺省取 <code data-page-node-id="QTcqGcX5SHNEVixWqdGeWF">soldToParty</code>。</td></tr>
+            <tr data-page-node-id="jVpASrou2iBsqmTmPTDo76"><td data-page-node-id="Cu4RaFV0A5vfKJ2eYXBj1o"><span class="pn" data-page-node-id="C86kgNviXgYVDLJ2W288Pg">requestedDeliveryDate</span></td><td data-page-node-id="2LRU8jzCC4Zq6p9sDuXNz6"><span class="ty" data-page-node-id="MCD9qiP7vTGbEstRpEKqqX">string(date)</span></td><td data-page-node-id="A5tTwa7Hw86sW8ZjetB8gE"><span class="req-pill" data-page-node-id="ORlxjkbzwCJoKbs8DD8n4U">必填</span></td><td data-page-node-id="S3SocchEiivDDWvytBjakU">请求交货日期，不得早于当日。</td></tr>
+            <tr data-page-node-id="hxgX0oSQ7Avu73uKv8uQGR"><td data-page-node-id="xFFEtvm6KaijdyCLkpqamy"><span class="pn" data-page-node-id="qqpBmuskPc0c5DcucoFzYc">purchaseOrderNumber</span></td><td data-page-node-id="CPzBFQsPkiB6OKjHjZJeUn"><span class="ty" data-page-node-id="Tt24YjkG5m9T768iERlMI8">string(35)</span></td><td data-page-node-id="ZCYg1DW5BJ7UvX14tWxAGC"><span class="opt-pill" data-page-node-id="yZvzRbBWW9z7FxzZSo0VAR">可选</span></td><td data-page-node-id="GaOidxfSmi13ZgllsyJqJW">客户采购订单号，用于发票与对账。</td></tr>
+            <tr data-page-node-id="tAaC29GXimLJKmWM23BO33"><td data-page-node-id="WzXsm1vjcYaHL10O3rgTD0"><span class="pn" data-page-node-id="onI8oVaGiSwiX1bjaBwvhh">incoterms</span></td><td data-page-node-id="ED196TOtSGAtNvGoyZPhJK"><span class="ty" data-page-node-id="GONpvtZ4f1uUiNHvPvU2hX">string(3)</span></td><td data-page-node-id="rNfS9zKxKFaAua9HDpT4cG"><span class="opt-pill" data-page-node-id="AG31b5SDYMHHntBEQjd3dV">可选</span></td><td data-page-node-id="YgtAWTUj3dftz13N72Rsls">国际贸易条款，如 <code data-page-node-id="SmAFoJOySiIpydBjxKORwA">EXW</code>、<code data-page-node-id="C9wgknj3MAVL6vOIEgwnTr">FOB</code>、<code data-page-node-id="xLwTLehfLH4h5fzOwTFGes">DDP</code>。</td></tr>
+            <tr data-page-node-id="wRndvLPlLS1h7AhLMBvAur"><td data-page-node-id="hz6GwZIhFNHHtnDP8aibpz"><span class="pn" data-page-node-id="Av9aXQsTxPO514tDMLfc0d">paymentTerms</span></td><td data-page-node-id="F3RQzZhXtdwYwu19gxB8p2"><span class="ty" data-page-node-id="7HJlDHUz3pFAiixhPsT0ur">string(4)</span></td><td data-page-node-id="ARsM7VceLbrzUqEjnsuW19"><span class="opt-pill" data-page-node-id="G17KuqQsVnS94imBWgbKCW">可选</span></td><td data-page-node-id="sXSCIS8tYhM1YdYBD6PoSe">付款条件代码，如 <code data-page-node-id="DAB92nkmYJcMxExBkHgb4K">NT30</code>。</td></tr>
+            <tr data-page-node-id="NI6cPDzQCcfgxHm1y47xdo"><td data-page-node-id="who5OInRXthcCsGIMhJ7t7"><span class="pn" data-page-node-id="JRueZ0DG6GKEc6F8qWuNe5">items</span></td><td data-page-node-id="bbca3BS4wViLtqD53pAz6j"><span class="ty" data-page-node-id="8WUNSQvhVnAZwBvwAkW5Ti">array&lt;object&gt;</span></td><td data-page-node-id="Di98hiigX7gnII57NHMXEP"><span class="req-pill" data-page-node-id="BC9sYRixgQkVDyEF7tTUhV">必填</span></td><td data-page-node-id="AyVxRMSWqCKcBjIPAunEVu">行项目，至少 1 条，最多 200 条。</td></tr>
+            <tr data-page-node-id="oCquBlpHb8mrCDWWFKavma"><td data-page-node-id="zCg1Q69s9pYwDO058rLYcM"><span class="nest" data-page-node-id="sN6eHffXVmfmtTMR7hYmGO">itemNo</span></td><td data-page-node-id="O1dUfaOOeGcQIav49HB3tt"><span class="ty" data-page-node-id="TOiJhkyLwWhwl6VP1eyv0k">string(6)</span></td><td data-page-node-id="PawQjuhjLUpZ0h4mEJIMwD"><span class="opt-pill" data-page-node-id="wCXT7Fd1PoAv3dvwEDscuL">可选</span></td><td data-page-node-id="P48KeoCoJiOy6LDATxD448">行号，形如 <code data-page-node-id="dGNtuJIFZ7UliElYdNB3oh">000010</code>；缺省按步长 10 自动生成。</td></tr>
+            <tr data-page-node-id="w8kqcXjViJiWgVVm8RhLQj"><td data-page-node-id="REiCuSCGqZodkkEbbpbeQW"><span class="nest" data-page-node-id="R7z2VuCZ2L77Mwimm9hQD7">material</span></td><td data-page-node-id="Idkb7IWn7rlamh2NnljbBd"><span class="ty" data-page-node-id="DTCPOVfbkmYEFKdEslBggG">string(40)</span></td><td data-page-node-id="sbSJfINHdYlZHtQT9h2ns2"><span class="req-pill" data-page-node-id="zvmBTmmslzC3RQbFnHJfEs">必填</span></td><td data-page-node-id="jxxiR7W6JVYDwzyvIPeiaN">物料编码；未通过 MDG 治理的物料返回 <code data-page-node-id="FyBzdjbnSmOKAS1D85LDgA">422 MDG_VALIDATION_BLOCKED</code>。</td></tr>
+            <tr data-page-node-id="Hx5wDMUm0Ho3sbtfsKvWVv"><td data-page-node-id="Gv83QrHDYovJiolRgIeq3f"><span class="nest" data-page-node-id="PBXF8GtCOBRS8SAgqE3Sdd">quantity</span></td><td data-page-node-id="upoYNUwVLvHUb8KEt7WTuy"><span class="ty" data-page-node-id="fbeuY13y2HFX5zI1Hhkseu">string(decimal)</span></td><td data-page-node-id="B6XnuAJtBNCxtq8Vb6EmtS"><span class="req-pill" data-page-node-id="tcp9O4ZlxNPlZmJ4QGwvg0">必填</span></td><td data-page-node-id="orzCqwv1TL5jp9ub62WwLb">数量，三位小数字符串，必须 &gt; 0。</td></tr>
+            <tr data-page-node-id="JH09yTH74VG4YAczzbL163"><td data-page-node-id="xG9No16AlOtyfN15m04yMQ"><span class="nest" data-page-node-id="1nSSyrONhJLrklJKYEXNLN">unit</span></td><td data-page-node-id="nG6DlHRcJmmS5G5q2cHfTO"><span class="ty" data-page-node-id="e03QWK9XIYKUEDHV7snYF3">string(3)</span></td><td data-page-node-id="c7ibXR9T0uuyRfyPRj7Jsa"><span class="req-pill" data-page-node-id="ZopWih11NfgO8qEOH3vjgV">必填</span></td><td data-page-node-id="qZheANSFFWEooOZyPaUnr2">计量单位：<code data-page-node-id="7xQpndVzNthhYs2j6AGhAa">EA</code>、<code data-page-node-id="8ib0NsEJbVIONIicIJjGyX">KG</code>、<code data-page-node-id="gDyY3u3fRyV34zPmtRO3ju">M</code>、<code data-page-node-id="hUliyTbRUTYmEs6H5wc7VS">PC</code>。</td></tr>
+            <tr data-page-node-id="jvGfBhKg2ZQx5jDaZGTyWg"><td data-page-node-id="7HxpC32j1wGFZ24i1zcgpk"><span class="nest" data-page-node-id="az7Fy20g7KWtMONYYOEEPh">plant</span></td><td data-page-node-id="bKodNUNaR6cBEOnqR43IRm"><span class="ty" data-page-node-id="dg8qEhMfkcdjlajfFL7m6L">string(4)</span></td><td data-page-node-id="fFr4uxceKQSxYSEmgKdwI1"><span class="req-pill" data-page-node-id="lPbhhgwWO0QyAz73vLNySF">必填</span></td><td data-page-node-id="Le8FhFuW6yw0DF1eN0tFeq">工厂；用于 ATP 可用性检查。</td></tr>
+            <tr data-page-node-id="qmzJKeiDSuzwgttDUOeKv0"><td data-page-node-id="8EJVowPubr1FSaf2Ny45l6"><span class="nest" data-page-node-id="BTmNfkEdSlfNvgukzTEwJ4">storageLocation</span></td><td data-page-node-id="CPBzAq68pE53tS04WtCiRD"><span class="ty" data-page-node-id="LNuv10byTnVu3EZP6kOla4">string(4)</span></td><td data-page-node-id="8cCgTK8vI0nbNgx60CV3G1"><span class="opt-pill" data-page-node-id="Bigdi5hePx1CKV7TFUxZxR">可选</span></td><td data-page-node-id="uyw1F6BCGBEuDt1fNCsEeb">库存地点。</td></tr>
+            <tr data-page-node-id="G0z0LzTNgAF1VvvXaDP31B"><td data-page-node-id="C3DYdX7xwiTGJ5y1HqQM9j"><span class="nest" data-page-node-id="M73wh3JWAWqyVy1M5dBH4f">netPrice</span></td><td data-page-node-id="zSQxeICY161E6qwheppj8q"><span class="ty" data-page-node-id="QVN0h7f6oAW1tSAmE5q06B">string(decimal)</span></td><td data-page-node-id="kk9sIZqX3uYYUPKQgFYXRU"><span class="opt-pill" data-page-node-id="Z3DB8SNvj6g4JEhgAmFsOh">可选</span></td><td data-page-node-id="2LvWPIgGHXbvdzF73GyeGe">手工净价，留空则由 S/4HANA 条件定价自动带出。</td></tr>
+            <tr data-page-node-id="3UvvLV40TW6JJ5wXEDBpke"><td data-page-node-id="ErkgYe0ymKGgJnVrigWQ2B"><span class="pn" data-page-node-id="kzWFJRCrXHdz4nN5saPJbK">text</span></td><td data-page-node-id="LADMBnydwwS5nljEGoGwVn"><span class="ty" data-page-node-id="gcQHJDngcRp8itTlB0vWhF">string(132)</span></td><td data-page-node-id="8RueRfTEQYNULksEbCFyDN"><span class="opt-pill" data-page-node-id="UyD8expnqrYFWqx3W7GVSF">可选</span></td><td data-page-node-id="OUTpPrjXoJVBxF6siNJYsz">订单抬头文本，写入 S/4HANA 长文本。</td></tr>
+            <tr data-page-node-id="PEjA0DhanZwRmX1mppEiEg"><td data-page-node-id="hFWEWHeEMpsDwZBz6ovYxm"><span class="pn" data-page-node-id="KWZcVKtYmSiluWTpd2J0nf">skipAtpCheck</span></td><td data-page-node-id="pn5EZTpnhMIbRE8GesBbKU"><span class="ty" data-page-node-id="5QDdLmBM2s8Dvp6jTsRQkS">boolean</span></td><td data-page-node-id="R7C9VzCrWAzL6vJkzUgANc"><span class="opt-pill" data-page-node-id="VNgVT05CaFkisAGTVdrKwp">可选</span></td><td data-page-node-id="A6t9hTcGZI9Zjjrtfx8PoX">默认 <code data-page-node-id="uCC8POgraWEHYwDfu0QtQo">false</code>；置 <code data-page-node-id="FCq10x2hW6MiQD9yOylJcO">true</code> 跳过可用性检查，需令牌具备 <code data-page-node-id="dAGsG1e2pV9JZhLIzQVyhR">cpi.orders.admin</code> 作用域。</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h3 class="sec" data-page-node-id="c4OnOQ6YZIUBTxpQa0kn4f">请求示例</h3>
+        <div class="code-wrap" data-page-node-id="HqiLEb9Mlv4zDPYk0eEvBR">
+          <div class="code-bar" data-page-node-id="lyyuooivD14RiVxUwtPtRl"><span class="label" data-page-node-id="EjQzjKtvyWAQYSIZ7GCVSw"><span class="dot" style="background:#9ece6a" data-page-node-id="dUCIEQpoEjZqd5IezmVyCR"></span>create-order.json · 请求体</span><button class="copy" type="button" data-page-node-id="YGU4DKVphstfyHM8HZk9jX">复制</button></div>
+<pre data-page-node-id="5U6EdCUpvDnOFXA2Px0KRH"><code class="lang-json" data-page-node-id="rs1LdbxLdq3ArAfQL8dB39">{
+  "externalId": "ECOM-20260903-7781",
+  "documentType": "OR",
+  "salesOrg": "CN01",
+  "distributionChannel": "10",
+  "division": "00",
+  "soldToParty": "0001004821",
+  "shipToParty": "0001004821",
+  "requestedDeliveryDate": "2026-09-20",
+  "purchaseOrderNumber": "PO-2026-Q3-0091",
+  "incoterms": "EXW",
+  "paymentTerms": "NT30",
+  "text": "电商大促加急单，需随货附质检报告",
+  "items": [
+    {
+      "itemNo": "000010",
+      "material": "FG-LED-PANEL-40W",
+      "quantity": "500.000",
+      "unit": "EA",
+      "plant": "1000",
+      "storageLocation": "1001"
+    },
+    {
+      "itemNo": "000020",
+      "material": "FG-LED-DRIVER-40W",
+      "quantity": "500.000",
+      "unit": "EA",
+      "plant": "1000",
+      "storageLocation": "1001",
+      "netPrice": "86.00"
+    }
+  ]
+}</code></pre>
+        </div>
+        <div class="code-wrap" data-page-node-id="2gxoeC4pjALADXVxr0iXdz">
+          <div class="code-bar" data-page-node-id="f6jZqMeo6UP2H4CyPjgPqF"><span class="label" data-page-node-id="0rl30hDyheH6JPbhJQ1wug"><span class="dot" style="background:#79b8ff" data-page-node-id="KUsm1OMIy8KSEAqMRZ3Et3"></span>Shell · curl</span><button class="copy" type="button" data-page-node-id="IvLJxfErvXGvUBIyvHEyGG">复制</button></div>
+<pre data-page-node-id="hxsGEhLrB93nAYilo1hj2K"><code class="lang-shell" data-page-node-id="I9Jq0NmYGT5n1B62dqHWlL">curl -X POST "https://acme-cpi-prod.it-cpi01-rt.cfapps.cn40.hana.ondemand.com/http/v1/orders" \
+  -H "Authorization: Bearer $CPI_TOKEN" \
+  -H "X-CSRF-Token: $CSRF" \
+  -H "Idempotency-Key: 8f2c1b40-6d5e-4a71-9c22-1f0b3d7e9a7d" \
+  -H "Content-Type: application/json;charset=utf-8" \
+  -H "X-Correlation-ID: ORD-20260903-0002" \
+  -d @create-order.json</code></pre>
+        </div>
+
+        <h3 class="sec" data-page-node-id="VtGCdku2O300NKqm1zsYeJ">响应示例</h3>
+        <div class="code-wrap" data-page-node-id="0zAP0ERKqgPuDSeztsi7UM">
+          <div class="code-bar" data-page-node-id="yaCKOppGeFZ1kd4mmyywgP"><span class="label" data-page-node-id="GqsOLreawhpQFHYaaKuhVk"><span class="dot" style="background:#5ed49a" data-page-node-id="I5TGJguLCmUecjbovF28cD"></span>201 Created · application/json</span><button class="copy" type="button" data-page-node-id="BCknvSWbxVVNKuQ5aJKlGr">复制</button></div>
+<pre data-page-node-id="mD4zsgRteVDdaj6wmJFpxE"><code class="lang-json" data-page-node-id="u16Uem24Cs9ol8bz47pfSi">{
+  "data": {
+    "id": "0000004821",
+    "externalId": "ECOM-20260903-7781",
+    "documentType": "OR",
+    "salesOrg": "CN01",
+    "distributionChannel": "10",
+    "division": "00",
+    "soldToParty": "0001004821",
+    "shipToParty": "0001004821",
+    "purchaseOrderNumber": "PO-2026-Q3-0091",
+    "status": "confirmed",
+    "requestedDeliveryDate": "2026-09-20",
+    "pricing": {
+      "currency": "CNY",
+      "netAmount": "169800.00",
+      "taxAmount": "22074.00",
+      "grossAmount": "191874.00"
+    },
+    "items": [
+      {
+        "itemNo": "000010",
+        "material": "FG-LED-PANEL-40W",
+        "description": "LED 平板灯 40W 6000K",
+        "quantity": "500.000",
+        "unit": "EA",
+        "netPrice": "253.60",
+        "netAmount": "126800.00",
+        "plant": "1000",
+        "storageLocation": "1001",
+        "scheduleLines": [
+          { "lineNo": "0001", "confirmedQty": "500.000", "confirmedDate": "2026-09-18" }
+        ]
+      },
+      {
+        "itemNo": "000020",
+        "material": "FG-LED-DRIVER-40W",
+        "description": "LED 恒流驱动电源 40W",
+        "quantity": "500.000",
+        "unit": "EA",
+        "netPrice": "86.00",
+        "netAmount": "43000.00",
+        "plant": "1000",
+        "storageLocation": "1001",
+        "scheduleLines": [
+          { "lineNo": "0001", "confirmedQty": "500.000", "confirmedDate": "2026-09-18" }
+        ]
+      }
+    ],
+    "masterData": {
+      "mdgStatus": "approved",
+      "mdgRequestId": "MDG-2026-003188",
+      "lastSyncedAt": "2026-09-03T02:40:11Z"
+    },
+    "trace": {
+      "correlationId": "ORD-20260903-0002",
+      "iflow": "SD_SalesOrder_Create_v1",
+      "backend": "S4H/API_SALES_ORDER_SRV/A_SalesOrder",
+      "steps": ["validate", "mdg-check", "atp-check", "post"]
+    },
+    "createdAt": "2026-09-03T02:41:07Z",
+    "updatedAt": "2026-09-03T02:41:07Z",
+    "etag": "W/\"20260903024107\""
+  },
+  "warnings": [],
+  "meta": {
+    "correlationId": "ORD-20260903-0002",
+    "iflow": "SD_SalesOrder_Create_v1",
+    "backend": "S4H/API_SALES_ORDER_SRV",
+    "durationMs": 1876,
+    "serverTime": "2026-09-03T02:41:09Z"
+  }
+}</code></pre>
+        </div>
+
+        <div class="callout warn" data-page-node-id="pWED2laBZHa1Yobs9wTw7c">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" data-page-node-id="YwWp41luSINOh0PZ1iAFPJ"><path d="M12 9v4m0 4h.01" stroke="#d99518" stroke-width="2" stroke-linecap="round" data-page-node-id="DRllVBCpN79bE8Q45QgVeO"/><path d="M10.3 3.9 1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z" stroke="#d99518" stroke-width="2" stroke-linejoin="round" data-page-node-id="0RNjNLd2FIZOp0sLNagmQc"/></svg>
+          <div data-page-node-id="YIHeWbbsmTDZe3JCVvGtFG"><b data-page-node-id="aX7KhdHU1k6oIQ3HLmxVaG">ATP 部分确认不是失败。</b>当库存只能满足部分数量时，接口仍返回 <code data-page-node-id="SBkcuH06YbUKz9Pe4hQlrZ">201</code>，但 <code data-page-node-id="WkmP5ILpUblFqgRU3Hycwq">warnings</code> 数组会带上 <code data-page-node-id="Q8Srd2OB0uCsb8Aepmkin1">ATP_PARTIAL_CONFIRMED</code> 与可确认数量，S/4HANA 侧生成多个计划行。请以 <code data-page-node-id="Ap4QYSOl4MOBDr16vsgQqE">items[].scheduleLines</code> 为准回写前端期望交期。</div>
+        </div>
+
+        <h3 class="sec" data-page-node-id="sDMetrupNNft2zGvEkxjS1">状态码</h3>
+        <div class="codes" data-page-node-id="brf1cR39erJuJoSFK7102B">
+          <span class="scode ok" data-page-node-id="YOPXKiuEQqHrn83s4EBm89"><b data-page-node-id="yFrT1XsBkCcH3CgR88aLgG">201</b><span data-page-node-id="QXCfpdEHWr4TI9WTBZZieb">创建成功，响应头含 Location</span></span>
+          <span class="scode er" data-page-node-id="ZGpIRMjdGMgUW2IUOPBchH"><b data-page-node-id="lKi1hyUipqzD410dA1arBs">400</b><span data-page-node-id="x7y5amurLguZW3WzEB0byX">结构/MALFORMED_JSON</span></span>
+          <span class="scode er" data-page-node-id="meRy1CmH4YF3UYwEP6EnLr"><b data-page-node-id="7j8Tm3E1EftdcZ5xKoojYf">401</b><span data-page-node-id="u1cSHjmKSqQuuFMgmN7LLs">令牌无效</span></span>
+          <span class="scode er" data-page-node-id="VetG8OMgoA9tp7gUyJGCR9"><b data-page-node-id="5c9O1nlB79ezXWraTZMGjJ">403</b><span data-page-node-id="OWjVwMyEVySwi5Dx6Cm3fG">缺 CSRF 或无写权限</span></span>
+          <span class="scode cl" data-page-node-id="e095TGm6kskpfaqmGE9ZYm"><b data-page-node-id="ZrF75j5ndHYH21ZWD17L77">409</b><span data-page-node-id="GPfn9lpm3I1HW2x2uxOJuF">externalId 重复 / 幂等冲突</span></span>
+          <span class="scode cl" data-page-node-id="DF4v6BkoDPCxxL7H6XAHgx"><b data-page-node-id="PxqqWwbnLhpRSCSjCgQ79f">422</b><span data-page-node-id="5cvphxAHSNkUMd2nQZmpqi">MDG 未通过 / 库存不足 / 信用冻结</span></span>
+          <span class="scode cl" data-page-node-id="0EaKu03xdBCz4CcY9sjOYD"><b data-page-node-id="YHlQsApFxc1OpgvChzpMfn">429</b><span data-page-node-id="FMcjVy26zLcguDiqdPgLLO">触发限流</span></span>
+          <span class="scode er" data-page-node-id="uFBRBGlgetsRAmyfmgbUlX"><b data-page-node-id="v8LCgZQqFz65Eaq7wcwRLo">502</b><span data-page-node-id="kaBU8vw1TIyrjzQd7HbgmF">后端重试耗尽</span></span>
+        </div>
+      </section>
+
+      <!-- ---------- GET /orders/{id} ---------- -->
+      <section class="block" id="ep-get" data-page-node-id="CVCl1fEJlhDvtGQUTB8uWk">
+        <h2 data-page-node-id="u4UMrx0BrDEChtlqMiOmee"><span class="m-tag m-get" style="font-size:13px;padding:5px 11px;" data-page-node-id="zbHAUbn1xGM1mMFfINaW2D">GET</span>获取订单详情</h2>
+        <div class="ep-head" data-page-node-id="4PiwzTP4G4Kg7599u6NC3z">
+          <span class="m-tag m-get" data-page-node-id="QCiOGQ0dd4OHUYqqVcgxNQ">GET</span>
+          <span class="path" data-page-node-id="CfzhWsZqMi3FmlE5yWmJYl"><span class="seg" data-page-node-id="vfcAfgQwFn9sUaA1RenxMH">/http/v1</span>/orders/<span class="var" data-page-node-id="f8oESulktZXzTq2mfffoWn">{id}</span></span>
+        </div>
+        <p class="body" data-page-node-id="naLS88Q08QdKagXDaS4E79">按销售订单号返回完整详情，含行项目、计划行、定价条件、合作伙伴与主数据治理状态。支持 <code data-page-node-id="9feFrxxGLwitR5i2YaY8MZ">If-None-Match</code> 条件请求，资源未变更时返回 <code data-page-node-id="r0CksGQTfw1r1xp2ZoZ3hh">304</code>，不产生后端调用配额消耗。</p>
+
+        <h3 class="sec" data-page-node-id="yFJoPkLjLzO8RIgJFuZW28">路径参数</h3>
+        <div class="tbl-wrap" data-page-node-id="LooW670GCxdq15joRP8pzM">
+        <table class="tbl" data-page-node-id="DwYlPrplQdQdPHyRGKpWwR">
+          <thead data-page-node-id="IlhE0MFC0x2uF2VTShlcBj"><tr data-page-node-id="Aw8ub6DuMCx1d3oIzDrNVz"><th data-page-node-id="dJDV5rlIghrxykAUOB5LWz">参数</th><th data-page-node-id="cXpQjs8NAsXFr1n8XxwV8v">类型</th><th data-page-node-id="tqNpaFyOSa1jCCDjPZr492">必填</th><th data-page-node-id="bk3COxbatOKSV1YaIiVJAQ">说明</th></tr></thead>
+          <tbody data-page-node-id="5vD4CYnFrYqLCeqIcgd6wd">
+            <tr data-page-node-id="Ju5qeSfjQeDmHrXhbbHTbo"><td data-page-node-id="6mA2to5AMccZHXqfbXUNpF"><span class="pn" data-page-node-id="VbBpLlOE7wQ1SFH5z3P83F">id</span></td><td data-page-node-id="yLxzCAeoDTH3x2o5HNfaWN"><span class="ty" data-page-node-id="rGDryLwKZ37AOrUDHhCiVd">string(10)</span></td><td data-page-node-id="pfiLIWlS3SasJf7FxwLVzE"><span class="req-pill" data-page-node-id="VaCFPtN4euVvnuzNMiJ3zK">必填</span></td><td data-page-node-id="7YypZ3LtqXoQMgU2XGy1e7">S/4HANA 销售订单号，需补前导零至 10 位，如 <code data-page-node-id="Ire4Sd5RjeyXKMZ82bDHTJ">0000004821</code>。</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h3 class="sec" data-page-node-id="CWqRfVH88fGcglSmPXaE1k">查询参数</h3>
+        <div class="tbl-wrap" data-page-node-id="QGVqoGncPJ2QDAf2wsyDIU">
+        <table class="tbl" data-page-node-id="68pumCYiLFV3x2XiqkTEwh">
+          <thead data-page-node-id="UuRbrBIIbRVMgGqidfDGAs"><tr data-page-node-id="c2hjoCZZBU0MiRLPTNFTtj"><th data-page-node-id="oCYkaPoWHdvdIpPXJAGL7m">参数</th><th data-page-node-id="g4cWupdawESrIwVrYE3zjP">类型</th><th data-page-node-id="e3bOf1lyyTgfM9eCiBK2hY">说明</th></tr></thead>
+          <tbody data-page-node-id="rcYt6CW4SXcN3WA7gGVerR">
+            <tr data-page-node-id="SeBHLOE2J7hu5YYINUMg5w"><td data-page-node-id="6Eb4XpSyf5yClZvwFtwFNE"><span class="pn" data-page-node-id="EuxHctrTL0KtwCGx9dCKPK">expand</span></td><td data-page-node-id="GwsbGj66QZIEMtDlADS6tz"><span class="ty" data-page-node-id="04AWmShr6Ib2bgGgtNt5SB">string</span></td><td data-page-node-id="2CuzTjePBOzQzHSgobiB9S">可选子结构：<code data-page-node-id="0deGkV0CRFbgHzKrIJLR9g">pricingConditions</code> 定价条件明细、<code data-page-node-id="BgU7pIZWKtWEUyaBBADT5Z">partners</code> 合作伙伴、<code data-page-node-id="hq9pEymwMFoGFI5r2OOcdo">texts</code> 长文本、<code data-page-node-id="ATE9DeYVVfMM6f8eOhI5cv">deliveries</code> 交货单、<code data-page-node-id="zuF5O65HYiBEBSutBdoXUX">billing</code> 开票凭证；默认返回 <code data-page-node-id="1Pu233KCDn0idM8cCTII2c">items</code> 与 <code data-page-node-id="idrguXCjxEbrsKeslpCBJs">pricing</code>。</td></tr>
+            <tr data-page-node-id="AMACtvRaEDXeTDnCLC2074"><td data-page-node-id="PIg6UuvGvS7rcmFTOl17gA"><span class="pn" data-page-node-id="Z5XIk3fZVOLKI4IdxXGW8Y">language</span></td><td data-page-node-id="rFCNvpwRoXzE50gLyZPsM3"><span class="ty" data-page-node-id="KWLckaRc1AX8y6U9Wu2y6q">string</span></td><td data-page-node-id="Bid9KmYOM223v0pbpRf7kd">物料描述与文本语言，默认 <code data-page-node-id="JBVo6qz51amk54ThtoL7Iz">zh-CN</code>。</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h3 class="sec" data-page-node-id="mLMnrUse83aDQYoIsAS692">请求示例</h3>
+        <div class="code-wrap" data-page-node-id="WEBlhsBh1mKMdN6IprqIWH">
+          <div class="code-bar" data-page-node-id="NrW6CGvVRCOYsjOqxpMU4r"><span class="label" data-page-node-id="pGjN5IYUVCwULLFkhDGyft"><span class="dot" style="background:#79b8ff" data-page-node-id="1qhvxgBeY8AfV71Rs7OxFt"></span>Shell · curl</span><button class="copy" type="button" data-page-node-id="0n2oxGWvlM9Bifou5mHYXa">复制</button></div>
+<pre data-page-node-id="eWGRbIF3Cfjt6GSJAAuDRl"><code class="lang-shell" data-page-node-id="ErJSZhlMuZYoYbIbg9kekD">curl -X GET "https://acme-cpi-prod.it-cpi01-rt.cfapps.cn40.hana.ondemand.com/http/v1/orders/0000004821?expand=pricingConditions,partners,deliveries" \
+  -H "Authorization: Bearer $CPI_TOKEN" \
+  -H "Accept: application/json"</code></pre>
+        </div>
+
+        <h3 class="sec" data-page-node-id="aAj03EM7UCpy4f4u9qVnz7">响应示例</h3>
+        <div class="code-wrap" data-page-node-id="xApUHsegebbnmpYyzXta3H">
+          <div class="code-bar" data-page-node-id="i6CUxT4awA13FviozZbp6U"><span class="label" data-page-node-id="9TqCnsIzCEuDDDqIUVRYGi"><span class="dot" style="background:#5ed49a" data-page-node-id="r2VTqNAOzYiGH39xSUEPDo"></span>200 OK · application/json</span><button class="copy" type="button" data-page-node-id="voNZ0fvP2jUyOz2ZleUD51">复制</button></div>
+<pre data-page-node-id="mNS2aH4D3vYCvjuKF1KqJc"><code class="lang-json" data-page-node-id="5JdqP8Foaihrb6LON2KDWO">{
+  "data": {
+    "id": "0000004821",
+    "externalId": "ECOM-20260903-7781",
+    "documentType": "OR",
+    "salesOrg": "CN01",
+    "distributionChannel": "10",
+    "division": "00",
+    "soldToParty": "0001004821",
+    "soldToPartyName": "华东照明设备（集团）有限公司",
+    "shipToParty": "0001004821",
+    "billToParty": "0001004821",
+    "purchaseOrderNumber": "PO-2026-Q3-0091",
+    "incoterms": "EXW",
+    "paymentTerms": "NT30",
+    "status": "confirmed",
+    "requestedDeliveryDate": "2026-09-20",
+    "pricing": {
+      "currency": "CNY",
+      "netAmount": "169800.00",
+      "taxAmount": "22074.00",
+      "grossAmount": "191874.00"
+    },
+    "pricingConditions": [
+      { "conditionType": "PR00", "description": "标准价", "amount": "169800.00" },
+      { "conditionType": "K007", "description": "客户折扣", "amount": "-0.00" },
+      { "conditionType": "MWST", "description": "销项税 13%", "amount": "22074.00" }
+    ],
+    "items": [
+      {
+        "itemNo": "000010",
+        "material": "FG-LED-PANEL-40W",
+        "description": "LED 平板灯 40W 6000K",
+        "quantity": "500.000",
+        "unit": "EA",
+        "netPrice": "253.60",
+        "netAmount": "126800.00",
+        "plant": "1000",
+        "storageLocation": "1001",
+        "deliveryStatus": "not_delivered",
+        "scheduleLines": [
+          { "lineNo": "0001", "confirmedQty": "500.000", "confirmedDate": "2026-09-18" }
+        ]
+      }
+    ],
+    "partners": [
+      { "function": "AG", "role": "售达方", "partnerNumber": "0001004821" },
+      { "function": "WE", "role": "送达方", "partnerNumber": "0001004821" },
+      { "function": "RE", "role": "收票方", "partnerNumber": "0001004821" }
+    ],
+    "deliveries": [
+      { "deliveryNo": "0080001234", "status": "picking", "plannedGoodsIssueDate": "2026-09-18" }
+    ],
+    "masterData": {
+      "mdgStatus": "approved",
+      "mdgRequestId": "MDG-2026-003188",
+      "lastSyncedAt": "2026-09-03T02:40:11Z"
+    },
+    "trace": {
+      "correlationId": "ORD-20260903-0003",
+      "iflow": "SD_SalesOrder_Read_v1",
+      "backend": "S4H/API_SALES_ORDER_SRV/A_SalesOrder",
+      "steps": ["read", "enrich-mdg"]
+    },
+    "createdAt": "2026-09-03T02:41:07Z",
+    "updatedAt": "2026-09-03T02:41:07Z",
+    "etag": "W/\"20260903024107\""
+  },
+  "meta": {
+    "correlationId": "ORD-20260903-0003",
+    "iflow": "SD_SalesOrder_Read_v1",
+    "backend": "S4H/API_SALES_ORDER_SRV",
+    "durationMs": 634,
+    "serverTime": "2026-09-03T02:55:41Z"
+  }
+}</code></pre>
+        </div>
+
+        <h3 class="sec" data-page-node-id="XQ3DRWd3ZnLS8Sjdb4hJkm">状态码</h3>
+        <div class="codes" data-page-node-id="UBflwKkrGkbWVkHKeJGreF">
+          <span class="scode ok" data-page-node-id="HSK8Fa4UAxDRqoSenr7YbI"><b data-page-node-id="Tj9rITgZNcTcaoPg37sydG">200</b><span data-page-node-id="JcgAqZtCCS4T2i5i3n8THd">查询成功</span></span>
+          <span class="scode ok" data-page-node-id="heXXp6stuDaBhBpcjeDkCV"><b data-page-node-id="2xvDETw76FxmvXevGeo7Qj">304</b><span data-page-node-id="FEENBt5radlAknquqIhfqo">If-None-Match 命中，无变更</span></span>
+          <span class="scode er" data-page-node-id="dNKStk8JJWBoNn3Qh0eKWi"><b data-page-node-id="9RLJO092bNmNUe4CjweqWy">400</b><span data-page-node-id="S8qMEZPrW35tKCchTAUqi8">订单号格式非法</span></span>
+          <span class="scode er" data-page-node-id="VDGML3rZaUDYPES8tpIxiO"><b data-page-node-id="UpI5Yq8FGez86XMBtN2XCp">401</b><span data-page-node-id="O3I91jFPmwnRgx1jj8JEQF">令牌无效</span></span>
+          <span class="scode er" data-page-node-id="Y4Hsm4UovrYspCVKGIzipP"><b data-page-node-id="vMQvSIGLTazIZ7EBTqlvwT">404</b><span data-page-node-id="MfHEUWWTCMtOIA2lRBMHf7">订单不存在或越权</span></span>
+          <span class="scode cl" data-page-node-id="L2ad0DmIwDyHJGbBnaTiDc"><b data-page-node-id="FBXJEl20bwkdJ9MiV1HCHF">429</b><span data-page-node-id="pTv9hYXkoIKDLyO7xLfWAE">触发限流</span></span>
+          <span class="scode er" data-page-node-id="A1zObCJL8KxEIvtsQdyVUF"><b data-page-node-id="iTFnvE5ciDrVB7acqB3ymf">503</b><span data-page-node-id="H1sW66q6GGeOEErZIQDZiF">后端不可用</span></span>
+        </div>
+      </section>
+
+      <!-- ---------- PATCH /orders/{id} ---------- -->
+      <section class="block" id="ep-patch" data-page-node-id="NCacyAe7dnrggjNs4FV5KN">
+        <h2 data-page-node-id="Z9Ue3NOM7nbfcsb8Oq57rp"><span class="m-tag m-patch" style="font-size:13px;padding:5px 11px;" data-page-node-id="riT49rAGJQ2NPMFycClysH">PATCH</span>更新订单</h2>
+        <div class="ep-head" data-page-node-id="FcFDRIpCGYCaBFQLtOEpZp">
+          <span class="m-tag m-patch" data-page-node-id="flnHixSTE7c0mnthcBXGfl">PATCH</span>
+          <span class="path" data-page-node-id="c6u3rNoiCiKXnxaKjLpb8v"><span class="seg" data-page-node-id="x19UDdhdXPBw0FqQqHo94J">/http/v1</span>/orders/<span class="var" data-page-node-id="02jqHL50KYAAlS6f5Rk3VM">{id}</span></span>
+        </div>
+        <p class="body" data-page-node-id="YJ2DLCK5U3amCha60yWwvL">采用 <b data-page-node-id="82zkZNg2IVluqaFe00MvP4">JSON Merge Patch（RFC 7386）</b> 语义：只传要改的字段，未出现的字段保持不变，显式传 <code data-page-node-id="kC96Wtpm70iNwObU7AWemp">null</code> 表示清空。行项目按 <code data-page-node-id="Ug74opj7qKFPaXbhrDwqQp">itemNo</code> 定位并声明 <code data-page-node-id="7CJWZt2u2bsC6mBrX7T71a">action</code>。必须携带 <code data-page-node-id="zkXBmvPf3eJuSFvISd6NDe">If-Match</code>，防止并发覆盖。</p>
+
+        <h3 class="sec" data-page-node-id="M4m4R3yc4GjxczENddOMCD">路径与请求头</h3>
+        <div class="tbl-wrap" data-page-node-id="XZSFxrQWoxEm17KVTCYT90">
+        <table class="tbl" data-page-node-id="IjDy6xZHPloClA8DMxGwII">
+          <thead data-page-node-id="Btt13tsQ89x96uTqrvmXMt"><tr data-page-node-id="tpjLuRQfMEOAxt6hlKTyxv"><th data-page-node-id="2EYbiLHbyQV9u0C3aFgfsv">位置</th><th data-page-node-id="wB33BZehClmIx1o1TW3eVS">名称</th><th data-page-node-id="qJmoaOOovHiUyQwJjfF4Oz">必填</th><th data-page-node-id="TgwnBpwkfvjDF2lj9rTQjP">说明</th></tr></thead>
+          <tbody data-page-node-id="HMewFzsmJj5vnCP31YwZoh">
+            <tr data-page-node-id="jV72qAonmrK1fJLPzrVb30"><td data-page-node-id="PCNvReLF2D3tQzj0NklU0L"><span class="ty" data-page-node-id="1PCe8lulgPvfLME3io9HpX">path</span></td><td data-page-node-id="Upf8K5HXQwAgCoSdjvDB7D"><span class="pn" data-page-node-id="i37FMtDAlwHUAYBSvLD15F">id</span></td><td data-page-node-id="9xxZldPgc4VwJEQ0YnapmX"><span class="req-pill" data-page-node-id="jVjWlqcdGGfgD743E7TIBE">必填</span></td><td data-page-node-id="Tn2bCj3wgybnRrRrryV4zP">销售订单号。</td></tr>
+            <tr data-page-node-id="vohR4Z95xxEr0pMG46asD9"><td data-page-node-id="SJu4xyk9RHLJw9HwEv1CAJ"><span class="ty" data-page-node-id="OEVmPXznNSR0sqo5y4IEDH">header</span></td><td data-page-node-id="uJcrZDo5QEnUG3WusfMz0K"><span class="pn" data-page-node-id="bIJuPQlvN5T0sFXQaJYk8H">If-Match</span></td><td data-page-node-id="jjqMZinCy0dIOVX31Cx6oC"><span class="req-pill" data-page-node-id="dUmp3P2CEefHViMVOOXI8m">必填</span></td><td data-page-node-id="IEjDiRmaT8xkQzAqXT9n3t">当前 <code data-page-node-id="FW7nKdrwaTCv4MxWIstOFd">etag</code>，例如 <code data-page-node-id="0LzzAcxlOYuKJzkOgDew40">W/"20260903024107"</code>；不匹配返回 <code data-page-node-id="TWWa4wgWupIfY1OSRA9Sc8">412</code>。</td></tr>
+            <tr data-page-node-id="iZf0x7rEas4JXWq4LxlY5A"><td data-page-node-id="cBtDdjkJMjUJ7Du04hQRSw"><span class="ty" data-page-node-id="S8TNubVyCuFb3RB2vnrVOE">header</span></td><td data-page-node-id="gz00WouuX9c6foLi5VCtTu"><span class="pn" data-page-node-id="y6gfnDz96Gze6joItoNbND">X-CSRF-Token</span></td><td data-page-node-id="qZLcA5SAxHuTFihULsUP71"><span class="req-pill" data-page-node-id="lryhVozDwq3VYGnwIfvNDH">必填</span></td><td data-page-node-id="xei4Xs4CEt610ofnJjQF2m">写操作 CSRF 令牌。</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h3 class="sec" data-page-node-id="ehOp3o8CvG1n3UXv1FDpkS">请求体参数</h3>
+        <div class="tbl-wrap" data-page-node-id="Li15kaqgu7QTNHr2NFoTFA">
+        <table class="tbl" data-page-node-id="W3KfTgo995T9RAxTCFDdAI">
+          <thead data-page-node-id="zENgPLYsRwwgvnceElU0gq"><tr data-page-node-id="VFanompXsm4RD9nBhTntJ8"><th data-page-node-id="iSC9FpB2eCERRJINSk7fno">字段</th><th data-page-node-id="eMtySzvneBLazbouA1A3Xl">类型</th><th data-page-node-id="2z4uhrcPDeeAV0ZWF52BfH">必填</th><th data-page-node-id="usn8OIBjxGsAhwT6xDJVai">说明</th></tr></thead>
+          <tbody data-page-node-id="HZVm4oMaY7TeeFeogFltA7">
+            <tr data-page-node-id="TBkHI5P00SryrToIlDl2Fz"><td data-page-node-id="pzoHoHQL9nPWnB7qmKMob9"><span class="pn" data-page-node-id="53Dlk5oQIKKyfFVLZufwJu">requestedDeliveryDate</span></td><td data-page-node-id="8dCJp8mGRFi0koEUuwjVEc"><span class="ty" data-page-node-id="jY57hp3wBhu4ETEi0shSoS">string(date)</span></td><td data-page-node-id="AJmfQ3BFgrOnZX4eAgLPCx"><span class="opt-pill" data-page-node-id="VMn5BYj2g4sDjcXNdvCm2Z">可选</span></td><td data-page-node-id="SAmoXHG4t66twv9GcQFRxc">新请求交期；变更后系统自动重跑 ATP。</td></tr>
+            <tr data-page-node-id="XlgL7AHFVUUuLm1B4sjmHJ"><td data-page-node-id="HwHsZYNiEjoFGCEzzHem2J"><span class="pn" data-page-node-id="47p7j3dfQs8vWZUAwPKXRm">reasonCode</span></td><td data-page-node-id="4lnuhmBPkELxJFGByinMJe"><span class="ty" data-page-node-id="4Pi9hJDFb5qG4t7m6EptF2">string(3)</span></td><td data-page-node-id="ijXjaHPHHNWLU7F1ItwOPs"><span class="cond-pill" data-page-node-id="bD1AoBvcnI06rvg8SbIGlE">条件必填</span></td><td data-page-node-id="0NZsX8tOxVBOSNMnSnpyPr">减少数量或修改交期时必填，用于 S/4HANA 更改原因归档：<code data-page-node-id="bEmntZeO0hFHSOE0p0guly">001</code> 客户要求、<code data-page-node-id="OHWWwfi5SA89wbPEhC4aC2">002</code> 产能调整、<code data-page-node-id="sCK4H5ZdNBfQVNEfUxjD0p">003</code> 缺料。</td></tr>
+            <tr data-page-node-id="Y57SwDwWlq6T5q1YGGLMOK"><td data-page-node-id="8SBDgyp7TrXYabEefxTkjM"><span class="pn" data-page-node-id="bgMw83tRMCIZdyE9t9iEGD">purchaseOrderNumber</span></td><td data-page-node-id="ztEyIVxLruPe3MI9tNhMiy"><span class="ty" data-page-node-id="u6qo1O6jkksQZs426hol3n">string(35)</span></td><td data-page-node-id="2CIPGImtUIQOVObdYZ2mV3"><span class="opt-pill" data-page-node-id="Y3Dm4rrCWVvsNqETGRQz3o">可选</span></td><td data-page-node-id="HwhH18lGayXORtII8Sl9YW">修正客户采购订单号；传 <code data-page-node-id="IYntg0rhtPHK7pjQAsZN7n">null</code> 清空。</td></tr>
+            <tr data-page-node-id="SN8LRxYLZWv71Nbj6o5fGC"><td data-page-node-id="fkNJj8CTA2vTRJiwXJqP8I"><span class="pn" data-page-node-id="QBe5o0TlBgaIpkUSTjGFyI">text</span></td><td data-page-node-id="vytQObA1eR5O0x8U2psKIZ"><span class="ty" data-page-node-id="pwEvTjF3PugzbpzZOHlsIW">string(132)</span></td><td data-page-node-id="ogz5LvJMI4lmjwqxVC5F04"><span class="opt-pill" data-page-node-id="Dj3HmEhrQAo7xBpmZN5GMc">可选</span></td><td data-page-node-id="pf3LWxn8UE0Cu8pJCCt1XQ">追加抬头文本；传 <code data-page-node-id="NQBavxuMdkwT9pjQdKh706">null</code> 清空。</td></tr>
+            <tr data-page-node-id="YrutFl0nYsAGOtHbP3ehcS"><td data-page-node-id="gW9o1nXQPhv3ScCDZlcMRF"><span class="pn" data-page-node-id="ntJGYO4QOTRVnlSmiZN24h">deliveryBlock</span></td><td data-page-node-id="LM8BGh8TLDkl5PUjxSNjZK"><span class="ty" data-page-node-id="PatvnAEjDC0mBdQMn8TlZR">boolean</span></td><td data-page-node-id="tK7epPcXAP26uQakHa17tZ"><span class="opt-pill" data-page-node-id="5LpzlEUz3FCwoO3SJapDxf">可选</span></td><td data-page-node-id="cKeLCshSo2PHYEFg1jjDGh"><code data-page-node-id="jqcVZdFFqnmbM8pBDdqfAA">true</code> 冻结发货、<code data-page-node-id="Ear3nQl2Rfp4DJAARRo4Lh">false</code> 解除冻结。</td></tr>
+            <tr data-page-node-id="PpBYcd7rmSIFYwidFwNyyk"><td data-page-node-id="XPtlGu8MzcgB5g3wLXUzOD"><span class="pn" data-page-node-id="INxh5phrrawKulBHcpvhIG">items</span></td><td data-page-node-id="EZ86DYnlUb9CPzMAYlQKDh"><span class="ty" data-page-node-id="Mfq6ONwmvhAxKeawC97Ftw">array&lt;object&gt;</span></td><td data-page-node-id="tcuubpZaz0FCtKDddfBng9"><span class="opt-pill" data-page-node-id="bB04uoaBJtf2Fn3yvqtHFn">可选</span></td><td data-page-node-id="66EUBz9317ymh1Y8wMODOc">待变更行项目，最多 200 条。</td></tr>
+            <tr data-page-node-id="At1Zi76tK9gVNUwQq0HDEW"><td data-page-node-id="57Lx1RU6x0EGOz7hzoWdJn"><span class="nest" data-page-node-id="gUDAd2xn603yFs2OtHP2F0">itemNo</span></td><td data-page-node-id="O3fAGTNKeOIkGlibTtnKE1"><span class="ty" data-page-node-id="LmeIOUGGLCvAQAGgjqwcTD">string(6)</span></td><td data-page-node-id="uit2JS5gse8hRJIQKo9fJR"><span class="req-pill" data-page-node-id="V1juM3bdFQcCqpYr63Y6BS">必填</span></td><td data-page-node-id="gzbiCEUyFyE2DbUQ7qJHVd">目标行号。</td></tr>
+            <tr data-page-node-id="93BTGbpC2d9y2VFBFNrfLy"><td data-page-node-id="BUZqMompPkxnYHV7GY3GH9"><span class="nest" data-page-node-id="MtdV0FHcd5GxjlGzJYGMA5">action</span></td><td data-page-node-id="4nrGvyKtRZ6554obWyPneU"><span class="ty" data-page-node-id="CxGBzElUeP1mt7Jg1cfycd">string</span></td><td data-page-node-id="nibSJkke5RITzuadQisi23"><span class="req-pill" data-page-node-id="UMA2KbUKjFWw5EbXQfFeKM">必填</span></td><td data-page-node-id="WCh8EQqxslhh4P44dAwABW"><code data-page-node-id="oDELnvJgEU8u1HDdeJNSpj">update</code> 修改数量/价格，<code data-page-node-id="9r1lij4wmvFRTUDW7jsYek">delete</code> 删除行（置拒收原因），<code data-page-node-id="xU6SM0eT4zmiBVgb2jjO5j">reject</code> 行项目拒收。</td></tr>
+            <tr data-page-node-id="DIfhiZadFps4m2VoK8JLqy"><td data-page-node-id="zvX4jv9IliOxFAYiRCYJur"><span class="nest" data-page-node-id="DdCVm4ziwUh7c6JOWgTZHJ">quantity</span></td><td data-page-node-id="TRywwD41CzyUqJUmFzyKn6"><span class="ty" data-page-node-id="CE0D4VkBnIeun4iTPW3Snd">string(decimal)</span></td><td data-page-node-id="qAR7hirnCAE0U6UpjKlav7"><span class="opt-pill" data-page-node-id="fsjfwDwlunzsDeYO4dym3X">可选</span></td><td data-page-node-id="EPaHB5OClIsaHmmPJqIpVi">新数量；<b data-page-node-id="RETq84OI2bbet6JGqgsajT">只能减少</b>，增加请新建订单。</td></tr>
+            <tr data-page-node-id="t9vMT4JV8kD7RQp4QMsKaq"><td data-page-node-id="eJJ83nvyQD8Cgg9jJ8Gr0s"><span class="nest" data-page-node-id="srHT0YQVBK6l4H4RO2RBNc">netPrice</span></td><td data-page-node-id="hAHORPhKZCBtlSytJSngGE"><span class="ty" data-page-node-id="as6yxD4YUXgGRiEshyl6JV">string(decimal)</span></td><td data-page-node-id="VCiFb4wWr24RTWoOOHjPFE"><span class="opt-pill" data-page-node-id="UEmX7ahObRcUn2jSZUsorM">可选</span></td><td data-page-node-id="mEDaz6yXhasD752HIY6e2g">手工净价覆盖；需令牌具备定价授权。</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h3 class="sec" data-page-node-id="t0lfN90X17H1l2fpLmQcsh">请求示例</h3>
+        <div class="code-wrap" data-page-node-id="BGku8q4RFg8DzyfpVGYxgA">
+          <div class="code-bar" data-page-node-id="MHHDAWbiED4egvUcBDpT4B"><span class="label" data-page-node-id="rb9wLgnfO82Nw4blpWi7fM"><span class="dot" style="background:#79b8ff" data-page-node-id="YS9mZEDtrSmbQUFqPbwi6d"></span>Shell · curl</span><button class="copy" type="button" data-page-node-id="KZk723wvFTruM2fsHFq0Bp">复制</button></div>
+<pre data-page-node-id="lD5AlSarOWMzvvLDaCA4ij"><code class="lang-shell" data-page-node-id="cnACPscEe6LupoxQwbnpWG">curl -X PATCH "https://acme-cpi-prod.it-cpi01-rt.cfapps.cn40.hana.ondemand.com/http/v1/orders/0000004821" \
+  -H "Authorization: Bearer $CPI_TOKEN" \
+  -H "X-CSRF-Token: $CSRF" \
+  -H "If-Match: W/\"20260903024107\"" \
+  -H "Content-Type: application/json;charset=utf-8" \
+  -d '{
+    "requestedDeliveryDate": "2026-09-24",
+    "reasonCode": "003",
+    "text": "客户改约交期至 9/24，缺料待补",
+    "items": [
+      { "itemNo": "000010", "action": "update", "quantity": "420.000" },
+      { "itemNo": "000020", "action": "delete" }
+    ]
+  }'</code></pre>
+        </div>
+
+        <h3 class="sec" data-page-node-id="aitvkCyvXqHKcg1sKBDwZf">响应示例</h3>
+        <div class="code-wrap" data-page-node-id="TN1BW2NQf137i7WLttBNc3">
+          <div class="code-bar" data-page-node-id="UU2G0DzZDYF3rEDRuOI4Dq"><span class="label" data-page-node-id="9sE0fdqYmTx7DloprwLEen"><span class="dot" style="background:#5ed49a" data-page-node-id="jOBwuFJ84yMHzX0xJH6R90"></span>200 OK · application/json</span><button class="copy" type="button" data-page-node-id="kPOBjyXEOIDbDKXDSpzYFw">复制</button></div>
+<pre data-page-node-id="Qf6pSoN9PNYHOwVQYJUtzW"><code class="lang-json" data-page-node-id="18qnKjqdQkpnPfMoD9GQyH">{
+  "data": {
+    "id": "0000004821",
+    "externalId": "ECOM-20260903-7781",
+    "status": "confirmed",
+    "requestedDeliveryDate": "2026-09-24",
+    "pricing": {
+      "currency": "CNY",
+      "netAmount": "106512.00",
+      "taxAmount": "13846.56",
+      "grossAmount": "120358.56"
+    },
+    "items": [
+      {
+        "itemNo": "000010",
+        "material": "FG-LED-PANEL-40W",
+        "quantity": "420.000",
+        "unit": "EA",
+        "netPrice": "253.60",
+        "netAmount": "106512.00",
+        "plant": "1000",
+        "deliveryStatus": "not_delivered",
+        "scheduleLines": [
+          { "lineNo": "0001", "confirmedQty": "420.000", "confirmedDate": "2026-09-24" }
+        ]
+      },
+      {
+        "itemNo": "000020",
+        "material": "FG-LED-DRIVER-40W",
+        "quantity": "500.000",
+        "unit": "EA",
+        "rejectionReason": "003",
+        "deliveryStatus": "rejected",
+        "scheduleLines": []
+      }
+    ],
+    "masterData": {
+      "mdgStatus": "approved",
+      "mdgRequestId": "MDG-2026-003188",
+      "lastSyncedAt": "2026-09-03T02:40:11Z"
+    },
+    "trace": {
+      "correlationId": "ORD-20260903-0004",
+      "iflow": "SD_SalesOrder_Change_v1",
+      "backend": "S4H/API_SALES_ORDER_SRV/A_SalesOrder",
+      "steps": ["read", "lock", "atp-recheck", "change", "post"]
+    },
+    "createdAt": "2026-09-03T02:41:07Z",
+    "updatedAt": "2026-09-03T03:12:55Z",
+    "etag": "W/\"20260903031255\""
+  },
+  "warnings": [
+    {
+      "code": "DELIVERY_DATE_RESCHEDULED",
+      "message": "行 000010 的确认交期由 2026-09-18 顺延至 2026-09-24",
+      "target": "items[0].scheduleLines[0].confirmedDate"
+    }
+  ],
+  "meta": {
+    "correlationId": "ORD-20260903-0004",
+    "iflow": "SD_SalesOrder_Change_v1",
+    "backend": "S4H/API_SALES_ORDER_SRV",
+    "durationMs": 2213,
+    "serverTime": "2026-09-03T03:12:57Z"
+  }
+}</code></pre>
+        </div>
+
+        <div class="callout warn" data-page-node-id="jRlittEOKpb5N63p5u6qCl">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" data-page-node-id="W1FSMZvPbBKHSsLDusdgK4"><path d="M12 9v4m0 4h.01" stroke="#d99518" stroke-width="2" stroke-linecap="round" data-page-node-id="6c39wFAEbtAlVbjRyHXxr8"/><path d="M10.3 3.9 1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z" stroke="#d99518" stroke-width="2" stroke-linejoin="round" data-page-node-id="sAc6iFBPeABm16ihpwUAar"/></svg>
+          <div data-page-node-id="tCKObGWZfYiqOKFxPLpzBF"><b data-page-node-id="h8IZoR8lMgEoj6YmCEI4T7">已发货或已开票的行项目不可修改。</b>对 <code data-page-node-id="v0PvwVQYl4jlDE5YRRpMzX">deliveryStatus</code> 为 <code data-page-node-id="Fzmfx4xyG3BWwkC0aNKU1y">delivered</code> 的行执行 <code data-page-node-id="HLa5GxRYRuKyKbjbOwhLmr">update</code>/<code data-page-node-id="9aUNs8SPrQty2A6ziLv7f2">delete</code> 将返回 <code data-page-node-id="gtKiN4sM24mChpSSu7Mp18">409 ITEM_SHIPPED_IMMUTABLE</code>；此时应发起退货订单（<code data-page-node-id="jeDIkBtuV4SgWJEpZv9TaS">documentType=RE</code>）而非直接改单。</div>
+        </div>
+
+        <h3 class="sec" data-page-node-id="VLXYDQlrEA84SETxIrAwQ4">状态码</h3>
+        <div class="codes" data-page-node-id="pHuPCsdr8WteJYC2KP4BOa">
+          <span class="scode ok" data-page-node-id="5UifXmtzuTVyRsB1M0bzZQ"><b data-page-node-id="4tsnVWINl6Cc6Dg7qFDlhs">200</b><span data-page-node-id="9xyfULha6gBsMBaHpGdgTB">更新成功，返回完整资源与新 etag</span></span>
+          <span class="scode er" data-page-node-id="rKqid0OovhRXw5116jNXAF"><b data-page-node-id="6r0FHcwDwUDf1QijvDuxSF">400</b><span data-page-node-id="ejCk8EsEH8Av8yJscjH5gP">请求体非法</span></span>
+          <span class="scode er" data-page-node-id="UC9BuRJsfWCH24Ve7hfjDL"><b data-page-node-id="gggEx3b1rs7aaUm9BYkSSQ">401</b><span data-page-node-id="FN8tCjFg0FTjcWrcR6Zqgu">令牌无效</span></span>
+          <span class="scode er" data-page-node-id="hw7vjoqqSRZSJyq91LdfMi"><b data-page-node-id="TAwecJ9nvDf8cfMzjN5AAX">404</b><span data-page-node-id="3BoPWowCDp9voMeb6yqR7u">订单或行项目不存在</span></span>
+          <span class="scode cl" data-page-node-id="MgMzclFyJQRxmt8HjLhdGe"><b data-page-node-id="zp2YFScLJ6RKVQoEEEnz5A">409</b><span data-page-node-id="EnKuETs4Bv24ndwGAWiET9">行项目已发货不可改</span></span>
+          <span class="scode cl" data-page-node-id="5o4rRbqJAWceKVXOqSjDfT"><b data-page-node-id="rWvzsbzHJmcsMnHJsvVpAg">412</b><span data-page-node-id="9trVx5KXLh4FcNwD6rozeK">ETag 不匹配，请先重新读取</span></span>
+          <span class="scode cl" data-page-node-id="558iS74FEs3CKQf3bgyDF1"><b data-page-node-id="xi0IemAFJeBTjeziEEZfPf">422</b><span data-page-node-id="AjSxnN0n1W8kCPJ18dZXiO">业务校验失败（缺原因码/ATP）</span></span>
+          <span class="scode cl" data-page-node-id="ZeKXnTk3JonyAEP9zcEnMG"><b data-page-node-id="17w3RhhLmPZFgZorg5pzzi">429</b><span data-page-node-id="Kg9FFJEanar95bDsFTPTLA">触发限流</span></span>
+        </div>
+      </section>
+
+      <!-- ---------- DELETE /orders/{id} ---------- -->
+      <section class="block" id="ep-del" data-page-node-id="VakpG6HZZvKFKFJKQ8ZnAt">
+        <h2 data-page-node-id="btLZ6eZnDTYq3HniJk5DyP"><span class="m-tag m-del" style="font-size:13px;padding:5px 11px;" data-page-node-id="svnEugrGA272nEjqGcgP4f">DELETE</span>取消订单</h2>
+        <div class="ep-head" data-page-node-id="cyPQZNMuIjP1J0K2wDeR34">
+          <span class="m-tag m-del" data-page-node-id="vzeDMj6oVEyl7NG017NDCX">DELETE</span>
+          <span class="path" data-page-node-id="J2gBmiDSTxRIirJBpOuwqj"><span class="seg" data-page-node-id="J2XoMjASA8GXtKzTfiU5CC">/http/v1</span>/orders/<span class="var" data-page-node-id="NbDdkvs1jkFPOGIg0SCsEQ">{id}</span></span>
+        </div>
+        <p class="body" data-page-node-id="NKY6jdgm0I1EBhndrtzQA5">业务取消（软删除）：在 S/4HANA 中为订单/行项目设置拒绝原因，<b data-page-node-id="d126veky6CnBBY6tHN75ju">不删除底层凭证</b>，符合审计留痕要求。该操作<b data-page-node-id="SqmViK6D7J067IkH3TAIye">幂等</b>——对已取消订单重复调用返回 <code data-page-node-id="FbswsrvHX0NXhtFLthAWZK">200</code> 且 <code data-page-node-id="VpN4qPCoiRDR73bHw3GC6J">alreadyCancelled=true</code>，不会重复过账。</p>
+
+        <h3 class="sec" data-page-node-id="lUlvmuWtiBOYBTlGAb8Mzj">参数</h3>
+        <div class="tbl-wrap" data-page-node-id="6oGObhyszq8M4iwbFoj4TJ">
+        <table class="tbl" data-page-node-id="P3kL5ZOLt1KX5fgJ0GHYqH">
+          <thead data-page-node-id="uBtxZQ5pbLlqNRAC7D6ecL"><tr data-page-node-id="b5XffaedoPKPYvbdku5pQd"><th data-page-node-id="pDQT9v8STVieVHTAKLq0a3">位置</th><th data-page-node-id="t4Sm6YdRMqOqScvotcGSJW">名称</th><th data-page-node-id="DZImgrvcglGcroer2P5dIR">类型</th><th data-page-node-id="6H4VFUZe5MaaloRTBz2lvQ">必填</th><th data-page-node-id="s7cVDKXaICgqKA2EgZJdJK">说明</th></tr></thead>
+          <tbody data-page-node-id="XgbRpXBPZyV5CTiUHLhIpz">
+            <tr data-page-node-id="Q3c8WRTqe2fglKZsipJeYd"><td data-page-node-id="MEfV8RABniwlNjoIvZsC9d"><span class="ty" data-page-node-id="J6sDGBPWa3eMBBEVZZW49v">path</span></td><td data-page-node-id="3sV7eCQ3BlpQEkF0kQDpOR"><span class="pn" data-page-node-id="QfBr8IEtFm7D3s33JBUZHo">id</span></td><td data-page-node-id="jRaybGbGAfIb6iPFmm13iN"><span class="ty" data-page-node-id="T847NHCdK5gHqIczEW3AiC">string(10)</span></td><td data-page-node-id="kVymuejuDM4GyqJrAodXWs"><span class="req-pill" data-page-node-id="V9FfTlzQ2bhEhFsgOBFyIf">必填</span></td><td data-page-node-id="cnvCA0toW9pWZi3e5V0JUO">销售订单号。</td></tr>
+            <tr data-page-node-id="xHYu9DrdDBmVGROhXkzte9"><td data-page-node-id="7R6ZMkjpk0WDC0QqZkF2Sh"><span class="ty" data-page-node-id="3NYvFSjvP9YX3snS8rqSOq">header</span></td><td data-page-node-id="xWM4TUdzahXqKrbLbNkO3W"><span class="pn" data-page-node-id="WBNfdIKHWy1E1tZvbGWVLk">If-Match</span></td><td data-page-node-id="LfnuOZkKFGmpR6o6plrE5V"><span class="ty" data-page-node-id="Sr4m8b7za3Q9CGaOWLz8Kf">string</span></td><td data-page-node-id="hpYDuyLrvUeDU9GuaKXrxK"><span class="opt-pill" data-page-node-id="eYpeXG9B2z5iTNbmHdPVQ1">可选</span></td><td data-page-node-id="63chm3AnPERCSjwF3cIXVU">建议携带；因取消幂等，缺失时不会返回 <code data-page-node-id="tQrBlWuLweYOPv851iF2HD">428</code>。</td></tr>
+            <tr data-page-node-id="T4xMg6MjXISbwmMc9SHRdF"><td data-page-node-id="DbWaWMH9jXPeORWqSQG1Io"><span class="ty" data-page-node-id="d1CT6klFMfecg5BgHoIpQA">header</span></td><td data-page-node-id="QCCGqCGqLx0Pm9vHozEAAc"><span class="pn" data-page-node-id="QJdcAHAhPNFWIss4XrZNan">X-CSRF-Token</span></td><td data-page-node-id="1ZpJj5fQKMLIbmVgQ0nG6p"><span class="ty" data-page-node-id="Kp4bFMAWOvAjZr6S6BsyBa">string</span></td><td data-page-node-id="5wJpKoc4NFSTMqa3E5CF1t"><span class="req-pill" data-page-node-id="5QRN3I0uREoK2QJ2mO4nAB">必填</span></td><td data-page-node-id="Em2VpuafDt8VTvX9ux8ZXY">写操作 CSRF 令牌。</td></tr>
+            <tr data-page-node-id="pXuDwAabzjon5yQYQePXIU"><td data-page-node-id="r94edEaIHmdFdpo0KdIuU6"><span class="ty" data-page-node-id="TkvY9CgE34BXKFXRCZvcwI">body</span></td><td data-page-node-id="bqpD9E18zBrsOIXuhfu0k6"><span class="pn" data-page-node-id="LCBAUeMaANDJyBDTYVqRh8">reasonCode</span></td><td data-page-node-id="HPlBh1OyK2Idr6Dz15XmgD"><span class="ty" data-page-node-id="ns9m4MXzf0BUPjY9ikuBH9">string(3)</span></td><td data-page-node-id="vRqsURZX5wShpoNNTAekqK"><span class="req-pill" data-page-node-id="MftUxLMTtjMWupk6MWuMtj">必填</span></td><td data-page-node-id="x7sgz3gymLy6GqSlFheyuL">取消原因：<code data-page-node-id="TnSYFpJIyuo6FAf8vBQkVk">01</code> 客户取消、<code data-page-node-id="ZeSWjVLo6AIEAOyukwvk11">02</code> 缺料无法交付、<code data-page-node-id="7v5ltHuLGEWL3rMet3pFYr">03</code> 价格条款未达成一致、<code data-page-node-id="auMPJnf1uq6xzDATyUXdpL">04</code> 重复下单。</td></tr>
+            <tr data-page-node-id="lgK2iqL9rnVAjKj9dbXWzB"><td data-page-node-id="1Mq38y8NqUC68vws4MUXgv"><span class="ty" data-page-node-id="iKGmaJO76AnBcIkiupnF9w">body</span></td><td data-page-node-id="fzkTYqsTDmHOAc9odeDFO6"><span class="pn" data-page-node-id="3J0C3gJzT3fFMBmFSzXFZj">scope</span></td><td data-page-node-id="NACG2VKFhc4YqdqPHA2ODl"><span class="ty" data-page-node-id="6oc2mwGsMrd473w4iV03ai">string</span></td><td data-page-node-id="tNCWbn8UOzMdFxhDh1Fobt"><span class="opt-pill" data-page-node-id="n80Em4umRf8gqZYlySAdbU">可选</span></td><td data-page-node-id="wHg0zCNe2XtlobLEvo4Z77"><code data-page-node-id="RU7A2oAxZFpuZCHRzsNNyA">all</code>（默认，整单取消）或 <code data-page-node-id="C74kQSujgDg8lRRbPTRBbu">items</code>（仅取消指定行）。</td></tr>
+            <tr data-page-node-id="G0d4nPFTmQ5F7T2iLiBX5s"><td data-page-node-id="8py8HCHQxumiIF1d4kfXmn"><span class="ty" data-page-node-id="rtta7ojN5BU9NILYahhzne">body</span></td><td data-page-node-id="88JUhZP0KKqbHll1SqLmHC"><span class="pn" data-page-node-id="HXBXe1T4gvmnu2Dzip9G2Y">items</span></td><td data-page-node-id="RmOB65CBQZN7mRKqhWYYCw"><span class="ty" data-page-node-id="RdSIYPIfkbPODHgtuhIp0i">array&lt;string&gt;</span></td><td data-page-node-id="pl8cLfOyM3dX78wpt8SJET"><span class="cond-pill" data-page-node-id="nDXhCEeDqEFBI9mdXr5HPg">条件</span></td><td data-page-node-id="n7IbIpo52eLIzKuLMBO45F"><code data-page-node-id="lRQG8clb59HCCbwu36zC9T">scope=items</code> 时必填，列出待取消的 <code data-page-node-id="WIjTPBOT8PqKqAEggWwwV3">itemNo</code>。</td></tr>
+            <tr data-page-node-id="XRUiPnR0rePtK5W9g6yKpW"><td data-page-node-id="qJKOrf9NE7YlhwxgFMKlLS"><span class="ty" data-page-node-id="b7xyWIymTLKv1qfx9eeNMy">body</span></td><td data-page-node-id="LjdIxA9N086FNQzEtosAM5"><span class="pn" data-page-node-id="QngBUMlvdqZ0lFPM99Mopf">comment</span></td><td data-page-node-id="5SJQ55WLrOAPWtCEVd0Bdu"><span class="ty" data-page-node-id="PoVnBEWVa6sfPoTaZS9dha">string(132)</span></td><td data-page-node-id="tGOavjg1DkyahyWg0FfXgG"><span class="opt-pill" data-page-node-id="Q9p6XGNJ5Ix4CJDKL9Y7Ki">可选</span></td><td data-page-node-id="eeXT7y19mAOJyc0ap2sL06">取消备注，写入订单长文本。</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h3 class="sec" data-page-node-id="UkKia4F1qkXWQ5BsEzmrsz">请求示例</h3>
+        <div class="code-wrap" data-page-node-id="UiPjidbD3ob96AouNBAzT4">
+          <div class="code-bar" data-page-node-id="QNziqRzu0Z44mDxFHluCaH"><span class="label" data-page-node-id="9PGdX4MNROw8CkJcGE44o0"><span class="dot" style="background:#79b8ff" data-page-node-id="t7TE7cvsOeWIBVonYdJWgR"></span>Shell · curl</span><button class="copy" type="button" data-page-node-id="9XnlfgcIkIA35tZdmRaGiC">复制</button></div>
+<pre data-page-node-id="wxVWEfDeGdQCL7mb4TfeRq"><code class="lang-shell" data-page-node-id="1AGwi2XxQ0AGlmc16RB6wV">curl -X DELETE "https://acme-cpi-prod.it-cpi01-rt.cfapps.cn40.hana.ondemand.com/http/v1/orders/0000004821" \
+  -H "Authorization: Bearer $CPI_TOKEN" \
+  -H "X-CSRF-Token: $CSRF" \
+  -H "Content-Type: application/json;charset=utf-8" \
+  -d '{
+    "reasonCode": "01",
+    "scope": "items",
+    "items": ["000020"],
+    "comment": "客户取消驱动电源，改为下期订单"
+  }'</code></pre>
+        </div>
+
+        <h3 class="sec" data-page-node-id="3DFG1yJ6Uhb6dmde9mk7NM">响应示例</h3>
+        <div class="code-wrap" data-page-node-id="XYUlbBdzmXhToWuSCfz9jF">
+          <div class="code-bar" data-page-node-id="D6THPCmqJFPtHX6Enp7uHx"><span class="label" data-page-node-id="PSqgAEbvsMGJLjiLYP4SYf"><span class="dot" style="background:#5ed49a" data-page-node-id="iK3DWwC2zRuJ8vZResE6am"></span>200 OK · application/json</span><button class="copy" type="button" data-page-node-id="CKg3hyS5WmlVDImYDxiUo3">复制</button></div>
+<pre data-page-node-id="fS8rVnfhQ9NzAKrZKfUohr"><code class="lang-json" data-page-node-id="6VR4C9EeqWdBHbMv0INFNK">{
+  "data": {
+    "id": "0000004821",
+    "externalId": "ECOM-20260903-7781",
+    "status": "partially_cancelled",
+    "cancellation": {
+      "reasonCode": "01",
+      "reasonText": "客户取消",
+      "scope": "items",
+      "cancelledItems": ["000020"],
+      "cancelledAt": "2026-09-03T03:40:02Z",
+      "operator": "CPI_INTEGRATION_USER",
+      "alreadyCancelled": false
+    },
+    "pricing": {
+      "currency": "CNY",
+      "netAmount": "106512.00",
+      "taxAmount": "13846.56",
+      "grossAmount": "120358.56"
+    },
+    "items": [
+      {
+        "itemNo": "000010",
+        "material": "FG-LED-PANEL-40W",
+        "quantity": "420.000",
+        "deliveryStatus": "not_delivered",
+        "scheduleLines": [
+          { "lineNo": "0001", "confirmedQty": "420.000", "confirmedDate": "2026-09-24" }
+        ]
+      },
+      {
+        "itemNo": "000020",
+        "material": "FG-LED-DRIVER-40W",
+        "quantity": "500.000",
+        "deliveryStatus": "cancelled",
+        "rejectionReason": "01",
+        "scheduleLines": []
+      }
+    ],
+    "trace": {
+      "correlationId": "ORD-20260903-0005",
+      "iflow": "SD_SalesOrder_Cancel_v1",
+      "backend": "S4H/API_SALES_ORDER_SRV/A_SalesOrder",
+      "steps": ["read", "lock", "reject", "post"]
+    },
+    "createdAt": "2026-09-03T02:41:07Z",
+    "updatedAt": "2026-09-03T03:40:02Z",
+    "etag": "W/\"20260903034002\""
+  },
+  "meta": {
+    "correlationId": "ORD-20260903-0005",
+    "iflow": "SD_SalesOrder_Cancel_v1",
+    "backend": "S4H/API_SALES_ORDER_SRV",
+    "durationMs": 1504,
+    "serverTime": "2026-09-03T03:40:04Z"
+  }
+}</code></pre>
+        </div>
+
+        <h3 class="sec" data-page-node-id="loasSmYl0AvFUH3pksI2WV">状态码</h3>
+        <div class="codes" data-page-node-id="Yh7mGCEtntjOaxd5zx9rkb">
+          <span class="scode ok" data-page-node-id="cWUSdTgyF4UDJL5dlZrcJH"><b data-page-node-id="UnXKlLDmhIjcebOLlPVA6o">200</b><span data-page-node-id="nLe7UbyQw7f9SRuQtVMJou">取消成功（重复调用同样返回 200）</span></span>
+          <span class="scode er" data-page-node-id="fndO4b8mA8F7dpvWFiBbcq"><b data-page-node-id="iKZaL6TwH35lP9eDl6pBzW">400</b><span data-page-node-id="BfuBpEmjNJ3lDwMEzpPGg2">原因码非法或请求体缺失</span></span>
+          <span class="scode er" data-page-node-id="FtRL1NOLdx3NO7gCD6JD73"><b data-page-node-id="pkTgTZGBCuS4b5rwKE7PSI">401</b><span data-page-node-id="EJ5fzVb7s0cOBc0wWxtBeD">令牌无效</span></span>
+          <span class="scode er" data-page-node-id="VijD1J5Yxh4AgvJGh2clDM"><b data-page-node-id="HKvXDWpCImpdgP7woOkqXx">403</b><span data-page-node-id="x8fgiaQkMzqaUa1nsDqRmt">无取消权限</span></span>
+          <span class="scode er" data-page-node-id="tylBBvumFG63PnGUqf0Kqn"><b data-page-node-id="EYdQlObWxVgPkiTL61Pn3T">404</b><span data-page-node-id="DAKNPPmlOcMQF0ct8Vi10S">订单不存在</span></span>
+          <span class="scode cl" data-page-node-id="KbOyCHO0C15xrBgG1D1Qrm"><b data-page-node-id="fQqinAQZYhSGXwSsxJolr0">409</b><span data-page-node-id="UgSXXJG0IR7AfZITUIfY2I">已开票 / 已完全交货不可取消</span></span>
+          <span class="scode cl" data-page-node-id="oqSGVxOCITJ2JMGgVr4gaZ"><b data-page-node-id="r7QHtmEMnYcsdRUPgR0NB7">422</b><span data-page-node-id="nRLhTItlXAqNLPOFZfOzrT">业务规则拒绝（如已过账财务凭证）</span></span>
+          <span class="scode cl" data-page-node-id="igFuD2r6ZjycVAJOCLuciz"><b data-page-node-id="lLcyKtrKixbsqlJoDKrtGu">429</b><span data-page-node-id="G7O72ukupGQqph5yTJB9Or">触发限流</span></span>
+        </div>
+
+        <div class="callout" data-page-node-id="jPk7oeDHzw65PQFHrSEKse">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" data-page-node-id="b5v63wSCsbETnJAbRMJACy"><circle cx="12" cy="12" r="9" stroke="#4f56c9" stroke-width="2" data-page-node-id="HWcjMvHysmdbHRxa3pw22h"/><path d="M12 8h.01M11 12h1v4h1" stroke="#4f56c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="8GWlFrHy9nyjMA2izcXzcg"/></svg>
+          <div data-page-node-id="Sg3treiVyBTWTmPcma3qp1">取消后若需恢复，请重新创建新订单（可复用原 <code data-page-node-id="AvqQ9SwDSIu8oiYAI1LUZf">externalId</code> + 后缀）。S/4HANA 不提供"反取消"接口，历史凭证不会物理删除。</div>
+        </div>
+      </section>
+
+      <!-- ---------- CATALOG ---------- -->
+      <section class="block" id="catalog" data-page-node-id="zUIAFDJHk0eBn4mQjDWas6">
+        <h2 data-page-node-id="Bh28S9EQq7pbsF2sY4gpHO"><span class="icon" data-page-node-id="LGs8TX3AoKM8iRVofTKMth"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" data-page-node-id="OuMLPcnuSh7juSzsrnviy6"><rect x="3" y="4" width="18" height="16" rx="2" stroke="#4f56c9" stroke-width="2" data-page-node-id="FI8Fyq4AGFGH48AbnmYTkL"/><path d="M3 10h18M9 4v16" stroke="#4f56c9" stroke-width="2" data-page-node-id="8nG1ndak9CBznDHGJKraJG"/></svg></span>集成端点全景</h2>
+        <p class="sub" data-page-node-id="LtuXAx91H8EfOkWmd3u179">除订单主流程的 5 个端点外，同一套契约与鉴权还覆盖下列系统接口。下表为<b data-page-node-id="nazqaEz1qHe3hOfFBhQDwD">已规划/已发布</b>端点清单，可作为后续接入的路线图；所有端点共享本页的错误码、限流与版本策略。</p>
+        <div class="tbl-wrap" data-page-node-id="8DqShgeYm7R6EoGkFfk82f">
+        <table class="tbl" data-page-node-id="wtGHyHfdJ0jaAZOoyBc8FW">
+          <thead data-page-node-id="CnQtvVkpOWAbknbmCTC5a3"><tr data-page-node-id="xJsCM90D2amPN03a47gIDY"><th data-page-node-id="zImVdZFOAKFcQkGwrKRuAW">系统</th><th data-page-node-id="GrGxzrUMcibRZhS8WwHzX7">业务对象</th><th data-page-node-id="r0zNhlCXZSfqJL3manJZHf">方法 · 路径</th><th data-page-node-id="bbC0XDuDrm9Vk2NcYpvntL">后端协议</th><th data-page-node-id="aLjPCkUQrA3GxD14GH97yY">状态</th></tr></thead>
+          <tbody data-page-node-id="C6K9ma80ofWzrETUSzUYCQ">
+            <tr data-page-node-id="GmfMNSSJe4aWbpmXxCQ7wQ"><td data-page-node-id="JHO8UxAO4uk1dZlhyTJJhS">SAP S/4HANA · SD</td><td data-page-node-id="tlqaCBIR5tnA0uQu5F0MGz">销售订单</td><td data-page-node-id="IGOwMEH2D4vgn3DNxcgVSz"><span class="m-tag m-get" data-page-node-id="Z0CYSiA22BR4EnTiXvVR6H">GET</span> <span class="pn" data-page-node-id="bB8FFtlDHuRSTEHNx9s11T">/orders</span>　<span class="m-tag m-post" data-page-node-id="TQxTykeAPErU7GycmE7zQv">POST</span> <span class="pn" data-page-node-id="VBlEXVH5O3k8lStZsAALaM">/orders</span></td><td data-page-node-id="Bt0L3vyEG31ayKSZVEFrfV">OData V2 · A2X</td><td data-page-node-id="sZjMDfEqYVECeO96EgBAwG">已发布</td></tr>
+            <tr data-page-node-id="ycnYrfVSRW47HU5lwPsnR8"><td data-page-node-id="lq5jQu76td28TIgjOyWzvj">SAP S/4HANA · SD</td><td data-page-node-id="IP8xAl9v6eTg9G3zzch6Bg">订单详情 / 变更 / 取消</td><td data-page-node-id="2d0lf3xW6yRodZhecKXjtJ"><span class="m-tag m-get" data-page-node-id="Rlc9kcgfq9G2DrZU5CYNha">GET</span> <span class="m-tag m-patch" data-page-node-id="xvQ14Nbtzzv4WXMPCFqLZ4">PATCH</span> <span class="m-tag m-del" data-page-node-id="mSUylYDS4wrL05sZyGIyj5">DEL</span> <span class="pn" data-page-node-id="nvTaUKAM2KcbReOkRrqSB0">/orders/{id}</span></td><td data-page-node-id="i9JQkexOq1xSHqUcYN9viP">OData V2 · A2X</td><td data-page-node-id="umGYA25HJ7Q9XzqixG6PAz">已发布</td></tr>
+            <tr data-page-node-id="D1ljKz1zSe5xMcigZuwsrv"><td data-page-node-id="zL9UWAppoqfQ3q0pUJDR7k">SAP S/4HANA · MM</td><td data-page-node-id="1GQ3Yrc2Da25SscA8RGfli">采购订单</td><td data-page-node-id="o0UDi5xKMq1s2YOo8oQnsB"><span class="m-tag m-get" data-page-node-id="giLWOt1poHOOGBjAYVtCDn">GET</span> <span class="m-tag m-post" data-page-node-id="UH6caIWp3WmCm4CMqNcKdE">POST</span> <span class="pn" data-page-node-id="58idXIvzf2pLM9XkAlcC2O">/purchase-orders</span></td><td data-page-node-id="3aCUdO2PvlavWnrCVokMiC">OData V2 · A2X</td><td data-page-node-id="1SFHHf6EPj1GSm7ZZsuU8F">已发布</td></tr>
+            <tr data-page-node-id="t1zwpylY2fWNruhqw03Y49"><td data-page-node-id="SOQEJNq3QFN1ExrbX3bvir">SAP S/4HANA · MM</td><td data-page-node-id="LmVZiIDfg6UHo80Sdji0hU">goods movement 收货过账</td><td data-page-node-id="4zVejp5xTYnBuArznD6iHR"><span class="m-tag m-post" data-page-node-id="aHAA5EVYFd9X8Pgm2WT26X">POST</span> <span class="pn" data-page-node-id="amBKdAwpp6YyZGJwXSoghQ">/goods-movements</span></td><td data-page-node-id="olabQFuktxsMEDAqSqucH7">OData V2 · API_MATERIAL_DOCUMENT_SRV</td><td data-page-node-id="3D8oaEcBIAE8m4Jkv7kv5k">已发布</td></tr>
+            <tr data-page-node-id="ozOVjlxUDrdwGGo1zgQRXC"><td data-page-node-id="A0AA4zXBbv5EZavYvVzSXc">SAP S/4HANA · FI</td><td data-page-node-id="5xGEB6qynqV806jr69gx0K">会计凭证</td><td data-page-node-id="f0rBFqqCRfdu6JbaNzedAS"><span class="m-tag m-post" data-page-node-id="gyxx8EfnbmzVBWq4qGDbVm">POST</span> <span class="pn" data-page-node-id="SjumUNYSZTStWKrDgEkYMB">/journal-entries</span></td><td data-page-node-id="gIYYqj2k0Akpd2GpPUcM6U">OData V2 · API_JOURNALENTRY_SRV</td><td data-page-node-id="kDwW79gKVDm7gYwrCIqB32">已发布</td></tr>
+            <tr data-page-node-id="fXP1KsQEBqmgaUtTm746i4"><td data-page-node-id="Dd2AT2yIUluRHZlxU29DJQ">SAP S/4HANA · FI</td><td data-page-node-id="FXBVX4lrSmTCYuPUOACBfA">客户信用额度</td><td data-page-node-id="Uz1bo90I55PYFP8HC0iX5h"><span class="m-tag m-get" data-page-node-id="mYVCxFiQ719UGpEYBez9vR">GET</span> <span class="pn" data-page-node-id="OKrit5g7W8hlRIkmKgb21i">/customers/{id}/credit</span></td><td data-page-node-id="AFfSHvDQ2MZtyvfhdNFOIy">OData V2 · API_CREDITMEMO_SRV</td><td data-page-node-id="aYvYHHMPO9W9h5aiP1AVox">已发布</td></tr>
+            <tr data-page-node-id="sJVuIDBiPDiCHjMHdqUy8H"><td data-page-node-id="bIjtGv7XVxkQEvmMeQrlGK">SAP MDG</td><td data-page-node-id="jF7gfHmYnRQyv4h7HDq6b4">业务伙伴主数据</td><td data-page-node-id="mkCyWkNxs3sE1wRSiA4nrA"><span class="m-tag m-post" data-page-node-id="zc0E94DyGH8PdA2gXL5l1V">POST</span> <span class="pn" data-page-node-id="8EaoELTl3YByavrStC1GCj">/master-data/business-partners</span></td><td data-page-node-id="ExVVmFOH5QrxCXTAaKkkXW">OData · DRF 分发</td><td data-page-node-id="vJCjAkrLEAAX141B07pqxx">已发布</td></tr>
+            <tr data-page-node-id="QkYUZwTo8VSl8krZD4a5Ga"><td data-page-node-id="uM9SVZyY08GxBSw6btE993">SAP MDG</td><td data-page-node-id="DTHVriL8GMsUhBBnCBvwzR">物料主数据治理状态</td><td data-page-node-id="YbTUCdnKMHmmF0R9Q7OKx5"><span class="m-tag m-get" data-page-node-id="wFOLaEUy3n4WnNokZRR0ZE">GET</span> <span class="pn" data-page-node-id="Qf9xOUhQvJNuDA8x7dFhOV">/master-data/materials/{id}</span></td><td data-page-node-id="MDDjZsIo6AHR6vTNjWJTiQ">OData · MDG-M</td><td data-page-node-id="gi3ZLGrVl6c5RND9Nf0TD5">已发布</td></tr>
+            <tr data-page-node-id="ccPEcBKXCPIJEBGhiB7lG7"><td data-page-node-id="tLtZfvIWOlfL6Bw50EXTBj">MES</td><td data-page-node-id="Po32Myrf93hsT1PM4Srlvy">生产工单下发</td><td data-page-node-id="LLSErbyF0QASSqM56DwvCn"><span class="m-tag m-post" data-page-node-id="JIw8WrTIRYLfv1NMIc6doB">POST</span> <span class="pn" data-page-node-id="pxQB9fQQkHPU0M8fKkcjD3">/manufacturing/orders</span></td><td data-page-node-id="wKFL38rKVeWmMW08g3k81G">IDoc LOIPRO · REST</td><td data-page-node-id="g1zYWxuTAhCHbAkUeOcTuq">已发布</td></tr>
+            <tr data-page-node-id="hKyaTGmOXt2JhEj7mZfTrU"><td data-page-node-id="DH247RZrnBPXlSVbT2LBX0">MES</td><td data-page-node-id="tGCkyskloNsEM33raeUS0U">工序报工 / 产量回传</td><td data-page-node-id="BjJ0ecLrVPLmtkUAVDsQVk"><span class="m-tag m-post" data-page-node-id="X5sCBZHt2SaMRUOUYolRmY">POST</span> <span class="pn" data-page-node-id="MSlsPQODfrx0DHQwVCVHML">/manufacturing/confirmations</span></td><td data-page-node-id="HNDVXIN5BS06WM5XBjHLEp">IDoc · REST 批量</td><td data-page-node-id="D7hiKp1JkmtAQr3jD3SaGa">已发布</td></tr>
+            <tr data-page-node-id="n0XEXbJZNJOa8u8QOgX6p1"><td data-page-node-id="pJq4EveeeP6bNA9GQWfwr7">PLM</td><td data-page-node-id="BiSUC5nos1ltBdr3RVP0Rh">物料与 BOM 下发</td><td data-page-node-id="HdtHdRGwdDJQVWDMJf5vjM"><span class="m-tag m-get" data-page-node-id="GLoSWw7u5av51yncWsLYOW">GET</span> <span class="pn" data-page-node-id="sBHZJazdtr5Oj7ICkvzPmX">/plm/boms/{material}</span></td><td data-page-node-id="dgv6vxz7R7FMuJYv7RgZEz">REST · JSON</td><td data-page-node-id="18VB3CYnK9J1YzmW172Sfo">已发布</td></tr>
+            <tr data-page-node-id="JP97l5m72OxRGSQd4GTSUV"><td data-page-node-id="5t5S2RHzqMCvboS6aznY2u">PLM</td><td data-page-node-id="GMyuEYAld5ioOWWOdBo8kC">工程变更通知 ECN</td><td data-page-node-id="f5KK1H3t1cJXEnoeaHHWst"><span class="m-tag m-post" data-page-node-id="8b6uSIjjDKlPGdqdq9HqDZ">POST</span> <span class="pn" data-page-node-id="I7AcwfeMs5HohzW9NAbdlf">/plm/change-notices</span></td><td data-page-node-id="X1Bse5dd2h9q5xobnUF0OY">REST · JSON</td><td data-page-node-id="EImdM5lD0tKv6ld02ShgSF">规划中（v1.5）</td></tr>
+            <tr data-page-node-id="zbrCHpQjLlyZuFpm4j1mJC"><td data-page-node-id="coCEfWs3vE7jBxl0nxe5lc">SRM / Ariba</td><td data-page-node-id="KgQtXHEFGp6xz5N20TrFqF">采购申请</td><td data-page-node-id="NFllUrkR4il285EMVRyUt5"><span class="m-tag m-post" data-page-node-id="t00CHInC40BE6KCArbuOBK">POST</span> <span class="pn" data-page-node-id="TxbkpsCs5KtVEgJJbv0IMX">/sourcing/requisitions</span></td><td data-page-node-id="SyeJpgsj0FaN4F92Dl57K2">cXML · Ariba Network</td><td data-page-node-id="SQ5xqNP1YRCKdCLalqSTYC">已发布</td></tr>
+            <tr data-page-node-id="b0QZXF7uYhqvDGQ9TpONJ5"><td data-page-node-id="gGoCwZHUUDAtomqAN96Vl9">SRM / Ariba</td><td data-page-node-id="Q5rKgDBh0fgQfsJUFDI3Zt">供应商报价回执</td><td data-page-node-id="DFxI72UuMIOITMM4QU5ehc"><span class="m-tag m-get" data-page-node-id="VhAfPpdi9wI4pv0eX5haEQ">GET</span> <span class="pn" data-page-node-id="ShcjNIPI9XjB8iICZdJHlS">/sourcing/quotes</span></td><td data-page-node-id="womFgFEZeDNUZ7LguIEVxY">cXML</td><td data-page-node-id="42vNGMclSfqlJTXAGcgXKq">已发布</td></tr>
+            <tr data-page-node-id="GIlnhOTpTQ2X8JY0JdHCaS"><td data-page-node-id="wa6EcjBnUMA4pPwBTEuWCX">SAP EWM / WM</td><td data-page-node-id="lViSR0oexCz6c0eutVHs3k">库存与出入库</td><td data-page-node-id="1FspVpIVBKav0KoAsg6lCc"><span class="m-tag m-get" data-page-node-id="JVRp01mR9cK3DhjmNr2mNK">GET</span> <span class="pn" data-page-node-id="XZTg20WnRdhFz8HEeyZSqW">/inventory/stock</span>　<span class="m-tag m-post" data-page-node-id="EKoY1uwKv4AaTSdpzFlzbR">POST</span> <span class="pn" data-page-node-id="VjOKTfxQNlzdLnv0oE5FQu">/warehouse/outbound-deliveries</span></td><td data-page-node-id="GyFqIBBIEBnMZtd7x2YRwW">OData · IDoc WMMBXY</td><td data-page-node-id="HRNqlOnabJVlmhF3AdyL1m">已发布</td></tr>
+            <tr data-page-node-id="QVebK955VSfhc549WnL6d5"><td data-page-node-id="4l3BTIFRxZrjN4otJfsaJV">SAP TM</td><td data-page-node-id="zfzBU3O1rNmo17EVxs62iG">运输单 / 运费</td><td data-page-node-id="0DrlmmM59BtRHl8wAD2YYY"><span class="m-tag m-post" data-page-node-id="TExgFuBTumsxaWcEakuFvS">POST</span> <span class="pn" data-page-node-id="k3X2e7nxKGwvDioplhf7Fr">/transportation/shipments</span></td><td data-page-node-id="vW4L75xImfkyh3dd4aMGpX">OData · SOAP</td><td data-page-node-id="PJA5mcBGdFY7S77YGC3jE9">规划中（v1.5）</td></tr>
+            <tr data-page-node-id="EmakcXVEXNJgWhpm0nbgd3"><td data-page-node-id="qDxC8KJcnvg7W7YO8BMroE">SAP QM</td><td data-page-node-id="xySCyEJQQAYwB8Ep0wRqSu">质检结果回传</td><td data-page-node-id="GbfMLytpi3snhF8vvhWNAq"><span class="m-tag m-post" data-page-node-id="fJzIF0xGTzRs6vtjwKvNe9">POST</span> <span class="pn" data-page-node-id="TfAQ496wes8Q4T7brOGeIr">/quality/inspection-results</span></td><td data-page-node-id="BUKZRRwZ7AxSOy60emNzUl">OData · IDoc</td><td data-page-node-id="YfqkqgWoeFMxNBPnjorZAQ">已发布</td></tr>
+            <tr data-page-node-id="9swr059aZq3HDEBrGTex5X"><td data-page-node-id="X5J6NDJedwAfGq0AkgLVT1">经销商平台 DMS</td><td data-page-node-id="br6G1R1B08GH9kTH8vVW0v">经销商订单 / 返利</td><td data-page-node-id="vqOTJyVsCq7iYOURZAHD1f"><span class="m-tag m-post" data-page-node-id="z7o8hzkmEHufeeJhBToDuw">POST</span> <span class="pn" data-page-node-id="3hjHhgWeqvHtVu1bJ0Zw5Z">/dealers/{dealerId}/orders</span></td><td data-page-node-id="2aVHTsovqlrH5Acn8TN3Ui">REST · JSON</td><td data-page-node-id="EKvFLSxuwdlYHn5QBQk4BP">已发布</td></tr>
+            <tr data-page-node-id="eHiGqc5drKa55DaHNWZpcS"><td data-page-node-id="s4nezNL7arNgrsOs1XTXNP">金税 / 发票平台</td><td data-page-node-id="Jfo2XEIImW7iREVa5xHDJz">开票申请与结果</td><td data-page-node-id="xzleBqH2evjfOxtfXw4WH6"><span class="m-tag m-post" data-page-node-id="MHqWXU9lafnHW448aj9MkF">POST</span> <span class="pn" data-page-node-id="L1rl0ucBru8IL9CVWkD9U3">/invoices</span></td><td data-page-node-id="fDyo2SmwBPlYrEGJ5w0T0J">HTTPS · 税控报文</td><td data-page-node-id="FyuPheHJsX9jykgeFdyHwp">已发布</td></tr>
+            <tr data-page-node-id="Y07wXTJhUlVv17ofCORfqT"><td data-page-node-id="0bKoLVGGzDiAMlrcmfNcgW">银企直连 / 资金</td><td data-page-node-id="vuTX3BllrNpmnJN63uFK6Z">付款指令与回单</td><td data-page-node-id="nXxNo7vuxlyGKPdNqcCFF9"><span class="m-tag m-post" data-page-node-id="mdExiKg8IwUFYTzYWzpLSW">POST</span> <span class="pn" data-page-node-id="W4qijtsD5nHsn1tRslluiJ">/payments</span></td><td data-page-node-id="QV8EGXUKjU86l1uAQXS7oi">Socket 报文 · SFTP</td><td data-page-node-id="dGDIRZlC0yy8MAAJbcopuw">已发布</td></tr>
+            <tr data-page-node-id="WXl5lwj3WmDv2NXcQjC2eR"><td data-page-node-id="UPh6tH39ArcP8jmO3aRczG">SuccessFactors</td><td data-page-node-id="f9yAbx3nvHrN5Mt9URt0CA">人员与组织架构</td><td data-page-node-id="hrmszXXlk64PkmFDtBHEMB"><span class="m-tag m-get" data-page-node-id="6OrQ5w0xMEjOqKRHWjAFLj">GET</span> <span class="pn" data-page-node-id="la1Uku9nfQuiFSOL1KQMb2">/org/employees</span></td><td data-page-node-id="qg4Zt6d0ncWAis4qqIEmMi">OData V2 · SF API</td><td data-page-node-id="V7VWBdDfxgZkaR9GqdlWEq">已发布</td></tr>
+            <tr data-page-node-id="sGnFEyoFGBCjKFIRrL3rcT"><td data-page-node-id="brvMHbKHVWTDoKzDT14kfT">BW/4HANA · 数据中台</td><td data-page-node-id="AURCm4QAOGQJ3A9XvAiSv5">指标与明细抽取</td><td data-page-node-id="wWo423DGgyKRzCrX0NalXM"><span class="m-tag m-get" data-page-node-id="j1ffX4Odss2skI0HgW1wXx">GET</span> <span class="pn" data-page-node-id="w3T8dA5z9tKhXi88kP2EIg">/analytics/extracts/{dataset}</span></td><td data-page-node-id="FDhssUi4qaOcyuUFQKP44o">OData · CDS View</td><td data-page-node-id="6do1ik5PH7sHArqx75Kzxq">规划中（v1.6）</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <div class="callout" data-page-node-id="yfqnUtI70C2f96B96OqP5F">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" data-page-node-id="jIC3inTl9pQlDmg8GWJPQY"><circle cx="12" cy="12" r="9" stroke="#4f56c9" stroke-width="2" data-page-node-id="zbWFPOTt4ojzBN6eUJWDWV"/><path d="M12 8h.01M11 12h1v4h1" stroke="#4f56c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="DmTI55eFB2NWBYRkpkZjAP"/></svg>
+          <div data-page-node-id="VJVBstBDQ0n0ubBuKN4DoU">表中"规划中"的端点属于前瞻设计，上线时间与字段可能与最终版本存在差异。所有端点<b data-page-node-id="Wd0kGeNP8bTnhsRSuoKzeE">共用本文档的鉴权、错误码、限流与版本策略</b>，接入时只需替换资源路径与业务字段。</div>
+        </div>
+      </section>
+
+      <!-- ---------- ERRORS ---------- -->
+      <section class="block" id="errors" data-page-node-id="c6xeqh6myxDMDylurHDNu1">
+        <h2 data-page-node-id="RIqTBoSI15MyJaWwO2YUQI"><span class="icon" data-page-node-id="s9v2ZbcHwg5ltC6hCAdAU6"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" data-page-node-id="S2ZQvsvHLyCznyaJaHSK1p"><circle cx="12" cy="12" r="9" stroke="#cf3a41" stroke-width="2" data-page-node-id="hrCaKCpC4gW6AWall5D2cu"/><path d="M12 8v5m0 3h.01" stroke="#cf3a41" stroke-width="2" stroke-linecap="round" data-page-node-id="pPepmvyA75ZJjRmR6ioEv8"/></svg></span>通用错误码</h2>
+        <p class="sub" data-page-node-id="HWefC0GgPNaBWEVYBBCZie">所有非 2xx 响应都使用统一的错误信封。<b data-page-node-id="Z6uKHbwTKJR3piQ2rRMECf">请以 <code data-page-node-id="jLAhmcoQeSCusQTt88Xye3">error.code</code> 做程序分支，不要依赖 <code data-page-node-id="ELKImNFEStWnrULNWJzIik">message</code> 文案</b>——文案随 <code data-page-node-id="pXgiw0T4V3dv6TYXmfltO0">Accept-Language</code> 变化，机器码不变。</p>
+
+        <h3 class="sec" data-page-node-id="IqIZLeOflJcSkDCzgaZovJ">错误响应结构</h3>
+        <div class="code-wrap" data-page-node-id="xkbtArg1xZhHrH2Qp3QeZj">
+          <div class="code-bar" data-page-node-id="VvEPhO8U5ZXYrjVHaIRaJe"><span class="label" data-page-node-id="3j5QRt6iACKfT5YMliaieW"><span class="dot" style="background:#ff8b91" data-page-node-id="V2WTn59vXfmVaWrJ9W3cnl"></span>422 Unprocessable Entity · application/json</span><button class="copy" type="button" data-page-node-id="7FrK9J8W7ZkvD6FlsVvnRP">复制</button></div>
+<pre data-page-node-id="VfA4GhYJXUZQ85yeTQmTCF"><code class="lang-json" data-page-node-id="3nk85ANVpFPwMSkEDCbF2M">{
+  "error": {
+    "code": "ATP_INSUFFICIENT",
+    "message": "行项目 000010 在工厂 1000 的可用库存不足",
+    "target": "items[0].quantity",
+    "correlationId": "ORD-20260903-0006",
+    "details": [
+      {
+        "code": "ATP_INSUFFICIENT",
+        "message": "请求 500.000 EA，当前可用 420.000 EA，最早可满足日期 2026-09-24",
+        "target": "items[0]",
+        "requested": "500.000",
+        "available": "420.000",
+        "earliestDate": "2026-09-24"
+      }
+    ],
+    "sap": {
+      "system": "S4H",
+      "service": "API_SALES_ORDER_SRV",
+      "innerCode": "V4042",
+      "innerMessage": "No schedule line could be confirmed"
+    }
+  },
+  "meta": {
+    "correlationId": "ORD-20260903-0006",
+    "iflow": "SD_SalesOrder_Create_v1",
+    "backend": "S4H/API_SALES_ORDER_SRV",
+    "durationMs": 934,
+    "serverTime": "2026-09-03T04:02:11Z"
+  }
+}</code></pre>
+        </div>
+
+        <h3 class="sec" data-page-node-id="rw0TiM26PiwuUNy5XMjoKu">HTTP 状态码总览</h3>
+        <div class="tbl-wrap" data-page-node-id="zp4kUUZvWH0BRAnyGTvHYo">
+        <table class="tbl" data-page-node-id="0azs8N6O3HLqXEAYjF2JKO">
+          <thead data-page-node-id="u20Dr43pEuTW1AimhVDrM5"><tr data-page-node-id="4xEhcbDoxFNrq7oXINrsGW"><th data-page-node-id="szsnlEtUVcMJRv4qnfPFAZ">状态码</th><th data-page-node-id="IhtrC0VhVNWitJu1eep5a0">含义</th><th data-page-node-id="LTE27VCYToOy4jW53nxoEu">客户端处理建议</th></tr></thead>
+          <tbody data-page-node-id="jJaDRYeF0LBYpltM1oUxFa">
+            <tr data-page-node-id="FAymsFGzKNXKE7KSG9DmFt"><td data-page-node-id="0ZcZQx9BRJiFO7pHwguiwQ"><span class="pn" data-page-node-id="y61YC40Kc898GOltYOqbqm">200</span></td><td data-page-node-id="NBOKNFLWNaxqJxarsEABWG">请求成功</td><td data-page-node-id="EP6DsmDJFjvGCuvLTWULka">正常解析 <code data-page-node-id="a6VwF4GAX9KCZZil3BliUS">data</code>。</td></tr>
+            <tr data-page-node-id="gMGpOqlLrwHgBYbcVQF8iQ"><td data-page-node-id="doTbU7aFwoFJBKerCBIVrm"><span class="pn" data-page-node-id="n3mNaQpml6i6enTmU1CtP5">201</span></td><td data-page-node-id="VLkiM2O0yvSoKHK1csWHCY">创建成功</td><td data-page-node-id="G7uVigYH9uBwpLnsYxvbj5">读取 <code data-page-node-id="XrtgYdsUagds7fpVjebV0X">Location</code> 头与 <code data-page-node-id="B9KSqrSxjvxlrFH5Hq6kCb">data.id</code>。</td></tr>
+            <tr data-page-node-id="z6TBLsW2Y9aJSeThdjmC3v"><td data-page-node-id="w34dzUPJSP4lMO8tXwaX0O"><span class="pn" data-page-node-id="WtYUufZt0FmbnW7LVJbjPc">304</span></td><td data-page-node-id="A0zeK51qyFHgu4kWyMNKCE">资源未变更</td><td data-page-node-id="HTmGJDeNJHPLLkBUnyP0cv">复用本地缓存，不消耗配额。</td></tr>
+            <tr data-page-node-id="rn7Zmi6s3SJ5eQ44fLkmav"><td data-page-node-id="joYekMjcBj8iexvzuBB9Cq"><span class="pn" data-page-node-id="aEieztIRYCQjIz7YprLj7y">400</span></td><td data-page-node-id="NaOXqc8JPwFhTz54y8wydG">请求格式或参数错误</td><td data-page-node-id="POEgzMptvO2NuuSk6nwlCJ">按 <code data-page-node-id="fERHAF5kU71I5RPOsiMq8H">error.target</code> 修正字段后重试，不要盲目重试。</td></tr>
+            <tr data-page-node-id="xxqtE8eHUgI5gDNnDgTWvX"><td data-page-node-id="foFBq4YmcXGdwujd1Mgdbs"><span class="pn" data-page-node-id="r5i7z3AuB7n82enk7I6RvS">401</span></td><td data-page-node-id="bFnfjz4FTgyhNi0DizKtN3">未授权</td><td data-page-node-id="MB7SsX69WkophqgI2O7FKd">重新换取令牌；连续失败需检查 client_secret 是否被轮换。</td></tr>
+            <tr data-page-node-id="XmYBVfyqB2ZHfj0K9RsPb5"><td data-page-node-id="y28VWZyIkfUSEZYpOgvzrb"><span class="pn" data-page-node-id="1kDP8EHnyyXkw2aPxwTO6a">403</span></td><td data-page-node-id="eC3mEyoH9ngzSZJ3osRFer">权限不足或 CSRF 缺失</td><td data-page-node-id="bxEBnHhHVraMkPJxzblAFU">补 <code data-page-node-id="2Hw3fdbNteIHHQzfAMCJW5">X-CSRF-Token</code>；仍失败则申请对应 scope。</td></tr>
+            <tr data-page-node-id="1pRpIzgj0vtc0ocfc6D29G"><td data-page-node-id="9SEFBzDTqKxGDchRucgpqk"><span class="pn" data-page-node-id="JdFaZjPMqj0LG1WjsKZZXu">404</span></td><td data-page-node-id="pJRtVhLV8rF4yWvemdFB9F">资源不存在</td><td data-page-node-id="pCVL54Fzlaj5BB3DYd8SnP">校验 <code data-page-node-id="slw9mBelMgugj4CjoV4ynv">id</code> 前导零与权限范围。</td></tr>
+            <tr data-page-node-id="SoaVOFIvRrPf5ubTUOBco5"><td data-page-node-id="L4YXtOpksXATTpKJ5TudT8"><span class="pn" data-page-node-id="I5r3PGk7hgaRbzgCG8T7oC">409</span></td><td data-page-node-id="HKTPIgv85Y1gtAxrz894Ek">业务状态冲突</td><td data-page-node-id="uZ4jaKe5SJoNsTFptjs7pv">读取资源最新状态后再决定；<code data-page-node-id="LeH62h4Zw7gqYBoLb4WpPB">DELETE</code> 的 409 多为已开票。</td></tr>
+            <tr data-page-node-id="5PiWMKr5h57klX6d1fHbAD"><td data-page-node-id="hNOgqaJgVVJ7gFlvHJSLJn"><span class="pn" data-page-node-id="6DIpgEMy8kYC7qFjfwVsik">412</span></td><td data-page-node-id="yPMFCgt5yjE5HIBoqqY798">ETag 不匹配</td><td data-page-node-id="23F6mJ6Ls9AKVSXv3XfTmk">重新 <code data-page-node-id="skYouCcHRR4zodNxzFNMBP">GET</code> 取新 <code data-page-node-id="8HahIwp0sjC73vUfo7JwKU">etag</code>，合并变更后再提交。</td></tr>
+            <tr data-page-node-id="BkwDpqKB3NAYLGYyaQjgcs"><td data-page-node-id="Qw6vYSAONBfhSYuB3N7qwH"><span class="pn" data-page-node-id="s8N629mNVJTocV2fnO8wgj">415</span></td><td data-page-node-id="EzivxcqPWKutoWiterqtXA">媒体类型不支持</td><td data-page-node-id="ZFV0w1SHqN0b8771wWHh4o">设置 <code data-page-node-id="gABcVJS9umB2IeNQ7V1wGq">Content-Type: application/json;charset=utf-8</code>。</td></tr>
+            <tr data-page-node-id="BAVzT5NNEj233HuplkZBcE"><td data-page-node-id="5AMA4mTC0TFW6zKdehCxv8"><span class="pn" data-page-node-id="89wbCWTdEZuJpXKABvYR2L">422</span></td><td data-page-node-id="hoySsEZpF1KofHljVgXLjK">业务规则校验失败</td><td data-page-node-id="FSXepSTyRWgpg3xn6LvxDp">处理 <code data-page-node-id="ljeFY2vOTtpbZv5e0OFYWw">details</code> 后由人工或规则引擎决策，重试无意义。</td></tr>
+            <tr data-page-node-id="f31EkOhFtlxPRFdxmCi2T3"><td data-page-node-id="nYWos9geq0cCqfLiLfbWE5"><span class="pn" data-page-node-id="9YMpKdCQZEC2UtzbPtN4R4">429</span></td><td data-page-node-id="y9NCdYdA8ImRBNNHSl7o6I">触发限流</td><td data-page-node-id="MLJUHVyEP9W3a1X5FtITQr">按 <code data-page-node-id="XRd8ltyTdsTjAddUnkbG25">Retry-After</code> 退避重试，见<a href="#ratelimit" data-page-node-id="5sED8co6fWekzQ3IIYEPV3">限流说明</a>。</td></tr>
+            <tr data-page-node-id="7YYxoiC37kb7KGku1gvFfM"><td data-page-node-id="CjyZ7BxC863HEoMb0nJu0N"><span class="pn" data-page-node-id="igaVvVbe3qhHM4yPn9vryA">500</span></td><td data-page-node-id="GzBEOdpsvqCSSaT2GL8B6J">集成层内部错误</td><td data-page-node-id="fGje1kkNyjh5tUG6TSQ4Mb">记录 <code data-page-node-id="XN7PV2jgGzXdVXSMrvQxxt">correlationId</code> 并提工单；可用相同幂等键安全重试。</td></tr>
+            <tr data-page-node-id="rAm0XeuTqFrsA6TRjPAhjK"><td data-page-node-id="QJBCpS4sS5IbjNzwdCqqRn"><span class="pn" data-page-node-id="9hkKxyX0pwyPOuC92ZnWtO">502</span></td><td data-page-node-id="7azQZwu3Jena3aNKglXbwu">后端重试耗尽</td><td data-page-node-id="6eopSjnBslB0ZhyxVxvrxM">检查后端系统状态；幂等键有效期内可重放。</td></tr>
+            <tr data-page-node-id="6x3qeYYyJLZuNj0g53GDjM"><td data-page-node-id="97FT9iF0UnMjhQ2Pygjnp9"><span class="pn" data-page-node-id="eyhFliJZAVyaaSacizFL1Z">503</span></td><td data-page-node-id="szPZBxeEDFx5gSRnVkQCkr">后端不可用或维护中</td><td data-page-node-id="JTP9uTl0QExHMwsUiyhGpQ">指数退避重试，关注 <code data-page-node-id="cObQW9rLaSIVXJwuvUizC4">Retry-After</code>。</td></tr>
+            <tr data-page-node-id="oGfTRT6lqBwaPoEHGuM1F0"><td data-page-node-id="FKMQmERM1uxZwgZIVBeBIG"><span class="pn" data-page-node-id="Rb8SdM6XIHORtq9olzaZ9s">504</span></td><td data-page-node-id="XCe0dbPF3r0kN9yCNzybD2">后端响应超时</td><td data-page-node-id="H8Nbc9kh9W8HBjUZI9PXD1">不要立即重试同一大批量请求，建议分片后重试。</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h3 class="sec" data-page-node-id="9gJG99pg6wjbMe8WBPBIrI">业务错误码</h3>
+        <div class="tbl-wrap" data-page-node-id="u20GdrG8Dh9LIv4RWIqOcw">
+        <table class="tbl" data-page-node-id="GDGwmdb8WRFbGakKRHPHJg">
+          <thead data-page-node-id="d1OrHULvfNuGjMXQ4T68V5"><tr data-page-node-id="A05158Lmitz50GE0DVBxz1"><th data-page-node-id="kt2Ui9suGSVJlUkoOkVsBO">错误码</th><th data-page-node-id="TJtLVLmVwlt6op6NYB8xlm">HTTP</th><th data-page-node-id="AZOcLMNZZr1vWlVRHDdQwb">含义</th><th data-page-node-id="IPuHPUHq17BCbKXwirigSO">处理建议</th></tr></thead>
+          <tbody data-page-node-id="ULGKA1KdouJuMxbMGFSkC4">
+            <tr data-page-node-id="FuMJY5uBcYNoQChw5RDNGF"><td data-page-node-id="KOexVk19K8Z25x9Oa6pQo1"><span class="pn" data-page-node-id="nnlh4AJQEbc84jWocqRyR3">AUTH_TOKEN_EXPIRED</span></td><td data-page-node-id="XxQPx0oEDGez1YPs0FaAps"><span class="pn" data-page-node-id="to3tEW3tLtFzT9rrgNfli0">401</span></td><td data-page-node-id="5WDJph0KIVA322BapaAxfk">访问令牌过期</td><td data-page-node-id="4IWuCxRF5FX1v4vFKnWlC4">调用令牌端点重新换取，建议提前 60 秒刷新。</td></tr>
+            <tr data-page-node-id="UaU6Ab856U2E4eaeUjTkl5"><td data-page-node-id="HcbL5A9iFBCQyjsZT2fsJD"><span class="pn" data-page-node-id="theqXGj03awmFmfbrylAp3">AUTH_TOKEN_INVALID</span></td><td data-page-node-id="KIXRIsUleMTppK30u9mHDJ"><span class="pn" data-page-node-id="LPjmEIrcaFUfeQjAZj0u1K">401</span></td><td data-page-node-id="rl1MlUPNRQBEjwJsZcjVKY">令牌签名/受众不匹配</td><td data-page-node-id="R8eChh7vqSTyBS0ACcmdBJ">确认使用生产租户的令牌端点，勿混用测试凭据。</td></tr>
+            <tr data-page-node-id="Le0eEDaAbxPiRAS6RL8wtu"><td data-page-node-id="qlzBLKJOefnZRAtpTZARfO"><span class="pn" data-page-node-id="ghHeOV5j0t3m9irLAsUVPl">CSRF_TOKEN_MISSING</span></td><td data-page-node-id="XZbtSFvOK6FniTV6Uuolvg"><span class="pn" data-page-node-id="EJ8qH5RBaqq22ntb1CqFVE">403</span></td><td data-page-node-id="Lxy4InBoPbzIR9k6H9CkZl">写操作缺少 CSRF 令牌</td><td data-page-node-id="7Jrz4JqPFfk0ZVEAiFo74S">先发 <code data-page-node-id="pBFuy4DgcEtsne27wMtCFT">X-CSRF-Token: Fetch</code> 并回传 Cookie。</td></tr>
+            <tr data-page-node-id="pTyR2mPBaDMDyaLfeMEQ9G"><td data-page-node-id="mDVjr4mvHqUHJJ1WIJvWkp"><span class="pn" data-page-node-id="Jh9eRYmLCXI0hHgf4imI6N">CSRF_TOKEN_INVALID</span></td><td data-page-node-id="j6fzLqrcEdNG5zBs0pbD5e"><span class="pn" data-page-node-id="PUEth8qqq6aFI5vxPQHyKT">403</span></td><td data-page-node-id="VifwpHhPhWl96ZZd8sMxP4">CSRF 令牌失效</td><td data-page-node-id="Axy3m8tWkqbPHI5JdPT59l">令牌已过期或会话丢失，重新抓取后重试。</td></tr>
+            <tr data-page-node-id="xKjvQW1WYOk7aCy2EYW2eE"><td data-page-node-id="6vhPEylxDEi2Icz8yWVBto"><span class="pn" data-page-node-id="lBmZirGLwELLaRhYDDf4yD">SCOPE_INSUFFICIENT</span></td><td data-page-node-id="FlbXFcW3cMD6TBuAB9AMFC"><span class="pn" data-page-node-id="8F23beMBZ4oQ923qoLJmQV">403</span></td><td data-page-node-id="enuBN47CcETF4G5KrFZrZE">令牌缺少所需作用域</td><td data-page-node-id="DHwQx17YxnwUYixLq2yHeW">为服务实例追加 scope，如 <code data-page-node-id="dMVJu8KQfS8Ah2B9ukhvXz">cpi.orders.write</code>。</td></tr>
+            <tr data-page-node-id="LUbQMfvg9GuUJxXivGhIlI"><td data-page-node-id="0ucq9mLE3AzHJdo49l9aTR"><span class="pn" data-page-node-id="wjkBWZVFGFTkGwkNp0xBjg">MALFORMED_JSON</span></td><td data-page-node-id="cVnBoiH9mMScI20lmEdSyV"><span class="pn" data-page-node-id="ubTCHPCGGXq8PF9VBkpBxF">400</span></td><td data-page-node-id="nS8FK21BcCFHmIxPZgWoG5">请求体不是合法 JSON</td><td data-page-node-id="shkxMMNoz4bX6cifyyeD7y">检查未转义引号与尾随逗号。</td></tr>
+            <tr data-page-node-id="puSm9rBDugbcRJZigQiVyP"><td data-page-node-id="GjFUbhxHddCOg3220SyIIi"><span class="pn" data-page-node-id="zyKh9w2UPeCWFCCVF7cYJF">VALIDATION_FAILED</span></td><td data-page-node-id="2KVfep3zFjfYFOWVa7p2fc"><span class="pn" data-page-node-id="Xpb2iizmFSyP7tHVHA6J0G">400</span></td><td data-page-node-id="5t2nnC5qXFD8BMustVL6jS">字段级校验失败</td><td data-page-node-id="CJLTGYSCvQF24c9EygKAfX">遍历 <code data-page-node-id="t4GCxDiCvzisKq5ApLu6T3">error.details[].target</code> 逐项修正。</td></tr>
+            <tr data-page-node-id="GeCLahTUqi9jKijN5ZWZIU"><td data-page-node-id="87gODcRJoCKrhIbl4dwJ7q"><span class="pn" data-page-node-id="9OUpe2aGgDlegSH9FJyVBL">PAYLOAD_TOO_LARGE</span></td><td data-page-node-id="biEfkYCBifYWihl2sKRSKo"><span class="pn" data-page-node-id="EWZhMesuSy10biCMAqqlJb">400</span></td><td data-page-node-id="mv1scqumgCuOtilRTzj7TR">单次请求体超过 5 MB</td><td data-page-node-id="ZnwB5mZSnKv7apkkyK8tWY">拆分为多次调用，或改用批量端点。</td></tr>
+            <tr data-page-node-id="oAlT2TlCyXxL7GXsExnlKF"><td data-page-node-id="Trp1L3uwdm1Ozn2hYBUn5c"><span class="pn" data-page-node-id="9Rb9j3yMyR4o4uxgObTbhL">RESOURCE_NOT_FOUND</span></td><td data-page-node-id="9Cnn33bbCcpYivXquE4BWZ"><span class="pn" data-page-node-id="3Pe6SplWzedgCcyrGsq7BH">404</span></td><td data-page-node-id="9hLV02Dqc4sfomc8ssJIIC">订单或行项目不存在</td><td data-page-node-id="vr8mJuk0vN3aI5DwMJTWXD">确认订单号已补前导零至 10 位。</td></tr>
+            <tr data-page-node-id="lyGBKWMPDFa8OcP0uiuca0"><td data-page-node-id="qXEA08zUNbXoHVZlBmZTBW"><span class="pn" data-page-node-id="8vOzP43VTk3rNGZ256HlMK">DUPLICATE_EXTERNAL_ID</span></td><td data-page-node-id="RU9ePDkofAbpDKCrTFOeMW"><span class="pn" data-page-node-id="pj0rFo5CmW3nEbxunrTaDd">409</span></td><td data-page-node-id="Z4VG5rPYgdn2YLsYZMq2Se">同一销售组织下业务单号重复</td><td data-page-node-id="AkuRRNE7fN9BLJUEXTqJzD">换用新的 <code data-page-node-id="ba1r6OSRMltdpHFq8tWwUk">externalId</code>，或先查询是否已创建成功。</td></tr>
+            <tr data-page-node-id="ZXAMEOpUewJgFf9xytfbQT"><td data-page-node-id="vBj7UYzpoLF4fvRp2JMEoC"><span class="pn" data-page-node-id="xNtOMKi9U6SFmAeO3GFEvA">IDEMPOTENCY_CONFLICT</span></td><td data-page-node-id="HGlZEW2D51nHB80JrZiEwN"><span class="pn" data-page-node-id="jDidRdJyu9jHxiXbMfAtqV">409</span></td><td data-page-node-id="fTd1twBZKL8oz1oXWDqx6r">幂等键复用但请求体不同</td><td data-page-node-id="c4zCLXjssEnTKkXxBHF6bp">确认是重试还是误用同一键提交新单。</td></tr>
+            <tr data-page-node-id="fgK22cm3iopXUzhyfuZGYR"><td data-page-node-id="o4dV2Da1ImMgzlzXngaFHP"><span class="pn" data-page-node-id="ejPuX29GOrOFq5zCEvBQU2">ETAG_MISMATCH</span></td><td data-page-node-id="BECf9vpBb9m6Z8NiHaXGC3"><span class="pn" data-page-node-id="ZNN5DOcDZEfA57CC9n9pw6">412</span></td><td data-page-node-id="4LEGpJH0gtC85laDp48OQ4">并发修改，版本已变更</td><td data-page-node-id="hGN6QNYlKNYFHVd18i9XqR">重新读取资源，合并变更后以新 etag 提交。</td></tr>
+            <tr data-page-node-id="XpWr6oMxOgIabF0gLx1Mgh"><td data-page-node-id="dDbTIE2pA8HbRH8GPsSnWT"><span class="pn" data-page-node-id="2YkYixpUpVDWci5QHrQv3z">ATP_INSUFFICIENT</span></td><td data-page-node-id="grZzkgylthejPKe25H2a7i"><span class="pn" data-page-node-id="1IV7S5g5FvtG0NkNP1ItGZ">422</span></td><td data-page-node-id="PpzfMZoCdSUcVycPGDUR6v">可用库存不足</td><td data-page-node-id="8l1WYXSWFfxCMASkAqPEAd">按 <code data-page-node-id="x5zuL1nxig4YYh76DfVqOH">details.earliestDate</code> 调整交期或分批下单。</td></tr>
+            <tr data-page-node-id="Vb2T6fJYnDze5IO3YB3Mzl"><td data-page-node-id="FaTXtbkpI4ZJef1ymJUYPe"><span class="pn" data-page-node-id="dxFhCQRUOkSkBhiTGSXMvu">MDG_VALIDATION_BLOCKED</span></td><td data-page-node-id="BcdRTDoAiEcv0OF1pydzAm"><span class="pn" data-page-node-id="BLEmbnfHWrb6R5WCUX3r60">422</span></td><td data-page-node-id="pmBTzboBGrW9m9bFbXhoJ2">物料/客户主数据未通过治理</td><td data-page-node-id="6s3RLLHFQ1N9ru2ALiLC6s">在 MDG 提交治理流程，凭 <code data-page-node-id="txT1shNkdCWDSLLD6kDX8M">mdgRequestId</code> 跟踪。</td></tr>
+            <tr data-page-node-id="30MQTaSW6tIMLQ4pak9GIA"><td data-page-node-id="G6KuI5yVnq39borx0P19uZ"><span class="pn" data-page-node-id="tcrIOzifDJT1JRV2gWywS9">CREDIT_BLOCK_ACTIVE</span></td><td data-page-node-id="935i1e2RWg1w4Pg6ZZibs6"><span class="pn" data-page-node-id="V12j6gpfBgi9r8dB4casZo">422</span></td><td data-page-node-id="SEBkJYdqWYuk4bBTvZjKQC">客户信用冻结</td><td data-page-node-id="TTQUjNcR76VvKVi7da2dWS">由财务释放信用冻结后重新提交。</td></tr>
+            <tr data-page-node-id="gm6mlGkeWStWi18nAzELdp"><td data-page-node-id="xr0m3YhiAkcLhoqHAVzCTf"><span class="pn" data-page-node-id="WW9psvSoTQH7rb1AT5lM6B">PRICING_CONDITION_MISSING</span></td><td data-page-node-id="ClkaT7701cTFQeAWPKzEYC"><span class="pn" data-page-node-id="i0psJVcAyWaUWT0a7gyCXu">422</span></td><td data-page-node-id="NQZpd3JLe2tPHLOwOEQScM">未找到有效定价条件</td><td data-page-node-id="37x5X5c1G5ndTbhar6lbbd">显式传 <code data-page-node-id="P4FxaQa4hXj0sXinGbNIQ1">netPrice</code> 或补维护条件记录。</td></tr>
+            <tr data-page-node-id="gG3kYhWtQ5RAu0nIbsFmyJ"><td data-page-node-id="KQp2DyCBLIDDWrgXqs5wsf"><span class="pn" data-page-node-id="Ezm8ttIXCFwzT2glXKUZJj">ORDER_NOT_CANCELLABLE</span></td><td data-page-node-id="IeB9wUk5VHy510xGQr8qJ1"><span class="pn" data-page-node-id="ZpFzzvffRuF1CDFOwNt69F">409</span></td><td data-page-node-id="LBIlFgH2tICMAyFwZvjOFP">订单已开票或已完全交货</td><td data-page-node-id="ZnoV1dWiPoDGYsmpykgMrX">改用贷项凭证（<code data-page-node-id="52IXhBALJ4Q4ULAoM4nLt1">documentType=CR</code>）处理。</td></tr>
+            <tr data-page-node-id="rHqiJKEYZdWDhnUOmsGwwH"><td data-page-node-id="57s8WSiGmtxbxmhAqMhccN"><span class="pn" data-page-node-id="92X0EQ1atw64QtkDMCxo3f">ITEM_SHIPPED_IMMUTABLE</span></td><td data-page-node-id="QDy8ZviMWghw5KdE7tV2K6"><span class="pn" data-page-node-id="xaJZ4wjZbUufSbrEUmbXUJ">409</span></td><td data-page-node-id="xiFNpXRnwTz7jExhrlGB87">行项目已发货不可修改</td><td data-page-node-id="F1Y3GzqexobmTpYnN2zQjJ">发起退货订单，不要尝试改单。</td></tr>
+            <tr data-page-node-id="lfoKp5MLHeNvWLiBcH2HGb"><td data-page-node-id="8BGp4TXeYJMhDSWLG9W7hT"><span class="pn" data-page-node-id="ZBKnLvXSkzDir5AXWNaLUx">RATE_LIMIT_EXCEEDED</span></td><td data-page-node-id="PJ6lv99xbADz7MosCOS7w4"><span class="pn" data-page-node-id="oRezvcU3zjvr27GYYDP8iL">429</span></td><td data-page-node-id="yj1PH33CkgCGNt7uVBvbta">超出配额</td><td data-page-node-id="3HI3TvK4OeCGbBtqSm1rCY">按 <code data-page-node-id="5FlLqHCidz9SZBKxTo8xPF">Retry-After</code> 退避；长任务请错峰。</td></tr>
+            <tr data-page-node-id="7aqQXZ3xF6CWQ3c0Yx8FU8"><td data-page-node-id="Qeg8gv6DEIuhOU0n6rWIXt"><span class="pn" data-page-node-id="XDkeyzQVzu47XCxghSewJw">IFLOW_RUNTIME_ERROR</span></td><td data-page-node-id="nhTnD9GwsDGkv4H08c3mAB"><span class="pn" data-page-node-id="eNasS8V3CvezmAbxCmnuWF">500</span></td><td data-page-node-id="S39UnU9G82CE75ycVAX8xK">iFlow 运行时异常</td><td data-page-node-id="2IRlwVjSpRY82FMDGPxyT8">凭 <code data-page-node-id="Rmu5YuxKmePDFIPbafgw4D">correlationId</code> 查 Message Processing Log 并提工单。</td></tr>
+            <tr data-page-node-id="WwiaDVB2B0JD47uViLKdm1"><td data-page-node-id="zXLJsZIfj1GqUpSm5Ww7Rt"><span class="pn" data-page-node-id="bGJzc1iAF6HXYBJyhzApSW">RETRY_EXHAUSTED</span></td><td data-page-node-id="XRa33qNPPnj1ZyEdxjAAbN"><span class="pn" data-page-node-id="fY3hPpMGarod8UHLiDAKWV">502</span></td><td data-page-node-id="NWzTMIiGqKdodvHXb8YrAG">后端重试 3 次仍失败</td><td data-page-node-id="gh6Wqf0WGU67FtWXyRXlUz">确认后端可用性；幂等键 24 小时内可安全重放。</td></tr>
+            <tr data-page-node-id="CqUDNmsg9Je2qHUQ95HCYX"><td data-page-node-id="7D9RHuvKjECJ0HQMfLwTEM"><span class="pn" data-page-node-id="yNDLfdhaZwDB9pRiscR9ke">BACKEND_UNAVAILABLE</span></td><td data-page-node-id="Eb6zd86TgoLoctjlIgbwIj"><span class="pn" data-page-node-id="Jy44AlhvNz4mzmsUCAJSvf">503</span></td><td data-page-node-id="RiGWJ2iBWmJAzCe7i8fPuJ">S/4HANA 或 MDG 不可用</td><td data-page-node-id="RUHQZWwqYyoo0MsyLbzyZS">关注状态页；集成层已自动排队，无需重复提交。</td></tr>
+            <tr data-page-node-id="G5WuwKor6cYh52LYeY7O7f"><td data-page-node-id="bSdXkHZnjmalS5SuYE1CIZ"><span class="pn" data-page-node-id="sZdGpnnadZyOVnvsUcgt3q">BACKEND_TIMEOUT</span></td><td data-page-node-id="pK81GlkkOjCqYoW2yvKP7G"><span class="pn" data-page-node-id="b9HDOzz4HyOQwaRXp2jyFX">504</span></td><td data-page-node-id="J5jqM4KYSlNhyJmqtjhsDe">后端响应超过 30 秒</td><td data-page-node-id="ndqe6roDiA6ilt4mEmG5FC">缩减 <code data-page-node-id="693xvT2DsiIfXQGyJOd5XV">pageSize</code> 或减少行项目数后分片重试。</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </section>
+
+      <!-- ---------- RATE LIMIT ---------- -->
+      <section class="block" id="ratelimit" data-page-node-id="pFHOU3qShsJbV65rpYhQDz">
+        <h2 data-page-node-id="vfjNTYfQX789meRs6ynW9W"><span class="icon" data-page-node-id="DDXEJMpI0wZR7JK2wgUhdr"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" data-page-node-id="yx2UasUM4thsNW2ne8fieS"><path d="M3 12h4l3 7 4-14 3 7h4" stroke="#b8710d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="MEGniPi8cd3fijCb5OPyE1"/></svg></span>限流说明</h2>
+        <p class="sub" data-page-node-id="uMDOfDGhG0npCtXZEiHM8g">限流在集成层统一实施，按<b data-page-node-id="gnCyBRzGewOJakC62Ei9PD">服务实例（client_id）</b>维度计数，并叠加后端系统保护阈值：即使实例配额充足，也不会把 S/4HANA 打爆。超限返回 <code data-page-node-id="8cd1C9RCzxKNsSrPNlEBYw">429 RATE_LIMIT_EXCEEDED</code> 与 <code data-page-node-id="vURMIngKwitDbVDeLuYOsj">Retry-After</code>。</p>
+
+        <h3 class="sec" data-page-node-id="pRuqKbGCzpTsm9s5bgug1g">套餐配额</h3>
+        <div class="rl-row" data-page-node-id="rAPDe16GQhGj9EDTCzNVWD">
+          <div class="tier" data-page-node-id="WjYKwv6ZeP9MvkAgFSB8pq">标准 Standard<small data-page-node-id="Cqi2syrC9G9VG1bWwGR8Wd">Standard Plan</small></div>
+          <div class="rl-bar" data-page-node-id="LEoCK1T3Kh2CgGBu0HOOS2"><div class="rl-fill" style="width:6%;background:linear-gradient(90deg,#5b8def,#7aa6f5)" data-page-node-id="L9VRMqG6qJyH8s52kbF0uH"></div></div>
+          <div class="rl-num" data-page-node-id="nT4498QFzDcrWIEgANv7TB">60 req/min</div>
+        </div>
+        <div class="rl-row" data-page-node-id="GxRmjQugrEdlh3sKnDXh4f">
+          <div class="tier" data-page-node-id="kKAv7IsIpYAtIgJFkVfOJ4">专业 Professional<small data-page-node-id="0DjISS2bYsebFDfpHsserF">Pro Plan</small></div>
+          <div class="rl-bar" data-page-node-id="jIycqRpfqHSV2GoyN9H4MO"><div class="rl-fill" style="width:26%;background:linear-gradient(90deg,#4f56c9,#7b82e8)" data-page-node-id="BXepRqaaNGCXrSHVz7v5H9">300 / min</div></div>
+          <div class="rl-num" data-page-node-id="sZzQuTtEZTo6noupG3p30G">300 req/min</div>
+        </div>
+        <div class="rl-row" data-page-node-id="LTGEUEGVLfENTzY3wqGUj3">
+          <div class="tier" data-page-node-id="nUruB7hBA8g7kR3QK8Hx5O">企业 Enterprise<small data-page-node-id="lIFm5NlzrDNOOsSz04FXkm">Enterprise Plan</small></div>
+          <div class="rl-bar" data-page-node-id="BhZjA9OpLo3x5Wf9HumZ07"><div class="rl-fill" style="width:100%;background:linear-gradient(90deg,#2f7d6a,#3fa88c)" data-page-node-id="ivRNQlZX4FBZAHQvigUN0b">1200 / min</div></div>
+          <div class="rl-num" data-page-node-id="EgcA6hEPnWwbFojtYxdSkc">1 200 req/min</div>
+        </div>
+
+        <div class="tbl-wrap" style="margin-top:16px;" data-page-node-id="AJzBSkWVjNQpkYNhXGVgA3">
+        <table class="tbl" data-page-node-id="7YZ9zyOADnZNwRgLOHKUMe">
+          <thead data-page-node-id="yak39tDqvyQEyz7LbMAXUd"><tr data-page-node-id="whmtTlhIFeCW3SaHAyqFUS"><th data-page-node-id="FLbyqJnI0BJ510jEBA9gp7">维度</th><th data-page-node-id="4EwYGeani4MTEgAOt6MyCG">标准</th><th data-page-node-id="xAEPaCcikGifAD0UwkpZPs">专业</th><th data-page-node-id="ztF0GhmGn8m1pAB2MWiIyY">企业</th></tr></thead>
+          <tbody data-page-node-id="NHRaPqCBuXTIwAgu5X4Xqk">
+            <tr data-page-node-id="EFTdpztcDuZBvPE9OabBF9"><td data-page-node-id="SDZ44gIiHSSs3rFQWcjtFV">速率（滑动窗口）</td><td data-page-node-id="EaX5byqM1ua8nyX6pAbnoP">60 req/min</td><td data-page-node-id="UTOWdqnGSQHe8By0Ehcovq">300 req/min</td><td data-page-node-id="Aloqe9yyiD0Gpo35riW4Un">1 200 req/min</td></tr>
+            <tr data-page-node-id="bBA8ilifAHXsFecQT0CaSW"><td data-page-node-id="5lXyw4evrqgejD8NdcuBun">突发 Burst</td><td data-page-node-id="xmhfkkxHN0K96sgGReaO5t">20 req</td><td data-page-node-id="6l92yU7BSE1ZyVwCvGFyna">100 req</td><td data-page-node-id="OIQgziftoGlrdzZ7sTWNrb">400 req</td></tr>
+            <tr data-page-node-id="faKKGAq0S7OKPkQzHeMorF"><td data-page-node-id="GQlnvIoAEaGMti3UCjuyMe">日配额</td><td data-page-node-id="7C9Nuhb4VhlDHOvMZP4xzW">50 000 req/日</td><td data-page-node-id="h3rd2RJ9DFQq48JUAzqvtx">500 000 req/日</td><td data-page-node-id="VbQseKE1jPHFJfTnDIHOav">5 000 000 req/日</td></tr>
+            <tr data-page-node-id="hrKjeQHtLqLD41y8zfkugJ"><td data-page-node-id="jKSdbjBYAPPnng4WThWGYp">单请求最大行项目</td><td data-page-node-id="nqvikar8HSTQDQP1zxC1qX">50</td><td data-page-node-id="DfTvsO3whUJj5Es7fnkNR6">200</td><td data-page-node-id="vYXYs35CzQLsyOpKTcbUkD">200</td></tr>
+            <tr data-page-node-id="pktErywG50CshN0zE83WR0"><td data-page-node-id="LE4yENlqu64tha5OsNwMJb">请求体上限</td><td data-page-node-id="q1Bd7iVxiOP7GMTqpbHSED">5 MB</td><td data-page-node-id="DV86CXwvOFFdflkor1xPsH">5 MB</td><td data-page-node-id="UmKAi9M7rNtyui0DR7ukgG">5 MB</td></tr>
+            <tr data-page-node-id="FP0vFnbwJkiQU6uNtei2gH"><td data-page-node-id="HlNXw2ka39dnA3YE5BTvon">并发连接</td><td data-page-node-id="K9RSYLwC2EEPDkWK1U4dqG">10</td><td data-page-node-id="KqnhCkNh07ZrA6i1GXyhsf">40</td><td data-page-node-id="NlsxMQwil2MWHO2D2Ki1Q9">150</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h3 class="sec" data-page-node-id="BRzBZAHKcMfrDGY1QZb4kk">后端系统保护阈值</h3>
+        <div class="tbl-wrap" data-page-node-id="s3WaRWXJLtz29IUq70DiUf">
+        <table class="tbl" data-page-node-id="Mb7fhxPnc8xHZ5s4fS08SM">
+          <thead data-page-node-id="COqDDRUPDJUaxWnPQLI2j2"><tr data-page-node-id="IPZiTsTIyusSFn51L8qsIX"><th data-page-node-id="oLLCHqA9ySAThpXsJWKIcS">后端系统</th><th data-page-node-id="wLHvTjUVpsLmeYUhdFJ0W8">iFlow</th><th data-page-node-id="kTB7DvJF134paRAZsCbsNk">并发上限</th><th data-page-node-id="jkEdZAUeOZKAA8EwiYb6L3">说明</th></tr></thead>
+          <tbody data-page-node-id="l4ZgiHVCQWGDjpCrAq8HnY">
+            <tr data-page-node-id="euvBjy0ni7jxaaHoFDFfY1"><td data-page-node-id="NG7f6XrKtfg0hxfoiTJSg2">S/4HANA 订单读写</td><td data-page-node-id="spUWl8gL6GI5jzy8YvKC7C"><code data-page-node-id="yRUWqNe6y7picfkpaSJrbn">SD_SalesOrder_*_v1</code></td><td data-page-node-id="vnyq11RsbRtGyPEHqEOCyC">25 并发</td><td data-page-node-id="vFDolTqCiYmD6HBQdoHJRh">超出后进入集成层队列，最长等待 30 秒。</td></tr>
+            <tr data-page-node-id="m5o3baG1Wm4HOIXlXPm8ZR"><td data-page-node-id="CjSlaLv0DvSHkE0YHjCOdm">SAP MDG 主数据</td><td data-page-node-id="bIVYQeWgDaG99QiPUsmzbc"><code data-page-node-id="VFeTLxfgLhqHM6IYYbkD2z">MDG_MasterData_*_v1</code></td><td data-page-node-id="tLQ6O86h2g6Q8dHmajHpZy">10 TPS</td><td data-page-node-id="WmFIJWXqTMZLRXYkkskARL">治理请求较重的写入场景。</td></tr>
+            <tr data-page-node-id="Ja8CGnclzTIDCDRgYPzEVA"><td data-page-node-id="fAX8VU9HGAMauM4RPim1sl">MES 报工回传</td><td data-page-node-id="l5AvVtXTgMg01bGV2jFHco"><code data-page-node-id="1xxj2oszPQSRFcPBECamWo">PP_Confirmation_*_v1</code></td><td data-page-node-id="CCEzF5lFOVEh3yO5xAMjsS">30 TPS</td><td data-page-node-id="QYtF4DKUBQdyXxQnaAJq9U">建议批量提交，单批不超过 500 条。</td></tr>
+            <tr data-page-node-id="slSXZ7P1nBXCWv3GpAzOHL"><td data-page-node-id="Fe4Z2WoXdW36m6mVQLYpEl">PLM BOM 下发</td><td data-page-node-id="gGsjOnS7GDVgMjh79liOcy"><code data-page-node-id="kZmaPoRFiHDJU1NHBT0ucj">PLM_BOM_Query_v1</code></td><td data-page-node-id="y7AkaYSca0gPffjcFB5PDk">15 TPS</td><td data-page-node-id="TenePRcKtAfCsod8QME4pG">结果集较大，建议加 <code data-page-node-id="Ts4JDbJppRDeT3BPL7Nbr3">changedSince</code> 增量。</td></tr>
+            <tr data-page-node-id="qeZs2CUJDECe1HJudZCfC6"><td data-page-node-id="wOKfHPVwsBHAxFvfPq19OX">金税/银企</td><td data-page-node-id="UAIReK5Kf5mry3ZPI9VseP"><code data-page-node-id="gYEqCub4fj2V4AnCmSXbsE">FI_Invoice_*</code> / <code data-page-node-id="b1eEMZ5gAzNR4AjeFRBgmI">FI_Payment_*</code></td><td data-page-node-id="HLssdw1LpfDTLUW7QQujEP">5 TPS</td><td data-page-node-id="GUad87EFIHIUeH0jaDglWk">外部通道受限，超限直接 429。</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h3 class="sec" data-page-node-id="KR9DzoAzGPmpkqa4wiqF0e">响应头</h3>
+        <div class="code-wrap" data-page-node-id="jSO5YTjDr9EHhPti43P0I8">
+          <div class="code-bar" data-page-node-id="1DR5GdxsiQHYR5XIk9NQVi"><span class="label" data-page-node-id="Revxt8jUuUDMZkuWOv7BzG"><span class="dot" style="background:#f0c674" data-page-node-id="V0qOn5H0fNitsGaa3PjQjr"></span>HTTP Headers · 每次响应均下发</span><button class="copy" type="button" data-page-node-id="xnCwsiNepGbeJk7Cu2epDP">复制</button></div>
+<pre data-page-node-id="j9Z7KOwS0vlhHmuSgzsDdk"><code class="lang-http" data-page-node-id="wNUmEFievMWzC4qpy1327k">X-RateLimit-Limit: 300
+X-RateLimit-Remaining: 274
+X-RateLimit-Reset: 1788398400
+X-RateLimit-Scope: instance:acme-ecommerce-prod
+X-Correlation-ID: ORD-20260903-0001
+Retry-After: 12</code></pre>
+        </div>
+
+        <h3 class="sec" data-page-node-id="BKD3sED1yyLRLM2JbNSwDJ">重试策略建议</h3>
+        <ul class="list" data-page-node-id="pBFry1FTJgYeNHvYuZ8ZRm">
+          <li data-page-node-id="VkeGvkFjcEJRueaFWSKCA4">仅对 <code data-page-node-id="p0IZK55jlCynd5Fau8BFcu">429</code>、<code data-page-node-id="DFUiFp6BTvqTmn7FXeNL6P">500</code>、<code data-page-node-id="evbrSBf631QHpClFLaqsmt">502</code>、<code data-page-node-id="BaLIJO6DzFWIRthbhnHUfV">503</code>、<code data-page-node-id="DV9bAE7CCX2alg7pXdTABt">504</code> 自动重试；<code data-page-node-id="LgJVjuLDaK9CGMuiP0bOJn">4xx</code> 业务错误重试无意义。</li>
+          <li data-page-node-id="DN0dD7X5VUjaMf8yGH9PHp">采用<b data-page-node-id="lByuu6OIymM5V1CG1wgMuw">指数退避 + 抖动</b>：初始 1 秒，每次 ×2，上限 60 秒，最多 6 次；抖动 ±20% 避免重试风暴。</li>
+          <li data-page-node-id="P8E7NOLBep9gr40wD5uOVf">优先使用响应头 <code data-page-node-id="INMD6MklpGyXA9i8c58OVZ">Retry-After</code> 的秒数，它已考虑后端实际排队情况。</li>
+          <li data-page-node-id="tzYXrm1P0qCCkpGxi3UwXN">写操作务必携带 <code data-page-node-id="axXiGBhAwzl1I8gL7m1evO">Idempotency-Key</code>——24 小时内重放返回首次结果，不会重复过账。</li>
+          <li data-page-node-id="Ka19F4meL7bjpCt75xpVpp">批量场景主动降速到配额的 70%，并错开整点（整点常有定时任务争抢配额）。</li>
+        </ul>
+        <div class="code-wrap" data-page-node-id="Y4e4FweJ4ZtiRS7Axlsdtt">
+          <div class="code-bar" data-page-node-id="jIHRBxbvyN2gJCxvobGKtB"><span class="label" data-page-node-id="GTB8q0lMA7yZpqZttYYlEv"><span class="dot" style="background:#9ece6a" data-page-node-id="lLfH40Asu6AlsMQaSedFFe"></span>Pseudocode · 退避重试</span><button class="copy" type="button" data-page-node-id="SDiH2yM8x23DAKgYEFxjXw">复制</button></div>
+<pre data-page-node-id="Rsfd7IGTigKIFIyTbhEulF"><code class="lang-shell" data-page-node-id="dWRSFAX03p21JzDscQMXhy">delay = 1s
+for attempt in 1..6:
+  resp = request()
+  if resp.status in (429,500,502,503,504):
+      wait = resp.header("Retry-After") or delay
+      wait = wait * (1 + random(-0.2, 0.2))   # 抖动
+      sleep(wait)
+      delay = min(delay * 2, 60s)
+  else:
+      break</code></pre>
+        </div>
+      </section>
+
+      <!-- ---------- CHANGELOG ---------- -->
+      <section class="block" id="changelog" data-page-node-id="OfCia57VkkWZV8xpRxQDe0">
+        <h2 data-page-node-id="bnbkGZdX0WTeEFBdwYJAp7"><span class="icon" data-page-node-id="zFwh1efHmxXw3apDer7H35"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" data-page-node-id="GlZypRkvyZ5xqsJF5TqQR2"><circle cx="12" cy="12" r="9" stroke="#4f56c9" stroke-width="2" data-page-node-id="Wpo8ucN50Luq2GwhZrsYuP"/><path d="M12 7v5l3 2" stroke="#4f56c9" stroke-width="2" stroke-linecap="round" data-page-node-id="rCc3sxdppRsTp2VCtpQUVp"/></svg></span>版本与变更</h2>
+        <p class="sub" data-page-node-id="FueQNnd9r28uwZRdds4CLb">大版本号体现在 URL 路径（当前 <code data-page-node-id="5kDUCTWvFUhL0RX8lUUsM1">/v1</code>）。非破坏性变更随时发布且不改版本号；破坏性变更提前 90 天公告，并与旧版本并行运行至少 6 个月。</p>
+
+        <div class="change" data-page-node-id="2C0jrIVA0zy9KYDLisriAa">
+          <div class="when" data-page-node-id="DBI8bk3WGIT56l0RM6XXDa">2026-08-15</div>
+          <div class="what" data-page-node-id="hwhINZrsmAWpHlXeqFbDCm">
+            <span class="vtag" data-page-node-id="gik1yZxpkrFIvq4F0yEKHc">v1.4</span>
+            <b data-page-node-id="hGVpFXFCIu6MIQG5ddr8as">主数据治理状态与增量拉取</b><br data-page-node-id="jlelVDBAdFSEistPOmCqLd">
+            · 新增 <code data-page-node-id="x7RlVAGV8bqpOL3x2VrtAm">expand=masterData</code>，返回 <code data-page-node-id="xAGs80eUucAKHEZjaNNBEq">mdgStatus</code>、<code data-page-node-id="TBlKwc3JDSqdAJfQPZ9OlZ">mdgRequestId</code>、<code data-page-node-id="Vg163dAMt2cmIjOapIhK5o">lastSyncedAt</code><span class="tag-new" data-page-node-id="LkGGMcbjknomS1UpU8I1oE">新增</span><br data-page-node-id="6IA1Sd1B8O5S4K4IE82ibQ">
+            · <code data-page-node-id="IF9hxLQSRbAN45oB21wvMZ">GET /orders</code> 新增 <code data-page-node-id="jDdd190K2RWupE1bcmkf9I">changedSince</code> 增量拉取，推荐替代全量轮询<span class="tag-new" data-page-node-id="0MrQwKMveIUJOhqHYSIzW1">新增</span><br data-page-node-id="W0AdWLVUldoQCaxnTJidPj">
+            · <code data-page-node-id="OVdnD0L8Il3UbZL1Tn3bMH">PATCH</code> 支持 RFC 7386 JSON Merge Patch，显式 <code data-page-node-id="hSgMa8D8TM3LfAw5k25v0r">null</code> 可清空字段<span class="tag-chg" data-page-node-id="awkuHNttwHDzT97hFut9Ai">变更</span>
+          </div>
+        </div>
+        <div class="change" data-page-node-id="5eJdH8jkNj6cNYFftNBSe0">
+          <div class="when" data-page-node-id="RF7qhsZgLI7gmJLjsMZOYi">2026-06-30</div>
+          <div class="what" data-page-node-id="RFyflyTMptX2smiwMaazue">
+            <span class="vtag" data-page-node-id="NXqaCCyQPHZCvPdt39DKp8">v1.3</span>
+            <b data-page-node-id="uANybutELE2VIdKF433r4R">幂等与错误结构增强</b><br data-page-node-id="pQzvg0B2QWKk2hEyz5Ez8s">
+            · <code data-page-node-id="V4QDCR80606BohqO3xb4wh">POST /orders</code> 支持 <code data-page-node-id="i1GJBDBnWtEfzWcZvwQJZO">Idempotency-Key</code>，24 小时内重放安全<span class="tag-new" data-page-node-id="zxrDMcsmKEHClZbiQKdtyV">新增</span><br data-page-node-id="zQA3nJQWNNO9AhGPnPqRRu">
+            · 错误响应新增 <code data-page-node-id="czbA5UoVdLkpXe4YjdMDuJ">target</code> 与 <code data-page-node-id="nhLBAZWONw2qdT4ZEeCmjD">details[]</code>，便于字段级定位<span class="tag-chg" data-page-node-id="lPIfTvjmg4N0vjnXhsgB9Z">变更</span><br data-page-node-id="uWbEgUNThu5V4OeoYu20F2">
+            · 弃用请求头 <code data-page-node-id="6YEMhm1ZZRLEocNmWXs55b">X-SAP-CorrelationID</code>，改用 <code data-page-node-id="Aq04xBHmI8bsXcjATn26tb">X-Correlation-ID</code>，计划 2027-01-31 移除<span class="tag-dep" data-page-node-id="RgL41DVrLi7WlKd1T70qdo">弃用</span>
+          </div>
+        </div>
+        <div class="change" data-page-node-id="KkJUDOLqXDZaU4XPZgi7y3">
+          <div class="when" data-page-node-id="x0KlB6V2hBVzax4xSof2Ta">2026-04-12</div>
+          <div class="what" data-page-node-id="jDwmJqMF9E81KcxPYDgYh4">
+            <span class="vtag" data-page-node-id="o9psxN88mvxUKcPoJVIlOY">v1.2</span>
+            <b data-page-node-id="d75M3r6QznMmB7ONUUxE8m">取消幂等化与并发控制</b><br data-page-node-id="mwFM2anMWH7DDjATEaphD0">
+            · <code data-page-node-id="gfpivtBHCF10WCYCOUvsaW">DELETE</code> 改为幂等软取消，重复调用返回 <code data-page-node-id="NwOewEZpXJxrcSNrbjppLf">200</code> 且 <code data-page-node-id="zaXCM5Ht30HBH0UhkZjQUh">alreadyCancelled=true</code><span class="tag-chg" data-page-node-id="6DPHGOA9Cp2a9ZuG6C4VPy">变更</span><br data-page-node-id="qWDODkgX4PE6HTOH4r3gKL">
+            · 全资源返回 <code data-page-node-id="3SlTaetWZG11p8NiXxuKpY">etag</code>，<code data-page-node-id="l0rrj9yravVqCyOHGrA7Xf">PATCH</code>/<code data-page-node-id="eo5RB7VEyEgySfUbBkZF1N">DELETE</code> 支持 <code data-page-node-id="r9SRUoX8Ol2bdUOH0YCEUA">If-Match</code>，冲突返回 <code data-page-node-id="egPeAvvr6e2OTcfXhKS3TI">412</code><span class="tag-new" data-page-node-id="reZ4ogTZ9iANg1YEBHAbks">新增</span><br data-page-node-id="zTa3jUqnqlhZBFf566zBIF">
+            · <code data-page-node-id="aaAnOBAmhAGgXHg7jcjxuH">DELETE</code> 新增 <code data-page-node-id="Ts6yzJIrLv37rCALSJ3ccQ">scope=items</code>，支持按行取消<span class="tag-new" data-page-node-id="Qi5DtQfNQsBEtoHpGGUn3D">新增</span>
+          </div>
+        </div>
+        <div class="change" data-page-node-id="S4slnTXLuOuOGCIzdBYa0L">
+          <div class="when" data-page-node-id="HeyDdoJmtOwLHvhvbwbYCc">2026-01-20</div>
+          <div class="what" data-page-node-id="5fdG1Br3seQCUotDlFimrz">
+            <span class="vtag" data-page-node-id="wj9ZYyUpo3GuyRqM0JQzUw">v1.1</span>
+            <b data-page-node-id="7IAZMPB3kbh47FEAKkr5SE">分页与限流标准化</b><br data-page-node-id="KF5MRATxEV10tIKQvb4g6u">
+            · 分页统一为 <code data-page-node-id="qL8LH69v4kD5lZTUHmf0Pi">page</code> / <code data-page-node-id="VD8Jpgr4A5TIpzELqiho5y">pageSize</code>（原 <code data-page-node-id="YWUvD3NuNnYFzrqS7Aa5vz">skip</code>/<code data-page-node-id="rDFRsQjM4Znn7hY0ON9Xwc">top</code> 参数并行支持至 2026-12-31）<span class="tag-chg" data-page-node-id="pBqtaNLOyCPIYoZrHvzpqC">变更</span><br data-page-node-id="kkfxs1VMEHVKwSUs5FZOHJ">
+            · 所有响应下发 <code data-page-node-id="8iAPHP4ujE9PyRPAlYcDB7">X-RateLimit-*</code> 头，<code data-page-node-id="cmElpoFGDI5bL1LH758QY6">429</code> 增加 <code data-page-node-id="mOq5saNRUhL32kIOhc4hDk">Retry-After</code><span class="tag-new" data-page-node-id="0RdsFztNblkmyYc0FFJW9h">新增</span>
+          </div>
+        </div>
+        <div class="change" data-page-node-id="u6Q35lg6mD8DJZYRhDe63i">
+          <div class="when" data-page-node-id="o7Kq90JDMj4hruiyllOuIw">2025-11-05</div>
+          <div class="what" data-page-node-id="nMf5rtx7XGqnroZ9Wz3MBB">
+            <span class="vtag" data-page-node-id="blBjBvBVeLXLAd5wzD3eOn">v1.0</span>
+            <b data-page-node-id="0IH5WTo1d3eirjwQGwO72c">首个 GA 版本</b><br data-page-node-id="3BksyzHnnJx5fhLLDDGLFg">
+            · 订单主流程 5 个端点上线，OAuth 2.0 Client Credentials 鉴权<br data-page-node-id="VfrxX7ShAU7BR6eMS2PN78">
+            · 统一错误信封与 <code data-page-node-id="gSAqSsdByIt5qYEkl5hVCK">correlationId</code> 链路追踪
+          </div>
+        </div>
+
+        <h3 class="sec" data-page-node-id="O610OwoTGJJsNKazmtmy7N">版本策略</h3>
+        <ul class="list" data-page-node-id="9ruF95Qv5TZHfAh1eaVHdv">
+          <li data-page-node-id="pIQHUu5XB4oaYjEPDRdJR9"><b data-page-node-id="Y86qAGwkeHCu7Y8OPaJYGE">非破坏性变更</b>（新增端点、新增可选字段、新增枚举值、新增错误码）随版本小号发布，调用方无需改造——请确保客户端能<b data-page-node-id="gs01Pxsheu4P2Bp7yI3RhM">忽略未知字段</b>。</li>
+          <li data-page-node-id="N5PkIguNbbpXVzGBjqwsPt"><b data-page-node-id="MvaEmbMniyPBkbiflxgHn8">破坏性变更</b>（删除/重命名字段、收紧校验、变更枚举语义）只在主版本发布，提前 90 天公告，新旧版本并行 ≥ 6 个月。</li>
+          <li data-page-node-id="1UXylsnenXwPfGzCECmlGg"><b data-page-node-id="Yq6F4JIQK3t50A5hpQFx6E">弃用</b>先行返回 <code data-page-node-id="IVIsjjTNiIPGt7Y4iHWGG3">Deprecation</code> 与 <code data-page-node-id="kfnrH368EOkEtzspIJn3SL">Sunset</code> 响应头，再在公告日期移除。</li>
+          <li data-page-node-id="YCDFOc0moUAwUuIRtpt07l"><b data-page-node-id="JQzmfr9kGRilCR5enNChFo">订阅变更</b>：将 <code data-page-node-id="vjbGTUUV53HOeAa53uxkDv">X-Correlation-ID</code> 与 <code data-page-node-id="pxkJbJ6qOf7mlpVcNCov9v">meta.iflow</code> 纳入你的监控指标，配合本页 changelog 做回归验证。</li>
+        </ul>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<footer data-page-node-id="loYC7ZCIs1eSLhgBNed2cc">
+  <div class="fl" data-page-node-id="CcBJyuR9Mze1uf7EASkUz0"><b data-page-node-id="KxlIx5N4Lk7Yzp70E5dX5j">SAP 系统集成 API · v1.4</b> — 由 SAP Integration Suite（CPI）统一暴露的集成层 REST 接口</div>
+  <div class="fl" data-page-node-id="EuEfCCthhDO3VgDHbLCFN8">文档版本 2026-08-15 · 示例数据均为演示用途</div>
+</footer>
+
+<script>
+(function(){
+  /* ---------- 语法高亮 ---------- */
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function wrap(cls,txt){return '<span class="'+cls+'">'+esc(txt)+'</span>';}
+
+  function hlJson(src){
+    var re=/("(?:\\u[0-9a-fA-F]{4}|\\[^u]|[^\\"])*")(\s*:)?|\b(true|false|null)\b|(-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)/g;
+    var out='',last=0,m;
+    while((m=re.exec(src))!==null){
+      out+=esc(src.slice(last,m.index));
+      if(m[1]!==undefined){
+        out += m[2] ? wrap('k',m[1])+wrap('p',m[2]) : wrap('s',m[1]);
+      }else if(m[3]!==undefined){ out+=wrap('b',m[3]); }
+      else if(m[4]!==undefined){ out+=wrap('n',m[4]); }
+      last=re.lastIndex;
+    }
+    return out+esc(src.slice(last));
+  }
+
+  function hlShell(src){
+    var out='',lines=src.split('\n');
+    for(var i=0;i<lines.length;i++){
+      var line=lines[i];
+      var ci=line.indexOf('#');
+      if(ci>-1 && !/["']/.test(line.slice(0,ci))){
+        out+=hlShellLine(line.slice(0,ci))+wrap('c',line.slice(ci));
+      }else{
+        out+=hlShellLine(line);
+      }
+      if(i<lines.length-1) out+='\n';
+    }
+    return out;
+  }
+  function hlShellLine(line){
+    var re=/(#[^\n]*)|("(?:\\.|[^"\\])*")|('(?:\\.|[^'\\])*')|(\bcurl\b|\bgrep\b|\bawk\b|\becho\b|\bexport\b|\bmin\b|\bmax\b|\brandom\b|\bsleep\b|\brequest\b|\bwait\b|\bif\b|\belse\b|\bfor\b|\bin\b|\bbreak\b)|(\$[A-Za-z_][A-Za-z0-9_]*)|(https?:\/\/[^\s"'\\]+)|(-{1,2}[A-Za-z][\w-]*)/g;
+    var out='',last=0,m;
+    while((m=re.exec(line))!==null){
+      out+=esc(line.slice(last,m.index));
+      if(m[1]){out+=wrap('c',m[1]);}
+      else if(m[2]||m[3]){out+=wrap('s',m[2]||m[3]);}
+      else if(m[4]){out+=wrap('cmd',m[4]);}
+      else if(m[5]){out+=wrap('var',m[5]);}
+      else if(m[6]){out+=wrap('url',m[6]);}
+      else if(m[7]){out+=wrap('flag',m[7]);}
+      last=re.lastIndex;
+    }
+    return out+esc(line.slice(last));
+  }
+
+  function hlHttp(src){
+    var out='',lines=src.split('\n');
+    for(var i=0;i<lines.length;i++){
+      var line=lines[i],m=/^([A-Za-z][A-Za-z0-9-]*)(:)([\s\S]*)$/.exec(line);
+      if(m){ out+=wrap('hk',m[1])+wrap('p',m[2])+wrap('s',m[3]); }
+      else { out+=esc(line); }
+      if(i<lines.length-1) out+='\n';
+    }
+    return out;
+  }
+
+  var codes=document.querySelectorAll('pre code');
+  for(var i=0;i<codes.length;i++){
+    var el=codes[i],txt=el.textContent,cls=el.className||'';
+    if(cls.indexOf('lang-json')>-1){ el.innerHTML=hlJson(txt); }
+    else if(cls.indexOf('lang-shell')>-1){ el.innerHTML=hlShell(txt); }
+    else if(cls.indexOf('lang-http')>-1){ el.innerHTML=hlHttp(txt); }
+  }
+
+  /* ---------- 复制按钮 ---------- */
+  var copies=document.querySelectorAll('.copy');
+  for(var j=0;j<copies.length;j++){
+    (function(btn){
+      btn.addEventListener('click',function(){
+        var pre=btn.closest('.code-wrap').querySelector('pre code');
+        var text=pre?pre.textContent:'';
+        var done=function(){
+          btn.textContent='已复制';btn.classList.add('done');
+          setTimeout(function(){btn.textContent='复制';btn.classList.remove('done');},1600);
+        };
+        if(navigator.clipboard&&navigator.clipboard.writeText){
+          navigator.clipboard.writeText(text).then(done,function(){fallback(text,done);});
+        }else{ fallback(text,done); }
+      });
+    })(copies[j]);
+  }
+  function fallback(text,cb){
+    var ta=document.createElement('textarea');
+    ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+    document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');cb();}catch(e){}
+    document.body.removeChild(ta);
+  }
+
+  /* ---------- 侧边导航：平滑滚动 + 滚动高亮 ---------- */
+  var buttons=Array.prototype.slice.call(document.querySelectorAll('.nav button'));
+  var sections=buttons.map(function(b){return document.getElementById(b.dataset.target);});
+
+  buttons.forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var el=document.getElementById(btn.dataset.target);
+      if(el){ el.scrollIntoView({behavior:'smooth',block:'start'}); }
+      if(window.history&&window.history.replaceState){
+        window.history.replaceState(null,'','#'+btn.dataset.target);
+      }
+    });
+  });
+
+  function setActive(){
+    var y=window.pageYOffset+190,idx=0;
+    for(var i=0;i<sections.length;i++){
+      var top=sections[i].getBoundingClientRect().top+window.pageYOffset;
+      if(top<=y){ idx=i; }
+    }
+    buttons.forEach(function(b,i){ b.classList.toggle('active',i===idx); });
+  }
+  window.addEventListener('scroll',setActive,{passive:true});
+  window.addEventListener('resize',setActive);
+  setActive();
+})();
+</script>
+<footer class="doc-footer">
+  佛山照明 SAP S/4HANA 升级项目工作台 ·
+  <a href="/fsl-report/consulting/blueprint/">返回蓝图及架构设计阶段</a> ·
+  机密文件 · 仅供项目组内部使用 · 2026
+</footer>
+</body>
+</html>

@@ -58,6 +58,7 @@
             <a href="/fsl-report/consulting/roadmap/roadmap-report.html">6. 数字化转型路径规划</a>
             <a href="/fsl-report/consulting/roadmap/roadmap-report-v2.html" style="padding-left:28px;font-size:11.5px;opacity:.85">└ V2（2026-08）</a>
             <a href="/fsl-report/consulting/roadmap/roadmap-report-v3.html" style="padding-left:28px;font-size:11.5px;opacity:.85">└ V3（2026-08-25）24项目卡片+五层追溯</a>
+            <a href="/fsl-report/consulting/blueprint/sap-cpi-api-reference.html">7. 系统集成 API 参考文档（CPI · v1.4）</a>
             <a href="/fsl-report/consulting/presentation/" style="font-weight:700;color:#F06000">📊 总经理汇报PPT（100页）</a>
           </div>
           <div class="nav-dd-col nav-dd-panel">
