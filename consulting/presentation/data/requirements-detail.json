@@ -2,7 +2,7 @@
  "meta": {
   "total": 701,
   "source": "腾讯文档「佛照_02探索阶段_需求整理_V5_20260718」需求总库",
-  "extracted_at": "2026-09-03T02:04:30Z",
+  "extracted_at": "2026-09-03T10:23:01Z",
   "mapping_authority": "sankey_v4.html (三层追溯桑基图: 需求域→TOGAF 4A→高价值场景)",
   "derived_fields_note": "togaf_4a/snn/domain 由所属专题经桑基图映射推导，标注为推导值"
  },
@@ -1681,8 +1681,8 @@
    "func_domain": "WM/EWM仓储",
    "q_type": "系统功能构建及优化",
    "category": "数字化类",
-   "scope_phase": "三期",
-   "phase_label": "2028 智慧跃升",
+   "scope_phase": "本期",
+   "phase_label": "2026 夯实底座",
    "scope_class": "纳入",
    "domain": "供应链域",
    "togaf_4a": "A2 数据架构 (DA)",
@@ -1837,9 +1837,9 @@
    "func_domain": "FI/CO财务",
    "q_type": "系统功能构建及优化",
    "category": "数字化类",
-   "scope_phase": "三期",
-   "phase_label": "2028 智慧跃升",
-   "scope_class": "纳入",
+   "scope_phase": "非本期",
+   "phase_label": "溢出范围",
+   "scope_class": "溢出",
    "domain": "供应链域",
    "togaf_4a": "A2 数据架构 (DA)",
    "togaf_4a_short": "DA",
@@ -1863,15 +1863,15 @@
    "func_domain": "FI/CO财务",
    "q_type": "系统功能构建及优化",
    "category": "数字化类",
-   "scope_phase": "三期",
-   "phase_label": "2028 智慧跃升",
+   "scope_phase": "二期",
+   "phase_label": "2027 贯通协同",
    "scope_class": "纳入",
    "domain": "供应链域",
    "togaf_4a": "A2 数据架构 (DA)",
    "togaf_4a_short": "DA",
    "snn": "S17",
    "snn_full": "S17 库存可视化",
-   "opinion": "0705：厘清业务需求，然后功能开发\n0722: 开发Z程序模拟VL01N,根据MB51中入库时间按先进先出原则推荐发货库位和数量，调用VL01N的BAPI完成发货过账\n三期规划",
+   "opinion": "0705：厘清业务需求，然后功能开发\n0722: 开发Z程序模拟VL01N,根据MB51中入库时间按先进先出原则推荐发货库位和数量，调用VL01N的BAPI完成发货过账",
    "detail": "痛点：​当前VL01N销售订单过账仅支持相同库位物料一起过账，当订单物料分布于不同库位时，需人工多次拆分、删减行项并分步过账，甚至需结合库存查询反复调整，流程繁琐。\n需求：​优化VL01N过账功能，支持同一销售订单中不同库位物料自动拆分并分别生成对应的外向发货单，实现多库位场景下的差异化凭证自动处理，避免人工拆分与重复操作。",
    "consultant": "张宏宇",
    "meeting_detail": "",
@@ -17307,8 +17307,8 @@
    "func_domain": "",
    "q_type": "",
    "category": "数字化类",
-   "scope_phase": "三期",
-   "phase_label": "2028 智慧跃升",
+   "scope_phase": "二期",
+   "phase_label": "2027 贯通协同",
    "scope_class": "纳入",
    "domain": "其他",
    "togaf_4a": "A2 数据架构 (DA)",
@@ -18315,19 +18315,19 @@
   "phase_labels": [
    {
     "label": "2027 贯通协同",
-    "count": 205
+    "count": 207
    },
    {
     "label": "2026 夯实底座",
-    "count": 281
+    "count": 282
    },
    {
     "label": "溢出范围",
-    "count": 113
+    "count": 114
    },
    {
     "label": "2028 智慧跃升",
-    "count": 102
+    "count": 98
    }
   ],
   "togaf_4as": [
@@ -18473,12 +18473,12 @@
    {
     "label": "纳入范围",
     "code": "in",
-    "count": 588
+    "count": 587
    },
    {
     "label": "溢出范围",
     "code": "out",
-    "count": 113
+    "count": 114
    }
   ],
   "departments": [
