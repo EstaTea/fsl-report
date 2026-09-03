@@ -11,17 +11,18 @@
   body{display:flex;flex-direction:column;align-items:center;padding:12px 16px}
   h1{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
      font-size:16px;font-weight:700;color:#1B3A6B;margin-bottom:6px;text-align:center}
-  .main-row{display:flex;width:100%;flex:1;min-height:0;gap:10px}
+  .main-row{display:flex;width:100%;flex:1;min-height:0}
   .chart-box{position:relative;flex:1;height:100%;min-height:260px}
-  .group-panel{width:216px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;overflow:hidden}
-  .gp-title{font-size:10px;font-weight:700;color:#5B7A91;letter-spacing:1px;flex:none}
-  .sg-circle{border:2px dashed #2374a3;border-radius:50%;background:rgba(94,164,206,.08);
-     display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none}
-  #sg1{width:176px;height:164px}
-  #sg2{width:158px;height:146px}
-  .sg-title{font-weight:700;color:#0b2d47;font-size:11.5px;margin-bottom:5px}
-  .sg-chip{background:#fff;border:1px solid #c0ccd8;border-radius:9px;padding:1.5px 7px;font-size:9.5px;
-     margin:2px 0;display:flex;align-items:center;gap:4px;white-space:nowrap;box-shadow:0 1px 2px rgba(11,45,71,.08)}
+  /* 场景组大圆：叠加在图表画布之上，位置由 JS 按数据坐标换算 */
+  .sg-circle{position:absolute;transform:translate(-50%,-50%);border:2px dashed #2374a3;
+     border-radius:50%;background:rgba(94,164,206,.10);backdrop-filter:blur(1px);
+     display:flex;flex-direction:column;align-items:center;justify-content:center;
+     flex:none;pointer-events:none;z-index:5}
+  #sg1{width:160px;height:150px}
+  #sg2{width:130px;height:120px}
+  .sg-title{font-weight:700;color:#0b2d47;font-size:10px;margin-bottom:4px}
+  .sg-chip{background:#fff;border:1px solid #c0ccd8;border-radius:8px;padding:1px 6px;font-size:8.5px;
+     margin:1.5px 0;display:flex;align-items:center;gap:3px;white-space:nowrap;box-shadow:0 1px 2px rgba(11,45,71,.08)}
   .sg-chip i{width:6px;height:6px;border-radius:50%;display:inline-block}
   .legend{display:flex;gap:20px;margin-top:6px;font-size:11px;color:#5B7A91}
   .legend span{display:flex;align-items:center;gap:4px}
@@ -34,9 +35,6 @@
 <div class="main-row" data-page-node-id="4cWg7GUL6o3W7v09BWZt2G">
 <div class="chart-box" data-page-node-id="RqYobLvsg5zbEpeDAtJVNp">
   <canvas id="quadrantChart" data-page-node-id="gnww2CfdAAjOE9i9HHn3yv"></canvas>
-</div>
-<div class="group-panel" data-page-node-id="AhXPtaKZiBPintGndAFWGN">
-  <span class="gp-title" data-page-node-id="HkGScuMd1kykbw387RGEXz">场景组 · SOLUTION GROUPS</span>
   <div class="sg-circle" id="sg1" data-page-node-id="S93NbGf2AhNS73IK0AtD4W">
     <div class="sg-title" data-page-node-id="xwemuKA1pgG07yKpZ6Zxbd">SG1 · 财务域</div>
     <div class="sg-chip" data-page-node-id="AEQQXc5L1uGYzEE4j7igQ6"><i style="background:#003087" data-page-node-id="DJ12EJF9VmbFcJ455mS8SN"></i>S06 海外财务合规</div>
@@ -59,14 +57,11 @@
 <script>
 (function(){
   var scenarios = [
-    // 一期 - 2026 (12个)
+    // 一期 - 2026（散点9个；S06/S08/S09 并入 SG1 场景组，不再单独显示）
     {id:'S01',name:'物料主数据治理',bv:5.0,td:4.5,p:'一期',c:'#003087'},
     {id:'S02',name:'客户信用管理',bv:4.5,td:4.5,p:'一期',c:'#003087'},
     {id:'S05',name:'销售订单全链路追踪',bv:3.4,td:4.2,p:'二期',c:'#2374a3'},
-    {id:'S06',name:'海外财务合规',bv:3.0,td:3.2,p:'一期',c:'#003087'},
     {id:'S07',name:'制造成本还原',bv:4.8,td:4.5,p:'一期',c:'#003087'},
-    {id:'S08',name:'财务组织+科目主数据',bv:2.2,td:2.1,p:'一期',c:'#003087'},
-    {id:'S09',name:'应收清账+BIP接口',bv:2.8,td:2.3,p:'一期',c:'#003087'},
     {id:'S11',name:'按客户销售项目核算和分析方案',bv:4.3,td:3.3,p:'一期',c:'#003087'},
     {id:'S12',name:'研发投入产出分析体系建设',bv:4.5,td:3.5,p:'一期',c:'#003087'},
     {id:'S13',name:'供应商交期与供应商绩效管理方案',bv:4.2,td:3.8,p:'二期',c:'#2374a3'},
@@ -74,12 +69,10 @@
     {id:'S15',name:'采购配额管理与订单分配智能化',bv:4.5,td:3.5,p:'一期',c:'#003087'},
     {id:'S16',name:'产前齐套性预警与跟踪',bv:4.3,td:3.6,p:'一期',c:'#003087'},
     {id:'S17',name:'库存多维度查询体系',bv:3.6,td:4.5,p:'三期',c:'#89c4e8'},
-    // 二期 - 2027 (7个)
+    // 二期 - 2027（散点5个；S18/S19 并入 SG2 场景组）
     {id:'S03',name:'跨公司转卖模式优化',bv:3.8,td:3.6,p:'一期',c:'#003087'},
     {id:'S04',name:'销售价格与折扣管理体系优化',bv:3.2,td:4.2,p:'二期',c:'#2374a3'},
     {id:'S10',name:'集团合并报表建设',bv:3.2,td:4.5,p:'二期',c:'#2374a3'},
-    {id:'S18',name:'主生产计划MPS建设',bv:4.2,td:2.8,p:'二期',c:'#2374a3'},
-    {id:'S19',name:'MRP物料需求计划',bv:4.6,td:3.2,p:'二期',c:'#2374a3'},
     {id:'S23',name:'BOM全生命周期建设',bv:3.3,td:3.8,p:'一期',c:'#003087'},
     // 三期 - 2028 (4个)
     {id:'S20',name:'生产进度看板',bv:3.9,td:3.6,p:'三期',c:'#89c4e8'},
@@ -88,37 +81,11 @@
   ];
 
   // 场景组（来源：佛照_高价值业务专题方案清单_V3.xlsx B列「场景组」）
+  // pos = 大圆中心在图内的数据坐标（用户指定位置）
   var groups = [
-    {id:'SG1', desc:'财务域', members:['S06','S08','S09']},
-    {id:'SG2', desc:'计划制造域', members:['S18','S19']}
+    {id:'SG1', desc:'财务域', members:['S06','S08','S09'], pos:{x:2.5, y:3.05}},
+    {id:'SG2', desc:'计划制造域', members:['S18','S19'], pos:{x:4.42, y:2.6}}
   ];
-
-  // 场景组光环插件：给组内成员气泡加虚线外环，与右侧场景组大圆呼应
-  var groupHaloPlugin = {
-    id: 'groupHalos',
-    afterDatasetsDraw: function(chart) {
-      var ctx = chart.ctx;
-      ctx.save();
-      groups.forEach(function(g){
-        g.members.forEach(function(mid){
-          var idx = scenarios.findIndex(function(s){ return s.id === mid; });
-          if (idx < 0) return;
-          var meta = chart.getDatasetMeta(idx);
-          if (meta.hidden) return;
-          var point = meta.data[0];
-          if (!point) return;
-          ctx.beginPath();
-          ctx.arc(point.x, point.y, (point.r || 10) + 6, 0, Math.PI * 2);
-          ctx.setLineDash([4, 3]);
-          ctx.lineWidth = 1.5;
-          ctx.strokeStyle = '#2374a3';
-          ctx.stroke();
-          ctx.setLineDash([]);
-        });
-      });
-      ctx.restore();
-    }
-  };
 
   var labelPlugin = {
     id: 'scenarioLabels',
@@ -262,7 +229,7 @@
     },
     options: {
       responsive: true, maintainAspectRatio: false,
-      layout: { padding: { top: 40, right: 150, bottom: 36, left: 40 } },
+      layout: { padding: { top: 40, right: 30, bottom: 36, left: 40 } },
       plugins: {
         legend: { display: false },
         tooltip: {
@@ -287,8 +254,25 @@
         }
       }
     },
-    plugins: [groupHaloPlugin, labelPlugin]
+    plugins: [labelPlugin]
   });
+
+  // 场景组大圆定位：按 groups[].pos 的数据坐标换算成画布像素，居中放置
+  var chartRef = Chart.getChart(document.getElementById('quadrantChart'));
+  function placeSG() {
+    var sx = chartRef.scales.x, sy = chartRef.scales.y;
+    groups.forEach(function(g){
+      var el = document.getElementById(g.id.toLowerCase());
+      if (!el || !g.pos) return;
+      var px = sx.getPixelForValue(g.pos.x);
+      var py = sy.getPixelForValue(g.pos.y);
+      el.style.left = px + 'px';
+      el.style.top = py + 'px';
+    });
+  }
+  placeSG();
+  setTimeout(placeSG, 300); // 响应式布局稳定后校正一次
+  window.addEventListener('resize', placeSG);
 })();
 </script>
 </body>
