@@ -11,21 +11,50 @@
   body{display:flex;flex-direction:column;align-items:center;padding:12px 16px}
   h1{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
      font-size:16px;font-weight:700;color:#1B3A6B;margin-bottom:6px;text-align:center}
-  .chart-box{position:relative;width:100%;height:calc(100% - 50px);min-height:260px}
+  .main-row{display:flex;width:100%;flex:1;min-height:0;gap:10px}
+  .chart-box{position:relative;flex:1;height:100%;min-height:260px}
+  .group-panel{width:216px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;overflow:hidden}
+  .gp-title{font-size:10px;font-weight:700;color:#5B7A91;letter-spacing:1px;flex:none}
+  .sg-circle{border:2px dashed #2374a3;border-radius:50%;background:rgba(94,164,206,.08);
+     display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none}
+  #sg1{width:176px;height:164px}
+  #sg2{width:158px;height:146px}
+  .sg-title{font-weight:700;color:#0b2d47;font-size:11.5px;margin-bottom:5px}
+  .sg-chip{background:#fff;border:1px solid #c0ccd8;border-radius:9px;padding:1.5px 7px;font-size:9.5px;
+     margin:2px 0;display:flex;align-items:center;gap:4px;white-space:nowrap;box-shadow:0 1px 2px rgba(11,45,71,.08)}
+  .sg-chip i{width:6px;height:6px;border-radius:50%;display:inline-block}
   .legend{display:flex;gap:20px;margin-top:6px;font-size:11px;color:#5B7A91}
   .legend span{display:flex;align-items:center;gap:4px}
   .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+  .ring{width:12px;height:12px;border-radius:50%;display:inline-block;border:2px dashed #2374a3;background:rgba(94,164,206,.15)}
 </style>
 </head>
 <body>
 <h1>23个高价值场景：业务价值 × 技术难度 四象限评估</h1>
+<div class="main-row">
 <div class="chart-box">
   <canvas id="quadrantChart"></canvas>
 </div>
+<div class="group-panel">
+  <span class="gp-title">场景组 · SOLUTION GROUPS</span>
+  <div class="sg-circle" id="sg1">
+    <div class="sg-title">SG1 · 财务域</div>
+    <div class="sg-chip"><i style="background:#003087"></i>S06 海外财务合规</div>
+    <div class="sg-chip"><i style="background:#003087"></i>S08 财务组织+主数据统一规范</div>
+    <div class="sg-chip"><i style="background:#003087"></i>S09 应收清账共享平台建设</div>
+  </div>
+  <div class="sg-circle" id="sg2">
+    <div class="sg-title">SG2 · 计划制造域</div>
+    <div class="sg-chip"><i style="background:#2374a3"></i>S18 主生产计划MPS建设</div>
+    <div class="sg-chip"><i style="background:#2374a3"></i>S19 MRP物料需求计划</div>
+  </div>
+</div>
+</div>
 <div class="legend">
-  <span><i class="dot" style="background:#003087"></i>一期 · 2026（14个）</span>
-  <span><i class="dot" style="background:#2374a3"></i>二期 · 2027（6个）</span>
-  <span><i class="dot" style="background:#89c4e8"></i>三期 · 2028（3个）</span>
+  <span><i class="dot" style="background:#003087"></i>一期 · 2026</span>
+  <span><i class="dot" style="background:#2374a3"></i>二期 · 2027</span>
+  <span><i class="dot" style="background:#89c4e8"></i>三期 · 2028</span>
+  <span><i class="ring"></i>场景组（SG）</span>
 </div>
 <script>
 (function(){
@@ -57,6 +86,39 @@
     {id:'S21',name:'质量追溯建设',bv:3.0,td:2.6,p:'三期',c:'#89c4e8'},
     {id:'S22',name:'质量合格率统计分析',bv:3.0,td:2.3,p:'三期',c:'#89c4e8'}
   ];
+
+  // 场景组（来源：佛照_高价值业务专题方案清单_V3.xlsx B列「场景组」）
+  var groups = [
+    {id:'SG1', desc:'财务域', members:['S06','S08','S09']},
+    {id:'SG2', desc:'计划制造域', members:['S18','S19']}
+  ];
+
+  // 场景组光环插件：给组内成员气泡加虚线外环，与右侧场景组大圆呼应
+  var groupHaloPlugin = {
+    id: 'groupHalos',
+    afterDatasetsDraw: function(chart) {
+      var ctx = chart.ctx;
+      ctx.save();
+      groups.forEach(function(g){
+        g.members.forEach(function(mid){
+          var idx = scenarios.findIndex(function(s){ return s.id === mid; });
+          if (idx < 0) return;
+          var meta = chart.getDatasetMeta(idx);
+          if (meta.hidden) return;
+          var point = meta.data[0];
+          if (!point) return;
+          ctx.beginPath();
+          ctx.arc(point.x, point.y, (point.r || 10) + 6, 0, Math.PI * 2);
+          ctx.setLineDash([4, 3]);
+          ctx.lineWidth = 1.5;
+          ctx.strokeStyle = '#2374a3';
+          ctx.stroke();
+          ctx.setLineDash([]);
+        });
+      });
+      ctx.restore();
+    }
+  };
 
   var labelPlugin = {
     id: 'scenarioLabels',
@@ -225,7 +287,7 @@
         }
       }
     },
-    plugins: [labelPlugin]
+    plugins: [groupHaloPlugin, labelPlugin]
   });
 })();
 </script>
