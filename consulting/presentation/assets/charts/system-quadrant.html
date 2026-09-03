@@ -35,6 +35,8 @@
     { x: 1.9, y: 1.8, label: '差旅报销(新规划)', r: 18, color: C.mid },
     { x: 2.3, y: 3.9, label: '数据中台(新规划)', r: 22, color: C.primary },
     { x: 2.1, y: 4.5, label: '供应链控制塔(新规划)', r: 24, color: C.navy },
+    { x: 5.0, y: 5.0, label: '全面预算(新规划)', r: 22, color: C.primary },
+    { x: 4.5, y: 1.8, label: '可视化大屏(新规划)', r: 20, color: C.mid },
     /* ===== 升级改造（中蓝，中左区域）===== */
     { x: 2.5, y: 2.9, label: 'WM→EWM(升级)', r: 24, color: C.mid },
     { x: 3.0, y: 2.5, label: '联通 WMS(保留+集成)', r: 24, color: C.steel },
@@ -124,7 +126,7 @@
       },
       scales: {
         x: { min:1, max:5.5, title:{display:true,text:'当前满足业务需求程度（低→高）'}, ticks:{font:{size:10}} },
-        y: { min:1, max:5, title:{display:true,text:'更换代价（低→高）'}, ticks:{font:{size:10}} }
+        y: { min:1, max:5.5, title:{display:true,text:'更换代价（低→高）'}, ticks:{font:{size:10}} }
       }
     },
     plugins: [labelPlugin]
