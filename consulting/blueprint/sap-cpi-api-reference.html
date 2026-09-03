@@ -14,12 +14,12 @@
     --muted:#7b8499;
     --line:#e5e9f0;
     --line-soft:#eef1f6;
-    --accent:#4f56c9;
-    --accent-soft:#edeefc;
-    --code-bg:#0d1220;
-    --code-bg2:#151b2c;
-    --code-ink:#d7dcec;
-    --code-line:#232b41;
+    --accent:#005EB8;
+    --accent-soft:#e3effa;
+    --code-bg:#0b2d47;
+    --code-bg2:#10314f;
+    --code-ink:#d7e5f4;
+    --code-line:#1d4265;
     --get:#12855a;
     --get-bg:#e2f5ec;
     --post:#256fe0;
@@ -50,9 +50,9 @@
     position:relative;
     display:flex;align-items:flex-end;
     background:
-      radial-gradient(1200px 420px at 78% -10%,rgba(122,132,255,.42) 0%,rgba(122,132,255,0) 62%),
-      radial-gradient(760px 380px at 8% 110%,rgba(38,190,160,.30) 0%,rgba(38,190,160,0) 60%),
-      linear-gradient(112deg,#0d1226 0%,#1b1b46 48%,#26205c 100%);
+      radial-gradient(1200px 420px at 78% -10%,rgba(0,94,184,.50) 0%,rgba(0,94,184,0) 62%),
+      radial-gradient(760px 380px at 8% 110%,rgba(31,112,193,.38) 0%,rgba(31,112,193,0) 60%),
+      linear-gradient(135deg,#003087 0%,#1B3A6B 50%,#005EB8 100%);
     color:#fff;overflow:hidden;
   }
   .hero::before{
@@ -74,13 +74,13 @@
   .hbadge svg{display:block;}
   .hero h1{font-size:41px;line-height:1.14;font-weight:800;letter-spacing:-.02em;margin-bottom:14px;text-shadow:0 2px 18px rgba(0,0,0,.32);}
   .hero h1 .ver{
-    font-family:var(--mono);font-size:19px;font-weight:600;color:#c3c6ff;
-    vertical-align:middle;margin-left:10px;background:rgba(79,86,201,.34);
+    font-family:var(--mono);font-size:19px;font-weight:600;color:#cfe2f5;
+    vertical-align:middle;margin-left:10px;background:rgba(0,94,184,.45);
     padding:3px 10px;border-radius:8px;
   }
   .hero p.lead{font-size:16.5px;max-width:760px;color:#dde1f2;text-shadow:0 1px 8px rgba(0,0,0,.28);}
   .hero-meta{display:flex;gap:30px;flex-wrap:wrap;margin-top:26px;padding-top:22px;border-top:1px solid rgba(255,255,255,.16);}
-  .hm-item .k{font-size:11.5px;color:#a9b0d2;letter-spacing:.05em;text-transform:uppercase;margin-bottom:3px;}
+  .hm-item .k{font-size:11.5px;color:#a8c4e0;letter-spacing:.05em;text-transform:uppercase;margin-bottom:3px;}
   .hm-item .v{font-size:14px;font-weight:600;color:#fff;font-family:var(--mono);}
 
   /* ===== LAYOUT ===== */
@@ -287,7 +287,7 @@
   /* 工作台导航条（54px）占位补偿 */
   body{display:block;font-size:15px;line-height:1.7;min-height:auto;}
   .doc-footer{
-    border-top:1px solid var(--line);background:#0d1226;color:rgba(255,255,255,.42);
+    border-top:1px solid var(--line);background:#0b2d47;color:rgba(255,255,255,.42);
     text-align:center;padding:20px 16px;font-size:11.5px;letter-spacing:.2px;
   }
   .doc-footer a{color:rgba(255,255,255,.62);}
@@ -364,22 +364,22 @@
 
       <!-- ---------- OVERVIEW ---------- -->
       <section class="block" id="overview" data-page-node-id="hhGVVg6RCFTgmYo5LSOE5Q">
-        <h2 data-page-node-id="n3GoMv0FFbMiEBtaMktQLC"><span class="icon" data-page-node-id="ubHNHuBGIfxBYfjJIAzP3e"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" data-page-node-id="Oe15iZAh0pIiCyF4F0wghM"><path d="M4 5h16v14H4z" stroke="#4f56c9" stroke-width="2" stroke-linejoin="round" data-page-node-id="NAcCwHMWvLQbchJBxC7Ft0"/><path d="M4 9h16M8 5v14" stroke="#4f56c9" stroke-width="2" data-page-node-id="eVO435I8dNAjcU532QusNz"/></svg></span>API 概览</h2>
+        <h2 data-page-node-id="n3GoMv0FFbMiEBtaMktQLC"><span class="icon" data-page-node-id="ubHNHuBGIfxBYfjJIAzP3e"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" data-page-node-id="Oe15iZAh0pIiCyF4F0wghM"><path d="M4 5h16v14H4z" stroke="#005EB8" stroke-width="2" stroke-linejoin="round" data-page-node-id="NAcCwHMWvLQbchJBxC7Ft0"/><path d="M4 9h16M8 5v14" stroke="#005EB8" stroke-width="2" data-page-node-id="eVO435I8dNAjcU532QusNz"/></svg></span>API 概览</h2>
         <p class="sub" data-page-node-id="oZo1RNPXU3J3nHYBejgezb">本套接口是集成层（CPI）对外的门面 API（Facade API）。调用方只面对统一的 REST/JSON 契约；集成层负责把它翻译成后端系统的原生协议——S/4HANA 走 OData V2（A2X），MDG 走 DRF/OData，MES 走 IDoc 或 REST，PLM 走 REST/JSON，SRM/Ariba 走 cXML。</p>
 
         <div class="feat-grid" data-page-node-id="n8KGfpAWtiMwCeKYsYNOxB">
           <div class="feat" data-page-node-id="CGVOqATRzhggG3uxEVJxFj">
-            <div class="fi" data-page-node-id="4iNucnDmDaW796wu62wwZ4"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" data-page-node-id="ow545jsY1T3H5YCYsBXF10"><path d="M5 12l5 5L19 7" stroke="#4f56c9" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="MrjuItynnPtGjOnyEAsHwj"/></svg></div>
+            <div class="fi" data-page-node-id="4iNucnDmDaW796wu62wwZ4"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" data-page-node-id="ow545jsY1T3H5YCYsBXF10"><path d="M5 12l5 5L19 7" stroke="#005EB8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="MrjuItynnPtGjOnyEAsHwj"/></svg></div>
             <h4 data-page-node-id="PwGe3acdEyjHKHrK6Qqfz6">统一契约</h4>
             <p data-page-node-id="KVu0H9pJs9fIQDDqGJBvL3">所有端点共用一套响应信封：<code data-page-node-id="Sj34gx6zvtrBLCrOwFrjdP">data</code> / <code data-page-node-id="DQR02B7TL8nqgtnKwcRv8C">paging</code> / <code data-page-node-id="AGQiAAr9mncHB8jutEV9Jw">meta</code>，错误统一为 <code data-page-node-id="98MN1TXCSBb4CIDwNEdHc8">error.code</code> 机器可读码。</p>
           </div>
           <div class="feat" data-page-node-id="ZgczIEWNf8OykpCSbYcEIn">
-            <div class="fi" data-page-node-id="D8QiCqsH482hrV1yvWDTY1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" data-page-node-id="yEPcFyQXpaEu6VkX4s7DDG"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z" stroke="#4f56c9" stroke-width="2" stroke-linejoin="round" data-page-node-id="ruSuCllrpTiRT4919xHhQM"/></svg></div>
+            <div class="fi" data-page-node-id="D8QiCqsH482hrV1yvWDTY1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" data-page-node-id="yEPcFyQXpaEu6VkX4s7DDG"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z" stroke="#005EB8" stroke-width="2" stroke-linejoin="round" data-page-node-id="ruSuCllrpTiRT4919xHhQM"/></svg></div>
             <h4 data-page-node-id="ZNRGYmqibKlncCvP2spBED">端到端安全</h4>
             <p data-page-node-id="yTfBqKKgGZXqUulwOy7fW9">OAuth 2.0 Client Credentials 换取 Bearer Token；写操作叠加 X-CSRF-Token 与 If-Match 并发控制。</p>
           </div>
           <div class="feat" data-page-node-id="gmyMWwxRJmrnXnjWCYe7KE">
-            <div class="fi" data-page-node-id="UIflhICd5kAwhUBrBcVlVF"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" data-page-node-id="CMDk7WXSeWGDjEGpnkFLsN"><path d="M3 12h4l3 7 4-14 3 7h4" stroke="#4f56c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="3vtnDTgxCv9cpMY3g7VsfM"/></svg></div>
+            <div class="fi" data-page-node-id="UIflhICd5kAwhUBrBcVlVF"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" data-page-node-id="CMDk7WXSeWGDjEGpnkFLsN"><path d="M3 12h4l3 7 4-14 3 7h4" stroke="#005EB8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="3vtnDTgxCv9cpMY3g7VsfM"/></svg></div>
             <h4 data-page-node-id="Beu9L9iDBpIaitn4iOjMcR">可观测</h4>
             <p data-page-node-id="MVBNVdcGkOPahFtrCd2D2p">每次调用返回 <code data-page-node-id="5wDpnyNXIbgRCAgVVgOL4F">meta.correlationId</code>，可直接在 CPI Message Processing Log 中定位到报文与后端往返耗时。</p>
           </div>
@@ -501,14 +501,14 @@
         </ul>
 
         <div class="callout" data-page-node-id="0l7Z6b4fFp0oxe2m2kGE9X">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" data-page-node-id="GxOVD6DdAtG4DxGA7CLQlU"><circle cx="12" cy="12" r="9" stroke="#4f56c9" stroke-width="2" data-page-node-id="W4u7DVQ09jAT6s33WbBWdi"/><path d="M12 8h.01M11 12h1v4h1" stroke="#4f56c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="l3LUuUX0xKrvGFkdLwyczJ"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" data-page-node-id="GxOVD6DdAtG4DxGA7CLQlU"><circle cx="12" cy="12" r="9" stroke="#005EB8" stroke-width="2" data-page-node-id="W4u7DVQ09jAT6s33WbBWdi"/><path d="M12 8h.01M11 12h1v4h1" stroke="#005EB8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="l3LUuUX0xKrvGFkdLwyczJ"/></svg>
           <div data-page-node-id="YhA1HBWkw56lyCyx9PV3Of">本页所有示例均可直接复制运行。把 <code data-page-node-id="wM8XJqgdH3Hv3RcyR8gA5S">$CPI_TOKEN</code> 换成你换取的访问令牌、把 <code data-page-node-id="Hzsvdr80O1nHFaLeHAeztF">&lt;tenant-host&gt;</code> 换成你的 CPI 运行期主机名即可。写操作还需要先取一次 <code data-page-node-id="K9PQWijQAjXSQJvdMeurqU">X-CSRF-Token</code>，详见<a href="#auth" data-page-node-id="T2DTk1DdKRnXR5Rj4BxpTs">鉴权与基础 URL</a>。</div>
         </div>
       </section>
 
       <!-- ---------- AUTH ---------- -->
       <section class="block" id="auth" data-page-node-id="0At03DbV7xGEykmuw6HZ0D">
-        <h2 data-page-node-id="TzbLyxYcYd8RBg4RdzUdFJ"><span class="icon" data-page-node-id="redEaRksBNe8wZ3CJ2qWwB"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" data-page-node-id="BppPP7E15PNnUJZ6zsq9oj"><rect x="5" y="11" width="14" height="9" rx="2" stroke="#4f56c9" stroke-width="2" data-page-node-id="YrLCi4vtAy02gydUmajOd7"/><path d="M8 11V8a4 4 0 018 0v3" stroke="#4f56c9" stroke-width="2" data-page-node-id="jpsHs0RBbOn3zBHewe8uwb"/></svg></span>鉴权与基础 URL</h2>
+        <h2 data-page-node-id="TzbLyxYcYd8RBg4RdzUdFJ"><span class="icon" data-page-node-id="redEaRksBNe8wZ3CJ2qWwB"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" data-page-node-id="BppPP7E15PNnUJZ6zsq9oj"><rect x="5" y="11" width="14" height="9" rx="2" stroke="#005EB8" stroke-width="2" data-page-node-id="YrLCi4vtAy02gydUmajOd7"/><path d="M8 11V8a4 4 0 018 0v3" stroke="#005EB8" stroke-width="2" data-page-node-id="jpsHs0RBbOn3zBHewe8uwb"/></svg></span>鉴权与基础 URL</h2>
         <p class="sub" data-page-node-id="hvTOFkl0efTGzmjHGr2rwu">集成层使用 OAuth 2.0 <b data-page-node-id="w6nAdFdXfdtV7DPnFa4nJH">Client Credentials</b> 授权模式：用 <code data-page-node-id="L9ccHREbboDrJbPEiDO0CO">client_id</code> / <code data-page-node-id="NxccT8tFegWJDfLpKuC3fS">client_secret</code> 向令牌端点换取短期访问令牌，再以 Bearer Token 调用业务端点。令牌有效期 3600 秒，过期返回 <code data-page-node-id="VaeKSfxx6Eivx3LXuMpsYL">401 AUTH_TOKEN_EXPIRED</code>。</p>
 
         <h3 class="sec" data-page-node-id="0Zpz5EqMZBWVbZ1uzFTKWE">基础 URL</h3>
@@ -1269,14 +1269,14 @@ echo "$CSRF"</code></pre>
         </div>
 
         <div class="callout" data-page-node-id="jPk7oeDHzw65PQFHrSEKse">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" data-page-node-id="b5v63wSCsbETnJAbRMJACy"><circle cx="12" cy="12" r="9" stroke="#4f56c9" stroke-width="2" data-page-node-id="HWcjMvHysmdbHRxa3pw22h"/><path d="M12 8h.01M11 12h1v4h1" stroke="#4f56c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="8GWlFrHy9nyjMA2izcXzcg"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" data-page-node-id="b5v63wSCsbETnJAbRMJACy"><circle cx="12" cy="12" r="9" stroke="#005EB8" stroke-width="2" data-page-node-id="HWcjMvHysmdbHRxa3pw22h"/><path d="M12 8h.01M11 12h1v4h1" stroke="#005EB8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="8GWlFrHy9nyjMA2izcXzcg"/></svg>
           <div data-page-node-id="Sg3treiVyBTWTmPcma3qp1">取消后若需恢复，请重新创建新订单（可复用原 <code data-page-node-id="AvqQ9SwDSIu8oiYAI1LUZf">externalId</code> + 后缀）。S/4HANA 不提供"反取消"接口，历史凭证不会物理删除。</div>
         </div>
       </section>
 
       <!-- ---------- CATALOG ---------- -->
       <section class="block" id="catalog" data-page-node-id="zUIAFDJHk0eBn4mQjDWas6">
-        <h2 data-page-node-id="Bh28S9EQq7pbsF2sY4gpHO"><span class="icon" data-page-node-id="LGs8TX3AoKM8iRVofTKMth"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" data-page-node-id="OuMLPcnuSh7juSzsrnviy6"><rect x="3" y="4" width="18" height="16" rx="2" stroke="#4f56c9" stroke-width="2" data-page-node-id="FI8Fyq4AGFGH48AbnmYTkL"/><path d="M3 10h18M9 4v16" stroke="#4f56c9" stroke-width="2" data-page-node-id="8nG1ndak9CBznDHGJKraJG"/></svg></span>集成端点全景</h2>
+        <h2 data-page-node-id="Bh28S9EQq7pbsF2sY4gpHO"><span class="icon" data-page-node-id="LGs8TX3AoKM8iRVofTKMth"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" data-page-node-id="OuMLPcnuSh7juSzsrnviy6"><rect x="3" y="4" width="18" height="16" rx="2" stroke="#005EB8" stroke-width="2" data-page-node-id="FI8Fyq4AGFGH48AbnmYTkL"/><path d="M3 10h18M9 4v16" stroke="#005EB8" stroke-width="2" data-page-node-id="8nG1ndak9CBznDHGJKraJG"/></svg></span>集成端点全景</h2>
         <p class="sub" data-page-node-id="LtuXAx91H8EfOkWmd3u179">除订单主流程的 5 个端点外，同一套契约与鉴权还覆盖下列系统接口。下表为<b data-page-node-id="nazqaEz1qHe3hOfFBhQDwD">已规划/已发布</b>端点清单，可作为后续接入的路线图；所有端点共享本页的错误码、限流与版本策略。</p>
         <div class="tbl-wrap" data-page-node-id="8DqShgeYm7R6EoGkFfk82f">
         <table class="tbl" data-page-node-id="wtGHyHfdJ0jaAZOoyBc8FW">
@@ -1308,7 +1308,7 @@ echo "$CSRF"</code></pre>
         </table>
         </div>
         <div class="callout" data-page-node-id="yfqnUtI70C2f96B96OqP5F">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" data-page-node-id="jIC3inTl9pQlDmg8GWJPQY"><circle cx="12" cy="12" r="9" stroke="#4f56c9" stroke-width="2" data-page-node-id="zbWFPOTt4ojzBN6eUJWDWV"/><path d="M12 8h.01M11 12h1v4h1" stroke="#4f56c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="DmTI55eFB2NWBYRkpkZjAP"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" data-page-node-id="jIC3inTl9pQlDmg8GWJPQY"><circle cx="12" cy="12" r="9" stroke="#005EB8" stroke-width="2" data-page-node-id="zbWFPOTt4ojzBN6eUJWDWV"/><path d="M12 8h.01M11 12h1v4h1" stroke="#005EB8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="DmTI55eFB2NWBYRkpkZjAP"/></svg>
           <div data-page-node-id="VJVBstBDQ0n0ubBuKN4DoU">表中"规划中"的端点属于前瞻设计，上线时间与字段可能与最终版本存在差异。所有端点<b data-page-node-id="Wd0kGeNP8bTnhsRSuoKzeE">共用本文档的鉴权、错误码、限流与版本策略</b>，接入时只需替换资源路径与业务字段。</div>
         </div>
       </section>
@@ -1425,12 +1425,12 @@ echo "$CSRF"</code></pre>
         </div>
         <div class="rl-row" data-page-node-id="GxRmjQugrEdlh3sKnDXh4f">
           <div class="tier" data-page-node-id="kKAv7IsIpYAtIgJFkVfOJ4">专业 Professional<small data-page-node-id="0DjISS2bYsebFDfpHsserF">Pro Plan</small></div>
-          <div class="rl-bar" data-page-node-id="jIycqRpfqHSV2GoyN9H4MO"><div class="rl-fill" style="width:26%;background:linear-gradient(90deg,#4f56c9,#7b82e8)" data-page-node-id="BXepRqaaNGCXrSHVz7v5H9">300 / min</div></div>
+          <div class="rl-bar" data-page-node-id="jIycqRpfqHSV2GoyN9H4MO"><div class="rl-fill" style="width:26%;background:linear-gradient(90deg,#003087,#1F70C1)" data-page-node-id="BXepRqaaNGCXrSHVz7v5H9">300 / min</div></div>
           <div class="rl-num" data-page-node-id="sZzQuTtEZTo6noupG3p30G">300 req/min</div>
         </div>
         <div class="rl-row" data-page-node-id="LTGEUEGVLfENTzY3wqGUj3">
           <div class="tier" data-page-node-id="nUruB7hBA8g7kR3QK8Hx5O">企业 Enterprise<small data-page-node-id="lIFm5NlzrDNOOsSz04FXkm">Enterprise Plan</small></div>
-          <div class="rl-bar" data-page-node-id="BhZjA9OpLo3x5Wf9HumZ07"><div class="rl-fill" style="width:100%;background:linear-gradient(90deg,#2f7d6a,#3fa88c)" data-page-node-id="ivRNQlZX4FBZAHQvigUN0b">1200 / min</div></div>
+          <div class="rl-bar" data-page-node-id="BhZjA9OpLo3x5Wf9HumZ07"><div class="rl-fill" style="width:100%;background:linear-gradient(90deg,#1B3A6B,#4A6FA5)" data-page-node-id="ivRNQlZX4FBZAHQvigUN0b">1200 / min</div></div>
           <div class="rl-num" data-page-node-id="EgcA6hEPnWwbFojtYxdSkc">1 200 req/min</div>
         </div>
 
@@ -1498,7 +1498,7 @@ for attempt in 1..6:
 
       <!-- ---------- CHANGELOG ---------- -->
       <section class="block" id="changelog" data-page-node-id="OfCia57VkkWZV8xpRxQDe0">
-        <h2 data-page-node-id="bnbkGZdX0WTeEFBdwYJAp7"><span class="icon" data-page-node-id="zFwh1efHmxXw3apDer7H35"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" data-page-node-id="GlZypRkvyZ5xqsJF5TqQR2"><circle cx="12" cy="12" r="9" stroke="#4f56c9" stroke-width="2" data-page-node-id="Wpo8ucN50Luq2GwhZrsYuP"/><path d="M12 7v5l3 2" stroke="#4f56c9" stroke-width="2" stroke-linecap="round" data-page-node-id="rCc3sxdppRsTp2VCtpQUVp"/></svg></span>版本与变更</h2>
+        <h2 data-page-node-id="bnbkGZdX0WTeEFBdwYJAp7"><span class="icon" data-page-node-id="zFwh1efHmxXw3apDer7H35"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" data-page-node-id="GlZypRkvyZ5xqsJF5TqQR2"><circle cx="12" cy="12" r="9" stroke="#005EB8" stroke-width="2" data-page-node-id="Wpo8ucN50Luq2GwhZrsYuP"/><path d="M12 7v5l3 2" stroke="#005EB8" stroke-width="2" stroke-linecap="round" data-page-node-id="rCc3sxdppRsTp2VCtpQUVp"/></svg></span>版本与变更</h2>
         <p class="sub" data-page-node-id="FueQNnd9r28uwZRdds4CLb">大版本号体现在 URL 路径（当前 <code data-page-node-id="5kDUCTWvFUhL0RX8lUUsM1">/v1</code>）。非破坏性变更随时发布且不改版本号；破坏性变更提前 90 天公告，并与旧版本并行运行至少 6 个月。</p>
 
         <div class="change" data-page-node-id="2C0jrIVA0zy9KYDLisriAa">
