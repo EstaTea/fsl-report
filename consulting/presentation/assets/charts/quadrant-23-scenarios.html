@@ -20,31 +20,40 @@
      flex:none;pointer-events:none;z-index:5}
   #sg1{width:160px;height:150px}
   #sg2{width:130px;height:120px}
+  #sg3{width:140px;height:130px}
   .sg-title{font-weight:700;color:#0b2d47;font-size:10px;margin-bottom:4px}
   .sg-chip{background:#fff;border:1px solid #c0ccd8;border-radius:8px;padding:1px 6px;font-size:8.5px;
      margin:1.5px 0;display:flex;align-items:center;gap:3px;white-space:nowrap;box-shadow:0 1px 2px rgba(11,45,71,.08)}
   .sg-chip i{width:6px;height:6px;border-radius:50%;display:inline-block}
-  .legend{display:flex;gap:20px;margin-top:6px;font-size:11px;color:#5B7A91}
+  .legend{display:flex;gap:16px;margin-top:6px;font-size:11px;color:#5B7A91;flex-wrap:wrap;justify-content:center}
   .legend span{display:flex;align-items:center;gap:4px}
   .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
   .ring{width:12px;height:12px;border-radius:50%;display:inline-block;border:2px dashed #2374a3;background:rgba(94,164,206,.15)}
 </style>
 </head>
 <body data-page-node-id="wdwZsMBufhQKePfYbtlrHd">
-<h1 data-page-node-id="pTqHNqAE0rHIu2PuR9UBG5">23个高价值场景：业务价值 × 技术难度 四象限评估</h1>
+<h1 data-page-node-id="pTqHNqAE0rHIu2PuR9UBG5">23个高价值场景：业务价值 x 技术难度 四象限评估</h1>
 <div class="main-row" data-page-node-id="4cWg7GUL6o3W7v09BWZt2G">
 <div class="chart-box" data-page-node-id="RqYobLvsg5zbEpeDAtJVNp">
   <canvas id="quadrantChart" data-page-node-id="gnww2CfdAAjOE9i9HHn3yv"></canvas>
+  <!-- SG1 · 财务域 -->
   <div class="sg-circle" id="sg1" data-page-node-id="S93NbGf2AhNS73IK0AtD4W">
     <div class="sg-title" data-page-node-id="xwemuKA1pgG07yKpZ6Zxbd">SG1 · 财务域</div>
     <div class="sg-chip" data-page-node-id="AEQQXc5L1uGYzEE4j7igQ6"><i style="background:#003087" data-page-node-id="DJ12EJF9VmbFcJ455mS8SN"></i>S06 海外财务合规</div>
     <div class="sg-chip" data-page-node-id="j7sCe2Qx5Cj1SCLIkqkS1T"><i style="background:#003087" data-page-node-id="VwZ2VCFgGwU3UakgYbI0CP"></i>S08 财务组织+主数据统一规范</div>
     <div class="sg-chip" data-page-node-id="WuaK1A0U88hX8DugWLgrho"><i style="background:#003087" data-page-node-id="fwPeHjBLfBQVfWkt3riHzv"></i>S09 应收清账共享平台建设</div>
   </div>
+  <!-- SG2 · 计划制造域 -->
   <div class="sg-circle" id="sg2" data-page-node-id="EoLTYsn9g5Wb7KNuUdhqlX">
     <div class="sg-title" data-page-node-id="RHzNVDNRoLOsNcGIvfdMpP">SG2 · 计划制造域</div>
     <div class="sg-chip" data-page-node-id="kjZg1tVid9wHUNWU9Nvcu4"><i style="background:#2374a3" data-page-node-id="kaL8qmXX0TpRFCJG8yCOFa"></i>S18 主生产计划MPS建设</div>
     <div class="sg-chip" data-page-node-id="SNm0orEUhFSNFPdt0PBw2u"><i style="background:#2374a3" data-page-node-id="yD88CXQowEOWUrkiECyBk2"></i>S19 MRP物料需求计划</div>
+  </div>
+  <!-- SG3 · 采购域（新增） -->
+  <div class="sg-circle" id="sg3" data-page-node-id="sg3-circle-main">
+    <div class="sg-title" data-page-node-id="sg3-title">SG3 · 采购域</div>
+    <div class="sg-chip" data-page-node-id="sg3-s14"><i style="background:#1F70C1" data-page-node-id="sg3-i14"></i>S14 采购价格透明化与比价分析</div>
+    <div class="sg-chip" data-page-node-id="sg3-s17"><i style="background:#1F70C1" data-page-node-id="sg3-i17"></i>S17 库存多维度查询体系</div>
   </div>
 </div>
 </div>
@@ -52,39 +61,41 @@
   <span data-page-node-id="oAlC9EOtNeVPjBnySUKXQ5"><i class="dot" style="background:#003087" data-page-node-id="PZI5V2YPbnsFjOlwS7CILI"></i>一期 · 2026</span>
   <span data-page-node-id="uNzn7ctE6Mp76uypWv10VB"><i class="dot" style="background:#2374a3" data-page-node-id="8tTfrzwiUpkIyhDmu2446G"></i>二期 · 2027</span>
   <span data-page-node-id="uKFCsymt7Q7BiVpGHLM9Zn"><i class="dot" style="background:#89c4e8" data-page-node-id="hDQvuv7H49cKAm3FvYMoXw"></i>三期 · 2028</span>
+  <span data-page-node-id="legend-cross"><i class="dot" style="background:#1F70C1" data-page-node-id="legend-cross-dot"></i>一期/二期 · 跨期</span>
   <span data-page-node-id="qFyfEMFdHKvJMSsGX9yQMw"><i class="ring" data-page-node-id="K27PO0iyWW2Z622uaTD3uC"></i>场景组（SG）</span>
 </div>
 <script>
 (function(){
+  // 散点数据：SG成员(S06/S08/S09/S18/S19/S14/S17)不在此处显示，仅在大圆内展示
   var scenarios = [
-    // 一期 - 2026（散点9个；S06/S08/S09 并入 SG1 场景组，不再单独显示）
+    // 一期 - 2026（10个散点；S06/S08/S09 并入 SG1）
     {id:'S01',name:'物料主数据治理',bv:5.0,td:4.5,p:'一期',c:'#003087'},
     {id:'S02',name:'客户信用管理',bv:4.5,td:4.5,p:'一期',c:'#003087'},
-    {id:'S05',name:'销售订单全链路追踪',bv:3.4,td:4.2,p:'二期',c:'#2374a3'},
+    {id:'S03',name:'跨公司转卖模式优化',bv:3.8,td:3.6,p:'一期',c:'#003087'},
+    {id:'S05',name:'销售订单全链路追踪',bv:3.4,td:4.2,p:'一期',c:'#003087'},
     {id:'S07',name:'制造成本还原',bv:4.8,td:4.5,p:'一期',c:'#003087'},
     {id:'S11',name:'按客户销售项目核算和分析方案',bv:4.3,td:3.3,p:'一期',c:'#003087'},
     {id:'S12',name:'研发投入产出分析体系建设',bv:4.5,td:3.5,p:'一期',c:'#003087'},
-    {id:'S13',name:'供应商交期与供应商绩效管理方案',bv:4.2,td:3.8,p:'二期',c:'#2374a3'},
-    {id:'S14',name:'采购价格透明化与比价分析体系',bv:4.1,td:3.8,p:'二期',c:'#2374a3'},
     {id:'S15',name:'采购配额管理与订单分配智能化',bv:4.5,td:3.5,p:'一期',c:'#003087'},
     {id:'S16',name:'产前齐套性预警与跟踪',bv:4.3,td:3.6,p:'一期',c:'#003087'},
-    {id:'S17',name:'库存多维度查询体系',bv:3.6,td:4.5,p:'三期',c:'#89c4e8'},
-    // 二期 - 2027（散点5个；S18/S19 并入 SG2 场景组）
-    {id:'S03',name:'跨公司转卖模式优化',bv:3.8,td:3.6,p:'一期',c:'#003087'},
+    {id:'S23',name:'BOM全生命周期建设',bv:3.3,td:3.8,p:'一期',c:'#003087'},
+    // 二期 - 2027（2个散点；S18/S19 并入 SG2）
     {id:'S04',name:'销售价格与折扣管理体系优化',bv:3.2,td:4.2,p:'二期',c:'#2374a3'},
     {id:'S10',name:'集团合并报表建设',bv:3.2,td:4.5,p:'二期',c:'#2374a3'},
-    {id:'S23',name:'BOM全生命周期建设',bv:3.3,td:3.8,p:'一期',c:'#003087'},
-    // 三期 - 2028 (4个)
+    // 三期 - 2028（3个散点）
     {id:'S20',name:'生产进度看板',bv:3.9,td:3.6,p:'三期',c:'#89c4e8'},
     {id:'S21',name:'质量追溯建设',bv:3.0,td:2.6,p:'三期',c:'#89c4e8'},
-    {id:'S22',name:'质量合格率统计分析',bv:3.0,td:2.3,p:'三期',c:'#89c4e8'}
+    {id:'S22',name:'质量合格率统计分析',bv:3.0,td:2.3,p:'三期',c:'#89c4e8'},
+    // 一期/二期 - 跨期（1个散点；S14/S17 并入 SG3）
+    {id:'S13',name:'供应商交期与供应商绩效管理方案',bv:4.2,td:3.8,p:'一期/二期',c:'#1F70C1'}
   ];
 
   // 场景组（来源：佛照_高价值业务专题方案清单_V3.xlsx B列「场景组」）
-  // pos = 大圆中心在图内的数据坐标（用户指定位置）
+  // pos = 大圆中心在图内的数据坐标
   var groups = [
     {id:'SG1', desc:'财务域', members:['S06','S08','S09'], pos:{x:2.5, y:3.05}},
-    {id:'SG2', desc:'计划制造域', members:['S18','S19'], pos:{x:4.42, y:2.6}}
+    {id:'SG2', desc:'计划制造域', members:['S18','S19'], pos:{x:4.42, y:2.6}},
+    {id:'SG3', desc:'采购域', members:['S14','S17'], pos:{x:3.85, y:4.15}}
   ];
 
   var labelPlugin = {
@@ -107,27 +118,24 @@
       });
       if (!pts.length) return;
 
-      // 8 个候选方向：上、下、右、左、左上、右上、左下、右下
-      // 优先级：上下（文字横放，最省空间）> 左右 > 斜角
       var DIRS = [
-        {key:'T',  dx:0,  dy:-1, ax:'center', bl:'bottom'}, // 上
-        {key:'B',  dx:0,  dy: 1, ax:'center', bl:'top'   }, // 下
-        {key:'R',  dx: 1, dy:0,  ax:'left',   bl:'middle'}, // 右
-        {key:'L',  dx:-1, dy:0,  ax:'right',  bl:'middle'}, // 左
-        {key:'TL', dx:-1, dy:-1, ax:'right',  bl:'bottom'}, // 左上
-        {key:'TR', dx: 1, dy:-1, ax:'left',   bl:'bottom'}, // 右上
-        {key:'BL', dx:-1, dy: 1, ax:'right',  bl:'top'   }, // 左下
-        {key:'BR', dx: 1, dy: 1, ax:'left',   bl:'top'   }  // 右下
+        {key:'T',  dx:0,  dy:-1, ax:'center', bl:'bottom'},
+        {key:'B',  dx:0,  dy:1,  ax:'center', bl:'top'   },
+        {key:'R',  dx:1, dy:0,  ax:'left',   bl:'middle'},
+        {key:'L',  dx:-1, dy:0,  ax:'right',  bl:'middle'},
+        {key:'TL', dx:-1, dy:-1, ax:'right',  bl:'bottom'},
+        {key:'TR', dx:1,  dy:-1, ax:'left',   bl:'bottom'},
+        {key:'BL', dx:-1, dy:1,  ax:'right',  bl:'top'   },
+        {key:'BR', dx:1,  dy:1,  ax:'left',   bl:'top'   }
       ];
 
       function makeBox(p, dir, extraDist) {
-        var dist = p.r + 6 + (extraDist || 0); // 紧贴气泡，仅 6px 间隙
+        var dist = p.r + 6 + (extraDist || 0);
         var text = p.s.id + ' ' + p.s.name;
         var w = ctx.measureText(text).width + padX * 2;
         var h = fontSize + padY * 2;
         var bx = p.x + dir.dx * dist;
         var by = p.y + dir.dy * dist;
-        // 根据 textAlign/textBaseline 换算盒子左上角
         var boxX = bx, boxY = by;
         if (dir.ax === 'center') boxX -= w / 2;
         else if (dir.ax === 'right') boxX -= w;
@@ -143,8 +151,8 @@
                box.boxY + box.h <= area.bottom + 2;
       }
       function boxOverlap(a, b) {
-        return a.boxX < b.boxX + b.w && a.boxX + a.w > b.boxX &&
-               a.boxY < b.boxY + b.h && a.boxY + a.h > b.boxY;
+        return a.boxX < b.boxX + b.w && a.boxX + b.w > b.boxX &&
+               a.boxY < b.boxY + b.h && a.boxY + b.h > b.boxY;
       }
       function bubbleOverlap(box, p) {
         var nx = Math.max(box.boxX, Math.min(p.x, box.boxX + box.w));
@@ -153,12 +161,11 @@
         return (ddx*ddx + ddy*ddy) < (p.r * p.r);
       }
 
-      // 逐个放置标签：优先选离气泡最近的可用方向
       var placed = [];
       pts.forEach(function(p){
         var best = null, bestScore = -1;
         DIRS.forEach(function(dir){
-          for (var d = 0; d <= 30; d += 2) { // 最多额外外推 30px
+          for (var d = 0; d <= 30; d += 2) {
             var box = makeBox(p, dir, d);
             if (!inArea(box)) continue;
             var bad = false;
@@ -169,30 +176,25 @@
               if (pts[k].i !== p.i && bubbleOverlap(box, pts[k])) { bad = true; break; }
             }
             if (!bad) {
-              // 评分：优先方向靠前、距离气泡近
               var score = (8 - DIRS.indexOf(dir)) * 1000 + (30 - d);
               if (score > bestScore) { bestScore = score; best = box; }
-              break; // 该方向找到最近可用位置，停止外推
+              break;
             }
           }
         });
         if (!best) {
-          // 如果实在没有不碰撞的位置，选方向优先级最高的，距离最近的位置
           best = makeBox(p, DIRS[0], 0);
         }
-        // 保存到点对象，供绘制使用
         p.boxX = best.boxX; p.boxY = best.boxY;
         p.w = best.w; p.h = best.h;
         p.text = best.text; p.cx = best.cx; p.cy = best.cy;
         placed.push(best);
       });
 
-      // 绘制标签盒
       ctx.save();
       ctx.font = font;
       ctx.lineWidth = 1;
       pts.forEach(function(p){
-        // 白色底框 + 阶段色细边框
         ctx.fillStyle = 'rgba(255,255,255,0.96)';
         ctx.strokeStyle = p.s.c;
         ctx.beginPath();
@@ -200,7 +202,6 @@
         ctx.fill();
         ctx.stroke();
 
-        // 文字居中于盒子
         ctx.fillStyle = '#1B3A6B';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
@@ -214,7 +215,7 @@
     type: 'scatter',
     data: {
       datasets: scenarios.map(function(s){
-        var r = s.p === '一期' ? 18 : s.p === '二期' ? 12 : 7;
+        var r = s.p === '一期' ? 18 : s.p === '二期' ? 12 : s.p === '三期' ? 7 : 14;
         return {
           label: s.id + ' ' + s.name,
           data: [{x: Math.min(s.bv, 5.0), y: s.td}],
@@ -236,7 +237,7 @@
           callbacks: {
             label: function(ctx) {
               var s = scenarios[ctx.datasetIndex];
-              return s.id + ' ' + s.name + ' (BV:' + s.bv + ' TD:' + s.td + ')';
+              return s.id + ' ' + s.name + ' (BV:' + s.bv + ' TD:' + s.td + ') [' + s.p + ']';
             }
           }
         }
@@ -257,7 +258,7 @@
     plugins: [labelPlugin]
   });
 
-  // 场景组大圆定位：按 groups[].pos 的数据坐标换算成画布像素，居中放置
+  // 场景组大圆定位
   var chartRef = Chart.getChart(document.getElementById('quadrantChart'));
   function placeSG() {
     var sx = chartRef.scales.x, sy = chartRef.scales.y;
@@ -271,7 +272,7 @@
     });
   }
   placeSG();
-  setTimeout(placeSG, 300); // 响应式布局稳定后校正一次
+  setTimeout(placeSG, 300);
   window.addEventListener('resize', placeSG);
 })();
 </script>
