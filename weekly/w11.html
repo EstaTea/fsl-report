@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>周报 W10 | FSL 工作台</title>
+<title>周报 W11 | FSL 工作台</title>
 <style>
 :root{--b900:#0B2D47;--b700:#1A4F73;--b500:#2374A3;--b300:#5EA4CE;
       --b100:#C7E2F2;--b050:#EBF5FB;--bg:#F2F7FB;--text:#0F2233;
@@ -102,15 +102,15 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
 <script src="../nav.js"></script>
 
 <div class="hero">
-  <div class="hero-meta">蓝图设计阶段第8周 · V1.0 · 2026-08-28</div>
-  <h1>项目周报 — W10（2026-08-24 ~ 08-28）</h1>
-  <p>8/27召开蓝图汇报评审会，701条需求沉淀23项高价值场景并定稿分期落地策略，全量用户蓝图签署锁定8/31刚性节点，距蓝图阶段收尾（全量签署闭环）倒计时3天</p>
+  <div class="hero-meta">系统实现阶段启动周 · V1.0 · 2026-09-04</div>
+  <h1>项目周报 — W11（2026-08-31 ~ 09-04）</h1>
+  <p>8/31蓝图方案正式签署收官、项目进入系统实现阶段（9/1配置启动）；9/1于海波向管理层专题汇报整体架构与23项高价值场景，本期落地场景由10项扩至14项，距Go-Live（2027-01-01）倒计时约119天</p>
   <div class="hero-chips">
-    <span class="chip">蓝图设计</span>
-    <span class="chip">W10 完成</span>
-    <span class="chip">蓝图汇报通过</span>
-    <span class="chip">23项场景定稿</span>
-    <span class="chip">8-31签署节点</span>
+    <span class="chip">系统实现启动</span>
+    <span class="chip">W11 完成</span>
+    <span class="chip">蓝图签署收官</span>
+    <span class="chip">14项场景对齐</span>
+    <span class="chip">主数据清洗启动</span>
   </div>
 </div>
 
@@ -120,7 +120,7 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
     <span class="sep">›</span>
     <a href="/fsl-report/weekly/">项目周报</a>
     <span class="sep">›</span>
-    <span>W10</span>
+    <span>W11</span>
   </div>
 
   <!-- ── 状态行 ── -->
@@ -130,28 +130,28 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
       <div class="card-title">整体状态</div>
       <div class="status-center">
         <div class="status-dot s-yellow"></div>
-        <div class="s-label">整体黄色（收尾冲刺）</div>
-        <div class="s-week">2026-08-24 ~ 08-28</div>
-        <div class="s-phase">蓝图设计阶段 · W10</div>
+        <div class="s-label">整体黄色（实现启动）</div>
+        <div class="s-week">2026-08-31 ~ 09-04</div>
+        <div class="s-phase">系统实现阶段 · W11</div>
       </div>
     </div>
 
     <div class="card">
       <div class="card-title">详细状态</div>
       <div class="det-row">
-        <span class="det-text">进度：40%（蓝图收尾）</span>
-        <div class="pbar-wrap"><div class="pbar" style="width:40%;background:#FB8C00;"></div></div>
+        <span class="det-text">进度：45%（实现启动）</span>
+        <div class="pbar-wrap"><div class="pbar" style="width:45%;background:#FB8C00;"></div></div>
         <div class="det-ind" style="background:#FB8C00;"></div>
       </div>
       <div class="det-row">
-        <span class="det-text">风险：高 <b style="color:#d32f2f;">2</b> &nbsp;中 <b style="color:#e8a900;">3</b> &nbsp;低 <b style="color:#43A047;">2</b></span>
-        <div class="det-ind" style="background:#E53935;"></div>
+        <span class="det-text">风险：高 <b style="color:#d32f2f;">1</b> &nbsp;中 <b style="color:#e8a900;">3</b> &nbsp;低 <b style="color:#43A047;">1</b></span>
+        <div class="det-ind" style="background:#FB8C00;"></div>
       </div>
       <div class="det-row">
-        <span class="det-text">蓝图签署：<b style="color:#d32f2f;">倒计时3天（8/31）</b></span>
-        <div class="det-ind" style="background:#E53935;"></div>
+        <span class="det-text">蓝图签署：<b style="color:#2E7D32;">已闭环（8/31）</b></span>
+        <div class="det-ind" style="background:#43A047;"></div>
       </div>
-      <div class="sum-box-warn">⚠ 8/27蓝图汇报评审会顺利召开，23项高价值场景分期策略与全套交付物定稿；整体维持黄色（2高/3中/2低），主要压力来自8/31刚性收尾节点与WMS谈判僵局</div>
+      <div class="sum-box-warn">⚠ 8/31蓝图阶段正式收官、全量用户签署闭环；9/1系统配置/开发/测试启动，标志进入系统实现阶段。整体维持黄色（1高/3中/1低），唯一高风险仍来自WMS电子仓谈判僵局。</div>
     </div>
 
     <!-- 项目里程碑追踪 -->
@@ -172,27 +172,21 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
         </div>
         <div class="ms-item">
           <div class="ms-dot ms-done"></div>
-          <span class="ms-label">需求通道截止</span>
-          <span class="ms-date">2026-07-31</span>
-          <span class="ms-days days-blue">✅ 已过</span>
+          <span class="ms-label" style="color:#2E7D32;font-weight:800;">★ 蓝图方案签署（收官8/31）</span>
+          <span class="ms-date">2026-08-27~31</span>
+          <span class="ms-days days-blue">✅ 已闭环</span>
         </div>
         <div class="ms-item">
           <div class="ms-dot ms-now"></div>
-          <span class="ms-label" style="color:#E65100;font-weight:800;">★ 蓝图方案签署（8/31收尾）</span>
-          <span class="ms-date">2026-08-27~31</span>
-          <span class="ms-days days-red">倒计时 3 天</span>
-        </div>
-        <div class="ms-item">
-          <div class="ms-dot ms-plan"></div>
-          <span class="ms-label">系统配置启动</span>
+          <span class="ms-label" style="color:#E65100;font-weight:800;">★ 系统配置启动（进行中）</span>
           <span class="ms-date">2026-09-01</span>
-          <span class="ms-days days-blue">倒计时 4 天</span>
+          <span class="ms-days days-yellow">进行中</span>
         </div>
         <div class="ms-item">
           <div class="ms-dot ms-plan"></div>
           <span class="ms-label" style="font-weight:800;">★ Go-Live 上线切换</span>
           <span class="ms-date">2027-01-01</span>
-          <span class="ms-days days-blue">倒计时 126 天</span>
+          <span class="ms-days days-blue">倒计时 119 天</span>
         </div>
       </div>
       <div class="gantt-note" style="margin-top:8px;">来源：佛照_00项目管理_项目总体实施计划_V1.1_2026725 · <a href="https://docs.qq.com/sheet/DY2RsRUV5WUlrSmtS" target="_blank" style="color:var(--b500);">腾讯文档在线版本 →</a></div>
@@ -200,36 +194,37 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
 
   </div>
 
-  <!-- ── 8/27 蓝图汇报评审会（本周核心） ── -->
+  <!-- ── 9/1 管理层架构对齐专题会（本周核心） ── -->
   <div class="card" style="margin-bottom:14px;border:2px solid var(--b500);background:linear-gradient(135deg,#f0f7fc 0%,#fff 100%);">
-    <div class="card-hd" style="color:var(--b700);border-color:var(--b300);">★ 8/27 蓝图汇报评审会（数智化+财务+企管）· 关键结论</div>
+    <div class="card-hd" style="color:var(--b700);border-color:var(--b300);">★ 9/1 管理层架构对齐专题会（于海波汇报）· 关键结论</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
       <div>
-        <div style="font-size:12px;font-weight:800;color:var(--b900);margin-bottom:6px;">① 23项高价值场景分期策略（2026-2028）</div>
+        <div style="font-size:12px;font-weight:800;color:var(--b900);margin-bottom:6px;">① 整体架构与4A设计</div>
         <ul class="cl">
-          <li><b>2026本期落地10项</b>：统一主数据治理 / 双维制造成本还原 / 研发多维核算 / 精简财务科目 / 渠道信用管控与额度释放 / 供应商分级配额 / N+3滚动计划与齐套校验 / 全链路质量追溯 / BOM-ECN变更 / 海外多币种核算</li>
-          <li><b>2027二期4项</b>：集团统一定价折扣返利 / 销售订单全链路跟踪预警 / 供应商交期绩效量化 / 生产运营可视化看板</li>
-          <li><b>2028远期4项</b>：本地化AI智能审核 / 等保二级安全体系 / 供应链控制塔 / APS高级排产</li>
+          <li>系统架构分5–6层：前端展示（Fiori/Smart BI/OA）→ 核心系统（ERP/财务共享）→ 专业子系统（PLM/MES/APS/WMS/CRM等）→ 集成平台（CPI星状集成）→ 基础架构</li>
+          <li>严格遵循<b>4A架构规范</b>（业务/数据/应用/技术），以业务优先、标准统一、集成优先为设计原则</li>
+          <li>701条原始需求 → 业务痛点 → 4A架构 → <b>23项高价值场景</b>，逐层收敛</li>
         </ul>
-        <div style="font-size:12px;font-weight:800;color:var(--b900);margin:10px 0 6px;">② 数字化成熟度现状</div>
+        <div style="font-size:12px;font-weight:800;color:var(--b900);margin:10px 0 6px;">② 本期落地场景 10项→14项</div>
         <ul class="cl">
-          <li>企业整体数字化成熟度 <b>2.0分</b>、DCMM数据成熟度 <b>2.1分</b>（部门级规范阶段）</li>
-          <li>痛点：系统点对点集成、数据标准不统一、跨部门流程断点多</li>
+          <li>经终端用户→主管→部门负责人三轮沟通，<b>补充业务紧迫性维度</b>，由最初10项扩至<b>14项</b>本期落地</li>
+          <li>管理层要求：按财务/采购/销售/生产<b>模块归类</b>汇报，正式取得业务部门负责人方案确认（非初步沟通）</li>
+          <li>余下9项（2027二期4 + 2028远期4 + 跨期1）分期推进</li>
         </ul>
       </div>
       <div>
-        <div style="font-size:12px;font-weight:800;color:var(--b900);margin-bottom:6px;">③ 五项决策事项</div>
+        <div style="font-size:12px;font-weight:800;color:var(--b900);margin-bottom:6px;">③ 主数据治理全面启动</div>
         <ul class="cl">
-          <li>锁定<b>8/31</b>蓝图阶段收尾节点，按期完成全量执行层用户蓝图签署</li>
-          <li>优化高层汇报材料：思维导图可视化版式、术语通俗化</li>
-          <li>正式确定23项场景分期策略（10项2026落地）</li>
-          <li>8/31前敲定BOM同步接口最终方案，逾期委员会裁决</li>
-          <li>简化周会机制，<b>本周暂停常规周会</b>全力收尾</li>
+          <li><b>11位物料主数据编码</b>规范落地：首位"9"标识新物料、分5段（大类/一级/二级分类），旧数据沿用原编码</li>
+          <li>约<b>90万条</b>主数据（系统使用20年），近半为历史冗余，清洗后仅保留在产与必要物料</li>
+          <li><b>数据治理委员会由修波总牵头</b>，建立长期治理组织与流程，保障上线及未来10年数据健康</li>
         </ul>
-        <div style="font-size:12px;font-weight:800;color:var(--b900);margin:10px 0 6px;">④ 管控与预算规则</div>
+        <div style="font-size:12px;font-weight:800;color:var(--b900);margin:10px 0 6px;">④ BOM与集成定案</div>
         <ul class="cl">
-          <li>2026本期PMO全权管控，暂不设架构审核委员会（2027搭建）</li>
-          <li>三系统集成全面预算系统投入区间 <b>250万-400万</b></li>
+          <li>BOM全生命周期：<b>一期先搭架构、允许误差、二期规范化</b>；完整MRP依赖主数据/BOM精确，需持续管控</li>
+          <li><b>CPI星状集成平台</b>本期启用（具备条件直接用，复杂第三方集成放二期）</li>
+          <li>跨公司销售（三方转卖）高明紧迫，<b>拟一期实现但不强制首期上线</b></li>
+          <li>国资委33文要求<b>26年底财务系统互联互通</b>，预算体系纳入规划</li>
         </ul>
       </div>
     </div>
@@ -242,42 +237,37 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
     <div class="card">
       <div class="card-hd">本周主要成果</div>
 
-      <div class="sec">■ 蓝图汇报评审通过（8/27）</div>
+      <div class="sec">■ 蓝图阶段正式收官（8/31）</div>
       <ul class="cl">
-        <li>累计归集全业务数字化需求<b>701条</b>，去重筛选沉淀<b>23项核心高价值场景</b>，覆盖业务/数据/应用/技术四大架构体系</li>
-        <li>全套交付物（现状调研+4A架构规划+模块专项方案+数据治理+三年数字化转型规划）已统一归档企业云盘</li>
+        <li>全量执行层用户<b>蓝图签署闭环完成</b>，标志蓝图设计阶段结束</li>
+        <li>蓝图汇报V2投影优化版（<b>103页</b>）定稿，思维脑图目录+字号放大+图标卡片重设计</li>
       </ul>
 
-      <div class="sec">■ 23项高价值场景分期定稿</div>
+      <div class="sec">■ 管理层架构对齐（9/1）</div>
       <ul class="cl">
-        <li><b>2026本期10项</b>基础刚需场景落地（主数据治理/双维成本还原/研发多维核算/精简科目/渠道信用/供应商配额/N+3计划齐套/全链路质量追溯/BOM-ECN/海外多币种）</li>
-        <li>2027二期4项协同场景、2028远期4项智慧场景</li>
+        <li>于海波专题汇报整体架构、4A设计与<b>701条→23项高价值场景</b></li>
+        <li>本期落地场景由10项<b>扩展至14项</b>（补充紧迫性维度），按模块归类汇报</li>
+        <li>数字化成熟度<b>2.0分</b>、DCMM数据成熟度<b>2级</b>（目标3级稳健级）</li>
       </ul>
 
-      <div class="sec">■ 数据治理MDG验证完成</div>
+      <div class="sec">■ 主数据治理全面启动</div>
       <ul class="cl">
-        <li>跨部门治理小组两轮会议敲定<b>物料/客商/财务</b>核心主数据标准</li>
-        <li>MDG平台部署、配置、流程验证<b>全部完成</b></li>
-        <li>物料分类预计<b>精简50%</b>；9月启动历史清洗、10月全量迁移</li>
+        <li><b>11位物料编码</b>规范落地（首位9标识新物料），物料/客商/财务核心主数据统一规划</li>
+        <li>约<b>90万条</b>主数据清洗启动，预计清理近半历史冗余</li>
+        <li><b>数据治理委员会修波总牵头</b>，企管部协同定义长效制度</li>
       </ul>
 
-      <div class="sec">■ 模块方案评审收敛</div>
+      <div class="sec">■ 方案定案与集成启动</div>
       <ul class="cl">
-        <li><b>财务</b>：19家SAP主体+非SAP模板报送双层合并报表体系</li>
-        <li><b>采购销售</b>：本期实现比价/价格预警、严控非标接口</li>
-        <li><b>生产</b>：MBOM由车间工艺技术员维护、BOM同步方案8/31前敲定</li>
+        <li>BOM全生命周期一期搭架构、二期规范化；CPI星状集成平台本期启用</li>
+        <li>9/1系统配置/开发/测试启动，转入系统实现阶段</li>
       </ul>
     </div>
 
     <!-- 风险面板 -->
     <div class="card">
-      <div class="card-hd">主要风险（W10更新，共7项）</div>
+      <div class="card-hd">主要风险（W11更新，共5项）</div>
 
-      <div class="ri">
-        <div class="ri-dot ri-r"></div>
-        <div class="ri-txt"><b>蓝图收尾刚性节点（8/31）</b><span class="bdg bdg-r">高</span><br>
-        全量执行层用户蓝图签署 + BOM同步接口方案待8/31闭环，逾期升级项目决策指导委员会裁决</div>
-      </div>
       <div class="ri">
         <div class="ri-dot ri-r"></div>
         <div class="ri-txt"><b>WMS电子仓谈判僵局</b><span class="bdg bdg-r">高</span><br>
@@ -285,68 +275,63 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
       </div>
       <div class="ri">
         <div class="ri-dot ri-y"></div>
-        <div class="ri-txt"><b>生产BOM同步痛点</b><span class="bdg bdg-y">中</span><br>
-        研发与生产BOM不同步、冗余SKU过多，8/31前敲定最终方案，逾期提交委员会</div>
+        <div class="ri-txt"><b>BOM同步与MRP依赖主数据精确</b><span class="bdg bdg-y">中</span><br>
+        一期允许误差，但完整MRP运行依赖主数据/BOM精确，需持续管控变更与同步</div>
       </div>
       <div class="ri">
         <div class="ri-dot ri-y"></div>
-        <div class="ri-txt"><b>跨公司销售"无存货"合规争议待执行</b><span class="bdg bdg-y">中</span><br>
+        <div class="ri-txt"><b>跨公司销售"无存货"合规执行</b><span class="bdg bdg-y">中</span><br>
         8/27已向高层汇报，审计/税务合规结论的落地执行需持续跟进</div>
       </div>
       <div class="ri">
         <div class="ri-dot ri-y"></div>
-        <div class="ri-txt"><b>MM蓝图进度仅约25% + 关键用户投入不足</b><span class="bdg bdg-y">中</span><br>
-        MM模块蓝图进度落后，关键用户时间投入不足影响评审效率</div>
+        <div class="ri-txt"><b>MM模块关键用户投入不足</b><span class="bdg bdg-y">中</span><br>
+        蓝图已签，转实现阶段需保障关键用户时间投入与配置评审效率</div>
       </div>
       <div class="ri">
         <div class="ri-dot ri-g"></div>
-        <div class="ri-txt"><b>主数据89万条清洗窗口紧张</b><span class="bdg bdg-g">低</span><br>
-        8月底启动清洗，89万条物料数据量巨大，分类清理/描述规范化/清洗规则三项交付均在8.31截止</div>
-      </div>
-      <div class="ri">
-        <div class="ri-dot ri-g"></div>
-        <div class="ri-txt"><b>SD销售组织架构维持现状的长期适配性</b><span class="bdg bdg-g">低</span><br>
-        当前决议维持现有架构，未来渠道变革可能需再次评估</div>
+        <div class="ri-txt"><b>主数据90万条清洗窗口</b><span class="bdg bdg-g">低</span><br>
+        已启动，清洗质量、编码规范与10月全量迁移窗口并重</div>
       </div>
 
       <div style="margin-top:10px;font-size:11px;font-weight:700;color:var(--b900);">
-        风险摘要 &nbsp; 高 <b style="color:#d32f2f;">2</b> &nbsp;｜&nbsp; 中 <b style="color:#e8a900;">3</b> &nbsp;｜&nbsp; 低 <b style="color:#43A047;">2</b>
+        风险摘要 &nbsp; 高 <b style="color:#d32f2f;">1</b> &nbsp;｜&nbsp; 中 <b style="color:#e8a900;">3</b> &nbsp;｜&nbsp; 低 <b style="color:#43A047;">1</b>
       </div>
     </div>
 
     <!-- 下一步计划 -->
     <div class="card">
-      <div class="card-hd">下一步计划（W11，08-31 ~ 09-04）</div>
+      <div class="card-hd">下一步计划（W12，09-07 ~ 09-11）</div>
 
-      <div class="sec" style="margin-top:0;">■ 蓝图收尾闭环（8/31）</div>
+      <div class="sec" style="margin-top:0;">■ 系统实现全面推进</div>
       <ul class="cl">
-        <li>100%完成<b>全量执行层用户蓝图签署</b>闭环</li>
-        <li>敲定<b>BOM同步接口</b>最终方案</li>
-        <li>完成高层汇报材料终版（90分钟、思维导图可视化、业务价值导向）</li>
+        <li>系统配置/开发/测试全面铺开，<b>14项一期场景</b>配置落地</li>
+        <li>专题深研最难5个场景（物料/订单/制造成本/BOM/研发投入）</li>
+        <li>正式取得业务部门负责人方案确认（治理闭环）</li>
       </ul>
 
-      <div class="sec">■ 系统实现阶段筹备</div>
+      <div class="sec">■ 数据治理与迁移</div>
       <ul class="cl">
-        <li>9月启动历史数据清洗（物料/BOM/客商/财务分包推进）</li>
-        <li>10月全量数据迁移</li>
-        <li>2027正式搭建架构审核机制（本期PMO全权管控）</li>
-      </ul>
+        <li>主数据清洗（物料/BOM/客商/财务分包推进）</li>
+        <li><b>10月全量数据迁移</b></li>
+        <li>数据治理委员会运作，建立长效组织与流程</li>
+      </div>
 
       <div class="sec">■ 持续跟进</div>
       <ul class="cl">
         <li>WMS电子仓谈判解冻与应急预案落地</li>
         <li>跨公司销售"无存货"合规结论执行</li>
-        <li>MM蓝图进度追赶与关键用户投入保障</li>
+        <li>MM关键用户投入保障与配置进度管控</li>
       </ul>
 
       <div class="sum-box-warn" style="margin-top:12px;">
-        <b>W11 是蓝图阶段收尾周：</b>8/31为全量用户蓝图签署与BOM方案闭环的刚性节点，逾期升级委员会。收尾完成后即切换至系统实现阶段（9/1配置启动）。
+        <b>W12 是系统实现阶段首个工作周：</b>重心由蓝图收尾转向配置/开发/测试，14项一期场景落地与90万主数据清洗并行，WMS谈判为唯一高风险待解项。
       </div>
     </div>
 
     <!-- 本周会议明细 -->
     <div class="card">
-      <div class="card-hd">W10 关键会议明细（08-24 ~ 08-28）</div>
+      <div class="card-hd">W11 关键会议明细（08-31 ~ 09-04）</div>
       <div style="overflow-x:auto;">
         <table class="ftable">
           <thead>
@@ -360,32 +345,32 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
           </thead>
           <tbody>
             <tr>
-              <td style="white-space:nowrap;font-weight:700;color:var(--b700);">08-27（周四）</td>
-              <td><b>项目蓝图汇报评审会</b><br><span style="font-size:10px;color:var(--muted);">数智化+财务+企管</span></td>
-              <td>评审整体数字化转型方案、四大架构规划、各业务模块专项方案、高价值场景分期策略、数据治理规则及高层汇报标准</td>
-              <td style="color:#2E7D32;font-size:11px;">701条→23项场景定稿；5项决策；8项行动；锁定8/31收尾</td>
+              <td style="white-space:nowrap;font-weight:700;color:var(--b700);">08-31（周一）</td>
+              <td><b>蓝图阶段收官</b><br><span style="font-size:10px;color:var(--muted);">全量签署闭环</span></td>
+              <td>全量执行层用户蓝图签署闭环；蓝图汇报V2投影优化版（103页）定稿</td>
+              <td style="color:#2E7D32;font-size:11px;">蓝图设计阶段结束✅</td>
               <td style="text-align:center;"><span style="background:#E8F5E9;color:#2E7D32;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">完成✅</span></td>
             </tr>
             <tr>
-              <td style="white-space:nowrap;font-weight:700;color:var(--b700);">全周</td>
-              <td><b>常规周会（暂停）</b></td>
-              <td>决策5明确简化周会机制，取消单人逐一汇报，聚焦方案评审与问题闭环</td>
-              <td style="color:var(--b500);font-size:11px;">本周暂停常规周会，全力推进蓝图收尾</td>
-              <td style="text-align:center;"><span style="background:#E8F5E9;color:#2E7D32;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">执行✅</span></td>
+              <td style="white-space:nowrap;font-weight:700;color:var(--b700);">09-01（周二）</td>
+              <td><b>管理层架构对齐专题会</b><br><span style="font-size:10px;color:var(--muted);">于海波汇报</span></td>
+              <td>汇报整体架构、4A设计与701条→23项场景；系统配置/开发/测试启动</td>
+              <td style="color:#2E7D32;font-size:11px;">本期场景10→14项；修波总牵头数治委；CPI本期启用</td>
+              <td style="text-align:center;"><span style="background:#E8F5E9;color:#2E7D32;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">完成✅</span></td>
             </tr>
             <tr>
-              <td style="white-space:nowrap;font-weight:700;color:var(--b700);">08-28前</td>
-              <td><b>模块方案优化归档</b></td>
-              <td>各模块负责人补充业务落地价值、删减冗余技术话术，修订后归档企业云盘；对接业务线一把手方案对齐</td>
-              <td style="color:#E65100;font-size:11px;">行动项1/2/6（8-27~8-28截止）推进中</td>
+              <td style="white-space:nowrap;font-weight:700;color:var(--b700);">09-01起</td>
+              <td><b>系统实现阶段启动</b></td>
+              <td>配置/开发/测试团队进场，转入系统实现</td>
+              <td style="color:var(--b500);font-size:11px;">实现阶段启动</td>
               <td style="text-align:center;"><span style="background:#FFF8E1;color:#F57F17;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">进行中</span></td>
             </tr>
             <tr>
-              <td style="white-space:nowrap;font-weight:700;color:var(--b700);">08-31前</td>
-              <td><b>蓝图签署 + BOM方案</b></td>
-              <td>全量执行层用户蓝图签署；BOM同步接口最终方案评审确认</td>
-              <td style="color:#E65100;font-size:11px;">行动项4/5（8-31刚性节点）</td>
-              <td style="text-align:center;"><span style="background:#FFF8E1;color:#F57F17;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">待办</span></td>
+              <td style="white-space:nowrap;font-weight:700;color:var(--b700);">本周</td>
+              <td><b>主数据清洗启动</b></td>
+              <td>11位编码规范落地，约90万条主数据清洗（近半冗余）</td>
+              <td style="color:var(--b500);font-size:11px;">数治委修波总牵头</td>
+              <td style="text-align:center;"><span style="background:#FFF8E1;color:#F57F17;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">进行中</span></td>
             </tr>
           </tbody>
         </table>
@@ -393,24 +378,24 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
 
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
         <div style="flex:1;min-width:150px;background:#E8F5E9;border-radius:var(--r);padding:10px 14px;border-left:3px solid #43A047;">
-          <div style="font-size:11px;font-weight:800;color:#2E7D32;margin-bottom:4px;">✅ 蓝图汇报通过</div>
-          <div style="font-size:20px;font-weight:800;color:var(--b900);">8/27</div>
-          <div style="font-size:10.5px;color:var(--muted);">评审会顺利召开</div>
+          <div style="font-size:11px;font-weight:800;color:#2E7D32;margin-bottom:4px;">✅ 蓝图签署收官</div>
+          <div style="font-size:20px;font-weight:800;color:var(--b900);">8/31</div>
+          <div style="font-size:10.5px;color:var(--muted);">全量闭环</div>
         </div>
         <div style="flex:1;min-width:150px;background:var(--b050);border-radius:var(--r);padding:10px 14px;border-left:3px solid var(--b500);">
-          <div style="font-size:11px;font-weight:800;color:var(--b700);margin-bottom:4px;">✅ 需求归集</div>
-          <div style="font-size:20px;font-weight:800;color:var(--b900);">701→23</div>
-          <div style="font-size:10.5px;color:var(--muted);">条需求沉淀场景</div>
+          <div style="font-size:11px;font-weight:800;color:var(--b700);margin-bottom:4px;">✅ 落地场景</div>
+          <div style="font-size:20px;font-weight:800;color:var(--b900);">10→14</div>
+          <div style="font-size:10.5px;color:var(--muted);">本期扩展</div>
         </div>
         <div style="flex:1;min-width:150px;background:var(--b050);border-radius:var(--r);padding:10px 14px;border-left:3px solid var(--b500);">
-          <div style="font-size:11px;font-weight:800;color:var(--b700);margin-bottom:4px;">✅ MDG验证</div>
-          <div style="font-size:20px;font-weight:800;color:var(--b900);">100%</div>
-          <div style="font-size:10.5px;color:var(--muted);">部署配置验证完成</div>
+          <div style="font-size:11px;font-weight:800;color:var(--b700);margin-bottom:4px;">✅ 主数据</div>
+          <div style="font-size:20px;font-weight:800;color:var(--b900);">90万</div>
+          <div style="font-size:10.5px;color:var(--muted);">条清洗启动</div>
         </div>
         <div style="flex:2;min-width:220px;background:#FFF8E1;border-radius:var(--r);padding:10px 14px;border-left:3px solid #FB8C00;">
-          <div style="font-size:11px;font-weight:800;color:#E65100;margin-bottom:4px;">⚠ W10 收官总结</div>
+          <div style="font-size:11px;font-weight:800;color:#E65100;margin-bottom:4px;">⚠ W11 收官总结</div>
           <div style="font-size:11.5px;color:var(--text);line-height:1.6;">
-            8/27蓝图汇报评审会是本周最大里程碑——701条需求沉淀为23项高价值场景并定稿分期策略，四大架构方案与全套交付物归档。整体维持黄色（2高/3中/2低），8/31刚性收尾节点（全量签署+BOM方案）与WMS谈判僵局是W11重点。本周常规周会暂停，全力收尾。
+            8/31蓝图签署闭环、蓝图设计阶段正式收官；9/1于海波向管理层专题汇报整体架构与23项场景，本期落地由10项扩至14项，主数据治理（11位编码、90万清洗、修波总牵头）全面启动，CPI星状集成本期启用。整体维持黄色（1高/3中/1低），WMS谈判僵局为唯一高风险。
           </div>
         </div>
       </div>
@@ -427,18 +412,18 @@ footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
       📊 查看项目总体进度甘特图 →
     </a>
     &nbsp;&nbsp;
-    <a href="/fsl-report/weekly/w9.html"
+    <a href="/fsl-report/weekly/w10.html"
        style="display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--b700);
               border:1.5px solid var(--b300);padding:10px 24px;border-radius:var(--r);
               font-size:13px;font-weight:700;text-decoration:none;">
-      ← W9 周报
+      ← W10 周报
     </a>
     &nbsp;&nbsp;
-    <a href="/fsl-report/weekly/w11.html"
+    <a href="/fsl-report/weekly/w12.html"
        style="display:inline-flex;align-items:center;gap:8px;background:var(--b050);color:var(--b700);
               border:1.5px solid var(--b300);padding:10px 24px;border-radius:var(--r);
-              font-size:13px;font-weight:700;text-decoration:none;">
-      W11 周报 →
+              font-size:13px;font-weight:700;text-decoration:none;opacity:.6;">
+      W12 周报 →（待撰写）
     </a>
   </div>
 
