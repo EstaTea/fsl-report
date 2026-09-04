@@ -134,8 +134,8 @@ td:hover .opinion-full{display:block}
   <select id="f-phase"><option value="">全部</option></select>
   <label>TOGAF 4A</label>
   <select id="f-4a"><option value="">全部</option></select>
-  <label>范围</label>
-  <select id="f-scope"><option value="">全部</option></select>
+  <label>高价值场景</label>
+  <select id="f-snn"><option value="">全部</option></select>
   <label>部门</label>
   <select id="f-dept"><option value="">全部 (TOP15)</option></select>
   <input type="text" id="f-keyword" placeholder="关键词搜索（需求编号/简述/专题/处理意见）...">
@@ -242,10 +242,12 @@ function populateFilters(filters) {
   };
   setOpts('f-phase', filters.phase_labels);
   setOpts('f-4a', filters.togaf_4as, 'label', 'key');
-  // Scope
-  filters.scope_classes?.forEach(it => {
-    const o = document.createElement('option'); o.value=it.code; o.textContent=it.label+' ('+it.count+')';
-    document.getElementById('f-scope').appendChild(o);
+  // 高价值场景 (SNN)
+  const snnCounts = {};
+  allData.forEach(r => { if(r.snn) snnCounts[r.snn] = (snnCounts[r.snn]||0)+1; });
+  Object.keys(snnCounts).sort().forEach(k => {
+    const o = document.createElement('option'); o.value=k; o.textContent=k+' ('+snnCounts[k]+')';
+    document.getElementById('f-snn').appendChild(o);
   });
   setOpts('f-dept', filters.departments?.slice(0,15));
 }
@@ -253,17 +255,14 @@ function populateFilters(filters) {
 function applyFilters() {
   const phase = document.getElementById('f-phase').value;
   const fa4   = document.getElementById('f-4a').value;
-  const scope = document.getElementById('f-scope').value;
+  const snn   = document.getElementById('f-snn').value;
   const dept  = document.getElementById('f-dept').value;
   const kw    = document.getElementById('f-keyword').value.trim().toLowerCase();
 
   filteredData = allData.filter(r => {
     if (phase && r.phase_label !== phase) return false;
     if (fa4 && r.togaf_4a_short !== fa4) return false;
-    if (scope) {
-      const scopeMap = {'in':'纳入','out':'溢出'};
-      if (r.scope_class !== (scopeMap[scope] || scope)) return false;
-    }
+    if (snn && r.snn !== snn) return false;
     if (dept && r.dept !== dept) return false;
     if (kw) {
       const searchable = [r.req_id,r.detail,r.topic,r.opinion,r.snn_full,r.domain,r.category,r.system_owner,r.sap_module,r.meeting_detail].join(' ').toLowerCase();

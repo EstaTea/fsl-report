@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>22系统处理策略四象限图</title>
+<title>系统处理策略四象限图</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
@@ -12,6 +12,9 @@
   h1{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
      font-size:18px;font-weight:700;color:#1B3A6B;margin-bottom:12px;text-align:center}
   .chart-box{position:relative;width:100%;max-width:960px;height:72vh;min-height:340px}
+  .legend-row{display:flex;gap:18px;margin-top:10px;flex-wrap:wrap;justify-content:center}
+  .legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:#334155}
+  .dot{width:12px;height:12px;border-radius:50%;display:inline-block;border:1.5px solid rgba(255,255,255,.6)}
 </style>
 </head>
 <body>
@@ -19,44 +22,65 @@
 <div class="chart-box">
   <canvas id="strategyChart"></canvas>
 </div>
+<div class="legend-row" id="legend"></div>
 <script>
 (function(){
-  var C = {
-    navy:'#003087', dark:'#1B3A6B', primary:'#005EB8', mid:'#1F70C1',
-    steel:'#4A6FA5', muted:'#6B8CB8', light:'#A8C4E0', pale:'#D0E4F7'
+  /* ===== 五类策略色板（Gartner 蓝色系梯度） ===== */
+  var CAT = {
+    '本期引入': { color: '#003087', order: 1 },   // 深蓝 — 最醒目，本期新进
+    '新规划':   { color: '#2374a3', order: 2 },   // 中蓝 accent — 规划中
+    '升级':     { color: '#1F70C1', order: 3 },   // 主蓝 — 现有系统升级
+    '保留+集成': { color: '#5B7FA0', order: 4 },   // 钢蓝 — 保留并对接
+    '保留':     { color: '#B8D0E8', order: 5 }    // 浅蓝 — 仅保留不动
   };
+
   var systems = [
-    /* ===== 核心升级（深蓝，左上区域）===== */
-    { x: 3.3, y: 4.5, label: 'ECC→S/4HANA', r: 40, color: C.navy },
-    { x: 2.8, y: 4.6, label: 'MDG(新引入)', r: 26, color: C.primary },
-    { x: 2.6, y: 3.6, label: 'Group Rpt(新引入)', r: 24, color: C.primary },
-    /* ===== 新规划（主蓝，左下区域）===== */
-    { x: 4.6, y: 4.5, label: '经销商管理平台(新规划)', r: 20, color: C.primary },
-    { x: 1.9, y: 1.8, label: '差旅报销(新规划)', r: 18, color: C.mid },
-    { x: 2.3, y: 3.9, label: '数据中台(新规划)', r: 22, color: C.primary },
-    { x: 2.1, y: 4.5, label: '供应链控制塔(新规划)', r: 24, color: C.navy },
-    { x: 5.0, y: 5.0, label: '全面预算(新规划)', r: 22, color: C.primary },
-    { x: 4.5, y: 1.8, label: '可视化大屏(新规划)', r: 20, color: C.mid },
-    /* ===== 升级改造（中蓝，中左区域）===== */
-    { x: 2.5, y: 2.9, label: 'WM→EWM(升级)', r: 24, color: C.mid },
-    { x: 3.0, y: 2.5, label: '联通 WMS(保留+集成)', r: 24, color: C.steel },
-    { x: 1.6, y: 2.5, label: 'CPI(升级)', r: 24, color: C.mid },
-    /* ===== 保留+集成（钢蓝，均匀分布中右区域）===== */
-    { x: 2.5, y: 2.0, label: '网上商城(保留+集成)', r: 22, color: C.steel },
-    { x: 3.8, y: 4.2, label: 'PLM(保留+集成)', r: 22, color: C.steel },
-    { x: 4.4, y: 3.6, label: 'SRM(保留+集成)', r: 22, color: C.steel },
-    { x: 3.2, y: 1.9, label: 'CRM(保留+集成)', r: 22, color: C.steel },
-    { x: 4.0, y: 2.8, label: 'MES(保留+集成)', r: 22, color: C.steel },
-    { x: 3.5, y: 3.3, label: '聚水潭(保留+集成)', r: 19, color: C.steel },
-    { x: 3.3, y: 3.8, label: '财务共享(保留+集成)', r: 20, color: C.steel },
-    { x: 4.2, y: 2.2, label: '防伪防窜(保留+集成)', r: 17, color: C.muted },
-    { x: 3.6, y: 2.4, label: '迎才物流(保留+集成)', r: 18, color: C.muted },
-    /* ===== 仅保留（浅蓝，右下角分散）===== */
-    { x: 3.5, y: 1.2, label: '电子签章(保留)', r: 16, color: C.light },
-    { x: 2.8, y: 1.2, label: '电商报价(保留)', r: 16, color: C.light },
-    { x: 4.7, y: 2.5, label: '领星电商(保留)', r: 16, color: C.light },
-    { x: 4.6, y: 3.0, label: 'SmartBI(保留)', r: 18, color: C.muted }
+    /* ===== 本期引入（#003087 深蓝）===== */
+    { x: 2.8, y: 4.6, label: 'MDG(本期引入)', cat: '本期引入', r: 26 },
+    { x: 2.6, y: 3.6, label: 'Group Rpt(本期引入)', cat: '本期引入', r: 24 },
+    { x: 1.6, y: 2.5, label: 'CPI(本期引入)', cat: '本期引入', r: 24 },
+
+    /* ===== 新规划（#2374a3 中蓝）===== */
+    { x: 4.6, y: 4.5, label: '经销商管理平台(新规划)', cat: '新规划', r: 20 },
+    { x: 1.9, y: 1.8, label: '差旅报销(新规划)', cat: '新规划', r: 18 },
+    { x: 2.3, y: 3.9, label: '数据中台(新规划)', cat: '新规划', r: 22 },
+    { x: 2.1, y: 4.5, label: '供应链控制塔(新规划)', cat: '新规划', r: 24 },
+    { x: 5.0, y: 5.0, label: '全面预算(新规划)', cat: '新规划', r: 22 },
+    { x: 4.5, y: 1.8, label: '可视化大屏(新规划)', cat: '新规划', r: 20 },
+    { x: 4.3, y: 4.9, label: 'AI 场景落地(新规划)', cat: '新规划', r: 20 },
+
+    /* ===== 升级（#1F70C1 主蓝）===== */
+    { x: 3.3, y: 4.5, label: 'ECC→S/4HANA(升级)', cat: '升级', r: 40 },
+    { x: 2.5, y: 2.9, label: 'WM→EWM(升级)', cat: '升级', r: 24 },
+
+    /* ===== 保留+集成（#5B7FA0 钢蓝）===== */
+    { x: 3.0, y: 2.5, label: '联通 WMS(保留+集成)', cat: '保留+集成', r: 24 },
+    { x: 2.5, y: 2.0, label: '网上商城(保留+集成)', cat: '保留+集成', r: 22 },
+    { x: 3.8, y: 4.2, label: 'PLM(保留+集成)', cat: '保留+集成', r: 22 },
+    { x: 4.4, y: 3.6, label: 'SRM(保留+集成)', cat: '保留+集成', r: 22 },
+    { x: 3.2, y: 1.9, label: 'CRM(保留+集成)', cat: '保留+集成', r: 22 },
+    { x: 4.0, y: 2.8, label: 'MES(保留+集成)', cat: '保留+集成', r: 22 },
+    { x: 3.5, y: 3.3, label: '聚水潭(保留+集成)', cat: '保留+集成', r: 19 },
+    { x: 3.3, y: 3.8, label: '财务共享(保留+集成)', cat: '保留+集成', r: 20 },
+    { x: 4.2, y: 2.2, label: '防伪防窜(保留+集成)', cat: '保留+集成', r: 17 },
+    { x: 3.6, y: 2.4, label: '迎才物流(保留+集成)', cat: '保留+集成', r: 18 },
+
+    /* ===== 保留（#B8D0E8 浅蓝）===== */
+    { x: 3.5, y: 1.2, label: '电子签章(保留)', cat: '保留', r: 16 },
+    { x: 2.8, y: 1.2, label: '电商报价(保留)', cat: '保留', r: 16 },
+    { x: 4.7, y: 2.5, label: '领星电商(保留)', cat: '保留', r: 16 },
+    { x: 4.6, y: 3.0, label: 'SmartBI(保留)', cat: '保留', r: 18 }
   ];
+
+  // 构建图例（按 order 排序）
+  var legendEl = document.getElementById('legend');
+  Object.keys(CAT).sort(function(a,b){ return CAT[a].order - CAT[b].order; }).forEach(function(k){
+    var c = CAT[k].color;
+    var span = document.createElement('span');
+    span.className = 'legend-item';
+    span.innerHTML = '<i class="dot" style="background:' + c + ';border-color:' + c + '"></i>' + k;
+    legendEl.appendChild(span);
+  });
 
   var labelPlugin = {
     id: 'customLabels',
@@ -68,7 +92,6 @@
         var point = meta.data[0];
         if (!point) return;
 
-        // 统一放在气泡正下方，间距随气泡半径自适应
         var gap = 10;
         var bubbleR = dataset.data[0] && dataset.data[0].r ? dataset.data[0].r : 20;
         var off = { dx: 0, dy: bubbleR + gap, align: 'center', baseline: 'top' };
@@ -109,11 +132,12 @@
     type: 'bubble',
     data: {
       datasets: systems.map(function(s){
+        var c = CAT[s.cat] ? CAT[s.cat].color : '#1B3A6B';
         return {
           label: s.label,
           data: [{ x: s.x, y: s.y, r: s.r }],
-          backgroundColor: s.color + 'CC',
-          borderColor: s.color,
+          backgroundColor: c + 'CC',
+          borderColor: c,
           borderWidth: 1.5
         };
       })

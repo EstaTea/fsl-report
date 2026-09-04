@@ -24,10 +24,7 @@ import os
 import datetime
 from collections import Counter
 
-TDOC = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tencentdocs.py")
-if not os.path.exists(TDOC):
-    # 兜底：宿主缓存中的 skill 副本
-    TDOC = "/Users/I523899/.workbuddy/plugins/cache/workbuddy-builtin/tencent-docs-plugin/1.0.0/skills/tencent-docs/tencentdocs.py"
+TDOC = "/Users/I523899/.workbuddy/plugins/cache/workbuddy-builtin/tencent-docs-plugin/5.5.1-wb.37570276.g9af62480.hde0fbd244c72/skills/tencent-docs/tencentdocs.py"
 
 FILE_ID = "eAHMLRIYXXeO"
 SHEET_ID = "000001"
