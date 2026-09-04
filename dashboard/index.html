@@ -19,76 +19,122 @@
   </div>
   <div class="scanline"></div>
 
-  <!-- ================= 顶部标题栏 ================= -->
-  <header class="topbar">
-    <div class="brand">
-      <div class="logo">FSL</div>
-      <div class="txt">
-        <b>佛山照明</b>
-        <span>FOSHAN LIGHTING · SINCE 1958</span>
-      </div>
-    </div>
-    <div class="title">
-      <h1 id="pageTitle">佛山照明 · 经营数据可视化大屏</h1>
-      <p id="pageSub">FSL BUSINESS DATA VISUALIZATION CENTER</p>
-    </div>
-    <div class="clock">
-      <div class="t num" id="clockTime">00:00:00</div>
-      <div class="d" id="clockDate">--</div>
-      <div class="status"><span class="dot"></span><span id="lastSync">刚刚同步</span></div>
-    </div>
-  </header>
-
-  <!-- ================= 中部核心指标区 ================= -->
-  <section class="kpi-strip" id="kpiStrip"></section>
-
-  <!-- ================= 底部：双维度入口矩阵 + 整体趋势图表区 ================= -->
-  <main class="grid">
-    <!-- 左栏：部门职能 -->
-    <div class="col">
-      <div class="panel" style="flex:1.15;">
-        <h3><span class="bar"></span>部门职能 · 一级入口<span class="en">DIMENSION Ⅰ / 6 DEPARTMENTS</span></h3>
-        <div class="body"><div class="matrix dept" id="deptMatrix"></div></div>
-      </div>
-      <div class="panel" style="flex:1;">
-        <h3><span class="bar"></span>全公司经营能力评估<span class="en">CAPABILITY RADAR</span></h3>
-        <div class="body"><div class="chart" id="chartRadar"></div></div>
-      </div>
+  <!-- ============================================================
+       首页视图：保留原始 3D 城市夜景页 + 拆开浮动的数据部件
+       ============================================================ -->
+  <div id="homeView">
+    <!-- 原始标题：全场景照明技术先行者 -->
+    <div class="home-title">
+      <img class="mask" src="assets/title5.png" alt="">
+      <img class="word" src="assets/title4.png" alt="全场景照明技术先行者">
     </div>
 
-    <!-- 中栏：整体趋势图表区 -->
-    <div class="col">
-      <div class="panel" style="flex:1;">
-        <h3><span class="bar"></span>营业收入与净利润 · 月度趋势<span class="en">REVENUE &amp; PROFIT TREND</span></h3>
-        <div class="body"><div class="chart" id="chartTrend"></div></div>
-      </div>
-      <div class="panel" style="flex:1;">
-        <h3><span class="bar"></span>订单量与出货量 · 月度对比<span class="en">ORDERS VS SHIPMENTS</span></h3>
-        <div class="body"><div class="chart" id="chartOrders"></div></div>
-      </div>
+    <!-- 18 个白色场景热点 -->
+    <div class="hotspots" id="hotspots"></div>
+    <!-- 9 个橙色业务板块胶囊（原始装饰，保留原页风貌） -->
+    <div class="capsules" id="capsules"></div>
+
+    <!-- 拆开的元素①：7 项核心指标（顶部通栏） -->
+    <section class="kpi-home" id="kpiHome"></section>
+
+    <!-- 拆开的元素②：部门职能 6 卡（左侧） -->
+    <div class="dept-cluster" id="deptCluster"></div>
+
+    <!-- 拆开的元素③：业务板块 9 卡矩阵（右侧） -->
+    <div class="board-panel" id="boardPanel">
+      <h3><span class="bar"></span>业务板块 · 一级入口<span class="en">9 SEGMENTS</span></h3>
+      <div class="matrix board" id="homeBoard"></div>
     </div>
 
-    <!-- 右栏：业务板块 -->
-    <div class="col">
-      <div class="panel" style="flex:1.25;">
-        <h3><span class="bar"></span>业务板块 · 一级入口<span class="en">DIMENSION Ⅱ / 9 SEGMENTS</span></h3>
-        <div class="body"><div class="matrix board" id="boardMatrix"></div></div>
+    <!-- 拆开的元素④：整体趋势小图（中下） -->
+    <div class="home-trend">
+      <h3><span class="bar"></span>营业收入与净利润 · 月度趋势<span class="en">REVENUE &amp; PROFIT</span></h3>
+      <div class="chart" id="homeTrend"></div>
+    </div>
+
+    <!-- 进入二级大屏的入口 -->
+    <button class="home-cta" id="btnEnterDash">
+      <span class="cta-ico">▦</span> 进入数据大屏 <span class="cta-arrow">›</span>
+    </button>
+  </div>
+
+  <!-- ============================================================
+       二级大屏视图（完整数据大屏，点击链接弹出）
+       ============================================================ -->
+  <div id="dashView" class="hidden">
+    <!-- 顶部标题栏 -->
+    <header class="topbar">
+      <button class="btn-back" id="btnHome">‹ 返回首页</button>
+      <div class="brand">
+        <div class="logo">FSL</div>
+        <div class="txt">
+          <b>佛山照明</b>
+          <span>FOSHAN LIGHTING · SINCE 1958</span>
+        </div>
       </div>
-      <div class="panel" style="flex:1;">
-        <h3><span class="bar"></span>板块营收排行榜<span class="en">REVENUE RANKING</span></h3>
-        <div class="body">
-          <div class="rank">
-            <div class="rank-mask"><div class="rank-inner" id="rankInner"></div></div>
+      <div class="title">
+        <h1 id="pageTitle">佛山照明 · 经营数据可视化大屏</h1>
+        <p id="pageSub">FSL BUSINESS DATA VISUALIZATION CENTER</p>
+      </div>
+      <div class="clock">
+        <div class="t num" id="clockTime">00:00:00</div>
+        <div class="d" id="clockDate">--</div>
+        <div class="status"><span class="dot"></span><span id="lastSync">刚刚同步</span></div>
+      </div>
+    </header>
+
+    <!-- 中部核心指标区 -->
+    <section class="kpi-strip" id="kpiStrip"></section>
+
+    <!-- 底部：双维度入口矩阵 + 整体趋势图表区 -->
+    <main class="grid">
+      <!-- 左栏：部门职能 -->
+      <div class="col">
+        <div class="panel" style="flex:1.15;">
+          <h3><span class="bar"></span>部门职能 · 一级入口<span class="en">DIMENSION Ⅰ / 6 DEPARTMENTS</span></h3>
+          <div class="body"><div class="matrix dept" id="deptMatrix"></div></div>
+        </div>
+        <div class="panel" style="flex:1;">
+          <h3><span class="bar"></span>全公司经营能力评估<span class="en">CAPABILITY RADAR</span></h3>
+          <div class="body"><div class="chart" id="chartRadar"></div></div>
+        </div>
+      </div>
+
+      <!-- 中栏：整体趋势图表区 -->
+      <div class="col">
+        <div class="panel" style="flex:1;">
+          <h3><span class="bar"></span>营业收入与净利润 · 月度趋势<span class="en">REVENUE &amp; PROFIT TREND</span></h3>
+          <div class="body"><div class="chart" id="chartTrend"></div></div>
+        </div>
+        <div class="panel" style="flex:1;">
+          <h3><span class="bar"></span>订单量与出货量 · 月度对比<span class="en">ORDERS VS SHIPMENTS</span></h3>
+          <div class="body"><div class="chart" id="chartOrders"></div></div>
+        </div>
+      </div>
+
+      <!-- 右栏：业务板块 -->
+      <div class="col">
+        <div class="panel" style="flex:1.25;">
+          <h3><span class="bar"></span>业务板块 · 一级入口<span class="en">DIMENSION Ⅱ / 9 SEGMENTS</span></h3>
+          <div class="body"><div class="matrix board" id="boardMatrix"></div></div>
+        </div>
+        <div class="panel" style="flex:1;">
+          <h3><span class="bar"></span>板块营收排行榜<span class="en">REVENUE RANKING</span></h3>
+          <div class="body">
+            <div class="rank">
+              <div class="rank-mask"><div class="rank-inner" id="rankInner"></div></div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </main>
+    </main>
+  </div>
 
-  <!-- ================= 二级页面（下钻详情） ================= -->
+  <!-- ================= 二级页面（下钻详情，隶属大屏视图） ================= -->
   <section class="view-detail" id="viewDetail">
     <header class="detail-head">
-      <button class="btn-back" id="btnBack">‹ 返回总览</button>
+      <button class="btn-back" id="btnHome2">‹ 首页</button>
+      <button class="btn-back" id="btnBack">‹ 返回</button>
       <nav class="crumb" id="crumb"></nav>
       <div class="detail-title" id="detailTitle"></div>
     </header>

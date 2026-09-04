@@ -8,6 +8,26 @@
 
   var D = window.FSL_DATA;
 
+  /* 原始官网 3D 城市场景的 18 热点 + 9 业务板块胶囊坐标（来自 hotspots.json，内联以便离线） */
+  var HOTSPOTS = [
+    { top: '18%', left: '10%', txt: '机场' }, { top: '63%', left: '9.5%', txt: '医院' },
+    { top: '91%', left: '14%', txt: '植物工厂' }, { top: '89%', left: '25%', txt: '现代养殖基地' },
+    { top: '28%', left: '31%', txt: '文旅景区' }, { top: '58%', left: '32.5%', txt: '学校' },
+    { top: '37%', left: '9%', txt: '高铁站' }, { top: '84%', left: '45%', txt: '体育场馆' },
+    { top: '27%', left: '46%', txt: '酒店商业综合体' }, { top: '24%', left: '64%', txt: '产业园' },
+    { top: '44%', left: '68%', txt: '住宅' }, { top: '75%', left: '80%', txt: '汽车工厂' },
+    { top: '46%', left: '82%', txt: '港口' }, { top: '69%', left: '88%', txt: '造船厂' },
+    { top: '30%', left: '90%', txt: '海上平台' }, { top: '13.5%', left: '67%', txt: '陆基工厂化养殖基地' },
+    { top: '11%', left: '77%', txt: '海洋牧场' }, { top: '19%', left: '81%', txt: '跨海大桥' }
+  ];
+  var BOXES = [
+    { top: '20%', left: '12%', txt: '航空照明' }, { top: '56%', left: '21%', txt: '商用照明' },
+    { top: '80%', left: '15%', txt: '动植物照明' }, { top: '74%', left: '45%', txt: '体育照明' },
+    { top: '30%', left: '52%', txt: '智能电工' }, { top: '46%', left: '55%', txt: '家用照明' },
+    { top: '67%', left: '68%', txt: '车用照明' }, { top: '24%', left: '78%', txt: '智慧城市照明' },
+    { top: '35%', left: '86%', txt: '海洋照明' }
+  ];
+
   /* ---------------------------------------------------------------- 常量 */
   var C = {
     cyan: '#00d4ff', blue: '#3f8cff', orange: '#ff7500',
@@ -75,6 +95,23 @@
     var rec = { inst: inst, build: buildFn, node: node };
     charts.push(rec);
     return rec;
+  }
+
+  /* 首页视图独立的图表 / 定时器登记，避免与大屏视图（charts/timers）相互干扰 */
+  var homeCharts = [];
+  var homeTimers = [];
+  function regHomeTimer(fn, ms) { var id = setInterval(fn, ms); homeTimers.push(id); return id; }
+  function clearHomeTimers() { homeTimers.forEach(clearInterval); homeTimers = []; }
+  function clearHomeCharts() {
+    homeCharts.forEach(function (c) { try { c.inst.dispose(); } catch (e) {} });
+    homeCharts = [];
+  }
+  function mountHome(node, buildFn) {
+    if (!node) return null;
+    var inst = echarts.init(node, null, { renderer: 'canvas' });
+    inst.setOption(buildFn());
+    homeCharts.push({ inst: inst, build: buildFn, node: node });
+    return inst;
   }
 
   var TIP = {
@@ -227,6 +264,131 @@
         data: [{ value: cfg.value, name: cfg.label || '' }]
       }]
     };
+  }
+
+  /* ---------------------------------------------------- 首页视图（城市原页 + 拆开的数据部件） */
+  function renderHomeHotspots() {
+    var wrap = $('#hotspots');
+    wrap.innerHTML = '';
+    HOTSPOTS.forEach(function (h) {
+      var d = el('div', 'hotspot');
+      d.style.top = h.top; d.style.left = h.left;
+      d.innerHTML = '<span class="tip">' + h.txt + '</span>';
+      wrap.appendChild(d);
+    });
+  }
+
+  function renderHomeCapsules() {
+    var wrap = $('#capsules');
+    wrap.innerHTML = '';
+    BOXES.forEach(function (b) {
+      var d = el('div', 'cap');
+      d.style.top = b.top; d.style.left = b.left;
+      d.textContent = b.txt;
+      wrap.appendChild(d);
+    });
+  }
+
+  function renderHomeKpis() {
+    var wrap = $('#kpiHome');
+    wrap.innerHTML = '';
+    D.kpis.forEach(function (k, i) {
+      var card = el('div', 'kpi-card');
+      card.style.animationDelay = (i * 60) + 'ms';
+      card.innerHTML =
+        '<div class="lbl"><i></i>' + k.label + '</div>' +
+        '<div class="val"><span class="num" data-kpi="' + k.label + '">0</span><small>' + k.unit + '</small></div>' +
+        '<div class="delta" data-delta="' + k.label + '"></div>';
+      wrap.appendChild(card);
+      countUp($('.num', card), k.value, k.decimals, 1500);
+      $('[data-delta]', card).innerHTML = deltaHtml(k.delta);
+    });
+  }
+
+  function renderHomeDept() {
+    var wrap = $('#deptCluster');
+    wrap.innerHTML = '';
+    D.deptList.forEach(function (d, i) {
+      var n = el('div', 'dept-mini');
+      n.style.animationDelay = (i * 55) + 'ms';
+      n.innerHTML =
+        '<span class="ic">' + (ICONS[d.key] || ICONS.board) + '</span>' +
+        '<div><div class="nm">' + d.name + '</div><div class="en">' + d.en + '</div></div>' +
+        '<div class="mt">' + d.metric.label + ' <b class="num">' + fmt(d.metric.value, 1) + '</b> ' + d.metric.unit + '</div>';
+      n.addEventListener('click', function () { enterDash({ type: 'dept', key: d.key }); });
+      wrap.appendChild(n);
+    });
+  }
+
+  function renderHomeBoard() {
+    var wrap = $('#homeBoard');
+    wrap.innerHTML = '';
+    D.boardList.forEach(function (b, i) {
+      var n = el('div', 'entry');
+      n.style.animationDelay = (i * 45) + 'ms';
+      n.innerHTML =
+        '<span class="ic">' + ICONS.board + '</span>' +
+        '<div class="nm">' + b.name + '</div>' +
+        '<div class="mt"><b class="num">' + fmt(b.revenue) + '</b> 万元</div>' +
+        '<span class="arrow">›</span>';
+      n.addEventListener('click', function () { enterDash({ type: 'board', key: b.key }); });
+      wrap.appendChild(n);
+    });
+  }
+
+  function renderHomeTrend() {
+    var inst = mountHome($('#homeTrend'), function () {
+      return optTrend({ months: D.trend.months, series: D.trend.series, unit: '万元', boundaryGap: false });
+    });
+    // 迷你轮播：自动巡览数据点
+    if (inst) {
+      var idx = 0, n = D.trend.months.length;
+      regHomeTimer(function () {
+        if (inst.isDisposed()) return;
+        idx = (idx + 1) % n;
+        inst.dispatchAction({ type: 'showTip', seriesIndex: 0, dataIndex: idx });
+      }, 2600);
+    }
+  }
+
+  function renderHome() {
+    renderHomeHotspots();
+    renderHomeCapsules();
+    renderHomeKpis();
+    renderHomeDept();
+    renderHomeBoard();
+    renderHomeTrend();
+  }
+
+  function clearHome() {
+    clearHomeCharts();
+    clearHomeTimers();
+  }
+
+  /* 视图切换：进入二级大屏（含可选直接下钻到某实体） */
+  function enterDash(ent) {
+    clearHome();
+    $('#homeView').classList.add('hidden');
+    $('#dashView').classList.remove('hidden');
+    if (ent) {
+      state.stack = [{ type: ent.type, key: ent.key }];
+      renderDetail();
+    } else {
+      goOverview();
+    }
+  }
+
+  /* 视图切换：返回原始城市首页 */
+  function backHome() {
+    clearCharts();
+    clearTimers();
+    $('#viewDetail').classList.remove('active');
+    $('#dashView').classList.add('hidden');
+    $('#homeView').classList.remove('hidden');
+    state.stack = [];
+    state.view = 'home';
+    renderHome();
+    startAutoRefresh();
   }
 
   /* -------------------------------------------------------------- 总览渲染 */
@@ -488,15 +650,20 @@
     fit();
     window.addEventListener('resize', fit);
 
-    renderOverview();
+    // 默认展示原始城市首页（含拆开浮动的数据部件），点击链接才弹出二级大屏
+    renderHome();
     startAutoRefresh();
 
     secondTimer = setInterval(tickClock, 1000);
     tickClock();
 
     $('#btnBack').addEventListener('click', goBack);
+    $('#btnEnterDash').addEventListener('click', function () { enterDash(null); });
+    $('#btnHome').addEventListener('click', backHome);
+    $('#btnHome2').addEventListener('click', backHome);
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && state.view === 'detail') goBack();
+      else if (e.key === 'Escape' && state.view !== 'home') backHome();
       if (e.key === 'Backspace' && state.view === 'detail') { e.preventDefault(); goBack(); }
     });
 

@@ -331,3 +331,121 @@ html, body {
   /* 小屏时仍由 JS 等比缩放承载，此处仅降低模糊开销 */
   .kpi-card, .panel { backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
+
+/* ==========================================================================
+ * 首页视图（保留原始 3D 城市夜景页 + 拆开浮动的数据部件）
+ * ========================================================================== */
+.hidden { display: none !important; }
+
+#homeView {
+  position: absolute; inset: 0; z-index: 5;
+  animation: fadeIn .6s ease both;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* 原始标题：全场景照明技术先行者 */
+.home-title { position: absolute; top: 0; left: 0; right: 0; height: 150px; z-index: 6; text-align: center; pointer-events: none; }
+.home-title .mask { position: absolute; top: 0; left: 0; width: 100%; height: 150px; object-fit: cover; opacity: .85; }
+.home-title .word { position: relative; top: 28px; height: 72px; filter: drop-shadow(0 6px 24px rgba(0, 0, 0, .8)); }
+
+/* 18 个白色场景热点 */
+.hotspots { position: absolute; inset: 0; z-index: 6; }
+.hotspot {
+  position: absolute; width: 9px; height: 9px; border-radius: 50%;
+  background: #fff; transform: translate(-50%, -50%); cursor: pointer;
+  box-shadow: 0 0 0 0 rgba(255, 255, 255, .55); animation: hpulse 2.4s infinite;
+}
+.hotspot::after { content: ""; position: absolute; inset: -7px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, .35); }
+.hotspot .tip {
+  position: absolute; left: 14px; top: -9px; white-space: nowrap;
+  background: rgba(3, 16, 32, .82); color: #eaf6ff; font-size: 12px; padding: 3px 9px; border-radius: 4px;
+  border: 1px solid rgba(0, 212, 255, .3); opacity: 0; transform: translateX(-4px);
+  transition: opacity .2s, transform .2s; pointer-events: none; letter-spacing: .5px;
+}
+.hotspot:hover .tip { opacity: 1; transform: none; }
+.hotspot:hover { background: var(--c-cyan); box-shadow: 0 0 10px var(--c-cyan); }
+@keyframes hpulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, .5); } 50% { box-shadow: 0 0 0 9px rgba(255, 255, 255, 0); } }
+
+/* 9 个橙色业务板块胶囊（原始装饰） */
+.capsules { position: absolute; inset: 0; z-index: 6; }
+.cap {
+  position: absolute; transform: translate(-50%, -50%); padding: 6px 15px; border-radius: 18px;
+  background: linear-gradient(160deg, rgba(255, 117, 0, .88), rgba(196, 78, 0, .78));
+  border: 1px solid rgba(255, 184, 92, .65); color: #fff; font-size: 14px; font-weight: 600; letter-spacing: 1px;
+  box-shadow: 0 4px 14px rgba(255, 117, 0, .35); white-space: nowrap;
+}
+.cap::before { content: ""; position: absolute; left: -7px; top: 50%; width: 5px; height: 5px; border-radius: 50%; background: #fff; transform: translateY(-50%); box-shadow: 0 0 6px #fff; }
+
+/* 拆开①：核心指标通栏（顶部，位于标题下方） */
+.kpi-home {
+  position: absolute; top: 158px; left: 22px; right: 22px; height: 92px; z-index: 7;
+  display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px;
+}
+.kpi-home .kpi-card { padding: 12px 14px 10px; }
+.kpi-home .kpi-card .val { margin-top: 6px; font-size: 25px; }
+.kpi-home .kpi-card .delta { margin-top: 5px; font-size: 11px; }
+
+/* 拆开②：部门职能 6 卡（左侧竖排） */
+.dept-cluster {
+  position: absolute; left: 22px; top: 268px; bottom: 22px; width: 312px; z-index: 7;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.dept-mini {
+  flex: 1; position: relative; overflow: hidden; cursor: pointer; border-radius: 6px;
+  border: 1px solid rgba(255, 117, 0, .28);
+  background: linear-gradient(160deg, rgba(255, 117, 0, .14), rgba(6, 20, 38, .72));
+  display: flex; align-items: center; gap: 12px; padding: 10px 14px;
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+  animation: cardIn .55s cubic-bezier(.2, .8, .3, 1) both;
+}
+.dept-mini:hover { transform: translateX(4px); border-color: rgba(255, 117, 0, .9); box-shadow: 0 8px 20px rgba(255, 117, 0, .2); }
+.dept-mini .ic { width: 30px; height: 30px; color: var(--c-orange); flex: none; }
+.dept-mini .nm { font-size: 16px; font-weight: 600; color: #fff; letter-spacing: .5px; }
+.dept-mini .en { font-size: 10px; color: rgba(127, 157, 184, .8); letter-spacing: 1px; }
+.dept-mini .mt { margin-left: auto; text-align: right; font-size: 12px; color: rgba(220, 234, 247, .8); }
+.dept-mini .mt b { font-size: 18px; color: var(--c-cyan); font-weight: 700; }
+
+/* 拆开③：业务板块 9 卡矩阵（右侧） */
+.board-panel {
+  position: absolute; right: 22px; top: 268px; bottom: 22px; width: 344px; z-index: 7;
+  display: flex; flex-direction: column; padding: 12px 14px;
+  background: linear-gradient(160deg, var(--c-panel-a), var(--c-panel-b));
+  border: 1px solid rgba(0, 212, 255, .18); border-radius: var(--radius);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  box-shadow: inset 0 0 26px rgba(0, 212, 255, .05);
+  animation: panelIn .7s cubic-bezier(.2, .8, .3, 1) both;
+}
+.board-panel > h3 { flex: none; font-size: 16px; font-weight: 600; color: #eaf6ff; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; padding-bottom: 8px; margin-bottom: 8px; border-bottom: 1px solid rgba(0, 212, 255, .12); }
+.board-panel > h3 .bar { width: 3px; height: 14px; background: linear-gradient(180deg, var(--c-cyan), var(--c-orange)); border-radius: 2px; }
+.board-panel > h3 .en { margin-left: auto; font-size: 11px; color: rgba(127, 157, 184, .7); letter-spacing: 1px; font-weight: 400; }
+.board-panel .matrix.board { flex: 1; min-height: 0; }
+
+/* 拆开④：整体趋势小图（中下） */
+.home-trend {
+  position: absolute; left: 360px; right: 392px; bottom: 22px; height: 210px; z-index: 7;
+  display: flex; flex-direction: column; padding: 12px 14px;
+  background: linear-gradient(160deg, var(--c-panel-a), var(--c-panel-b));
+  border: 1px solid rgba(0, 212, 255, .18); border-radius: var(--radius);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  box-shadow: inset 0 0 26px rgba(0, 212, 255, .05);
+  animation: panelIn .7s cubic-bezier(.2, .8, .3, 1) both;
+}
+.home-trend > h3 { flex: none; font-size: 16px; font-weight: 600; color: #eaf6ff; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; padding-bottom: 8px; margin-bottom: 6px; border-bottom: 1px solid rgba(0, 212, 255, .12); }
+.home-trend > h3 .bar { width: 3px; height: 14px; background: linear-gradient(180deg, var(--c-cyan), var(--c-orange)); border-radius: 2px; }
+.home-trend > h3 .en { margin-left: auto; font-size: 11px; color: rgba(127, 157, 184, .7); letter-spacing: 1px; font-weight: 400; }
+.home-trend .chart { flex: 1; min-height: 0; }
+
+/* 进入二级大屏入口：放在右上角，不遮挡城市原有胶囊热点 */
+.home-cta {
+  position: absolute; top: 94px; right: 26px; z-index: 9;
+  display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+  padding: 9px 18px; border-radius: 20px; font-size: 14px; font-weight: 700; letter-spacing: 1px; color: #fff;
+  background: linear-gradient(135deg, rgba(255, 117, 0, .9), rgba(255, 117, 0, .55));
+  border: 1px solid rgba(255, 190, 110, .75);
+  box-shadow: 0 0 18px rgba(255, 117, 0, .45), inset 0 0 10px rgba(255, 255, 255, .12);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.home-cta:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(255, 117, 0, .75), inset 0 0 14px rgba(255, 255, 255, .2); }
+.home-cta .cta-ico { font-size: 15px; }
+.home-cta .cta-arrow { font-size: 17px; }
+
