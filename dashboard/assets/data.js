@@ -848,6 +848,203 @@
     })
   };
 
+  /* ==========================================================================
+   * 维度三：子公司与制造基地（SUBSIDIARIES & MANUFACTURING BASES）
+   * --------------------------------------------------------------------------
+   * 数据性质声明（重要）：
+   *   - 公司名单、属地、持股关系、主营业务、基地名称与产能、建厂年份：
+   *     来自佛山照明官网「所属企业」页、公司公开披露与公开报道，属可追溯事实 [F]。
+   *   - 营收 / 毛利 / 达成率 / 区域分布 / 产品线结构等经营指标：
+   *     为大屏演示用模拟数据 [E]，非真实经营结果，界面上以「模拟」标识区分。
+   * ========================================================================== */
+  function sub(key, name, en, cfg) {
+    var rev = cfg.revenue, grow = cfg.growth;
+    // 由年度营收与增速反推 12 个月走势（末月对齐年度月均），仅用于演示动效
+    var J = [1.06, 0.94, 1.09, 0.97, 1.05, 0.93, 1.08, 0.96, 1.07, 0.95, 1.06, 1.0];
+    function series(divisor) {
+      var out = [], v = rev / 12 * 0.62;
+      for (var i = 0; i < 12; i++) {
+        v = v * (1 + (grow / 100) / 12) * J[i];
+        out.push(Math.round(v / divisor));
+      }
+      out[11] = Math.round(rev / 12 / divisor);
+      return out;
+    }
+    return {
+      key: key, name: name, en: en, type: 'sub',
+      city: cfg.city, province: cfg.province, coord: cfg.coord,
+      share: cfg.share, since: cfg.since, tag: cfg.tag,
+      bizScope: cfg.bizScope, subtitle: cfg.subtitle,
+      revenue: rev,
+      metric: { label: '年度营收', value: rev, unit: '万元' },
+      kpis: [
+        { label: '年度营收', value: rev, unit: '万元', delta: grow, decimals: 0 },
+        { label: '同比增长', value: grow, unit: '%', delta: cfg.gd, decimals: 1 },
+        { label: '毛利率', value: cfg.margin, unit: '%', delta: cfg.md, decimals: 1 },
+        { label: cfg.k4label, value: cfg.k4, unit: cfg.k4unit, delta: cfg.k4d, decimals: 0 }
+      ],
+      gauge: { title: '年度目标达成率', value: cfg.achieve, label: 'ACHIEVEMENT', max: 100 },
+      monthly: {
+        months: MONTHS,
+        series: [
+          { name: '营业收入', type: 'line', unit: '万元', data: series(1) },
+          { name: '订单量', type: 'bar', unit: '单', data: series(cfg.perOrder) }
+        ]
+      },
+      bar: {
+        title: '区域营收分布（万元）',
+        categories: ['华南', '华东', '华北', '华中', '西南', '东北', '海外'],
+        series: [{ name: '营收', data: cfg.regions }]
+      },
+      ring: { title: '产品线结构', data: cfg.products },
+      radar: {
+        title: '子公司竞争力',
+        dims: [{ name: '技术壁垒', max: 100 }, { name: '市场份额', max: 100 }, { name: '盈利能力', max: 100 },
+               { name: '客户粘性', max: 100 }, { name: '协同价值', max: 100 }],
+        series: [{ name: name, value: cfg.radar }]
+      },
+      drill: {
+        title: '关联业务板块（万元）', unit: '万元',
+        items: cfg.boards.map(function (b) { return { type: 'board', key: b.key, name: b.name, value: b.value }; })
+      }
+    };
+  }
+
+  /* 8 家所属企业 —— 名单与属地取自佛照官网「所属企业」[F] */
+  DATA.subs = {
+    guoxing: sub('guoxing', '国星光电', 'GUOXING OPTOELECTRONICS', {
+      city: '广东佛山', province: '广东', coord: [113.12, 23.02],
+      share: '控股 · A股上市（002449）', since: '2022 控股', tag: '上市子公司',
+      bizScope: 'LED 封装 / 芯片 / 上游器件', subtitle: '上游 LED 封装与芯片，2022 年控股形成垂直一体化',
+      revenue: 328600, growth: 8.6, margin: 18.4, achieve: 93.8, gd: 2.4, md: 0.8,
+      k4label: '研发平台', k4: 12, k4unit: '个', k4d: 8.4, perOrder: 9,
+      regions: [126400, 78200, 32600, 24800, 28600, 12400, 25600],
+      products: [{ name: 'LED 封装', value: 138600 }, { name: 'RGB 显示', value: 86200 },
+                 { name: '芯片器件', value: 62400 }, { name: '背光模组', value: 41400 }],
+      radar: [88, 82, 58, 76, 92],
+      boards: [{ key: 'home', name: '家用照明', value: 96400 }, { key: 'commercial', name: '商用照明', value: 72800 },
+               { key: 'electric', name: '智能电工', value: 32600 }]
+    }),
+
+    liaowang: sub('liaowang', '南宁燎旺车灯', 'LIAOWANG AUTO LAMP', {
+      city: '广西南宁', province: '广西', coord: [108.37, 22.82],
+      share: '控股 · 2021 并购', since: '2021 并购', tag: '车灯平台',
+      bizScope: '汽车车灯 / 车灯模组 / 控制器', subtitle: '1956 年建厂，2021 年并购，打通车灯业务出海口',
+      revenue: 152600, growth: 14.2, margin: 16.8, achieve: 96.2, gd: 5.6, md: 1.6,
+      k4label: '车灯产能', k4: 450, k4unit: '万台套', k4d: 12.5, perOrder: 12,
+      regions: [38600, 32400, 18600, 21400, 26800, 8400, 6400],
+      products: [{ name: '前照灯', value: 58600 }, { name: '尾灯', value: 38400 },
+                 { name: '车灯模组', value: 32600 }, { name: '内饰灯', value: 23000 }],
+      radar: [80, 68, 56, 88, 74],
+      boards: [{ key: 'auto', name: '车用照明', value: 152600 }]
+    }),
+
+    zhida: sub('zhida', '智达电工', 'ZHIDA ELECTRIC', {
+      city: '广东佛山', province: '广东', coord: [113.12, 23.02],
+      share: '全资 · 2016 成立', since: '2016 成立', tag: '全资',
+      bizScope: '开关插座 / 配电 / 智能家居', subtitle: '2016 年成立，承载电工板块业务',
+      revenue: 64200, growth: 6.4, margin: 27.6, achieve: 91.4, gd: 1.2, md: 1.4,
+      k4label: '在销 SKU', k4: 1860, k4unit: '个', k4d: 6.8, perOrder: 6,
+      regions: [24600, 14200, 7800, 6400, 4200, 2600, 4400],
+      products: [{ name: '开关插座', value: 28600 }, { name: '智能门锁', value: 16400 },
+                 { name: '配电箱', value: 11600 }, { name: '智能附件', value: 7600 }],
+      radar: [62, 58, 78, 68, 82],
+      boards: [{ key: 'electric', name: '智能电工', value: 64200 }]
+    }),
+
+    hainan: sub('hainan', '佛照海南科技', 'FSL HAINAN TECH', {
+      city: '海南海口', province: '海南', coord: [110.20, 20.04],
+      share: '全资', since: '2021 成立', tag: '海洋照明',
+      bizScope: '海洋照明 / 集鱼灯 / 深海照明', subtitle: '2021 年在海南投资建设海洋照明产业基地',
+      revenue: 28600, growth: 28.6, margin: 34.2, achieve: 98.4, gd: 8.2, md: 2.6,
+      k4label: '示范项目', k4: 46, k4unit: '个', k4d: 18.6, perOrder: 14,
+      regions: [9600, 5200, 2800, 2200, 1800, 900, 6100],
+      products: [{ name: '集鱼灯', value: 11600 }, { name: '养殖灯', value: 7200 },
+                 { name: '深海照明', value: 5600 }, { name: '船用灯具', value: 4200 }],
+      radar: [84, 42, 86, 64, 58],
+      boards: [{ key: 'marine', name: '海洋照明', value: 28600 }]
+    }),
+
+    zhicheng: sub('zhicheng', '佛照智城科技', 'FSL SMART CITY', {
+      city: '广东佛山', province: '广东', coord: [113.12, 23.02],
+      share: '全资', since: '—', tag: '智慧城市',
+      bizScope: '智慧路灯 / 景观照明 / 隧道照明', subtitle: '智慧城市照明与城市级项目交付平台',
+      revenue: 26400, growth: 12.8, margin: 26.4, achieve: 89.6, gd: 3.6, md: 1.1,
+      k4label: '在建项目', k4: 38, k4unit: '个', k4d: 9.2, perOrder: 22,
+      regions: [9600, 5400, 3600, 2800, 2400, 1200, 1400],
+      products: [{ name: '智慧路灯', value: 11600 }, { name: '景观亮化', value: 7200 },
+                 { name: '隧道照明', value: 4600 }, { name: '运维服务', value: 3000 }],
+      radar: [70, 46, 68, 72, 86],
+      boards: [{ key: 'smartcity', name: '智慧城市照明', value: 26400 }]
+    }),
+
+    huaguang: sub('huaguang', '佛照华光（茂名）', 'FSL HUAGUANG', {
+      city: '广东茂名', province: '广东', coord: [110.92, 21.66],
+      share: '100% 全资', since: '2024 成立', tag: '新建基地',
+      bizScope: '照明制造 / 华南产能基地', subtitle: '2024 年成立，承接华南制造与产能扩张',
+      revenue: 19800, growth: 42.6, margin: 21.2, achieve: 86.4, gd: 12.4, md: 0.6,
+      k4label: '投产产线', k4: 18, k4unit: '条', k4d: 28.4, perOrder: 7,
+      regions: [12400, 2600, 1400, 1200, 900, 500, 800],
+      products: [{ name: '光源模组', value: 8600 }, { name: '灯具组装', value: 6200 },
+                 { name: '配件', value: 3200 }, { name: '代工服务', value: 1800 }],
+      radar: [52, 34, 62, 58, 78],
+      boards: [{ key: 'home', name: '家用照明', value: 12400 }, { key: 'commercial', name: '商用照明', value: 7400 }]
+    }),
+
+    hangxin: sub('hangxin', '航信航空设备', 'HANGXIN AVIATION', {
+      city: '广东广州', province: '广东', coord: [113.26, 23.13],
+      share: '45% 增资控股', since: '2024 增资控股', tag: '参股控股',
+      bizScope: '航空照明 / 机载设备', subtitle: '2024 年增资控股，切入航空照明与机载设备赛道',
+      revenue: 15200, growth: 22.4, margin: 31.6, achieve: 94.2, gd: 6.8, md: 2.2,
+      k4label: '取证产品', k4: 26, k4unit: '项', k4d: 14.6, perOrder: 26,
+      regions: [4200, 3600, 2800, 1400, 1200, 600, 1400],
+      products: [{ name: '机舱照明', value: 6100 }, { name: '助航灯光', value: 4200 },
+                 { name: '机务工作灯', value: 2800 }, { name: '客舱氛围灯', value: 2100 }],
+      radar: [92, 38, 82, 84, 62],
+      boards: [{ key: 'aviation', name: '航空照明', value: 15200 }]
+    }),
+
+    hule: sub('hule', '浙江沪乐电气', 'HULE ELECTRIC', {
+      city: '浙江嘉兴', province: '浙江', coord: [120.75, 30.75],
+      share: '66% 控股（2024 并购）', since: '2024 并购', tag: '舰船照明',
+      bizScope: '舰船照明 / 防爆配电 / 灯光控制', subtitle: '2024 年以佛照海南科技为主体收购 66% 股权',
+      revenue: 21400, growth: 18.6, margin: 29.8, achieve: 92.6, gd: 4.8, md: 1.8,
+      k4label: '员工人数', k4: 245, k4unit: '人', k4d: 6.2, perOrder: 18,
+      regions: [6400, 8600, 2800, 1600, 900, 400, 700],
+      products: [{ name: '舰船用灯具', value: 9600 }, { name: '防爆配电', value: 5800 },
+                 { name: '灯光控制', value: 3600 }, { name: '智能照明系统', value: 2400 }],
+      radar: [86, 52, 76, 80, 66],
+      boards: [{ key: 'marine', name: '海洋照明', value: 12800 }, { key: 'commercial', name: '商用照明', value: 8600 }]
+    })
+  };
+
+  /* --------------------------------------------------------------------------
+   * 制造基地分布（地图与列表共用）
+   * 基地名称 / 城市 / 产能 / 持股关系为公开信息 [F]，坐标为城市中心坐标 [F]。
+   * 注：佛照公开表述为「十大生产基地」，其中可公开查证的主要基地列于 fsl，
+   *     燎旺车灯形成「柳州 / 重庆 / 青岛 / 印尼」四大生产基地并新建苏州基地 [F]。
+   * ------------------------------------------------------------------------ */
+  DATA.plants = {
+    /* 燎旺车灯：全国分散布局的制造工厂（用户重点关注） */
+    liaowang: [
+      { name: '南宁基地', city: '广西南宁', coord: [108.37, 22.82], type: '总部', cap: '1956 年建厂 · 总部与研发中心' },
+      { name: '柳州基地', city: '广西柳州', coord: [109.43, 24.33], type: '制造基地', cap: '柳东新区花岭工业园' },
+      { name: '重庆基地', city: '重庆', coord: [106.55, 29.56], type: '制造基地', cap: '重庆桂诺光电 · 全资子公司 · 占地 3.6 万㎡' },
+      { name: '青岛基地', city: '山东青岛', coord: [120.38, 36.07], type: '制造基地', cap: '华东整车客户配套' },
+      { name: '苏州基地', city: '江苏苏州', coord: [120.59, 31.30], type: '新建基地', cap: '2024 年投资 5.8 亿 · 年产车灯 120 万套' },
+      { name: '印尼基地', city: '印度尼西亚', coord: [106.85, -6.21], type: '海外基地', cap: '海外首个生产基地', overseas: true }
+    ],
+    /* 佛照照明与其他板块主要制造基地 */
+    fsl: [
+      { name: '佛山高明基地', city: '广东佛山', coord: [112.88, 22.90], type: '主基地', cap: '照明主基地 · 年产能约 7 亿只' },
+      { name: '佛山总部', city: '广东佛山', coord: [113.12, 23.02], type: '总部', cap: '禅城总部 · 研发创新中心' },
+      { name: '浙江嘉兴基地', city: '浙江嘉兴', coord: [120.75, 30.75], type: '制造基地', cap: '华东制造基地（含沪乐电气）' },
+      { name: '河南新乡基地', city: '河南新乡', coord: [113.93, 35.30], type: '制造基地', cap: '华中制造基地' },
+      { name: '海南海洋照明基地', city: '海南海口', coord: [110.20, 20.04], type: '产业基地', cap: '2021 年投资建设海洋照明产业基地' },
+      { name: '茂名华光基地', city: '广东茂名', coord: [110.92, 21.66], type: '制造基地', cap: '佛照华光（茂名）· 2024 年成立' }
+    ]
+  };
+
   /* -------------------------------------------------------------- 工具方法 */
   /**
    * 模拟一次数据刷新（真实接入时替换为接口调用）。
@@ -873,15 +1070,17 @@
     return DATA;
   };
 
-  /** 按类型取实体（dept / board） */
+  /** 按类型取实体（dept / board / sub） */
   DATA.get = function (type, key) {
     if (type === 'dept') return DATA.depts[key];
     if (type === 'board') return DATA.boards[key];
+    if (type === 'sub') return DATA.subs[key];
     return null;
   };
 
   DATA.deptList = Object.keys(DATA.depts).map(function (k) { return DATA.depts[k]; });
   DATA.boardList = Object.keys(DATA.boards).map(function (k) { return DATA.boards[k]; });
+  DATA.subList = Object.keys(DATA.subs).map(function (k) { return DATA.subs[k]; });
 
   global.FSL_DATA = DATA;
 })(window);

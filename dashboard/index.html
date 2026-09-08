@@ -46,6 +46,12 @@
       <div class="matrix board" id="homeBoard"></div>
     </div>
 
+    <!-- 拆开的元素⑤：所属企业 8 家（中上横条，不遮挡城市主体） -->
+    <div class="sub-strip">
+      <h3><span class="bar"></span>所属企业 · 8 家子公司<span class="en">SUBSIDIARIES</span></h3>
+      <div class="chips" id="subStrip"></div>
+    </div>
+
     <!-- 拆开的元素④：整体趋势小图（中下） -->
     <div class="home-trend">
       <h3><span class="bar"></span>营业收入与净利润 · 月度趋势<span class="en">REVENUE &amp; PROFIT</span></h3>
@@ -125,6 +131,21 @@
               <div class="rank-mask"><div class="rank-inner" id="rankInner"></div></div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- 第四栏：全国制造基地地图（含燎旺车灯全国工厂）+ 子公司一级入口 -->
+      <div class="col">
+        <div class="panel" style="flex:1.25;">
+          <h3><span class="bar"></span>全国制造基地分布<span class="en">MANUFACTURING FOOTPRINT</span></h3>
+          <div class="body map-body">
+            <div class="chart" id="chartMap"></div>
+            <div class="plant-list" id="plantList"></div>
+          </div>
+        </div>
+        <div class="panel" style="flex:1;">
+          <h3><span class="bar"></span>子公司 · 一级入口<span class="en">DIMENSION Ⅲ / 8 SUBSIDIARIES</span></h3>
+          <div class="body"><div class="matrix sub" id="subMatrix"></div></div>
         </div>
       </div>
     </main>

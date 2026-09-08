@@ -42,7 +42,16 @@
     production: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg>',
     warehouse: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5z"/><path d="M3 7.5 12 12l9-4.5M12 12v9"/></svg>',
     finance: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M9 8l3 4 3-4M12 12v5M9.5 13.5h5M9.5 16h5"/></svg>',
-    board: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 1 3.6 10.8c-.5.4-.8.9-.9 1.5l-.2 1.2H9.5l-.2-1.2c-.1-.6-.4-1.1-.9-1.5A6 6 0 0 1 12 3z"/></svg>'
+    board: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 1 3.6 10.8c-.5.4-.8.9-.9 1.5l-.2 1.2H9.5l-.2-1.2c-.1-.6-.4-1.1-.9-1.5A6 6 0 0 1 12 3z"/></svg>',
+
+    /* 维度三：子公司图标（未单独定义者回落到通用「工厂」图标） */
+    sub: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21V9l6-4v5l6-4v5l6-4v14z"/><path d="M7 21v-5M13 21v-5M19 21v-5"/></svg>',
+    guoxing: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M10 10h4v4h-4zM4 10h3M4 14h3M17 10h3M17 14h3M10 4v3M14 4v3M10 17v3M14 17v3"/></svg>',
+    liaowang: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13l3-6h12l3 6"/><path d="M6 13a6 6 0 0 1 12 0"/><path d="M6 13h12v3a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2z"/><circle cx="8.5" cy="15" r=".9"/><circle cx="15.5" cy="15" r=".9"/></svg>',
+    hule: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 17l2-6h14l2 6"/><path d="M5 17h14l-2 3H7z"/><path d="M12 11V4M12 4l4 3"/></svg>',
+    hangxin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 12l20-7-6 13-3-4z"/><path d="M13 14l-2 6 2-2 2 2z"/></svg>',
+    hainan: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 15c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2"/><path d="M2 19c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2"/><path d="M12 3v6M9 6l3-3 3 3"/></svg>',
+    zhicheng: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21V8l5-4 5 4v13"/><path d="M13 21V11l4-3 4 3v10"/><path d="M7 21v-4M11 21v-4M17 21v-4"/></svg>'
   };
 
   /* ---------------------------------------------------------------- 工具 */
@@ -266,6 +275,138 @@
     };
   }
 
+  /* ---------------------------------------- 全国制造基地分布地图（维度三配套） */
+  /** ECharts 5 不再内置地图数据：china.json 异步加载注册，就绪前不渲染地图，避免报错 */
+  var chinaReady = false;
+
+  /* 各基地地图标注方位：避免长三角 / 珠三角密集点位标签互相重叠 */
+  var PLANT_LP = {
+    '苏州基地': 'top', '青岛基地': 'top', '河南新乡基地': 'top', '佛山总部': 'top',
+    '浙江嘉兴基地': 'bottom', '佛山高明基地': 'bottom', '茂名华光基地': 'bottom',
+    '重庆基地': 'left', '海南海洋照明基地': 'left',
+    '柳州基地': 'right', '南宁基地': 'right'
+  };
+
+  function optMap() {
+    var lw = D.plants.liaowang.filter(function (p) { return !p.overseas; });
+    var hq = lw[0];                                   // 南宁总部，作为辐射源
+    var lines = lw.slice(1).map(function (p) {
+      return { coords: [hq.coord, p.coord], toName: p.name };
+    });
+    function tip(d) {
+      return '<b>' + d.name + '</b><br/>' + d.city + ' · ' + d.type +
+             '<br/><span style="color:#7f9db8">' + d.cap + '</span>';
+    }
+    return {
+      tooltip: {
+        trigger: 'item', backgroundColor: 'rgba(6,22,40,.94)', borderColor: 'rgba(0,212,255,.35)',
+        borderWidth: 1, padding: [8, 12], textStyle: { color: C.text, fontSize: 12 },
+        formatter: function (p) {
+          if (p.seriesType === 'lines') return '总部辐射线路<br/>' + hq.name + ' → ' + p.data.toName;
+          return p.data && p.data.cap ? tip(p.data) : p.name;
+        }
+      },
+      legend: {
+        bottom: 0, left: 4, itemWidth: 10, itemHeight: 6, itemGap: 12,
+        textStyle: { color: C.muted, fontSize: 10 }
+      },
+      geo: {
+        map: 'china', roam: false, zoom: 1.16, center: [104.5, 33.5],
+        itemStyle: { areaColor: 'rgba(12,44,78,.6)', borderColor: 'rgba(0,212,255,.4)', borderWidth: .8 },
+        emphasis: { itemStyle: { areaColor: 'rgba(0,120,180,.5)' }, label: { show: false } },
+        label: { show: false }
+      },
+      series: [
+        {
+          name: '总部辐射', type: 'lines', coordinateSystem: 'geo', zlevel: 1,
+          effect: { show: true, period: 5, trailLength: .3, symbol: 'circle', symbolSize: 4, color: C.orange },
+          lineStyle: { color: C.orange, width: 1, opacity: .45, curveness: .22 },
+          data: lines
+        },
+        {
+          name: '燎旺车灯制造基地', type: 'effectScatter', coordinateSystem: 'geo', zlevel: 2,
+          rippleEffect: { brushType: 'stroke', scale: 3.2, period: 3.4 },
+          symbolSize: 11,
+          itemStyle: { color: C.orange, shadowBlur: 12, shadowColor: C.orange },
+          label: { show: true, position: 'right', formatter: '{b}', color: '#ffd9b0', fontSize: 10.5,
+                   fontWeight: 600, textShadowColor: '#000', textShadowBlur: 4 },
+          data: lw.map(function (p) {
+            return { name: p.name, value: p.coord, city: p.city, type: p.type, cap: p.cap,
+                     label: { position: PLANT_LP[p.name] || 'right' } };
+          })
+        },
+        {
+          name: '佛照照明制造基地', type: 'scatter', coordinateSystem: 'geo', zlevel: 2,
+          symbolSize: 8,
+          itemStyle: { color: C.cyan, shadowBlur: 10, shadowColor: C.cyan },
+          label: { show: true, position: 'left', formatter: '{b}', color: '#bfe9ff', fontSize: 10,
+                   textShadowColor: '#000', textShadowBlur: 4 },
+          data: D.plants.fsl.map(function (p) {
+            return { name: p.name, value: p.coord, city: p.city, type: p.type, cap: p.cap,
+                     label: { position: PLANT_LP[p.name] || 'left' } };
+          })
+        }
+      ]
+    };
+  }
+
+  /** 基地清单（地图下方两列紧凑排布）：燎旺车灯全国工厂（橙点）+ 佛照主要基地（青点） */
+  function renderPlantList() {
+    var wrap = $('#plantList');
+    if (!wrap) return;
+    function items(list, cls) {
+      return list.map(function (p) {
+        return '<div class="plant-item ' + cls + '" title="' + p.city + ' · ' + p.type + ' · ' + p.cap + '">' +
+               '<span class="dot"></span><span class="nm">' + p.name + '</span></div>';
+      }).join('');
+    }
+    wrap.innerHTML = items(D.plants.liaowang, 'lw') + items(D.plants.fsl, '');
+  }
+
+  function renderMap() {
+    if (!chinaReady) return;
+    renderPlantList();
+    mount($('#chartMap'), optMap);
+  }
+
+  /** 首页横条：8 家所属企业（不遮挡 3D 城市主体） */
+  function renderSubStrip() {
+    var wrap = $('#subStrip');
+    if (!wrap) return;
+    wrap.innerHTML = '';
+    D.subList.forEach(function (s, i) {
+      var n = el('div', 'sub-chip');
+      n.style.animationDelay = (i * 45) + 'ms';
+      n.title = s.name + '｜' + s.share + '｜' + s.bizScope;
+      n.innerHTML =
+        '<div class="nm">' + s.name + '</div>' +
+        '<div class="mt">' + s.city + ' · <b>' + fmt(s.revenue) + '</b> 万</div>';
+      n.addEventListener('click', function () { enterDash({ type: 'sub', key: s.key }); });
+      wrap.appendChild(n);
+    });
+  }
+
+  /** 大屏第四栏：子公司一级入口矩阵（维度三） */
+  function renderSubMatrix() {
+    var wrap = $('#subMatrix');
+    if (!wrap) return;
+    wrap.innerHTML = '';
+    D.subList.forEach(function (s, i) {
+      var n = el('div', 'entry');
+      n.style.animationDelay = (i * 55) + 'ms';
+      n.title = s.share + '｜' + s.bizScope;
+      n.innerHTML =
+        '<span class="tag">' + s.tag + '</span>' +
+        '<div class="row"><span class="ic">' + (ICONS[s.key] || ICONS.sub) + '</span>' +
+        '<span class="nm">' + s.name + '</span></div>' +
+        '<div class="loc">' + s.city + '</div>' +
+        '<div class="mt"><b class="num">' + fmt(s.revenue) + '</b> 万元</div>' +
+        '<span class="arrow">›</span>';
+      n.addEventListener('click', function () { openEntity('sub', s.key, true); });
+      wrap.appendChild(n);
+    });
+  }
+
   /* ---------------------------------------------------- 首页视图（城市原页 + 拆开的数据部件） */
   function renderHomeHotspots() {
     var wrap = $('#hotspots');
@@ -357,6 +498,7 @@
     renderHomeKpis();
     renderHomeDept();
     renderHomeBoard();
+    renderSubStrip();
     renderHomeTrend();
   }
 
@@ -481,7 +623,9 @@
     renderKpis();
     renderDeptMatrix();
     renderBoardMatrix();
+    renderSubMatrix();
     renderRank();
+    renderMap();
     renderOverviewCharts();
   }
 
@@ -649,6 +793,14 @@
 
     fit();
     window.addEventListener('resize', fit);
+
+    // 中国地图 GeoJSON：ECharts 5 已移除内置地图数据，需异步注册；
+    // 就绪后若当前正停在总览视图，则补渲染地图（避免进入大屏时地图空白）
+    fetch('assets/china.json').then(function (r) { return r.json(); }).then(function (g) {
+      echarts.registerMap('china', g);
+      chinaReady = true;
+      if (!$('#dashView').classList.contains('hidden') && state.view === 'overview') renderMap();
+    }).catch(function (e) { console.warn('[FSL] 地图数据加载失败：', e); });
 
     // 默认展示原始城市首页（含拆开浮动的数据部件），点击链接才弹出二级大屏
     renderHome();

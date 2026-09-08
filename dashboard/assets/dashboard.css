@@ -157,7 +157,7 @@ html, body {
 /* ------------------------------------------------------------ 主内容三栏 */
 .grid {
   position: absolute; top: 214px; left: 20px; right: 20px; bottom: 20px; z-index: 9;
-  display: grid; grid-template-columns: 420px 1fr 420px; gap: 18px;
+  display: grid; grid-template-columns: 340px 1fr 360px 410px; gap: 16px;
 }
 .col { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
 
@@ -192,6 +192,28 @@ html, body {
 .matrix { display: grid; gap: 12px; height: 100%; }
 .matrix.dept { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(3, 1fr); }
 .matrix.board { grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); }
+.matrix.sub   { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, 1fr); gap: 8px; }
+
+/* 子公司入口：用青色系与业务板块（橙色）区分，紧凑行高适配 4 行矩阵 */
+.matrix.sub .entry {
+  padding: 6px 10px; gap: 2px;
+  border-color: rgba(0, 212, 255, .3);
+  background: linear-gradient(160deg, rgba(0, 212, 255, .15), rgba(6, 20, 38, .72));
+}
+.matrix.sub .entry .row { display: flex; align-items: center; gap: 6px; min-width: 0; padding-right: 2px; }
+.matrix.sub .entry .ic { width: 16px; height: 16px; flex: none; color: var(--c-cyan); }
+.matrix.sub .entry .nm { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.matrix.sub .entry .arrow { color: rgba(0, 212, 255, .75); }
+.matrix.sub .entry:hover { border-color: rgba(0, 212, 255, .9); box-shadow: 0 10px 22px rgba(0, 212, 255, .22); }
+.matrix.sub .entry::after { background: conic-gradient(from 0deg, transparent 0 62%, rgba(0, 212, 255, .55) 78%, transparent 92%); }
+.matrix.sub .entry .tag {
+  position: absolute; right: 6px; top: 4px; font-size: 8.5px; font-weight: 700;
+  padding: 0 4px; border-radius: 3px; color: #04121f; background: rgba(0, 212, 255, .72);
+  white-space: nowrap; letter-spacing: .3px;
+}
+.matrix.sub .entry .loc { font-size: 9.5px; color: rgba(127, 157, 184, .9); }
+.matrix.sub .entry .mt { margin-top: 0; font-size: 10.5px; }
+.matrix.sub .entry .mt b { font-size: 14px; }
 
 .entry {
   position: relative; overflow: hidden; cursor: pointer; border-radius: 6px;
@@ -240,6 +262,52 @@ html, body {
 
 /* ------------------------------------------------------------ 图表容器 */
 .chart { width: 100%; height: 100%; }
+
+/* ------------------------------------------------- 全国制造基地地图 + 基地列表 */
+.map-body { display: flex; flex-direction: column; gap: 8px; }
+.map-body .chart { flex: 1; min-width: 0; min-height: 0; }
+.plant-list {
+  flex: none; height: 104px; overflow-y: auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; align-content: start;
+}
+.plant-list::-webkit-scrollbar { width: 3px; }
+.plant-list::-webkit-scrollbar-thumb { background: rgba(0, 212, 255, .35); border-radius: 2px; }
+.plant-item { display: flex; align-items: center; gap: 5px; padding: 2px 5px; border-radius: 3px; background: rgba(0, 212, 255, .06); min-width: 0; }
+.plant-item.lw { background: rgba(255, 117, 0, .12); }
+.plant-item .dot { flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--c-cyan); box-shadow: 0 0 6px var(--c-cyan); }
+.plant-item.lw .dot { background: var(--c-orange); box-shadow: 0 0 6px var(--c-orange); }
+.plant-item .nm { font-size: 10.5px; color: #eaf6ff; font-weight: 600; line-height: 1.5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* --------------------------------------- 拆开⑤：所属企业横条（首页中上） */
+.sub-strip {
+  position: absolute; left: 360px; right: 392px; top: 268px; height: 104px; z-index: 7;
+  display: flex; flex-direction: column; padding: 10px 14px;
+  background: linear-gradient(160deg, var(--c-panel-a), var(--c-panel-b));
+  border: 1px solid rgba(0, 212, 255, .18); border-radius: var(--radius);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  box-shadow: inset 0 0 26px rgba(0, 212, 255, .05);
+  animation: panelIn .7s cubic-bezier(.2, .8, .3, 1) both;
+}
+.sub-strip > h3 {
+  flex: none; font-size: 14px; font-weight: 600; color: #eaf6ff; letter-spacing: 1px;
+  display: flex; align-items: center; gap: 8px; padding-bottom: 6px; margin-bottom: 8px;
+  border-bottom: 1px solid rgba(0, 212, 255, .12);
+}
+.sub-strip > h3 .bar { width: 3px; height: 13px; background: linear-gradient(180deg, var(--c-cyan), var(--c-orange)); border-radius: 2px; }
+.sub-strip > h3 .en { margin-left: auto; font-size: 10.5px; color: rgba(127, 157, 184, .7); letter-spacing: 1px; font-weight: 400; }
+.sub-strip .chips { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; }
+.sub-chip {
+  position: relative; overflow: hidden; cursor: pointer; border-radius: 5px; padding: 6px 8px;
+  border: 1px solid rgba(0, 212, 255, .28);
+  background: linear-gradient(160deg, rgba(0, 212, 255, .14), rgba(6, 20, 38, .7));
+  display: flex; flex-direction: column; justify-content: center; gap: 2px;
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+  animation: cardIn .55s cubic-bezier(.2, .8, .3, 1) both;
+}
+.sub-chip:hover { transform: translateY(-2px); border-color: rgba(0, 212, 255, .9); box-shadow: 0 8px 18px rgba(0, 212, 255, .22); }
+.sub-chip .nm { font-size: 12px; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sub-chip .mt { font-size: 10px; color: rgba(220, 234, 247, .72); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sub-chip .mt b { color: var(--c-cyan); font-weight: 700; }
 
 /* ---------------------------------------------------------------- 二级页 */
 .view-detail {
