@@ -789,7 +789,6 @@
   /* ------------------------------------------------------------------ 启动 */
   function init() {
     $('#pageTitle').textContent = D.meta.title;
-    $('#pageSub').textContent = D.meta.subtitle;
 
     fit();
     window.addEventListener('resize', fit);

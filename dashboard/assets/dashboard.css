@@ -93,6 +93,8 @@ html, body {
 .brand .txt b { font-size: 19px; letter-spacing: 1px; }
 .brand .txt span { display: block; font-size: 11px; color: var(--c-muted); letter-spacing: 2px; }
 
+.topbar .left { display: flex; align-items: center; gap: 18px; }
+
 .topbar .title {
   position: absolute; left: 50%; transform: translateX(-50%); text-align: center; pointer-events: none;
 }
@@ -157,9 +159,9 @@ html, body {
 /* ------------------------------------------------------------ 主内容三栏 */
 .grid {
   position: absolute; top: 214px; left: 20px; right: 20px; bottom: 20px; z-index: 9;
-  display: grid; grid-template-columns: 340px 1fr 360px 410px; gap: 16px;
+  display: grid; grid-template-columns: 340px 1fr 360px 410px; grid-template-rows: minmax(0, 1fr); gap: 16px;
 }
-.col { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.col { display: flex; flex-direction: column; gap: 18px; min-width: 0; min-height: 0; }
 
 /* 面板通用 */
 .panel {
