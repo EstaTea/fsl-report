@@ -1045,6 +1045,128 @@
     ]
   };
 
+  /* -------------------------------------------------- 基地生产 / 销售指标 */
+  /**
+   * 口径说明：
+   *   capacity —— 年产能（capUnit）；output —— 本年累计产量；sales —— 本年累计销量
+   *   util     —— 产能利用率 = 产量 / 年产能（%）；value —— 本年累计产值（万元）
+   * 基地名称、属地、产能文字说明为公开可追溯事实 [F]；
+   * 上述数值为大屏演示用模拟数据 [E]，不与真实经营结果等同。
+   */
+  var PLANT_STAT = {
+    /* 燎旺车灯：单位 万套 */
+    '南宁基地': { capacity: 130, output: 118, sales: 112, util: 90.8, value: 46800, capUnit: '万套/年', outUnit: '万套' },
+    '柳州基地': { capacity: 100, output: 92, sales: 88, util: 92.0, value: 36400, capUnit: '万套/年', outUnit: '万套' },
+    '重庆基地': { capacity: 70, output: 61, sales: 57, util: 87.1, value: 23800, capUnit: '万套/年', outUnit: '万套' },
+    '青岛基地': { capacity: 60, output: 48, sales: 45, util: 80.0, value: 18600, capUnit: '万套/年', outUnit: '万套' },
+    '苏州基地': { capacity: 120, output: 36, sales: 33, util: 30.0, value: 14200, capUnit: '万套/年', outUnit: '万套' },
+    '印尼基地': { capacity: 30, output: 16, sales: 14, util: 53.3, value: 7800, capUnit: '万套/年', outUnit: '万套' },
+    /* 佛照照明：单位 万只 */
+    '佛山高明基地': { capacity: 70000, output: 61200, sales: 58600, util: 87.4, value: 158600, capUnit: '万只/年', outUnit: '万只' },
+    '佛山总部': { capacity: 1200, output: 860, sales: 820, util: 71.7, value: 24600, capUnit: '万只/年', outUnit: '万只' },
+    '浙江嘉兴基地': { capacity: 12000, output: 10300, sales: 9800, util: 85.8, value: 38600, capUnit: '万只/年', outUnit: '万只' },
+    '河南新乡基地': { capacity: 8000, output: 6600, sales: 6300, util: 82.5, value: 23400, capUnit: '万只/年', outUnit: '万只' },
+    '海南海洋照明基地': { capacity: 1500, output: 980, sales: 880, util: 65.3, value: 14200, capUnit: '万只/年', outUnit: '万只' },
+    '茂名华光基地': { capacity: 3600, output: 2680, sales: 2520, util: 74.4, value: 18600, capUnit: '万只/年', outUnit: '万只' }
+  };
+
+  /* 产品结构模板：按集团区分（燎旺车灯 / 佛照照明），比例为模拟 [E] */
+  var PLANT_MIX = {
+    liaowang: [['前照灯', .38], ['尾灯', .24], ['车灯模组', .20], ['内饰灯', .12], ['控制器', .06]],
+    fsl: [['光源器件', .34], ['家居灯具', .26], ['商用灯具', .18], ['电工电气', .12], ['特种照明', .10]]
+  };
+
+  /* 把指标挂到基地对象上，并建立 name → 基地 的索引，供地图 tooltip 与下钻使用 */
+  DATA.plantIndex = {};
+  ['liaowang', 'fsl'].forEach(function (grp) {
+    DATA.plants[grp].forEach(function (p) {
+      p.group = grp;
+      p.stat = PLANT_STAT[p.name] || { capacity: 0, output: 0, sales: 0, util: 0, value: 0, capUnit: '万只/年', outUnit: '万只' };
+      DATA.plantIndex[p.name] = p;
+    });
+  });
+
+  /* 稳定伪随机：同一基地每次打开数值一致（避免刷新后跳变，模拟数据也要自洽） */
+  function seedOf(s) {
+    var h = 2166136261;
+    for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = (h * 16777619) >>> 0; }
+    return h;
+  }
+  function mkRng(seed) {
+    var x = seed || 1;
+    return function () { x = (x * 1103515245 + 12345) & 0x7fffffff; return x / 0x7fffffff; };
+  }
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+
+  /**
+   * 基地下钻详情：契约与 dept / board / sub 实体一致，渲染层无需改动。
+   * 产量 / 销量月度走势由年度值按季节波动反推，末月对齐年均 [E]。
+   */
+  DATA.plantDetail = function (p) {
+    if (!p) return null;
+    var s = p.stat, rnd = mkRng(seedOf(p.name));
+    var WAVE = [1.06, .94, 1.09, .97, 1.05, .93, 1.08, .96, 1.07, .95, 1.06, 1.0];
+    function wave(base) {
+      var out = [], v = base / 12 * .72;
+      for (var i = 0; i < 12; i++) {
+        v = v * WAVE[i] * (0.97 + rnd() * 0.06);
+        out.push(Math.round(v));
+      }
+      out[11] = Math.round(base / 12);
+      return out;
+    }
+    var mix = (PLANT_MIX[p.group] || PLANT_MIX.fsl).map(function (m) {
+      return { name: m[0], value: Math.round(s.value * m[1] * (0.94 + rnd() * 0.12)) };
+    });
+    var others = [].concat(DATA.plants.liaowang, DATA.plants.fsl)
+      .filter(function (o) { return o.name !== p.name; })
+      .map(function (o) { return { type: 'plant', key: o.name, name: o.name, value: o.stat.value }; })
+      .sort(function (a, b) { return b.value - a.value; });
+
+    return {
+      key: p.name, name: p.name, en: p.city + ' · ' + p.type, type: 'plant',
+      subtitle: p.cap + ' ｜ 年产能 ' + s.capacity + ' ' + s.capUnit + '，本年产量 ' + s.output + ' ' + s.outUnit +
+                '，销量 ' + s.sales + ' ' + s.outUnit + '，产能利用率 ' + s.util + '%（经营数值为模拟数据 [E]）',
+      stat: s,
+      kpis: [
+        { label: '年产能', value: s.capacity, unit: s.capUnit, delta: 0, decimals: 0 },
+        { label: '本年产量', value: s.output, unit: s.outUnit, delta: 6.4, decimals: 0 },
+        { label: '本年销量', value: s.sales, unit: s.outUnit, delta: 5.8, decimals: 0 },
+        { label: '产能利用率', value: s.util, unit: '%', delta: 1.2, decimals: 1 }
+      ],
+      gauge: { title: '年度产量达成率', value: s.util, label: 'OUTPUT ACHIEVEMENT', max: 100 },
+      monthly: {
+        months: MONTHS,
+        series: [
+          { name: '产量', type: 'line', unit: s.outUnit, data: wave(s.output) },
+          { name: '销量', type: 'bar', unit: s.outUnit, data: wave(s.sales) }
+        ]
+      },
+      bar: {
+        title: '产品产值结构（万元）',
+        categories: mix.map(function (m) { return m.name; }),
+        series: [{ name: '产值', data: mix.map(function (m) { return m.value; }) }]
+      },
+      ring: { title: '产值结构占比', data: mix },
+      radar: {
+        title: '基地运营能力',
+        dims: [{ name: '产能利用', max: 100 }, { name: '质量良率', max: 100 }, { name: '交付准时', max: 100 },
+               { name: '成本控制', max: 100 }, { name: '自动化', max: 100 }],
+        series: [{
+          name: p.name,
+          value: [
+            clamp(s.util, 0, 100),
+            Math.round(clamp(93 + (rnd() - .5) * 8, 60, 99)),
+            Math.round(clamp(91 + (rnd() - .5) * 10, 60, 99)),
+            Math.round(clamp(80 + (rnd() - .5) * 12, 50, 96)),
+            Math.round(clamp(72 + (rnd() - .5) * 16, 40, 95))
+          ]
+        }]
+      },
+      drill: { title: '集团基地网络（万元）', unit: '万元', items: others }
+    };
+  };
+
   /* -------------------------------------------------------------- 工具方法 */
   /**
    * 模拟一次数据刷新（真实接入时替换为接口调用）。
@@ -1075,6 +1197,7 @@
     if (type === 'dept') return DATA.depts[key];
     if (type === 'board') return DATA.boards[key];
     if (type === 'sub') return DATA.subs[key];
+    if (type === 'plant') return DATA.plantDetail(DATA.plantIndex[key]);
     return null;
   };
 

@@ -96,6 +96,7 @@
   function clearCharts() {
     charts.forEach(function (c) { try { c.inst.dispose(); } catch (e) {} });
     charts = [];
+    mapRec = null;
   }
   function mount(node, buildFn) {
     if (!node) return null;
@@ -278,6 +279,7 @@
   /* ---------------------------------------- 全国制造基地分布地图（维度三配套） */
   /** ECharts 5 不再内置地图数据：china.json 异步加载注册，就绪前不渲染地图，避免报错 */
   var chinaReady = false;
+  var mapRec = null;     // 地图实例句柄：供基地清单悬停时定位 / 弹 tooltip 使用
 
   /* 各基地地图标注方位：避免长三角 / 珠三角密集点位标签互相重叠 */
   var PLANT_LP = {
@@ -287,23 +289,51 @@
     '柳州基地': 'right', '南宁基地': 'right'
   };
 
+  /**
+   * 基地悬停卡片：生产 / 销售核心数据 + 下钻提示。
+   * 地图散点 tooltip 与基地清单悬停浮层共用同一份渲染，保证口径一致。
+   */
+  function plantTipHTML(p) {
+    var s = p.stat;
+    if (!s) {
+      return '<div style="min-width:170px">' +
+             '<div class="pt-nm">' + p.name + '</div>' +
+             '<div class="pt-sub">' + p.city + ' · ' + p.type + '</div>' +
+             '<div class="pt-cap">' + p.cap + '</div></div>';
+    }
+    function row(k, v, hl) {
+      return '<div class="pt-row"><span>' + k + '</span><b' + (hl ? ' class="hl"' : '') + '>' + v + '</b></div>';
+    }
+    var utilCls = s.util >= 85 ? ' class="hl"' : (s.util < 70 ? ' class="low"' : '');
+    return '<div class="pt">' +
+           '<div class="pt-nm">' + p.name + '</div>' +
+           '<div class="pt-sub">' + p.city + ' · ' + p.type + '</div>' +
+           '<div class="pt-cap">' + p.cap + '</div>' +
+           '<div class="pt-grid">' +
+             '<div class="pt-row"><span>年产能</span><b>' + fmt(s.capacity) + ' ' + s.capUnit + '</b></div>' +
+             '<div class="pt-row"><span>本年产量</span><b>' + fmt(s.output) + ' ' + s.outUnit + '</b></div>' +
+             '<div class="pt-row"><span>本年销量</span><b>' + fmt(s.sales) + ' ' + s.outUnit + '</b></div>' +
+             '<div class="pt-row"><span>产销率</span><b>' + Math.round(s.sales / s.output * 100) + '%</b></div>' +
+             '<div class="pt-row"><span>产能利用率</span><b' + utilCls + '>' + s.util + '%</b></div>' +
+             '<div class="pt-row"><span>年产值</span><b>' + fmt(s.value) + ' 万元</b></div>' +
+           '</div>' +
+           '<div class="pt-more">点击查看详情 ›</div>' +
+           '</div>';
+  }
+
   function optMap() {
     var lw = D.plants.liaowang.filter(function (p) { return !p.overseas; });
     var hq = lw[0];                                   // 南宁总部，作为辐射源
     var lines = lw.slice(1).map(function (p) {
       return { coords: [hq.coord, p.coord], toName: p.name };
     });
-    function tip(d) {
-      return '<b>' + d.name + '</b><br/>' + d.city + ' · ' + d.type +
-             '<br/><span style="color:#7f9db8">' + d.cap + '</span>';
-    }
     return {
       tooltip: {
         trigger: 'item', backgroundColor: 'rgba(6,22,40,.94)', borderColor: 'rgba(0,212,255,.35)',
         borderWidth: 1, padding: [8, 12], textStyle: { color: C.text, fontSize: 12 },
         formatter: function (p) {
           if (p.seriesType === 'lines') return '总部辐射线路<br/>' + hq.name + ' → ' + p.data.toName;
-          return p.data && p.data.cap ? tip(p.data) : p.name;
+          return p.data && p.data.plant ? plantTipHTML(p.data) : p.name;
         }
       },
       legend: {
@@ -311,38 +341,44 @@
         textStyle: { color: C.muted, fontSize: 10 }
       },
       geo: {
-        map: 'china', roam: false, zoom: 1.16, center: [104.5, 33.5],
+        /* 华东（苏州 / 嘉兴）等密集点位在小画幅下必然重叠，开放滚轮缩放与拖拽平移以便分辨 */
+        map: 'china', roam: true, zoom: 1.16, center: [104.5, 33.5],
         itemStyle: { areaColor: 'rgba(12,44,78,.6)', borderColor: 'rgba(0,212,255,.4)', borderWidth: .8 },
         emphasis: { itemStyle: { areaColor: 'rgba(0,120,180,.5)' }, label: { show: false } },
         label: { show: false }
       },
       series: [
         {
-          name: '总部辐射', type: 'lines', coordinateSystem: 'geo', zlevel: 1,
+          /* 辐射连线为装饰元素：设为 silent，避免抢走基地散点的 hover / click 事件 */
+          name: '总部辐射', type: 'lines', coordinateSystem: 'geo', zlevel: 1, silent: true,
           effect: { show: true, period: 5, trailLength: .3, symbol: 'circle', symbolSize: 4, color: C.orange },
           lineStyle: { color: C.orange, width: 1, opacity: .45, curveness: .22 },
           data: lines
         },
         {
-          name: '燎旺车灯制造基地', type: 'effectScatter', coordinateSystem: 'geo', zlevel: 2,
+          name: '燎旺车灯制造基地', type: 'effectScatter', coordinateSystem: 'geo', zlevel: 2, cursor: 'pointer',
           rippleEffect: { brushType: 'stroke', scale: 3.2, period: 3.4 },
-          symbolSize: 11,
+          symbolSize: 9,
+          emphasis: { scale: 1.6, label: { fontSize: 12, fontWeight: 700 } },
           itemStyle: { color: C.orange, shadowBlur: 12, shadowColor: C.orange },
           label: { show: true, position: 'right', formatter: '{b}', color: '#ffd9b0', fontSize: 10.5,
                    fontWeight: 600, textShadowColor: '#000', textShadowBlur: 4 },
           data: lw.map(function (p) {
             return { name: p.name, value: p.coord, city: p.city, type: p.type, cap: p.cap,
+                     stat: p.stat, plant: p.name,
                      label: { position: PLANT_LP[p.name] || 'right' } };
           })
         },
         {
-          name: '佛照照明制造基地', type: 'scatter', coordinateSystem: 'geo', zlevel: 2,
-          symbolSize: 8,
+          name: '佛照照明制造基地', type: 'scatter', coordinateSystem: 'geo', zlevel: 2, cursor: 'pointer',
+          symbolSize: 7,
+          emphasis: { scale: 1.8, label: { fontSize: 11.5, fontWeight: 700 } },
           itemStyle: { color: C.cyan, shadowBlur: 10, shadowColor: C.cyan },
           label: { show: true, position: 'left', formatter: '{b}', color: '#bfe9ff', fontSize: 10,
                    textShadowColor: '#000', textShadowBlur: 4 },
           data: D.plants.fsl.map(function (p) {
             return { name: p.name, value: p.coord, city: p.city, type: p.type, cap: p.cap,
+                     stat: p.stat, plant: p.name,
                      label: { position: PLANT_LP[p.name] || 'left' } };
           })
         }
@@ -354,19 +390,71 @@
   function renderPlantList() {
     var wrap = $('#plantList');
     if (!wrap) return;
-    function items(list, cls) {
-      return list.map(function (p) {
-        return '<div class="plant-item ' + cls + '" title="' + p.city + ' · ' + p.type + ' · ' + p.cap + '">' +
-               '<span class="dot"></span><span class="nm">' + p.name + '</span></div>';
-      }).join('');
+    wrap.innerHTML = '';
+    /* 系列索引：0 总部辐射连线 / 1 燎旺车灯基地 / 2 佛照照明基地。
+       地图 series 1 只绘制境内基地（海外基地不在国内 GeoJSON 范围内），故索引按下标对齐。 */
+    var list = D.plants.liaowang.map(function (p, i) { return { p: p, si: 1, di: i, lw: true }; })
+      .concat(D.plants.fsl.map(function (p, i) { return { p: p, si: 2, di: i, lw: false }; }));
+    list.forEach(function (o) {
+        var p = o.p;
+        var n = el('div', 'plant-item' + (o.lw ? ' lw' : ''));
+        n.innerHTML = '<span class="dot"></span><span class="nm">' + p.name + '</span>' +
+                      '<span class="vv num">' + p.stat.util + '%</span>';
+        /* 悬停：① 左侧浮层展示生产/销售数据（覆盖地图外的海外基地）② 地图上同步高亮 */
+        n.addEventListener('mouseenter', function () { showPlantTip(p, o.si, o.di); });
+        n.addEventListener('mouseleave', function () { hidePlantTip(o.si, o.di); });
+        n.addEventListener('click', function () { openPlant(p.name); });
+        wrap.appendChild(n);
+      });
+  }
+
+  /**
+   * 基地清单悬停浮层：
+   * 华东点位密集（苏州/嘉兴相距约 3px）且印尼基地不在国内地图范围内，
+   * 仅靠地图上悬停无法稳定命中，故清单悬停独立弹出生鲜数据卡片。
+   */
+  function showPlantTip(p, si, di) {
+    var box = $('#plantTip');
+    if (!box) return;
+    var extra = p.overseas
+      ? '<div class="pt-note">海外基地 · 不在国内地图坐标范围内</div>'
+      : '';
+    box.innerHTML = plantTipHTML(p) + extra;
+    box.classList.add('on');
+    if (!p.overseas && mapRec && !mapRec.inst.isDisposed()) {
+      try {
+        mapRec.inst.dispatchAction({ type: 'highlight', seriesIndex: si, dataIndex: di });
+      } catch (e) {}
+    } else if (mapRec && !mapRec.inst.isDisposed()) {
+      mapRec.inst.dispatchAction({ type: 'hideTip' });
     }
-    wrap.innerHTML = items(D.plants.liaowang, 'lw') + items(D.plants.fsl, '');
+  }
+
+  function hidePlantTip(si, di) {
+    var box = $('#plantTip');
+    if (box) { box.classList.remove('on'); box.innerHTML = ''; }
+    if (mapRec && !mapRec.inst.isDisposed()) {
+      try {
+        mapRec.inst.dispatchAction({ type: 'downplay', seriesIndex: si, dataIndex: di });
+        mapRec.inst.dispatchAction({ type: 'hideTip' });
+      } catch (e) {}
+    }
+  }
+
+  /** 基地下钻入口：① 地图散点点击 ② 地图右侧基地清单点击 */
+  function openPlant(name) {
+    if (D.plantIndex[name]) openEntity('plant', name, true);
   }
 
   function renderMap() {
     if (!chinaReady) return;
     renderPlantList();
-    mount($('#chartMap'), optMap);
+    mapRec = mount($('#chartMap'), optMap);
+    if (mapRec) {
+      mapRec.inst.on('click', function (p) {
+        if (p.data && p.data.plant) openPlant(p.data.plant);
+      });
+    }
   }
 
   /** 首页横条：8 家所属企业（不遮挡 3D 城市主体） */
@@ -604,12 +692,13 @@
   }
 
   function renderOverviewCharts() {
-    mount($('#chartTrend'), function () { return optTrend({ months: D.trend.months, series: D.trend.series, unit: '万元' }); });
+    // 注意：轮播必须显式绑定趋势图实例；若沿用 charts[0]，地图先挂载会轮播出辐射连线的 tooltip
+    var trendRec = mount($('#chartTrend'), function () { return optTrend({ months: D.trend.months, series: D.trend.series, unit: '万元' }); });
     mount($('#chartOrders'), function () { return optTrend({ months: D.orders.months, series: D.orders.series, unit: '单', boundaryGap: true }); });
     mount($('#chartRadar'), function () { return optRadar(D.overall); });
 
     // 图表轮播：趋势图自动巡览数据点
-    var rec = charts[0];
+    var rec = trendRec;
     var idx = 0;
     regTimer(function () {
       if (!rec || !rec.inst || rec.inst.isDisposed()) return;

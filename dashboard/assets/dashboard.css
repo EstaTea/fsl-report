@@ -181,6 +181,7 @@ html, body {
 }
 .panel > h3 .bar { width: 3px; height: 14px; background: linear-gradient(180deg, var(--c-cyan), var(--c-orange)); border-radius: 2px; }
 .panel > h3 .en { margin-left: auto; font-size: 11px; color: rgba(127, 157, 184, .7); letter-spacing: 1px; font-weight: 400; }
+.panel > h3 .hint { margin-left: 10px; font-size: 10px; color: rgba(0, 212, 255, .75); letter-spacing: .4px; font-weight: 400; }
 .panel .body { flex: 1; min-height: 0; position: relative; }
 
 /* 四角装饰 */
@@ -266,8 +267,34 @@ html, body {
 .chart { width: 100%; height: 100%; }
 
 /* ------------------------------------------------- 全国制造基地地图 + 基地列表 */
-.map-body { display: flex; flex-direction: column; gap: 8px; }
+.map-body { display: flex; flex-direction: column; gap: 8px; position: relative; }
 .map-body .chart { flex: 1; min-width: 0; min-height: 0; }
+/* 基地悬停浮层：地图左上角空白区（西北侧无基地），不遮挡任何点位 */
+.plant-tip {
+  position: absolute; left: 4px; top: 4px; width: 206px; z-index: 12;
+  padding: 8px 10px; border-radius: 4px; pointer-events: none;
+  background: rgba(6, 22, 40, .96); border: 1px solid rgba(0, 212, 255, .38);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .55);
+  opacity: 0; transform: translateY(-4px); transition: opacity .16s ease, transform .16s ease;
+}
+.plant-tip.on { opacity: 1; transform: translateY(0); }
+.plant-tip .pt-nm { font-size: 13px; font-weight: 700; color: #fff; letter-spacing: .3px; }
+.plant-tip .pt-sub { font-size: 10.5px; color: var(--c-muted); margin-top: 1px; }
+.plant-tip .pt-cap {
+  font-size: 10px; color: rgba(127, 157, 184, .85); line-height: 1.4; margin-top: 3px;
+}
+.plant-tip .pt-grid { margin-top: 5px; padding-top: 5px; border-top: 1px dashed rgba(0, 212, 255, .25); }
+.plant-tip .pt-row { display: flex; justify-content: space-between; gap: 10px; line-height: 1.62; }
+.plant-tip .pt-row span { font-size: 10.5px; color: var(--c-muted); }
+.plant-tip .pt-row b { font-size: 11px; color: #eaf6ff; font-weight: 700; }
+.plant-tip .pt-row b.hl { color: var(--c-orange); }
+.plant-tip .pt-row b.low { color: #8fb6d6; }
+.plant-tip .pt-more { margin-top: 5px; font-size: 10.5px; color: var(--c-orange); font-weight: 600; }
+.plant-tip .pt-note {
+  margin-top: 5px; padding: 3px 6px; border-radius: 3px; font-size: 10px;
+  color: #ffd0a0; background: rgba(255, 117, 0, .14); border: 1px solid rgba(255, 117, 0, .3);
+}
+
 .plant-list {
   flex: none; height: 104px; overflow-y: auto;
   display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; align-content: start;
@@ -279,6 +306,15 @@ html, body {
 .plant-item .dot { flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--c-cyan); box-shadow: 0 0 6px var(--c-cyan); }
 .plant-item.lw .dot { background: var(--c-orange); box-shadow: 0 0 6px var(--c-orange); }
 .plant-item .nm { font-size: 10.5px; color: #eaf6ff; font-weight: 600; line-height: 1.5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* 可点击下钻：鼠标指针 + 悬停高亮，利用率数值右对齐 */
+.plant-item { cursor: pointer; transition: background .18s ease, transform .18s ease; }
+.plant-item:hover { background: rgba(0, 212, 255, .18); transform: translateX(2px); }
+.plant-item.lw:hover { background: rgba(255, 117, 0, .22); }
+.plant-item .vv {
+  margin-left: auto; flex: none; font-size: 10px; font-weight: 700;
+  color: rgba(191, 233, 255, .95);
+}
+.plant-item.lw .vv { color: rgba(255, 178, 120, .95); }
 
 /* --------------------------------------- 拆开⑤：所属企业横条（首页中上） */
 .sub-strip {
