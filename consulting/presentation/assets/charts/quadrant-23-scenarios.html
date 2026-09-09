@@ -215,7 +215,7 @@
     type: 'scatter',
     data: {
       datasets: scenarios.map(function(s){
-        var r = s.p === '一期' ? 18 : s.p === '二期' ? 12 : s.p === '三期' ? 7 : 14;
+        var r = 12;  // 统一尺寸，避免 S05 等单点过大/过小
         return {
           label: s.id + ' ' + s.name,
           data: [{x: Math.min(s.bv, 5.0), y: s.td}],
