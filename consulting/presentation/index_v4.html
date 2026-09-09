@@ -1929,6 +1929,11 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
         <div style="opacity:.88;line-height:1.5;font-size:10.5px" data-page-node-id="ePE0AYhs5I4jq7lBdnxlcF"><strong data-page-node-id="QAI6dlDBF9iPf4NLxiTTye">战略定位：</strong>主数据治理 + 财务基础 + 核心业务闭环。先把"数据地基"打牢——物料/客户/供应商统一编码、财务科目重构、成本还原到位，并同步落地 BOM 全生命周期与跨公司转卖规则，后续所有高级应用才有可信数据源。</div>
         <div style="opacity:.75;line-height:1.4;font-size:10px;margin-top:3px;border-top:1px solid rgba(255,255,255,.2);padding-top:3px" data-page-node-id="0SUx2xT2DNmdf6LhUdQt0r">S01·S02·S03·S05·S06·S07·S08·S09·S11·S12·S15·S16·S23</div>
       </div>
+      <div style="background:linear-gradient(135deg,#1a4f73,#5ea4ce);color:#fff;padding:10px 14px;border-radius:8px;border:1px dashed rgba(255,255,255,.55)" data-page-node-id="FslCrossPhaseCard">
+        <div style="font-weight:700;font-size:13px;margin-bottom:2px" data-page-node-id="FslCrossPhaseCardH">跨期 · 一期+二期滚动推进（3个）</div>
+        <div style="opacity:.88;line-height:1.5;font-size:10.5px" data-page-node-id="FslCrossPhaseCardD">同时横跨两期的衔接型场景，需在一期数据底座与二期流程深化之间滚动推进，避免"底座未稳就深挖"。</div>
+        <div style="opacity:.75;line-height:1.4;font-size:10px;margin-top:3px;border-top:1px solid rgba(255,255,255,.2);padding-top:3px" data-page-node-id="FslCrossPhaseCardCodes">S13·S14·S17</div>
+      </div>
       <div style="background:linear-gradient(135deg,#2374a3,#5ea4ce);color:#fff;padding:10px 14px;border-radius:8px" data-page-node-id="I5y05UBSFCULN0Y8dMPCbZ">
         <div style="font-weight:700;font-size:13px;margin-bottom:2px" data-page-node-id="OCDudTfsE5WuAUXXkYMWM0">二期 · 贯通协同（2027 · 4个）</div>
         <div style="opacity:.88;line-height:1.5;font-size:10.5px" data-page-node-id="RdFlxaEPltgLpEBtS68LLk"><strong data-page-node-id="EFw4u1OIaliNlBndpp0FFK">战略定位：</strong>跨域流程打通 + 计划体系深化。在一期数据底座之上，打通价格体系、采购协同与合并报表；同时引入MPS/MRP等生产计划核心模块，实现产供销协同。</div>
@@ -1938,11 +1943,6 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
         <div style="font-weight:700;font-size:13px;margin-bottom:2px" data-page-node-id="MG9gOYEUm8dLio2k5Uopqp">三期 · 智慧跃升（2028 · 3个）</div>
         <div style="opacity:.9;line-height:1.5;font-size:10.5px" data-page-node-id="P7ExolLGYxCPuS1nyGngza"><strong data-page-node-id="ntOyYmYKl0ZrKFiPEVfyCv">战略定位：</strong>数据驱动决策 + 智能化运营。数据和流程就绪后，通过实时看板、质量追溯实现从"记录系统"到"智能系统"的跃升。</div>
         <div style="opacity:.75;line-height:1.4;font-size:10px;margin-top:3px;border-top:1px solid rgba(11,45,71,.15);padding-top:3px" data-page-node-id="WxejV65L9bVsDokHvdsuZI">S20·S21·S22</div>
-      </div>
-      <div style="background:linear-gradient(135deg,#1a4f73,#5ea4ce);color:#fff;padding:10px 14px;border-radius:8px;border:1px dashed rgba(255,255,255,.55)" data-page-node-id="FslCrossPhaseCard">
-        <div style="font-weight:700;font-size:13px;margin-bottom:2px" data-page-node-id="FslCrossPhaseCardH">跨期 · 一期+二期滚动推进（3个）</div>
-        <div style="opacity:.88;line-height:1.5;font-size:10.5px" data-page-node-id="FslCrossPhaseCardD">同时横跨两期的衔接型场景，需在一期数据底座与二期流程深化之间滚动推进，避免"底座未稳就深挖"。</div>
-        <div style="opacity:.75;line-height:1.4;font-size:10px;margin-top:3px;border-top:1px solid rgba(255,255,255,.2);padding-top:3px" data-page-node-id="FslCrossPhaseCardCodes">S13·S14·S17</div>
       </div>
 
       <div class="insight-box" style="padding:10px 14px;margin-top:4px" data-page-node-id="VJ4YHrKYB0x6XeuC0tNvxV">
@@ -1979,120 +1979,112 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
       一期是所有场景的<strong data-page-node-id="2TgiuRqqXXSSR520qFt8du">前置条件</strong>——无主数据则无法做计划，无成本还原则无法做分析；二期依赖一期的数据质量和业务闭环；三期依赖前两期的完整数据链路。同时结合 BV×TD 四象限：高BV且为前置依赖的优先落地（一期），高BV高TD战略深挖留周期（二期），分析与可视化收尾（三期）。
     </div>
 
-    <!-- 一期：12个场景 - 横排紧凑卡片（图标在左，文字在右） -->
+    <!-- 一期：13个场景 - 3列网格卡片 -->
     <div style="font-size:13px;font-weight:800;color:#2374a3;margin-bottom:4px;" data-page-node-id="6ir5NJfEG91UcVhGsEH0J0">一期 · 夯实底座（2026 · 13个）— 前置条件</div>
-
-    <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:6px;" data-page-node-id="WMOEP7qGJoltEEg3uQuktt">
-      <!-- Row 1: S01 S02 S03 -->
-      <div style="display:flex;gap:10px;" data-page-node-id="Du8Ybzy2w51tJwyhGSAAZ3">
-        <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F7AF4595C6AA44C08A774ED63EE55103F" target="_blank" title="打开专题方案原件：S01 物料主数据治理" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:6px 11px;box-shadow:0 1px 4px rgba(11,45,71,.04);text-decoration:none;color:inherit;" data-page-node-id="52lr9GV1tbFjFV7N4R5HUv">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:6px;" data-page-node-id="WMOEP7qGJoltEEg3uQuktt">
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F7AF4595C6AA44C08A774ED63EE55103F" target="_blank" title="打开专题方案原件：S01 物料主数据治理" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:6px 11px;box-shadow:0 1px 4px rgba(11,45,71,.04);text-decoration:none;color:inherit;" data-page-node-id="52lr9GV1tbFjFV7N4R5HUv">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;" data-page-node-id="LZhFSDAZ1E43XAJx9FTw0n"><path d="M20 7h-9M14 17H5M15 12H3" data-page-node-id="kDd4YeUszDVPewEcAnVqhL"/><circle cx="18" cy="12" r="3" data-page-node-id="MU1QyN2KSqGkX38wYOsMhS"/></svg>
           <div style="min-width:0;" data-page-node-id="hfzoATtMjMJima58kuLfSV">
             <div style="font-size:14px;font-weight:700;color:#0b2d47;line-height:1.2;" data-page-node-id="CJPv6RCect9gme3pLkehXD">S01 物料主数据治理</div>
             <div style="font-size:11.5px;color:#5b7a91;margin-top:1px;" data-page-node-id="lSTZLmC5bBAMXBLdCOMQPG">统一编码·一码一物 &nbsp;<span style="color:#2374a3;font-weight:600;" data-page-node-id="muryNt9VIekCUOvXwtYiqB">BV 5.0 / TD 4.5</span></div>
           </div>
         </a>
-        <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2FD506FA776B8342BE89850FB86412F278" target="_blank" title="打开专题方案原件：S02 客户信用管理" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:6px 11px;box-shadow:0 1px 4px rgba(11,45,71,.04);text-decoration:none;color:inherit;" data-page-node-id="MVwmPvz32PA28o1rojd5Fr">
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2FD506FA776B8342BE89850FB86412F278" target="_blank" title="打开专题方案原件：S02 客户信用管理" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:6px 11px;box-shadow:0 1px 4px rgba(11,45,71,.04);text-decoration:none;color:inherit;" data-page-node-id="MVwmPvz32PA28o1rojd5Fr">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;" data-page-node-id="MDEUL4R4gD8Leb5ypGeohq"><rect x="2" y="5" width="20" height="14" rx="2" data-page-node-id="qekqXPzywf0EYpGyWdZkq9"/><line x1="2" y1="10" x2="22" y2="10" data-page-node-id="CmSoI2jPSfamfGKnOtr3CH"/></svg>
           <div style="min-width:0;" data-page-node-id="3frPIXzFF2fEOL0hiXeQbm">
             <div style="font-size:14px;font-weight:700;color:#0b2d47;line-height:1.2;" data-page-node-id="0U6849JWmIAJIMC18839k3">S02 客户信用管理</div>
             <div style="font-size:11.5px;color:#5b7a91;margin-top:1px;" data-page-node-id="zRJP6wLL4ebov4Xi7xf7lO">SAP标准信用+定制 &nbsp;<span style="color:#2374a3;font-weight:600;" data-page-node-id="Grbd23bhDGDWUozb8IPMFr">BV 4.5 / TD 4.5</span></div>
           </div>
         </a>
-        
-        <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2FB494BC36AFAC4101943BA445503F7C39" target="_blank" title="打开专题方案原件：S03 跨公司转卖" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:6px 11px;box-shadow:0 1px 4px rgba(11,45,71,.04);text-decoration:none;color:inherit;" data-page-node-id="SGPS03cardA0">
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2FB494BC36AFAC4101943BA445503F7C39" target="_blank" title="打开专题方案原件：S03 跨公司转卖" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:6px 11px;box-shadow:0 1px 4px rgba(11,45,71,.04);text-decoration:none;color:inherit;" data-page-node-id="SGPS03cardA0">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;" data-page-node-id="SGPS03cardA1"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
           <div style="min-width:0;" data-page-node-id="SGPS03cardA2">
             <div style="font-size:14px;font-weight:700;color:#0b2d47;line-height:1.2;" data-page-node-id="SGPS03cardA3">S03 跨公司转卖</div>
             <div style="font-size:11.5px;color:#5b7a91;margin-top:1px;" data-page-node-id="SGPS03cardA4">集团间转卖·内部交易协同 &nbsp;<span style="color:#2374a3;font-weight:600;" data-page-node-id="SGPS03cardA5">BV 3.8 / TD 3.6</span></div>
           </div>
         </a>
-      </div>
-        <a href="%s" target="_blank" title="打开专题方案原件：S05 销售订单全链路追踪" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:6px 11px;box-shadow:0 1px 4px rgba(11,45,71,.04);text-decoration:none;color:inherit;" data-page-node-id="SGPS05cardC0">
+      <a href="#" target="_blank" title="S05 销售订单全链路追踪（原件链接待补充）" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:6px 11px;box-shadow:0 1px 4px rgba(11,45,71,.04);text-decoration:none;color:inherit;" data-page-node-id="SGPS05cardC0">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;" data-page-node-id="SGPS05cardC1"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
           <div style="min-width:0;" data-page-node-id="SGPS05cardC2">
             <div style="font-size:14px;font-weight:700;color:#0b2d47;line-height:1.2;" data-page-node-id="SGPS05cardC3">S05 销售订单全链路追踪</div>
             <div style="font-size:11.5px;color:#5b7a91;margin-top:1px;" data-page-node-id="SGPS05cardC4">订单状态·物流可视 &nbsp;<span style="color:#2374a3;font-weight:600;" data-page-node-id="SGPS05cardC5">BV 3.4 / TD 4.2</span></div>
           </div>
         </a>
-      </div>
-      <!-- Row 2: S06 S07 S08 -->
-      <div style="display:flex;gap:10px;" data-page-node-id="CMJqf48AoouSfowwQ8bdLT">
-        <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F15A214D6429A4D2E81B56772A1231DFF" target="_blank" title="打开专题方案原件：S06 海外财务合规" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:6px 11px;box-shadow:0 1px 4px rgba(11,45,71,.04);text-decoration:none;color:inherit;" data-page-node-id="0QzWwBEiruTSoIW8vHtjq1">
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F15A214D6429A4D2E81B56772A1231DFF" target="_blank" title="打开专题方案原件：S06 海外财务合规" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:6px 11px;box-shadow:0 1px 4px rgba(11,45,71,.04);text-decoration:none;color:inherit;" data-page-node-id="0QzWwBEiruTSoIW8vHtjq1">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;" data-page-node-id="xKQ7Es19VpnUbwzbkkBQlD"><circle cx="12" cy="12" r="10" data-page-node-id="JEmH8HliGHcddn5IOxERhq"/><line x1="2" y1="12" x2="22" y2="12" data-page-node-id="lGSE0ozoN8y4WaTSoRRjHR"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" data-page-node-id="QuYRcbK3zQHm0cevtsnCbl"/></svg>
           <div style="min-width:0;" data-page-node-id="zVk96HKUr23I1HhBgbWhq1">
             <div style="font-size:14px;font-weight:700;color:#0b2d47;line-height:1.2;" data-page-node-id="HaTxEICqz6wmaNYZLV0Klx">S06 海外财务合规</div>
             <div style="font-size:11.5px;color:#5b7a91;margin-top:1px;" data-page-node-id="3LUHWyoAeD8bDQTzmdDtyy">多语言·多货币支持 &nbsp;<span style="color:#2374a3;font-weight:600;" data-page-node-id="nsRVE9XVFns7yC696QX2qo">BV 3.0 / TD 3.2</span></div>
           </div>
         </a>
-        <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F8522A932B95242F1913759B3B371F398" target="_blank" title="打开专题方案原件：S07 制造成本还原" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:6px 11px;box-shadow:0 1px 4px rgba(11,45,71,.04);text-decoration:none;color:inherit;" data-page-node-id="foxBXv0VnN59KAtuuja9bp">
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F8522A932B95242F1913759B3B371F398" target="_blank" title="打开专题方案原件：S07 制造成本还原" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:6px 11px;box-shadow:0 1px 4px rgba(11,45,71,.04);text-decoration:none;color:inherit;" data-page-node-id="foxBXv0VnN59KAtuuja9bp">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;" data-page-node-id="dsFT7jP9RuTf1P4twzGNvi"><line x1="12" y1="1" x2="12" y2="23" data-page-node-id="Dr5ElFlhRcBulMici4RUFR"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" data-page-node-id="zrP4wjqCHFiykUGmW5bTQU"/></svg>
           <div style="min-width:0;" data-page-node-id="vAWIXP5SxOWBE0l1hZjXqx">
             <div style="font-size:14px;font-weight:700;color:#0b2d47;line-height:1.2;" data-page-node-id="HlslqnthS8qczGyWDvEEHu">S07 制造成本还原</div>
             <div style="font-size:11.5px;color:#5b7a91;margin-top:1px;" data-page-node-id="Ogb16a67FzCrD3NgGwRNaC">法人+集团成本视图 &nbsp;<span style="color:#2374a3;font-weight:600;" data-page-node-id="3GoMGkzKDo2oLvf6HzL8gT">BV 4.8 / TD 4.5</span></div>
           </div>
         </a>
-        <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F4DBC50133EBD4D9B890563046F5D24B9" target="_blank" title="打开专题方案原件：S08 财务组织+科目" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:6px 11px;box-shadow:0 1px 4px rgba(11,45,71,.04);text-decoration:none;color:inherit;" data-page-node-id="4eAKFEZJ4CHgJLyTuF7AEr">
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F4DBC50133EBD4D9B890563046F5D24B9" target="_blank" title="打开专题方案原件：S08 财务组织+科目" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:6px 11px;box-shadow:0 1px 4px rgba(11,45,71,.04);text-decoration:none;color:inherit;" data-page-node-id="4eAKFEZJ4CHgJLyTuF7AEr">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;" data-page-node-id="cgezA0rP2OAB5a02QvdFHx"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" data-page-node-id="lCHD8RFxHVtLGw5ktvNGc2"/><polyline points="14 2 14 8 20 8" data-page-node-id="CXHXmJTvtBExCekhDLlari"/></svg>
           <div style="min-width:0;" data-page-node-id="UiFniJfi2X3GJq71CVaZJz">
             <div style="font-size:14px;font-weight:700;color:#0b2d47;line-height:1.2;" data-page-node-id="Ei5TcdUlyVOYLwX2Y9m2K3">S08 财务组织+科目</div>
             <div style="font-size:11.5px;color:#5b7a91;margin-top:1px;" data-page-node-id="hCK1VZcSG7n5k0ErfUT9WZ">1800+科目→600个 &nbsp;<span style="color:#2374a3;font-weight:600;" data-page-node-id="WWb2rnOsVpk0LhCWu1WE28">BV 2.2 / TD 2.1</span></div>
           </div>
         </a>
-      </div>
-      <!-- Row 3: S09 S11 S12 -->
-      <div style="display:flex;gap:10px;" data-page-node-id="QkpQXSAwHGvxHlJPRsM2FA">
-        <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F5DF58271682147939DF260DCA77B6223" target="_blank" title="打开专题方案原件：S09 应收清账+BIP" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:6px 11px;box-shadow:0 1px 4px rgba(11,45,71,.04);text-decoration:none;color:inherit;" data-page-node-id="gbfsov4uPvDg9mimqq2rFs">
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F5DF58271682147939DF260DCA77B6223" target="_blank" title="打开专题方案原件：S09 应收清账+BIP" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:6px 11px;box-shadow:0 1px 4px rgba(11,45,71,.04);text-decoration:none;color:inherit;" data-page-node-id="gbfsov4uPvDg9mimqq2rFs">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;" data-page-node-id="Y5k2KRXcU1NC0jz5g2FYjJ"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" data-page-node-id="fuY9nz16eSaqiYIDdsUeJ5"/><polyline points="22,6 12,13 2,6" data-page-node-id="CQu1CU55EJB7D0ICOE7Xgn"/></svg>
           <div style="min-width:0;" data-page-node-id="31xLkDG8V2a0FjY2YkTXaI">
             <div style="font-size:14px;font-weight:700;color:#0b2d47;line-height:1.2;" data-page-node-id="QAc9XVLTIzEbzeiNFFrmKu">S09 应收清账+BIP</div>
             <div style="font-size:11.5px;color:#5b7a91;margin-top:1px;" data-page-node-id="XwIN8AqOClh7QUgqC9S5t6">自动化清账+财务共享 &nbsp;<span style="color:#2374a3;font-weight:600;" data-page-node-id="S7hO1Aia8r3eLoj79r8Dsp">BV 2.8 / TD 2.3</span></div>
           </div>
         </a>
-        <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2FA4988482CCED49A189B73D99FBF1B4DF" target="_blank" title="打开专题方案原件：S11 客户项目核算" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:6px 11px;box-shadow:0 1px 4px rgba(11,45,71,.04);text-decoration:none;color:inherit;" data-page-node-id="R8UswxvzlIYNJLfolooyDU">
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2FA4988482CCED49A189B73D99FBF1B4DF" target="_blank" title="打开专题方案原件：S11 客户项目核算" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:6px 11px;box-shadow:0 1px 4px rgba(11,45,71,.04);text-decoration:none;color:inherit;" data-page-node-id="R8UswxvzlIYNJLfolooyDU">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;" data-page-node-id="vrPjo0iosE4rA49vkQnaTz"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" data-page-node-id="n9SPByGh7Ynwrp5m056wgv"/></svg>
           <div style="min-width:0;" data-page-node-id="9RZk1XGlhDN60BFKiMleSl">
             <div style="font-size:14px;font-weight:700;color:#0b2d47;line-height:1.2;" data-page-node-id="CmAnkZYVWfXIlDt3YEUiG5">S11 客户项目核算</div>
             <div style="font-size:11.5px;color:#5b7a91;margin-top:1px;" data-page-node-id="CAdBLiLBOw7CbEEtYXhmFo">按客户/项目精细化分析 &nbsp;<span style="color:#2374a3;font-weight:600;" data-page-node-id="HSyzgHBG6asFAo0VSrUo8L">BV 4.3 / TD 3.3</span></div>
           </div>
         </a>
-        <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F876AC84E607C497DBE8542CAE1A03050" target="_blank" title="打开专题方案原件：S12 研发投入产出分析" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:6px 11px;box-shadow:0 1px 4px rgba(11,45,71,.04);text-decoration:none;color:inherit;" data-page-node-id="s1L1NAmLoWuahLZG7Rv9Co">
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F876AC84E607C497DBE8542CAE1A03050" target="_blank" title="打开专题方案原件：S12 研发投入产出分析" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:6px 11px;box-shadow:0 1px 4px rgba(11,45,71,.04);text-decoration:none;color:inherit;" data-page-node-id="s1L1NAmLoWuahLZG7Rv9Co">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;" data-page-node-id="I2Z3wZOpCZEXDMoKqpv3eD"><polygon points="12 2 2 7 12 12 22 7 12 2" data-page-node-id="UEMAr2GqBhUFI1exrGjpTb"/><polyline points="2 17 12 22 22 17" data-page-node-id="RU2CjpJnS2OqpqEWx7E10U"/><polyline points="2 12 12 17 22 12" data-page-node-id="Jh1abmlrdbDtKKRoCr6Y2b"/></svg>
           <div style="min-width:0;" data-page-node-id="5XIAX7oNGI1pdUZLNtwvPw">
             <div style="font-size:14px;font-weight:700;color:#0b2d47;line-height:1.2;" data-page-node-id="DGtaaddD5Sl2R8OnMjf4T2">S12 研发投入产出分析</div>
             <div style="font-size:11.5px;color:#5b7a91;margin-top:1px;" data-page-node-id="TEF4FAfUIYCbAVRMREikSu">研发成本归集+效益分析 &nbsp;<span style="color:#2374a3;font-weight:600;" data-page-node-id="XE2Da2LDW0R2zpF6j5ThRI">BV 4.5 / TD 3.5</span></div>
           </div>
         </a>
-      </div>
-      <!-- Row 4: S15 S16 S23 -->
-      <div style="display:flex;gap:10px;" data-page-node-id="XAN30LjGqUEA2Vdb5d9zDX">
-        
-        
-        <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2FA861BE84F7CC48F1B35A7A2728DD7A9C" target="_blank" title="打开专题方案原件：S15 采购配额管理" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:6px 11px;box-shadow:0 1px 4px rgba(11,45,71,.04);text-decoration:none;color:inherit;" data-page-node-id="6GkE9Ku4w26I4asMHuPWP2">
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2FA861BE84F7CC48F1B35A7A2728DD7A9C" target="_blank" title="打开专题方案原件：S15 采购配额管理" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:6px 11px;box-shadow:0 1px 4px rgba(11,45,71,.04);text-decoration:none;color:inherit;" data-page-node-id="6GkE9Ku4w26I4asMHuPWP2">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;" data-page-node-id="2Ch918nxWm0DC9I0DkZGgW"><path d="M21.21 15.89A10 10 0 1 1 8 2.83" data-page-node-id="okBxzFr7XFldWHSr7hSQbh"/><path d="M22 12A10 10 0 0 0 12 2v10z" data-page-node-id="bbXkB3OtleeoDMlRUJVLln"/></svg>
           <div style="min-width:0;" data-page-node-id="oKfPkbrmIzfvzAQLt9p3QB">
             <div style="font-size:14px;font-weight:700;color:#0b2d47;line-height:1.2;" data-page-node-id="oxpbXnaHq8FPMNDsY2oGLB">S15 采购配额管理</div>
             <div style="font-size:11.5px;color:#5b7a91;margin-top:1px;" data-page-node-id="QJahQWZH5AU1ETwD9XqPso">配额智能分配·订单分配 &nbsp;<span style="color:#2374a3;font-weight:600;" data-page-node-id="Xg9VXc3azt5PJgqZeU40VE">BV 3.6 / TD 3.5</span></div>
           </div>
         </a>
-        <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F8E41A3C7EEDF4EB4B47160036CC7B719" target="_blank" title="打开专题方案原件：S16 齐套预警" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:6px 11px;box-shadow:0 1px 4px rgba(11,45,71,.04);text-decoration:none;color:inherit;" data-page-node-id="htqoWK2q1UXLALvzcc5JVk">
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F8E41A3C7EEDF4EB4B47160036CC7B719" target="_blank" title="打开专题方案原件：S16 齐套预警" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:6px 11px;box-shadow:0 1px 4px rgba(11,45,71,.04);text-decoration:none;color:inherit;" data-page-node-id="htqoWK2q1UXLALvzcc5JVk">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;" data-page-node-id="hlv4z8HmYZODVVd56rtn1c"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" data-page-node-id="NBI52AQTmFqZ9MVO66IzoA"/><line x1="12" y1="9" x2="12" y2="13" data-page-node-id="tGZQYQvMlQ2zvmnKLNv0e4"/><line x1="12" y1="17" x2="12.01" y2="17" data-page-node-id="DaPiOCUhgzS3wIJOmKx8OZ"/></svg>
           <div style="min-width:0;" data-page-node-id="WvQ7uZE3DjsNyZdvRD3rQ0">
             <div style="font-size:14px;font-weight:700;color:#0b2d47;line-height:1.2;" data-page-node-id="nNG4Nv58N4jNahBD8oiEkd">S16 齐套预警</div>
             <div style="font-size:11.5px;color:#5b7a91;margin-top:1px;" data-page-node-id="PEQmTTDBZqpjhHbEijlX3x">生产齐套性·缺料预警 &nbsp;<span style="color:#2374a3;font-weight:600;" data-page-node-id="McSnQHwhnxAPss1pkelBPv">BV 4.0 / TD 4.0</span></div>
           </div>
         </a>
-        <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F27EBD007E0BD4018A81EB4E8ECEE9E6D" target="_blank" title="打开专题方案原件：S23 BOM全生命周期" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:6px 11px;box-shadow:0 1px 4px rgba(11,45,71,.04);text-decoration:none;color:inherit;" data-page-node-id="SGPS23cardB0">
+      <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F27EBD007E0BD4018A81EB4E8ECEE9E6D" target="_blank" title="打开专题方案原件：S23 BOM全生命周期" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,45,71,.1);border-radius:8px;padding:6px 11px;box-shadow:0 1px 4px rgba(11,45,71,.04);text-decoration:none;color:inherit;" data-page-node-id="SGPS23cardB0">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2374a3" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0;" data-page-node-id="SGPS23cardB1"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
           <div style="min-width:0;" data-page-node-id="SGPS23cardB2">
             <div style="font-size:14px;font-weight:700;color:#0b2d47;line-height:1.2;" data-page-node-id="SGPS23cardB3">S23 BOM全生命周期</div>
             <div style="font-size:11.5px;color:#5b7a91;margin-top:1px;" data-page-node-id="SGPS23cardB4">EBOM-MBOM·工程变更管理 &nbsp;<span style="color:#2374a3;font-weight:600;" data-page-node-id="SGPS23cardB5">BV 3.3 / TD 3.8</span></div>
           </div>
         </a>
-      </div>
-          </div>
+    </div>
 
-    <!-- 二期 + 三期 + 跨期：精简展示（黑色文字） -->
+    <!-- 跨期：一期+二期滚动推进 -->
+    <div style="background:#f8f9fa;border-radius:8px;padding:9px 12px;border:1px solid rgba(11,45,71,.1);margin-top:6px;" data-page-node-id="FslCrossPhaseBox">
+      <div style="font-size:13px;font-weight:800;color:#8a6d3b;margin-bottom:4px;" data-page-node-id="FslCrossPhaseH">跨期 · 一期+二期滚动推进（3个）— 贯穿衔接</div>
+      <div style="font-size:11px;color:#555;margin-bottom:8px;line-height:1.45;" data-page-node-id="FslCrossPhaseD">同时横跨两期的衔接型场景，需在一期数据底座与二期流程深化之间滚动推进，避免"底座未稳就深挖"。</div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px;" data-page-node-id="FslCrossPhaseTags">
+        <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F2C40D47FD236465C80C946487D5EEE14" target="_blank" class="tag-fsl-outline" style="text-decoration:none;" title="打开专题方案原件：S13 供应商交期绩效" data-page-node-id="SGPS13tagX">S13 供应商交期绩效</a><a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F2C40D47FD236465C80C946487D5EEE14" target="_blank" class="tag-fsl-outline" style="text-decoration:none;" title="打开专题方案原件：S14 采购价格透明化" data-page-node-id="SGPS14tagX">S14 采购价格透明化</a><a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2FC42EE2903C844785B90D741210F2C8B1" target="_blank" class="tag-fsl-outline" style="text-decoration:none;" title="打开专题方案原件：S17 库存多维查询" data-page-node-id="SGPS17tagX">S17 库存多维查询</a>
+      </div>
+    </div>
+
+    <!-- 二期 + 三期：精简展示（黑色文字） -->
     <div style="display:flex;gap:14px;margin-top:6px;" data-page-node-id="p9vVc0IV4HFKRAssSfJjlZ">
       <div style="flex:1;background:#f8f9fa;border-radius:8px;padding:9px 12px;border:1px solid rgba(11,45,71,.1);" data-page-node-id="Ej7PxeFXm7mYl0OSWtjZxP">
         <div style="font-size:13px;font-weight:800;color:#222;margin-bottom:4px;" data-page-node-id="BP7ohyn4XCZKVzTGbg2RvQ">二期 · 贯通协同（2027 · 4个）— 战略深挖</div>
@@ -2107,16 +2099,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
         </div>
       </div>
     </div>
-    <!-- 跨期：一期+二期滚动推进 -->
-    <div style="background:#f8f9fa;border-radius:8px;padding:9px 12px;border:1px solid rgba(11,45,71,.1);margin-top:6px;" data-page-node-id="FslCrossPhaseBox">
-      <div style="font-size:13px;font-weight:800;color:#8a6d3b;margin-bottom:4px;" data-page-node-id="FslCrossPhaseH">跨期 · 一期+二期滚动推进（3个）— 贯穿衔接</div>
-      <div style="font-size:11px;color:#555;margin-bottom:8px;line-height:1.45;" data-page-node-id="FslCrossPhaseD">同时横跨两期的衔接型场景，需在一期数据底座与二期流程深化之间滚动推进，避免"底座未稳就深挖"。</div>
-      <div style="display:flex;flex-wrap:wrap;gap:5px;" data-page-node-id="FslCrossPhaseTags">
-        <a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F2C40D47FD236465C80C946487D5EEE14" target="_blank" class="tag-fsl-outline" style="text-decoration:none;" title="打开专题方案原件：S13 供应商交期绩效" data-page-node-id="SGPS13tagX">S13 供应商交期绩效</a><a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2F2C40D47FD236465C80C946487D5EEE14" target="_blank" class="tag-fsl-outline" style="text-decoration:none;" title="打开专题方案原件：S14 采购价格透明化" data-page-node-id="SGPS14tagX">S14 采购价格透明化</a><a href="https://pan.chinafsl.com/#/preview?gns=52C811695111469287C8A3F4EE7B977F%2F4A4F73A0240D45AD9BC0899423AFCA94%2F5C6F6D5D88E64FDA886A12DA0C7582B2%2F6AB3715F859E48D3B1A3AA54D4612287%2FEB71C993B1AB4685AC08C87B9247FCC4%2FC42EE2903C844785B90D741210F2C8B1" target="_blank" class="tag-fsl-outline" style="text-decoration:none;" title="打开专题方案原件：S17 库存多维查询" data-page-node-id="SGPS17tagX">S17 库存多维查询</a>
-      </div>
-    </div>
-
-  <aside class="notes" data-page-node-id="b04TOWxgDpKDx94L2yMWxN">
+    <aside class="notes" data-page-node-id="b04TOWxgDpKDx94L2yMWxN">
     <p data-page-node-id="RxX0IpHHXCvAMU5Z5kOjLn">V2 重设计：从 9.5px 密集表格改为图标卡片式布局。</p>
     <p data-page-node-id="vZAetUJJ5FeBoWdnhUnA2L">一期 12 个场景以 3 列图标卡片展示（编号+名称+一句话+BV/TD），二期和三期以标签云形式精简展示。</p>
     <p data-page-node-id="CwOhyE8nZy6K6l33LoftyB">排序核心逻辑：高价值低难度的优先做（快速赢），高价值高难度的作为战略核心持续推进。</p>
