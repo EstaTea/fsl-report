@@ -54,6 +54,8 @@
     <div class="hotspots" id="hotspots"></div>
     <!-- 9 个橙色业务板块胶囊：默认纯净，悬停弹出数据卡、点击下钻 -->
     <div class="capsules" id="capsules"></div>
+    <!-- 2 个重点子公司入口（国星光电 / 燎旺车灯）：悬停概览、点击进入经营评估 -->
+    <div class="sub-caps" id="subCaps"></div>
 
     <!-- 悬停信息卡：胶囊 / 热点悬停时弹出 -->
     <div class="home-tip" id="homeTip"></div>
@@ -159,6 +161,7 @@
       <button class="btn-back" id="btnHome2">‹ 首页</button>
       <button class="btn-back" id="btnBack">‹ 返回</button>
       <nav class="crumb" id="crumb"></nav>
+      <div class="detail-logos" id="detailLogos"></div>
       <div class="detail-title" id="detailTitle"></div>
     </header>
 
@@ -200,6 +203,26 @@
         </div>
       </div>
     </div>
+
+    <!-- 经营评估带：销售预算（收入/成本/费用）+ 销量（年初预测/实际/未来预测）+ 预警（有预算配置的实体才显示） -->
+    <section class="plan-band" id="planBand">
+      <div class="panel">
+        <h3><span class="bar"></span>销售预算执行 · 收入<span class="en">BUDGET VS ACTUAL</span></h3>
+        <div class="body"><div class="chart" id="planChartAmt"></div></div>
+      </div>
+      <div class="panel">
+        <h3><span class="bar"></span>销量 · 年初预测 / 实际 / 未来预测<span class="en">VOLUME FORECAST</span></h3>
+        <div class="body"><div class="chart" id="planChartQty"></div></div>
+      </div>
+      <div class="panel">
+        <h3><span class="bar"></span>预算对照表<span class="en">BUDGET CONTROL</span></h3>
+        <div class="body plan-tbl-wrap" id="planTableWrap"></div>
+      </div>
+      <div class="panel">
+        <h3><span class="bar"></span>经营预警与决策提示<span class="en">ALERTS</span></h3>
+        <div class="body plan-alerts" id="planAlerts"></div>
+      </div>
+    </section>
   </section>
 
 </div>

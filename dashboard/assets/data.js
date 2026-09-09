@@ -1022,7 +1022,8 @@
    * 制造基地分布（地图与列表共用）
    * 基地名称 / 城市 / 产能 / 持股关系为公开信息 [F]，坐标为城市中心坐标 [F]。
    * 注：佛照公开表述为「十大生产基地」，其中可公开查证的主要基地列于 fsl，
-   *     燎旺车灯形成「柳州 / 重庆 / 青岛 / 印尼」四大生产基地并新建苏州基地 [F]。
+   *     燎旺车灯形成「南宁 / 柳州 / 重庆 / 青岛」基地布局并新建苏州基地 [F]；
+   *     泰国基地为佛照海外产能布局 [F]，位于罗勇工业园一带（具体坐标按园区中心近似 [I]）。
    * ------------------------------------------------------------------------ */
   DATA.plants = {
     /* 燎旺车灯：全国分散布局的制造工厂（用户重点关注） */
@@ -1031,8 +1032,7 @@
       { name: '柳州基地', city: '广西柳州', coord: [109.43, 24.33], type: '制造基地', cap: '柳东新区花岭工业园' },
       { name: '重庆基地', city: '重庆', coord: [106.55, 29.56], type: '制造基地', cap: '重庆桂诺光电 · 全资子公司 · 占地 3.6 万㎡' },
       { name: '青岛基地', city: '山东青岛', coord: [120.38, 36.07], type: '制造基地', cap: '华东整车客户配套' },
-      { name: '苏州基地', city: '江苏苏州', coord: [120.59, 31.30], type: '新建基地', cap: '2024 年投资 5.8 亿 · 年产车灯 120 万套' },
-      { name: '印尼基地', city: '印度尼西亚', coord: [106.85, -6.21], type: '海外基地', cap: '海外首个生产基地', overseas: true }
+      { name: '苏州基地', city: '江苏苏州', coord: [120.59, 31.30], type: '新建基地', cap: '2024 年投资 5.8 亿 · 年产车灯 120 万套' }
     ],
     /* 佛照照明与其他板块主要制造基地 */
     fsl: [
@@ -1041,7 +1041,8 @@
       { name: '浙江嘉兴基地', city: '浙江嘉兴', coord: [120.75, 30.75], type: '制造基地', cap: '华东制造基地（含沪乐电气）' },
       { name: '河南新乡基地', city: '河南新乡', coord: [113.93, 35.30], type: '制造基地', cap: '华中制造基地' },
       { name: '海南海洋照明基地', city: '海南海口', coord: [110.20, 20.04], type: '产业基地', cap: '2021 年投资建设海洋照明产业基地' },
-      { name: '茂名华光基地', city: '广东茂名', coord: [110.92, 21.66], type: '制造基地', cap: '佛照华光（茂名）· 2024 年成立' }
+      { name: '茂名华光基地', city: '广东茂名', coord: [110.92, 21.66], type: '制造基地', cap: '佛照华光（茂名）· 2024 年成立' },
+      { name: '泰国基地', city: '泰国罗勇', coord: [101.28, 12.65], type: '海外基地', cap: '海外生产基地 · 承接海外客户本地化供货', overseas: true }
     ]
   };
 
@@ -1060,14 +1061,14 @@
     '重庆基地': { capacity: 70, output: 61, sales: 57, util: 87.1, value: 23800, capUnit: '万套/年', outUnit: '万套' },
     '青岛基地': { capacity: 60, output: 48, sales: 45, util: 80.0, value: 18600, capUnit: '万套/年', outUnit: '万套' },
     '苏州基地': { capacity: 120, output: 36, sales: 33, util: 30.0, value: 14200, capUnit: '万套/年', outUnit: '万套' },
-    '印尼基地': { capacity: 30, output: 16, sales: 14, util: 53.3, value: 7800, capUnit: '万套/年', outUnit: '万套' },
     /* 佛照照明：单位 万只 */
     '佛山高明基地': { capacity: 70000, output: 61200, sales: 58600, util: 87.4, value: 158600, capUnit: '万只/年', outUnit: '万只' },
     '佛山总部': { capacity: 1200, output: 860, sales: 820, util: 71.7, value: 24600, capUnit: '万只/年', outUnit: '万只' },
     '浙江嘉兴基地': { capacity: 12000, output: 10300, sales: 9800, util: 85.8, value: 38600, capUnit: '万只/年', outUnit: '万只' },
     '河南新乡基地': { capacity: 8000, output: 6600, sales: 6300, util: 82.5, value: 23400, capUnit: '万只/年', outUnit: '万只' },
     '海南海洋照明基地': { capacity: 1500, output: 980, sales: 880, util: 65.3, value: 14200, capUnit: '万只/年', outUnit: '万只' },
-    '茂名华光基地': { capacity: 3600, output: 2680, sales: 2520, util: 74.4, value: 18600, capUnit: '万只/年', outUnit: '万只' }
+    '茂名华光基地': { capacity: 3600, output: 2680, sales: 2520, util: 74.4, value: 18600, capUnit: '万只/年', outUnit: '万只' },
+    '泰国基地': { capacity: 3600, output: 1180, sales: 1020, util: 32.8, value: 9600, capUnit: '万只/年', outUnit: '万只' }
   };
 
   /* 产品结构模板：按集团区分（燎旺车灯 / 佛照照明），比例为模拟 [E] */
@@ -1165,6 +1166,157 @@
       },
       drill: { title: '集团基地网络（万元）', unit: '万元', items: others }
     };
+  };
+
+  /* --------------------------------------------------------------------------
+   * 经营评估：销售预算（收入 / 成本 / 费用）与销量（年初预测 / 实际 / 未来预测）
+   * --------------------------------------------------------------------------
+   * 期数口径：
+   *   PLAN_MONTHS —— 近 12 个已发生月（MONTHS，25-10 ~ 26-09）+ 未来 3 个预测月（26-10 ~ 26-12）
+   *   PLAN_SPLIT  —— 前 11 期为「已实现实际口径」，第 12 期（26-09）起为「滚动预测口径」
+   * 字段口径：
+   *   revBudget —— 年初销售预算 · 收入（万元，15 期）；costRateB / expRateB —— 预算成本率 / 费用率
+   *   revK      —— 各期收入实现系数（<split 为实际，>=split 为滚动预测）
+   *   costRate / expRate —— 实际与预测口径的成本率 / 费用率（逐期，用于趋势外推）
+   *   qtyBudget —— 年初销售预测数（销量）；qtyK —— 销量实现 / 预测系数
+   * 数值性质：全部为大屏演示用模拟数据 [E]，非真实预算与经营结果；接口接入后整体替换。
+   * ------------------------------------------------------------------------ */
+  var PLAN_MONTHS = MONTHS.concat(['26-10', '26-11', '26-12']);
+  var PLAN_SPLIT = 11;   /* 索引 0..10 为实际，11..14 为预测 */
+
+  var PLAN_CFG = {
+    liaowang: {
+      unit: '万元', qtyUnit: '万套',
+      revBudget: [11800, 12600, 13400, 10800, 10200, 12800, 13600, 12900, 12400, 13200, 13900, 15000, 12800, 12100, 13600],
+      revK:      [0.98, 0.96, 1.01, 0.93, 0.90, 0.97, 0.95, 0.94, 0.96, 0.95, 0.97, 0.97, 0.98, 0.99, 0.99],
+      costRateB: 0.700, expRateB: 0.105,
+      costRate:  [0.712, 0.718, 0.715, 0.722, 0.729, 0.731, 0.736, 0.740, 0.744, 0.748, 0.752, 0.762, 0.775, 0.788, 0.800],
+      expRate:   [0.104, 0.106, 0.108, 0.107, 0.110, 0.109, 0.111, 0.112, 0.113, 0.112, 0.114, 0.113, 0.115, 0.116, 0.118],
+      qtyBudget: [40, 42, 45, 36, 34, 43, 46, 44, 42, 45, 47, 50, 43, 41, 46],
+      qtyK:      [0.97, 0.95, 1.00, 0.92, 0.89, 0.96, 0.94, 0.93, 0.94, 0.92, 0.95, 0.94, 0.95, 0.96, 0.96]
+    },
+    guoxing: {
+      unit: '万元', qtyUnit: '万只',
+      revBudget: [24200, 26400, 28100, 22800, 21600, 27300, 29100, 27600, 26200, 28400, 30200, 36700, 31200, 29800, 32600],
+      revK:      [1.00, 1.01, 0.99, 0.98, 1.02, 1.00, 1.01, 1.02, 1.01, 1.00, 1.01, 1.02, 1.01, 1.01, 1.02],
+      costRateB: 0.760, expRateB: 0.115,
+      costRate:  [0.756, 0.754, 0.752, 0.750, 0.749, 0.747, 0.746, 0.744, 0.742, 0.741, 0.740, 0.738, 0.737, 0.736, 0.735],
+      expRate:   [0.114, 0.114, 0.113, 0.113, 0.112, 0.112, 0.112, 0.111, 0.111, 0.111, 0.110, 0.110, 0.109, 0.109, 0.108],
+      qtyBudget: [8600, 9200, 9800, 7900, 7600, 9300, 9900, 9400, 9000, 9700, 10300, 11200, 9500, 9100, 9900],
+      qtyK:      [1.00, 1.01, 0.99, 0.98, 1.02, 1.00, 1.01, 1.02, 1.01, 1.00, 1.01, 1.02, 1.01, 1.01, 1.02]
+    }
+  };
+
+  function buildPlan(key, cfg) {
+    var n = cfg.revBudget.length, split = PLAN_SPLIT, FY = 12;   /* 全年窗口 = 12 期 */
+    var revB = cfg.revBudget;
+    var revA = revB.map(function (v, i) { return Math.round(v * cfg.revK[i]); });
+    var costB = revB.map(function (v) { return Math.round(v * cfg.costRateB); });
+    var costA = revA.map(function (v, i) { return Math.round(v * cfg.costRate[i]); });
+    var expB = revB.map(function (v) { return Math.round(v * cfg.expRateB); });
+    var expA = revA.map(function (v, i) { return Math.round(v * cfg.expRate[i]); });
+    var proB = revB.map(function (v, i) { return v - costB[i] - expB[i]; });
+    var proA = revA.map(function (v, i) { return v - costA[i] - expA[i]; });
+    var qtyB = cfg.qtyBudget;
+    var qtyA = qtyB.map(function (v, i) { return Math.round(v * cfg.qtyK[i] * 10) / 10; });
+
+    /* 三段视图数组：预算（全期）/ 实际（<split）/ 预测（>=split），空档补 null 供 ECharts 断点 */
+    function views(arr) {
+      return {
+        budget: arr.slice(),
+        actual: arr.map(function (v, i) { return i < split ? v : null; }),
+        forecast: arr.map(function (v, i) { return i >= split ? v : null; })
+      };
+    }
+    function sum(a, s, e) { var t = 0; for (var i = s; i < e; i++) t += (a[i] || 0); return t; }
+    function sumQ(a, s, e) { var t = 0; for (var i = s; i < e; i++) t += (a[i] || 0); return Math.round(t * 10) / 10; }
+    function pct(a, b) { return b ? Math.round(a / b * 1000) / 10 : 0; }
+
+    /* ---- 汇总：YTD（实际口径）/ 全年（预算 vs 预计）/ 未来 3 个月 ---- */
+    var S = {
+      months: PLAN_MONTHS, split: split, unit: cfg.unit, qtyUnit: cfg.qtyUnit,
+      revenue: { budget: views(revB).budget, actual: views(revB).actual, forecast: views(revA).forecast },
+      cost:    { budget: views(costB).budget, actual: views(costA).actual, forecast: views(costA).forecast },
+      expense: { budget: views(expB).budget, actual: views(expA).actual, forecast: views(expA).forecast },
+      profit:  { budget: views(proB).budget, actual: views(proA).actual, forecast: views(proA).forecast },
+      qty:     { budget: views(qtyB).budget, actual: views(qtyB).actual, forecast: views(qtyA).forecast }
+    };
+    S.sum = {
+      ytd: {
+        revB: sum(revB, 0, split), revA: sum(revA, 0, split),
+        proB: sum(proB, 0, split), proA: sum(proA, 0, split),
+        qtyB: sumQ(qtyB, 0, split), qtyA: sumQ(qtyA, 0, split)
+      },
+      fy: {
+        revB: sum(revB, 0, FY), revF: sum(revA, 0, FY),
+        costB: sum(costB, 0, FY), costF: sum(costA, 0, FY),
+        expB: sum(expB, 0, FY), expF: sum(expA, 0, FY),
+        proB: sum(proB, 0, FY), proF: sum(proA, 0, FY),
+        qtyB: sumQ(qtyB, 0, FY), qtyF: sumQ(qtyA, 0, FY)
+      },
+      future: {
+        revB: sum(revB, split, n), revF: sum(revA, split, n),
+        proB: sum(proB, split, n), proF: sum(proA, split, n)
+      }
+    };
+    S.sum.ytd.revRate = pct(S.sum.ytd.revA, S.sum.ytd.revB);
+    S.sum.ytd.qtyRate = pct(S.sum.ytd.qtyA, S.sum.ytd.qtyB);
+    S.sum.fy.revRate = pct(S.sum.fy.revF, S.sum.fy.revB);
+    S.sum.fy.proRate = pct(S.sum.fy.proF, S.sum.fy.proB);
+
+    /* ---- 预警引擎：把预算对照结果翻译成管理层可读的判断 ---- */
+    var y = S.sum.ytd, f = S.sum.fy, fu = S.sum.future;
+    var costRateNow = cfg.costRate[n - 1], costRateB = cfg.costRateB;
+    var expRateNow = cfg.expRate[n - 1];
+    var beRate = Math.round((1 - expRateNow) * 1000) / 10;             /* 盈亏平衡成本率（当前费用率下，%） */
+    var pad = Math.round((beRate - costRateNow * 100) * 10) / 10;      /* 安全垫 pp */
+    var slope = (cfg.costRate[n - 1] - cfg.costRate[n - 4]) / 3 * 100; /* 近 3 期成本率月均斜率 pp/月 */
+    var monthsToBE = slope > 0.01 ? Math.round(pad / slope * 10) / 10 : null;
+    var negMonths = [];
+    for (var i = split; i < n; i++) { if (proA[i] < 0) negMonths.push(PLAN_MONTHS[i]); }
+
+    var alerts = [];
+    function al(level, tag, text) { alerts.push({ level: level, tag: tag, text: text }); }
+
+    if (y.revRate < 97) al('warn', '收入达成', '近 ' + split + ' 个月累计收入 ' + fmtW(y.revA) + ' ' + cfg.unit + '，预算达成 ' + y.revRate + '%，缺口 ' + fmtW(y.revB - y.revA) + ' ' + cfg.unit + '。');
+    else al('ok', '收入达成', '近 ' + split + ' 个月累计收入 ' + fmtW(y.revA) + ' ' + cfg.unit + '，预算达成 ' + y.revRate + '%，进度正常。');
+
+    var costDrift = Math.round((costRateNow - costRateB) * 1000) / 10;
+    if (costDrift > 0.2) {
+      var costOver = Math.round((costRateNow - costRateB) * y.revA);
+      al('warn', '成本侵蚀', '期末成本率 ' + (costRateNow * 100).toFixed(1) + '%，高于预算 ' + costDrift + 'pp，侵蚀毛利约 ' + fmtW(costOver) + ' ' + cfg.unit + '，为利润未达预期的首要原因。');
+    } else if (costDrift < -0.2) {
+      al('ok', '成本优化', '期末成本率 ' + (costRateNow * 100).toFixed(1) + '%，较预算优化 ' + Math.abs(costDrift) + 'pp，降本措施见效。');
+    } else {
+      al('ok', '成本可控', '期末成本率 ' + (costRateNow * 100).toFixed(1) + '%，与预算基本持平。');
+    }
+
+    if (f.proF < 0) al('bad', '亏损预警', '按当前预测，全年预计经营亏损 ' + fmtW(-f.proF) + ' ' + cfg.unit + '（预算盈利 ' + fmtW(f.proB) + '），需立即启动扭亏措施。');
+    else if (f.proRate >= 115) al('ok', '超预算盈利', '全年预计经营利润 ' + fmtW(f.proF) + ' ' + cfg.unit + '，超预算 ' + (f.proRate - 100) + '%，属大幅盈利上行。');
+    else if (f.proRate < 90) al('warn', '利润下滑', '全年预计经营利润 ' + fmtW(f.proF) + ' ' + cfg.unit + '（预算 ' + fmtW(f.proB) + '），达成仅 ' + f.proRate + '%，缺口 ' + fmtW(f.proB - f.proF) + ' ' + cfg.unit + '。');
+    else al('ok', '利润达标', '全年预计经营利润 ' + fmtW(f.proF) + ' ' + cfg.unit + '，预算达成 ' + f.proRate + '%。');
+
+    if (negMonths.length) al('bad', '单月亏损', '预测期内 ' + negMonths.join('、') + ' 预计单月经营亏损，需重点管控。');
+    else al('ok', '无亏损月', '未来 ' + (n - split) + ' 个月预测经营利润均为正，无单月亏损风险。');
+
+    if (monthsToBE != null && pad < 30) {
+      var beDate = new Date(2026, 11 + Math.ceil(monthsToBE), 1);
+      al('warn', '盈亏平衡外推', '成本率按近 3 期月均 +' + slope.toFixed(2) + 'pp 斜率外推，约 ' + monthsToBE + ' 个月后（' + beDate.getFullYear() + ' 年 ' + (beDate.getMonth() + 1) + ' 月前后）触及盈亏平衡线（当前安全垫 ' + pad + 'pp），建议提前锁定降本与产品结构升级。');
+    }
+    if (y.qtyRate < 96) al('warn', '销量缺口', '销量年初预测达成 ' + y.qtyRate + '%（' + y.qtyA + ' / ' + y.qtyB + ' ' + cfg.qtyUnit + '），未来 3 个月滚动预测较年初预测下调 ' + Math.round((1 - fu.revF / fu.revB) * 1000) / 10 + '%。');
+
+    S.alerts = alerts;
+    S.rates = { costRateNow: costRateNow, costRateB: costRateB, expRateNow: expRateNow, expRateB: cfg.expRateB, pad: pad, monthsToBE: monthsToBE };
+    return S;
+  }
+  function fmtW(v) { return Math.round(v).toLocaleString('zh-CN'); }
+
+  var PLAN_CACHE = {};
+  /** 取实体经营评估数据（含预算对照与预警），无配置返回 null */
+  DATA.planOf = function (key) {
+    if (!PLAN_CFG[key]) return null;
+    if (!PLAN_CACHE[key]) PLAN_CACHE[key] = buildPlan(key, PLAN_CFG[key]);
+    return PLAN_CACHE[key];
   };
 
   /* -------------------------------------------------------------- 工具方法 */

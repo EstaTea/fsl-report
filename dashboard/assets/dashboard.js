@@ -410,7 +410,7 @@
 
   /**
    * 基地清单悬停浮层：
-   * 华东点位密集（苏州/嘉兴相距约 3px）且印尼基地不在国内地图范围内，
+   * 华东点位密集（苏州/嘉兴相距约 3px）且泰国基地不在国内地图范围内，
    * 仅靠地图上悬停无法稳定命中，故清单悬停独立弹出生鲜数据卡片。
    */
   function showPlantTip(p, si, di) {
@@ -573,6 +573,55 @@
   function renderHome() {
     renderHomeHotspots();
     renderHomeCapsules();
+    renderHomeSubs();
+  }
+
+  /* ---------------------------------------------------------------- 首页子公司入口 */
+  /* 两个重点子公司（国星光电 / 燎旺车灯）作为城市场景中的固定入口，悬停概览、点击下钻 */
+  var SUB_CAPS = [
+    { key: 'guoxing', name: '国星光电', top: '33%', left: '75%' },
+    { key: 'liaowang', name: '南宁燎旺车灯', top: '71%', left: '72%' }
+  ];
+
+  /** 子公司悬停概览卡：股权 / 主营 / 年度营收 / 同比 / 毛利率 / 产能或规模 */
+  function subTipHTML(s) {
+    var k = {};
+    (s.kpis || []).forEach(function (x) { k[x.label] = x; });
+    function row(label, unit, dec, noDelta) {
+      var v = k[label];
+      if (!v) return '';
+      var d = noDelta ? '' : deltaHtml(v.delta);
+      return '<div class="ht-row"><span>' + label + '</span>' +
+             '<b>' + fmt(v.value, dec) + '<i>' + unit + '</i>' + d + '</b></div>';
+    }
+    return '<div class="ht">' +
+           '<div class="ht-nm">' + s.name + '</div>' +
+           (s.subtitle ? '<div class="ht-sub">' + s.subtitle + '</div>' : '') +
+           '<div class="ht-grid">' +
+             row('年度营收', ' 万元', 0) +
+             row('毛利率', '%', 1) +
+           '</div>' +
+           '<div class="ht-meta">' + (s.share || '') + ' · ' + (s.city || '') + '</div>' +
+           '<div class="ht-more">点击查看经营评估 ›</div>' +
+           '</div>';
+  }
+
+  function renderHomeSubs() {
+    var wrap = $('#subCaps');
+    if (!wrap) return;
+    wrap.innerHTML = '';
+    SUB_CAPS.forEach(function (c) {
+      var sub = D.get('sub', c.key);
+      if (!sub) return;
+      var d = el('div', 'sub-cap');
+      d.style.top = c.top; d.style.left = c.left;
+      d.innerHTML = '<span class="dot"></span><span class="nm">' + c.name + '</span>';
+      d.title = c.name + ' · 点击查看经营评估';
+      d.addEventListener('mouseenter', function () { showHomeTip(d, subTipHTML(sub)); });
+      d.addEventListener('mouseleave', hideHomeTip);
+      d.addEventListener('click', function () { hideHomeTip(); enterDash({ type: 'sub', key: c.key }); });
+      wrap.appendChild(d);
+    });
   }
 
   function clearHome() {
@@ -769,10 +818,11 @@
     $('#radarTitle').textContent = ent.radar.title;
     $('#drillTitle').textContent = ent.drill.title;
 
-    // 标题区
+    // 标题区（品牌 logo 区替代原先无信息量的装饰 SVG 图标）
     $('#detailTitle').innerHTML =
-      '<h2>' + (ICONS[ent.key] ? '<span class="icon">' + ICONS[ent.key] + '</span>' : '') + ent.name +
-      '<span>' + ent.en + '</span></h2><p>' + ent.subtitle + '</p>';
+      '<h2>' + ent.name + '<span>' + ent.en + '</span></h2><p>' + ent.subtitle + '</p>';
+    renderDetailLogos(ent);
+    renderPlanBand(ent);   /* 先渲染经营评估带（在网格之前），保证后续图表按最终高度初始化 */
 
     // 左：小 KPI + 仪表盘
     var miniWrap = $('#detailKpis');
@@ -815,6 +865,136 @@
 
     $('#viewDetail').classList.add('active');
     startAutoRefresh();
+  }
+
+  /* ------------------------------------------------- 详情页品牌 logo 与经营评估 */
+
+  /* 有独立品牌 logo 的子公司（其余实体仅展示佛照品牌） */
+  var LOGOS = { liaowang: { src: 'assets/logo_lw.png', alt: '燎旺车灯' } };
+
+  /** FSL 品牌标识（与官网深蓝 VI 一致的内联 SVG，避免外链位图） */
+  var FSL_MARK =
+    '<svg viewBox="0 0 46 22" aria-label="FSL"><rect width="46" height="22" rx="4" fill="#0b57a4"/>' +
+    '<text x="23" y="15.8" text-anchor="middle" font-family="Arial, sans-serif" font-size="11.5" font-weight="700" letter-spacing="1" fill="#fff">FSL</text></svg>';
+
+  function renderDetailLogos(ent) {
+    var box = $('#detailLogos');
+    if (!box) return;
+    var html = '<span class="lg-chip" title="佛山照明 FOSHAN LIGHTING">' + FSL_MARK +
+               '<span class="lg-txt">佛山照明</span></span>';
+    var lg = LOGOS[ent.key];
+    if (lg) {
+      html += '<span class="lg-x">×</span>' +
+              '<span class="lg-chip"><img src="' + lg.src + '" alt="' + lg.alt + ' logo"></span>';
+    }
+    box.innerHTML = html;
+  }
+
+  /* ---- 经营评估：销售预算（收入/成本/费用）+ 销量（年初预测/实际/未来预测）---- */
+
+  /** 预算对照表：年初预算 / 已实现(YTD) / 全年预计 / 预算差异 */
+  function planTableHTML(p) {
+    var f = p.sum.fy, y = p.sum.ytd;
+    function tr(name, b, ytd, fy, badWhenUp, dec) {
+      var diff = Math.round((fy - b) * (dec ? 10 : 1)) / (dec ? 10 : 1);
+      var bad = badWhenUp ? diff > 0 : diff < 0;
+      var cls = diff === 0 ? '' : (bad ? 'neg' : 'pos');
+      return '<tr><td class="pn">' + name + '</td><td>' + fmt(b, dec) + '</td><td>' + fmt(ytd, dec) +
+             '</td><td class="hl">' + fmt(fy, dec) + '</td><td class="' + cls + '">' +
+             (diff > 0 ? '+' : '') + fmt(diff, dec) + '</td></tr>';
+    }
+    return '<table class="plan-tbl">' +
+           '<thead><tr><th>项目（' + p.unit + '）</th><th>年初预算</th><th>已实现 YTD</th><th>全年预计</th><th>预算差异</th></tr></thead><tbody>' +
+             tr('销售收入', f.revB, y.revA, f.revF, false) +
+             tr('销售成本', f.costB, sum(p.cost.actual), sum(p.cost.actual) + sum(p.cost.forecast), true) +
+             tr('销售费用', f.expB, sum(p.expense.actual), sum(p.expense.actual) + sum(p.expense.forecast), true) +
+             tr('经营利润', f.proB, y.proA, f.proF, false) +
+             tr('销量（' + p.qtyUnit + '）', f.qtyB, y.qtyA, f.qtyF, false, 1) +
+           '</tbody></table>' +
+           '<div class="tbl-note">YTD 为近 ' + p.split + ' 个月实际口径；全年预计 = 已实现 + 滚动预测（模拟数据 [E]）</div>';
+  }
+
+  function sum(a) { var t = 0; for (var i = 0; i < a.length; i++) t += (a[i] || 0); return t; }
+
+  /** 预警列表：级别（ok/warn/bad）+ 标签 + 结论 */
+  function planAlertsHTML(p) {
+    var lvName = { ok: '正常', warn: '关注', bad: '预警' };
+    var items = p.alerts.map(function (a, i) {
+      return '<div class="al-item lv-' + a.level + '" style="animation-delay:' + (i * 60) + 'ms">' +
+             '<span class="al-dot"></span><span class="al-tag">' + lvName[a.level] + ' · ' + a.tag + '</span>' +
+             '<span class="al-txt">' + a.text + '</span></div>';
+    }).join('');
+    return '<div class="al-head">结论：' + profitVerdict(p) + '</div>' + items;
+  }
+
+  /** 一句话裁决：未来是否亏损 / 大幅盈利 / 利润承压 */
+  function profitVerdict(p) {
+    var f = p.sum.fy, r = p.rates;
+    if (f.proF < 0) return '预测期预计整体亏损，需立即启动扭亏措施';
+    if (f.proRate >= 115) return '预计大幅超预算盈利（达成 ' + f.proRate + '%）';
+    if (f.proRate < 90) return '不会亏损，但利润显著承压（达成 ' + f.proRate + '%），成本率为首要变量';
+    return '盈利稳健（达成 ' + f.proRate + '%），成本安全垫 ' + r.pad + 'pp';
+  }
+
+  /** 图：销售预算执行 —— 预算（虚线）/ 实际（柱）/ 预测（柱） */
+  function optPlanAmt(p) {
+    var split = p.split;
+    return {
+      tooltip: TIP,
+      legend: { top: 0, right: 4, itemWidth: 10, itemHeight: 8, itemGap: 8, textStyle: { color: C.muted, fontSize: 10 } },
+      grid: { left: 6, right: 8, top: 24, bottom: 0, containLabel: true },
+      xAxis: Object.assign({ type: 'category', boundaryGap: true, data: p.months }, axisBase(false)),
+      yAxis: Object.assign({ type: 'value' }, axisBase(true)),
+      series: [
+        { name: '预算收入', type: 'line', symbol: 'none', z: 3, data: p.revenue.budget,
+          lineStyle: { type: 'dashed', width: 1.4, color: 'rgba(127,157,184,.85)' },
+          itemStyle: { color: 'rgba(127,157,184,.9)' } },
+        { name: '实际收入', type: 'bar', stack: 'a', barWidth: '52%', z: 2, data: p.revenue.actual,
+          itemStyle: { borderRadius: [2, 2, 0, 0], color: grad('#00d4ff', 'rgba(0,110,180,.25)') } },
+        { name: '预测收入', type: 'bar', stack: 'a', barWidth: '52%', z: 2, data: p.revenue.forecast,
+          itemStyle: { borderRadius: [2, 2, 0, 0], color: grad('rgba(255,117,0,.9)', 'rgba(255,117,0,.2)') },
+          markArea: split > 0 ? {
+            silent: true, itemStyle: { color: 'rgba(255,117,0,.06)' },
+            label: { show: true, position: 'insideTop', color: 'rgba(255,150,60,.75)', fontSize: 9 },
+            data: [[{ name: '预测区间', xAxis: p.months[split] }, { xAxis: p.months[p.months.length - 1] }]]
+          } : undefined }
+      ],
+      animationDuration: 1100
+    };
+  }
+
+  /** 图：销量 —— 年初销售预测 / 实际完成 / 未来预测 */
+  function optPlanQty(p) {
+    return {
+      tooltip: TIP,
+      legend: { top: 0, right: 4, itemWidth: 10, itemHeight: 8, itemGap: 8, textStyle: { color: C.muted, fontSize: 10 } },
+      grid: { left: 6, right: 8, top: 24, bottom: 0, containLabel: true },
+      xAxis: Object.assign({ type: 'category', boundaryGap: true, data: p.months }, axisBase(false)),
+      yAxis: Object.assign({ type: 'value' }, axisBase(true)),
+      series: [
+        { name: '年初销售预测', type: 'line', symbol: 'none', z: 3, data: p.qty.budget,
+          lineStyle: { type: 'dashed', width: 1.4, color: 'rgba(127,157,184,.85)' },
+          itemStyle: { color: 'rgba(127,157,184,.9)' } },
+        { name: '实际完成', type: 'bar', stack: 'a', barWidth: '52%', z: 2, data: p.qty.actual,
+          itemStyle: { borderRadius: [2, 2, 0, 0], color: grad('#3f8cff', 'rgba(20,70,150,.25)') } },
+        { name: '未来预测', type: 'bar', stack: 'a', barWidth: '52%', z: 2, data: p.qty.forecast,
+          itemStyle: { borderRadius: [2, 2, 0, 0], color: grad('rgba(255,117,0,.9)', 'rgba(255,117,0,.2)') } }
+      ],
+      animationDuration: 1100
+    };
+  }
+
+  /** 渲染经营评估带（实体无预算配置时整块隐藏） */
+  function renderPlanBand(ent) {
+    var band = $('#planBand');
+    if (!band) return;
+    var p = D.planOf(ent.key);
+    if (!p) { band.classList.add('off'); return; }
+    band.classList.remove('off');
+    $('#planTableWrap').innerHTML = planTableHTML(p);
+    $('#planAlerts').innerHTML = planAlertsHTML(p);
+    mount($('#planChartAmt'), function () { return optPlanAmt(p); });
+    mount($('#planChartQty'), function () { return optPlanQty(p); });
   }
 
   /* ------------------------------------------------------- 定时刷新与时钟 */
