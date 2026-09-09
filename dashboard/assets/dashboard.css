@@ -69,6 +69,11 @@ html, body {
 }
 @keyframes scan { 0% { transform: translateY(-180px); } 100% { transform: translateY(1080px); } }
 
+/* 首页模式：去掉大屏加的深色蒙版 / 网格 / 扫描线，还原官网原始城市画面 */
+body.home-mode .scrim,
+body.home-mode .grid-mask,
+body.home-mode .scanline { display: none; }
+
 /* ---------------------------------------------------------------- 顶部标题 */
 .topbar {
   position: absolute; top: 0; left: 0; right: 0; height: 78px; z-index: 10;

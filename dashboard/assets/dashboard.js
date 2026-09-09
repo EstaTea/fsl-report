@@ -581,8 +581,14 @@
   }
 
   /* 视图切换：进入二级大屏（含可选直接下钻到某实体） */
+  /* 首页模式：隐藏大屏专用遮罩/网格/扫描线，还原官网原始画面 */
+  function setHomeMode(on) {
+    document.body.classList.toggle('home-mode', !!on);
+  }
+
   function enterDash(ent) {
     clearHome();
+    setHomeMode(false);
     $('#homeView').classList.add('hidden');
     $('#dashView').classList.remove('hidden');
     if (ent) {
@@ -597,6 +603,7 @@
   function backHome() {
     clearCharts();
     clearTimers();
+    setHomeMode(true);
     $('#viewDetail').classList.remove('active');
     $('#dashView').classList.add('hidden');
     $('#homeView').classList.remove('hidden');
@@ -885,6 +892,7 @@
     }).catch(function (e) { console.warn('[FSL] 地图数据加载失败：', e); });
 
     // 默认展示纯净城市首页（导航栏 + 热点 + 胶囊），悬停弹出信息卡，点击进入二级大屏
+    setHomeMode(true);
     renderHome();
     startAutoRefresh();
 
