@@ -437,6 +437,14 @@ body.home-mode .scanline { display: none; }
    ============================================================ */
 .home-topbar { z-index: 20; }
 .home-topbar .title h1 { pointer-events: none; }
+/* 首页白天场景较亮：导航栏文字统一白色 + 轻投影保证可读 */
+.home-topbar .brand .txt b,
+.home-topbar .brand .txt span,
+.home-topbar .clock .d,
+.home-topbar .clock .status {
+  color: #fff;
+  text-shadow: 0 1px 6px rgba(2, 20, 40, .65);
+}
 
 /* 标题图整体下移到导航栏之下 */
 .home-title { position: absolute; top: 78px; left: 0; right: 0; height: 150px; z-index: 6; text-align: center; pointer-events: none; }
@@ -496,7 +504,8 @@ body.home-mode .scanline { display: none; }
 @keyframes hpulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, .5); } 50% { box-shadow: 0 0 0 9px rgba(255, 255, 255, 0); } }
 
 /* 9 个橙色业务板块胶囊（原始装饰） */
-.capsules { position: absolute; inset: 0; z-index: 6; }
+.capsules { position: absolute; inset: 0; z-index: 6; pointer-events: none; }
+.capsules .cap { pointer-events: auto; }
 .cap {
   position: absolute; transform: translate(-50%, -50%); padding: 6px 15px; border-radius: 18px;
   background: linear-gradient(160deg, rgba(255, 117, 0, .88), rgba(196, 78, 0, .78));
