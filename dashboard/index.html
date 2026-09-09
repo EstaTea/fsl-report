@@ -20,43 +20,43 @@
   <div class="scanline"></div>
 
   <!-- ============================================================
-       首页视图：保留原始 3D 城市夜景页 + 拆开浮动的数据部件
+       首页视图：顶部导航栏 + 纯净 3D 城市原页（悬停弹出 / 点击下钻）
        ============================================================ -->
   <div id="homeView">
+    <!-- 顶部导航栏（与大屏同一套视觉） -->
+    <header class="topbar home-topbar">
+      <div class="left">
+        <div class="brand">
+          <div class="logo">FSL</div>
+          <div class="txt">
+            <b>佛山照明</b>
+            <span>FOSHAN LIGHTING · SINCE 1958</span>
+          </div>
+        </div>
+      </div>
+      <div class="title">
+        <h1>佛山照明 · 经营数据可视化大屏</h1>
+      </div>
+      <div class="clock">
+        <div class="t num" id="homeClockTime">00:00:00</div>
+        <div class="d" id="homeClockDate">--</div>
+        <div class="status"><span class="dot"></span><span id="homeLastSync">刚刚同步</span></div>
+      </div>
+    </header>
+
     <!-- 原始标题：全场景照明技术先行者 -->
     <div class="home-title">
       <img class="mask" src="assets/title5.png" alt="">
       <img class="word" src="assets/title4.png" alt="全场景照明技术先行者">
     </div>
 
-    <!-- 18 个白色场景热点 -->
+    <!-- 18 个白色场景热点（悬停显示场景名） -->
     <div class="hotspots" id="hotspots"></div>
-    <!-- 9 个橙色业务板块胶囊（原始装饰，保留原页风貌） -->
+    <!-- 9 个橙色业务板块胶囊：默认纯净，悬停弹出数据卡、点击下钻 -->
     <div class="capsules" id="capsules"></div>
 
-    <!-- 拆开的元素①：7 项核心指标（顶部通栏） -->
-    <section class="kpi-home" id="kpiHome"></section>
-
-    <!-- 拆开的元素②：部门职能 6 卡（左侧） -->
-    <div class="dept-cluster" id="deptCluster"></div>
-
-    <!-- 拆开的元素③：业务板块 9 卡矩阵（右侧） -->
-    <div class="board-panel" id="boardPanel">
-      <h3><span class="bar"></span>业务板块 · 一级入口<span class="en">9 SEGMENTS</span></h3>
-      <div class="matrix board" id="homeBoard"></div>
-    </div>
-
-    <!-- 拆开的元素⑤：所属企业 8 家（中上横条，不遮挡城市主体） -->
-    <div class="sub-strip">
-      <h3><span class="bar"></span>所属企业 · 8 家子公司<span class="en">SUBSIDIARIES</span></h3>
-      <div class="chips" id="subStrip"></div>
-    </div>
-
-    <!-- 拆开的元素④：整体趋势小图（中下） -->
-    <div class="home-trend">
-      <h3><span class="bar"></span>营业收入与净利润 · 月度趋势<span class="en">REVENUE &amp; PROFIT</span></h3>
-      <div class="chart" id="homeTrend"></div>
-    </div>
+    <!-- 悬停信息卡：胶囊 / 热点悬停时弹出 -->
+    <div class="home-tip" id="homeTip"></div>
 
     <!-- 进入二级大屏的入口 -->
     <button class="home-cta" id="btnEnterDash">

@@ -458,22 +458,6 @@
   }
 
   /** 首页横条：8 家所属企业（不遮挡 3D 城市主体） */
-  function renderSubStrip() {
-    var wrap = $('#subStrip');
-    if (!wrap) return;
-    wrap.innerHTML = '';
-    D.subList.forEach(function (s, i) {
-      var n = el('div', 'sub-chip');
-      n.style.animationDelay = (i * 45) + 'ms';
-      n.title = s.name + '｜' + s.share + '｜' + s.bizScope;
-      n.innerHTML =
-        '<div class="nm">' + s.name + '</div>' +
-        '<div class="mt">' + s.city + ' · <b>' + fmt(s.revenue) + '</b> 万</div>';
-      n.addEventListener('click', function () { enterDash({ type: 'sub', key: s.key }); });
-      wrap.appendChild(n);
-    });
-  }
-
   /** 大屏第四栏：子公司一级入口矩阵（维度三） */
   function renderSubMatrix() {
     var wrap = $('#subMatrix');
@@ -495,7 +479,7 @@
     });
   }
 
-  /* ---------------------------------------------------- 首页视图（城市原页 + 拆开的数据部件） */
+  /* ---------------------------------------------------- 首页视图（导航栏 + 纯净城市页，悬停弹出 / 点击下钻） */
   function renderHomeHotspots() {
     var wrap = $('#hotspots');
     wrap.innerHTML = '';
@@ -507,6 +491,64 @@
     });
   }
 
+  /** 胶囊文字 → 业务板块实体（名称精确匹配优先，双向包含兜底） */
+  function boardByTxt(txt) {
+    var list = D.boardList;
+    return list.filter(function (b) { return b.name === txt; })[0] ||
+           list.filter(function (b) { return b.name.indexOf(txt) > -1 || txt.indexOf(b.name) > -1; })[0] || null;
+  }
+
+  /** 首页悬停信息卡：定位到目标对象旁（防溢出），内容与详情页口径一致 */
+  function showHomeTip(anchor, html) {
+    var box = $('#homeTip');
+    if (!box) return;
+    box.innerHTML = html;
+    box.classList.add('on');
+    /* 胶囊为 translate(-50%,-50%) 中心定位：offsetLeft/Top 即视觉中心点 */
+    var cx = anchor.offsetLeft, cy = anchor.offsetTop;
+    var halfW = anchor.offsetWidth / 2, halfH = anchor.offsetHeight / 2;
+    var w = box.offsetWidth || 240, h = box.offsetHeight || 160;
+    var vw = anchor.offsetParent ? anchor.offsetParent.offsetWidth : 1920;
+    var vh = anchor.offsetParent ? anchor.offsetParent.offsetHeight : 1080;
+    var x = cx + halfW + 14;                  /* 默认放右侧 */
+    if (x + w > vw - 12) x = cx - halfW - w - 14;   /* 放不下翻左侧 */
+    if (x < 12) x = 12;
+    var y = cy - h / 2;
+    if (y + h > vh - 12) y = vh - h - 12;
+    if (y < 92) y = 92;                       /* 避开顶部导航栏 */
+    box.style.left = x + 'px';
+    box.style.top = y + 'px';
+  }
+
+  function hideHomeTip() {
+    var box = $('#homeTip');
+    if (box) { box.classList.remove('on'); box.innerHTML = ''; }
+  }
+
+  /** 业务板块悬停卡：名称 / 定位 / 年度营收 / 同比 / 毛利率 / 在手订单 */
+  function boardTipHTML(b) {
+    var k = {};
+    (b.kpis || []).forEach(function (x) { k[x.label] = x; });
+    function row(label, unit, dec, noDelta) {
+      var v = k[label];
+      if (!v) return '';
+      var d = noDelta ? '' : deltaHtml(v.delta);
+      return '<div class="ht-row"><span>' + label + '</span>' +
+             '<b>' + fmt(v.value, dec) + '<i>' + unit + '</i>' + d + '</b></div>';
+    }
+    return '<div class="ht">' +
+           '<div class="ht-nm">' + b.name + '</div>' +
+           (b.subtitle ? '<div class="ht-sub">' + b.subtitle + '</div>' : '') +
+           '<div class="ht-grid">' +
+             row('年度营收', ' 万元', 0) +
+             row('同比增长', '%', 1, true) +
+             row('毛利率', '%', 1) +
+             row('在手订单', ' 万元', 0) +
+           '</div>' +
+           '<div class="ht-more">点击查看板块详情 ›</div>' +
+           '</div>';
+  }
+
   function renderHomeCapsules() {
     var wrap = $('#capsules');
     wrap.innerHTML = '';
@@ -514,80 +556,23 @@
       var d = el('div', 'cap');
       d.style.top = b.top; d.style.left = b.left;
       d.textContent = b.txt;
+      var board = boardByTxt(b.txt);
+      if (board) {
+        d.classList.add('link');
+        d.title = board.name + ' · 点击查看详情';
+        d.addEventListener('mouseenter', function () { showHomeTip(d, boardTipHTML(board)); });
+        d.addEventListener('mouseleave', hideHomeTip);
+        d.addEventListener('click', function () { hideHomeTip(); enterDash({ type: 'board', key: board.key }); });
+      }
       wrap.appendChild(d);
     });
   }
 
-  function renderHomeKpis() {
-    var wrap = $('#kpiHome');
-    wrap.innerHTML = '';
-    D.kpis.forEach(function (k, i) {
-      var card = el('div', 'kpi-card');
-      card.style.animationDelay = (i * 60) + 'ms';
-      card.innerHTML =
-        '<div class="lbl"><i></i>' + k.label + '</div>' +
-        '<div class="val"><span class="num" data-kpi="' + k.label + '">0</span><small>' + k.unit + '</small></div>' +
-        '<div class="delta" data-delta="' + k.label + '"></div>';
-      wrap.appendChild(card);
-      countUp($('.num', card), k.value, k.decimals, 1500);
-      $('[data-delta]', card).innerHTML = deltaHtml(k.delta);
-    });
-  }
-
-  function renderHomeDept() {
-    var wrap = $('#deptCluster');
-    wrap.innerHTML = '';
-    D.deptList.forEach(function (d, i) {
-      var n = el('div', 'dept-mini');
-      n.style.animationDelay = (i * 55) + 'ms';
-      n.innerHTML =
-        '<span class="ic">' + (ICONS[d.key] || ICONS.board) + '</span>' +
-        '<div><div class="nm">' + d.name + '</div><div class="en">' + d.en + '</div></div>' +
-        '<div class="mt">' + d.metric.label + ' <b class="num">' + fmt(d.metric.value, 1) + '</b> ' + d.metric.unit + '</div>';
-      n.addEventListener('click', function () { enterDash({ type: 'dept', key: d.key }); });
-      wrap.appendChild(n);
-    });
-  }
-
-  function renderHomeBoard() {
-    var wrap = $('#homeBoard');
-    wrap.innerHTML = '';
-    D.boardList.forEach(function (b, i) {
-      var n = el('div', 'entry');
-      n.style.animationDelay = (i * 45) + 'ms';
-      n.innerHTML =
-        '<span class="ic">' + ICONS.board + '</span>' +
-        '<div class="nm">' + b.name + '</div>' +
-        '<div class="mt"><b class="num">' + fmt(b.revenue) + '</b> 万元</div>' +
-        '<span class="arrow">›</span>';
-      n.addEventListener('click', function () { enterDash({ type: 'board', key: b.key }); });
-      wrap.appendChild(n);
-    });
-  }
-
-  function renderHomeTrend() {
-    var inst = mountHome($('#homeTrend'), function () {
-      return optTrend({ months: D.trend.months, series: D.trend.series, unit: '万元', boundaryGap: false });
-    });
-    // 迷你轮播：自动巡览数据点
-    if (inst) {
-      var idx = 0, n = D.trend.months.length;
-      regHomeTimer(function () {
-        if (inst.isDisposed()) return;
-        idx = (idx + 1) % n;
-        inst.dispatchAction({ type: 'showTip', seriesIndex: 0, dataIndex: idx });
-      }, 2600);
-    }
-  }
-
+  /* 首页默认纯净：核心指标 / 部门卡 / 板块卡 / 子公司条 / 趋势图均已移除，
+     数据展示统一收敛到「悬停弹出信息卡 + 点击下钻明细页」两个动作上。 */
   function renderHome() {
     renderHomeHotspots();
     renderHomeCapsules();
-    renderHomeKpis();
-    renderHomeDept();
-    renderHomeBoard();
-    renderSubStrip();
-    renderHomeTrend();
   }
 
   function clearHome() {
@@ -862,10 +847,19 @@
     var now = new Date();
     var p = function (n) { return n < 10 ? '0' + n : '' + n; };
     var wd = ['日', '一', '二', '三', '四', '五', '六'][now.getDay()];
-    $('#clockTime').textContent = p(now.getHours()) + ':' + p(now.getMinutes()) + ':' + p(now.getSeconds());
-    $('#clockDate').textContent = now.getFullYear() + '-' + p(now.getMonth() + 1) + '-' + p(now.getDate()) + ' 星期' + wd;
+    var t = p(now.getHours()) + ':' + p(now.getMinutes()) + ':' + p(now.getSeconds());
+    var d = now.getFullYear() + '-' + p(now.getMonth() + 1) + '-' + p(now.getDate()) + ' 星期' + wd;
     var s = Math.floor((Date.now() - lastSync) / 1000);
-    $('#lastSync').textContent = s < 5 ? '刚刚同步' : s + ' 秒前同步';
+    var sync = s < 5 ? '刚刚同步' : s + ' 秒前同步';
+    /* 大屏视图与首页导航栏各一套时钟，同源更新 */
+    var ct = $('#clockTime'), cd = $('#clockDate'), ls = $('#lastSync');
+    var ht = $('#homeClockTime'), hd = $('#homeClockDate'), hl = $('#homeLastSync');
+    if (ct) ct.textContent = t;
+    if (cd) cd.textContent = d;
+    if (ls) ls.textContent = sync;
+    if (ht) ht.textContent = t;
+    if (hd) hd.textContent = d;
+    if (hl) hl.textContent = sync;
   }
 
   /* -------------------------------------------------------------- 等比适配 */
@@ -890,7 +884,7 @@
       if (!$('#dashView').classList.contains('hidden') && state.view === 'overview') renderMap();
     }).catch(function (e) { console.warn('[FSL] 地图数据加载失败：', e); });
 
-    // 默认展示原始城市首页（含拆开浮动的数据部件），点击链接才弹出二级大屏
+    // 默认展示纯净城市首页（导航栏 + 热点 + 胶囊），悬停弹出信息卡，点击进入二级大屏
     renderHome();
     startAutoRefresh();
 

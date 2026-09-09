@@ -316,37 +316,6 @@ html, body {
 }
 .plant-item.lw .vv { color: rgba(255, 178, 120, .95); }
 
-/* --------------------------------------- 拆开⑤：所属企业横条（首页中上） */
-.sub-strip {
-  position: absolute; left: 360px; right: 392px; top: 268px; height: 104px; z-index: 7;
-  display: flex; flex-direction: column; padding: 10px 14px;
-  background: linear-gradient(160deg, var(--c-panel-a), var(--c-panel-b));
-  border: 1px solid rgba(0, 212, 255, .18); border-radius: var(--radius);
-  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-  box-shadow: inset 0 0 26px rgba(0, 212, 255, .05);
-  animation: panelIn .7s cubic-bezier(.2, .8, .3, 1) both;
-}
-.sub-strip > h3 {
-  flex: none; font-size: 14px; font-weight: 600; color: #eaf6ff; letter-spacing: 1px;
-  display: flex; align-items: center; gap: 8px; padding-bottom: 6px; margin-bottom: 8px;
-  border-bottom: 1px solid rgba(0, 212, 255, .12);
-}
-.sub-strip > h3 .bar { width: 3px; height: 13px; background: linear-gradient(180deg, var(--c-cyan), var(--c-orange)); border-radius: 2px; }
-.sub-strip > h3 .en { margin-left: auto; font-size: 10.5px; color: rgba(127, 157, 184, .7); letter-spacing: 1px; font-weight: 400; }
-.sub-strip .chips { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; }
-.sub-chip {
-  position: relative; overflow: hidden; cursor: pointer; border-radius: 5px; padding: 6px 8px;
-  border: 1px solid rgba(0, 212, 255, .28);
-  background: linear-gradient(160deg, rgba(0, 212, 255, .14), rgba(6, 20, 38, .7));
-  display: flex; flex-direction: column; justify-content: center; gap: 2px;
-  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
-  animation: cardIn .55s cubic-bezier(.2, .8, .3, 1) both;
-}
-.sub-chip:hover { transform: translateY(-2px); border-color: rgba(0, 212, 255, .9); box-shadow: 0 8px 18px rgba(0, 212, 255, .22); }
-.sub-chip .nm { font-size: 12px; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.sub-chip .mt { font-size: 10px; color: rgba(220, 234, 247, .72); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.sub-chip .mt b { color: var(--c-cyan); font-weight: 700; }
-
 /* ---------------------------------------------------------------- 二级页 */
 .view-detail {
   position: absolute; inset: 0; z-index: 30; display: flex; flex-direction: column;
@@ -439,7 +408,7 @@ html, body {
 }
 
 /* ==========================================================================
- * 首页视图（保留原始 3D 城市夜景页 + 拆开浮动的数据部件）
+ * 首页视图（导航栏 + 纯净 3D 城市页，悬停弹出 / 点击下钻）
  * ========================================================================== */
 .hidden { display: none !important; }
 
@@ -450,7 +419,48 @@ html, body {
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 /* 原始标题：全场景照明技术先行者 */
-.home-title { position: absolute; top: 0; left: 0; right: 0; height: 150px; z-index: 6; text-align: center; pointer-events: none; }
+/* ============================================================
+   首页：导航栏 + 纯净城市页（悬停弹出 / 点击下钻）
+   ============================================================ */
+.home-topbar { z-index: 20; }
+.home-topbar .title h1 { pointer-events: none; }
+
+/* 标题图整体下移到导航栏之下 */
+.home-title { position: absolute; top: 78px; left: 0; right: 0; height: 150px; z-index: 6; text-align: center; pointer-events: none; }
+
+/* 可下钻胶囊：悬停增强（放大 + 发光），提示可点击 */
+.cap.link { cursor: pointer; transition: transform .18s ease, box-shadow .18s ease; }
+.cap.link:hover {
+  transform: translate(-50%, -50%) scale(1.09);
+  box-shadow: 0 6px 22px rgba(255, 117, 0, .6), 0 0 0 1px rgba(255, 210, 160, .5);
+  z-index: 15;
+}
+
+/* 首页悬停信息卡（与详情页口径一致） */
+.home-tip {
+  position: absolute; width: 236px; z-index: 25; pointer-events: none;
+  padding: 10px 12px; border-radius: 6px;
+  background: rgba(6, 22, 40, .96); border: 1px solid rgba(0, 212, 255, .38);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .6);
+  opacity: 0; transform: translateY(-5px); transition: opacity .16s ease, transform .16s ease;
+}
+.home-tip.on { opacity: 1; transform: translateY(0); }
+.home-tip .ht-nm { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: .5px; }
+.home-tip .ht-sub { font-size: 11px; color: var(--c-muted); margin-top: 2px; }
+.home-tip .ht-grid {
+  margin-top: 7px; padding-top: 6px; border-top: 1px dashed rgba(0, 212, 255, .25);
+  display: grid; grid-template-columns: 1fr 1fr; gap: 3px 14px;
+}
+.home-tip .ht-row { display: flex; justify-content: space-between; align-items: baseline; gap: 6px; }
+.home-tip .ht-row span { font-size: 10.5px; color: var(--c-muted); white-space: nowrap; }
+.home-tip .ht-row b { font-size: 13px; color: #eaf6ff; font-weight: 700; white-space: nowrap; }
+.home-tip .ht-row b i { font-style: normal; font-size: 9.5px; color: var(--c-muted); font-weight: 400; margin-left: 2px; }
+.home-tip .ht-row b .up, .home-tip .ht-row b .down { font-size: 9.5px; margin-left: 3px; }
+.home-tip .ht-more { margin-top: 7px; font-size: 11px; color: var(--c-orange); font-weight: 600; letter-spacing: .5px; }
+
+/* ============================================================
+   首页：18 个白色场景热点 + 9 个橙色业务板块胶囊
+   ============================================================ */
 .home-title .mask { position: absolute; top: 0; left: 0; width: 100%; height: 150px; object-fit: cover; opacity: .85; }
 .home-title .word { position: relative; top: 28px; height: 72px; filter: drop-shadow(0 6px 24px rgba(0, 0, 0, .8)); }
 
@@ -481,65 +491,6 @@ html, body {
   box-shadow: 0 4px 14px rgba(255, 117, 0, .35); white-space: nowrap;
 }
 .cap::before { content: ""; position: absolute; left: -7px; top: 50%; width: 5px; height: 5px; border-radius: 50%; background: #fff; transform: translateY(-50%); box-shadow: 0 0 6px #fff; }
-
-/* 拆开①：核心指标通栏（顶部，位于标题下方） */
-.kpi-home {
-  position: absolute; top: 158px; left: 22px; right: 22px; height: 92px; z-index: 7;
-  display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px;
-}
-.kpi-home .kpi-card { padding: 12px 14px 10px; }
-.kpi-home .kpi-card .val { margin-top: 6px; font-size: 25px; }
-.kpi-home .kpi-card .delta { margin-top: 5px; font-size: 11px; }
-
-/* 拆开②：部门职能 6 卡（左侧竖排） */
-.dept-cluster {
-  position: absolute; left: 22px; top: 268px; bottom: 22px; width: 312px; z-index: 7;
-  display: flex; flex-direction: column; gap: 12px;
-}
-.dept-mini {
-  flex: 1; position: relative; overflow: hidden; cursor: pointer; border-radius: 6px;
-  border: 1px solid rgba(255, 117, 0, .28);
-  background: linear-gradient(160deg, rgba(255, 117, 0, .14), rgba(6, 20, 38, .72));
-  display: flex; align-items: center; gap: 12px; padding: 10px 14px;
-  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
-  animation: cardIn .55s cubic-bezier(.2, .8, .3, 1) both;
-}
-.dept-mini:hover { transform: translateX(4px); border-color: rgba(255, 117, 0, .9); box-shadow: 0 8px 20px rgba(255, 117, 0, .2); }
-.dept-mini .ic { width: 30px; height: 30px; color: var(--c-orange); flex: none; }
-.dept-mini .nm { font-size: 16px; font-weight: 600; color: #fff; letter-spacing: .5px; }
-.dept-mini .en { font-size: 10px; color: rgba(127, 157, 184, .8); letter-spacing: 1px; }
-.dept-mini .mt { margin-left: auto; text-align: right; font-size: 12px; color: rgba(220, 234, 247, .8); }
-.dept-mini .mt b { font-size: 18px; color: var(--c-cyan); font-weight: 700; }
-
-/* 拆开③：业务板块 9 卡矩阵（右侧） */
-.board-panel {
-  position: absolute; right: 22px; top: 268px; bottom: 22px; width: 344px; z-index: 7;
-  display: flex; flex-direction: column; padding: 12px 14px;
-  background: linear-gradient(160deg, var(--c-panel-a), var(--c-panel-b));
-  border: 1px solid rgba(0, 212, 255, .18); border-radius: var(--radius);
-  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-  box-shadow: inset 0 0 26px rgba(0, 212, 255, .05);
-  animation: panelIn .7s cubic-bezier(.2, .8, .3, 1) both;
-}
-.board-panel > h3 { flex: none; font-size: 16px; font-weight: 600; color: #eaf6ff; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; padding-bottom: 8px; margin-bottom: 8px; border-bottom: 1px solid rgba(0, 212, 255, .12); }
-.board-panel > h3 .bar { width: 3px; height: 14px; background: linear-gradient(180deg, var(--c-cyan), var(--c-orange)); border-radius: 2px; }
-.board-panel > h3 .en { margin-left: auto; font-size: 11px; color: rgba(127, 157, 184, .7); letter-spacing: 1px; font-weight: 400; }
-.board-panel .matrix.board { flex: 1; min-height: 0; }
-
-/* 拆开④：整体趋势小图（中下） */
-.home-trend {
-  position: absolute; left: 360px; right: 392px; bottom: 22px; height: 210px; z-index: 7;
-  display: flex; flex-direction: column; padding: 12px 14px;
-  background: linear-gradient(160deg, var(--c-panel-a), var(--c-panel-b));
-  border: 1px solid rgba(0, 212, 255, .18); border-radius: var(--radius);
-  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-  box-shadow: inset 0 0 26px rgba(0, 212, 255, .05);
-  animation: panelIn .7s cubic-bezier(.2, .8, .3, 1) both;
-}
-.home-trend > h3 { flex: none; font-size: 16px; font-weight: 600; color: #eaf6ff; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; padding-bottom: 8px; margin-bottom: 6px; border-bottom: 1px solid rgba(0, 212, 255, .12); }
-.home-trend > h3 .bar { width: 3px; height: 14px; background: linear-gradient(180deg, var(--c-cyan), var(--c-orange)); border-radius: 2px; }
-.home-trend > h3 .en { margin-left: auto; font-size: 11px; color: rgba(127, 157, 184, .7); letter-spacing: 1px; font-weight: 400; }
-.home-trend .chart { flex: 1; min-height: 0; }
 
 /* 进入二级大屏入口：放在右上角，不遮挡城市原有胶囊热点 */
 .home-cta {
