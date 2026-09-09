@@ -965,8 +965,10 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     候选集团应用架构全景图（System Landscape Overview）— 基于 TOGAF Phase C 应用架构设计
   </div>
 
-  <!-- ===== Gartner VI 分层架构图 ===== -->
-  <div style="margin-top:14px;display:flex;flex-direction:column;gap:0;font-size:10.5px;line-height:1.45" data-page-node-id="szB42rKUXizsa2NQnGGAxj">
+  <!-- ===== Gartner VI 分层架构图 + L1–L6 说明 ===== -->
+  <div style="margin-top:14px;display:flex;gap:18px;align-items:stretch" data-page-node-id="szB42rKUXizsa2NQnGGAxj">
+    <!-- 左：分层架构图（收窄至 58%） -->
+    <div style="flex:0 0 58%;min-width:0;display:flex;flex-direction:column;gap:0;font-size:10px;line-height:1.35" data-page-node-id="archLeftCol">
 
     <!-- L1 门户层 -->
     <div class="arch-layer" style="background:linear-gradient(180deg,#f7fbff 0%,#eef6fc 100%);border:1px solid #cde2f2;border-radius:7px 7px 0 0;padding:11px 16px" data-page-node-id="TL5yfMizM0Dy60tCatKrCC">
@@ -1025,10 +1027,64 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     <div class="arch-layer" style="background:linear-gradient(180deg,#f0f4f8 0%,#e6eef5 100%);border:1px solid #c0ccd8;border-radius:0 0 7px 7px;padding:9px 16px;text-align:center" data-page-node-id="BmS6BIgewdSib0FdkGuK7c">
       <div class="arch-lbl" style="justify-content:center" data-page-node-id="RfqudtO8nTooAVAUEJDtZ5"><span class="arch-num" data-page-node-id="sWLKUFW9QD2OuZJekCQgI0">L6</span>加固体系（国产 + 交换）</div>
     </div>
+    </div><!-- /左列 -->
+
+    <!-- 右：L1–L6 分层说明 -->
+    <div style="flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:5px;font-size:9.5px;line-height:1.3" data-page-node-id="archRightPanel">
+      <div style="font-size:10.5px;font-weight:700;color:#0b2d47;letter-spacing:.5px;padding-bottom:4px;border-bottom:1px solid #cde2f2" data-page-node-id="archRightTitle">分层说明 · L1 – L6</div>
+
+      <div style="display:flex;gap:7px;align-items:flex-start" data-page-node-id="archL1">
+        <div style="flex:0 0 20px;height:20px;border-radius:4px;background:#0b2d47;color:#fff;font-size:9.5px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px" data-page-node-id="archL1b">L1</div>
+        <div style="min-width:0">
+          <div style="font-weight:700;color:#0b2d47;font-size:9.5px" data-page-node-id="archL1t">前端应用 / 门户层</div>
+          <div style="color:#5b6b7a;font-size:9px;line-height:1.25;margin-top:1px" data-page-node-id="archL1d">统一入口。SAP Portal / Fiori、Formsport / SmartBI、OA。</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:7px;align-items:flex-start" data-page-node-id="archL2">
+        <div style="flex:0 0 20px;height:20px;border-radius:4px;background:#0b2d47;color:#fff;font-size:9.5px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px" data-page-node-id="archL2b">L2</div>
+        <div style="min-width:0">
+          <div style="font-weight:700;color:#0b2d47;font-size:9.5px" data-page-node-id="archL2t">核心 ERP + 财务共享</div>
+          <div style="color:#5b6b7a;font-size:9px;line-height:1.25;margin-top:1px" data-page-node-id="archL2d">业务中枢。SAP S/4HANA PCE（FI/CO/SD/MM/PP/QM/EWM/MDG/Group Reporting/DRC/CPI）+ 用友财务共享。</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:7px;align-items:flex-start" data-page-node-id="archL3">
+        <div style="flex:0 0 20px;height:20px;border-radius:4px;background:#0b2d47;color:#fff;font-size:9.5px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px" data-page-node-id="archL3b">L3</div>
+        <div style="min-width:0">
+          <div style="font-weight:700;color:#0b2d47;font-size:9.5px" data-page-node-id="archL3t">业务支撑系统</div>
+          <div style="color:#5b6b7a;font-size:9px;line-height:1.25;margin-top:1px" data-page-node-id="archL3d">研产销专项应用。PLM、MES、APS、WMS/EWM、SFM、CRM、防伪防窜、电子签章、检验管理、HRA、企业云盘等。</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:7px;align-items:flex-start" data-page-node-id="archL4">
+        <div style="flex:0 0 20px;height:20px;border-radius:4px;background:#0b2d47;color:#fff;font-size:9.5px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px" data-page-node-id="archL4b">L4</div>
+        <div style="min-width:0">
+          <div style="font-weight:700;color:#0b2d47;font-size:9.5px" data-page-node-id="archL4t">集中对接层（SAP CPI）</div>
+          <div style="color:#5b6b7a;font-size:9px;line-height:1.25;margin-top:1px" data-page-node-id="archL4d">集成中枢。18 个集成流 / 2000+ 接口，统一 API 网关与监控，消除"接口蜘蛛网"。</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:7px;align-items:flex-start" data-page-node-id="archL5">
+        <div style="flex:0 0 20px;height:20px;border-radius:4px;background:#0b2d47;color:#fff;font-size:9.5px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px" data-page-node-id="archL5b">L5</div>
+        <div style="min-width:0">
+          <div style="font-weight:700;color:#0b2d47;font-size:9.5px" data-page-node-id="archL5t">IT 基础设施与安全底座</div>
+          <div style="color:#5b6b7a;font-size:9px;line-height:1.25;margin-top:1px" data-page-node-id="archL5d">云、网络、安全、运维统一管控，管理平台纳入规划重点。</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:7px;align-items:flex-start" data-page-node-id="archL6">
+        <div style="flex:0 0 20px;height:20px;border-radius:4px;background:#2374a3;color:#fff;font-size:9.5px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px" data-page-node-id="archL6b">L6</div>
+        <div style="min-width:0">
+          <div style="font-weight:700;color:#0b2d47;font-size:9.5px" data-page-node-id="archL6t">加固体系（国产 + 交换）</div>
+          <div style="color:#5b6b7a;font-size:9px;line-height:1.25;margin-top:1px" data-page-node-id="archL6d">信创安全加固 + 跨域安全数据交换，保障自主可控与合规，呼应 1号文 / 2号文 / DRP。</div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Insight -->
-  <div class="insight-box" style="margin-top:12px;padding:12px 16px;font-size:12px" data-page-node-id="EPL6Rx1GmLlXRpIzucECMQ">
+  <div class="insight-box" style="margin-top:8px;padding:8px 14px;font-size:11.5px" data-page-node-id="EPL6Rx1GmLlXRpIzucECMQ">
     <strong data-page-node-id="Ef8H29A83BKUWB7NARW6kh">核心问题：</strong>SAP与外围系统之间大量点对点接口，无统一集成平台。数据在多个系统中重复维护，主数据标准不统一，形成<strong data-page-node-id="kMCXhpzcRvGEwjLHsCXFZ1">"数据孤岛"</strong>和<strong data-page-node-id="cqTMe5Cor7D2cbVWBDlZAL">"接口蜘蛛网"</strong>。
   </div>
   <aside class="notes" data-page-node-id="aCLvZqMSUDQCajL9z2TFgZ">
