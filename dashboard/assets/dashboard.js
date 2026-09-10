@@ -869,25 +869,18 @@
 
   /* ------------------------------------------------- 详情页品牌 logo 与经营评估 */
 
-  /* 有独立品牌 logo 的子公司（其余实体仅展示佛照品牌） */
+  /* 有独立品牌 logo 的子公司（无 logo 的实体不显示 logo 区） */
   var LOGOS = { liaowang: { src: 'assets/logo_lw.png', alt: '燎旺车灯' } };
-
-  /** FSL 品牌标识（与官网深蓝 VI 一致的内联 SVG，避免外链位图） */
-  var FSL_MARK =
-    '<svg viewBox="0 0 46 22" aria-label="FSL"><rect width="46" height="22" rx="4" fill="#0b57a4"/>' +
-    '<text x="23" y="15.8" text-anchor="middle" font-family="Arial, sans-serif" font-size="11.5" font-weight="700" letter-spacing="1" fill="#fff">FSL</text></svg>';
 
   function renderDetailLogos(ent) {
     var box = $('#detailLogos');
     if (!box) return;
-    var html = '<span class="lg-chip" title="佛山照明 FOSHAN LIGHTING">' + FSL_MARK +
-               '<span class="lg-txt">佛山照明</span></span>';
+    /* 仅显示子公司自身 logo；无独立 logo 的实体（含 FSL 品牌块）整个隐藏 */
     var lg = LOGOS[ent.key];
-    if (lg) {
-      html += '<span class="lg-x">×</span>' +
-              '<span class="lg-chip"><img src="' + lg.src + '" alt="' + lg.alt + ' logo"></span>';
-    }
-    box.innerHTML = html;
+    box.innerHTML = lg
+      ? '<span class="lg-chip"><img src="' + lg.src + '" alt="' + lg.alt + ' logo"></span>'
+      : '';
+    box.style.display = lg ? '' : 'none';
   }
 
   /* ---- 经营评估：销售预算（收入/成本/费用）+ 销量（年初预测/实际/未来预测）---- */
