@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ERP 仿真培训 · 培训学习中心 | FSL 工作台</title>
+<script src="/fsl-report/auth-guard.js"></script>
+<style>
+:root{--b900:#0B2D47;--b700:#1A4F73;--b500:#2374A3;--b300:#5EA4CE;
+      --b100:#C7E2F2;--b050:#EBF5FB;--bg:#F2F7FB;--text:#0F2233;
+      --muted:#5B7A91;--rule:#D6E8F2;--r:6px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;
+     background:var(--bg);color:var(--text);font-size:14px;line-height:1.7;}
+a{color:inherit;text-decoration:none;}
+
+.hero{background:linear-gradient(155deg,var(--b900) 0%,var(--b700) 100%);
+      color:#fff;padding:34px 32px 30px;border-bottom:3px solid var(--b500);}
+.hero h1{font-size:22px;font-weight:800;margin-bottom:6px;letter-spacing:-.2px;}
+.hero p{font-size:13px;opacity:.78;max-width:820px;}
+.hero-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);
+      border-radius:3px;padding:3px 11px;font-size:11px;letter-spacing:.3px;}
+
+.container{width:100%;padding:30px 32px;}
+.bc{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted);margin-bottom:22px;flex-wrap:wrap;}
+.bc a{color:var(--b500);} .bc a:hover{color:var(--b700);} .bc .sep{color:var(--b100);}
+
+/* LMS 说明条 */
+.lms-note{background:#fff;border:1px solid var(--rule);border-left:4px solid var(--b500);
+  border-radius:8px;padding:16px 18px;margin-bottom:26px;box-shadow:0 1px 4px rgba(11,45,71,.06);}
+.lms-note h3{font-size:14px;font-weight:800;color:var(--b900);margin-bottom:8px;}
+.lms-note p{font-size:12.5px;color:var(--muted);line-height:1.8;}
+.lms-note b{color:var(--b700);}
+
+/* 课程网格 */
+.sec-title{font-size:16px;font-weight:800;color:var(--b900);margin:6px 0 16px;
+  display:flex;align-items:center;gap:8px;}
+.sec-title .bar{width:4px;height:16px;background:var(--b500);border-radius:2px;display:inline-block;}
+.course-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;}
+.course-card{background:#fff;border:1px solid var(--rule);border-radius:10px;overflow:hidden;
+  box-shadow:0 2px 8px rgba(11,45,71,.07);display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s;}
+.course-card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(11,45,71,.14);}
+.cc-cover{height:120px;background:linear-gradient(135deg,var(--b700),var(--b900));
+  display:flex;align-items:center;justify-content:center;color:#fff;font-size:40px;position:relative;}
+.cc-cover .cc-tag{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.16);
+  border:1px solid rgba(255,255,255,.22);font-size:10.5px;padding:2px 9px;border-radius:20px;}
+.cc-body{padding:16px 18px;flex:1;display:flex;flex-direction:column;}
+.cc-body h4{font-size:15px;font-weight:700;color:var(--b900);margin-bottom:8px;}
+.cc-meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+.cc-meta span{font-size:10.5px;background:var(--b050);color:var(--b700);border:1px solid var(--rule);
+  padding:2px 8px;border-radius:3px;}
+.cc-desc{font-size:12.5px;color:var(--muted);flex:1;line-height:1.7;}
+.cc-foot{padding:12px 18px;border-top:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.btn-primary{background:var(--b500);color:#fff;border:none;border-radius:6px;padding:8px 16px;
+  font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s;}
+.btn-primary:hover{background:var(--b700);}
+.btn-ghost{background:var(--b050);color:var(--b700);border:1px solid var(--rule);border-radius:6px;
+  padding:8px 14px;font-size:12.5px;cursor:pointer;font-family:inherit;text-decoration:none;}
+.btn-ghost:hover{background:var(--rule);}
+.cc-soon{opacity:.65;}
+.cc-soon .cc-cover{background:linear-gradient(135deg,#7C93A8,#54677A);}
+@media(max-width:640px){.container{padding:22px 16px;}.hero{padding:26px 18px;}}
+</style>
+</head>
+<body>
+<div id="site-nav"></div>
+<script src="../nav.js"></script>
+
+<div class="hero">
+  <h1>ERP 仿真培训</h1>
+  <p>面向 SAP / 用友 / 博科等 ERP 系统的岗位操作仿真培训。基于 WalkMe 式数字采用（DAP）理念，把引导嵌入业务系统、用沙箱仿真替代真实环境练手。</p>
+  <div class="hero-chips">
+    <span class="chip">SCORM 1.2 合规</span>
+    <span class="chip">仿真沙箱</span>
+    <span class="chip">数据自托管</span>
+    <span class="chip">GitHub 持久化</span>
+  </div>
+</div>
+
+<div class="container">
+  <div class="bc"><a href="/fsl-report/">工作台首页</a><span class="sep">/</span><span>培训</span></div>
+
+  <div class="lms-note">
+    <h3>本工作台即学习管理系统（LMS）</h3>
+    <p>无需钉钉、企业微信等第三方培训应用——佛照工作台直接充当 LMS：课程以 <b>SCORM 1.2</b> 标准包嵌入，
+    学员的<b>完成状态、得分、断点续学位置</b>通过 GitHub API 持久化到本项目仓库（与任务看板同一机制），
+    <b>不使用 localStorage 存储学习状态、数据不出境、可审计</b>。同一套课程内容也可一键导出为标准 SCORM 包，
+    接入任意第三方 LMS。</p>
+  </div>
+
+  <div class="sec-title"><span class="bar"></span>课程目录</div>
+  <div class="course-grid">
+
+    <div class="course-card">
+      <div class="cc-cover">🛒<span class="cc-tag">已上线</span></div>
+      <div class="cc-body">
+        <h4>ERP 模拟操作 · 创建采购订单</h4>
+        <div class="cc-meta">
+          <span>SCORM 1.2</span><span>仿真沙箱</span><span>5 步引导</span><span>约 8 分钟</span>
+        </div>
+        <div class="cc-desc">在仿真界面中逐步完成「创建采购订单」全流程：选择供应商、录入物料与数量、检查必填项、
+        提交过账。操作错误即时报红，进度与成绩自动上报，支持断点续学。</div>
+      </div>
+      <div class="cc-foot">
+        <a class="btn-primary" href="lms.html?course=po-create">开始学习 →</a>
+        <a class="btn-ghost" href="sco/" target="_blank">查看 SCORM 源（sco/）</a>
+      </div>
+    </div>
+
+    <div class="course-card cc-soon">
+      <div class="cc-cover">📦<span class="cc-tag">规划中</span></div>
+      <div class="cc-body">
+        <h4>ERP 模拟操作 · 销售开票</h4>
+        <div class="cc-meta"><span>规划中</span><span>仿真沙箱</span></div>
+        <div class="cc-desc">销售订单 → 交货 → 开票全流程仿真。内容层与「创建采购订单」复用同一仿真引擎，
+        仅替换步骤剧本，可快速扩充多套 ERP 通用课程。</div>
+      </div>
+      <div class="cc-foot">
+        <button class="btn-ghost" disabled style="opacity:.5;cursor:default">敬请期待</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

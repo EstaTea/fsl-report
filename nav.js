@@ -124,6 +124,7 @@
         </div>
       </div>
     </div>
+    <a href="/fsl-report/training/">🎓 培训</a>
     <div class="nav-dropdown">
       <a href="/fsl-report/togaf/" style="padding:0 14px;color:rgba(255,255,255,.75);font-size:12.5px;height:54px;display:flex;align-items:center;white-space:nowrap;font-weight:600;">TOGAF &amp; EA <span class="nav-arrow">▾</span></a>
       <div class="nav-dropdown-panel" style="right:0;left:auto;">
@@ -169,6 +170,7 @@
     ['/fsl-report/togaf/',      'a[href="/fsl-report/togaf/"]'],
     ['/fsl-report/kanban/',     'a[href="/fsl-report/kanban/"]'],
     ['/fsl-report/weekly/',     'a[href="/fsl-report/weekly/"]'],
+    ['/fsl-report/training/',   'a[href="/fsl-report/training/"]'],
     ['/fsl-report/deliverables/','a[href="/fsl-report/deliverables/"]'],
     ['/fsl-report/consulting/', 'a[href="/fsl-report/deliverables/"]'],
     ['/fsl-report/sap/',        'a[href="/fsl-report/deliverables/"]'],

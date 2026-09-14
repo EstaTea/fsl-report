@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERP 采购订单创建仿真培训（SCORM 1.2）</title>
+</head>
+<body>
+  <h2 style="text-align:center;font-family:sans-serif;color:#0b2d47;">ERP 采购订单创建仿真培训</h2>
+  <div id="app"></div>
+  <p id="lms-status" style="text-align:center;font-family:sans-serif;font-size:12px;color:#64748b;"></p>
+  <script src="scorm-api.js"></script>
+  <script src="sim-engine.js"></script>
+  <script>
+    (function () {
+      var startTime = Date.now();
+      var connected = SCORM.init();
+      var statusEl = document.getElementById('lms-status');
+      statusEl.textContent = connected
+        ? '✓ 已连接 LMS，成绩与进度将自动上报。'
+        : '⚠ 未检测到 LMS（本地打开）。如需上报成绩，请将本包导入支持 SCORM 1.2 的 LMS。';
+
+      // 将毫秒转换为 SCORM 1.2 要求的 ISO8601 时长格式 HHHH:MM:SS
+      function fmtSCORMTime(ms) {
+        var s = Math.floor(ms / 1000);
+        var hh = Math.floor(s / 3600); s -= hh * 3600;
+        var mm = Math.floor(s / 60); s -= mm * 60;
+        var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+        return pad(hh) + ':' + pad(mm) + ':' + pad(s);
+      }
+
+      function reportProgress(stepId, idx) {
+        if (!connected) return;
+        SCORM.set('cmi.core.lesson_location', stepId);          // 断点续学位置
+        SCORM.set('cmi.suspend_data', JSON.stringify({ step: idx, at: new Date().toISOString() }));
+        SCORM.commit();
+      }
+
+      function reportComplete(res) {
+        if (!connected) return;
+        SCORM.set('cmi.core.lesson_status', 'completed');
+        SCORM.set('cmi.core.score.raw', String(res.score));
+        SCORM.set('cmi.core.score.min', '0');
+        SCORM.set('cmi.core.score.max', '100');
+        SCORM.set('cmi.core.session_time', fmtSCORMTime(Date.now() - startTime));
+        SCORM.set('cmi.core.exit', '');
+        SCORM.commit();
+        statusEl.textContent = '✓ 成绩已上报 LMS：状态=completed，得分=' + res.score + '。可安全关闭本页。';
+      }
+
+      SimEngine.mount({
+        container: '#app',
+        onStep: function (step, idx) { reportProgress(step.id, idx); },
+        onComplete: function (res) { reportComplete(res); },
+        onError: function (msg) { /* 错误提示由引擎本地渲染，无需上报 */ }
+      });
+
+      // 离开页面时收尾，确保 LMS 收到 Finish
+      window.addEventListener('beforeunload', function () {
+        if (connected && SCORM.isInitialized()) SCORM.quit();
+      });
+    })();
+  </script>
+</body>
+</html>

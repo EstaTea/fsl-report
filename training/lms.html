@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>学习中心 · ERP 仿真培训 | FSL 工作台</title>
+<script src="/fsl-report/auth-guard.js"></script>
+<style>
+:root{--b900:#0B2D47;--b700:#1A4F73;--b500:#2374A3;--b300:#5EA4CE;
+      --b100:#C7E2F2;--b050:#EBF5FB;--bg:#F2F7FB;--text:#0F2233;
+      --muted:#5B7A91;--rule:#D6E8F2;--r:6px;
+      --green:#15803d;--amber:#92400e;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;
+     background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;}
+a{color:inherit;text-decoration:none;}
+
+.page-head{background:linear-gradient(155deg,var(--b900) 0%,var(--b700) 100%);
+  color:#fff;padding:22px 32px;border-bottom:3px solid var(--b500);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.page-head .ph-left h1{font-size:18px;font-weight:800;}
+.page-head .ph-left p{font-size:12px;opacity:.75;margin-top:3px;}
+.page-head .ph-right{display:flex;align-items:center;gap:10px;}
+.learner-badge{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
+  border-radius:6px;padding:6px 12px;font-size:12px;display:flex;align-items:center;gap:8px;}
+.learner-badge .av{width:24px;height:24px;border-radius:50%;background:var(--b300);
+  display:flex;align-items:center;justify-content:center;color:var(--b900);font-weight:800;font-size:12px;}
+.back-link{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);
+  color:#fff;border-radius:6px;padding:6px 14px;font-size:12px;font-weight:700;}
+
+.wrap{width:100%;padding:22px 32px;display:flex;gap:20px;align-items:stretch;}
+.sco-col{flex:1;min-width:0;}
+.sco-frame{background:#fff;border:1px solid var(--rule);border-radius:10px;overflow:hidden;
+  box-shadow:0 2px 10px rgba(11,45,71,.08);height:calc(100vh - 230px);min-height:560px;}
+.sco-frame iframe{width:100%;height:100%;border:0;display:block;}
+
+.panel{width:330px;flex-shrink:0;display:flex;flex-direction:column;gap:14px;}
+.card{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:16px 18px;
+  box-shadow:0 1px 4px rgba(11,45,71,.06);}
+.card h3{font-size:13px;font-weight:800;color:var(--b900);margin-bottom:12px;
+  padding-bottom:8px;border-bottom:1px solid var(--rule);}
+.kv{display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:13px;}
+.kv .k{color:var(--muted);}
+.kv .v{font-weight:700;color:var(--b700);text-align:right;}
+.status-pill{display:inline-block;padding:2px 10px;border-radius:20px;font-size:11.5px;font-weight:700;}
+.st-not{background:var(--bg);color:var(--muted);border:1px solid var(--rule);}
+.st-ing{background:#EBF4FF;color:var(--b700);border:1px solid var(--b100);}
+.st-done{background:#f0fdf4;color:var(--green);border:1px solid #bbf7d0;}
+.score-num{font-size:30px;font-weight:800;color:var(--b500);line-height:1;}
+.score-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.save-line{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;margin-top:4px;}
+.save-dot{width:8px;height:8px;border-radius:50%;background:var(--muted);flex-shrink:0;}
+.save-ok{background:var(--green);} .save-warn{background:#dc2626;}
+.panel-btns{display:flex;flex-direction:column;gap:8px;}
+.btn{width:100%;border-radius:6px;padding:9px 14px;font-size:13px;font-weight:700;cursor:pointer;
+  font-family:inherit;border:1px solid var(--rule);background:var(--b050);color:var(--b700);text-align:center;}
+.btn:hover{background:var(--rule);}
+.btn-primary{background:var(--b500);color:#fff;border-color:var(--b500);}
+.btn-primary:hover{background:var(--b700);}
+.log{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:var(--muted);
+  background:var(--b050);border:1px solid var(--rule);border-radius:6px;padding:10px;max-height:160px;overflow:auto;line-height:1.6;}
+.log .ok{color:var(--green);} .log .act{color:var(--b700);} .log .warn{color:#dc2626;}
+@media(max-width:900px){.wrap{flex-direction:column;}.panel{width:100%;}.sco-frame{height:520px;}}
+@media(max-width:640px){.wrap{padding:18px 14px;}.page-head{padding:18px 16px;}}
+</style>
+</head>
+<body>
+<div id="site-nav"></div>
+<script src="../nav.js"></script>
+
+<!-- ════════════════════════════════════════════════════════════════
+     SCORM 1.2 运行时（Runtime API）
+     在父窗口暴露 window.API，SCO（iframe 内 player.html）会自动沿
+     window.parent 找到它并上报 cmi.core.* 数据。学员进度持久化到
+     GitHub（Contents API），不使用 localStorage 存储学习状态。
+     ════════════════════════════════════════════════════════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  var cmi = {
+    'cmi.core.student_name': '',
+    'cmi.core.student_id':   '',
+    'cmi.core.lesson_status':'not attempted',
+    'cmi.core.score.raw':    '',
+    'cmi.core.score.min':    '0',
+    'cmi.core.score.max':    '100',
+    'cmi.core.lesson_location':'',
+    'cmi.core.suspend_data': '',
+    'cmi.core.session_time': '00:00:00',
+    'cmi.core.entry':        '',
+    'cmi.core.exit':         '',
+    'cmi.launch_data':       '',
+    'cmi.comments':          ''
+  };
+  var errorCode = '0';
+  var initialized = false;
+  var lastSha = null;
+
+  function getLearner() {
+    var s = window.FSL_SESSION || {};
+    var name = s.name || s.login || '学员';
+    var id   = s.login || s.email || 'anonymous';
+    return { name: name, id: id };
+  }
+  function courseId() {
+    var p = new URLSearchParams(window.location.search).get('course');
+    return p && p.trim() ? p.trim() : 'po-create';
+  }
+  function ghPath() {
+    return 'data/training/' + encodeURIComponent(courseId()) + '/' +
+           encodeURIComponent(getLearner().id) + '.json';
+  }
+  function getToken() {
+    var s = window.FSL_SESSION || {};
+    return s.gh_token || s.token || (localStorage.getItem('gh_token_fsl') || '');
+  }
+  function logApi(msg, cls) {
+    var el = document.getElementById('scormLog');
+    if (!el) return;
+    var t = new Date().toLocaleTimeString('zh-CN');
+    var div = document.createElement('div');
+    div.className = cls || 'act';
+    div.textContent = '[' + t + '] ' + msg;
+    el.appendChild(div);
+    el.scrollTop = el.scrollHeight;
+  }
+
+  // ── 持久化：读取上次进度 ──
+  function loadAttempt(cb) {
+    var token = getToken();
+    if (!token) { cb && cb(); return; }
+    fetch('https://api.github.com/repos/EstaTea/fsl-report/contents/' + ghPath(), {
+      headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json' }
+    }).then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) {
+        if (j && j.content) {
+          try {
+            var data = JSON.parse(atob(j.content.replace(/\s/g, '')));
+            if (data && data.cmi) {
+              for (var k in data.cmi) { if (data.cmi.hasOwnProperty(k)) cmi[k] = data.cmi[k]; }
+              lastSha = j.sha;
+              setSave('已从云端恢复上次进度', 'ok');
+              logApi('LMSGetValue ← 恢复进度', 'ok');
+            }
+          } catch (e) {}
+        }
+        cb && cb();
+      })
+      .catch(function () { cb && cb(); });
+  }
+
+  // ── 持久化：保存进度（GitHub Contents API）──
+  function saveAttempt(cb) {
+    var token = getToken();
+    if (!token) { setSave('未登录 / 无写权限：本次进度未保存（仅本会话）', 'warn'); logApi('保存跳过：无 token', 'warn'); cb && cb(); return; }
+    var payload = { cmi: cmi, course: courseId(), updated_at: new Date().toISOString() };
+    var body = {
+      message: 'training: save attempt ' + ghPath(),
+      content: btoa(unescape(encodeURIComponent(JSON.stringify(payload, null, 2))))
+    };
+    if (lastSha) body.sha = lastSha;
+    fetch('https://api.github.com/repos/EstaTea/fsl-report/contents/' + ghPath(), {
+      method: 'PUT',
+      headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    }).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (j) {
+        lastSha = (j.content && j.content.sha) ? j.content.sha : lastSha;
+        setSave('进度已保存到 GitHub（云端）', 'ok');
+        logApi('保存成功 → GitHub', 'ok');
+        cb && cb();
+      })
+      .catch(function (e) {
+        setSave('保存失败：' + e.message + '（演示环境 / 无写权限）', 'warn');
+        logApi('保存失败：' + e.message, 'warn');
+        cb && cb();
+      });
+  }
+
+  function setSave(text, kind) {
+    var el = document.getElementById('saveLine');
+    var dot = document.getElementById('saveDot');
+    if (el) el.textContent = text;
+    if (dot) { dot.className = 'save-dot' + (kind === 'ok' ? ' save-ok' : kind === 'warn' ? ' save-warn' : ''); }
+  }
+
+  function statusClass(s) {
+    if (s === 'completed' || s === 'passed') return 'st-done';
+    if (s === 'incomplete' || s === 'browsed' || s === 'failed') return 'st-ing';
+    return 'st-not';
+  }
+  function statusText(s) {
+    return ({ 'not attempted': '未开始', 'browsed': '已浏览', 'incomplete': '进行中',
+              'completed': '已完成', 'passed': '已通过', 'failed': '未通过' })[s] || s;
+  }
+
+  function updatePanel() {
+    var sn = document.getElementById('kvName');
+    var st = document.getElementById('kvStatus');
+    var sc = document.getElementById('kvScore');
+    var loc = document.getElementById('kvLoc');
+    if (sn) sn.textContent = getLearner().name;
+    if (st) { st.textContent = statusText(cmi['cmi.core.lesson_status']); st.className = 'status-pill ' + statusClass(cmi['cmi.core.lesson_status']); }
+    if (sc) { sc.textContent = cmi['cmi.core.score.raw'] ? (cmi['cmi.core.score.raw'] + ' / 100') : '—'; }
+    if (loc) loc.textContent = cmi['cmi.core.lesson_location'] || '—';
+  }
+
+  var panelTimer = null;
+  function debouncePanel() { if (panelTimer) clearTimeout(panelTimer); panelTimer = setTimeout(updatePanel, 120); }
+
+  // ── SCORM 1.2 Runtime API ──
+  var API = {
+    LMSInitialize: function (p) {
+      if (initialized) { errorCode = '101'; return '1'; }
+      initialized = true;
+      var l = getLearner();
+      cmi['cmi.core.student_name'] = l.name;
+      cmi['cmi.core.student_id'] = l.id;
+      logApi('LMSInitialize ✓', 'ok');
+      loadAttempt(function () { updatePanel(); });
+      errorCode = '0';
+      return '0';
+    },
+    LMSFinish: function (p) {
+      if (!initialized) { errorCode = '301'; return '1'; }
+      logApi('LMSFinish → 保存', 'act');
+      saveAttempt(function () { updatePanel(); });
+      initialized = false;
+      errorCode = '0';
+      return '0';
+    },
+    LMSGetValue: function (param) {
+      if (!initialized) { errorCode = '301'; return ''; }
+      var v = cmi.hasOwnProperty(param) ? cmi[param] : '';
+      errorCode = '0';
+      return v;
+    },
+    LMSSetValue: function (param, value) {
+      if (!initialized) { errorCode = '301'; return '1'; }
+      cmi[param] = (value === undefined ? '' : String(value));
+      if (param === 'cmi.core.lesson_status' || param === 'cmi.core.score.raw') {
+        logApi('LMSSetValue ' + param + ' = ' + cmi[param], 'act');
+      }
+      debouncePanel();
+      errorCode = '0';
+      return '0';
+    },
+    LMSCommit: function (p) {
+      if (!initialized) { errorCode = '301'; return '1'; }
+      logApi('LMSCommit → 保存', 'act');
+      saveAttempt(function () { updatePanel(); });
+      errorCode = '0';
+      return '0';
+    },
+    LMSGetLastError: function () { return errorCode; },
+    LMSGetErrorString: function (c) { return c === '0' ? 'No error' : '(error ' + c + ')'; },
+    LMSGetDiagnostic: function (c) { return c === '0' ? 'No error' : '(diagnostic ' + c + ')'; }
+  };
+
+  window.API = API;
+  window.__FSL_LMS = { getCmi: function () { return cmi; }, reset: function () {
+    cmi['cmi.core.lesson_status'] = 'not attempted';
+    cmi['cmi.core.score.raw'] = '';
+    cmi['cmi.core.lesson_location'] = '';
+    cmi['cmi.core.suspend_data'] = '';
+    updatePanel();
+  } };
+  document.addEventListener('DOMContentLoaded', updatePanel);
+})();
+</script>
+
+<div class="page-head">
+  <div class="ph-left">
+    <h1 id="courseTitle">学习中心 · ERP 仿真培训</h1>
+    <p>SCORM 1.2 标准课程 · 进度通过 GitHub 持久化（数据自托管、不出境）</p>
+  </div>
+  <div class="ph-right">
+    <div class="learner-badge"><span class="av" id="learnerAv">学</span><span id="learnerName">学员</span></div>
+    <a class="back-link" href="index.html">← 课程目录</a>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="sco-col">
+    <div class="sco-frame">
+      <iframe id="sco" src="sco/player.html" title="ERP 仿真培训课程" allow="fullscreen"></iframe>
+    </div>
+  </div>
+
+  <aside class="panel">
+    <div class="card">
+      <h3>学习状态</h3>
+      <div class="kv"><span class="k">学员</span><span class="v" id="kvName">—</span></div>
+      <div class="kv"><span class="k">状态</span><span class="v"><span class="status-pill st-not" id="kvStatus">未开始</span></span></div>
+      <div class="kv"><span class="k">得分</span><span class="v" id="kvScore">—</span></div>
+      <div class="kv"><span class="k">续学位置</span><span class="v" id="kvLoc">—</span></div>
+      <div class="save-line"><span class="save-dot" id="saveDot"></span><span id="saveLine">等待课程通信…</span></div>
+    </div>
+
+    <div class="card">
+      <h3>操作</h3>
+      <div class="panel-btns">
+        <button class="btn btn-primary" onclick="document.getElementById('sco').contentWindow.location.reload()">↻ 重玩本课程</button>
+        <button class="btn" onclick="if(confirm('重置本课程的本地与云端进度？')){window.__FSL_LMS.reset();}">重置进度</button>
+        <a class="btn" href="sco/" target="_blank">⬇ 标准 SCORM 包源（sco/）</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>SCORM 通信日志</h3>
+      <div class="log" id="scormLog"></div>
+    </div>
+  </aside>
+</div>
+
+<script>
+// 显示学员名与头像首字
+(function () {
+  var s = window.FSL_SESSION || {};
+  var name = s.name || s.login || '学员';
+  var nm = document.getElementById('learnerName');
+  var av = document.getElementById('learnerAv');
+  if (nm) nm.textContent = name;
+  if (av) av.textContent = (name || '学').slice(0, 1);
+  var t = new URLSearchParams(window.location.search).get('course');
+  var ct = document.getElementById('courseTitle');
+  if (ct) ct.textContent = (t === 'po-create' ? '学习中心 · 创建采购订单' : '学习中心 · ERP 仿真培训');
+})();
+</script>
+</body>
+</html>
