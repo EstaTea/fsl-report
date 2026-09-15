@@ -60,10 +60,12 @@
       const todoCount = vals.filter(v => v === 'todo').length;
       const pct = totalDocs > 0 ? Math.round(doneCount / totalDocs * 100) : 0;
 
+      const svTotal = document.getElementById('sv-total');
       const svDone = document.getElementById('sv-done');
       const svWip  = document.getElementById('sv-wip');
       const svTodo = document.getElementById('sv-todo');
       const svPct  = document.getElementById('sv-pct');
+      if (svTotal) svTotal.textContent = totalDocs;
       if (svDone) svDone.textContent = doneCount;
       if (svWip)  svWip.textContent  = wipCount;
       if (svTodo) svTodo.textContent = todoCount;
