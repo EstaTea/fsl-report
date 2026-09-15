@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ERP 仿真培训 · 培训学习中心 | FSL 工作台</title>
-<script src="/fsl-report/auth-guard.js"></script>
+<script src="../auth-guard.js"></script>
 <style>
 :root{--b900:#0B2D47;--b700:#1A4F73;--b500:#2374A3;--b300:#5EA4CE;
       --b100:#C7E2F2;--b050:#EBF5FB;--bg:#F2F7FB;--text:#0F2233;
@@ -89,6 +89,11 @@ a{color:inherit;text-decoration:none;}
     接入任意第三方 LMS。</p>
   </div>
 
+  <div style="margin-bottom:22px;display:flex;gap:10px;flex-wrap:wrap;">
+    <a class="btn-primary" href="dashboard.html" style="text-decoration:none;display:inline-block;">📊 我的学习进度</a>
+    <a class="btn-ghost" href="overlay-poc.html" style="text-decoration:none;display:inline-block;">🧭 多 ERP 引导演示</a>
+  </div>
+
   <div class="sec-title"><span class="bar"></span>课程目录</div>
   <div class="course-grid">
 
@@ -105,6 +110,22 @@ a{color:inherit;text-decoration:none;}
       <div class="cc-foot">
         <a class="btn-primary" href="lms.html?course=po-create">开始学习 →</a>
         <a class="btn-ghost" href="sco/" target="_blank">查看 SCORM 源（sco/）</a>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="cc-cover">🧭<span class="cc-tag">PoC · 实验</span></div>
+      <div class="cc-body">
+        <h4>多 ERP Overlay 引导（架构验证）</h4>
+        <div class="cc-meta">
+          <span>配置驱动</span><span>SAP/用友/博科</span><span>Driver.js</span><span>零依赖</span>
+        </div>
+        <div class="cc-desc">验证「统一引导引擎 + 每 ERP 内容层分离」的 DAP 适配架构：切换 ERP 即切换引导剧本、
+        运行时共用。证明自研平台可低成本覆盖多套 ERP 界面引导，相对 WalkMe（偏 SAP）形成差异化。</div>
+      </div>
+      <div class="cc-foot">
+        <a class="btn-primary" href="overlay-poc.html">运行 PoC →</a>
+        <a class="btn-ghost" href="overlay-poc.html#config" target="_blank">查看架构</a>
       </div>
     </div>
 

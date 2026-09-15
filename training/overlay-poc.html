@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>多 ERP Overlay 引导 · 架构验证 PoC | FSL 工作台</title>
+<script src="../auth-guard.js"></script>
+<style>
+:root{--b900:#0B2D47;--b700:#1A4F73;--b500:#2374A3;--b300:#5EA4CE;
+      --b100:#C7E2F2;--b050:#EBF5FB;--bg:#F2F7FB;--text:#0F2233;
+      --muted:#5B7A91;--rule:#D6E8F2;--r:6px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;
+     background:var(--bg);color:var(--text);font-size:14px;line-height:1.7;}
+a{color:inherit;text-decoration:none;}
+
+.hero{background:linear-gradient(155deg,var(--b900) 0%,var(--b700) 100%);
+      color:#fff;padding:30px 32px 26px;border-bottom:3px solid var(--b500);}
+.hero h1{font-size:21px;font-weight:800;margin-bottom:6px;}
+.hero p{font-size:13px;opacity:.8;max-width:880px;}
+.hero-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px;}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);
+      border-radius:3px;padding:3px 11px;font-size:11px;letter-spacing:.3px;}
+
+.container{width:100%;padding:28px 32px;display:grid;grid-template-columns:300px 1fr;gap:26px;}
+@media(max-width:880px){.container{grid-template-columns:1fr;}}
+
+/* 左栏控制面板 */
+.panel{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:20px;
+  box-shadow:0 2px 8px rgba(11,45,71,.07);align-self:start;position:sticky;top:18px;}
+.panel h3{font-size:14px;font-weight:800;color:var(--b900);margin-bottom:6px;}
+.panel .sub{font-size:12px;color:var(--muted);margin-bottom:16px;}
+.erp-switch{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+.erp-btn{display:flex;align-items:center;gap:10px;background:var(--b050);border:1px solid var(--rule);
+  border-radius:7px;padding:10px 12px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;
+  color:var(--b700);transition:all .15s;text-align:left;}
+.erp-btn .dot{width:9px;height:9px;border-radius:50%;background:var(--b300);flex:none;}
+.erp-btn:hover{background:var(--rule);}
+.erp-btn.active{background:var(--b500);color:#fff;border-color:var(--b500);}
+.erp-btn.active .dot{background:#fff;}
+.btn-run{width:100%;background:var(--b500);color:#fff;border:none;border-radius:7px;padding:11px;
+  font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s;margin-bottom:10px;}
+.btn-run:hover{background:var(--b700);}
+.btn-run:disabled{opacity:.5;cursor:default;}
+.note{font-size:11.5px;color:var(--muted);line-height:1.7;background:var(--b050);
+  border:1px solid var(--rule);border-radius:7px;padding:11px 12px;}
+.note b{color:var(--b700);}
+.code-link{font-size:11.5px;color:var(--b500);cursor:pointer;margin-top:10px;display:inline-block;text-decoration:underline;}
+
+/* 右侧 ERP 仿真舞台 */
+.stage{background:#fff;border:1px solid var(--rule);border-radius:10px;overflow:hidden;
+  box-shadow:0 2px 8px rgba(11,45,71,.07);min-height:520px;}
+.stage-head{background:linear-gradient(135deg,var(--b700),var(--b900));color:#fff;padding:12px 18px;
+  display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:700;}
+.stage-head .stamp{font-size:11px;font-weight:500;opacity:.8;}
+.erp-pane{display:none;padding:22px;}
+.erp-pane.active{display:block;}
+.app-bar{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+.app-bar .app{flex:1;min-width:120px;background:var(--b050);border:1px solid var(--rule);border-radius:7px;
+  padding:12px;font-size:12.5px;font-weight:600;color:var(--b700);text-align:center;cursor:pointer;}
+.app-bar .app:hover{background:var(--rule);}
+.form-row{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+.form-row label{width:110px;font-size:12.5px;color:var(--muted);font-weight:600;}
+.form-row input{flex:1;max-width:320px;border:1px solid var(--rule);border-radius:6px;padding:9px 12px;
+  font-size:13px;font-family:inherit;background:#fff;color:var(--text);}
+.form-row input:focus{outline:none;border-color:var(--b500);box-shadow:0 0 0 3px var(--b050);}
+.act-bar{display:flex;gap:10px;margin-top:22px;}
+.act{padding:9px 18px;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;border:none;font-family:inherit;}
+.act.primary{background:var(--b500);color:#fff;}
+.act.primary:hover{background:var(--b700);}
+.act.ghost{background:var(--b050);color:var(--b700);border:1px solid var(--rule);}
+.muted-hint{font-size:11.5px;color:var(--muted);margin-top:14px;}
+
+/* ===== Overlay 引导层（最小自研实现，等价于 Driver.js 核心）===== */
+#od-mask{position:fixed;inset:0;background:rgba(8,20,32,.62);z-index:9000;display:none;}
+#od-mask.on{display:block;}
+.od-hl{position:relative;z-index:9001;border-radius:6px;
+  box-shadow:0 0 0 4px var(--b500),0 0 0 9999px rgba(8,20,32,.62);transition:box-shadow .2s;}
+.od-pop{position:fixed;z-index:9002;background:#fff;border-radius:10px;width:320px;max-width:86vw;
+  box-shadow:0 10px 40px rgba(8,20,32,.4);overflow:hidden;border:1px solid var(--rule);}
+.od-pop .od-pop-h{background:linear-gradient(135deg,var(--b700),var(--b900));color:#fff;
+  padding:11px 15px;font-size:13.5px;font-weight:700;}
+.od-pop .od-pop-b{padding:14px 15px;font-size:12.5px;color:var(--text);line-height:1.7;}
+.od-pop .od-pop-f{display:flex;align-items:center;justify-content:space-between;padding:10px 15px;
+  border-top:1px solid var(--rule);background:var(--b050);}
+.od-pop .od-pop-f .step{font-size:11px;color:var(--muted);}
+.od-pop .od-pop-f .nav-btns{display:flex;gap:8px;}
+.od-pop button{font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;border-radius:5px;padding:6px 13px;border:none;}
+.od-prev{background:#fff;color:var(--b700);border:1px solid var(--rule)!important;}
+.od-next{background:var(--b500);color:#fff;}
+.od-next:hover{background:var(--b700);}
+.od-skip{background:transparent;color:var(--muted);}
+</style>
+</head>
+<body>
+<div id="site-nav"></div>
+<script src="../nav.js"></script>
+
+<div class="hero">
+  <h1>多 ERP Overlay 引导 · 架构验证 PoC</h1>
+  <p>验证「统一引导引擎 + 每 ERP 内容层分离」的 DAP 适配架构：同一套 overlay 运行时，仅替换 selector 步骤集即可适配
+     SAP / 用友 / 博科三类 ERP 界面。生产环境以 MIT 授权的 Driver.js 替换本最小实现，内容配置完全复用。</p>
+  <div class="hero-chips">
+    <span class="chip">配置驱动</span>
+    <span class="chip">MIT Driver.js</span>
+    <span class="chip">零外部依赖</span>
+    <span class="chip">离线自托管</span>
+  </div>
+</div>
+
+<div class="container">
+  <!-- 左栏：控制面板 -->
+  <div class="panel">
+    <h3>引导配置</h3>
+    <div class="sub">选择目标 ERP，运行其专属引导剧本</div>
+    <div class="erp-switch" id="erpSwitch">
+      <button class="erp-btn active" data-erp="sap"><span class="dot"></span>SAP S/4HANA（Fiori）</button>
+      <button class="erp-btn" data-erp="yonyou"><span class="dot"></span>用友 U9 / U8</button>
+      <button class="erp-btn" data-erp="bokes"><span class="dot"></span>博科 ERP</button>
+    </div>
+    <button class="btn-run" id="runBtn">▶ 开始引导</button>
+    <div class="note" id="config">
+      <b>架构要点：</b>三套 ERP 的差异只在 <code>erpTourConfig</code> 里的 selector 步骤集；
+      overlay 引擎（高亮 + tooltip）完全共用。新增一套 ERP = 新增一段配置，无需改引擎。
+    </div>
+    <span class="code-link" id="showCode">查看生产版 Driver.js 接入代码 ▾</span>
+    <pre id="codeBox" style="display:none;margin-top:10px;background:#0F2233;color:#C7E2F2;
+      padding:12px;border-radius:7px;font-size:11px;line-height:1.6;overflow:auto;white-space:pre-wrap;"></pre>
+  </div>
+
+  <!-- 右侧：ERP 仿真舞台 -->
+  <div class="stage">
+    <div class="stage-head"><span id="stageTitle">SAP S/4HANA · 创建采购订单</span>
+      <span class="stamp">仿真界面（非真实系统）</span></div>
+
+    <!-- SAP Fiori 面板 -->
+    <div class="erp-pane active" id="pane-sap">
+      <div class="app-bar">
+        <div class="app" id="sap-create">创建采购订单</div>
+        <div class="app">采购申请</div><div class="app">供应商主数据</div><div class="app">库存查询</div>
+      </div>
+      <div class="form-row"><label>供应商</label>
+        <input id="sap-vendor" placeholder="输入供应商编号，如 100012"></div>
+      <div class="form-row"><label>物料</label>
+        <input id="sap-material" placeholder="输入物料编号，如 MAT-LED-001"></div>
+      <div class="form-row"><label>数量</label>
+        <input id="sap-qty" placeholder="录入采购数量"></div>
+      <div class="act-bar">
+        <button class="act primary" id="sap-save">过账</button>
+        <button class="act ghost">取消</button>
+      </div>
+      <div class="muted-hint">点击「开始引导」，观察高亮如何逐步落在 Fiori 元素上。</div>
+    </div>
+
+    <!-- 用友面板 -->
+    <div class="erp-pane" id="pane-yonyou">
+      <div class="app-bar">
+        <div class="app" id="yy-create">新增采购订单</div>
+        <div class="app">采购到货</div><div class="app">供应商档案</div><div class="app">存货查询</div>
+      </div>
+      <div class="form-row"><label>供货单位</label>
+        <input id="yy-supplier" placeholder="选择供货单位编码"></div>
+      <div class="form-row"><label>存货</label>
+        <input id="yy-item" placeholder="选择存货编码"></div>
+      <div class="form-row"><label>数量</label>
+        <input id="yy-qty" placeholder="录入数量"></div>
+      <div class="act-bar">
+        <button class="act primary" id="yy-submit">保存并审核</button>
+        <button class="act ghost">放弃</button>
+      </div>
+      <div class="muted-hint">同一引擎、不同 selector 配置即可引导用友界面。</div>
+    </div>
+
+    <!-- 博科面板 -->
+    <div class="erp-pane" id="pane-bokes">
+      <div class="app-bar">
+        <div class="app" id="bk-new">新建采购单</div>
+        <div class="app">到货单</div><div class="app">客商档案</div><div class="app">库存</div>
+      </div>
+      <div class="form-row"><label>提供方</label>
+        <input id="bk-provider" placeholder="录入提供方编号"></div>
+      <div class="form-row"><label>货品</label>
+        <input id="bk-goods" placeholder="录入货品编码"></div>
+      <div class="form-row"><label>数量</label>
+        <input id="bk-qty" placeholder="录入货品数量"></div>
+      <div class="act-bar">
+        <button class="act primary" id="bk-post">记账</button>
+        <button class="act ghost">返回</button>
+      </div>
+      <div class="muted-hint">三套 ERP 共用同一运行时，验证多 ERP 适配成立。</div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+ * 多 ERP 引导配置（内容层）—— 这是核心资产
+ * 每套 ERP 仅 selector / 文案不同，引擎完全共用
+ * 生产环境把 selector 指向真实 ERP 页面的 DOM 即可，无需改引擎
+ * ===================================================================== */
+const erpTourConfig = {
+  sap: [
+    {el:'#sap-create',  title:'① 创建采购订单',  desc:'在 Fiori  launchpad 点击「创建采购订单」进入事务。'},
+    {el:'#sap-vendor',  title:'② 录入供应商',    desc:'输入供应商主数据编号（如 100012），系统校验是否存在。'},
+    {el:'#sap-material',title:'③ 录入物料',      desc:'输入物料编号，带出描述、单位与标准价。'},
+    {el:'#sap-qty',     title:'④ 录入数量',      desc:'填写本次采购数量，注意与采购申请一致。'},
+    {el:'#sap-save',    title:'⑤ 过账',         desc:'核对无误后点击「过账」，系统生成采购订单凭证。'}
+  ],
+  yonyou: [
+    {el:'#yy-create',   title:'① 新增采购订单',  desc:'在用友菜单点击「新增采购订单」。'},
+    {el:'#yy-supplier', title:'② 选择供货单位',  desc:'录入或选择供货单位编码。'},
+    {el:'#yy-item',     title:'③ 选择存货',      desc:'录入存货编码，带出规格与税率。'},
+    {el:'#yy-qty',      title:'④ 录入数量',      desc:'填写采购数量。'},
+    {el:'#yy-submit',   title:'⑤ 保存并审核',    desc:'点击「保存并审核」完成单据流转。'}
+  ],
+  bokes: [
+    {el:'#bk-new',      title:'① 新建采购单',    desc:'在博科主界面点击「新建采购单」。'},
+    {el:'#bk-provider', title:'② 录入提供方',    desc:'录入提供方（供应商）编号。'},
+    {el:'#bk-goods',    title:'③ 录入货品',      desc:'录入货品编码与属性。'},
+    {el:'#bk-qty',      title:'④ 录入数量',      desc:'填写货品数量。'},
+    {el:'#bk-post',     title:'⑤ 记账',         desc:'点击「记账」生成采购单据。'}
+  ]
+};
+
+let currentErp = 'sap';
+
+/* 切换 ERP 面板 */
+const erpMeta = {
+  sap:    {title:'SAP S/4HANA · 创建采购订单'},
+  yonyou: {title:'用友 U9 / U8 · 采购订单'},
+  bokes:  {title:'博科 ERP · 采购单'}
+};
+document.querySelectorAll('.erp-btn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    currentErp = b.dataset.erp;
+    document.querySelectorAll('.erp-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    document.querySelectorAll('.erp-pane').forEach(p=>p.classList.remove('active'));
+    document.getElementById('pane-'+currentErp).classList.add('active');
+    document.getElementById('stageTitle').textContent = erpMeta[currentErp].title;
+  });
+});
+
+/* =====================================================================
+ * 最小 overlay 引擎（零依赖，等价于 Driver.js 核心）
+ * 生产环境可整体替换为 MIT 的 Driver.js（见 runTourDriver）
+ * ===================================================================== */
+const mask = document.createElement('div'); mask.id='od-mask'; document.body.appendChild(mask);
+let tour = null;
+
+function clearHighlight(){ document.querySelectorAll('.od-hl').forEach(e=>e.classList.remove('od-hl')); }
+
+function runTourMinimal(erp){
+  const steps = erpTourConfig[erp]; if(!steps||!steps.length) return;
+  let i = 0;
+  clearHighlight();
+  const pop = document.createElement('div'); pop.className='od-pop';
+  document.body.appendChild(pop);
+
+  function render(){
+    const s = steps[i];
+    const target = document.querySelector(s.el);
+    if(!target){ next(); return; }
+    clearHighlight(); target.classList.add('od-hl'); target.scrollIntoView({block:'center',behavior:'smooth'});
+    const r = target.getBoundingClientRect();
+    const top = Math.min(window.innerHeight-260, Math.max(16, r.bottom+12));
+    pop.style.left = Math.min(window.innerWidth-340, Math.max(16, r.left))+'px';
+    pop.style.top  = top+'px';
+    pop.innerHTML =
+      '<div class="od-pop-h">'+s.title+'</div>'+
+      '<div class="od-pop-b">'+s.desc+'</div>'+
+      '<div class="od-pop-f"><span class="step">第 '+(i+1)+' / '+steps.length+' 步</span>'+
+      '<div class="nav-btns">'+
+      (i>0?'<button class="od-prev">上一步</button>':'')+
+      '<button class="od-next">'+(i===steps.length-1?'完成':'下一步')+'</button></div></div>';
+    pop.querySelector('.od-next').onclick = ()=> (i===steps.length-1)?finish():next();
+    const pv = pop.querySelector('.od-prev'); if(pv) pv.onclick = prev;
+    mask.classList.add('on');
+  }
+  function next(){ if(i<steps.length-1){i++;render();} }
+  function prev(){ if(i>0){i--;render();} }
+  function finish(){ pop.remove(); mask.classList.remove('on'); clearHighlight();
+    if(window.API && typeof window.API.LMSSetValue==='function'){
+      window.API.LMSSetValue('cmi.core.lesson_status','completed'); window.API.LMSCommit('');
+    }
+  }
+  mask.onclick = finish;
+  tour = {render,finish};
+  render();
+}
+
+/* 生产环境等价实现（使用 MIT 的 Driver.js，本地引入后生效） */
+function runTourDriver(erp){
+  if(typeof window.Driver === 'undefined'){
+    console.warn('[PoC] 未加载 Driver.js，回退最小实现'); return runTourMinimal(erp);
+  }
+  const driver = new window.Driver({animate:true,overlayOpacity:0.62,smoothScroll:true});
+  driver.defineSteps(erpTourConfig[erp].map(s=>({
+    element: s.el, popover:{title:s.title, description:s.desc,
+      nextBtnText:'下一步', prevBtnText:'上一步', doneBtnText:'完成'}
+  })));
+  driver.start();
+}
+window.__runTourDriver = runTourDriver; // 暴露供参考/生产调用
+
+document.getElementById('runBtn').addEventListener('click',()=>runTourMinimal(currentErp));
+
+/* 展示生产接入代码 */
+const driverCode =
+`// 生产环境：本地引入 MIT 的 Driver.js（禁止 CDN/出境）
+// <link rel="stylesheet" href="vendor/driver.css">
+// <script src="vendor/driver.min.js"><\/script>
+//
+// 内容配置（erpTourConfig）完全复用，无需改动：
+// const { Driver } = window;
+// function runTour(erp){
+//   const driver = new Driver({ animate:true, overlayOpacity:0.62 });
+//   driver.defineSteps(erpTourConfig[erp].map(s => ({
+//     element: s.el,
+//     popover: { title:s.title, description:s.desc,
+//       nextBtnText:'下一步', prevBtnText:'上一步', doneBtnText:'完成' }
+//   })));
+//   driver.start();
+// }`;
+document.getElementById('showCode').addEventListener('click',function(){
+  const box=document.getElementById('codeBox');
+  if(box.style.display==='none'){ box.textContent=driverCode; box.style.display='block'; this.textContent='收起生产版 Driver.js 接入代码 ▴'; }
+  else { box.style.display='none'; this.textContent='查看生产版 Driver.js 接入代码 ▾'; }
+});
+</script>
+</body>
+</html>
