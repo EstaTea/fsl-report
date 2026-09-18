@@ -1,0 +1,18 @@
+{
+  "schema": "fsl-training-course/1.0",
+  "id": "po-create-overlay",
+  "title": "ERP 引导式操作 · 创建采购订单（Overlay）",
+  "type": "overlay",
+  "erp": "sap",
+  "stage": "stage/po-create.html",
+  "duration": "约 6 分钟",
+  "desc": "由课程编排器（author.html）生成的引导式课程：在仿真舞台逐步高亮「创建采购订单」全流程元素，适合作为岗位操作引导。学员完成即上报 SCORM 状态。",
+  "steps": [
+    { "el": "#sap-create",  "title": "① 创建采购订单", "desc": "点击「创建采购订单」进入事务。" },
+    { "el": "#sap-vendor",  "title": "② 录入供应商",   "desc": "输入供应商主数据编号（如 100012）。" },
+    { "el": "#sap-material", "title": "③ 录入物料",     "desc": "输入物料编号，带出描述与单位。" },
+    { "el": "#sap-qty",     "title": "④ 录入数量",     "desc": "填写本次采购数量。" },
+    { "el": "#sap-save",    "title": "⑤ 过账",         "desc": "核对无误后点击「过账」生成凭证。" }
+  ],
+  "updated_at": "2026-09-15"
+}

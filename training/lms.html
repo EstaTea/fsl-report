@@ -315,7 +315,7 @@ a{color:inherit;text-decoration:none;}
 </div>
 
 <script>
-// 显示学员名与头像首字
+// 显示学员名与头像首字，并按课程类型路由 SCO / Overlay 播放器
 (function () {
   var s = window.FSL_SESSION || {};
   var name = s.name || s.login || '学员';
@@ -323,9 +323,31 @@ a{color:inherit;text-decoration:none;}
   var av = document.getElementById('learnerAv');
   if (nm) nm.textContent = name;
   if (av) av.textContent = (name || '学').slice(0, 1);
+
   var t = new URLSearchParams(window.location.search).get('course');
+  var courseId = t && t.trim() ? t.trim() : 'po-create';
+  var iframe = document.getElementById('sco');
   var ct = document.getElementById('courseTitle');
-  if (ct) ct.textContent = (t === 'po-create' ? '学习中心 · 创建采购订单' : '学习中心 · ERP 仿真培训');
+
+  // 默认：仿真沙箱
+  function routeTo(type, title) {
+    if (type === 'overlay') {
+      iframe.src = 'overlay-run.html?course=' + encodeURIComponent(courseId);
+    } else {
+      iframe.src = 'sco/player.html?course=' + encodeURIComponent(courseId);
+    }
+    if (ct) ct.textContent = (title ? '学习中心 · ' + title : '学习中心 · ERP 仿真培训');
+  }
+
+  // 先尝试读 courses.json 判断类型；失败则回退仿真沙箱
+  fetch('courses.json').then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (cat) {
+      var list = (cat && cat.courses) || [];
+      var c = list.filter(function (x) { return x.id === courseId; })[0];
+      if (c) routeTo(c.type, c.title);
+      else routeTo('sim-sandbox', null);
+    })
+    .catch(function () { routeTo('sim-sandbox', null); });
 })();
 </script>
 </body>

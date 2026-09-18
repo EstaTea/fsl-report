@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>课程编排器 · ERP 培训 | FSL 工作台</title>
+<script src="../auth-guard.js"></script>
+<style>
+:root{--b900:#0B2D47;--b700:#1A4F73;--b500:#2374A3;--b300:#5EA4CE;
+      --b100:#C7E2F2;--b050:#EBF5FB;--bg:#F2F7FB;--text:#0F2233;
+      --muted:#5B7A91;--rule:#D6E8F2;--r:6px;--green:#15803d;--amber:#92400e;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;}
+a{color:inherit;text-decoration:none;}
+.page-head{background:linear-gradient(155deg,var(--b900) 0%,var(--b700) 100%);color:#fff;padding:20px 32px;border-bottom:3px solid var(--b500);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.page-head h1{font-size:18px;font-weight:800;}
+.page-head p{font-size:12px;opacity:.78;margin-top:3px;}
+.back-link{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;border-radius:6px;padding:6px 14px;font-size:12px;font-weight:700;}
+.container{width:100%;padding:22px 32px;display:grid;grid-template-columns:440px 1fr;gap:22px;align-items:start;}
+@media(max-width:980px){.container{grid-template-columns:1fr;}}
+.panel{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:18px;box-shadow:0 2px 8px rgba(11,45,71,.07);}
+.panel h3{font-size:14px;font-weight:800;color:var(--b900);margin-bottom:4px;}
+.panel .sub{font-size:12px;color:var(--muted);margin-bottom:14px;}
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:12px;font-weight:700;color:var(--b700);margin-bottom:5px;}
+.field input,.field select,.field textarea{width:100%;border:1px solid var(--rule);border-radius:6px;padding:8px 11px;font-size:13px;font-family:inherit;background:#fff;color:var(--text);}
+.field textarea{resize:vertical;min-height:54px;line-height:1.5;}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--b500);box-shadow:0 0 0 3px var(--b050);}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+
+.sec{margin-top:6px;border-top:1px solid var(--rule);padding-top:14px;}
+.step-list{display:flex;flex-direction:column;gap:10px;margin:10px 0 12px;}
+.step{border:1px solid var(--rule);border-radius:8px;padding:10px 12px;background:var(--b050);position:relative;}
+.step .si{position:absolute;top:-9px;left:10px;background:var(--b500);color:#fff;font-size:11px;font-weight:800;border-radius:10px;padding:1px 9px;}
+.step .srow{display:flex;gap:8px;margin-top:8px;}
+.step input.s-sel{flex:1;font-family:ui-monospace,Menlo,monospace;font-size:12px;}
+.step .s-title{width:100%;border:1px solid var(--rule);border-radius:6px;padding:7px 10px;font-size:13px;font-family:inherit;}
+.step .s-desc{width:100%;border:1px solid var(--rule);border-radius:6px;padding:7px 10px;font-size:12px;font-family:inherit;margin-top:7px;resize:vertical;min-height:42px;}
+.step .sbtns{display:flex;gap:6px;margin-top:7px;flex-wrap:wrap;}
+.sbtn{font-size:11.5px;font-weight:700;cursor:pointer;border-radius:5px;padding:5px 10px;border:1px solid var(--rule);background:#fff;color:var(--b700);font-family:inherit;}
+.sbtn:hover{background:var(--rule);}
+.sbtn.pick{background:var(--b500);color:#fff;border-color:var(--b500);}
+.sbtn.pick.active{background:#f59e0b;border-color:#f59e0b;}
+.sbtn.danger{color:#dc2626;border-color:#f1c4c4;}
+
+.btn{width:100%;border-radius:7px;padding:11px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;border:1px solid var(--rule);background:var(--b050);color:var(--b700);}
+.btn-primary{background:var(--b500);color:#fff;border-color:var(--b500);}
+.btn-primary:hover{background:var(--b700);}
+.btn-add{background:#fff;border:1px dashed var(--b500);color:var(--b500);}
+.btn-add:hover{background:var(--b050);}
+
+/* 右侧舞台 */
+.stage-wrap{background:#fff;border:1px solid var(--rule);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(11,45,71,.07);}
+.stage-bar{background:linear-gradient(135deg,var(--b700),var(--b900));color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;}
+.stage-bar .grow{flex:1;}
+.stage-bar button{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);color:#fff;border-radius:6px;padding:5px 12px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;}
+.stage-bar button.on{background:#f59e0b;border-color:#f59e0b;}
+.stage-frame{height:calc(100vh - 320px);min-height:460px;}
+.stage-frame iframe{width:100%;height:100%;border:0;display:block;}
+.status{font-size:12px;color:var(--muted);padding:10px 14px;border-top:1px solid var(--rule);background:var(--b050);}
+.save-toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:80;background:var(--b500);color:#fff;padding:11px 20px;border-radius:8px;font-size:13px;font-weight:700;box-shadow:0 6px 20px rgba(11,45,71,.3);display:none;}
+.save-toast.show{display:block;} .save-toast.warn{background:#dc2626;}
+.note{font-size:11.5px;color:var(--muted);background:var(--b050);border:1px solid var(--rule);border-radius:7px;padding:10px 12px;margin-top:12px;line-height:1.7;}
+.note b{color:var(--b700);}
+</style>
+</head>
+<body>
+<div id="site-nav"></div>
+<script src="../nav.js"></script>
+
+<div class="page-head">
+  <div>
+    <h1>🛠 课程编排器（无码）</h1>
+    <p>培训师可视化录制引导步骤：在右侧仿真舞台点击元素即可自动生成选择器，无需编写代码。内容以 JSON 存于本仓库。</p>
+  </div>
+  <a class="back-link" href="index.html">← 课程目录</a>
+</div>
+
+<div class="container">
+  <!-- 左：编辑面板 -->
+  <div class="panel">
+    <h3>课程信息</h3>
+    <div class="sub">编辑课程元信息与引导步骤</div>
+
+    <div class="field">
+      <label>课程 ID（URL 标识，仅小写/数字/连字符）</label>
+      <input id="f-id" placeholder="如 po-create-overlay">
+    </div>
+    <div class="field">
+      <label>课程标题</label>
+      <input id="f-title" placeholder="如 ERP 引导式操作 · 创建采购订单">
+    </div>
+    <div class="row2">
+      <div class="field">
+        <label>类型</label>
+        <select id="f-type">
+          <option value="overlay">引导式（Overlay）</option>
+          <option value="sim-sandbox">仿真沙箱（SCORM）</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>目标 ERP</label>
+        <select id="f-erp">
+          <option value="sap">SAP S/4HANA</option>
+          <option value="yonyou">用友 U9 / U8</option>
+          <option value="bokes">博科 ERP</option>
+          <option value="other">其他</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label>预计时长</label>
+      <input id="f-duration" placeholder="约 8 分钟">
+    </div>
+    <div class="field">
+      <label>简介</label>
+      <textarea id="f-desc" placeholder="课程描述，将展示在课程目录卡片"></textarea>
+    </div>
+
+    <div class="sec">
+      <h3>引导步骤 <span id="stepCount" class="sub" style="font-weight:400;"></span></h3>
+      <div class="sub">点击「拾取」后在右侧舞台点元素，自动填入选择器</div>
+      <div class="step-list" id="stepList"></div>
+      <button class="btn btn-add" id="addStep">＋ 新增步骤</button>
+    </div>
+
+    <div style="margin-top:16px;display:flex;flex-direction:column;gap:9px;">
+      <button class="btn btn-primary" id="saveBtn">💾 保存课程（写 GitHub）</button>
+      <a class="btn" id="testBtn" href="#" target="_blank">▶ 试学本课程</a>
+    </div>
+    <div class="note" id="saveNote">
+      <b>保存方式：</b>已登录时直接写入 <code>training/courses/{id}.json</code> 并同步 <code>courses.json</code> 索引；
+      未登录 / 无写权限时自动下载 JSON，你可将文件放入 <code>training/courses/</code> 目录提交。
+    </div>
+  </div>
+
+  <!-- 右：仿真舞台 -->
+  <div class="stage-wrap">
+    <div class="stage-bar">
+      <span>仿真舞台 · 创建采购订单</span>
+      <span class="grow"></span>
+      <button id="pickToggle">🎯 进入拾取模式</button>
+      <button id="previewTour">▶ 预览整段引导</button>
+    </div>
+    <div class="stage-frame">
+      <iframe id="stage" src="stage/po-create.html" title="仿真舞台"></iframe>
+    </div>
+    <div class="status" id="stageStatus">提示：选择左侧某步骤，点「🎯 进入拾取模式」后在舞台点击元素即可生成选择器。</div>
+  </div>
+</div>
+
+<div class="save-toast" id="toast"></div>
+
+<script>
+'use strict';
+var REPO='EstaTea/fsl-report', BASE='https://api.github.com/repos/'+REPO+'/contents/';
+var stage=document.getElementById('stage');
+var pickStepIndex=-1, pickModeOn=false;
+/* 拾取模式消息：带确认重试，避免 iframe 未就绪时 postMessage 丢失 */
+var pickRetryTimer=null, pickAcked=false, pendingPickOn=false;
+function sendPickMode(on){
+  pendingPickOn=on; pickAcked=false;
+  if(pickRetryTimer) clearTimeout(pickRetryTimer);
+  (function attempt(){
+    try{ stage.contentWindow.postMessage({type:'stage-pick-mode',on:on},'*'); }catch(e){}
+    pickRetryTimer=setTimeout(function(){ if(pendingPickOn===on && !pickAcked) attempt(); },300);
+  })();
+}
+
+/* 工具 */
+function $(id){ return document.getElementById(id); }
+function toast(msg,warn){
+  var t=$('toast'); t.textContent=msg; t.className='save-toast show'+(warn?' warn':'');
+  setTimeout(function(){ t.className='save-toast'; },2600);
+}
+function getToken(){
+  var s=window.FSL_SESSION||{};
+  return s.gh_token||s.token||(localStorage.getItem('gh_token_fsl')||'');
+}
+function ghPut(path,obj,cb){
+  var token=getToken();
+  if(!token){ cb&&cb(null,'no-token'); return; }
+  fetch(BASE+path,{headers:{'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json'}})
+    .then(function(r){ return r.ok?r.json():{__notfound:true}; })
+    .then(function(j){
+      var body={message:'training: save '+path,content:btoa(unescape(encodeURIComponent(JSON.stringify(obj,null,2))))};
+      if(j&&j.sha) body.sha=j.sha;
+      return fetch(BASE+path,{method:'PUT',headers:{'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json','Content-Type':'application/json'},body:JSON.stringify(body)});
+    })
+    .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+    .then(function(){ cb&&cb(true); })
+    .catch(function(e){ cb&&cb(null,e.message); });
+}
+
+/* ===== 步骤编辑 ===== */
+var steps=[];
+function renderSteps(){
+  var box=$('stepList'); box.innerHTML='';
+  steps.forEach(function(s,i){
+    var div=document.createElement('div'); div.className='step';
+    div.innerHTML='<span class="si">步骤 '+(i+1)+'</span>'+
+      '<input class="s-title" data-i="'+i+'" data-k="title" value="'+esc(s.title)+'" placeholder="步骤标题">'+
+      '<textarea class="s-desc" data-i="'+i+'" data-k="desc" placeholder="步骤说明">'+esc(s.desc)+'</textarea>'+
+      '<div class="srow"><input class="s-sel" data-i="'+i+'" data-k="el" value="'+esc(s.el)+'" placeholder="CSS 选择器，如 #sap-vendor"></div>'+
+      '<div class="sbtns">'+
+        '<button class="sbtn pick" data-act="pick" data-i="'+i+'">🎯 拾取</button>'+
+        '<button class="sbtn" data-act="preview" data-i="'+i+'">预览</button>'+
+        '<button class="sbtn" data-act="up" data-i="'+i+'">↑</button>'+
+        '<button class="sbtn" data-act="down" data-i="'+i+'">↓</button>'+
+        '<button class="sbtn danger" data-act="del" data-i="'+i+'">✕</button>'+
+      '</div>';
+    box.appendChild(div);
+  });
+  $('stepCount').textContent='（共 '+steps.length+' 步）';
+  bindStepInputs();
+}
+function esc(v){ return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function bindStepInputs(){
+  document.querySelectorAll('#stepList [data-k]').forEach(function(el){
+    el.addEventListener('input',function(){
+      steps[+el.dataset.i][el.dataset.k]=el.value;
+    });
+  });
+  document.querySelectorAll('#stepList [data-act]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var i=+b.dataset.i, act=b.dataset.act;
+      if(act==='del'){ steps.splice(i,1); renderSteps(); }
+      else if(act==='up'&&i>0){ var t=steps[i];steps[i]=steps[i-1];steps[i-1]=t;renderSteps(); }
+      else if(act==='down'&&i<steps.length-1){ var x=steps[i];steps[i]=steps[i+1];steps[i+1]=x;renderSteps(); }
+      else if(act==='preview'){ stage.contentWindow.postMessage({type:'stage-preview',selector:steps[i].el},'*'); setStatus('已预览步骤 '+(i+1)); }
+      else if(act==='pick'){ startPick(i,b); }
+    });
+  });
+}
+function setStatus(m){ $('stageStatus').textContent=m; }
+
+function startPick(i,btn){
+  pickStepIndex=i; pickModeOn=true;
+  document.querySelectorAll('#stepList .pick').forEach(function(x){x.classList.remove('active');});
+  btn.classList.add('active');
+  $('pickToggle').classList.add('on'); $('pickToggle').textContent='🎯 拾取中…（点击舞台元素）';
+  sendPickMode(true);
+  setStatus('拾取模式：请点击右侧舞台中的目标元素（如「过账」按钮）。');
+}
+$('pickToggle').addEventListener('click',function(){
+  if(pickModeOn){ stopPick(); } else { pickStepIndex=steps.length-1<0?-1:0; pickModeOn=true;
+    $('pickToggle').classList.add('on'); $('pickToggle').textContent='🎯 拾取中…';
+    sendPickMode(true);
+    setStatus('拾取模式：点击舞台元素将填入当前选中步骤。'); }
+});
+function stopPick(){
+  pickModeOn=false; pickStepIndex=-1;
+  $('pickToggle').classList.remove('on'); $('pickToggle').textContent='🎯 进入拾取模式';
+  document.querySelectorAll('#stepList .pick').forEach(function(x){x.classList.remove('active');});
+  sendPickMode(false);
+}
+$('previewTour').addEventListener('click',function(){
+  if(!steps.length){ toast('请先添加步骤',true); return; }
+  stage.contentWindow.postMessage({type:'stage-run-tour',steps:steps},'*');
+  setStatus('正在预览整段引导…');
+});
+
+/* 接收舞台拾取结果 */
+window.addEventListener('message',function(e){
+  var d=e.data||{};
+  if(d.type==='stage-pick-ack'){
+    if(d.on===pendingPickOn){ pickAcked=true; if(pickRetryTimer) clearTimeout(pickRetryTimer); }
+  }
+  else   if(d.type==='stage-picked' && pickModeOn && pickStepIndex>=0){
+    steps[pickStepIndex].el=d.selector;
+    renderSteps();
+    stopPick();
+    toast('已写入选择器：'+d.selector);
+  }
+});
+
+/* 新增步骤 */
+$('addStep').addEventListener('click',function(){
+  steps.push({el:'',title:'步骤 '+(steps.length+1),desc:''});
+  renderSteps();
+});
+
+/* ===== 装载已有课程 ===== */
+function loadExisting(id){
+  fetch('courses/'+encodeURIComponent(id)+'.json')
+    .then(function(r){ return r.ok?r.json():null; })
+    .then(function(j){
+      if(!j) return;
+      $('f-id').value=j.id||id;
+      $('f-title').value=j.title||'';
+      $('f-type').value=j.type||'overlay';
+      $('f-erp').value=j.erp||'sap';
+      $('f-duration').value=j.duration||'';
+      $('f-desc').value=j.desc||'';
+      steps=(j.steps||[]).map(function(s){return {el:s.el||'',title:s.title||'',desc:s.desc||''};});
+      renderSteps();
+      updateTestLink();
+    })
+    .catch(function(){});
+}
+function updateTestLink(){
+  var id=$('f-id').value.trim();
+  $('testBtn').href= id? ('overlay-run.html?course='+encodeURIComponent(id)) : '#';
+}
+
+/* ===== 保存 ===== */
+$('saveBtn').addEventListener('click',function(){
+  var id=$('f-id').value.trim();
+  if(!id){ toast('请填写课程 ID',true); return; }
+  if(!/^[a-z0-9-]+$/.test(id)){ toast('ID 仅限小写字母/数字/连字符',true); return; }
+  var type=$('f-type').value;
+  var course={
+    schema:'fsl-training-course/1.0',
+    id:id, title:$('f-title').value.trim()||id,
+    type:type, erp:$('f-erp').value,
+    stage:'stage/po-create.html',
+    duration:$('f-duration').value.trim(),
+    desc:$('f-desc').value.trim(),
+    steps:(type==='overlay')?steps.map(function(s){return {el:s.el,title:s.title,desc:s.desc};}):[],
+    updated_at:new Date().toISOString()
+  };
+  ghPut('training/courses/'+encodeURIComponent(id)+'.json', course, function(ok,err){
+    if(ok){
+      upsertIndex(course);
+      toast('✅ 已保存到 GitHub：courses/'+id+'.json');
+      updateTestLink();
+    } else if(err==='no-token'){
+      downloadJSON('courses/'+id+'.json', course);
+      toast('未登录：已下载 JSON，请放入 training/courses/ 后提交',true);
+    } else {
+      downloadJSON('courses/'+id+'.json', course);
+      toast('保存失败（'+err+'）：已下载 JSON 作备份',true);
+    }
+  });
+});
+function upsertIndex(course){
+  fetch('courses.json').then(function(r){return r.ok?r.json():{schema:'fsl-training-catalog/1.0',courses:[]};})
+    .then(function(cat){
+      cat.courses=cat.courses||[];
+      var entry={
+        id:course.id,title:course.title,type:course.type,erp:course.erp,
+        overlay:course.stage, steps:course.steps.length, duration:course.duration, desc:course.desc
+      };
+      var k=cat.courses.findIndex(function(c){return c.id===course.id;});
+      if(k>=0) cat.courses[k]=entry; else cat.courses.push(entry);
+      cat.updated_at=new Date().toISOString().slice(0,10);
+      ghPut('training/courses.json', cat, function(){});
+    }).catch(function(){});
+}
+function downloadJSON(name,obj){
+  var blob=new Blob([JSON.stringify(obj,null,2)],{type:'application/json'});
+  var a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download=name.split('/').pop(); a.click();
+}
+['f-id','f-title','f-type','f-erp','f-duration','f-desc'].forEach(function(fid){
+  $(fid).addEventListener('input',updateTestLink);
+});
+
+/* 初始化 */
+var pid=new URLSearchParams(window.location.search).get('course');
+if(pid){ loadExisting(pid); } else { renderSteps(); updateTestLink(); }
+</script>
+</body>
+</html>

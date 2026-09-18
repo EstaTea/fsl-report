@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>仿真舞台 · 创建采购订单 | FSL 培训</title>
+<style>
+:root{--b900:#0B2D47;--b700:#1A4F73;--b500:#2374A3;--b300:#5EA4CE;
+      --b050:#EBF5FB;--bg:#F2F7FB;--text:#0F2233;--muted:#5B7A91;--rule:#D6E8F2;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;}
+.stage-head{background:linear-gradient(135deg,var(--b700),var(--b900));color:#fff;padding:12px 18px;
+  display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:700;}
+.stage-head .stamp{font-size:11px;font-weight:500;opacity:.8;}
+.pane{padding:22px;}
+.app-bar{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+.app{flex:1;min-width:120px;background:var(--b050);border:1px solid var(--rule);border-radius:7px;
+  padding:12px;font-size:12.5px;font-weight:600;color:var(--b700);text-align:center;cursor:pointer;}
+.app:hover{background:var(--rule);} .app.active{background:var(--b500);color:#fff;border-color:var(--b500);}
+.form-row{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+.form-row label{width:110px;font-size:12.5px;color:var(--muted);font-weight:600;}
+.form-row input{flex:1;max-width:320px;border:1px solid var(--rule);border-radius:6px;padding:9px 12px;
+  font-size:13px;font-family:inherit;background:#fff;color:var(--text);}
+.form-row input:focus{outline:none;border-color:var(--b500);box-shadow:0 0 0 3px var(--b050);}
+.act-bar{display:flex;gap:10px;margin-top:22px;}
+.act{padding:9px 18px;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;border:none;font-family:inherit;}
+.act.primary{background:var(--b500);color:#fff;} .act.primary:hover{background:var(--b700);}
+.act.ghost{background:var(--b050);color:var(--b700);border:1px solid var(--rule);}
+.muted-hint{font-size:11.5px;color:var(--muted);margin-top:14px;}
+/* pick-mode 提示 */
+body.pick-mode{outline:3px dashed var(--b500);outline-offset:-3px;}
+body.pick-mode .pick-tip{display:block;}
+.pick-tip{display:none;position:fixed;top:8px;left:50%;transform:translateX(-50%);z-index:9500;
+  background:var(--b500);color:#fff;font-size:12px;padding:6px 14px;border-radius:20px;box-shadow:0 4px 14px rgba(11,45,71,.3);}
+/* 拾取高亮 */
+.od-pick{box-shadow:0 0 0 3px #f59e0b,0 0 0 6px rgba(245,158,11,.4)!important;border-radius:5px;}
+/* ===== Overlay 引导层（最小自研实现，等价于 Driver.js 核心）===== */
+#od-mask{position:fixed;inset:0;background:rgba(8,20,32,.62);z-index:9000;display:none;}
+#od-mask.on{display:block;}
+.od-hl{position:relative;z-index:9001;border-radius:6px;
+  box-shadow:0 0 0 4px var(--b500),0 0 0 9999px rgba(8,20,32,.62);transition:box-shadow .2s;}
+.od-pop{position:fixed;z-index:9002;background:#fff;border-radius:10px;width:320px;max-width:86vw;
+  box-shadow:0 10px 40px rgba(8,20,32,.4);overflow:hidden;border:1px solid var(--rule);}
+.od-pop .od-pop-h{background:linear-gradient(135deg,var(--b700),var(--b900));color:#fff;
+  padding:11px 15px;font-size:13.5px;font-weight:700;}
+.od-pop .od-pop-b{padding:14px 15px;font-size:12.5px;color:var(--text);line-height:1.7;}
+.od-pop .od-pop-f{display:flex;align-items:center;justify-content:space-between;padding:10px 15px;
+  border-top:1px solid var(--rule);background:var(--b050);}
+.od-pop .od-pop-f .step{font-size:11px;color:var(--muted);}
+.od-pop .od-pop-f .nav-btns{display:flex;gap:8px;}
+.od-pop button{font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;border-radius:5px;padding:6px 13px;border:none;}
+.od-prev{background:#fff;color:var(--b700);border:1px solid var(--rule)!important;}
+.od-next{background:var(--b500);color:#fff;} .od-next:hover{background:var(--b700);}
+.od-skip{background:transparent;color:var(--muted);}
+</style>
+</head>
+<body>
+<div class="pick-tip">拾取模式：点击任意元素以生成选择器</div>
+<div class="stage-head"><span id="stageTitle">SAP S/4HANA · 创建采购订单</span>
+  <span class="stamp">仿真界面（非真实系统）</span></div>
+<div class="pane" id="pane">
+  <div class="app-bar">
+    <div class="app" id="sap-create">创建采购订单</div>
+    <div class="app">采购申请</div><div class="app">供应商主数据</div><div class="app">库存查询</div>
+  </div>
+  <div class="form-row"><label>供应商</label>
+    <input id="sap-vendor" placeholder="输入供应商编号，如 100012"></div>
+  <div class="form-row"><label>物料</label>
+    <input id="sap-material" placeholder="输入物料编号，如 MAT-LED-001"></div>
+  <div class="form-row"><label>数量</label>
+    <input id="sap-qty" placeholder="录入采购数量"></div>
+  <div class="act-bar">
+    <button class="act primary" id="sap-save">过账</button>
+    <button class="act ghost">取消</button>
+  </div>
+  <div class="muted-hint">此为仿真训练舞台。培训师可在此可视化拾取元素选择器；学员在此按引导逐步操作。</div>
+</div>
+
+<script>
+'use strict';
+/* ===== 选择器生成：优先 #id，否则 tag.class:nth-of-type(n) ===== */
+function cssPath(el){
+  if(!(el instanceof Element)) return '';
+  if(el.id) return '#'+el.id;
+  var path=[], node=el;
+  while(node && node.nodeType===1 && node!==document.body && node!==document.documentElement){
+    var tag=node.tagName.toLowerCase();
+    var cls=(node.classList && node.classList.length)?'.'+node.classList[0]:'';
+    var i=1, sib=node;
+    while((sib=sib.previousElementSibling)){ if(sib.tagName===node.tagName) i++; }
+    path.unshift(tag+cls+':nth-of-type('+i+')');
+    if(node.id){ path.unshift('#'+node.id); break; }
+    node=node.parentNode;
+  }
+  if(node===document.body) path.unshift('body');
+  return path.join(' > ');
+}
+
+/* ===== Overlay 引导引擎（与 overlay-poc 共用逻辑）===== */
+var mask=document.createElement('div'); mask.id='od-mask'; document.body.appendChild(mask);
+function clearHighlight(){ document.querySelectorAll('.od-hl').forEach(function(e){e.classList.remove('od-hl');}); }
+function runTour(steps, onStep, onDone){
+  if(!steps||!steps.length){ onDone&&onDone(); return; }
+  var i=0; clearHighlight();
+  var pop=document.createElement('div'); pop.className='od-pop'; document.body.appendChild(pop);
+  function render(){
+    var s=steps[i]; var target=document.querySelector(s.el);
+    if(!target){ if(i<steps.length-1){i++;render();return;} finish(); return; }
+    clearHighlight(); target.classList.add('od-hl'); target.scrollIntoView({block:'center',behavior:'smooth'});
+    var r=target.getBoundingClientRect();
+    pop.style.left=Math.min(window.innerWidth-340,Math.max(16,r.left))+'px';
+    pop.style.top=Math.min(window.innerHeight-260,Math.max(16,r.bottom+12))+'px';
+    pop.innerHTML='<div class="od-pop-h">'+s.title+'</div>'+
+      '<div class="od-pop-b">'+s.desc+'</div>'+
+      '<div class="od-pop-f"><span class="step">第 '+(i+1)+' / '+steps.length+' 步</span>'+
+      '<div class="nav-btns">'+(i>0?'<button class="od-prev">上一步</button>':'')+
+      '<button class="od-next">'+(i===steps.length-1?'完成':'下一步')+'</button></div></div>';
+    pop.querySelector('.od-next').onclick=function(){ if(i===steps.length-1) finish(); else {i++;render();} };
+    var pv=pop.querySelector('.od-prev'); if(pv) pv.onclick=function(){ if(i>0){i--;render();} };
+    mask.classList.add('on'); onStep&&onStep(i,steps.length);
+  }
+  function next(){ if(i<steps.length-1){i++;render();} }
+  function prev(){ if(i>0){i--;render();} }
+  function finish(){ pop.remove(); mask.classList.remove('on'); clearHighlight(); onDone&&onDone(); }
+  mask.onclick=finish;
+  render();
+}
+
+/* ===== 预览单个步骤高亮（培训师编辑器用）===== */
+function highlightStep(sel){
+  clearHighlight(); var t=document.querySelector(sel);
+  if(!t){ return false; }
+  t.classList.add('od-hl'); t.scrollIntoView({block:'center',behavior:'smooth'});
+  setTimeout(function(){ t.classList.remove('od-hl'); },1800);
+  return true;
+}
+
+/* ===== 拾取模式 ===== */
+var pickMode=false;
+function setPickMode(on){
+  pickMode=!!on;
+  document.body.classList.toggle('pick-mode',pickMode);
+  if(!pickMode){ document.querySelectorAll('.od-pick').forEach(function(e){e.classList.remove('od-pick');}); }
+  window.parent.postMessage({type:'stage-pick-ack',on:pickMode},'*');
+}
+document.addEventListener('click',function(e){
+  if(!pickMode) return;
+  e.preventDefault(); e.stopPropagation();
+  var t=e.target.closest('[id],input,button,.app,label,.form-row');
+  var el=t||e.target;
+  document.querySelectorAll('.od-pick').forEach(function(x){x.classList.remove('od-pick');});
+  el.classList.add('od-pick');
+  var sel=cssPath(el);
+  window.parent.postMessage({type:'stage-picked',selector:sel},'*');
+},true);
+
+/* ===== 接收父窗口指令 ===== */
+window.addEventListener('message',function(e){
+  var d=e.data||{};
+  if(d.type==='stage-pick-mode'){ setPickMode(d.on); }
+  else if(d.type==='stage-run-tour'){
+    runTour(d.steps||[],
+      function(i,n){ window.parent.postMessage({type:'stage-step',index:i,total:n},'*'); },
+      function(){ window.parent.postMessage({type:'stage-done'},'*'); });
+  }
+  else if(d.type==='stage-preview'){ highlightStep(d.selector); }
+  else if(d.type==='stage-reset'){ clearHighlight(); mask.classList.remove('on'); setPickMode(false); }
+});
+</script>
+</body>
+</html>
