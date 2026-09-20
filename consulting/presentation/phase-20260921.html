@@ -1,0 +1,2037 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="0HCc4lpeEW8PvgAnHjGqnI">
+<head data-page-node-id="zamZKTHTpJrf62w8iIsQJe">
+<meta charset="utf-8" data-page-node-id="gBz0luqGrV5dEqKr4Dc914">
+<meta name="viewport" content="width=device-width,initial-scale=1" data-page-node-id="c2FvpB96BOptuLnIvJ984u">
+<title>佛照 SAP 升级项目阶段性工作汇报 — 系统实现阶段 · 2026-09-21</title>
+<link rel="stylesheet" href="../../assets/fonts.css" data-page-node-id="Aemja9RGpXlos8C7SPjn5R">
+<link rel="stylesheet" href="../../assets/base.css" data-page-node-id="o2z3Dt8z3Fs48f9GsUMn6a">
+<link rel="stylesheet" id="theme-link" href="../../assets/themes/corporate-clean.css" data-page-node-id="EXGuGaxWguXcVpNj13bXfk">
+<link rel="stylesheet" href="../../assets/animations/animations.css" data-page-node-id="HsViB0jMfFuTrcDTJKqDKK">
+<style>
+/* ===== 佛照蓝色 VI 覆盖 ===== */
+:root{
+  --bg:#ffffff;--bg-soft:#f2f7fb;--surface:#ffffff;--surface-2:#ebf5fb;
+  --border:rgba(11,45,71,.12);--border-strong:rgba(11,45,71,.28);
+  --text-1:#0b2d47;--text-2:#1a4f73;--text-3:#5b7a91;
+  --accent:#0b2d47;--accent-2:#2374a3;--accent-3:#5ea4ce;
+  --good:#2374a3;--warn:#2374a3;--bad:#0b2d47;
+  --grad:linear-gradient(135deg,#0b2d47,#2374a3);
+  --grad-soft:linear-gradient(135deg,#ebf5fb,#c7e2f2);
+  --radius:8px;--radius-sm:4px;--radius-lg:12px;
+  --shadow:0 1px 3px rgba(11,45,71,.08),0 4px 12px rgba(11,45,71,.05);
+  --shadow-lg:0 4px 12px rgba(11,45,71,.1),0 16px 40px rgba(11,45,71,.08);
+;--footer-h:clamp(28px,4vh,36px);}
+.card{border:1px solid var(--border)}
+.divider-accent{background:var(--accent-2);height:3px;width:56px}
+.kicker{color:var(--accent-2);text-transform:none;letter-spacing:1px}
+h1.title,h2.title,.h1,.h2{font-weight:700;color:var(--accent)}
+
+/* 佛照专用辅助类 */
+.fsl-blue{color:var(--accent-2)}
+.fsl-dark{color:var(--accent)}
+.fsl-light{color:var(--accent-3)}
+.bg-fsl-soft{background:var(--surface-2)}
+.border-fsl{border-left:4px solid var(--accent-2);padding-left:12px}
+.stat-big{font-size:96px;font-weight:800;line-height:1;color:var(--accent-2)}
+.stat-label{font-size:14px;color:var(--text-3);margin-top:8px}
+.pain-card{border-left:4px solid var(--bad);background:var(--surface);padding:16px 20px;border-radius:0 var(--radius) var(--radius) 0}
+.win-card{border-left:4px solid var(--good);background:var(--surface);padding:16px 20px;border-radius:0 var(--radius) var(--radius) 0}
+.insight-box{background:linear-gradient(135deg,var(--surface-2),#e8f4fc);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px}
+.tag-fsl{display:inline-block;background:var(--accent-2);color:#fff;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin-right:6px}
+.tag-fsl-outline{display:inline-block;background:transparent;color:var(--accent-2);font-size:11px;font-weight:600;padding:2px 9px;border-radius:20px;border:1px solid var(--accent-2);margin-right:6px}
+.project-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;position:relative;overflow:hidden}
+.project-card::before{content:"";position:absolute;top:0;left:0;width:4px;height:100%;background:var(--accent-2)}
+.phase-badge{display:inline-block;padding:3px 12px;border-radius:20px;font-size:11px;font-weight:700;margin-bottom:8px}
+.phase-1{background:#e8f1f8;color:#0b2d47}
+.phase-2{background:#f2f7fb;color:#1a4f73}
+.phase-3{background:#e3f2fd;color:#0d47a1}
+.timeline-dot{width:14px;height:14px;border-radius:50%;background:var(--accent-2);border:3px solid var(--surface-2);position:relative;z-index:2}
+.timeline-line{position:absolute;top:14px;left:6px;width:2px;height:calc(100% - 14px);background:var(--border-strong)}
+.maturity-bar{height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden}
+.maturity-bar > div{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+.arch-box{display:inline-block;padding:4px 10px;border-radius:4px;border:1px solid #89c4e8;font-size:10px;font-weight:600;white-space:nowrap}
+.arch-arrow{text-align:center;color:#2374a3;font-size:10px;padding:3px 0;letter-spacing:2px}
+/* ===== Gartner VI 架构分层样式 ===== */
+.arch-layer{position:relative}
+.arch-lbl{display:flex;align-items:center;gap:6px;font-weight:700;color:#0b2d47;font-size:11.5px;margin-bottom:7px}
+.arch-num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:5px;background:#2374a3;color:#fff;font-size:10px;font-weight:700;flex-shrink:0;border:1px solid rgba(35,116,163,.35)}
+.arch-tags{display:flex;gap:5px;flex-wrap:wrap}
+.arch-tag{display:inline-block;padding:4px 11px;border-radius:4px;background:#fff;color:#1a4f73;border:1px solid #b8d4e8;font-size:9.5px;font-weight:600;white-space:nowrap;transition:background .15s,border-color .15s}
+.arch-tag:hover{background:#eef6fc;border-color:#79b4eb}
+.arch-conn{text-align:center;padding:4px 0;color:#89c4e8;font-size:9px;letter-spacing:3px;line-height:1}
+/* ===== 纯 CSS 雷达图 (8轴) ===== */
+.radar-chart{position:relative;width:280px;height:280px;min-width:280px;max-width:400px;aspect-ratio:1/1;margin:0 auto;flex-shrink:0}
+.radar-label{position:absolute;left:50%;top:50%;font-size:9.5px;color:#333;white-space:nowrap;transform-origin:0 0;
+  transform:translate(-50%,-50%) rotate(calc(var(--i)*45deg - 90deg)) translateY(calc(-1 * (50% + 14px)))}
+.radar-ring{position:absolute;inset:0;border:1px solid #e0e8f0;border-radius:50%;clip-path:polygon(50% 2%, 85.3% 14.6%, 98% 50%, 85.3% 85.3%, 50% 98%, 14.6% 85.3%, 2% 50%, 14.6% 14.6%);
+  --s:calc(var(--r));transform:scale(var(--s));opacity:.7}
+.radar-axis{position:absolute;left:50%;top:50%;width:1px;height:50%;background:#d0dae8;
+  transform-origin:top center;transform:rotate(calc(var(--i)*45deg))}
+.radar-poly{position:absolute;inset:0;border-radius:50%;
+  clip-path:polygon(50% 27%, 72% 38%, 85% 50%, 72% 62%, 55% 73%, 40% 62%, 27% 50%, 40% 38%)}
+.radar-as-is{background:rgba(121,180,235,.22);border:2px solid #79b4eb}
+.radar-to-be{background:rgba(11,45,71,.15);border:2.2px solid #0b2d47;
+  clip-path:polygon(50% 12%, 82% 25%, 94% 50%, 82% 75%, 50% 93%, 20% 75%, 8% 50%, 20% 25%)}
+.radar-dot{position:absolute;left:50%;top:50%;width:5px;height:5px;border-radius:50%;transform:translate(-50%,-50%) rotate(calc(var(--i)*45deg))
+  translate(0,calc(var(--dist) * -50%))}
+.dot-as-is{background:#79b4eb;border:1.5px solid #fff;box-shadow:0 0 0 1px #79b4eb}
+.dot-to-be{background:#0b2d47;border:1.5px solid #fff;box-shadow:0 0 0 1px #0b2d47;width:6px;height:6px}
+/* ===== V2 投影优化：字号放大 + 密度降低 ===== */
+table.fsl-table{width:100%;border-collapse:collapse;font-size:15px}
+table.fsl-table th{background:var(--accent);color:#fff;padding:12px 16px;text-align:left;font-weight:600;font-size:15px}
+table.fsl-table td{padding:11px 16px;border-bottom:1px solid var(--border);color:var(--text-1);font-size:14px;line-height:1.5}
+table.fsl-table tr:nth-child(even){background:var(--surface-2)}
+
+/* V2: 全局字号放大覆盖 */
+.slide .h2{font-size:30px !important}
+.slide h2.h2{font-size:30px !important;line-height:1.25 !important}
+.slide h3{font-size:20px !important}
+.slide h4{font-size:17px !important}
+.slide p,.slide .dim{font-size:15px !important;line-height:1.55 !important}
+.slide .kicker{font-size:13px !important;letter-spacing:2px !important}
+.tag-fsl{font-size:13px !important;padding:4px 12px !important}
+.tag-fsl-outline{font-size:13px !important;padding:3px 11px !important}
+.pain-card p,.win-card p{font-size:14px !important;line-height:1.5 !important}
+.pain-card h4,.win-card h4{font-size:16px !important}
+.card p.dim{font-size:14px !important;line-height:1.5 !important}
+.card h4{font-size:16px !important}
+.ag-title{font-size:19px !important}
+.ag-desc{font-size:15px !important}
+.ag-time{font-size:13px !important}
+.phase-badge{font-size:13px !important}
+.arch-tag{font-size:11px !important;padding:5px 13px !important}
+.arch-lbl{font-size:13px !important}
+.stat-label{font-size:16px !important}
+.insight-box{padding:24px 28px !important}
+.insight-box p{font-size:15px !important;line-height:1.55 !important}
+.project-card{padding:20px 24px !important}
+.project-card p{font-size:14px !important}
+
+/* V2: 图标卡片式内容块（参考 slide 67 转型愿景页风格） */
+.v2-hero-card{
+  background:#EAF4FA;border-radius:12px;padding:32px 36px;margin-top:20px;
+}
+.v2-hero-card .v2-kicker{
+  font-size:13px;letter-spacing:2px;color:#2374a3;font-weight:700;margin-bottom:8px;
+}
+.v2-hero-card .v2-body{
+  font-size:18px;font-weight:500;color:#0B2D47;line-height:1.65;margin-bottom:28px;
+}
+.v2-icon-row{display:flex;gap:24px;margin-top:8px;}
+.v2-icon-card{flex:1;text-align:center;background:#fff;border-radius:10px;padding:20px 16px;
+  box-shadow:0 2px 10px rgba(11,45,71,.06);border:1px solid rgba(11,45,71,.08);
+}
+.v2-icon-card .v2-icon-circle{
+  width:68px;height:68px;margin:0 auto 14px;background:linear-gradient(135deg,#f7fafc,#eef6fc);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(11,45,71,.08);border:1.5px solid rgba(35,116,163,.15);
+}
+.v2-icon-card .v2-icon-title{
+  font-size:18px;font-weight:700;color:#0B2D47;margin-bottom:6px;
+}
+.v2-icon-card .v2-icon-sub{
+  font-size:14px;color:#5b7a91;line-height:1.5;
+}
+
+/* ===== 可滚动幻灯片（内容超长时允许纵向滚动） ===== */
+.slide[style*="overflow:auto"],
+.slide[style*="overflow-y:auto"]{
+  overflow-y:auto !important;
+  justify-content:flex-start !important;
+  padding-top:48px !important;
+  padding-bottom:48px !important;
+}
+.cover-fsl{background:linear-gradient(135deg,#0b2d47 0%,#1a4f73 55%,#2374a3 100%);color:#fff;padding:60px 48px 44px;position:relative;overflow:hidden}
+.cover-fsl::before{content:"";position:absolute;top:-40px;right:-60px;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,.04)}
+.cover-fsl::after{content:"";position:absolute;bottom:-60px;left:120px;width:220px;height:220px;border-radius:50%;background:rgba(35,116,163,.25)}
+.section-cover{background:linear-gradient(135deg,#0b2d47,#1a4f73);color:#fff;display:flex;align-items:center;justify-content:center;text-align:center}
+
+/* ===== New Cover Slide (split layout) ===== */
+.cover-slide{position:absolute;inset:0;display:flex;overflow:hidden}
+.cover-slide .cs-left{flex:1.35;background:#fff;display:flex;flex-direction:column;justify-content:space-between;padding:48px 56px 40px;position:relative;z-index:2}
+.cover-slide .cs-logo{font-size:18px;font-weight:700;color:#e87722;letter-spacing:1px}
+.cover-slide .cs-logo span{color:#1a1a2e}
+.cover-slide .cs-body{flex:1;display:flex;flex-direction:column;justify-content:center}
+.cover-slide .cs-title{font-size:44px;font-weight:800;color:#0070C0;line-height:1.15;margin-bottom:12px;letter-spacing:-.5px}
+.cover-slide .cs-subtitle{font-size:24px;font-weight:600;color:#1B3A6B;line-height:1.3;margin-bottom:8px}
+.cover-slide .cs-desc{font-size:15px;color:#5B7A91;margin-bottom:32px}
+.cover-slide .cs-meta{display:flex;gap:32px;font-size:13px;color:#8898aa}
+.cover-slide .cs-meta>div{line-height:1.5}
+.cover-slide .cs-meta .lbl{font-size:11px;color:#b0c0d0;margin-bottom:2px}
+.cover-slide .cs-meta .val{color:#1B3A6B;font-weight:600}
+.cover-slide .cs-bottom{font-size:11px;color:#b0c0d0}
+.cover-slide .cs-right{flex:1;background:#0b2d47;position:relative;overflow:hidden}
+.cover-slide .cs-right img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+/* ===== Agenda Slide (split layout) ===== */
+.agenda-slide{flex:1;min-height:0;display:flex;gap:16px;padding:0 8px}
+.agenda-slide .ag-left{flex:1;display:flex;flex-direction:column;justify-content:center;gap:5px}
+.agenda-slide .ag-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:7px 12px;box-shadow:0 2px 8px rgba(10,37,64,.06);transition:transform .15s ease,border-color .15s ease}
+.agenda-slide .ag-card:hover{transform:translateY(-2px);border-color:#0070C0}
+.agenda-slide .ag-num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:linear-gradient(135deg,#0070C0,#1B3A6B);color:#fff;font-size:12px;font-weight:700;margin-bottom:4px}
+.agenda-slide .ag-title{font-size:15px;font-weight:700;color:#1B3A6B;margin-bottom:2px}
+.agenda-slide .ag-desc{font-size:12px;color:#5B7A91;margin-bottom:4px}
+.agenda-slide .ag-time{font-size:11px;color:#8898aa;font-weight:500}
+.agenda-slide .ag-right{flex:.85;background:#f7fafd;border-radius:12px;padding:14px 14px;display:flex;flex-direction:column;overflow:hidden;position:relative;z-index:2;min-height:0}
+.agenda-slide .ag-right h4{font-size:13px;font-weight:700;color:#1B3A6B;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #e2e8f0}
+.agenda-slide .ag-list{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:4px;min-height:0}
+.agenda-slide .ag-item{padding:6px 10px;border-radius:6px;font-size:12px;color:#334155;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:8px}
+.agenda-slide .ag-item:hover{background:#e8f1f8;color:#0b2d47}
+.agenda-slide .ag-item.active{background:#0b2d47;color:#fff}
+.agenda-slide .ag-item .idx{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;border-radius:4px;background:#e2e8f0;color:#5B7A91;font-size:10px;font-weight:600}
+.agenda-slide .ag-item.active .idx{background:rgba(255,255,255,.2);color:#fff}
+
+/* ===== Deck Footer (from s05-overseas-finance) ===== */
+.deck-footer{
+  position:fixed;bottom:0;left:0;right:0;z-index:9999;
+  height:var(--footer-h);
+  background:#fff;
+  border-top:1.5px solid #D0D5DD;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(.8rem,2vw,1.8rem);
+}
+.df-left{height:calc(var(--footer-h) - 8px);display:flex;align-items:center}
+.df-left img{height:100%;width:auto;object-fit:contain;display:block}
+.df-center{font-size:clamp(10px,1.2vh,13px);color:#666;font-weight:500;letter-spacing:.04em}
+.df-right{display:flex;align-items:center}
+.df-right img{height:clamp(18px,3vh,26px);width:auto;object-fit:contain;display:block}
+
+/* progress track in footer */
+.prog-track{position:relative;height:3px;background:#e5e7eb;border-radius:2px;flex:1;cursor:pointer;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,#0b2d47,#2374a3);width:0%;border-radius:2px;transition:width .3s ease}
+.prog-thumb{position:absolute;top:50%;transform:translate(-50%,-50%);width:10px;height:10px;background:#0b2d47;border-radius:50%;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.2);left:0%;transition:left .3s ease}
+.pg-btn{background:none;border:1px solid #d0d5dd;border-radius:4px;padding:2px 10px;font-size:11px;color:#666;cursor:pointer;white-space:nowrap}
+.pg-btn:hover{border-color:#2374a3;color:#2374a3;background:#f2f7fb}
+/* nav buttons */
+.nav-btn{background:none;border:1px solid #d0d5dd;border-radius:50%;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;font-size:10px;color:#666;cursor:pointer;padding:0;margin:0 4px;line-height:1;flex-shrink:0;pointer-events:auto;position:relative;z-index:10001}
+.nav-btn:hover{border-color:#2374a3;color:#2374a3;background:#f2f7fb}
+.pg-btn{pointer-events:auto;position:relative;z-index:10001}
+/* jump panel */
+.jump-panel{position:fixed;bottom:calc(var(--footer-h) + 4px);left:50%;transform:translateX(-50%) scale(0.95);background:#fff;border:1px solid #d0d5dd;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12);padding:10px;display:none;max-height:60vh;overflow-y:auto;z-index:10001;min-width:320px;max-width:min(90vw,520px);opacity:0;transition:opacity .15s ease,transform .15s ease}
+.jump-panel.open{display:block;opacity:1;transform:translateX(-50%) scale(1)}
+.jump-item{padding:7px 12px;font-size:12px;color:#333;cursor:pointer;border-radius:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.jump-item:hover{background:#f2f7fb;color:#0b2d47}
+.jump-item.active{background:#0b2d47;color:#fff}
+/* ===== TOGAF ADM 雷达图（纯CSS六边形） ===== */
+.togaf-radar{position:relative}
+.tr-ring{position:absolute;top:50%;left:50%;width:var(--r);height:calc(var(--r) * 0.96);border:1px solid #e0e6ee;border-radius:50%;transform:translate(-50%,-50%)}
+.tr-axis{position:absolute;top:50%;left:50%;width:55%;height:1px;background:linear-gradient(90deg,#d5dde6 0%,transparent 100%);transform-origin:left center;transform:rotate(var(--a))}
+.tr-axis span{position:absolute;right:-4px;top:-22px;font-size:9px;color:#444;text-align:right;line-height:1.2;white-space:nowrap;font-family:"Microsoft YaHei","PingFang SC",sans-serif}
+.tr-axis span small{color:#888;font-size:8px}
+
+
+</style>
+</head>
+<body class="tpl-presenter-mode-reveal" data-themes="corporate-clean" data-theme-base="../../assets/themes/" data-page-node-id="jOIoaPCFi59nvOObFhDeER">
+<div class="deck" data-page-node-id="UY1VKAU22Ijp8HxOCGBqTM">
+
+<!-- ==================== 01 封面 ==================== -->
+<section class="slide" data-title="封面">
+  <div class="cover-slide">
+    <div class="cs-left">
+      <div class="cs-logo">FSL <span style="color:#1a1a2e">佛山照明</span></div>
+      <div class="cs-body">
+        <div class="cs-title">佛照 SAP 升级项目<br>阶段性工作汇报</div>
+        <div class="cs-subtitle">系统实现阶段</div>
+        <div class="cs-desc">项目总体情况 · 当前工作完成情况 · 系统实现关键成果 · 下阶段计划</div>
+        <div class="cs-meta">
+          <div><div class="lbl">编制单位</div><div class="val">艾维登咨询</div></div>
+          <div><div class="lbl">汇报日期</div><div class="val">2026年9月21日</div></div>
+          <div><div class="lbl">密级</div><div class="val">内部资料</div></div>
+        </div>
+      </div>
+      <div class="cs-bottom">SAP S/4HANA 升级项目 · 系统实现阶段 · 第39周</div>
+    </div>
+    <div class="cs-right">
+      <img src="assets/blue-geo.png" alt="">
+    </div>
+  </div>
+  <aside class="notes">
+    <p>各位领导好，由我代表项目组汇报佛山照明 SAP S/4HANA 升级项目的阶段性工作。</p>
+    <p>本次汇报定位为<strong>系统实现阶段的第一次阶段性汇报</strong>。蓝图已于 8 月 31 日正式签署、9 月 9 日经公司级专题会确认，项目自 9 月 1 日起进入系统实现阶段，至今已推进三周。</p>
+    <p>汇报分五个部分：项目总体情况、当前工作完成情况、系统实现关键成果、下阶段重点工作、需要领导关注和决策的事项。全程约 30 分钟。</p>
+  </aside>
+</section>
+
+<!-- ==================== 02 议程 ==================== -->
+<section class="slide" data-title="议程">
+  <div style="height:100%;display:flex;flex-direction:column;padding:4px 8px 0">
+    <p class="kicker" style="margin-bottom:6px">AGENDA</p>
+    <h2 class="h2" style="margin-bottom:14px">今天汇报的五个部分<span style="font-size:15px;font-weight:400;color:#4a6fa5;margin-left:10px">（阶段汇报目录）</span></h2>
+    <div class="agenda-slide">
+      <div class="ag-left">
+        <div class="ag-card">
+          <div class="ag-num">01</div>
+          <div class="ag-title">项目总体情况</div>
+          <div class="ag-desc">主计划全景 · 五阶段与当前定位</div>
+        </div>
+        <div class="ag-card">
+          <div class="ag-num">02</div>
+          <div class="ag-title">当前工作完成情况</div>
+          <div class="ag-desc">实现阶段进度 · 健康状态 · 风险</div>
+        </div>
+        <div class="ag-card">
+          <div class="ag-num">03</div>
+          <div class="ag-title">系统实现关键成果</div>
+          <div class="ag-desc">七项已落地成果逐项说明</div>
+        </div>
+        <div class="ag-card">
+          <div class="ag-num">04</div>
+          <div class="ag-title">下阶段重点工作</div>
+          <div class="ag-desc">9月底目标 · 双周滚动计划</div>
+        </div>
+        <div class="ag-card">
+          <div class="ag-num">05</div>
+          <div class="ag-title">需领导关注与决策</div>
+          <div class="ag-desc">WMS 仓处置 · 二期布局</div>
+        </div>
+      </div>
+      <div class="ag-right">
+        <h4>目录 CONTENTS</h4>
+        <div class="ag-list" id="agendaList"></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>先过一下议程，五个部分。</p>
+    <p><strong>第一部分项目总体情况</strong>——把主计划、五阶段和今天所处的位置讲清楚。</p>
+    <p><strong>第二部分当前工作完成情况</strong>——实现阶段三周的实际进度、健康状态和风险清单。</p>
+    <p><strong>第三部分系统实现关键成果</strong>——这是本次汇报的重点，七项已经落地的成果逐项说明。</p>
+    <p><strong>第四部分下阶段重点工作</strong>——9 月底目标和双周滚动计划。</p>
+    <p><strong>第五部分需领导关注与决策</strong>——两项请领导拍板的事项。</p>
+  </aside>
+</section>
+
+<!-- ==================== 03 分节：01 ==================== -->
+<section class="slide section-cover" data-title="第一部分 · 项目总体情况">
+  <div>
+    <div style="font-size:78px;font-weight:800;line-height:1;color:rgba(255,255,255,.22);letter-spacing:-2px">01</div>
+    <h2 class="h2" style="color:#fff;font-size:42px !important;margin:10px 0 12px">项目总体情况</h2>
+    <div style="width:64px;height:3px;background:#5EA4CE;margin:0 auto 16px"></div>
+    <p style="font-size:17px;color:rgba(255,255,255,.72)">项目主计划全景 · 五阶段任务 · 关键里程碑与上线倒计时</p>
+  </div>
+</section>
+
+<!-- ==================== 04 项目整体情况说明 ==================== -->
+<section class="slide" data-title="项目整体情况说明" style="overflow:auto;justify-content:flex-start;padding-top:44px;padding-bottom:44px">
+  <p class="kicker">PROJECT OVERVIEW</p>
+  <h2 class="h2" style="margin-bottom:8px">项目整体情况说明</h2>
+  <p class="dim" style="margin-bottom:20px">项目总周期 10 个月 · 五个阶段 · 47 项三级任务 · 正式上线 2027 年 1 月 1 日（硬性节点）</p>
+
+  <div style="display:flex;gap:10px;margin-bottom:18px">
+    <div style="flex:1;background:#EBF5FB;border:1px solid #C7E2F2;border-radius:8px;padding:12px 10px;text-align:center">
+      <div style="font-size:12px;color:#5b7a91;font-weight:700">准备阶段</div>
+      <div style="font-size:15px;font-weight:800;color:#0B2D47;margin:4px 0">2026/06/01 – 06/20</div>
+      <div style="font-size:11.5px;color:#5b7a91">环境搭建 · 项目启动</div>
+    </div>
+    <div style="flex:1;background:#EBF5FB;border:1px solid #C7E2F2;border-radius:8px;padding:12px 10px;text-align:center">
+      <div style="font-size:12px;color:#5b7a91;font-weight:700">探索阶段</div>
+      <div style="font-size:15px;font-weight:800;color:#0B2D47;margin:4px 0">2026/06/21 – 08/31</div>
+      <div style="font-size:11.5px;color:#5b7a91">调研诊断 · 蓝图设计</div>
+    </div>
+    <div style="flex:1;background:linear-gradient(135deg,#0B2D47,#1A4F73);border:1px solid #0B2D47;border-radius:8px;padding:12px 10px;text-align:center;box-shadow:0 4px 14px rgba(11,45,71,.25)">
+      <div style="font-size:12px;color:#5EA4CE;font-weight:700">实现阶段（当前）</div>
+      <div style="font-size:15px;font-weight:800;color:#fff;margin:4px 0">2026/09/01 – 11/30</div>
+      <div style="font-size:11.5px;color:rgba(255,255,255,.7)">配置 · 开发 · 测试</div>
+    </div>
+    <div style="flex:1;background:#EBF5FB;border:1px solid #C7E2F2;border-radius:8px;padding:12px 10px;text-align:center">
+      <div style="font-size:12px;color:#5b7a91;font-weight:700">上线准备</div>
+      <div style="font-size:15px;font-weight:800;color:#0B2D47;margin:4px 0">2026/12/01 – 12/31</div>
+      <div style="font-size:11.5px;color:#5b7a91">培训 · 清洗 · 演练</div>
+    </div>
+    <div style="flex:1;background:#EBF5FB;border:1px solid #C7E2F2;border-radius:8px;padding:12px 10px;text-align:center">
+      <div style="font-size:12px;color:#5b7a91;font-weight:700">上线及支持</div>
+      <div style="font-size:15px;font-weight:800;color:#0B2D47;margin:4px 0">2027/01/01 – 03/31</div>
+      <div style="font-size:11.5px;color:#5b7a91">切换 · 跟产 · 支持</div>
+    </div>
+  </div>
+
+  <div class="grid g4" style="gap:14px">
+    <div class="card" style="padding:18px 20px">
+      <div class="stat-big" style="font-size:44px">10</div>
+      <div class="stat-label" style="font-size:13px !important">个月总周期（2026/06 – 2027/03）</div>
+    </div>
+    <div class="card" style="padding:18px 20px">
+      <div class="stat-big" style="font-size:44px">5</div>
+      <div class="stat-label" style="font-size:13px !important">个阶段 · 47 项三级任务</div>
+    </div>
+    <div class="card" style="padding:18px 20px">
+      <div class="stat-big" style="font-size:44px">11</div>
+      <div class="stat-label" style="font-size:13px !important">项实现阶段三级任务在跑</div>
+    </div>
+    <div class="card" style="padding:18px 20px;background:#0B2D47">
+      <div class="stat-big" style="font-size:44px;color:#fff">102</div>
+      <div class="stat-label" style="font-size:13px !important;color:rgba(255,255,255,.72)">天 · 距 Go-Live（2027-01-01）</div>
+    </div>
+  </div>
+
+  <div class="insight-box" style="margin-top:16px;padding:16px 22px !important">
+    <p style="font-size:14px !important;margin:0;line-height:1.6"><strong>管理判断：</strong>探索阶段（诊断与蓝图）已于 8 月 31 日签署、9 月 9 日经公司级专题会确认，<strong>项目已整体转入系统实现阶段</strong>。当前处于全项目第 14 周（第 39 周），距正式上线 102 天，配置与开发是决定上线节点能否守住的唯一关键路径。</p>
+  </div>
+  <aside class="notes">
+    <p>先看整体。项目总周期 10 个月，五个阶段。</p>
+    <p>前面两个阶段已经收口：准备阶段完成环境和启动会；探索阶段完成了全集团业务诊断、701 条需求梳理、TOGAF 四层架构和蓝图设计，8 月 31 日蓝图正式签署，9 月 9 日公司级专题会确认。</p>
+    <p>今天所处的是<strong>第三个阶段——系统实现阶段</strong>，从 9 月 1 日到 11 月 30 日，核心是三件事：系统配置、开发、测试。这个阶段的输出质量，直接决定 12 月上线准备和 2027 年 1 月 1 日能否按期切换。</p>
+    <p>设计阶段的里程碑已经确认无误。</p>
+  </aside>
+</section>
+
+<!-- ==================== 05 项目主计划全景 ==================== -->
+<section class="slide" data-title="项目主计划全景" style="overflow:auto;justify-content:flex-start;padding-top:44px;padding-bottom:44px">
+  <p class="kicker">MASTER SCHEDULE</p>
+  <h2 class="h2" style="margin-bottom:8px">项目主计划全景</h2>
+  <p class="dim" style="margin-bottom:18px">来源：《佛照_00项目管理_项目总体实施计划 V1.1》· 最新更新 2026-07-24 · 基线版本以项目章程为准</p>
+
+  <table class="fsl-table">
+    <tr>
+      <th style="width:52px">阶段</th>
+      <th style="width:190px">阶段名称</th>
+      <th style="width:180px">计划窗口</th>
+      <th style="width:70px">工期</th>
+      <th style="width:96px">状态</th>
+      <th>阶段出口（里程碑）</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>准备阶段 Prepare</td>
+      <td>2026/06/01 – 06/20</td>
+      <td>20 天</td>
+      <td><span style="color:#2374a3;font-weight:700">已完成</span></td>
+      <td>环境与许可证部署、项目启动会召开、章程与范围确认</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>探索阶段 Explore</td>
+      <td>2026/06/21 – 08/31</td>
+      <td>72 天</td>
+      <td><span style="color:#2374a3;font-weight:700">已完成</span></td>
+      <td>调研诊断收官、701 条需求与 4A 架构定稿、<strong>蓝图正式签署（08/31）</strong></td>
+    </tr>
+    <tr style="background:#EBF5FB">
+      <td style="font-weight:800;color:#0B2D47">3</td>
+      <td style="font-weight:800;color:#0B2D47">实现阶段 Realize</td>
+      <td style="font-weight:800;color:#0B2D47">2026/09/01 – 11/30</td>
+      <td>91 天</td>
+      <td><span style="color:#0b2d47;font-weight:800">进行中</span></td>
+      <td>配置完成、开发完成、单元与集成测试通过、<strong>配置冻结传输 PRD</strong></td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>上线准备 Final Preparation</td>
+      <td>2026/12/01 – 12/31</td>
+      <td>31 天</td>
+      <td><span style="color:#5b7a91;font-weight:700">未开始</span></td>
+      <td>培训完成、数据迁移演练、切换预案确认、上线评审通过</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>上线及支持 Go-Live &amp; Support</td>
+      <td>2027/01/01 – 03/31</td>
+      <td>90 天</td>
+      <td><span style="color:#5b7a91;font-weight:700">未开始</span></td>
+      <td><strong>2027-01-01 正式切换上线</strong>、首两周密集跟产、首月月结支持、项目验收</td>
+    </tr>
+  </table>
+
+  <div class="grid g3" style="gap:14px;margin-top:18px">
+    <div class="card" style="padding:16px 18px;border-left:4px solid #2374a3">
+      <h4 style="font-size:15px !important;margin-bottom:4px;color:#0B2D47">关键路径</h4>
+      <p class="dim" style="font-size:13px !important;margin:0;line-height:1.55">配置基线 → 功能/技术说明书 → ABAP 开发 → 单元测试 → 集成测试 → 配置冻结。任一环节延期直接传导至上线节点。</p>
+    </div>
+    <div class="card" style="padding:16px 18px;border-left:4px solid #2374a3">
+      <h4 style="font-size:15px !important;margin-bottom:4px;color:#0B2D47">并行长线</h4>
+      <p class="dim" style="font-size:13px !important;margin:0;line-height:1.55">主数据清洗（8 月启动、跨至 11 月）与权限设计（11 月）为两条并行长线，不占关键路径但决定上线质量。</p>
+    </div>
+    <div class="card" style="padding:16px 18px;border-left:4px solid #0b2d47">
+      <h4 style="font-size:15px !important;margin-bottom:4px;color:#0B2D47">硬性约束</h4>
+      <p class="dim" style="font-size:13px !important;margin:0;line-height:1.55">2027-01-01 为中国区法定节假日执行切换，无顺延窗口；国资委监管要求 2026 年底核心系统互联互通。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>这是项目主计划全景，五个阶段的时间窗口和阶段出口一目了然。</p>
+    <p>请领导特别关注两列。<strong>第一列是"状态"</strong>：阶段 1、2 已完成，阶段 3 进行中，阶段 4、5 尚未启动。<strong>第二列是"阶段出口"</strong>：每个阶段什么条件才算结束，这是后面做关口评审的依据。</p>
+    <p>实现阶段 91 天，是全程最长也是密度最高的一个阶段。它的出口条件有四条：配置完成、开发完成、测试通过、配置冻结并传输到生产机。</p>
+    <p>需要说明的是，阶段 5 的上线日 2027 年 1 月 1 日是元旦假期，这是权总明确的硬性节点，没有顺延窗口，所以倒排下来实现阶段一天都不能松。</p>
+  </aside>
+</section>
+
+<!-- ==================== 06 实现阶段任务明细 ==================== -->
+<section class="slide" data-title="实现阶段任务与进度明细" style="overflow:auto;justify-content:flex-start;padding-top:30px;padding-bottom:26px">
+  <p class="kicker">REALIZE · TASK BREAKDOWN</p>
+  <h2 class="h2" style="margin-bottom:5px">实现阶段任务与进度明细</h2>
+  <p class="dim" style="margin-bottom:4px">11 项三级任务 · 截至 2026-09-18 · 数据来源：项目总体实施计划 V1.1 进度更新表</p>
+
+  <table class="fsl-table" style="font-size:11.5px;line-height:1.3">
+    <tr>
+      <th style="width:56px">编号</th>
+      <th>任务名称</th>
+      <th style="width:170px">计划窗口</th>
+      <th style="width:64px">工期</th>
+      <th style="width:150px">责任人</th>
+      <th style="width:80px">状态</th>
+      <th style="width:86px">完成度</th>
+    </tr>
+    <tr><td>3.1</td><td>系统配置基线搭建</td><td>2026/09/01 – 09/30</td><td>24 天</td><td>模块顾问</td><td><span style="color:#0b2d47;font-weight:700">进行中</span></td><td style="font-weight:800;color:#0b2d47">95%</td></tr>
+    <tr><td>3.2</td><td>功能说明书编写</td><td>2026/09/07 – 09/30</td><td>18 天</td><td>业务顾问</td><td><span style="color:#0b2d47;font-weight:700">进行中</span></td><td style="font-weight:800;color:#0b2d47">50%</td></tr>
+    <tr><td>3.3</td><td>技术说明书编写</td><td>2026/09/07 – 10/16</td><td>40 天</td><td>开发顾问</td><td><span style="color:#0b2d47;font-weight:700">进行中</span></td><td style="font-weight:800;color:#0b2d47">5%</td></tr>
+    <tr><td>3.4</td><td>ABAP / 接口 / 增强开发</td><td>2026/08/17 – 11/30</td><td>106 天</td><td>开发团队</td><td><span style="color:#0b2d47;font-weight:700">进行中</span></td><td style="font-weight:800;color:#0b2d47">40%</td></tr>
+    <tr><td>3.5</td><td>单元测试</td><td>2026/08/14 – 10/30</td><td>78 天</td><td>业务顾问 / 开发顾问</td><td><span style="color:#0b2d47;font-weight:700">进行中</span></td><td style="font-weight:800;color:#0b2d47">20%</td></tr>
+    <tr><td>3.6</td><td>权限角色设计</td><td>2026/11/09 – 11/13</td><td>5 天</td><td>权限顾问</td><td><span style="color:#2374a3;font-weight:700">预备</span></td><td style="font-weight:800;color:#2374a3">0%</td></tr>
+    <tr><td>3.7</td><td>权限配置与测试</td><td>2026/11/16 – 11/21</td><td>6 天</td><td>权限顾问</td><td><span style="color:#2374a3;font-weight:700">预备</span></td><td style="font-weight:800;color:#2374a3">0%</td></tr>
+    <tr><td>3.8</td><td>测试脚本编写</td><td>2026/10/13 – 10/28</td><td>16 天</td><td>业务顾问</td><td><span style="color:#5b7a91;font-weight:700">未开始</span></td><td style="font-weight:800;color:#5b7a91">0%</td></tr>
+    <tr><td>3.9</td><td>集成测试 I</td><td>2026/11/09 – 11/13</td><td>5 天</td><td>关键用户 + 顾问</td><td><span style="color:#5b7a91;font-weight:700">未开始</span></td><td style="font-weight:800;color:#5b7a91">0%</td></tr>
+    <tr><td>3.10</td><td>集成测试 II（端到端贯通）</td><td>2026/11/23 – 11/25</td><td>3 天</td><td>关键用户 + 顾问</td><td><span style="color:#5b7a91;font-weight:700">未开始</span></td><td style="font-weight:800;color:#5b7a91">0%</td></tr>
+    <tr><td>3.11</td><td>最终配置传输至生产机</td><td>2026/12/15 – 12/16</td><td>2 天</td><td>Basis 顾问</td><td><span style="color:#5b7a91;font-weight:700">未开始</span></td><td style="font-weight:800;color:#5b7a91">0%</td></tr>
+  </table>
+
+  <div class="insight-box" style="margin-top:6px;padding:7px 20px !important">
+    <p style="font-size:12px !important;margin:0;line-height:1.45"><strong>读表提示：</strong>3.1 / 3.4 / 3.5 三项是当前资源投入最集中的任务，合计覆盖配置、开发、测试三条主线；3.3 技术说明书完成度仅 5%，是 10 月中旬前的补课重点；3.6–3.11 共 6 项集中在 10 月中至 12 月中，届时将形成第二个密度高峰。</p>
+  </div>
+  <aside class="notes">
+    <p>这是实现阶段的 11 项三级任务清单，按编号顺序排列。</p>
+    <p>绿色区间是当前正在跑的：<strong>3.1 系统配置基线 95%、3.2 功能说明书 50%、3.3 技术说明书 5%、3.4 开发 40%、3.5 单元测试 20%</strong>。</p>
+    <p>请领导注意 3.3 技术说明书只有 5%——这一项是开发的前置输入，开发顾问要向业务顾问取 FS 文档再转 TS，所以 FS 到 100% 之后 TS 会有一个陡升。</p>
+    <p>下面 6 项都还没开始，但它们全部压在 10 月中到 12 月中这 60 天里，届时人力需求会非常集中，需要提前确认关键用户的时间投入。</p>
+  </aside>
+</section>
+
+<!-- ==================== 07 关键里程碑与倒计时 ==================== -->
+<section class="slide" data-title="关键里程碑与上线倒计时" style="overflow:auto;justify-content:flex-start;padding-top:44px;padding-bottom:44px">
+  <p class="kicker">MILESTONES &amp; COUNTDOWN</p>
+  <h2 class="h2" style="margin-bottom:18px">关键里程碑与上线倒计时</h2>
+
+  <div style="display:flex;gap:20px;align-items:stretch">
+    <div style="flex:0 0 250px;background:linear-gradient(150deg,#0B2D47,#1A4F73);border-radius:10px;padding:26px 22px;color:#fff;display:flex;flex-direction:column;justify-content:center;text-align:center">
+      <div style="font-size:13px;letter-spacing:1px;color:#5EA4CE;font-weight:700">距正式上线</div>
+      <div style="font-size:76px;font-weight:800;line-height:1.05;margin:6px 0">102</div>
+      <div style="font-size:14px;color:rgba(255,255,255,.78)">天</div>
+      <div style="height:1px;background:rgba(255,255,255,.18);margin:16px 0"></div>
+      <div style="font-size:14px;font-weight:700">Go-Live · 2027-01-01</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:4px">距实现阶段结束（11/30）70 天</div>
+    </div>
+
+    <div style="flex:1;display:flex;flex-direction:column;gap:9px">
+      <div style="font-size:12px;font-weight:800;letter-spacing:1px;color:#5b7a91">已完成里程碑</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div style="background:#EBF5FB;border-left:4px solid #2374a3;border-radius:0 6px 6px 0;padding:9px 14px">
+          <div style="font-size:13.5px;font-weight:700;color:#0B2D47">项目启动会</div>
+          <div style="font-size:11.5px;color:#5b7a91">2026-06-01 · 全员参加</div>
+        </div>
+        <div style="background:#EBF5FB;border-left:4px solid #2374a3;border-radius:0 6px 6px 0;padding:9px 14px">
+          <div style="font-size:13.5px;font-weight:700;color:#0B2D47">业务诊断与需求基线</div>
+          <div style="font-size:11.5px;color:#5b7a91">2026-07-09 · 701 条需求 29 部门</div>
+        </div>
+        <div style="background:#EBF5FB;border-left:4px solid #2374a3;border-radius:0 6px 6px 0;padding:9px 14px">
+          <div style="font-size:13.5px;font-weight:700;color:#0B2D47">蓝图方案汇报与签署</div>
+          <div style="font-size:11.5px;color:#5b7a91">2026-08-27 / 08-31 · 正式签署</div>
+        </div>
+        <div style="background:#EBF5FB;border-left:4px solid #2374a3;border-radius:0 6px 6px 0;padding:9px 14px">
+          <div style="font-size:13.5px;font-weight:700;color:#0B2D47">公司级蓝图确认</div>
+          <div style="font-size:11.5px;color:#5b7a91">2026-09-09 · 七项决策落地</div>
+        </div>
+      </div>
+
+      <div style="font-size:12px;font-weight:800;letter-spacing:1px;color:#5b7a91;margin-top:6px">进行中 / 待启动里程碑</div>
+      <div style="background:#fff;border:1px solid #D6E8F2;border-radius:6px;overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:9px 14px;border-bottom:1px solid #EBF5FB">
+          <span style="font-size:11px;font-weight:800;color:#fff;background:#0B2D47;border-radius:4px;padding:2px 8px">进行中</span>
+          <span style="flex:1;font-size:13.5px;font-weight:700;color:#0B2D47">系统配置基线完成</span>
+          <span style="font-size:12px;color:#5b7a91">2026-09-30 · 当前 95%</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:9px 14px;border-bottom:1px solid #EBF5FB">
+          <span style="font-size:11px;font-weight:800;color:#fff;background:#0B2D47;border-radius:4px;padding:2px 8px">进行中</span>
+          <span style="flex:1;font-size:13.5px;font-weight:700;color:#0B2D47">功能说明书编写完成</span>
+          <span style="font-size:12px;color:#5b7a91">2026-09-30 · 当前 50%</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:9px 14px;border-bottom:1px solid #EBF5FB">
+          <span style="font-size:11px;font-weight:800;color:#fff;background:#2374a3;border-radius:4px;padding:2px 8px">待启动</span>
+          <span style="flex:1;font-size:13.5px;font-weight:700;color:#0B2D47">集成测试 I / II</span>
+          <span style="font-size:12px;color:#5b7a91">2026-11-09 / 11-23</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:9px 14px;border-bottom:1px solid #EBF5FB">
+          <span style="font-size:11px;font-weight:800;color:#fff;background:#2374a3;border-radius:4px;padding:2px 8px">待启动</span>
+          <span style="flex:1;font-size:13.5px;font-weight:700;color:#0B2D47">配置冻结 · 传输生产机</span>
+          <span style="font-size:12px;color:#5b7a91">2026-12-15</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:9px 14px;background:#0B2D47">
+          <span style="font-size:11px;font-weight:800;color:#0B2D47;background:#5EA4CE;border-radius:4px;padding:2px 8px">硬性节点</span>
+          <span style="flex:1;font-size:13.5px;font-weight:800;color:#fff">系统正式上线 Go-Live</span>
+          <span style="font-size:12px;color:rgba(255,255,255,.72)">2027-01-01</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>这一页把里程碑和倒计时放在一起看。</p>
+    <p>左边是 102 天——这是从今天到 2027 年 1 月 1 日的实际天数，扣掉元旦假期和春节前的收尾，留给实现阶段的有效工期是 70 天。</p>
+    <p>右边上半部分是已经完成的四个里程碑，从 6 月 1 日启动会到 9 月 9 日公司级确认，全部按期或提前完成，没有一处延期。</p>
+    <p>下半部分是接下来的关键节点：9 月 30 日配置基线收口、11 月两轮集成测试、12 月 15 日配置冻结，最后 1 月 1 日切换。</p>
+  </aside>
+</section>
+
+<!-- ==================== 08 阶段性任务及控制示意图 ==================== -->
+<section class="slide" data-title="项目阶段性任务及控制示意图" style="overflow:auto;justify-content:flex-start;padding-top:44px;padding-bottom:44px">
+  <p class="kicker">PHASE TASK &amp; CONTROL MAP</p>
+  <h2 class="h2" style="margin-bottom:8px">项目阶段性任务及控制示意图</h2>
+  <p class="dim" style="margin-bottom:20px">六段式任务流与关口控制点 · 每段设一个控制关口，非通过不进入下一段</p>
+
+  <div style="display:flex;align-items:stretch;gap:0;margin-bottom:22px">
+    <div style="flex:1;background:#EBF5FB;border:1px solid #C7E2F2;border-right:none;border-radius:8px 0 0 8px;padding:16px 14px;text-align:center">
+      <div style="font-size:11px;font-weight:800;color:#5b7a91;letter-spacing:1px">STAGE 1</div>
+      <div style="font-size:15px;font-weight:800;color:#0B2D47;margin:6px 0 4px">项目准备</div>
+      <div style="font-size:11.5px;color:#5b7a91;line-height:1.5">环境搭建<br>团队到位<br>章程确认</div>
+      <div style="margin-top:8px;font-size:11px;font-weight:700;color:#2374a3">已完成</div>
+    </div>
+    <div style="flex:1;background:#EBF5FB;border:1px solid #C7E2F2;border-right:none;padding:16px 14px;text-align:center">
+      <div style="font-size:11px;font-weight:800;color:#5b7a91;letter-spacing:1px">STAGE 2</div>
+      <div style="font-size:15px;font-weight:800;color:#0B2D47;margin:6px 0 4px">业务蓝图</div>
+      <div style="font-size:11.5px;color:#5b7a91;line-height:1.5">调研诊断<br>需求梳理<br>蓝图签署</div>
+      <div style="margin-top:8px;font-size:11px;font-weight:700;color:#2374a3">已完成</div>
+    </div>
+    <div style="flex:1.25;background:linear-gradient(160deg,#0B2D47,#1A4F73);border:1px solid #0B2D47;padding:16px 14px;text-align:center;position:relative">
+      <div style="font-size:11px;font-weight:800;color:#5EA4CE;letter-spacing:1px">STAGE 3 · 当前</div>
+      <div style="font-size:15px;font-weight:800;color:#fff;margin:6px 0 4px">系统实现</div>
+      <div style="font-size:11.5px;color:rgba(255,255,255,.75);line-height:1.5">系统配置<br>编写开发说明书 / 开发<br>单元测试</div>
+      <div style="margin-top:8px;font-size:11px;font-weight:700;color:#5EA4CE">进行中 · 配置 95%</div>
+    </div>
+    <div style="flex:1;background:#EBF5FB;border:1px solid #C7E2F2;border-right:none;padding:16px 14px;text-align:center">
+      <div style="font-size:11px;font-weight:800;color:#5b7a91;letter-spacing:1px">STAGE 4</div>
+      <div style="font-size:15px;font-weight:800;color:#0B2D47;margin:6px 0 4px">最后准备</div>
+      <div style="font-size:11.5px;color:#5b7a91;line-height:1.5">集成测试<br>最终用户培训<br>数据准备</div>
+      <div style="margin-top:8px;font-size:11px;font-weight:700;color:#5b7a91">待启动</div>
+    </div>
+    <div style="flex:1;background:#EBF5FB;border:1px solid #C7E2F2;border-right:none;padding:16px 14px;text-align:center">
+      <div style="font-size:11px;font-weight:800;color:#5b7a91;letter-spacing:1px">STAGE 5</div>
+      <div style="font-size:15px;font-weight:800;color:#0B2D47;margin:6px 0 4px">上线及支持</div>
+      <div style="font-size:11.5px;color:#5b7a91;line-height:1.5">权限准备<br>上线总体计划<br>上线前最后核查</div>
+      <div style="margin-top:8px;font-size:11px;font-weight:700;color:#5b7a91">待启动</div>
+    </div>
+    <div style="flex:0.85;background:#EBF5FB;border:1px solid #C7E2F2;border-radius:0 8px 8px 0;padding:16px 14px;text-align:center">
+      <div style="font-size:11px;font-weight:800;color:#5b7a91;letter-spacing:1px">STAGE 6</div>
+      <div style="font-size:15px;font-weight:800;color:#0B2D47;margin:6px 0 4px">持续变革</div>
+      <div style="font-size:11.5px;color:#5b7a91;line-height:1.5">运维移交<br>持续优化</div>
+      <div style="margin-top:8px;font-size:11px;font-weight:700;color:#5b7a91">待启动</div>
+    </div>
+  </div>
+
+  <div class="grid g4" style="gap:14px">
+    <div class="card" style="padding:15px 18px;border-top:3px solid #2374a3">
+      <h4 style="font-size:14.5px !important;margin-bottom:3px;color:#0B2D47">关口一 · 蓝图签署</h4>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.55">各部门负责人亲自签名确认，作为开发基线。已于 08-31 关闭。</p>
+    </div>
+    <div class="card" style="padding:15px 18px;border-top:3px solid #2374a3">
+      <h4 style="font-size:14.5px !important;margin-bottom:3px;color:#0B2D47">关口二 · 配置基线</h4>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.55">配置清单并与 200 客户端联调单元测试，09-30 前完成。</p>
+    </div>
+    <div class="card" style="padding:15px 18px;border-top:3px solid #2374a3">
+      <h4 style="font-size:14.5px !important;margin-bottom:3px;color:#0B2D47">关口三 · 集成测试</h4>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.55">两轮集成测试端到端贯通，11 月完成，通过后方可冻结配置。</p>
+    </div>
+    <div class="card" style="padding:15px 18px;border-top:3px solid #0b2d47">
+      <h4 style="font-size:14.5px !important;margin-bottom:3px;color:#0B2D47">关口四 · 切换放行</h4>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.55">数据校验签字 + 上线前评审，2026-12 月末完成，放行切换。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>这一页是阶段任务与控制示意图，用六个阶段把整个项目的推进逻辑串起来。</p>
+    <p>深色的第三段就是我们今天所在的位置——系统实现。它内部的三个动作是：系统配置、编写开发说明书并开发、单元测试。</p>
+    <p>下面四个关口是控制点：蓝图签署已经关闭，接下来 9 月 30 日配置基线关口、11 月集成测试关口、12 月末切换放行关口。设计上一段不通过不进入下一段，避免带着问题往前跑。</p>
+  </aside>
+</section>
+
+<!-- ==================== 09 分节：02 ==================== -->
+<section class="slide section-cover" data-title="第二部分 · 当前工作完成情况">
+  <div>
+    <div style="font-size:78px;font-weight:800;line-height:1;color:rgba(255,255,255,.22);letter-spacing:-2px">02</div>
+    <h2 class="h2" style="color:#fff;font-size:42px !important;margin:10px 0 12px">当前工作完成情况</h2>
+    <div style="width:64px;height:3px;background:#5EA4CE;margin:0 auto 16px"></div>
+    <p style="font-size:17px;color:rgba(255,255,255,.72)">实现阶段三周实际进度 · 项目健康状态 · 风险与问题</p>
+  </div>
+</section>
+
+<!-- ==================== 10 当前阶段整体情况说明 ==================== -->
+<section class="slide" data-title="当前阶段整体情况说明" style="overflow:auto;justify-content:flex-start;padding-top:44px;padding-bottom:44px">
+  <p class="kicker">CURRENT STATUS</p>
+  <h2 class="h2" style="margin-bottom:8px">当前阶段整体情况说明</h2>
+  <p class="dim" style="margin-bottom:18px">系统实现阶段 · 第 39 周 · 全项目第 14 周 · 截至 2026-09-21</p>
+
+  <div style="display:flex;gap:14px;margin-bottom:18px">
+    <div style="flex:1;background:#0B2D47;border-radius:8px;padding:18px 20px;color:#fff">
+      <div style="font-size:12px;color:#5EA4CE;font-weight:700;letter-spacing:.5px">整体状态</div>
+      <div style="font-size:26px;font-weight:800;margin:4px 0 2px">可控 · 偏紧</div>
+      <div style="font-size:12.5px;color:rgba(255,255,255,.72);line-height:1.5">进度按计划推进，配置与开发双线并行；WMS 仓为唯一高风险项，需管理层介入决策。</div>
+    </div>
+    <div style="flex:1;background:#fff;border:1px solid #D6E8F2;border-radius:8px;padding:18px 20px">
+      <div style="font-size:12px;color:#5b7a91;font-weight:700;letter-spacing:.5px">本阶段核心指标</div>
+      <div style="display:flex;gap:18px;margin-top:8px">
+        <div><div style="font-size:28px;font-weight:800;color:#0B2D47;line-height:1">95<span style="font-size:15px">%</span></div><div style="font-size:11.5px;color:#5b7a91">系统配置</div></div>
+        <div><div style="font-size:28px;font-weight:800;color:#0B2D47;line-height:1">50<span style="font-size:15px">%</span></div><div style="font-size:11.5px;color:#5b7a91">功能说明书</div></div>
+        <div><div style="font-size:28px;font-weight:800;color:#0B2D47;line-height:1">40<span style="font-size:15px">%</span></div><div style="font-size:11.5px;color:#5b7a91">开发完成度</div></div>
+        <div><div style="font-size:28px;font-weight:800;color:#0B2D47;line-height:1">20<span style="font-size:15px">%</span></div><div style="font-size:11.5px;color:#5b7a91">单元测试</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid g3" style="gap:14px">
+    <div class="card" style="padding:16px 18px">
+      <h4 style="font-size:15px !important;margin-bottom:6px;color:#0B2D47">进度</h4>
+      <p class="dim" style="font-size:13px !important;margin:0;line-height:1.6">实现阶段 11 项任务中 5 项在跑、2 项预备、4 项未开始。9 月 30 日配置与功能说明书双收口为目标节点，当前配置领先、说明书落后。</p>
+    </div>
+    <div class="card" style="padding:16px 18px">
+      <h4 style="font-size:15px !important;margin-bottom:6px;color:#0B2D47">范围</h4>
+      <p class="dim" style="font-size:13px !important;margin:0;line-height:1.6">一期范围锁定 14 项高价值场景（源自 23 项场景库）。范围内无未决争议，新增诉求一律走 ARB 评审，不占用本期资源。</p>
+    </div>
+    <div class="card" style="padding:16px 18px">
+      <h4 style="font-size:15px !important;margin-bottom:6px;color:#0B2D47">质量</h4>
+      <p class="dim" style="font-size:13px !important;margin:0;line-height:1.6">单元测试 200 客户端已启动，配置清单逐项传输验证。测试脚本 10 月中启动编写，集成测试 11 月两轮，质量关口前移。</p>
+    </div>
+    <div class="card" style="padding:16px 18px">
+      <h4 style="font-size:15px !important;margin-bottom:6px;color:#0B2D47">资源</h4>
+      <p class="dim" style="font-size:13px !important;margin:0;line-height:1.6">顾问团队全员到位；关键用户投入需在 10 月测试脚本与 11 月集成测试两处重点保障，MM 模块已提示投入不足。</p>
+    </div>
+    <div class="card" style="padding:16px 18px">
+      <h4 style="font-size:15px !important;margin-bottom:6px;color:#0B2D47">数据</h4>
+      <p class="dim" style="font-size:13px !important;margin:0;line-height:1.6">主数据治理办公室常态运行，物料 / 客户 / 供应商三条清洗线并行，9 月测试系统全量清洗预演，为 12 月正式迁移暴露风险。</p>
+    </div>
+    <div class="card" style="padding:16px 18px;background:#EBF5FB;border-color:#C7E2F2">
+      <h4 style="font-size:15px !important;margin-bottom:6px;color:#0B2D47">风险</h4>
+      <p class="dim" style="font-size:13px !important;margin:0;line-height:1.6">高风险 1 项（WMS 电子仓谈判僵局）、中风险 4 项、低风险 1 项，与 W11 / W12 口径一致，本周无新增或关闭。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>这是当前阶段的整体情况，用六个维度来看。</p>
+    <p>整体判断是<strong>可控但偏紧</strong>。可控是因为进度按计划在走，配置已经到 95%；偏紧是因为关键路径上的功能说明书只有 50%，而 9 月 30 日就要收口。</p>
+    <p>范围上要强调一句：一期锁定的 14 项场景没有争议，后续新增诉求一律走 ARB 评审，不占本期资源。这是 9 月 9 日会上定的规矩。</p>
+    <p>风险方面 6 项，和上周口径完全一致，没有新增也没有关闭，其中 WMS 电子仓那一项需要领导决策，我在最后一部分会专门讲。</p>
+  </aside>
+</section>
+
+<!-- ==================== 11 任务进度总览 ==================== -->
+<section class="slide" data-title="实现阶段任务进度总览" style="overflow:auto;justify-content:flex-start;padding-top:44px;padding-bottom:44px">
+  <p class="kicker">PROGRESS OVERVIEW</p>
+  <h2 class="h2" style="margin-bottom:8px">实现阶段任务进度总览</h2>
+  <p class="dim" style="margin-bottom:18px">横条长度 = 完成度；标注为截至 2026-09-18 的实际值</p>
+
+  <div style="display:flex;flex-direction:column;gap:9px">
+    <div style="display:flex;align-items:center;gap:14px"><div style="flex:0 0 210px;font-size:13.5px;font-weight:700;color:#0B2D47">3.1 系统配置基线搭建</div><div style="flex:1;height:22px;background:#EBF5FB;border-radius:4px;overflow:hidden;position:relative"><div style="width:95%;height:100%;background:linear-gradient(90deg,#0B2D47,#2374A3);border-radius:4px"></div></div><div style="flex:0 0 52px;text-align:right;font-size:14px;font-weight:800;color:#0B2D47">95%</div></div>
+    <div style="display:flex;align-items:center;gap:14px"><div style="flex:0 0 210px;font-size:13.5px;font-weight:700;color:#0B2D47">3.2 功能说明书编写</div><div style="flex:1;height:22px;background:#EBF5FB;border-radius:4px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#0B2D47,#2374A3);border-radius:4px"></div></div><div style="flex:0 0 52px;text-align:right;font-size:14px;font-weight:800;color:#0B2D47">50%</div></div>
+    <div style="display:flex;align-items:center;gap:14px"><div style="flex:0 0 210px;font-size:13.5px;font-weight:700;color:#0B2D47">3.4 ABAP / 接口 / 增强开发</div><div style="flex:1;height:22px;background:#EBF5FB;border-radius:4px;overflow:hidden"><div style="width:40%;height:100%;background:linear-gradient(90deg,#0B2D47,#2374A3);border-radius:4px"></div></div><div style="flex:0 0 52px;text-align:right;font-size:14px;font-weight:800;color:#0B2D47">40%</div></div>
+    <div style="display:flex;align-items:center;gap:14px"><div style="flex:0 0 210px;font-size:13.5px;font-weight:700;color:#0B2D47">3.5 单元测试</div><div style="flex:1;height:22px;background:#EBF5FB;border-radius:4px;overflow:hidden"><div style="width:20%;height:100%;background:linear-gradient(90deg,#0B2D47,#2374A3);border-radius:4px"></div></div><div style="flex:0 0 52px;text-align:right;font-size:14px;font-weight:800;color:#0B2D47">20%</div></div>
+    <div style="display:flex;align-items:center;gap:14px"><div style="flex:0 0 210px;font-size:13.5px;font-weight:700;color:#0B2D47">3.3 技术说明书编写</div><div style="flex:1;height:22px;background:#EBF5FB;border-radius:4px;overflow:hidden"><div style="width:5%;height:100%;background:linear-gradient(90deg,#5EA4CE,#5EA4CE);border-radius:4px"></div></div><div style="flex:0 0 52px;text-align:right;font-size:14px;font-weight:800;color:#2374a3">5%</div></div>
+    <div style="display:flex;align-items:center;gap:14px"><div style="flex:0 0 210px;font-size:13.5px;font-weight:700;color:#5b7a91">3.6 权限角色设计</div><div style="flex:1;height:22px;background:#F2F7FB;border-radius:4px;overflow:hidden"></div><div style="flex:0 0 52px;text-align:right;font-size:14px;font-weight:700;color:#5b7a91">0%</div></div>
+    <div style="display:flex;align-items:center;gap:14px"><div style="flex:0 0 210px;font-size:13.5px;font-weight:700;color:#5b7a91">3.7 权限配置与测试</div><div style="flex:1;height:22px;background:#F2F7FB;border-radius:4px;overflow:hidden"></div><div style="flex:0 0 52px;text-align:right;font-size:14px;font-weight:700;color:#5b7a91">0%</div></div>
+    <div style="display:flex;align-items:center;gap:14px"><div style="flex:0 0 210px;font-size:13.5px;font-weight:700;color:#5b7a91">3.8 测试脚本编写</div><div style="flex:1;height:22px;background:#F2F7FB;border-radius:4px;overflow:hidden"></div><div style="flex:0 0 52px;text-align:right;font-size:14px;font-weight:700;color:#5b7a91">0%</div></div>
+    <div style="display:flex;align-items:center;gap:14px"><div style="flex:0 0 210px;font-size:13.5px;font-weight:700;color:#5b7a91">3.9 集成测试 I</div><div style="flex:1;height:22px;background:#F2F7FB;border-radius:4px;overflow:hidden"></div><div style="flex:0 0 52px;text-align:right;font-size:14px;font-weight:700;color:#5b7a91">0%</div></div>
+    <div style="display:flex;align-items:center;gap:14px"><div style="flex:0 0 210px;font-size:13.5px;font-weight:700;color:#5b7a91">3.10 集成测试 II（端到端）</div><div style="flex:1;height:22px;background:#F2F7FB;border-radius:4px;overflow:hidden"></div><div style="flex:0 0 52px;text-align:right;font-size:14px;font-weight:700;color:#5b7a91">0%</div></div>
+    <div style="display:flex;align-items:center;gap:14px"><div style="flex:0 0 210px;font-size:13.5px;font-weight:700;color:#5b7a91">3.11 最终配置传输至生产机</div><div style="flex:1;height:22px;background:#F2F7FB;border-radius:4px;overflow:hidden"></div><div style="flex:0 0 52px;text-align:right;font-size:14px;font-weight:700;color:#5b7a91">0%</div></div>
+  </div>
+
+  <div class="insight-box" style="margin-top:18px;padding:14px 20px !important">
+    <p style="font-size:13.5px !important;margin:0;line-height:1.55"><strong>进度结构判断：</strong>配置（3.1）已接近收口，开发（3.4）与单元测试（3.5）处于持续爬坡状态，说明书（3.2 / 3.3）是唯一可能触发关键路径延期的环节。<strong>9 月 30 日前将 3.2 推至 100%、3.3 推至 40% 以上</strong>，是实现阶段下一个关口的硬性要求。</p>
+  </div>
+  <aside class="notes">
+    <p>把 11 项任务画成进度条，一眼就能看到结构问题。</p>
+    <p>上面前四条是正在跑的，配置 95% 基本收口；中间 5% 的技术说明书是明显的短板。</p>
+    <p>这里的逻辑要讲清楚：技术说明书要用功能说明书作为输入。FS 到 100% 之后 TS 才可能快速起量，所以 9 月 30 日 FS 必须清零收口，这个节点不能动。</p>
+    <p>下面六项是 0%，但它们全部压在 10 月中到 12 月中，届时会形成第二个高峰。</p>
+  </aside>
+</section>
+
+<!-- ==================== 12 项目健康状态 ==================== -->
+<section class="slide" data-title="项目健康状态评估" style="overflow:auto;justify-content:flex-start;padding-top:44px;padding-bottom:44px">
+  <p class="kicker">PROJECT HEALTH</p>
+  <h2 class="h2" style="margin-bottom:8px">项目健康状态评估</h2>
+  <p class="dim" style="margin-bottom:18px">五维健康度 · 绿=按计划推进 · 蓝=需关注 · 深蓝=需管理层介入</p>
+
+  <div class="grid g3" style="gap:14px;margin-bottom:16px">
+    <div class="card" style="padding:18px 20px;border-top:4px solid #2374a3">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <h4 style="font-size:16px !important;margin:0;color:#0B2D47">进度健康度</h4>
+        <span style="font-size:12px;font-weight:800;color:#fff;background:#2374a3;padding:3px 10px;border-radius:20px">正常</span>
+      </div>
+      <p class="dim" style="font-size:13px !important;margin:0 0 10px;line-height:1.55">关键路径任务按计划推进，无里程碑 slipping。</p>
+      <div class="maturity-bar"><div style="width:88%"></div></div>
+      <p style="font-size:11.5px;color:#5b7a91;margin-top:6px">达成度 88%</p>
+    </div>
+    <div class="card" style="padding:18px 20px;border-top:4px solid #2374a3">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <h4 style="font-size:16px !important;margin:0;color:#0B2D47">范围健康度</h4>
+        <span style="font-size:12px;font-weight:800;color:#fff;background:#2374a3;padding:3px 10px;border-radius:20px">正常</span>
+      </div>
+      <p class="dim" style="font-size:13px !important;margin:0 0 10px;line-height:1.55">一期 14 项场景锁定，无未决争议；新增走 ARB。</p>
+      <div class="maturity-bar"><div style="width:95%"></div></div>
+      <p style="font-size:11.5px;color:#5b7a91;margin-top:6px">受控度 95%</p>
+    </div>
+    <div class="card" style="padding:18px 20px;border-top:4px solid #0b2d47">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <h4 style="font-size:16px !important;margin:0;color:#0B2D47">资源健康度</h4>
+        <span style="font-size:12px;font-weight:800;color:#fff;background:#0B2D47;padding:3px 10px;border-radius:20px">需关注</span>
+      </div>
+      <p class="dim" style="font-size:13px !important;margin:0 0 10px;line-height:1.55">顾问到位；关键用户投入需在 10–11 月重点保障。</p>
+      <div class="maturity-bar"><div style="width:72%"></div></div>
+      <p style="font-size:11.5px;color:#5b7a91;margin-top:6px">就绪度 72%</p>
+    </div>
+    <div class="card" style="padding:18px 20px;border-top:4px solid #2374a3">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <h4 style="font-size:16px !important;margin:0;color:#0B2D47">质量健康度</h4>
+        <span style="font-size:12px;font-weight:800;color:#fff;background:#2374a3;padding:3px 10px;border-radius:20px">正常</span>
+      </div>
+      <p class="dim" style="font-size:13px !important;margin:0 0 10px;line-height:1.55">单元测试已启动，测试脚本 10 月接手，质量关口前移。</p>
+      <div class="maturity-bar"><div style="width:80%"></div></div>
+      <p style="font-size:11.5px;color:#5b7a91;margin-top:6px">可控度 80%</p>
+    </div>
+    <div class="card" style="padding:18px 20px;border-top:4px solid #0b2d47">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <h4 style="font-size:16px !important;margin:0;color:#0B2D47">数据健康度</h4>
+        <span style="font-size:12px;font-weight:800;color:#fff;background:#0B2D47;padding:3px 10px;border-radius:20px">需关注</span>
+      </div>
+      <p class="dim" style="font-size:13px !important;margin:0 0 10px;line-height:1.55">物料近半冗余，清洗窗口与迁移窗口需并重管控。</p>
+      <div class="maturity-bar"><div style="width:65%"></div></div>
+      <p style="font-size:11.5px;color:#5b7a91;margin-top:6px">就绪度 65%</p>
+    </div>
+    <div class="card" style="padding:18px 20px;border-top:4px solid #2374a3;background:#EBF5FB">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <h4 style="font-size:16px !important;margin:0;color:#0B2D47">沟通健康度</h4>
+        <span style="font-size:12px;font-weight:800;color:#fff;background:#2374a3;padding:3px 10px;border-radius:20px">正常</span>
+      </div>
+      <p class="dim" style="font-size:13px !important;margin:0 0 10px;line-height:1.55">双周滚动计划 + 周报机制常态运行，决策通道畅通。</p>
+      <div class="maturity-bar"><div style="width:92%"></div></div>
+      <p style="font-size:11.5px;color:#5b7a91;margin-top:6px">顺畅度 92%</p>
+    </div>
+  </div>
+
+  <div class="insight-box" style="padding:14px 20px !important">
+    <p style="font-size:13.5px !important;margin:0;line-height:1.55"><strong>结论：</strong>六维中四维正常、两维需关注（资源、数据）。需关注项均<strong>不等同于风险</strong>——资源和数据问题已有明确应对路径（关键用户时间投入纳入部门考核、主数据清洗 9 月预演），但需在 10 月前完成闭环，否则将传导为进度风险。</p>
+  </div>
+  <aside class="notes">
+    <p>项目健康度我们拆成六个维度来打分。</p>
+    <p>四个正常：进度、范围、质量、沟通。其中范围健康度最高，95%——因为一期 14 项场景已经锁死，没有争议。</p>
+    <p>两个需要关注：<strong>资源</strong>和<strong>数据</strong>。资源的问题是关键用户在 10 月写测试脚本、11 月做集成测试这两处必须到位，MM 模块此前已经提过投入不足。数据的问题是物料 87.96 万条里近一半是停用或无效的，清洗工作量和窗口都要管住。</p>
+    <p>要强调的是，需要关注不等于风险，这两个问题都有明确的应对路径，但必须在 10 月前闭环。</p>
+  </aside>
+</section>
+
+<!-- ==================== 13 风险与问题清单 ==================== -->
+<section class="slide" data-title="风险与问题清单" style="overflow:auto;justify-content:flex-start;padding-top:30px;padding-bottom:26px">
+  <p class="kicker">RISK REGISTER</p>
+  <h2 class="h2" style="margin-bottom:8px">风险与问题清单</h2>
+  <p class="dim" style="margin-bottom:10px">高风险 1 项 / 中风险 7 项 / 低风险 1 项 · R7 – R9 为 09-17 项目周会新增 · 口径同步至 2026-09-21</p>
+
+  <table class="fsl-table" style="font-size:12.5px;line-height:1.35">
+    <tr>
+      <th style="width:52px">序号</th>
+      <th style="width:230px">风险事项</th>
+      <th style="width:70px">等级</th>
+      <th style="width:96px">归属</th>
+      <th>影响与应对</th>
+    </tr>
+    <tr>
+      <td>R1</td>
+      <td><strong>WMS 电子仓谈判僵局</strong></td>
+      <td><span style="color:#0b2d47;font-weight:800">高</span></td>
+      <td>采购 / IT</td>
+      <td>谈判仍处暂停，供应商起诉风险未解除；接口无"半对接"模式。需应急预案与提前处置决策（见第五部分）。</td>
+    </tr>
+    <tr>
+      <td>R2</td>
+      <td>BOM 同步与 MRP 依赖主数据精度</td>
+      <td><span style="color:#2374a3;font-weight:800">中</span></td>
+      <td>PP / 数据</td>
+      <td>一期允许误差，完整 MRP 依赖主数据与 BOM 精确；随清洗进度持续校准。</td>
+    </tr>
+    <tr>
+      <td>R3</td>
+      <td>跨公司销售"无存货"合规结论执行</td>
+      <td><span style="color:#2374a3;font-weight:800">中</span></td>
+      <td>财务 / SD</td>
+      <td>8/27 汇报后结论待落地执行；需财务与销售共同确认执行口径。</td>
+    </tr>
+    <tr>
+      <td>R4</td>
+      <td>MM 模块关键用户投入不足</td>
+      <td><span style="color:#2374a3;font-weight:800">中</span></td>
+      <td>业务部门</td>
+      <td>转实现阶段后需保障关键用户时间投入与配置评审效率，直接影响测试脚本与集成测试。</td>
+    </tr>
+    <tr>
+      <td>R5</td>
+      <td>瞭望板块集团穿透管控</td>
+      <td><span style="color:#2374a3;font-weight:800">中</span></td>
+      <td>PMO</td>
+      <td>独立 SAP 体外运行、营收占集团约 1/3，集团无法穿透成本 / 营收 / 产能。<strong>9/30 前出专项管控方案</strong>，不占用主项目资源。</td>
+    </tr>
+    <tr>
+      <td>R6</td>
+      <td>主数据 90 万条清洗窗口</td>
+      <td><span style="color:#5ea4ce;font-weight:800">低</span></td>
+      <td>数据团队</td>
+      <td>9 月测试系统清洗预演已启动；清洗质量与迁移窗口并重，10 月全量迁移前闭环。</td>
+    </tr>
+    <tr style="background:#eef5fa">
+      <td>R7</td>
+      <td><strong>报表权限硬编码改造</strong>（本周新增）</td>
+      <td><span style="color:#2374a3;font-weight:800">中</span></td>
+      <td>技术 / 开发</td>
+      <td>现有报表中大量账号权限硬编码在代码里，账号调整后报表可能读不到数据，涉及<strong>数百个报表</strong>。会议决定：暂不全面铺开，先排查影响范围，再开专项会评估改造方案，可借助 AI 工具辅助排查。</td>
+    </tr>
+    <tr style="background:#eef5fa">
+      <td>R8</td>
+      <td><strong>单元测试投入不足</strong>（本周新增）</td>
+      <td><span style="color:#2374a3;font-weight:800">中</span></td>
+      <td>业务 / 开发顾问</td>
+      <td>单元测试自 8 月起开展，但近两周因集中编写功能开发说明书导致投入不足；配置与业务数据尚未导入 200 测试系统，测试跟进滞后。应对：测试改为"一对一"并签字确认，优先安排关键用户测试影响生产运营的紧急功能。</td>
+    </tr>
+    <tr style="background:#eef5fa">
+      <td>R9</td>
+      <td><strong>历史数据迁移方案变更</strong>（本周新增）</td>
+      <td><span style="color:#2374a3;font-weight:800">中</span></td>
+      <td>数据 / 开发</td>
+      <td>原计划跨 ECC 与 S/4HANA 直接导入，存在脏数据风险且老规则不适用新系统。会议决定：<strong>放弃直接迁移</strong>，把清洗规则开发进数据导入程序，按新规则清洗后再导入；历史数据整理 11 月启动、12 月集中开展。</td>
+    </tr>
+  </table>
+
+  <div style="display:flex;gap:14px;margin-top:10px">
+    <div class="card" style="flex:1;padding:11px 16px;border-left:4px solid #0b2d47">
+      <h4 style="font-size:14px !important;margin-bottom:3px;color:#0B2D47">唯一高风险项</h4>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.55">R1 是唯一需要公司层面介入的风险项，已连续四周未解，建议本次汇报形成明确结论。</p>
+    </div>
+    <div class="card" style="flex:1;padding:11px 16px;border-left:4px solid #2374a3">
+      <h4 style="font-size:14px !important;margin-bottom:3px;color:#0B2D47">W13 新增三项</h4>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.55">R7 报表权限硬编码、R8 单元测试投入、R9 历史数据迁移方案，均为 09-17 周会识别并已给出处置口径。</p>
+    </div>
+    <div class="card" style="flex:1;padding:11px 16px;border-left:4px solid #2374a3">
+      <h4 style="font-size:14px !important;margin-bottom:3px;color:#0B2D47">两项 9 月 30 日到期</h4>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.55">R5 瞭望专项方案、R6 清洗预演结论均在 9 月 30 日前交付，是本阶段末的硬性收口点。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>风险清单更新到 9 项。原有 6 项口径不变，本周新增 3 项，都来自 9 月 17 日的项目周会。</p>
+    <p>先说唯一的高风险项 R1——WMS 电子仓谈判僵局。已经连续四周未解，供应商起诉的风险没有解除，接口在技术上没有"半对接"这种中间状态。周会上也定了备用方案：如果 WMS 未能按期上线，仓库沿用 SAP 收发料逻辑，保证业务连续性，同时提前做人员配置和培训准备。</p>
+    <p>新增的 R7 是报表权限硬编码。现有报表里大量账号权限是写死在代码中的，账号一调整报表就可能读不到数据，涉及几百个报表。会议决定先排查影响范围再开专项会，不全面铺开。</p>
+    <p>R8 是单元测试投入不足。近两周大家都在赶开发说明书，测试投入跟不上，配置和数据也还没导入 200 测试系统。应对办法是测试改"一对一"，三方签字确认，优先测影响生产运营的紧急功能。</p>
+    <p>R9 是历史数据迁移方案变更。原来想直接跨系统导入，风险太大，现在改成把清洗规则写进导入程序，按新规则清洗后再导入。历史数据整理 11 月启动、12 月集中做。</p>
+    <p>R5 瞭望板块和 R6 主数据清洗都在 9 月 30 日前到期，是本月底的两个硬性收口点。</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="09-17 周会决议 · 六项关键结论" style="overflow:auto;justify-content:flex-start;padding-top:44px;padding-bottom:44px">
+  <p class="kicker">WEEKLY STEERING · 2026-09-17</p>
+  <h2 class="h2" style="margin-bottom:8px">09-17 项目周会 · 六项关键结论</h2>
+  <p class="dim" style="margin-bottom:16px">主持人 贾奋明 · 佛照大厦 913 会议室 · 佛照与艾维登双方 15 人参加 · 结论构成本阶段最新执行口径</p>
+
+  <table class="fsl-table" style="font-size:13.5px">
+    <tr>
+      <th style="width:52px">编号</th>
+      <th style="width:290px">决策内容</th>
+      <th style="width:120px">决策人</th>
+      <th>执行口径</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td><strong>蓝图验收改由 OA 审批办理</strong></td>
+      <td>客户方领导</td>
+      <td>蓝图验收全部签署完成，剩余确认环节不再多人重复签署纸质版。</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><strong>开发说明书 9 月 30 日前完成</strong></td>
+      <td>项目经理 / 客户方领导</td>
+      <td>PP 模块 09-25、SD / WM 09-30、财务模块因逻辑复杂延至 10 月；进度比例按实际下调，不盲目乐观。</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><strong>测试按"一对一"执行并签字确认</strong></td>
+      <td>参会各方</td>
+      <td>每个标准功能、开发功能逐一测试，顾问 / 开发 / 关键用户均需在测试单签字；10 月底完成接口与迁移测试，11 月集成测试，12 月上线筹备。</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><strong>报表权限硬编码改造暂不全面铺开</strong></td>
+      <td>技术负责人（待定）</td>
+      <td>先自行排查影响范围（涉及数百个报表），再召开专项会议评估改造方案；可借助 AI 工具辅助排查。</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><strong>WMS 未按期上线的备用方案</strong></td>
+      <td>客户方领导</td>
+      <td>仓库沿用 SAP 收发料逻辑，保证业务连续性；提前与仓库负责人沟通人员配置、培训与应急准备。</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td><strong>历史数据放弃直接迁移</strong></td>
+      <td>项目经理 / 技术负责人</td>
+      <td>清洗规则开发到数据导入程序中，按新业务规则清洗后再导入测试系统，由程序管控，避免脏数据。</td>
+    </tr>
+  </table>
+
+  <div style="display:flex;gap:14px;margin-top:16px">
+    <div class="card" style="flex:1;padding:14px 18px;border-left:4px solid #0b2d47">
+      <h4 style="font-size:14px !important;margin-bottom:3px;color:#0B2D47">进度口径按实际下调</h4>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.55">会议明确"进度统计偏乐观"，已完成的 FS 尽快下发并转为 TS，确保不耽误开发排期。</p>
+    </div>
+    <div class="card" style="flex:1;padding:14px 18px;border-left:4px solid #2374a3">
+      <h4 style="font-size:14px !important;margin-bottom:3px;color:#0B2D47">三阶段测试节奏</h4>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.55">10 月跑通接口与迁移测试，11 月集成测试，12 月上线筹备，不把 12 月 1 日当作既定上线日。</p>
+    </div>
+    <div class="card" style="flex:1;padding:14px 18px;border-left:4px solid #2374a3">
+      <h4 style="font-size:14px !important;margin-bottom:3px;color:#0B2D47">汇报材料须可佐证</h4>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.55">材料不得出现"状态 100% 但点开无内容"，需对照总计划表逐节点呈现当前进展。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>这一页是 9 月 17 日项目周会的正式结论，距今只有四天，是我们当前执行口径的最新版本，请领导以这一页为准。</p>
+    <p>第一项，蓝图验收已经全部签署完成，剩下最后一个确认环节，按客户方要求改走 OA 审批，不再请多人重复签纸质版。这意味着蓝图阶段的收尾在流程上已经闭环。</p>
+    <p>第二项，开发说明书定在 9 月 30 日前完成，但模块之间有差异：PP 最早，9 月 25 日；SD 和 WM 是 9 月 30 日；财务模块因为逻辑复杂，延到 10 月。这里要特别说明一句——会议专门指出"进度统计偏乐观"，要求按比例按实际下调，所以我们报的数字是务实口径。</p>
+    <p>第三项是测试策略，采用"一对一"方式，每个标准功能、每个开发功能逐一测试，顾问、开发、关键用户三方都要测并在测试单上签字确认，做到不含糊、不似是而非。三阶段节奏是：10 月底跑通接口与迁移测试，11 月集成测试，12 月上线筹备，不把 12 月 1 日当作既定上线日。</p>
+    <p>第四到六项都属于风险处置，我在后面风险页会展开讲。</p>
+  </aside>
+</section>
+
+<!-- ==================== 14 分节：03 ==================== -->
+<section class="slide section-cover" data-title="第三部分 · 系统实现关键成果">
+  <div>
+    <div style="font-size:78px;font-weight:800;line-height:1;color:rgba(255,255,255,.22);letter-spacing:-2px">03</div>
+    <h2 class="h2" style="color:#fff;font-size:42px !important;margin:10px 0 12px">系统实现关键成果</h2>
+    <div style="width:64px;height:3px;background:#5EA4CE;margin:0 auto 16px"></div>
+    <p style="font-size:17px;color:rgba(255,255,255,.72)">七项已落地成果 · 从蓝图签署到配置、开发、测试与数据治理全面铺开</p>
+  </div>
+</section>
+
+<!-- ==================== 15 成果总览 ==================== -->
+<section class="slide" data-title="阶段成果总览" style="overflow:auto;justify-content:flex-start;padding-top:44px;padding-bottom:44px">
+  <p class="kicker">KEY ACHIEVEMENTS</p>
+  <h2 class="h2" style="margin-bottom:18px">阶段成果总览 · 七项关键成果</h2>
+
+  <div class="grid g4" style="gap:12px">
+    <div class="card" style="padding:18px 18px;border-top:3px solid #0B2D47">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:5px;background:#0B2D47;color:#fff;font-size:12px;font-weight:800">01</span>
+        <h4 style="font-size:14.5px !important;margin:0;color:#0B2D47">蓝图收官与公司级确认</h4>
+      </div>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.5">08-31 全量签署、09-09 公司级专题会确认，七项决策落地。</p>
+    </div>
+    <div class="card" style="padding:18px 18px;border-top:3px solid #0B2D47">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:5px;background:#0B2D47;color:#fff;font-size:12px;font-weight:800">02</span>
+        <h4 style="font-size:14.5px !important;margin:0;color:#0B2D47">系统配置基线搭建</h4>
+      </div>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.5">完成度 95%，9 月 30 日收口，为全部下游工作提供基线。</p>
+    </div>
+    <div class="card" style="padding:18px 18px;border-top:3px solid #2374A3">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:5px;background:#2374A3;color:#fff;font-size:12px;font-weight:800">03</span>
+        <h4 style="font-size:14.5px !important;margin:0;color:#0B2D47">功能 / 技术说明书编写</h4>
+      </div>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.5">FS 50% / TS 5%，是开发工作的输入源头，9 月底 FS 收口。</p>
+    </div>
+    <div class="card" style="padding:18px 18px;border-top:3px solid #2374A3">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:5px;background:#2374A3;color:#fff;font-size:12px;font-weight:800">04</span>
+        <h4 style="font-size:14.5px !important;margin:0;color:#0B2D47">ABAP / 接口 / 增强开发</h4>
+      </div>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.5">完成度 40%，106 天最长任务，11 月 30 日前交付。</p>
+    </div>
+    <div class="card" style="padding:18px 18px;border-top:3px solid #2374A3">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:5px;background:#2374A3;color:#fff;font-size:12px;font-weight:800">05</span>
+        <h4 style="font-size:14.5px !important;margin:0;color:#0B2D47">单元测试启动</h4>
+      </div>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.5">完成度 20%，200 客户端配置传输与自测已跑通。</p>
+    </div>
+    <div class="card" style="padding:18px 18px;border-top:3px solid #5EA4CE">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:5px;background:#5EA4CE;color:#fff;font-size:12px;font-weight:800">06</span>
+        <h4 style="font-size:14.5px !important;margin:0;color:#0B2D47">集成架构与接口范围</h4>
+      </div>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.5">23 个周边系统、12 个本期范围；CPI 星状平台启用。</p>
+    </div>
+    <div class="card" style="padding:18px 18px;border-top:3px solid #5EA4CE">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:5px;background:#5EA4CE;color:#fff;font-size:12px;font-weight:800">07</span>
+        <h4 style="font-size:14.5px !important;margin:0;color:#0B2D47">主数据治理启动</h4>
+      </div>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.5">DMO 常态运行、11 位编码规范、科目 1600+ 精简至 600。</p>
+    </div>
+    <div class="card" style="padding:18px 18px;background:#0B2D47;border:none">
+      <h4 style="font-size:14.5px !important;margin:0 0 8px;color:#fff">一句话总结</h4>
+      <p style="font-size:12.5px !important;margin:0;line-height:1.5;color:rgba(255,255,255,.78)">蓝图阶段全部成果已转化为可执行的配置、开发与测试计划，实现阶段按周推进无延期。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>这一部分是本次汇报的重点——系统实现阶段到目前为止，我们做成了什么。</p>
+    <p>七项成果，前三项是"底座"，中间三项是"交付"，最后一项是"长线"。接下来我逐项展开。</p>
+  </aside>
+</section>
+
+<!-- ==================== 16 成果一 ==================== -->
+<section class="slide" data-title="成果一 · 蓝图收官与公司级确认" style="overflow:auto;justify-content:flex-start;padding-top:44px;padding-bottom:44px">
+  <p class="kicker">ACHIEVEMENT 01</p>
+  <h2 class="h2" style="margin-bottom:8px">成果一 · 蓝图收官与公司级确认</h2>
+  <p class="dim" style="margin-bottom:18px">08-31 全量签署闭环 → 09-09 公司级专题会确认 → 项目正式转入实现阶段</p>
+
+  <div style="display:flex;gap:16px;margin-bottom:18px">
+    <div style="flex:0 0 300px;display:flex;flex-direction:column;gap:10px">
+      <div style="background:#EBF5FB;border-left:4px solid #2374A3;border-radius:0 6px 6px 0;padding:12px 16px">
+        <div style="font-size:12.5px;font-weight:800;color:#0B2D47">2026-08-27 · 蓝图汇报</div>
+        <div style="font-size:12px;color:#5b7a91;line-height:1.5;margin-top:3px">701 条需求 · 23 项高价值场景分期定稿 · 四大架构方案</div>
+      </div>
+      <div style="background:#EBF5FB;border-left:4px solid #2374A3;border-radius:0 6px 6px 0;padding:12px 16px">
+        <div style="font-size:12.5px;font-weight:800;color:#0B2D47">2026-08-31 · 蓝图正式签署</div>
+        <div style="font-size:12px;color:#5b7a91;line-height:1.5;margin-top:3px">全量执行层用户签署闭环完成，蓝图设计阶段收官</div>
+      </div>
+      <div style="background:#0B2D47;border-left:4px solid #5EA4CE;border-radius:0 6px 6px 0;padding:12px 16px">
+        <div style="font-size:12.5px;font-weight:800;color:#fff">2026-09-09 · 公司级确认会</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.75);line-height:1.5;margin-top:3px">权总等公司领导 + 各部门负责人参会，方案获正式确认</div>
+      </div>
+    </div>
+
+    <div style="flex:1">
+      <div style="font-size:12.5px;font-weight:800;letter-spacing:.8px;color:#5b7a91;margin-bottom:8px">09-09 会议落地的七项决策</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div class="card" style="padding:11px 14px"><p style="font-size:12.5px !important;margin:0;line-height:1.45"><strong>1</strong> 确认蓝图方案，作为开发基线</p></div>
+        <div class="card" style="padding:11px 14px"><p style="font-size:12.5px !important;margin:0;line-height:1.45"><strong>2</strong> 关闭蓝图反馈，正式进入实施</p></div>
+        <div class="card" style="padding:11px 14px"><p style="font-size:12.5px !important;margin:0;line-height:1.45"><strong>3</strong> 2027-01-01 为硬性上线节点</p></div>
+        <div class="card" style="padding:11px 14px"><p style="font-size:12.5px !important;margin:0;line-height:1.45"><strong>4</strong> 部门负责人亲自签名把关</p></div>
+        <div class="card" style="padding:11px 14px"><p style="font-size:12.5px !important;margin:0;line-height:1.45"><strong>5</strong> 主数据治理为本期重中之重</p></div>
+        <div class="card" style="padding:11px 14px"><p style="font-size:12.5px !important;margin:0;line-height:1.45"><strong>6</strong> 一期底座 / 二期协同 / 三期智能</p></div>
+        <div class="card" style="padding:11px 14px;grid-column:span 2"><p style="font-size:12.5px !important;margin:0;line-height:1.45"><strong>7</strong> 南宁燎旺财务业务数据集成待评估后纳入本期</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight-box" style="padding:14px 20px !important">
+    <p style="font-size:13.5px !important;margin:0;line-height:1.6"><strong>领导层定调：</strong>权总明确两大关键问题——<strong>系统互连不够、数据连不上</strong>，以及<strong>物料一物多码 / 僵尸编码</strong>影响 SKU 准确性；强调"蓝图搞对搞准，后面按蓝图做就顺利"，各部门负责人须亲自参与、亲自把关签名，不当"甩手掌柜"。</p>
+  </div>
+  <aside class="notes">
+    <p>第一项成果是蓝图收官。这是实现阶段的起点，也是所有后续工作的合法性来源。</p>
+    <p>时间线上三个节点：8 月 27 日汇报、8 月 31 日全量签署、9 月 9 日公司级确认会。</p>
+    <p>9 月 9 日那次会上落地了七项决策，全部在这里列出。其中最关键的两条：一是 <strong>2027 年 1 月 1 日是硬性上线节点</strong>，没有商量余地；二是<strong>主数据治理是本期重中之重</strong>。</p>
+    <p>权总当时特别强调了两个问题：22 个系统互连差、数据连不上；物料一物多码和僵尸编码"致命"。这两句话其实是给实现阶段划的重点——集成和主数据，都必须在这个阶段解决。</p>
+  </aside>
+</section>
+
+<!-- ==================== 17 成果二 ==================== -->
+<section class="slide" data-title="成果二 · 系统配置基线搭建 95%" style="overflow:auto;justify-content:flex-start;padding-top:44px;padding-bottom:44px">
+  <p class="kicker">ACHIEVEMENT 02</p>
+  <h2 class="h2" style="margin-bottom:8px">成果二 · 系统配置基线搭建 95%</h2>
+  <p class="dim" style="margin-bottom:18px">计划窗口 2026/09/01 – 09/30 · 工期 24 天 · 责任人：模块顾问（全员）</p>
+
+  <div style="display:flex;gap:16px;margin-bottom:18px">
+    <div style="flex:0 0 210px;background:linear-gradient(150deg,#0B2D47,#1A4F73);border-radius:10px;padding:26px 22px;color:#fff;text-align:center;display:flex;flex-direction:column;justify-content:center">
+      <div style="font-size:70px;font-weight:800;line-height:1">95<span style="font-size:26px">%</span></div>
+      <div style="font-size:13px;color:rgba(255,255,255,.72);margin-top:8px">配置基线完成度</div>
+      <div style="height:1px;background:rgba(255,255,255,.18);margin:14px 0"></div>
+      <div style="font-size:12.5px;color:#5EA4CE;font-weight:700">9 月 30 日收口</div>
+    </div>
+    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="card" style="padding:14px 16px">
+        <h4 style="font-size:14px !important;margin-bottom:4px;color:#0B2D47">覆盖范围</h4>
+        <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.5">FI / CO / SD / MM / PP / QM / WM 全模块组织架构、主数据、业务流程配置基线一次性搭建。</p>
+      </div>
+      <div class="card" style="padding:14px 16px">
+        <h4 style="font-size:14px !important;margin-bottom:4px;color:#0B2D47">交付形式</h4>
+        <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.5">S4 配置清单（逐项可追溯）+ 配置传输至 200 客户端，供单元测试使用。</p>
+      </div>
+      <div class="card" style="padding:14px 16px">
+        <h4 style="font-size:14px !important;margin-bottom:4px;color:#0B2D47">当前状态</h4>
+        <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.5">开发机配置已完成；剩余 5% 为个别模块的收尾项，需结合单元测试结论回溯调整。</p>
+      </div>
+      <div class="card" style="padding:14px 16px">
+        <h4 style="font-size:14px !important;margin-bottom:4px;color:#0B2D47">下游影响</h4>
+        <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.5">配置基线是 FS / TS 编写、开发、测试的共同前置，基线不定则全部下游无法冻结。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid g3" style="gap:12px">
+    <div class="card" style="padding:14px 18px;border-left:4px solid #2374a3">
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.55"><strong>做法：</strong>按模块并行推进，每个模块配置完成后立即同步至 200 客户端，不等全部完成再集中传输。</p>
+    </div>
+    <div class="card" style="padding:14px 18px;border-left:4px solid #2374a3">
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.55"><strong>风控：</strong>配置清单逐项记录，任何调整必须回溯清单，避免配置漂移导致后期无法定位问题。</p>
+    </div>
+    <div class="card" style="padding:14px 18px;border-left:4px solid #0b2d47">
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.55"><strong>收口条件：</strong>配置清单 100% 完成 + 传输 200 客户端 + 单元测试可跑通标准功能，三者齐备方可关闭本项。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>第二项成果是系统配置基线，完成度 95%，这是实现阶段进展最快的任务。</p>
+    <p>做法上我们不是等所有模块都配完再统一传，而是按模块并行，配完一个模块就同步到 200 客户端，立刻可以开始测。这样能提前暴露问题，也不占用最后的时间窗口。</p>
+    <p>剩下 5% 不是没做完，而是需要结合单元测试的结论回头调整——配置对不对，最终要靠测试来验证。所以 9 月 30 日的收口条件我列了三条：清单 100%、传输完成、标准功能可跑通。</p>
+  </aside>
+</section>
+
+<!-- ==================== 18 成果三 ==================== -->
+<section class="slide" data-title="成果三 · 功能与技术说明书编写" style="overflow:auto;justify-content:flex-start;padding-top:44px;padding-bottom:44px">
+  <p class="kicker">ACHIEVEMENT 03</p>
+  <h2 class="h2" style="margin-bottom:8px">成果三 · 功能说明书与技术说明书编写</h2>
+  <p class="dim" style="margin-bottom:18px">FS 功能说明书完成 50%（09/30 收口）· TS 技术说明书完成 5%（10/16 收口）· 二者构成开发工作的完整输入链</p>
+
+  <div style="display:flex;align-items:center;gap:0;margin-bottom:20px">
+    <div style="flex:1;background:#EBF5FB;border:1px solid #C7E2F2;border-radius:8px;padding:18px 20px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <div style="font-size:15px;font-weight:800;color:#0B2D47">3.2 功能说明书（FS）</div>
+        <div style="font-size:22px;font-weight:800;color:#0B2D47">50%</div>
+      </div>
+      <div class="maturity-bar" style="height:10px"><div style="width:50%"></div></div>
+      <p class="dim" style="font-size:12.5px !important;margin:10px 0 0;line-height:1.55">业务顾问编写，界定功能逻辑与报表口径。计划窗口 09/07 – 09/30，工期 18 天。</p>
+    </div>
+    <div style="flex:0 0 60px;text-align:center;font-size:24px;color:#5EA4CE;font-weight:800">&#8594;</div>
+    <div style="flex:1;background:#EBF5FB;border:1px solid #C7E2F2;border-radius:8px;padding:18px 20px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <div style="font-size:15px;font-weight:800;color:#0B2D47">3.3 技术说明书（TS）</div>
+        <div style="font-size:22px;font-weight:800;color:#2374a3">5%</div>
+      </div>
+      <div class="maturity-bar" style="height:10px"><div style="width:5%"></div></div>
+      <p class="dim" style="font-size:12.5px !important;margin:10px 0 0;line-height:1.55">开发顾问编写，将 FS 转为可编码的技术方案。计划窗口 09/07 – 10/16，工期 40 天。</p>
+    </div>
+    <div style="flex:0 0 60px;text-align:center;font-size:24px;color:#5EA4CE;font-weight:800">&#8594;</div>
+    <div style="flex:1;background:linear-gradient(160deg,#0B2D47,#1A4F73);border-radius:8px;padding:18px 20px;color:#fff">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <div style="font-size:15px;font-weight:800">3.4 ABAP / 接口 / 增强开发</div>
+        <div style="font-size:22px;font-weight:800;color:#5EA4CE">40%</div>
+      </div>
+      <div class="maturity-bar" style="height:10px;background:rgba(255,255,255,.18)"><div style="width:40%;background:#5EA4CE"></div></div>
+      <p style="font-size:12.5px !important;margin:10px 0 0;line-height:1.55;color:rgba(255,255,255,.75)">开发团队实施，交付程序文档。计划窗口 08/17 – 11/30，工期 106 天。</p>
+    </div>
+  </div>
+
+  <div class="grid g3" style="gap:12px">
+    <div class="card" style="padding:14px 18px">
+      <h4 style="font-size:14px !important;margin-bottom:4px;color:#0B2D47">为什么先 FS 后 TS</h4>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.55">FS 定义"做什么"，TS 定义"怎么做"。开发必须拿到经业务确认的 FS 才能转技术方案，否则会返工。</p>
+    </div>
+    <div class="card" style="padding:14px 18px">
+      <h4 style="font-size:14px !important;margin-bottom:4px;color:#0B2D47">当前节奏</h4>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.55">FS 与开发并行推进——已确认的功能块立即进入开发，未确认的继续收敛，不串行等待。</p>
+    </div>
+    <div class="card" style="padding:14px 18px;border-left:4px solid #0b2d47">
+      <h4 style="font-size:14px !important;margin-bottom:4px;color:#0B2D47">关键要求</h4>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.55"><strong>9 月 30 日 FS 必须 100% 收口</strong>，这是 TS 与开发在 10 月能否放量的唯一前提。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>第三项成果是说明书的编写，这里我用一条链来表达。</p>
+    <p>业务顾问写 FS，定义做什么；开发顾问把 FS 转成 TS，定义怎么做；开发团队再按 TS 编码。三段是一条链，前一段不完成，后一段没法开始。</p>
+    <p>目前 FS 50%、TS 5%。看起来 TS 很低，但这是正常的——因为 FS 还没清零。已确认的功能块已经同步启动开发，所以开发能到 40%。</p>
+    <p>要请领导支持一件事：<strong>9 月 30 日 FS 必须 100% 收口</strong>。这需要业务顾问和关键用户在接下来十天集中投入。</p>
+  </aside>
+</section>
+
+<!-- ==================== 19 成果四 ==================== -->
+<section class="slide" data-title="成果四 · 开发与单元测试推进" style="overflow:auto;justify-content:flex-start;padding-top:44px;padding-bottom:44px">
+  <p class="kicker">ACHIEVEMENT 04 &amp; 05</p>
+  <h2 class="h2" style="margin-bottom:8px">成果四 · 开发与单元测试同步推进</h2>
+  <p class="dim" style="margin-bottom:18px">ABAP / 接口 / 增强开发累计完成 40% · 单元测试累计完成 20% · 两条线互为输入与验证</p>
+
+  <div class="grid g2" style="gap:16px;margin-bottom:16px">
+    <div class="card" style="padding:20px 22px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <h4 style="font-size:16px !important;margin:0;color:#0B2D47">3.4 ABAP / 接口 / 增强开发</h4>
+        <span style="font-size:12px;font-weight:800;color:#fff;background:#0B2D47;padding:3px 10px;border-radius:20px">进行中</span>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:10px">
+        <span style="font-size:38px;font-weight:800;color:#0B2D47;line-height:1">40%</span>
+        <span style="font-size:12.5px;color:#5b7a91">计划 2026/08/17 – 11/30 · 106 天 · 开发团队</span>
+      </div>
+      <div class="maturity-bar" style="height:10px"><div style="width:40%"></div></div>
+      <div style="margin-top:14px;display:flex;flex-direction:column;gap:7px">
+        <div style="display:flex;gap:8px;font-size:12.5px;color:#0B2D47"><span style="color:#2374a3;font-weight:800">·</span><span>开发范围覆盖报表、功能增强、接口三类，逐模块列明细</span></div>
+        <div style="display:flex;gap:8px;font-size:12.5px;color:#0B2D47"><span style="color:#2374a3;font-weight:800">·</span><span>按《开发进度控制表》逐项跟踪，不依赖口头同步</span></div>
+        <div style="display:flex;gap:8px;font-size:12.5px;color:#0B2D47"><span style="color:#2374a3;font-weight:800">·</span><span>交付物：SAP 迁移及开发统计表 + 程序文档</span></div>
+      </div>
+    </div>
+
+    <div class="card" style="padding:20px 22px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <h4 style="font-size:16px !important;margin:0;color:#0B2D47">3.5 单元测试</h4>
+        <span style="font-size:12px;font-weight:800;color:#fff;background:#0B2D47;padding:3px 10px;border-radius:20px">进行中</span>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:10px">
+        <span style="font-size:38px;font-weight:800;color:#0B2D47;line-height:1">20%</span>
+        <span style="font-size:12.5px;color:#5b7a91">计划 2026/08/14 – 10/30 · 78 天 · 业务 / 开发顾问</span>
+      </div>
+      <div class="maturity-bar" style="height:10px"><div style="width:20%"></div></div>
+      <div style="margin-top:14px;display:flex;flex-direction:column;gap:7px">
+        <div style="display:flex;gap:8px;font-size:12.5px;color:#0B2D47"><span style="color:#2374a3;font-weight:800">·</span><span>配置清单逐项传输至 200 客户端，开发人员自测</span></div>
+        <div style="display:flex;gap:8px;font-size:12.5px;color:#0B2D47"><span style="color:#2374a3;font-weight:800">·</span><span>标准功能与定制开发功能分线测试，互不阻塞</span></div>
+        <div style="display:flex;gap:8px;font-size:12.5px;color:#0B2D47"><span style="color:#2374a3;font-weight:800">·</span><span>交付物：单元测试报告（逐轮留档）</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight-box" style="padding:14px 20px !important">
+    <p style="font-size:13.5px !important;margin:0;line-height:1.6"><strong>协同关系：</strong>开发与单元测试不是先后关系而是<strong>迭代关系</strong>——配置传输到 200 客户端后立即自测，测试暴露的问题当日回到开发修正。这种"小步快跑"的方式，使问题在单元测试阶段就被消化，不堆积到 11 月的集成测试。</p>
+  </div>
+  <aside class="notes">
+    <p>第四、第五项成果放在一起看，因为它们是互相咬合的。</p>
+    <p>开发 40%、单元测试 20%。这两个数字不是独立的——我们采取的是迭代方式：配置传到 200 客户端就能测，测出来的问题当天回到开发改。</p>
+    <p>这样做的价值在 11 月才能体现：如果问题都堆到集成测试才暴露，两轮集成测试根本没时间修。现在把小问题在单元测试阶段消化掉，集成测试才能专注于端到端流程的贯通。</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="W13 实际交付明细 · 09/14-09/18" style="overflow:auto;justify-content:flex-start;padding-top:28px;padding-bottom:22px">
+  <p class="kicker">WEEK 13 DELIVERY DETAIL</p>
+  <h2 class="h2" style="margin-bottom:2px;font-size:28px !important">W13 实际交付明细 · 09/14 – 09/18</h2>
+  <p class="dim" style="margin-bottom:8px;font-size:12.5px !important">数据来源：飞书《双周滚动工作计划》· ABAP 模块周计划 · PP&amp;QM / FICO&amp;GR / SD&amp;EWM / WM / MM&amp;MDG 五张模块表 · ABAP 模块表</p>
+
+  <div class="grid g2" style="gap:14px;margin-bottom:11px">
+    <div class="card" style="padding:13px 17px;overflow:visible">
+      <h4 style="font-size:14px !important;margin-bottom:5px;color:#0B2D47">CPI 接口搭建（本周在办）</h4>
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <div style="display:flex;gap:7px;font-size:12px;color:#0B2D47"><span style="color:#2374a3;font-weight:800">·</span><span>MES 接口 2 个 · 未结清 / 已结清凭证冲销</span></div>
+        <div style="display:flex;gap:7px;font-size:12px;color:#0B2D47"><span style="color:#2374a3;font-weight:800">·</span><span>费用凭证生成接口 3 个（预付付款 / 应付调整 / 保证金）</span></div>
+        <div style="display:flex;gap:7px;font-size:12px;color:#0B2D47"><span style="color:#2374a3;font-weight:800">·</span><span>财务共享应付清账 3 个（应收调整 / 退货冲收入 / 退货冲货款）</span></div>
+        <div style="display:flex;gap:7px;font-size:12px;color:#0B2D47"><span style="color:#2374a3;font-weight:800">·</span><span>MM&amp;MDG：新增 SRM、PLM-MDG 主数据接口 6 个</span></div>
+        <div style="display:flex;gap:7px;font-size:12px;color:#0B2D47"><span style="color:#2374a3;font-weight:800">·</span><span>合计 <strong>14 个接口</strong>在办，CPI 星状集成平台为核心通道</span></div>
+      </div>
+    </div>
+    <div class="card" style="padding:13px 17px;overflow:visible">
+      <h4 style="font-size:14px !important;margin-bottom:5px;color:#0B2D47">程序开发按模块推进（本周承接）</h4>
+      <table class="fsl-table" style="font-size:11.5px;line-height:1.3;margin:0">
+        <tr><th style="width:60px">模块</th><th style="width:82px">本周承接</th><th>进展</th></tr>
+        <tr><td>FICO</td><td>4 新增 / 1 变更</td><td>说明书编写中，月结进度看板类同步推进</td></tr>
+        <tr><td>PP</td><td>9 个</td><td>3 个开发中</td></tr>
+        <tr><td>MM</td><td>4 个</td><td>本周承接项全部开发完成</td></tr>
+        <tr><td>SD</td><td>11 份 FS</td><td>6 份完成、5 份开发中</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <h4 style="font-size:14px !important;margin:0 0 5px;color:#0B2D47">模块级本周完成度（计划表实际填报值）</h4>
+  <table class="fsl-table" style="font-size:11.5px;line-height:1.3;margin-bottom:10px">
+    <tr><th style="width:100px">模块</th><th style="width:150px">开发说明书</th><th style="width:160px">系统配置 / 测试</th><th>备注</th></tr>
+    <tr><td>SD &amp; EWM</td><td>接口 / 功能 90%，报表 40%</td><td>配置 90%，传输 200 自测 40%</td><td>部分配置有误，需优先更改配置项</td></tr>
+    <tr><td>MM &amp; MDG</td><td>新增报表 / 功能 FS 7 份</td><td>进行中</td><td>CPI 到 MDG 触发 CR 逻辑待验证</td></tr>
+    <tr><td>FICO &amp; GR</td><td>进行中，5 份说明书完成</td><td>配置表维护完成</td><td>客户行项目显示及清账 3 项 CPI 配置中</td></tr>
+    <tr><td>PP &amp; QM</td><td>第三轮测试完成</td><td>配置完成</td><td>MES / PLM 接口测试、迁移程序测试均完成</td></tr>
+  </table>
+
+  <div class="insight-box" style="padding:8px 18px !important">
+    <p style="font-size:12.5px !important;margin:0;line-height:1.5"><strong>读法提示：</strong>模块间节奏不一致属正常——PP / QM 已进入第三轮测试，SD / EWM 接口与功能说明书接近收口但报表类偏慢，财务模块因逻辑复杂整体排期最靠后。<strong>9 月 30 日是各模块共同的收口节点</strong>，差距需在两周内补齐。</p>
+  </div>
+  <aside class="notes">
+    <p>这一页是 W13 也就是 9 月 14 日到 18 日这一周的实际交付明细，数据直接来自飞书双周滚动计划表的各模块子表，可以逐条核对。</p>
+    <p>接口这边，本周在办的是 CPI 平台上的搭建工作：MES 两个接口、凭证冲销、费用凭证生成三个接口、财务共享应付清账三个接口，MM 和 MDG 这边新增了 SRM 和 PLM 到 MDG 的主数据接口六个，合计 14 个接口在办。</p>
+    <p>程序开发按模块看：FICO 本周收到 4 个新增 1 个变更；PP 收到 9 个、3 个在开发；MM 收到 4 个、全部开发完；SD 收到 11 份功能说明书、6 份完成 5 份在开发。</p>
+    <p>模块级完成度这张表请大家注意节奏差异：PP 和 QM 已经跑到第三轮测试，最快；SD 和 EWM 接口与功能说明书到 90%，但报表类只有 40%；财务模块因为合并报表、月结看板这类逻辑复杂，整体最靠后。9 月 30 日是共同收口点，差距要在两周内补齐。</p>
+  </aside>
+</section>
+
+<!-- ==================== 20 成果六 ==================== -->
+<section class="slide" data-title="成果六 · 集成架构与接口范围" style="overflow:auto;justify-content:flex-start;padding-top:44px;padding-bottom:44px">
+  <p class="kicker">ACHIEVEMENT 06</p>
+  <h2 class="h2" style="margin-bottom:8px">成果六 · 集成架构与接口范围定案</h2>
+  <p class="dim" style="margin-bottom:18px">SAP S/4HANA 作为核心业务与数据中枢，本期建设 12 个接口，CPI 星状集成平台正式启用</p>
+
+  <div class="grid g4" style="gap:12px;margin-bottom:18px">
+    <div class="card" style="padding:18px 20px;text-align:center"><div class="stat-big" style="font-size:40px">23</div><div class="stat-label" style="font-size:12.5px !important">个周边系统（21 在用 / 2 新建）</div></div>
+    <div class="card" style="padding:18px 20px;text-align:center;background:#0B2D47"><div class="stat-big" style="font-size:40px;color:#fff">12</div><div class="stat-label" style="font-size:12.5px !important;color:rgba(255,255,255,.72)">个本期建设接口（Y）</div></div>
+    <div class="card" style="padding:18px 20px;text-align:center"><div class="stat-big" style="font-size:40px;color:#5EA4CE">11</div><div class="stat-label" style="font-size:12.5px !important">个非本期范围（N）</div></div>
+    <div class="card" style="padding:18px 20px;text-align:center"><div class="stat-big" style="font-size:40px">1</div><div class="stat-label" style="font-size:12.5px !important">个核心平台（SAP S/4HANA）</div></div>
+  </div>
+
+  <div style="display:flex;gap:16px">
+    <div style="flex:1">
+      <div style="font-size:12.5px;font-weight:800;letter-spacing:.8px;color:#0B2D47;margin-bottom:8px">本期范围（Y）· 12 个</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        <span style="background:#fff;border:1px solid #b8d4e8;border-radius:4px;padding:5px 11px;font-size:12px;font-weight:600;color:#1a4f73">聚水潭</span>
+        <span style="background:#fff;border:1px solid #b8d4e8;border-radius:4px;padding:5px 11px;font-size:12px;font-weight:600;color:#1a4f73">PLM</span>
+        <span style="background:#fff;border:1px solid #b8d4e8;border-radius:4px;padding:5px 11px;font-size:12px;font-weight:600;color:#1a4f73">WMS-智能仓立库</span>
+        <span style="background:#fff;border:1px solid #b8d4e8;border-radius:4px;padding:5px 11px;font-size:12px;font-weight:600;color:#1a4f73">WMS-电子材料仓</span>
+        <span style="background:#fff;border:1px solid #b8d4e8;border-radius:4px;padding:5px 11px;font-size:12px;font-weight:600;color:#1a4f73">MES</span>
+        <span style="background:#fff;border:1px solid #b8d4e8;border-radius:4px;padding:5px 11px;font-size:12px;font-weight:600;color:#1a4f73">SRM</span>
+        <span style="background:#fff;border:1px solid #b8d4e8;border-radius:4px;padding:5px 11px;font-size:12px;font-weight:600;color:#1a4f73">商城</span>
+        <span style="background:#fff;border:1px solid #b8d4e8;border-radius:4px;padding:5px 11px;font-size:12px;font-weight:600;color:#1a4f73">OA</span>
+        <span style="background:#fff;border:1px solid #b8d4e8;border-radius:4px;padding:5px 11px;font-size:12px;font-weight:600;color:#1a4f73">防伪防串</span>
+        <span style="background:#fff;border:1px solid #b8d4e8;border-radius:4px;padding:5px 11px;font-size:12px;font-weight:600;color:#1a4f73">万鸿</span>
+        <span style="background:#fff;border:1px solid #b8d4e8;border-radius:4px;padding:5px 11px;font-size:12px;font-weight:600;color:#1a4f73">财务共享-用友</span>
+        <span style="background:#fff;border:1px solid #b8d4e8;border-radius:4px;padding:5px 11px;font-size:12px;font-weight:600;color:#1a4f73">合同管理</span>
+      </div>
+    </div>
+    <div style="flex:1">
+      <div style="font-size:12.5px;font-weight:800;letter-spacing:.8px;color:#5b7a91;margin-bottom:8px">非本期范围（N）· 11 个</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        <span style="background:#F2F7FB;border:1px solid #D6E8F2;border-radius:4px;padding:5px 11px;font-size:12px;font-weight:600;color:#5b7a91">领星 ERP</span>
+        <span style="background:#F2F7FB;border:1px solid #D6E8F2;border-radius:4px;padding:5px 11px;font-size:12px;font-weight:600;color:#5b7a91">CRM（含售后）</span>
+        <span style="background:#F2F7FB;border:1px solid #D6E8F2;border-radius:4px;padding:5px 11px;font-size:12px;font-weight:600;color:#5b7a91">国内电商报价系统</span>
+        <span style="background:#F2F7FB;border:1px solid #D6E8F2;border-radius:4px;padding:5px 11px;font-size:12px;font-weight:600;color:#5b7a91">HR1-广晟集团 HR</span>
+        <span style="background:#F2F7FB;border:1px solid #D6E8F2;border-radius:4px;padding:5px 11px;font-size:12px;font-weight:600;color:#5b7a91">HR2-i 人事系统</span>
+        <span style="background:#F2F7FB;border:1px solid #D6E8F2;border-radius:4px;padding:5px 11px;font-size:12px;font-weight:600;color:#5b7a91">HR3-星源系统</span>
+        <span style="background:#F2F7FB;border:1px solid #D6E8F2;border-radius:4px;padding:5px 11px;font-size:12px;font-weight:600;color:#5b7a91">档案管理系统</span>
+        <span style="background:#F2F7FB;border:1px solid #D6E8F2;border-radius:4px;padding:5px 11px;font-size:12px;font-weight:600;color:#5b7a91">司库-浪潮</span>
+        <span style="background:#F2F7FB;border:1px solid #D6E8F2;border-radius:4px;padding:5px 11px;font-size:12px;font-weight:600;color:#5b7a91">帆软 BI</span>
+        <span style="background:#F2F7FB;border:1px solid #D6E8F2;border-radius:4px;padding:5px 11px;font-size:12px;font-weight:600;color:#5b7a91">物流系统（新建）</span>
+        <span style="background:#F2F7FB;border:1px solid #D6E8F2;border-radius:4px;padding:5px 11px;font-size:12px;font-weight:600;color:#5b7a91">经销商进销存（新建）</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid g3" style="gap:12px;margin-top:16px">
+    <div class="card" style="padding:14px 18px;border-left:4px solid #0b2d47">
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.55"><strong>集成模式：</strong>采用 CPI 星状集成平台，所有周边系统通过统一中枢对接 SAP，杜绝点对点直连形成新的数据孤岛。</p>
+    </div>
+    <div class="card" style="padding:14px 18px;border-left:4px solid #2374a3">
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.55"><strong>回应管理层关切：</strong>权总提出的"22 个系统互连差、数据连不上"，本方案以 12 个本期接口直接回应。</p>
+    </div>
+    <div class="card" style="padding:14px 18px;border-left:4px solid #2374a3">
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.55"><strong>后续复核：</strong>非本期系统不等同于永久不集成，可结合二期蓝图与实施边界复核后纳入。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>第六项成果是集成架构和接口范围定案。</p>
+    <p>佛照 SAP 周边一共 23 个系统，21 个在用、2 个新建。本期确定建设 12 个接口，11 个不进本期。</p>
+    <p>这个判断直接回应了权总在 9 月 9 日会上提的第一个问题——"22 个系统互连差、数据连不上"。我们不是把 23 个系统全接进来，而是按业务必要性和实施窗口筛出 12 个，其余留给二期。</p>
+    <p>集成方式上采用 CPI 星状平台，所有系统通过统一中枢对接 SAP。这一点很重要——以前是点对点直连，接一个系统就多一条专线，最后形成一堆无法维护的蜘蛛网。星状结构从架构上杜绝了这种问题，也是我们设立 ARB 架构评审委员会的初衷。</p>
+  </aside>
+</section>
+
+<!-- ==================== 21 成果七 ==================== -->
+<section class="slide" data-title="成果七 · 主数据治理启动" style="overflow:auto;justify-content:flex-start;padding-top:44px;padding-bottom:44px">
+  <p class="kicker">ACHIEVEMENT 07</p>
+  <h2 class="h2" style="margin-bottom:8px">成果七 · 主数据治理全面启动</h2>
+  <p class="dim" style="margin-bottom:18px">响应"主数据治理为本期重中之重"——组织、标准、清洗三条线同步铺开</p>
+
+  <div class="grid g4" style="gap:12px;margin-bottom:16px">
+    <div class="card" style="padding:18px 20px">
+      <div class="stat-big" style="font-size:38px">87.96<span style="font-size:16px">万</span></div>
+      <div class="stat-label" style="font-size:12.5px !important">物料记录总数</div>
+      <div style="margin-top:10px;font-size:12px;color:#0b2d47;line-height:1.6">
+        有效 <strong>40.05 万</strong><br>
+        停用 / 无效 <strong>47.90 万（54.5%）</strong>
+      </div>
+    </div>
+    <div class="card" style="padding:18px 20px">
+      <div class="stat-big" style="font-size:38px">61.20<span style="font-size:16px">万</span></div>
+      <div class="stat-label" style="font-size:12.5px !important">BOM 规模（头）</div>
+      <div style="margin-top:10px;font-size:12px;color:#0b2d47;line-height:1.6">
+        明细行 <strong>435.80 万</strong><br>
+        二期规范化，一期搭架构
+      </div>
+    </div>
+    <div class="card" style="padding:18px 20px">
+      <div class="stat-big" style="font-size:38px">1600<span style="font-size:16px">+</span> &#8594; 600</div>
+      <div class="stat-label" style="font-size:12.5px !important">财务科目精简</div>
+      <div style="margin-top:10px;font-size:12px;color:#0b2d47;line-height:1.6">
+        大幅压缩科目层级<br>
+        核算口径同步统一
+      </div>
+    </div>
+    <div class="card" style="padding:18px 20px;background:#0B2D47;border:none">
+      <div class="stat-big" style="font-size:38px;color:#fff">11<span style="font-size:16px">位</span></div>
+      <div class="stat-label" style="font-size:12.5px !important;color:rgba(255,255,255,.72)">物料编码规范落地</div>
+      <div style="margin-top:10px;font-size:12px;color:rgba(255,255,255,.78);line-height:1.6">
+        首位标识 + 分 5 段<br>
+        根治一物多码
+      </div>
+    </div>
+  </div>
+
+  <div class="grid g3" style="gap:12px">
+    <div class="card" style="padding:16px 18px;border-top:3px solid #2374a3">
+      <h4 style="font-size:15px !important;margin-bottom:5px;color:#0B2D47">组织线 · DMO 成立</h4>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.6">数据管理办公室（DMO）已召开两次会议、进入常态运行，牵头起草主数据管理规范；数据治理委员会由修波总牵头。</p>
+    </div>
+    <div class="card" style="padding:16px 18px;border-top:3px solid #2374a3">
+      <h4 style="font-size:15px !important;margin-bottom:5px;color:#0B2D47">标准线 · 编码与科目</h4>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.6">11 位物料编码规范落地（首位标识、分 5 段）；财务科目由 1600+ 精简至 600 个，为核算与报表统一口径。</p>
+    </div>
+    <div class="card" style="padding:16px 18px;border-top:3px solid #0b2d47">
+      <h4 style="font-size:15px !important;margin-bottom:5px;color:#0B2D47">清洗线 · 三条并行</h4>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.6">物料、客户、供应商三类主数据清洗并行推进；9 月在测试系统做全量清洗预演，为 12 月正式迁移提前暴露风险。</p>
+    </div>
+  </div>
+
+  <div class="insight-box" style="margin-top:16px;padding:14px 20px !important">
+    <p style="font-size:13.5px !important;margin:0;line-height:1.6"><strong>管理判断：</strong>物料记录中 <strong>54.5% 为停用或无效</strong>，这就是权总所说"僵尸编码致命"的数据证据。治理思路是<strong>先定标准与责任、再做清洗迁移</strong>——规范不落地就开洗，等于把混乱从旧系统搬到新系统。</p>
+  </div>
+  <aside class="notes">
+    <p>第七项成果是主数据治理，这也是 9 月 9 日会上定的"本期重中之重"。</p>
+    <p>先看数据基线：物料记录 87.96 万条，其中有效的只有 40.05 万，<strong>停用或无效的占到 54.5%</strong>。这就是权总说的"僵尸编码致命"——一半以上的编码是死的，直接影响到 SKU 的准确性。</p>
+    <p>对应三件事已经启动：<strong>组织上</strong>成立数据管理办公室 DMO 并常态运行；<strong>标准上</strong>落地 11 位物料编码规范，财务科目从 1600 多个压到 600 个；<strong>清洗上</strong>物料、客户、供应商三条线并行，9 月在测试系统做全量预演。</p>
+    <p>治理思路是一句话：先定标准和责任，再做清洗迁移。规范没落地就开洗，等于把混乱从旧系统原样搬到新系统。</p>
+  </aside>
+</section>
+
+<!-- ==================== 22 分节：04 ==================== -->
+<section class="slide section-cover" data-title="第四部分 · 下阶段重点工作">
+  <div>
+    <div style="font-size:78px;font-weight:800;line-height:1;color:rgba(255,255,255,.22);letter-spacing:-2px">04</div>
+    <h2 class="h2" style="color:#fff;font-size:42px !important;margin:10px 0 12px">下阶段重点工作</h2>
+    <div style="width:64px;height:3px;background:#5EA4CE;margin:0 auto 16px"></div>
+    <p style="font-size:17px;color:rgba(255,255,255,.72)">9 月底工作目标 · 双周滚动计划 · 同步推进的重要工作</p>
+  </div>
+</section>
+
+<!-- ==================== 23 9月底目标 ==================== -->
+<section class="slide" data-title="9月底工作完成目标" style="overflow:auto;justify-content:flex-start;padding-top:44px;padding-bottom:44px">
+  <p class="kicker">SEPTEMBER TARGETS</p>
+  <h2 class="h2" style="margin-bottom:8px">9 月底工作完成目标</h2>
+  <p class="dim" style="margin-bottom:20px">四项核心工作项 · 9 月 30 日为收口节点 · 直接决定 10 月能否放量</p>
+
+  <div class="grid g4" style="gap:14px;margin-bottom:20px">
+    <div class="card" style="padding:22px 20px;border-top:4px solid #0B2D47;text-align:center">
+      <div style="font-size:40px;font-weight:800;color:#0B2D47;line-height:1.1">100<span style="font-size:18px">%</span></div>
+      <div style="font-size:14px;font-weight:700;color:#0B2D47;margin-top:10px">功能开发 FS 编写收尾</div>
+      <div style="font-size:12px;color:#5b7a91;margin-top:6px;line-height:1.5">当前 50%，需在 9 天内补齐剩余一半</div>
+    </div>
+    <div class="card" style="padding:22px 20px;border-top:4px solid #0B2D47;text-align:center">
+      <div style="font-size:40px;font-weight:800;color:#0B2D47;line-height:1.1">100<span style="font-size:18px">%</span></div>
+      <div style="font-size:14px;font-weight:700;color:#0B2D47;margin-top:10px">系统配置完成</div>
+      <div style="font-size:12px;color:#5b7a91;margin-top:6px;line-height:1.5">当前 95%，剩余为测试回溯项</div>
+    </div>
+    <div class="card" style="padding:22px 20px;border-top:4px solid #2374A3;text-align:center">
+      <div style="font-size:40px;font-weight:800;color:#2374a3;line-height:1.1">60<span style="font-size:18px">%</span></div>
+      <div style="font-size:14px;font-weight:700;color:#0B2D47;margin-top:10px">系统开发完成度冲刺</div>
+      <div style="font-size:12px;color:#5b7a91;margin-top:6px;line-height:1.5">当前 40%，9 月需净增 20 个百分点</div>
+    </div>
+    <div class="card" style="padding:22px 20px;border-top:4px solid #2374A3;text-align:center">
+      <div style="font-size:40px;font-weight:800;color:#2374a3;line-height:1.1">30<span style="font-size:18px">%</span></div>
+      <div style="font-size:14px;font-weight:700;color:#0B2D47;margin-top:10px">单元测试完成</div>
+      <div style="font-size:12px;color:#5b7a91;margin-top:6px;line-height:1.5">当前 20%，随配置收口同步提升</div>
+    </div>
+  </div>
+
+  <div class="grid g2" style="gap:14px">
+    <div class="card" style="padding:16px 20px;border-left:4px solid #0b2d47">
+      <h4 style="font-size:15px !important;margin-bottom:5px;color:#0B2D47">目标可达性判断</h4>
+      <p class="dim" style="font-size:13px !important;margin:0;line-height:1.6">配置与单元测试两项按现有节奏可达成；<strong>FS 从 50% 到 100% 是最大变量</strong>，需要业务顾问全时投入 + 关键用户随时确认，不能在评审环节形成等待。</p>
+    </div>
+    <div class="card" style="padding:16px 20px;border-left:4px solid #2374a3">
+      <h4 style="font-size:15px !important;margin-bottom:5px;color:#0B2D47">需要业务部门配合</h4>
+      <p class="dim" style="font-size:13px !important;margin:0;line-height:1.6">FS 编写过程中的功能口径确认、原型评审均需业务方当日响应；这是 9 月能否守住 100% 收口的<strong>决定性因素</strong>。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>9 月底要达成四项指标，全部是硬指标。</p>
+    <p>两项 100%：FS 功能说明书要清零、系统配置要完成。两项爬坡：开发从 40% 冲到 60%、单元测试从 20% 到 30%。</p>
+    <p>我要如实说一句：<strong>配置和单元测试按现在的节奏问题不大，真正吃紧的是 FS 从 50% 到 100%</strong>。因为 FS 需要业务方确认，如果评审环节要等，这 50% 在九天内补不齐。</p>
+    <p>所以在这里提一个请求：希望各部门在接下来十天里，对 FS 的功能口径确认和原型评审做到当日响应。</p>
+  </aside>
+</section>
+
+<!-- ==================== 24 双周滚动计划 ==================== -->
+<section class="slide" data-title="第 39 周工作计划 · 09/21-09/25" style="overflow:auto;justify-content:flex-start;padding-top:40px;padding-bottom:40px">
+  <p class="kicker">BI-WEEKLY ROLLING PLAN · WEEK 39</p>
+  <h2 class="h2" style="margin-bottom:6px;font-size:26px !important">第 39 周工作计划 · 09/21 – 09/25</h2>
+  <p class="dim" style="margin-bottom:14px">本周主线：配置收尾与开发爬坡并行，FS 编写同步推进 · 数据来源：飞书《双周滚动工作计划》第 16 周（0921-0927）</p>
+
+  <table class="fsl-table" style="font-size:13px;margin-bottom:16px">
+    <tr>
+      <th style="width:48px">序号</th>
+      <th style="width:150px">一级任务</th>
+      <th>任务内容</th>
+      <th style="width:78px">涉及模块</th>
+      <th style="width:118px">计划窗口</th>
+      <th style="width:56px">时长</th>
+      <th style="width:150px">交付件</th>
+    </tr>
+    <tr>
+      <td>1.1</td>
+      <td rowspan="3" style="font-weight:700;color:#0B2D47">定制迁移 / 新增开发<br><span style="font-weight:400;font-size:11.5px;color:#5b7a91">（各模块明确到具体开发任务名称）</span></td>
+      <td>接口逻辑梳理 / 调试 / 测试（见各模块清单），完成比例 <strong>60%</strong></td>
+      <td>各模块</td>
+      <td>09/21 – 09/25</td>
+      <td>5 天</td>
+      <td>接口开发说明书</td>
+    </tr>
+    <tr>
+      <td>1.2</td>
+      <td>功能 / 增强 / 报表逻辑梳理、开发说明书编写（见各模块清单），完成比例 <strong>60%</strong></td>
+      <td>各模块</td>
+      <td>09/21 – 09/25</td>
+      <td>5 天</td>
+      <td>开发说明书</td>
+    </tr>
+    <tr>
+      <td>1.3</td>
+      <td>功能 / 增强 / 报表迁移 / 开发 / 调试（见开发进度控制表），完成比例 <strong>60%</strong></td>
+      <td>ABAP</td>
+      <td>09/21 – 09/25</td>
+      <td>5 天</td>
+      <td>SAP 迁移及开发统计表</td>
+    </tr>
+    <tr>
+      <td>2.1</td>
+      <td rowspan="2" style="font-weight:700;color:#0B2D47">系统配置 / 测试</td>
+      <td>配置完善，完成比例 <strong>99%</strong></td>
+      <td>各模块</td>
+      <td>09/21 – 09/25</td>
+      <td>5 天</td>
+      <td>S4 配置清单</td>
+    </tr>
+    <tr>
+      <td>2.2</td>
+      <td>罗列具体子模块明细：配置清单更新，并传输到 200 进行单元测试，完成比例 <strong>99%</strong></td>
+      <td>各模块</td>
+      <td>09/21 – 09/25</td>
+      <td>5 天</td>
+      <td>单元测试报告</td>
+    </tr>
+  </table>
+
+  <div class="grid g3" style="gap:14px;margin-bottom:14px">
+    <div class="card" style="padding:15px 18px;border-left:4px solid #0b2d47">
+      <h4 style="font-size:14px !important;margin-bottom:4px;color:#0B2D47">开发线 · 冲刺 60%</h4>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.55">接口、功能、增强、报表四类任务同步爬坡，按《开发进度控制表》逐项跟踪。</p>
+    </div>
+    <div class="card" style="padding:15px 18px;border-left:4px solid #2374a3">
+      <h4 style="font-size:14px !important;margin-bottom:4px;color:#0B2D47">配置线 · 收口 99%</h4>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.55">剩余 1% 为测试回溯项，配置清单更新后即传输 200 客户端。</p>
+    </div>
+    <div class="card" style="padding:15px 18px;border-left:4px solid #2374a3">
+      <h4 style="font-size:14px !important;margin-bottom:4px;color:#0B2D47">说明书写 · 9/30 收口</h4>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.55">PP 09-25、SD / WM 09-30、财务延至 10 月，为本周重点盯办项。</p>
+    </div>
+  </div>
+
+  <div class="insight-box" style="padding:13px 20px !important">
+    <p style="font-size:13.5px !important;margin:0;line-height:1.6"><strong>本周盯办重点：</strong>开发从 40% 到 60% 是本周最大增量，需要业务顾问在 FS 确认上按日响应，避免开发等待口径。<strong>配置与单元测试两项必须在本周基本收口</strong>，为 10 月接口与迁移测试腾出窗口。</p>
+  </div>
+  <aside class="notes">
+    <p>先看第 39 周，也就是本周，9 月 21 日到 25 日。</p>
+    <p>两条主线：定制迁移与新增开发、系统配置与测试。接口、功能、增强、报表四类开发任务本周都要达到 60% 的完成比例，配置达到 99% 并传输到 200 客户端做单元测试。</p>
+    <p>这里我要强调盯办重点：开发从 40% 到 60%，是本周最大的一块增量。能不能拿到，取决于业务顾问在 FS 确认上能不能按日响应——开发最怕的是等口径。另外配置和测试必须在本周基本收口，10 月才能腾出手做接口和迁移测试。</p>
+  </aside>
+</section>
+<!-- ==================== 25 第40周计划 ==================== -->
+<section class="slide" data-title="第 40 周工作计划 · 09/28-10/04" style="overflow:auto;justify-content:flex-start;padding-top:40px;padding-bottom:40px">
+  <p class="kicker">BI-WEEKLY ROLLING PLAN · WEEK 40</p>
+  <h2 class="h2" style="margin-bottom:6px;font-size:26px !important">第 40 周工作计划 · 09/28 – 10/04</h2>
+  <p class="dim" style="margin-bottom:14px">国庆假期影响：有效工作日仅 <strong>09/28 – 09/30 三天</strong>，全部任务压缩在这三天完成</p>
+
+  <div style="background:#EBF5FB;border-left:4px solid #0B2D47;border-radius:0 6px 6px 0;padding:12px 18px;margin-bottom:14px">
+    <p style="font-size:13px !important;margin:0;line-height:1.6;color:#0B2D47"><strong>节前收口要求：</strong>开发与单元测试两项须在 9 月 30 日前形成可交付结论，节后 10 月直接进入接口与迁移测试的密集期。</p>
+  </div>
+
+  <table class="fsl-table" style="font-size:13px;margin-bottom:16px">
+    <tr>
+      <th style="width:48px">序号</th>
+      <th style="width:150px">一级任务</th>
+      <th>任务内容</th>
+      <th style="width:78px">涉及模块</th>
+      <th style="width:118px">计划窗口</th>
+      <th style="width:56px">时长</th>
+      <th style="width:150px">交付件</th>
+    </tr>
+    <tr>
+      <td>1.1</td>
+      <td rowspan="3" style="font-weight:700;color:#0B2D47">定制迁移 / 新增开发<br><span style="font-weight:400;font-size:11.5px;color:#5b7a91">（各模块明确到具体开发任务名称）</span></td>
+      <td>接口逻辑梳理 / 调试 / 测试</td>
+      <td>各模块</td>
+      <td>09/28 – 09/30</td>
+      <td>3 天</td>
+      <td>接口开发说明书</td>
+    </tr>
+    <tr>
+      <td>1.2</td>
+      <td>功能 / 增强 / 报表逻辑梳理、开发说明书编写</td>
+      <td>各模块</td>
+      <td>09/28 – 09/30</td>
+      <td>3 天</td>
+      <td>开发说明书</td>
+    </tr>
+    <tr>
+      <td>1.3</td>
+      <td>接口 / 功能 / 增强 / 报表迁移 / 开发 / 测试</td>
+      <td>ABAP</td>
+      <td>09/28 – 09/30</td>
+      <td>3 天</td>
+      <td>SAP 迁移及开发统计表</td>
+    </tr>
+    <tr>
+      <td>2.1</td>
+      <td rowspan="2" style="font-weight:700;color:#0B2D47">单元测试</td>
+      <td>标准功能测试</td>
+      <td>各模块</td>
+      <td>09/28 – 09/30</td>
+      <td>3 天</td>
+      <td>单元测试报告</td>
+    </tr>
+    <tr>
+      <td>2.2</td>
+      <td>定制开发功能测试</td>
+      <td>各模块</td>
+      <td>09/28 – 09/30</td>
+      <td>3 天</td>
+      <td>单元测试报告</td>
+    </tr>
+  </table>
+
+  <div class="grid g2" style="gap:14px">
+    <div class="card" style="padding:15px 18px;border-left:4px solid #0b2d47">
+      <h4 style="font-size:14px !important;margin-bottom:4px;color:#0B2D47">10 月 · 接口与迁移测试</h4>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.55">按 09-17 周会决议，10 月底前跑通主要影响测试的接口并完成迁移测试。</p>
+    </div>
+    <div class="card" style="padding:15px 18px;border-left:4px solid #2374a3">
+      <h4 style="font-size:14px !important;margin-bottom:4px;color:#0B2D47">11 月 · 集成测试</h4>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.55">两轮集成测试，端到端流程贯通；测试采用"一对一"并三方签字确认。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>再看第 40 周，9 月 28 日到 10 月 4 日。</p>
+    <p>这里要特别提醒各位：10 月 1 日进入国庆假期，所以这一周的有效工作日只有 9 月 28 到 30 日三天，所有任务都压在这三天完成。节前收口，节后进入 10 月的新一轮。</p>
+    <p>节前的收口要求是：开发和单元测试两项要在 9 月 30 日前形成可交付结论。节后 10 月马上就是接口与迁移测试的密集期，接着 11 月两轮集成测试。所以 9 月 30 日这个节点，守不住就会一路往后推。</p>
+  </aside>
+</section>
+
+<!-- ==================== 25 同步进行的重要工作 ==================== -->
+<section class="slide" data-title="同步进行的重要工作" style="overflow:auto;justify-content:flex-start;padding-top:44px;padding-bottom:44px">
+  <p class="kicker">PARALLEL WORKSTREAMS</p>
+  <h2 class="h2" style="margin-bottom:8px">同步进行的重要工作内容</h2>
+  <p class="dim" style="margin-bottom:20px">三条长线并行推进 · 不占关键路径，但决定上线质量与后期运维成本</p>
+
+  <div class="grid g3" style="gap:16px">
+    <div class="card" style="padding:22px 22px;border-top:4px solid #0B2D47">
+      <h4 style="font-size:17px !important;margin-bottom:10px;color:#0B2D47">数据治理</h4>
+      <p class="dim" style="font-size:13px !important;line-height:1.65;margin-bottom:12px">数据管理办公室（DMO）常态运行，牵头起草主数据管理规范，明确数据 Owner 与归口审批责任。</p>
+      <div style="display:flex;flex-direction:column;gap:7px">
+        <div style="display:flex;gap:8px;font-size:12.5px;color:#0B2D47"><span style="color:#2374a3;font-weight:800">·</span><span>主数据管理规范编写与发布</span></div>
+        <div style="display:flex;gap:8px;font-size:12.5px;color:#0B2D47"><span style="color:#2374a3;font-weight:800">·</span><span>数据 Owner 与责任矩阵确认到岗</span></div>
+        <div style="display:flex;gap:8px;font-size:12.5px;color:#0B2D47"><span style="color:#2374a3;font-weight:800">·</span><span>清洗与迁移方案与实施计划对齐</span></div>
+      </div>
+    </div>
+    <div class="card" style="padding:22px 22px;border-top:4px solid #0B2D47">
+      <h4 style="font-size:17px !important;margin-bottom:10px;color:#0B2D47">权限设计</h4>
+      <p class="dim" style="font-size:13px !important;line-height:1.65;margin-bottom:12px">基于佛照权限管理和自开发报表的权限缺陷，<strong>需要及早开展权限设计</strong>，不能等到 11 月才动手。</p>
+      <div style="display:flex;flex-direction:column;gap:7px">
+        <div style="display:flex;gap:8px;font-size:12.5px;color:#0B2D47"><span style="color:#2374a3;font-weight:800">·</span><span>角色与权限对象设计提前启动</span></div>
+        <div style="display:flex;gap:8px;font-size:12.5px;color:#0B2D47"><span style="color:#2374a3;font-weight:800">·</span><span>岗位权限矩阵梳理</span></div>
+        <div style="display:flex;gap:8px;font-size:12.5px;color:#0B2D47"><span style="color:#2374a3;font-weight:800">·</span><span>自开发报表权限口径同步定义</span></div>
+      </div>
+    </div>
+    <div class="card" style="padding:22px 22px;border-top:4px solid #0B2D47">
+      <h4 style="font-size:17px !important;margin-bottom:10px;color:#0B2D47">主数据清洗</h4>
+      <p class="dim" style="font-size:13px !important;line-height:1.65;margin-bottom:12px">物料、客户、供应商三条清洗线并行推进，9 月在测试系统完成全量清洗预演。</p>
+      <div style="display:flex;flex-direction:column;gap:7px">
+        <div style="display:flex;gap:8px;font-size:12.5px;color:#0B2D47"><span style="color:#2374a3;font-weight:800">·</span><span><strong>物料主数据清洗</strong>（87.96 万条，近半冗余）</span></div>
+        <div style="display:flex;gap:8px;font-size:12.5px;color:#0B2D47"><span style="color:#2374a3;font-weight:800">·</span><span><strong>客户数据清洗</strong></span></div>
+        <div style="display:flex;gap:8px;font-size:12.5px;color:#0B2D47"><span style="color:#2374a3;font-weight:800">·</span><span><strong>供应商数据清洗</strong></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight-box" style="margin-top:18px;padding:14px 20px !important">
+    <p style="font-size:13.5px !important;margin:0;line-height:1.6"><strong>为什么这三件事必须现在做：</strong>它们都不在关键路径上，所以最容易被挤到后期；但一旦推到 11–12 月，就会与集成测试、数据迁移、上线切换正面相撞。<strong>提前启动、并行推进</strong>，是把风险从"集中爆发"改成"分散消化"的唯一办法。</p>
+  </div>
+  <aside class="notes">
+    <p>除了两条主线的配置和开发，还有三件重要工作在同步推进。</p>
+    <p><strong>数据治理</strong>——数据管理办公室已经常态运行，正在起草主数据管理规范，把数据 Owner 和归口审批的责任落到人。</p>
+    <p><strong>权限设计</strong>——这一项我要特别说明。佛照原有的权限管理和自开发报表存在权限缺陷，如果等到 11 月按计划表才启动，测试时间会非常紧张。所以我们已经在推动提前开展角色和权限对象的设计。</p>
+    <p><strong>主数据清洗</strong>——物料、客户、供应商三条线并行，9 月在测试系统做全量预演。</p>
+    <p>这三件事共同的特点是：不在关键路径上，所以最容易被推到后面；但一旦推到 11、12 月，就会和集成测试、数据迁移、上线切换撞在一起。提前做，是把风险分散消化。</p>
+  </aside>
+</section>
+
+<!-- ==================== 26 上线准备阶段重点工作 ==================== -->
+<section class="slide" data-title="上线准备阶段重点工作" style="overflow:auto;justify-content:flex-start;padding-top:44px;padding-bottom:44px">
+  <p class="kicker">FINAL PREPARATION</p>
+  <h2 class="h2" style="margin-bottom:8px">上线准备阶段重点工作内容</h2>
+  <p class="dim" style="margin-bottom:20px">Final Preparation · 2026/12/01 – 12/31 · 五项重点任务，为 2027-01-01 切换做最后准备</p>
+
+  <div style="display:flex;gap:12px;align-items:stretch">
+    <div class="card" style="flex:1;padding:20px 18px;display:flex;flex-direction:column">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;background:#0B2D47;color:#fff;font-size:13px;font-weight:800;flex-shrink:0">1</span>
+        <h4 style="font-size:15px !important;margin:0;color:#0B2D47">最终用户培训</h4>
+      </div>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.6;flex:1">由顾问指导，关键用户编制标准化操作手册，并对终端用户开展系统操作培训，确保全员熟练掌握系统功能与业务流程操作规范。</p>
+    </div>
+    <div class="card" style="flex:1;padding:20px 18px;display:flex;flex-direction:column">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;background:#1A4F73;color:#fff;font-size:13px;font-weight:800;flex-shrink:0">2</span>
+        <h4 style="font-size:15px !important;margin:0;color:#0B2D47">权限设计与测试</h4>
+      </div>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.6;flex:1">设计角色与权限对象，建立岗位权限矩阵，完成全场景权限配置与功能访问测试，保障系统数据安全与管控。</p>
+    </div>
+    <div class="card" style="flex:1;padding:20px 18px;display:flex;flex-direction:column">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;background:#2374A3;color:#fff;font-size:13px;font-weight:800;flex-shrink:0">3</span>
+        <h4 style="font-size:15px !important;margin:0;color:#0B2D47">数据迁移</h4>
+      </div>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.6;flex:1">执行多轮数据迁移演练，完成历史数据抽取、清洗、转换与导入，严格校验数据准确性与完整性，确保无缝迁移。</p>
+    </div>
+    <div class="card" style="flex:1;padding:20px 18px;display:flex;flex-direction:column">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;background:#5EA4CE;color:#fff;font-size:13px;font-weight:800;flex-shrink:0">4</span>
+        <h4 style="font-size:15px !important;margin:0;color:#0B2D47">上线方案编写</h4>
+      </div>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.6;flex:1">制定一次性切换上线策略，完善系统回滚预案，明确上线步骤、应急处理流程及关键时间节点，确保可控。</p>
+    </div>
+    <div class="card" style="flex:1;padding:20px 18px;display:flex;flex-direction:column;background:#EBF5FB;border-color:#C7E2F2">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;background:#0B2D47;color:#fff;font-size:13px;font-weight:800;flex-shrink:0">5</span>
+        <h4 style="font-size:15px !important;margin:0;color:#0B2D47">上线评审与保障</h4>
+      </div>
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.6;flex:1">组建上线支持团队并落实值班计划，召开上线前评审会议，完成最终验收，正式签发系统上线批准文件。</p>
+    </div>
+  </div>
+
+  <div class="insight-box" style="margin-top:18px;padding:14px 20px !important">
+    <p style="font-size:13.5px !important;margin:0;line-height:1.6"><strong>时间关系提示：</strong>上线准备阶段仅 31 天，却要同时完成培训、权限、迁移、方案与评审五件事，且与实现阶段的配置冻结（12/15）、数据导入预演（12/06）交叉。<strong>培训教材与权限设计须在 11 月提前启动准备</strong>，否则 12 月将出现资源挤兑。</p>
+  </div>
+  <aside class="notes">
+    <p>这一页提前把上线准备阶段的五项重点工作摆出来，目的是让各部门提前有心理准备。</p>
+    <p>五项：最终用户培训、权限设计与测试、数据迁移、上线方案编写、上线评审与保障。</p>
+    <p>要强调的是时间关系——上线准备阶段只有 31 天，但要做五件事，而且和配置冻结、数据导入预演这些实现阶段的收尾工作交叉。所以培训教材编制和权限设计这两项，必须在 11 月就提前启动，不能等到 12 月。</p>
+    <p>这一页今天只需要各位知道节奏，具体展开会在 11 月底的汇报里详细讲。</p>
+  </aside>
+</section>
+
+<!-- ==================== 27 分节：05 ==================== -->
+<section class="slide section-cover" data-title="第五部分 · 需领导关注与决策事项">
+  <div>
+    <div style="font-size:78px;font-weight:800;line-height:1;color:rgba(255,255,255,.22);letter-spacing:-2px">05</div>
+    <h2 class="h2" style="color:#fff;font-size:42px !important;margin:10px 0 12px">需领导关注与决策事项</h2>
+    <div style="width:64px;height:3px;background:#5EA4CE;margin:0 auto 16px"></div>
+    <p style="font-size:17px;color:rgba(255,255,255,.72)">两项需公司层面拍板的事项 · 建议本次汇报形成明确结论</p>
+  </div>
+</section>
+
+<!-- ==================== 28 需决策事项 ==================== -->
+<section class="slide" data-title="需要领导关注和决策的重要事项" style="overflow:auto;justify-content:flex-start;padding-top:44px;padding-bottom:44px">
+  <p class="kicker">DECISIONS REQUIRED</p>
+  <h2 class="h2" style="margin-bottom:8px">需要领导关注和决策的重要事项</h2>
+  <p class="dim" style="margin-bottom:20px">两项 · 均与仓储系统走向相关 · 建议本次汇报形成明确结论</p>
+
+  <div style="display:flex;gap:16px;align-items:stretch">
+    <div style="flex:1;background:#fff;border:1px solid #D6E8F2;border-top:4px solid #0B2D47;border-radius:8px;padding:22px 24px;display:flex;flex-direction:column">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:6px;background:#0B2D47;color:#fff;font-size:14px;font-weight:800;flex-shrink:0">1</span>
+        <h4 style="font-size:17px !important;margin:0;color:#0B2D47">联通 WMS 仓提前处置</h4>
+        <span style="font-size:11.5px;font-weight:800;color:#fff;background:#0B2D47;padding:3px 10px;border-radius:20px;margin-left:auto;flex-shrink:0">建议 11 月完成</span>
+      </div>
+      <p class="dim" style="font-size:13.5px !important;line-height:1.7;margin:0 0 14px">如果商务条件不具备继续使用的条件，则需要对现有系统提前下线，重新布局现场作业人员，重新启用 WM 仓的单据和流程，让现场管理提前一些回归过去的管理模式。</p>
+      <div style="background:#EBF5FB;border-left:4px solid #0B2D47;border-radius:0 6px 6px 0;padding:12px 16px;margin-top:auto">
+        <p style="font-size:13px !important;margin:0;line-height:1.65;color:#0B2D47"><strong>建议：</strong>在 <strong>11 月份完成</strong>切换，不要与 SAP 上线同时切换——两个变更叠加会引发现场混乱，届时既没有旧的作业习惯可依赖，也没有充足时间验证新的 WM 流程。</p>
+        <p style="font-size:12.5px !important;margin:10px 0 0;line-height:1.6;color:#0B2D47"><strong>09-17 周会已定备用方案：</strong>若 WMS 未能按期上线，仓库<strong>沿用 SAP 收发料逻辑</strong>保证业务连续性；提前与仓库负责人沟通人员配置、培训及应急准备。</p>
+      </div>
+    </div>
+
+    <div style="flex:1;background:#fff;border:1px solid #D6E8F2;border-top:4px solid #2374A3;border-radius:8px;padding:22px 24px;display:flex;flex-direction:column">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:6px;background:#2374A3;color:#fff;font-size:14px;font-weight:800;flex-shrink:0">2</span>
+        <h4 style="font-size:17px !important;margin:0;color:#0B2D47">提前布局二期项目</h4>
+        <span style="font-size:11.5px;font-weight:800;color:#fff;background:#2374A3;padding:3px 10px;border-radius:20px;margin-left:auto;flex-shrink:0">二期范围</span>
+      </div>
+      <p class="dim" style="font-size:13.5px !important;line-height:1.7;margin:0 0 14px">提前布局二期仓储功能在 SAP EWM 环境下的开发，达到甚至高于现联通 WMS 仓的功能水平。</p>
+      <div style="background:#EBF5FB;border-left:4px solid #2374A3;border-radius:0 6px 6px 0;padding:12px 16px;margin-top:auto">
+        <p style="font-size:13px !important;margin:0;line-height:1.65;color:#0B2D47"><strong>建议：</strong>将 EWM 仓储功能纳入二期规划并提前启动方案设计，避免一期 WM 上线后长期停留在"降级运行"状态，也避免二次切换带来的重复投入。</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:18px;background:linear-gradient(150deg,#0B2D47,#1A4F73);border-radius:8px;padding:18px 24px;color:#fff">
+    <div style="font-size:12.5px;font-weight:800;letter-spacing:1px;color:#5EA4CE;margin-bottom:8px">两项决策的内在关联</div>
+    <p style="font-size:14px;line-height:1.7;margin:0;color:rgba(255,255,255,.88)">联通 WMS 仓的去留，决定了一期上线时现场用什么工具；EWM 二期的启动时点，决定了这段时间要持续多久。<strong>两项决策必须一起考虑，单独看任何一项都无法形成完整方案。</strong>项目组的建议是：一期用 WM 保证上线节点，二期用 EWM 补齐仓储能力，中间的空窗期越短越好。</p>
+  </div>
+
+  <div class="grid g3" style="gap:12px;margin-top:16px">
+    <div class="card" style="padding:14px 18px;border-left:4px solid #0b2d47">
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.55"><strong>决策请求一：</strong>是否同意联通 WMS 仓在 11 月提前处置，并明确商务谈判的最终结论时点。</p>
+    </div>
+    <div class="card" style="padding:14px 18px;border-left:4px solid #2374a3">
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.55"><strong>决策请求二：</strong>是否同意将 EWM 仓储功能纳入二期规划并提前启动方案设计。</p>
+    </div>
+    <div class="card" style="padding:14px 18px;border-left:4px solid #2374a3">
+      <p class="dim" style="font-size:12.5px !important;margin:0;line-height:1.55"><strong>配套支持：</strong>关键用户在 10–11 月的投入需纳入部门考核，保障测试脚本与集成测试按期完成。</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>最后两项需要领导拍板的事项，都和仓储系统有关。</p>
+    <p><strong>第一项是联通 WMS 仓的提前处置。</strong>现在的状态是：谈判僵持，供应商起诉的风险还没有解除。如果最终商务条件不具备继续使用的条件，那我们就要对现有系统提前下线，重新布局现场作业人员，把 WM 仓的单据和流程重新启用起来，让现场管理提前回归过去的管理模式。</p>
+    <p>我在这里给一个明确的建议：<strong>这件事在 11 月完成，不要跟 SAP 上线同时切换。</strong>两个变更叠在一起，现场既没有旧的作业习惯可以依赖，也没有足够时间验证新的 WM 流程，会引发混乱。</p>
+    <p><strong>第二项是提前布局二期。</strong>建议把 EWM 环境下的仓储功能开发纳入二期，做到达到甚至高于现在联通 WMS 仓的水平，避免一期上线后长期"降级运行"。</p>
+    <p>这两项其实是一件事的两面：WMS 仓的去留决定一期用什么工具，EWM 二期的启动时点决定这段过渡期有多长。所以建议一起考虑。</p>
+  </aside>
+</section>
+
+<!-- ==================== 29 结语 ==================== -->
+<section class="slide" data-title="结语与行动请求">
+  <div style="height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 60px">
+    <p class="kicker" style="margin-bottom:14px">SUMMARY &amp; NEXT STEPS</p>
+    <h2 class="h2" style="margin-bottom:16px">蓝图已定，实现正酣，102 天打一场有准备的仗</h2>
+    <div style="width:72px;height:3px;background:#2374a3;margin-bottom:26px"></div>
+
+    <div class="grid g3" style="gap:16px;width:100%;max-width:1080px;margin-bottom:26px">
+      <div class="card" style="padding:20px 22px;text-align:left">
+        <div style="font-size:11.5px;font-weight:800;letter-spacing:1px;color:#5b7a91;margin-bottom:8px">已经做到的</div>
+        <p class="dim" style="font-size:13.5px !important;margin:0;line-height:1.65">蓝图 08-31 签署、09-09 公司级确认；配置基线 95%、开发 40%、单元测试 20%；接口范围定案 12 个；主数据治理全面启动。<br>W13 一周交付 CPI 接口 14 个在办、程序开发 28 项承接。</p>
+      </div>
+      <div class="card" style="padding:20px 22px;text-align:left">
+        <div style="font-size:11.5px;font-weight:800;letter-spacing:1px;color:#5b7a91;margin-bottom:8px">接下来要守住的</div>
+        <p class="dim" style="font-size:13.5px !important;margin:0;line-height:1.65">09-30 配置基线 100%、FS 说明书 100%（PP 09-25、财务延至 10 月）；10 月接口与迁移测试；11 月集成测试；12-15 配置冻结；2027-01-01 正式切换上线。</p>
+      </div>
+      <div class="card" style="padding:20px 22px;text-align:left;background:#0B2D47;border:none">
+        <div style="font-size:11.5px;font-weight:800;letter-spacing:1px;color:#5EA4CE;margin-bottom:8px">需要一起做的事</div>
+        <p style="font-size:13.5px !important;margin:0;line-height:1.65;color:rgba(255,255,255,.85)">关键用户按日响应 FS 确认与原型评审；主数据清洗按期推进；WMS 仓与 EWM 二期两项决策尽快明确。</p>
+      </div>
+    </div>
+
+    <div style="background:#EBF5FB;border:1px solid #C7E2F2;border-radius:10px;padding:22px 40px;max-width:900px">
+      <div style="font-size:13px;font-weight:800;letter-spacing:1px;color:#2374a3;margin-bottom:8px">行动请求</div>
+      <p style="font-size:18px;font-weight:700;color:#0B2D47;line-height:1.6;margin:0">请审议本次阶段性汇报，并对<br>联通 WMS 仓处置与 EWM 二期布局<br>两项事项作出决策</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>最后做个总结。</p>
+    <p>今天汇报的是系统实现阶段的第一次阶段性汇报。已经做到的：蓝图签署和公司级确认完成，配置基线到 95%，开发到 40%，单元测试启动到 20%，接口范围定案 12 个，主数据治理全面铺开。</p>
+    <p>接下来要守住的节点：9 月 30 日配置基线和 FS 说明书双清零，11 月两轮集成测试，12 月 15 日配置冻结，2027 年 1 月 1 日正式切换。</p>
+    <p>需要大家一起做的是三件事：关键用户按日响应、主数据清洗按期推进、以及今天这两项决策尽快明确。</p>
+    <p>请各位领导审议。谢谢大家。</p>
+  </aside>
+</section>
+
+
+</div>
+<script>
+/* ===== Agenda slide: auto-build slide list ===== */
+(function(){
+  var list = document.getElementById('agendaList');
+  if(!list) return;
+  var slides = document.querySelectorAll('.deck > section.slide');
+  slides.forEach(function(s, i){
+    var title = s.getAttribute('data-title') || '';
+    if(!title) return;
+    var item = document.createElement('div');
+    item.className = 'ag-item';
+    item.innerHTML = '<span class="idx">' + (i+1) + '</span><span style="overflow:hidden;text-overflow:ellipsis">' + title + '</span>';
+    item.addEventListener('click', function(){
+      window.location.hash = '#/' + (i+1);
+    });
+    list.appendChild(item);
+  });
+})();
+</script>
+
+<div class="deck-footer" id="deckFooter" data-page-node-id="YgsPRaaB77Ois1E29HCTzP"><div class="df-left" data-page-node-id="cPLPgfAmlbupCZNnj4hJ7g"><img src="data:image/png;base64,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" style="height:100%;width:auto;object-fit:contain;display:block" alt="FSL 佛山照明" data-page-node-id="oCKAdBhi9gqNrnYbLl3aKi"></div><div class="df-center" style="display:flex;align-items:center;gap:8px;flex:1;margin:0 clamp(.5rem,2vw,1.5rem)" data-page-node-id="QdJrHIAv0oSIfj9TZbGltY"><button class="nav-btn" id="prevBtn" title="上一页" data-page-node-id="HEAOJgFVVEFfct7mGfBmUK">&#9664;</button><div class="prog-track" id="progTrack" data-page-node-id="djid6AQ0IF95NcgTTHqYZi"><div class="prog-fill" id="progFill" style="width:0%" data-page-node-id="L2BJkLiBvDTLFdAAbREeIT"></div><div class="prog-thumb" id="progThumb" style="left:0%" data-page-node-id="0nMQ4lTm9Yb1JHb2pStU01"></div></div><button class="pg-btn" id="pgBtn" data-page-node-id="snz7dsbmdNKzpYuJVWTkKH" >1 / N</button><button class="nav-btn" id="nextBtn" title="下一页" data-page-node-id="XRvO76QeQFULyx64PRgg11">&#9654;</button></div><div class="df-right" data-page-node-id="SxwvKgpG2GVXQCvrVnJY7E"><img src="data:image/png;base64,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" style="height:100%;width:auto;max-height:22px;object-fit:contain;display:block" alt="Atos" data-page-node-id="auBrxTUYpQkofWNQiUYg2N"></div></div>
+
+<script>
+/* ===== Footer page-number update + S-key block ===== */
+(function(){
+  const slides = document.querySelectorAll('.deck > section.slide');
+  const total = slides.length;
+  const btn = document.getElementById('pgBtn');
+  const fill = document.getElementById('progFill');
+  const thumb = document.getElementById('progThumb');
+
+  function updateFooter(idx){
+    if(btn) btn.textContent = (idx+1) + ' / ' + total;
+    const pct = total > 1 ? ((idx)/(total-1)*100) : 0;
+    if(fill) fill.style.width = pct + '%';
+    if(thumb) thumb.style.left = pct + '%';
+    // Sync jump-panel active item
+    document.querySelectorAll('.jump-item').forEach(function(el,i){ el.classList.toggle('active', i===idx); });
+  }
+
+  // Observe which slide is active (html-ppt uses class "is-active")
+  const deck = document.querySelector('.deck');
+  if(deck){
+    const mo = new MutationObserver(function(){
+      const active = deck.querySelector('section.is-active');
+      if(active){
+        const idx = Array.from(slides).indexOf(active);
+        if(idx >= 0) updateFooter(idx);
+      } else {
+        // Fallback: look for slide without is-prev
+        let bestIdx = 0;
+        slides.forEach((s,i)=>{ if(!s.classList.contains('is-prev')) bestIdx = i; });
+        updateFooter(bestIdx);
+      }
+    });
+    slides.forEach(s => mo.observe(s, {attributes:true, attributeFilter:['class','style']}));
+  }
+
+  // Also listen to custom events that html-ppt runtime may fire
+  document.addEventListener('slidechanged', function(e){ updateFooter(e.detail ? e.detail.index : 0); });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 's' || e.key === 'S'){
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }, true);
+
+  // Initial call after a short delay so runtime has initialized
+  setTimeout(function(){
+    const active = document.querySelector('.deck > section.active') || document.querySelector('.deck > section[aria-current="true"]');
+    let idx = 0;
+    if(active) idx = Array.from(slides).indexOf(active);
+    updateFooter(idx);
+  }, 300);
+})();
+
+/* Prev / Next buttons + pgBtn hash navigation */
+(function(){
+  var prevBtn = document.getElementById('prevBtn');
+  var nextBtn = document.getElementById('nextBtn');
+  var slides = document.querySelectorAll('.deck > section.slide');
+  function currentIdx(){
+    var active = document.querySelector('.deck > section.is-active');
+    return active ? Array.from(slides).indexOf(active) : 0;
+  }
+  function goto(n){
+    n = Math.max(0, Math.min(slides.length - 1, n));
+    window.location.hash = '#/' + (n + 1);
+  }
+  if(prevBtn) prevBtn.addEventListener('click', function(e){ e.stopPropagation(); goto(currentIdx() - 1); });
+  if(nextBtn) nextBtn.addEventListener('click', function(e){ e.stopPropagation(); goto(currentIdx() + 1); });
+  // Also make pgBtn use hash for jump panel sync
+  var pgBtn = document.getElementById('pgBtn');
+  if(pgBtn){
+    pgBtn.addEventListener('click', function(e){ e.stopPropagation(); toggleJumpPanel(); });
+  }
+})();
+
+/* Jump panel helpers */
+function buildJumpPanel(){
+  const panel = document.getElementById('jumpPanel');
+  if(!panel || panel.children.length) return;
+  const slides = document.querySelectorAll('.deck > section.slide');
+  slides.forEach((s,i)=>{
+    const title = s.getAttribute('data-title') || (s.querySelector('h1,h2,h3')||{}).textContent || ('Slide '+(i+1));
+    const div = document.createElement('div');
+    div.className = 'jump-item';
+    div.textContent = (i+1)+'. '+title.trim();
+    div.onclick = function(){ window.location.hash = '#/' + (i+1); closeJumpPanel(); };
+    panel.appendChild(div);
+  });
+}
+function toggleJumpPanel(){
+  buildJumpPanel();
+  var panel = document.getElementById('jumpPanel');
+  var btn = document.getElementById('pgBtn');
+  if(!panel) return;
+  var willOpen = !panel.classList.contains('open');
+  if(willOpen && btn){
+    // Ensure panel is wide enough and centered under the page button
+    var rect = btn.getBoundingClientRect();
+    var desiredW = Math.max(320, Math.min(480, window.innerWidth * 0.45));
+    var left = rect.left + rect.width/2 - desiredW/2;
+    left = Math.max(10, Math.min(left, window.innerWidth - desiredW - 10));
+    panel.style.left = left + 'px';
+    panel.style.width = desiredW + 'px';
+    panel.style.transform = 'none';
+    panel.style.right = 'auto';
+  }
+  panel.classList.toggle('open');
+}
+function closeJumpPanel(){ var p=document.getElementById('jumpPanel'); if(p) p.classList.remove('open'); }
+document.addEventListener('click', function(e){
+  var p=document.getElementById('jumpPanel');
+  var btn=document.getElementById('pgBtn');
+  var prev=document.getElementById('prevBtn');
+  var nxt=document.getElementById('nextBtn');
+  if(p && p.classList.contains('open') && !p.contains(e.target) && e.target!==btn && e.target!==prev && e.target!==nxt) closeJumpPanel();
+});
+</script>
+
+<div style="position:fixed;bottom:12px;left:12px;font-size:11px;color:#484f5866;z-index:100;pointer-events:none" data-page-node-id="gxRujWjkF8SrGPMx5Feg4E">
+  T 切换主题 · ← → 翻页 · F 全屏 · O 总览 · R 重置计时
+</div>
+
+<script src="../../assets/runtime.js"></script>
+
+<div class="jump-panel" id="jumpPanel" data-page-node-id="S6hxwM2t500ILlulEiMzJ1"></div>
+</body>
+</html>
