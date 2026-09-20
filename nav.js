@@ -78,7 +78,7 @@
         </div>
       </div>
     </div>
-    <a href="/fsl-report/weekly/">项目周报</a>
+    <a href="/fsl-report/weekly/">项目报告</a>
     <div class="nav-dropdown">
       <a href="/fsl-report/kanban/" class="active">任务看板 <span class="nav-arrow">▾</span></a>
       <div class="nav-dropdown-panel">
@@ -97,7 +97,7 @@
             <a href="/fsl-report/kanban/#stats">📊 统计</a>
             <a href="/fsl-report/kanban/#org">🏗 项目架构</a>
             <a href="/fsl-report/kanban/">📋 调研访谈</a>
-            <a href="/fsl-report/weekly/">📰 项目周报</a>
+            <a href="/fsl-report/weekly/">📰 项目报告</a>
           </div>
         </div>
         <div class="nav-dd-research">
