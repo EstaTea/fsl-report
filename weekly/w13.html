@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>周报 W13 | FSL 工作台</title>
+<style>
+:root{--b900:#0B2D47;--b700:#1A4F73;--b500:#2374A3;--b300:#5EA4CE;
+      --b100:#C7E2F2;--b050:#EBF5FB;--bg:#F2F7FB;--text:#0F2233;
+      --muted:#5B7A91;--rule:#D6E8F2;--r:6px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;
+     background:var(--bg);color:var(--text);font-size:14px;line-height:1.8;}
+a{color:inherit;text-decoration:none;}
+.hero{background:linear-gradient(155deg,var(--b900) 0%,var(--b700) 100%);
+      color:#fff;padding:36px 48px 32px;border-bottom:3px solid var(--b500);}
+.hero-meta{font-size:11.5px;opacity:.6;margin-bottom:8px;letter-spacing:.3px;text-transform:uppercase;}
+.hero h1{font-size:22px;font-weight:800;margin-bottom:6px;}
+.hero p{font-size:13px;opacity:.72;max-width:700px;}
+.hero-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);
+      border-radius:3px;padding:3px 12px;font-size:11px;letter-spacing:.4px;text-transform:uppercase;}
+.container{max-width:1280px;margin:0 auto;padding:30px 32px;}
+.bc{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted);margin-bottom:22px;}
+.bc a{color:var(--b500);}.bc a:hover{color:var(--b700);}.bc .sep{color:var(--b100);}
+.top-row{display:grid;grid-template-columns:160px 260px 1fr;gap:12px;margin-bottom:14px;}
+@media(max-width:1000px){.top-row{grid-template-columns:1fr 1fr;}}
+@media(max-width:640px){.top-row{grid-template-columns:1fr;}}
+.card{background:#fff;border:1px solid var(--rule);border-radius:var(--r);padding:18px 20px;
+      box-shadow:0 1px 3px rgba(35,116,163,.05);}
+.card-title{font-size:12px;font-weight:800;color:var(--b900);text-decoration:underline;margin-bottom:10px;}
+.status-center{text-align:center;}
+.status-dot{width:52px;height:52px;border-radius:50%;margin:6px auto;}
+.s-green{background:#43A047;}.s-yellow{background:#FB8C00;}.s-red{background:#E53935;}
+.s-label{font-size:12.5px;font-weight:800;color:var(--b900);margin-top:6px;}
+.s-week{font-size:11px;color:var(--muted);margin-top:3px;}
+.s-phase{font-size:11.5px;font-weight:700;color:var(--b700);margin-top:4px;}
+.det-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.det-text{font-size:13.5px;font-weight:700;flex:1;}
+.det-ind{width:20px;height:20px;border-radius:50%;flex-shrink:0;}
+.pbar-wrap{background:var(--b050);border-radius:3px;height:7px;flex:1;max-width:90px;}
+.pbar{height:100%;border-radius:3px;}
+.gantt-wrap{overflow-x:auto;}
+.gantt{width:100%;border-collapse:collapse;font-size:11px;}
+.gantt th{background:var(--b700);color:#fff;padding:4px 6px;text-align:center;
+          white-space:nowrap;font-size:10px;border:1px solid var(--b900);}
+.gantt td{border:1px solid var(--rule);padding:3px 5px;white-space:nowrap;}
+.gantt .tn{background:var(--b050);min-width:130px;color:var(--b900);font-weight:600;}
+.bar{border-radius:2px;height:13px;display:inline-block;vertical-align:middle;}
+.b-done{background:var(--b700);}.b-now{background:var(--b500);}.b-plan{background:var(--b100);}
+.b-warn{background:#E53935;}
+.gantt-note{font-size:10.5px;color:var(--b500);margin-top:5px;font-style:italic;}
+.cards-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px;}
+@media(max-width:1100px){.cards-row{grid-template-columns:1fr 1fr;}}
+@media(max-width:640px){.cards-row{grid-template-columns:1fr;}}
+.card-hd{font-size:13px;font-weight:800;color:var(--b900);
+         border-bottom:2px solid var(--b050);padding-bottom:8px;margin-bottom:12px;}
+.sec{font-size:11px;font-weight:800;color:var(--b700);
+     text-transform:uppercase;letter-spacing:.5px;margin:10px 0 5px;}
+.sec:first-child{margin-top:0;}
+ul.cl{padding-left:15px;}
+ul.cl li{font-size:12.5px;line-height:1.65;margin-bottom:3px;}
+.ri{display:flex;gap:8px;margin-bottom:9px;align-items:flex-start;}
+.ri-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.ri-g{background:#43A047;}.ri-y{background:#FB8C00;}.ri-r{background:#E53935;}
+.bdg{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;
+     border-radius:3px;margin-left:3px;}
+.bdg-g{background:#E8F5E9;color:#2E7D32;}
+.bdg-y{background:#FFF8E1;color:#F57F17;}
+.bdg-r{background:#FFEBEE;color:#C62828;}
+.bdg-b{background:var(--b050);color:var(--b700);}
+.sum-box{background:var(--b050);border-left:3px solid var(--b500);
+         border-radius:0 4px 4px 0;padding:8px 12px;margin-top:10px;font-size:12px;line-height:1.6;}
+.sum-box-warn{background:#FFF8E1;border-left:3px solid #FB8C00;
+              border-radius:0 4px 4px 0;padding:8px 12px;margin-top:10px;font-size:12px;line-height:1.6;}
+.sum-box-red{background:#FFEBEE;border-left:3px solid #E53935;
+             border-radius:0 4px 4px 0;padding:8px 12px;margin-top:10px;font-size:12px;line-height:1.6;}
+.ftable{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px;}
+.ftable th{background:var(--b700);color:#fff;padding:6px 10px;text-align:left;
+           font-size:11px;font-weight:700;border:1px solid var(--b900);}
+.ftable td{border:1px solid var(--rule);padding:7px 10px;vertical-align:top;}
+.ftable tr:nth-child(even) td{background:var(--b050);}
+.ftable tr:hover td{background:#e0f0fa;}
+.milestone-bar{display:flex;flex-direction:column;gap:6px;margin-top:8px;}
+.ms-item{display:flex;align-items:center;gap:8px;font-size:12px;}
+.ms-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+.ms-done{background:#43A047;}.ms-now{background:#FB8C00;}.ms-plan{background:var(--b300);}.ms-alert{background:#E53935;}
+.ms-label{flex:1;font-weight:600;}
+.ms-date{font-size:11px;color:var(--muted);white-space:nowrap;}
+.ms-days{font-size:10.5px;font-weight:700;padding:1px 6px;border-radius:3px;white-space:nowrap;}
+.days-red{background:#FFEBEE;color:#C62828;}
+.days-yellow{background:#FFF8E1;color:#F57F17;}
+.days-blue{background:var(--b050);color:var(--b700);}
+footer{background:var(--b900);color:rgba(255,255,255,.35);text-align:center;
+       padding:18px;font-size:11px;margin-top:48px;letter-spacing:.2px;}
+@media(max-width:768px){.hero{padding:22px 20px;}.container{padding:20px 16px;}}
+</style>
+</head>
+<body>
+
+<div id="site-nav"></div>
+<script src="../nav.js"></script>
+
+<div class="hero">
+  <div class="hero-meta">系统实现阶段正式启动 · V1.0 · 2026-09-18</div>
+  <h1>项目周报 — W13（2026-09-14 ~ 09-18）</h1>
+  <p>系统实现阶段于W13正式启动，重心由蓝图收官转向系统配置/开发/测试，14项一期高价值场景配置落地启动、主数据清洗预演持续推进，距Go-Live（2027-01-01）倒计时约105天</p>
+  <div class="hero-chips">
+    <span class="chip">系统实现启动</span>
+    <span class="chip">W13 完成</span>
+    <span class="chip">实施阶段</span>
+    <span class="chip">14项场景</span>
+    <span class="chip">主数据清洗</span>
+    <span class="chip">DMO/ARB</span>
+    <span class="chip">105天倒计时</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="bc">
+    <a href="/fsl-report/">工作台首页</a>
+    <span class="sep">›</span>
+    <a href="/fsl-report/weekly/">项目周报</a>
+    <span class="sep">›</span>
+    <span>W13</span>
+  </div>
+
+  <!-- ── 状态行 ── -->
+  <div class="top-row">
+
+    <div class="card">
+      <div class="card-title">整体状态</div>
+      <div class="status-center">
+        <div class="status-dot s-yellow"></div>
+        <div class="s-label">整体黄色（实施启动·收尾冲刺）</div>
+        <div class="s-week">2026-09-14 ~ 09-18</div>
+        <div class="s-phase">系统实现阶段 · W13</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">详细状态</div>
+      <div class="det-row">
+        <span class="det-text">进度：50%（实施阶段启动）</span>
+        <div class="pbar-wrap"><div class="pbar" style="width:50%;background:#FB8C00;"></div></div>
+        <div class="det-ind" style="background:#FB8C00;"></div>
+      </div>
+      <div class="det-row">
+        <span class="det-text">风险：高 <b style="color:#d32f2f;">1</b> &nbsp;中 <b style="color:#e8a900;">4</b> &nbsp;低 <b style="color:#43A047;">1</b></span>
+        <div class="det-ind" style="background:#FB8C00;"></div>
+      </div>
+      <div class="det-row">
+        <span class="det-text">蓝图签署：<b style="color:#2E7D32;">已闭环（8/31）</b></span>
+        <div class="det-ind" style="background:#43A047;"></div>
+      </div>
+      <div class="sum-box-warn">⚠ W13系统实现阶段正式启动，重心由蓝图收官转向配置/开发/测试，14项一期场景落地与主数据清洗预演并行；整体维持黄色（1高/4中/1低），唯一高风险仍来自WMS电子仓谈判僵局。</div>
+    </div>
+
+    <!-- 项目里程碑追踪 -->
+    <div class="card">
+      <div class="card-title">项目里程碑追踪（参照总体实施计划V1.1）</div>
+      <div class="milestone-bar">
+        <div class="ms-item">
+          <div class="ms-dot ms-done"></div>
+          <span class="ms-label">项目启动</span>
+          <span class="ms-date">2026-06-01</span>
+          <span class="ms-days days-blue">✅ 完成</span>
+        </div>
+        <div class="ms-item">
+          <div class="ms-dot ms-done"></div>
+          <span class="ms-label">业务调研收官（D1-D15）</span>
+          <span class="ms-date">2026-07-10</span>
+          <span class="ms-days days-blue">✅ 完成</span>
+        </div>
+        <div class="ms-item">
+          <div class="ms-dot ms-done"></div>
+          <span class="ms-label" style="color:#2E7D32;font-weight:800;">★ 蓝图方案签署（收官8/31）</span>
+          <span class="ms-date">2026-08-27~31</span>
+          <span class="ms-days days-blue">✅ 已闭环</span>
+        </div>
+        <div class="ms-item">
+          <div class="ms-dot ms-done"></div>
+          <span class="ms-label" style="color:#2E7D32;font-weight:800;">★ 董事长蓝图汇报（决策9/4）</span>
+          <span class="ms-date">2026-09-04</span>
+          <span class="ms-days days-blue">✅ 已决策</span>
+        </div>
+        <div class="ms-item">
+          <div class="ms-dot ms-done"></div>
+          <span class="ms-label" style="color:#2E7D32;font-weight:800;">★ 公司级蓝图汇报（确认9/9）</span>
+          <span class="ms-date">2026-09-09</span>
+          <span class="ms-days days-blue">✅ 已决策</span>
+        </div>
+        <div class="ms-item">
+          <div class="ms-dot ms-now"></div>
+          <span class="ms-label" style="color:#E65100;font-weight:800;">★ 系统实现阶段（W13启动）</span>
+          <span class="ms-date">2026-09-14</span>
+          <span class="ms-days days-yellow">进行中</span>
+        </div>
+        <div class="ms-item">
+          <div class="ms-dot ms-plan"></div>
+          <span class="ms-label" style="font-weight:800;">★ Go-Live 上线切换</span>
+          <span class="ms-date">2027-01-01</span>
+          <span class="ms-days days-blue">倒计时 105 天</span>
+        </div>
+      </div>
+      <div class="gantt-note" style="margin-top:8px;">来源：佛照_00项目管理_项目总体实施计划_V1.1_2026725 · <a href="https://docs.qq.com/sheet/DY2RsRUV5WUlrSmtS" target="_blank" style="color:var(--b500);">腾讯文档在线版本 →</a></div>
+    </div>
+
+  </div>
+
+  <!-- ── 系统实现阶段正式启动（本周核心） ── -->
+  <div class="card" style="margin-bottom:14px;border:2px solid var(--b500);background:linear-gradient(135deg,#f0f7fc 0%,#fff 100%);">
+    <div class="card-hd" style="color:var(--b700);border-color:var(--b300);">★ 系统实现阶段正式启动（W13，09-14）· 关键动作</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div>
+        <div style="font-size:12px;font-weight:800;color:var(--b900);margin-bottom:6px;">① 实施节奏切换</div>
+        <ul class="cl">
+          <li>业务流程规划正式转入<b>系统配置/开发/测试</b>轨道，项目进入"边配置边验证"的实施节奏</li>
+          <li>W13为系统实现阶段<b>正式首周</b>，重心由蓝图收官转向落地执行</li>
+        </ul>
+        <div style="font-size:12px;font-weight:800;color:var(--b900);margin:10px 0 6px;">② 14项一期场景配置落地启动</div>
+        <ul class="cl">
+          <li>优先推进前置依赖场景：<b>制造成本还原、物料主数据统一治理、跨公司销售转卖、BOM全生命周期建设</b></li>
+          <li>技术架构按 TOGAF 四A蓝图统一纳管，<b>取消点对点"头痛医头"式开发</b></li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:800;color:var(--b900);margin-bottom:6px;">③ 最难场景专题深研启动</div>
+        <ul class="cl">
+          <li>深研最难5个场景：<b>物料 / 订单 / 制造成本 / BOM / 研发投入</b>，形成专项方案（W14产出）</li>
+          <li>正式取得业务部门负责人方案确认，治理闭环</li>
+        </ul>
+        <div style="font-size:12px;font-weight:800;color:var(--b900);margin:10px 0 6px;">④ 约束与目标</div>
+        <ul class="cl">
+          <li><b>2027-01-01硬性上线节点</b>不变；一期夯实底座（S/4HANA云平台、主数据标准化、CPI集成框架）</li>
+          <li>南宁燎旺集成：先解决本期基础问题、评估预算与资源后纳入（待确认）</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 主数据清洗预演与治理机制落地 ── -->
+  <div class="card" style="margin-bottom:14px;border:2px solid var(--b700);background:linear-gradient(135deg,#eef5fb 0%,#fff 100%);">
+    <div class="card-hd" style="color:var(--b700);border-color:var(--b300);">★ 主数据清洗预演与治理机制落地 · 关键动作</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div>
+        <div style="font-size:12px;font-weight:800;color:var(--b900);margin-bottom:6px;">① 主数据清洗预演持续推进</div>
+        <ul class="cl">
+          <li>测试系统历史主数据（<b>物料80余万 + BOM 60余万</b>）全量清洗预演按计划推进</li>
+          <li>11位新编码规范灰度落地，9月暴露的风险项进入<b>整改闭环</b></li>
+        </ul>
+        <div style="font-size:12px;font-weight:800;color:var(--b900);margin:10px 0 6px;">② 数据治理组织</div>
+        <ul class="cl">
+          <li>主数据治理办公室（<b>DMO</b>）常态化运行、管理规范起草</li>
+          <li>产成品统一启用新编码，存量物料及BOM/工艺路线不变</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:800;color:var(--b900);margin-bottom:6px;">③ 治理机制与专项</div>
+        <ul class="cl">
+          <li><b>ARB架构评审委员会</b>制度草案编制；迭代3-5年数字化路线图</li>
+          <li>瞭望板块集团穿透管控：轻量取数路线，<b>9/30前出专项方案</b></li>
+        </ul>
+        <div style="font-size:12px;font-weight:800;color:var(--b900);margin:10px 0 6px;">④ 合规与传达</div>
+        <ul class="cl">
+          <li>国资委2026一号文/二号文/15号文：核算/资金已打通、预算规划下一期，穿透法人监管</li>
+          <li>向未参会人员传达9/9公司级蓝图汇报要求；蓝图签署（8/31）后进入冻结前治理收口</li>
+        </ul>
+      </div>
+    </div>
+    <div class="sum-box" style="margin-top:12px;">📌 <b>行动项（节选）</b>：①14项一期场景配置落地与单元验证 ②主数据清洗预演风险整改闭环 ③DMO管理规范与ARB评审制度草案 ④最难5个场景专题深研 ⑤WMS电子仓谈判解冻或应急预案 ⑥9/30前瞭望板块专项管控方案</div>
+  </div>
+
+  <!-- ── 4 cards ── -->
+  <div class="cards-row">
+
+    <!-- 本周成果 -->
+    <div class="card">
+      <div class="card-hd">本周主要成果</div>
+
+      <div class="sec">■ 系统实现阶段正式启动</div>
+      <ul class="cl">
+        <li>W13正式进入系统实现阶段，业务流程规划转入<b>系统配置/开发/测试</b></li>
+        <li>14项一期高价值场景配置落地启动，进入"边配置边验证"节奏</li>
+      </ul>
+
+      <div class="sec">■ 14项一期场景配置启动</div>
+      <ul class="cl">
+        <li>优先推进前置依赖：制造成本还原、物料主数据统一治理、跨公司销售转卖、BOM全生命周期</li>
+        <li>技术架构按四A蓝图统一纳管，取消点对点零散开发</li>
+      </ul>
+
+      <div class="sec">■ 主数据清洗预演推进</div>
+      <ul class="cl">
+        <li>物料80余万+BOM 60余万测试系统全量清洗预演推进，<b>11位新编码灰度落地</b></li>
+        <li>数治办常态运行并起草规范，9月风险项进入整改闭环</li>
+      </ul>
+
+      <div class="sec">■ 治理机制与专项</div>
+      <ul class="cl">
+        <li><b>DMO</b>常态运行并起草规范；<b>ARB</b>评审制度草案编制</li>
+        <li>3-5年数字化路线图迭代；瞭望板块轻量取数专项（9/30前出方案）</li>
+      </ul>
+
+      <div class="sec">■ 其他重点事项</div>
+      <ul class="cl">
+        <li>传达9/9公司级蓝图汇报要求；南宁燎旺集成纳入本期评估（待确认）</li>
+        <li>国资委三系统打通持续跟进；蓝图签署（8/31）后冻结前治理收口</li>
+      </ul>
+    </div>
+
+    <!-- 风险面板 -->
+    <div class="card">
+      <div class="card-hd">主要风险（W13，共6项）</div>
+
+      <div class="ri">
+        <div class="ri-dot ri-r"></div>
+        <div class="ri-txt"><b>WMS电子仓谈判僵局</b><span class="bdg bdg-r">高</span><br>
+        仍处暂停状态，供应商起诉风险未解除，接口无"半对接"模式，需应急预案</div>
+      </div>
+      <div class="ri">
+        <div class="ri-dot ri-y"></div>
+        <div class="ri-txt"><b>BOM同步与MRP依赖主数据精确</b><span class="bdg bdg-y">中</span><br>
+        一期允许误差，但完整MRP运行依赖主数据/BOM精确，需持续管控变更与同步</div>
+      </div>
+      <div class="ri">
+        <div class="ri-dot ri-y"></div>
+        <div class="ri-txt"><b>跨公司销售"无存货"合规执行</b><span class="bdg bdg-y">中</span><br>
+        8/27已向高层汇报，审计/税务合规结论的落地执行需持续跟进</div>
+      </div>
+      <div class="ri">
+        <div class="ri-dot ri-y"></div>
+        <div class="ri-txt"><b>MM模块关键用户投入不足</b><span class="bdg bdg-y">中</span><br>
+        转实现阶段需保障关键用户时间投入与配置评审效率</div>
+      </div>
+      <div class="ri">
+        <div class="ri-dot ri-g"></div>
+        <div class="ri-txt"><b>主数据90万条清洗窗口</b><span class="bdg bdg-g">低</span><br>
+        9月测试系统清洗预演推进，清洗质量、编码规范与迁移窗口并重</div>
+      </div>
+      <div class="ri">
+        <div class="ri-dot ri-y"></div>
+        <div class="ri-txt"><b>瞭望板块集团穿透管控</b><span class="bdg bdg-y">中</span><br>
+        独立SAP体外运行、营收占集团约1/3，集团无法穿透成本/营收/产能，为重大经营风险点；已定轻量取数路线，9/30前出专项方案</div>
+      </div>
+
+      <div style="margin-top:10px;font-size:11px;font-weight:700;color:var(--b900);">
+        风险摘要 &nbsp; 高 <b style="color:#d32f2f;">1</b> &nbsp;｜&nbsp; 中 <b style="color:#e8a900;">4</b> &nbsp;｜&nbsp; 低 <b style="color:#43A047;">1</b>
+      </div>
+    </div>
+
+    <!-- 下一步计划 -->
+    <div class="card">
+      <div class="card-hd">下一步计划（W14，09-21 ~ 09-25）</div>
+
+      <div class="sec" style="margin-top:0;">■ 场景配置深化</div>
+      <ul class="cl">
+        <li>14项一期场景配置深化，完成<b>首批场景单元配置与单元测试</b></li>
+        <li>深研最难5个场景（物料/订单/制造成本/BOM/研发投入）形成专项方案</li>
+      </ul>
+
+      <div class="sec">■ 数据治理收口</div>
+      <ul class="cl">
+        <li>主数据清洗预演进入<b>风险整改闭环</b></li>
+        <li>输出<b>DMO组织考核机制</b>与<b>ARB评审制度</b>正式稿</li>
+        <li>蓝图冻结前完成数据治理收口</li>
+      </ul>
+
+      <div class="sec">■ 治理机制与专项落地</div>
+      <ul class="cl">
+        <li><b>9/30前出瞭望板块专项管控方案</b></li>
+        <li>迭代3-5年数字化路线图</li>
+        <li>WMS电子仓谈判解冻或应急预案落地</li>
+      </ul>
+
+      <div class="sum-box-warn" style="margin-top:12px;">
+        <b>W14 接续W13实施首周：</b>重心落到首批场景单元配置与单元验证，最难5个场景产出专项方案，主数据清洗预演进入整改闭环，DMO/ARB制度正式落地。
+      </div>
+    </div>
+
+    <!-- W13 实施启动关键事项 -->
+    <div class="card">
+      <div class="card-hd">W13 实施启动关键事项（09-14 ~ 09-18）</div>
+      <div style="overflow-x:auto;">
+        <table class="ftable">
+          <thead>
+            <tr>
+              <th style="width:80px;">工作流</th>
+              <th style="width:200px;">关键事项</th>
+              <th>主要内容</th>
+              <th style="width:200px;">关键结论</th>
+              <th style="width:70px;">状态</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="white-space:nowrap;font-weight:700;color:var(--b700);">09-14起（周一）</td>
+              <td><b>系统实现阶段启动</b><br><span style="font-size:10px;color:var(--muted);">配置/开发/测试</span></td>
+              <td>业务流程规划转入系统配置/开发/测试，14项一期场景配置落地启动</td>
+              <td style="color:var(--b500);font-size:11px;">实施节奏切换✅</td>
+              <td style="text-align:center;"><span style="background:#E8F5E9;color:#2E7D32;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">启动✅</span></td>
+            </tr>
+            <tr>
+              <td style="white-space:nowrap;font-weight:700;color:var(--b700);">全周</td>
+              <td><b>14项一期场景配置</b></td>
+              <td>优先推进制造成本还原、物料主数据治理、跨公司销售转卖、BOM全生命周期</td>
+              <td style="color:var(--b500);font-size:11px;">四A蓝图纳管</td>
+              <td style="text-align:center;"><span style="background:#FFF8E1;color:#F57F17;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">进行中</span></td>
+            </tr>
+            <tr>
+              <td style="white-space:nowrap;font-weight:700;color:var(--b700);">全周</td>
+              <td><b>主数据清洗预演</b></td>
+              <td>物料80余万+BOM 60余万测试系统全量清洗、11位新编码灰度落地</td>
+              <td style="color:var(--b500);font-size:11px;">数治办常态运行</td>
+              <td style="text-align:center;"><span style="background:#FFF8E1;color:#F57F17;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">进行中</span></td>
+            </tr>
+            <tr>
+              <td style="white-space:nowrap;font-weight:700;color:var(--b700);">全周</td>
+              <td><b>治理机制推进</b></td>
+              <td>DMO规范起草、ARB评审制度草案、3-5年路线图迭代</td>
+              <td style="color:var(--b500);font-size:11px;">制度编制中</td>
+              <td style="text-align:center;"><span style="background:#FFF8E1;color:#F57F17;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;">进行中</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
+        <div style="flex:1;min-width:150px;background:#E8F5E9;border-radius:var(--r);padding:10px 14px;border-left:3px solid #43A047;">
+          <div style="font-size:11px;font-weight:800;color:#2E7D32;margin-bottom:4px;">✅ 实施启动</div>
+          <div style="font-size:20px;font-weight:800;color:var(--b900);">W13</div>
+          <div style="font-size:10.5px;color:var(--muted);">系统实现阶段</div>
+        </div>
+        <div style="flex:1;min-width:150px;background:var(--b050);border-radius:var(--r);padding:10px 14px;border-left:3px solid var(--b500);">
+          <div style="font-size:11px;font-weight:800;color:var(--b700);margin-bottom:4px;">✅ 落地场景</div>
+          <div style="font-size:20px;font-weight:800;color:var(--b900);">14</div>
+          <div style="font-size:10.5px;color:var(--muted);">一期重点</div>
+        </div>
+        <div style="flex:1;min-width:150px;background:var(--b050);border-radius:var(--r);padding:10px 14px;border-left:3px solid var(--b500);">
+          <div style="font-size:11px;font-weight:800;color:var(--b700);margin-bottom:4px;">✅ 主数据</div>
+          <div style="font-size:20px;font-weight:800;color:var(--b900);">90万</div>
+          <div style="font-size:10.5px;color:var(--muted);">条清洗预演</div>
+        </div>
+        <div style="flex:2;min-width:220px;background:#FFF8E1;border-radius:var(--r);padding:10px 14px;border-left:3px solid #FB8C00;">
+          <div style="font-size:11px;font-weight:800;color:#E65100;margin-bottom:4px;">⚠ W13 启动总结</div>
+          <div style="font-size:11.5px;color:var(--text);line-height:1.6;">
+            W13系统实现阶段正式启动，14项一期场景配置落地启动、主数据清洗预演持续推进、DMO/ARB治理机制推进；整体维持黄色（1高/4中/1低），WMS谈判僵局为唯一高风险。距Go-Live（2027-01-01）约105天。
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /cards-row -->
+
+  <!-- 导航按钮 -->
+  <div style="margin-top:14px;text-align:center;">
+    <a href="/fsl-report/weekly/schedule.html"
+       style="display:inline-flex;align-items:center;gap:8px;background:var(--b700);color:#fff;
+              padding:10px 24px;border-radius:var(--r);font-size:13px;font-weight:700;
+              text-decoration:none;box-shadow:0 2px 8px rgba(11,45,71,.25);">
+      📊 查看项目总体进度甘特图 →
+    </a>
+    &nbsp;&nbsp;
+    <a href="/fsl-report/weekly/w12.html"
+       style="display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--b700);
+              border:1.5px solid var(--b300);padding:10px 24px;border-radius:var(--r);
+              font-size:13px;font-weight:700;text-decoration:none;">
+      ← W12 周报
+    </a>
+    &nbsp;&nbsp;
+    <a href="/fsl-report/weekly/w14.html"
+       style="display:inline-flex;align-items:center;gap:8px;background:var(--b050);color:var(--b700);
+              border:1.5px solid var(--b300);padding:10px 24px;border-radius:var(--r);
+              font-size:13px;font-weight:700;text-decoration:none;opacity:.6;">
+      W14 周报 →（待撰写）
+    </a>
+  </div>
+
+</div>
+
+<footer>佛山照明 SAP S/4HANA 升级项目工作台 · 机密文件 · 仅供项目组内部使用 · 2026</footer>
+</body>
+</html>
