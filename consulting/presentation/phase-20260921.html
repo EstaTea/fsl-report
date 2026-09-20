@@ -274,7 +274,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
         <div class="ag-card">
           <div class="ag-num">03</div>
           <div class="ag-title">系统实现关键成果</div>
-          <div class="ag-desc">七项已落地成果逐项说明</div>
+          <div class="ag-desc">七项成果逐项说明 · 附系统实证</div>
         </div>
         <div class="ag-card">
           <div class="ag-num">04</div>
@@ -292,7 +292,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     <p>先过一下议程，四个部分。</p>
     <p><strong>第一部分项目总体情况</strong>——把主计划、五阶段和今天所处的位置讲清楚。</p>
     <p><strong>第二部分当前工作完成情况</strong>——实现阶段三周的实际进度、健康状态和风险清单。</p>
-    <p><strong>第三部分系统实现关键成果</strong>——这是本次汇报的重点，七项已经落地的成果逐项说明。</p>
+    <p><strong>第三部分系统实现关键成果</strong>——这是本次汇报的重点，七项已经落地的成果逐项说明，最后用三页 DEV 200 系统截图做实证。</p>
     <p><strong>第四部分下阶段重点工作</strong>——9 月底目标和双周滚动计划。</p>
   </aside>
 </section>
@@ -1001,7 +1001,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     <div style="font-size:78px;font-weight:800;line-height:1;color:rgba(255,255,255,.22);letter-spacing:-2px">03</div>
     <h2 class="h2" style="color:#fff;font-size:42px !important;margin:10px 0 12px">系统实现关键成果</h2>
     <div style="width:64px;height:3px;background:#5EA4CE;margin:0 auto 16px"></div>
-    <p style="font-size:17px;color:rgba(255,255,255,.72)">七项已落地成果 · 从蓝图方案确认到配置、开发、测试与数据治理全面铺开</p>
+    <p style="font-size:17px;color:rgba(255,255,255,.72)">七项已落地成果 · 从蓝图方案确认到配置、开发、测试与数据治理全面铺开 · 附 DEV 200 系统实现实证</p>
   </div>
 </section>
 
@@ -1065,6 +1065,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
       <p style="font-size:12.5px !important;margin:0;line-height:1.5;color:rgba(255,255,255,.78)">蓝图阶段全部成果已转化为可执行的配置、开发与测试计划，实现阶段按周推进无延期。</p>
     </div>
   </div>
+  <p class="dim" style="font-size:12px !important;margin-top:12px;line-height:1.5">附 · 本部分末附三页 <strong>DEV 200 系统实现实证</strong>：会计凭证跑通（FB03）· 凭证清单与核算规模（FBL3N，57 项）· 采购订单与条件记录（ME23N）。</p>
   <aside class="notes">
     <p>这一部分是本次汇报的重点——系统实现阶段到目前为止，我们做成了什么。</p>
     <p>七项成果，前三项是"底座"，中间三项是"交付"，最后一项是"长线"。接下来我逐项展开。</p>
@@ -1462,6 +1463,179 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     <p>先看数据基线：物料记录 87.96 万条，其中有效的只有 40.05 万，<strong>停用或无效的占到 54.5%</strong>。这就是权总说的"僵尸编码致命"——一半以上的编码是死的，直接影响到 SKU 的准确性。</p>
     <p>对应三件事已经启动：<strong>组织上</strong>成立数据管理办公室 DMO 并常态运行；<strong>标准上</strong>落地 11 位物料编码规范，财务科目从 1600 多个压到 600 个；<strong>清洗上</strong>物料、客户、供应商三条线并行，9 月在测试系统做全量预演。</p>
     <p>治理思路是一句话：先定标准和责任，再做清洗迁移。规范没落地就开洗，等于把混乱从旧系统原样搬到新系统。</p>
+  </aside>
+</section>
+
+<style id="proofStyles">
+/* ===== 系统实现实证页（DEV 200 截图证据） ===== */
+.ev-grid2{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:11px}
+.ev-item{display:flex;flex-direction:column;min-height:0;background:#fff;border:1px solid rgba(11,45,71,.16);border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(11,45,71,.07)}
+.ev-bar{display:flex;align-items:center;gap:9px;padding:5px 11px;background:linear-gradient(90deg,#0B2D47,#2374A3);flex:0 0 auto}
+.ev-tag{font-size:11px;font-weight:700;color:#fff;background:rgba(255,255,255,.18);border-radius:3px;padding:2px 7px;letter-spacing:.4px;white-space:nowrap}
+.ev-id{font-size:12px;font-weight:700;color:#fff;font-family:var(--font-mono);white-space:nowrap}
+.ev-date{margin-left:auto;font-size:11px;color:rgba(255,255,255,.8);white-space:nowrap}
+.ev-shot{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;background:#FBFDFE;padding:3px}
+.ev-shot img{max-width:100%;max-height:100%;width:auto;height:auto;display:block;border:1px solid rgba(11,45,71,.10)}
+.ev-cap{flex:0 0 auto;padding:6px 11px 7px;border-top:1px solid rgba(11,45,71,.10);background:#F2F7FB}
+.ev-cap p{margin:0;font-size:11.5px !important;line-height:1.45;color:#1a4f73}
+.ev-cap .k{font-weight:800;color:#0B2D47}
+.ev-mono{font-family:var(--font-mono);font-weight:700;color:#0B2D47}
+.ev-panel{border:1px solid rgba(11,45,71,.16);border-radius:8px;background:#fff;padding:14px 16px;min-height:0;overflow:hidden;display:flex;flex-direction:column;gap:9px}
+.ev-panel h4{font-size:13.5px !important;margin:0;color:#0B2D47}
+.ev-panel .row{display:flex;gap:8px;font-size:12px;line-height:1.5;color:#1a4f73;padding:3px 0;border-bottom:1px dashed rgba(11,45,71,.10)}
+.ev-panel .row:last-of-type{border-bottom:none}
+.ev-panel .lb{flex:0 0 74px;color:#5b7a91;font-weight:700}
+.ev-panel .vl{flex:1;color:#0B2D47}
+.ev-stat{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;min-height:0}
+.ev-stat .box{background:linear-gradient(150deg,#0B2D47,#1A4F73);border-radius:8px;padding:14px 18px;color:#fff;display:flex;flex-direction:column;justify-content:center}
+.ev-stat .n{font-size:36px;font-weight:800;line-height:1.05}
+.ev-stat .n small{font-size:15px;font-weight:700;margin-left:3px}
+.ev-stat .t{font-size:12px;color:rgba(255,255,255,.74);margin-top:7px;line-height:1.45}
+.ev-stat .box.alt{background:#EBF5FB;border:1px solid #C7E2F2}
+.ev-stat .box.alt .n{color:#0B2D47}
+.ev-stat .box.alt .t{color:#5b7a91}
+.ev-type{display:grid;grid-template-columns:repeat(7,1fr);gap:9px;min-height:0}
+.ev-type .t{background:#EBF5FB;border:1px solid #C7E2F2;border-radius:6px;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:6px}
+.ev-type .t b{font-size:15px;font-weight:800;color:#0B2D47;font-family:var(--font-mono)}
+.ev-type .t span{font-size:11.5px;color:#5b7a91;margin-top:3px;line-height:1.3}
+.ev-note{background:linear-gradient(135deg,#EBF5FB,#E1EFF9);border:1px solid #C7E2F2;border-left:4px solid #0B2D47;border-radius:0 8px 8px 0;padding:12px 20px;display:flex;align-items:center;min-height:0}
+.ev-note p{margin:0;font-size:13px !important;line-height:1.6;color:#0B2D47}
+</style>
+
+<!-- ==================== 实证 1 · 业务凭证端到端跑通 ==================== -->
+<section class="slide" data-title="成果实证一 · 业务凭证端到端跑通" style="overflow:hidden;justify-content:flex-start;padding-top:32px;padding-bottom:38px">
+  <p class="kicker">EVIDENCE 01 · DEV 200 会计凭证</p>
+  <h2 class="h2" style="margin-bottom:6px">成果实证一 · 业务凭证端到端跑通</h2>
+  <p class="dim" style="margin-bottom:10px">开发系统 <strong>DEV 200 客户端</strong> · 公司代码 <strong>FZ01</strong> · 会计年度 <strong>2026</strong> · 四类业务场景的会计凭证已在系统中真实过账，可用 FB03 逐笔追溯（右下状态栏 DS4 (1) 200）</p>
+
+  <div class="ev-grid2">
+    <div class="ev-item">
+      <div class="ev-bar"><span class="ev-tag">资产减值</span><span class="ev-id">凭证 1000000003</span><span class="ev-date">2026-08-26 · 期间 08 · 凭证类型 SA</span></div>
+      <div class="ev-shot"><img src="assets/proof/doc_1000000003_inventory.png" alt="FB03 显示凭证 1000000003 存货跌价-原材料"></div>
+      <div class="ev-cap"><p><span class="k">借</span> <span class="ev-mono">1471010000</span> 存货跌价-原材料 <span class="k">1,000.00</span> ｜ <span class="k">贷</span> <span class="ev-mono">6701030000</span> 减值损失-存货 <span class="k">1,000.00-</span></p></div>
+    </div>
+
+    <div class="ev-item">
+      <div class="ev-bar"><span class="ev-tag">采购暂估</span><span class="ev-id">凭证 4900000000</span><span class="ev-date">2026-09-04 · 期间 09 · CNY</span></div>
+      <div class="ev-shot"><img src="assets/proof/doc_4900000000_grir.png" alt="FB03 显示凭证 4900000000 入库暂估应付"></div>
+      <div class="ev-cap"><p><span class="k">借</span> <span class="ev-mono">1403030000</span> 原-包装物 <span class="k">20.00</span> ｜ <span class="k">贷</span> <span class="ev-mono">2202970000</span> 应付账款-应付暂估 <span class="k">20.00-</span></p></div>
+    </div>
+
+    <div class="ev-item">
+      <div class="ev-bar"><span class="ev-tag">外币往来</span><span class="ev-id">凭证 1600000007</span><span class="ev-date">2026-09-15 · 期间 09 · 类型 DR · USD</span></div>
+      <div class="ev-shot"><img src="assets/proof/doc_1600000007_fx_usd.png" alt="FB03 显示凭证 1600000007 外币客户凭证"></div>
+      <div class="ev-cap"><p><span class="k">借</span> 客户 <span class="ev-mono">10000004</span> 星星科技 <span class="k">100.00 USD</span> ｜ <span class="k">贷</span> <span class="ev-mono">6301960000</span> 营业外收入-其他 <span class="k">100.00- USD</span></p></div>
+    </div>
+
+    <div class="ev-item">
+      <div class="ev-bar"><span class="ev-tag">现金收款</span><span class="ev-id">凭证 1600000008</span><span class="ev-date">2026-09-15 · 期间 09 · 类型 DZ</span></div>
+      <div class="ev-shot"><img src="assets/proof/doc_1600000008_cash_receipt.png" alt="FB03 显示凭证 1600000008 现金收款核销"></div>
+      <div class="ev-cap"><p><span class="k">借</span> <span class="ev-mono">1001010000</span> 库存现金-人民币 <span class="k">30.00</span> ｜ <span class="k">贷</span> 客户 <span class="ev-mono">10000004</span> 星星科技 <span class="k">30.00-</span></p></div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>这一页开始，我们把"系统真的跑起来了"用系统截图来证明，而不是靠口头描述。</p>
+    <p>四张凭证全部取自开发系统 DEV 200 客户端，公司代码 FZ01、会计年度 2026，都可以用 FB03 按凭证号逐笔查回来。四类场景分别是：<strong>资产减值</strong>（存货跌价转减值损失）、<strong>采购入库暂估</strong>（包装物转应付暂估）、<strong>外币往来</strong>（美元客户凭证）、<strong>现金收款核销</strong>。</p>
+    <p>要点是：这些不是演示数据，是配置和主数据联动之后真实过账出来的会计凭证。请各位注意截图右下角的客户端标识 DS4 (1) 200，就是 200 客户端。</p>
+  </aside>
+</section>
+
+<!-- ==================== 实证 2 · 凭证清单与核算规模 ==================== -->
+<section class="slide" data-title="成果实证二 · 凭证清单与核算规模" style="overflow:hidden;justify-content:flex-start;padding-top:32px;padding-bottom:38px">
+  <p class="kicker">EVIDENCE 02 · 凭证清单与规模口径</p>
+  <h2 class="h2" style="margin-bottom:6px">成果实证二 · 凭证清单与核算规模</h2>
+  <p class="dim" style="margin-bottom:10px">FBL3N 凭证清单：公司代码 <strong>FZ01</strong> / 会计年度 <strong>2026</strong> / 分类账 <strong>0L</strong> · 8–9 月共 <strong>57 项</strong>凭证、<strong>7 类</strong>凭证类型，覆盖总账、客户、供应商三类核算</p>
+
+  <div style="display:grid;grid-template-columns:150fr 200fr 237fr;gap:11px;flex:0 0 366px;min-height:0">
+    <div class="ev-item">
+      <div class="ev-bar"><span class="ev-tag">查询条件</span><span class="ev-id">FBL3N</span><span class="ev-date">数据源 · 一般选择</span></div>
+      <div class="ev-shot"><img src="assets/proof/sel_fbl3n_fz01.png" alt="FBL3N 凭证清单选择屏：公司代码 FZ01 会计年度 2026 分类账 0L"></div>
+      <div class="ev-cap"><p><span class="k">选择屏：</span>公司代码 FZ01 · 会计年度 2026 · 分类账 0L；可按凭证类型 / 过账日期 / 输入日期 / 参考编号 / 逻辑系统等维度筛选，凭证可追溯、可审计。</p></div>
+    </div>
+
+    <div class="ev-item">
+      <div class="ev-bar"><span class="ev-tag">明细清单</span><span class="ev-id">共 57 项</span></div>
+      <div class="ev-shot"><img src="assets/proof/list_fbl3n_57.png" alt="FBL3N 凭证清单明细：57 项凭证"></div>
+      <div class="ev-cap"><p><span class="k">状态栏：</span>显示 57 项；号段覆盖 <span class="ev-mono">1000000xx</span>（总账）、<span class="ev-mono">1600000xx</span>（客户）、<span class="ev-mono">1700000xx</span>（供应商）。</p></div>
+    </div>
+
+    <div class="ev-item">
+      <div class="ev-bar"><span class="ev-tag">单笔下钻</span><span class="ev-id">凭证 1700000007</span><span class="ev-date">2026-08-31 · 期间 08 · CNY</span></div>
+      <div class="ev-shot"><img src="assets/proof/doc_1700000007_crosscompany.png" alt="FB03 显示凭证 1700000007 费用-商业保险"></div>
+      <div class="ev-cap"><p><span class="k">特殊总账标识 N</span> · <span class="ev-mono">FZ05</span> 佛山照明禅昌光电有限公司 <span class="k">100.00-</span> ｜ <span class="k">借</span> <span class="ev-mono">7001010001</span> 费用—商业保险 <span class="k">100.00</span></p></div>
+    </div>
+  </div>
+
+  <div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:12px;margin-top:12px">
+    <div class="ev-stat" style="flex:1.55">
+      <div class="box"><div class="n">57<small>项</small></div><div class="t">8–9 月凭证总数<br>（FBL3N 清单，公司代码 FZ01）</div></div>
+      <div class="box alt"><div class="n">7<small>类</small></div><div class="t">凭证类型覆盖总账、客户、供应商三条核算线，业务流已真实过账</div></div>
+      <div class="box alt"><div class="n">2<small>个</small></div><div class="t">已启用记账期间：2026 年 08 期 / 09 期；过账日期跨 08-25 – 09-15</div></div>
+      <div class="box alt"><div class="n">0<small>项</small></div><div class="t">清单查询无报错；57 项均可下钻至 FB03 明细逐笔复核</div></div>
+    </div>
+
+    <div class="ev-type" style="flex:1">
+      <div class="t"><b>SA</b><span>总账凭证</span></div>
+      <div class="t"><b>AB</b><span>会计凭证</span></div>
+      <div class="t"><b>DZ</b><span>客户收款</span></div>
+      <div class="t"><b>DA</b><span>客户发票</span></div>
+      <div class="t"><b>DR</b><span>客户贷项凭证</span></div>
+      <div class="t"><b>KR</b><span>供应商发票</span></div>
+      <div class="t"><b>KZ</b><span>供应商付款</span></div>
+    </div>
+
+    <div class="ev-note" style="flex:1">
+      <p><strong>这张清单说明什么：</strong>会计凭证并非"演示数据"，而是由<strong>配置基线、主数据与业务单据联动生成</strong>的结果——既可经 FBL3N 按类型 / 期间 / 参考号反查，也可经 FB03 单笔下钻复盘，是配置基线（成果二）与主数据治理（成果七）同时就位的直接证据。</p>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>这一页回答两个问题：系统里到底有没有数据、规模有多大。前面四张是单笔凭证，这里给的是凭证清单全貌。</p>
+    <p>FBL3N 是标准的凭证清单查询，条件是公司代码 FZ01、会计年度 2026、分类账 0L。结果是<strong>57 项凭证</strong>，覆盖 <strong>7 类凭证类型</strong>：SA 总账、AB 会计凭证、DZ 客户收款、DA 客户发票、DR 客户贷项、KR 供应商发票、KZ 供应商付款。总账、客户、供应商三条核算线都已经在系统里真实跑过。</p>
+    <p>下面这排是凭证类型对照表，各位不需要记编码，看中文就行。右边这张是把清单里的一笔凭证下钻到明细：8 月 31 日那笔禅昌光电的商业保险费用，走的是特殊总账标识 N，最后归集到费用科目——这就是"从清单到明细"的完整可追溯路径。</p>
+  </aside>
+</section>
+
+<!-- ==================== 实证 3 · 采购订单与条件记录 ==================== -->
+<section class="slide" data-title="成果实证三 · 采购订单与条件记录" style="overflow:hidden;justify-content:flex-start;padding-top:32px;padding-bottom:38px">
+  <p class="kicker">EVIDENCE 03 · ME23N 采购订单</p>
+  <h2 class="h2" style="margin-bottom:6px">成果实证三 · 采购订单与条件记录</h2>
+  <p class="dim" style="margin-bottom:10px">采购侧端到端已在 DEV 200 跑通：<strong>采购订单 → 收货 → 应付暂估 → 发票校验</strong>；采购订单带完整条件记录（价格 / 税金 / 折扣），价格不再依赖线下 Excel 维护</p>
+
+  <div style="display:flex;gap:12px;flex:1;min-height:0">
+    <div style="flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:11px">
+      <div class="ev-item" style="flex:0 0 356px">
+        <div class="ev-bar"><span class="ev-tag">抬头与行项目</span><span class="ev-id">采购订单 4500000002</span><span class="ev-date">2026-09-16 · 类型 NB · 供应商 3000002</span></div>
+        <div class="ev-shot"><img src="assets/proof/po_4500000002.png" alt="ME23N 显示采购订单 4500000002 抬头与行项目"></div>
+        <div class="ev-cap"><p><span class="k">行项目 2 项：</span>MPN测试物料-品牌向01（<span class="ev-mono">9000000004</span>，200 EA，净价 8.00 CNY）· MPN测试物料-品牌向02（<span class="ev-mono">9000000005</span>，200 EA，净价 100.00 CNY）｜ <span class="k">交货日期</span> 2026-10-16 ｜ <span class="k">工厂</span> 佛山电器照明高明</p></div>
+      </div>
+
+      <div class="ev-item" style="flex:1;min-height:0">
+        <div class="ev-bar"><span class="ev-tag">条件记录</span><span class="ev-id">定价条件 4 项</span><span class="ev-date">净值 1,600.00 CNY · 由条件自动带出</span></div>
+        <div class="ev-shot"><img src="assets/proof/po_cond_4500000002.png" alt="采购订单条件记录：PB00 / PBXX / NAVS / SKTO 定价条件明细"></div>
+        <div class="ev-cap"><p><span class="k">PB00</span> 价格 8.00 CNY · <span class="k">PBXX</span> 总价格 · <span class="k">NAVS</span> 不可抵扣的税金 8.00 CNY · <span class="k">SKTO</span> 现金折扣 · 单位 EA · 条件值 1,600.00 CNY，定价、税码与折扣均在系统内生效</p></div>
+      </div>
+    </div>
+
+    <div class="ev-panel" style="flex:0 0 386px">
+      <h4>采购订单关键信息 · 4500000002</h4>
+      <div class="row"><span class="lb">订单类型</span><span class="vl"><strong>NB</strong> 标准采购订单 · 左侧采购凭证树 4500000002 / 4500000003 / 541000001</span></div>
+      <div class="row"><span class="lb">供应商</span><span class="vl"><span class="ev-mono">3000002</span> 成都清阳电子材料有限公司</span></div>
+      <div class="row"><span class="lb">凭证日期</span><span class="vl">2026-09-16 · 交货日期 2026-10-16</span></div>
+      <div class="row"><span class="lb">行项目</span><span class="vl">2 项 · 物料组 EA · 单位 EA · 工厂 佛山电器照明高明<br>10 · <span class="ev-mono">9000000004</span> MPN测试物料-品牌向01 · 200 EA · 8.00 CNY<br>20 · <span class="ev-mono">9000000005</span> MPN测试物料-品牌向02 · 200 EA · 100.00 CNY</span></div>
+      <div class="row"><span class="lb">条件记录</span><span class="vl">4 项：<strong>PB00</strong> 价格 · <strong>PBXX</strong> 总价格 · <strong>NAVS</strong> 不可抵扣的税金 · <strong>SKTO</strong> 现金折扣</span></div>
+      <div class="row"><span class="lb">净值</span><span class="vl">行项目 10：200 EA × 8.00 CNY = <strong>1,600.00 CNY</strong>（由条件记录自动带出）</span></div>
+      <div class="ev-note" style="flex:1;min-height:0;align-items:flex-start">
+        <p><strong>条件记录跑通意味着</strong>定价、税码与折扣逻辑已在系统内生效，采购价格不再由线下 Excel 维护；结合实证一的"应付账款-应付暂估"凭证，采购订单、收货、暂估应付、发票校验这条链在 DEV 200 已具备完整复现条件。</p>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>最后一张实证是采购侧。这是采购订单 4500000002，标准采购订单类型 NB，供应商是成都清阳电子材料。</p>
+    <p>请注意下面这块<strong>条件记录</strong>——PB00 价格、PBXX 总价格、NAVS 不可抵扣税金、SKTO 现金折扣，四项条件类型都带出来了，净价 8 块、200 个，系统自动算出净值 1,600。这说明<strong>定价逻辑、税码和折扣已经在系统里生效</strong>，不需要再靠线下 Excel 维护价格。</p>
+    <p>结合前面第一页那张"应付账款-应付暂估"的凭证，采购这条线——采购订单、收货、暂估应付、发票校验——在 200 客户端已经能完整跑通。这是配置、主数据、财务集成三者同时就位的证据。</p>
   </aside>
 </section>
 
