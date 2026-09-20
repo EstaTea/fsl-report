@@ -292,7 +292,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     <p>先过一下议程，四个部分。</p>
     <p><strong>第一部分项目总体情况</strong>——把主计划、五阶段和今天所处的位置讲清楚。</p>
     <p><strong>第二部分当前工作完成情况</strong>——实现阶段三周的实际进度、健康状态和风险清单。</p>
-    <p><strong>第三部分系统实现关键成果</strong>——这是本次汇报的重点，七项已经落地的成果逐项说明，最后用三页 DEV 200 系统截图做实证。</p>
+    <p><strong>第三部分系统实现关键成果</strong>——这是本次汇报的重点，七项已经落地的成果逐项说明，最后用五页 DEV 200 系统截图做实证，覆盖财务、采购、销售、生产四条业务线。</p>
     <p><strong>第四部分下阶段重点工作</strong>——9 月底目标和双周滚动计划。</p>
   </aside>
 </section>
@@ -1001,7 +1001,7 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     <div style="font-size:78px;font-weight:800;line-height:1;color:rgba(255,255,255,.22);letter-spacing:-2px">03</div>
     <h2 class="h2" style="color:#fff;font-size:42px !important;margin:10px 0 12px">系统实现关键成果</h2>
     <div style="width:64px;height:3px;background:#5EA4CE;margin:0 auto 16px"></div>
-    <p style="font-size:17px;color:rgba(255,255,255,.72)">七项已落地成果 · 从蓝图方案确认到配置、开发、测试与数据治理全面铺开 · 附 DEV 200 系统实现实证</p>
+    <p style="font-size:17px;color:rgba(255,255,255,.72)">七项已落地成果 · 从蓝图方案确认到配置、开发、测试与数据治理全面铺开 · 附五页 DEV 200 系统实现实证</p>
   </div>
 </section>
 
@@ -1065,9 +1065,9 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
       <p style="font-size:12.5px !important;margin:0;line-height:1.5;color:rgba(255,255,255,.78)">蓝图阶段全部成果已转化为可执行的配置、开发与测试计划，实现阶段按周推进无延期。</p>
     </div>
   </div>
-  <p class="dim" style="font-size:12px !important;margin-top:12px;line-height:1.5">附 · 本部分末附三页 <strong>DEV 200 系统实现实证</strong>：会计凭证跑通（FB03）· 凭证清单与核算规模（FBL3N，57 项）· 采购订单与条件记录（ME23N）。</p>
+  <p class="dim" style="font-size:12px !important;margin-top:12px;line-height:1.5">附 · 本部分末附五页 <strong>DEV 200 系统实现实证</strong>：会计凭证跑通（FB03）· 凭证清单与核算规模（FBL3N，57 项）· 采购订单与条件记录（ME23N）· 销售订单运行（VA03）· 生产订单与 BOM 组件展开（MM03）。</p>
   <aside class="notes">
-    <p>这一部分是本次汇报的重点——系统实现阶段到目前为止，我们做成了什么。</p>
+    <p>这一部分是本次汇报的重点——系统实现阶段到目前为止，我们做成了什么。最后我会用五页 DEV 200 的真实系统截图来做实证。</p>
     <p>七项成果，前三项是"底座"，中间三项是"交付"，最后一项是"长线"。接下来我逐项展开。</p>
   </aside>
 </section>
@@ -1636,6 +1636,60 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     <p>最后一张实证是采购侧。这是采购订单 4500000002，标准采购订单类型 NB，供应商是成都清阳电子材料。</p>
     <p>请注意下面这块<strong>条件记录</strong>——PB00 价格、PBXX 总价格、NAVS 不可抵扣税金、SKTO 现金折扣，四项条件类型都带出来了，净价 8 块、200 个，系统自动算出净值 1,600。这说明<strong>定价逻辑、税码和折扣已经在系统里生效</strong>，不需要再靠线下 Excel 维护价格。</p>
     <p>结合前面第一页那张"应付账款-应付暂估"的凭证，采购这条线——采购订单、收货、暂估应付、发票校验——在 200 客户端已经能完整跑通。这是配置、主数据、财务集成三者同时就位的证据。</p>
+  </aside>
+</section>
+
+<!-- ==================== 实证 4 · 销售订单运行（SD） ==================== -->
+<section class="slide" data-title="成果实证四 · 销售订单运行" style="overflow:hidden;justify-content:flex-start;padding-top:32px;padding-bottom:38px">
+  <p class="kicker">EVIDENCE 04 · VA03 销售订单</p>
+  <h2 class="h2" style="margin-bottom:6px">成果实证四 · 销售订单运行（SD）</h2>
+  <p class="dim" style="margin-bottom:10px">销售订单 <strong>2400000000</strong> 已在 DEV 200 完整建立：售达方 / 收货方、净价、交货日期、付款条件与国际贸易条款一次性带出，行项目 <strong>122 · 标准成品物料测试SD-003 · 100 EA</strong>（右下状态栏 DS4 (1) 200）</p>
+
+  <div class="ev-item" style="flex:1;min-height:0">
+    <div class="ev-bar"><span class="ev-tag">显示销售订单（高明）</span><span class="ev-id">2400000000</span><span class="ev-date">净价 4,424.78 CNY · 交货日期 18.09.2026 · 销售范围 5000 / 01 / 01 禅昌电器（销售）</span></div>
+    <div class="ev-shot"><img src="assets/proof/va03_so_2400000000.png" alt="VA03 显示销售订单 2400000000：抬头字段、项目概览与全部项目行"></div>
+    <div class="ev-cap"><p><span class="k">售达方 / 收货方</span> <span class="ev-mono">10000018</span> 标准测试客户-SD-002 公司（北京） ｜ <span class="k">付款条件</span> <span class="ev-mono">0001</span> 立即付款无扣除 ｜ <span class="k">交货</span> 18.09.2026 · 总重量 1,000 KG ｜ <span class="k">贸易条款</span> CFR ｜ <span class="k">客户参考</span> 123</p></div>
+  </div>
+
+  <aside class="notes">
+    <p>第四张实证转到销售侧。这是销售订单 2400000000，VA03 显示订单，销售范围是 5000 / 01 / 01——禅昌电器（销售），家用流通，民用照明。</p>
+    <p>请注意抬头部分：售达方和收货方都是 10000018 标准测试客户-SD-002 公司；净价 4,424.78 人民币；交货日期 18 号 9 月；付款条件 0001 立即付款无扣除；国际贸易条款 CFR。这些都是由客户主数据和销售范围配置<strong>自动带出</strong>的，不是手工敲的。</p>
+    <p>下面「项目概览」里交货工厂、总重量 1,000 公斤、定价日期也是自动确定的；再往下“全部项目”有一行——行项目 122，标准成品物料测试SD-003，100 EA。销售订单已经能完整跑通，具备接单→发货→开票的前置条件。</p>
+  </aside>
+</section>
+
+<!-- ==================== 实证 5 · 生产订单、组件展开与品牌物料主数据 ==================== -->
+<section class="slide" data-title="成果实证五 · 生产订单与组件展开" style="overflow:hidden;justify-content:flex-start;padding-top:32px;padding-bottom:38px">
+  <p class="kicker">EVIDENCE 05 · 生产订单 · 组件 · 品牌物料</p>
+  <h2 class="h2" style="margin-bottom:6px">成果实证五 · 生产订单、BOM 组件展开与品牌物料主数据</h2>
+  <p class="dim" style="margin-bottom:10px">生产订单 <strong>A0001</strong>（类型 <strong>PP02</strong> · 工厂 <strong>FZ13</strong> · 物料 ITD151A0000194 FSL超薄筒灯）状态 <strong>REL 已下达</strong>、数量 <strong>100 EA</strong>、已交货 <strong>11</strong>；组件按 BOM 展开 <strong>3 项</strong>并已生成物料凭证；品牌物料 <strong>9000000004</strong> 带 MPN 制造商零件主数据</p>
+
+  <div style="display:grid;grid-template-columns:116fr 99fr;gap:11px;flex:0 0 343px;min-height:0">
+    <div class="ev-item">
+      <div class="ev-bar"><span class="ev-tag">生产订单抬头</span><span class="ev-id">A0001</span><span class="ev-date">PP02 · FZ13 · 数量 100 EA</span></div>
+      <div class="ev-shot"><img src="assets/proof/pp_head_a0001.png" alt="生产订单 A0001 抬头：状态 REL、数量 100 EA、已交货 11"></div>
+      <div class="ev-cap"><p><span class="k">状态</span> REL 已下达 · PCNF 部分确认 · PRC 已确认 · CSER · GMPS · MANC · PDLV · SETC ｜ <span class="k">日期</span> 开始 29.08.2026 · 结束 29.08.2026 · 审批 28.08.2026</p></div>
+    </div>
+
+    <div class="ev-item">
+      <div class="ev-bar"><span class="ev-tag">品牌物料主数据</span><span class="ev-id">9000000004</span><span class="ev-date">MM03 · 采购视图</span></div>
+      <div class="ev-shot"><img src="assets/proof/mm03_material_9000000004.png" alt="MM03 显示物料 9000000004：FSL-制造商（品牌）物料，带 MPN 制造商零件编号"></div>
+      <div class="ev-cap"><p><span class="k">物料</span> <span class="ev-mono">9000000004</span> MPN测试物料-品牌商01 ｜ <span class="k">内部物料编号</span> <span class="ev-mono">97000000001</span> ｜ <span class="k">制造商零件编号 MPN-A01</span> ｜ <span class="k">制造商</span> <span class="ev-mono">3000005</span> ｜ <span class="k">物料组</span> 9608</p></div>
+    </div>
+  </div>
+
+  <div class="ev-item" style="flex:1;min-height:0;margin-top:11px">
+    <div class="ev-bar"><span class="ev-tag">组件概览 · BOM 展开</span><span class="ev-id">共 3 项</span><span class="ev-date">对象树：A0001 → 0010 / 0020 / 0030 均已生成物料凭证</span></div>
+    <div class="ev-shot"><img src="assets/proof/pp_comp_a0001.png" alt="生产订单 A0001 组件概览：0010 超炫筒灯电源、0020 钻石五代筒灯、0030 护套线"></div>
+    <div class="ev-cap"><p><span class="k">0010</span> TD008-1 超炫筒灯电源常压 4.8W830 · <span class="k">0020</span> 钻石五代筒灯 2.5+PC 增韧扩散板 69.3*0.8m · <span class="k">0030</span> 护套线 3C2X0.75 多股铜 125-15*6*2-15.5*3.5 ｜ 需求数量 1 EA / 1 EA / 1 ROL · 工厂 FZ13 · 库存地点 0010</p></div>
+  </div>
+
+  <aside class="notes">
+    <p>最后一张实证是生产侧，它把 BOM、工艺路线和物料主数据串了起来。</p>
+    <p>上左是生产订单 A0001 的抬头，订单类型 PP02，物料是 ITD151A0000194——FSL 超薄筒灯 220V 4.8W 30K 2.5-3 寸美炫全白，工厂 FZ13。</p>
+    <p>关键是这行<strong>状态码</strong>：REL 表示订单<strong>已下达</strong>，PCNF、PRC 表示已部分确认和已确认，说明订单不是躺在系统里没动，而是已经下到车间并拿到确认。抬头里数量 100 EA，已交货 11。</p>
+    <p>上右是品牌物料主数据：物料 9000000004 维护成了 FSL-制造商（品牌）物料，内部物料编号 97000000001、制造商零件编号 MPN-A01、制造商 3000005。这类<strong>品牌物料/MPN 主数据</strong>是采购侧品牌件管理的基础，和前面采购订单里的品牌件行项目能对得上。</p>
+    <p>下面这一条是生产订单的<strong>组件概览</strong>：左边对象树可以看到 A0001 下面挂了 0010 / 0020 / 0030 三个组件项，每一项都生成了物料凭证号；右边表格是 BOM 展开结果——0010 超炫筒灯电源、0020 钻石五代筒灯、0030 护套线，各 1 个，工厂 FZ13、库存地点 0010。BOM 展开、组件需求和库存地点确定都在系统里跑通了。</p>
   </aside>
 </section>
 
