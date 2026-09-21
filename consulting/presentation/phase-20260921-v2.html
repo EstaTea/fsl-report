@@ -181,6 +181,10 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
 .agenda-slide .ag-item.active{background:#0b2d47;color:#fff}
 .agenda-slide .ag-item .idx{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;border-radius:4px;background:#e2e8f0;color:#5B7A91;font-size:10px;font-weight:600}
 .agenda-slide .ag-item.active .idx{background:rgba(255,255,255,.2);color:#fff}
+.agenda-slide .ag-item.section-header{font-size:14px;font-weight:800;color:#000;margin-top:4px;padding-top:8px;border-top:1px solid #d0dce8}
+.agenda-slide .ag-item.section-header:first-child{margin-top:0;border-top:none}
+.agenda-slide .ag-item.section-header .idx{background:#0b2d47;color:#fff;font-size:10px;font-weight:800;min-width:22px;height:22px}
+.agenda-slide .ag-item.section-header:hover{background:#e8f1f8;color:#000}
 
 /* ===== Deck Footer (from s05-overseas-finance) ===== */
 .deck-footer{
@@ -2336,7 +2340,8 @@ table.fsl-table tr:nth-child(even){background:var(--surface-2)}
     var title = s.getAttribute('data-title') || '';
     if(!title) return;
     var item = document.createElement('div');
-    item.className = 'ag-item';
+    var isSectionCover = s.classList.contains('section-cover');
+    item.className = 'ag-item' + (isSectionCover ? ' section-header' : '');
     item.innerHTML = '<span class="idx">' + (i+1) + '</span><span style="overflow:hidden;text-overflow:ellipsis">' + title + '</span>';
     item.addEventListener('click', function(){
       window.location.hash = '#/' + (i+1);
