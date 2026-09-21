@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>培训管理台 · ERP 仿真培训 | FSL 工作台</title>
+<script src="../auth-guard.js"></script>
+<style>
+:root{--b900:#0B2D47;--b700:#1A4F73;--b500:#2374A3;--b300:#5EA4CE;
+      --b100:#C7E2F2;--b050:#EBF5FB;--bg:#F2F7FB;--text:#0F2233;
+      --muted:#5B7A91;--rule:#D6E8F2;--r:6px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;
+     background:var(--bg);color:var(--text);font-size:14px;line-height:1.7;}
+a{color:inherit;text-decoration:none;}
+
+.hero{background:linear-gradient(155deg,var(--b900) 0%,var(--b700) 100%);
+      color:#fff;padding:28px 32px 24px;border-bottom:3px solid var(--b500);
+      display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.hero h1{font-size:21px;font-weight:800;}
+.hero p{font-size:13px;opacity:.82;max-width:780px;margin-top:4px;}
+.user-badge{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
+  border-radius:6px;padding:6px 13px;font-size:12.5px;display:flex;align-items:center;gap:8px;}
+.user-badge .av{width:26px;height:26px;border-radius:50%;background:var(--b300);
+  display:flex;align-items:center;justify-content:center;color:var(--b900);font-weight:800;font-size:13px;}
+.role-pill{background:rgba(255,255,255,.18);border-radius:20px;padding:1px 10px;font-size:11px;font-weight:700;}
+
+.container{width:100%;padding:26px 32px;}
+.bc{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted);margin-bottom:18px;flex-wrap:wrap;}
+.bc a{color:var(--b500);} .bc a:hover{color:var(--b700);} .bc .sep{color:var(--b100);}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:22px;}
+.stat{background:#fff;border:1px solid var(--rule);border-left:4px solid var(--b500);
+  border-radius:9px;padding:14px 17px;box-shadow:0 1px 4px rgba(11,45,71,.06);}
+.stat .num{font-size:26px;font-weight:800;color:var(--b900);line-height:1;}
+.stat .lab{font-size:12px;color:var(--muted);margin-top:5px;}
+
+.tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;}
+.tab{background:#fff;border:1px solid var(--rule);color:var(--muted);border-radius:var(--r);
+  padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.tab:hover{color:var(--b700);border-color:var(--b100);}
+.tab.active{background:var(--b700);color:#fff;border-color:var(--b700);}
+
+.card{background:#fff;border:1px solid var(--rule);border-radius:10px;overflow:hidden;
+  box-shadow:0 2px 8px rgba(11,45,71,.07);margin-bottom:20px;}
+.card h3{font-size:15px;font-weight:800;color:var(--b900);padding:14px 18px;
+  border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.tbl{width:100%;border-collapse:collapse;}
+.tbl th{text-align:left;font-size:12px;color:var(--muted);font-weight:700;
+  padding:10px 18px;background:var(--b050);border-bottom:1px solid var(--rule);}
+.tbl td{padding:12px 18px;border-bottom:1px solid var(--rule);font-size:13px;vertical-align:middle;}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl .ct{font-weight:700;color:var(--b900);}
+.tbl .cd{font-size:11.5px;color:var(--muted);margin-top:2px;}
+
+.pill{display:inline-block;padding:2px 10px;border-radius:20px;font-size:11.5px;font-weight:700;}
+.p-admin{background:var(--b900);color:#fff;}
+.p-trainer{background:var(--b300);color:var(--b900);}
+.p-student{background:var(--b050);color:var(--b700);border:1px solid var(--b100);}
+.p-off{background:#fff;color:var(--muted);border:1px solid var(--rule);}
+
+.btn{background:var(--b500);color:#fff;border:none;border-radius:var(--r);padding:7px 15px;
+  font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;}
+.btn:hover{background:var(--b700);}
+.btn.ghost{background:var(--b050);color:var(--b700);border:1px solid var(--rule);}
+.btn.sm{padding:4px 11px;font-size:11.5px;}
+.btn.danger{background:#fff;color:var(--b900);border:1px solid var(--rule);}
+.btn.danger:hover{background:var(--b050);}
+
+.empty{padding:36px 18px;text-align:center;color:var(--muted);font-size:13px;}
+.warn-bar{background:var(--b050);border:1px solid var(--b100);border-left:4px solid var(--b500);
+  border-radius:8px;padding:12px 16px;margin-bottom:18px;font-size:12.5px;color:var(--b700);}
+.loading{padding:30px 18px;text-align:center;color:var(--muted);}
+
+.assign-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;padding:18px;}
+.assign-grid h4{font-size:13px;color:var(--b700);margin-bottom:10px;}
+.assign-grid select{width:100%;padding:8px 10px;border:1px solid var(--rule);border-radius:var(--r);
+  font-size:13px;font-family:inherit;background:#fff;color:var(--text);margin-bottom:10px;}
+.checks{border:1px solid var(--rule);border-radius:var(--r);padding:10px 12px;background:var(--b050);
+  max-height:210px;overflow:auto;margin-bottom:10px;}
+.checks label{display:flex;align-items:center;gap:8px;font-size:12.5px;padding:4px 0;cursor:pointer;}
+.checks input{accent-color:var(--b500);}
+
+.modal-mask{position:fixed;inset:0;background:rgba(11,45,71,.45);display:flex;
+  align-items:center;justify-content:center;z-index:99;padding:20px;}
+/* 必须显式覆盖：class 的 display:flex 会盖掉 [hidden] 的 display:none，否则蒙层始终拦截点击 */
+.modal-mask[hidden]{display:none;}
+.modal{background:#fff;border-radius:10px;width:100%;max-width:520px;max-height:88vh;overflow:auto;
+  box-shadow:0 10px 40px rgba(11,45,71,.3);}
+.modal h3{font-size:15px;font-weight:800;color:var(--b900);padding:15px 20px;border-bottom:1px solid var(--rule);}
+.modal .body{padding:16px 20px;}
+.fld{margin-bottom:12px;}
+.fld label{display:block;font-size:12px;color:var(--muted);font-weight:700;margin-bottom:4px;}
+.fld input,.fld select{width:100%;padding:8px 10px;border:1px solid var(--rule);border-radius:var(--r);
+  font-size:13px;font-family:inherit;background:#fff;color:var(--text);}
+.fld .hint{font-size:11px;color:var(--muted);margin-top:3px;}
+.fld .box{border:1px solid var(--rule);border-radius:var(--r);padding:8px 10px;background:var(--b050);
+  max-height:150px;overflow:auto;}
+.fld .box label{display:flex;align-items:center;gap:8px;font-size:12.5px;padding:3px 0;font-weight:400;color:var(--text);}
+.modal-btns{display:flex;justify-content:flex-end;gap:8px;padding:14px 20px;border-top:1px solid var(--rule);}
+@media(max-width:640px){.container{padding:20px 14px;}.tbl td,.tbl th{padding:10px 12px;}}
+</style>
+</head>
+<body>
+<div id="site-nav"></div>
+<script src="../nav.js"></script>
+
+<div class="hero">
+  <div>
+    <h1>培训管理台</h1>
+    <p>学员账号、班级与课程指派统一维护。所有变更经 GitHub Contents API 落库（与看板同一机制），数据自托管、不出境；业务状态不写 localStorage。</p>
+  </div>
+  <div class="user-badge"><span class="av" id="meAv">管</span><span id="meName">—</span><span class="role-pill" id="meRole">—</span></div>
+</div>
+
+<div class="container">
+  <div class="bc"><a href="/fsl-report/">工作台首页</a><span class="sep">/</span><a href="index.html">培训</a><span class="sep">/</span><span>管理台</span></div>
+
+  <div id="warnSlot"></div>
+
+  <div class="stats">
+    <div class="stat"><div class="num" id="statLearners">—</div><div class="lab">学员账号</div></div>
+    <div class="stat"><div class="num" id="statClasses">—</div><div class="lab">班级</div></div>
+    <div class="stat"><div class="num" id="statCourses">—</div><div class="lab">课程（目录）</div></div>
+    <div class="stat"><div class="num" id="statAssign">—</div><div class="lab">指派人次</div></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="learners">学员账号</button>
+    <button class="tab" data-tab="classes">班级管理</button>
+    <button class="tab" data-tab="assign">课程指派</button>
+  </div>
+
+  <div class="card" id="pane-learners">
+    <h3>学员账号<button class="btn sm" id="btnAddLearner">+ 新增学员</button></h3>
+    <div id="tblLearners"><div class="loading">读取中…</div></div>
+  </div>
+
+  <div class="card" id="pane-classes" hidden>
+    <h3>班级<button class="btn sm" id="btnAddClass">+ 新增班级</button></h3>
+    <div id="tblClasses"><div class="loading">读取中…</div></div>
+  </div>
+
+  <div class="card" id="pane-assign" hidden>
+    <h3>课程指派</h3>
+    <div class="assign-grid">
+      <div>
+        <h4>按班级指派</h4>
+        <select id="selAssignClass"></select>
+        <div class="checks" id="classCourseBox"></div>
+        <button class="btn" id="saveClassCourses">保存班级指派</button>
+      </div>
+      <div>
+        <h4>按学员个别指派</h4>
+        <select id="selAssignLearner"></select>
+        <div class="checks" id="learnerCourseBox"></div>
+        <button class="btn" id="saveLearnerCourses">保存个别指派</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-mask" id="modal" hidden>
+  <div class="modal">
+    <h3 id="modalTitle">编辑</h3>
+    <div class="body" id="modalForm"></div>
+    <div class="modal-btns">
+      <button class="btn ghost" id="modalCancel">取消</button>
+      <button class="btn" id="modalSave">保存到 GitHub</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var REPO='EstaTea/fsl-report';
+  var P_ROSTER='data/training/roster.json';
+  var P_CLASSES='data/training/classes.json';
+
+  var S={ catalog:[], roster:{learners:[]}, classes:{classes:[]},
+          shaRoster:null, shaClasses:null, token:'', me:{id:'',name:'',role:''} };
+
+  function token(){ var s=window.FSL_SESSION||{};
+    return s.gh_token||s.token||(localStorage.getItem('gh_token_fsl')||''); }
+  function meId(){ var s=window.FSL_SESSION||{}; return s.login||s.email||'anonymous'; }
+  function meName(){ var s=window.FSL_SESSION||{}; return s.name||s.login||'本人'; }
+
+  // ── GitHub Contents API ──
+  function ghGet(path){
+    if(!S.token) return Promise.resolve(null);
+    return fetch('https://api.github.com/repos/'+REPO+'/contents/'+path,{
+      headers:{'Authorization':'Bearer '+S.token,'Accept':'application/vnd.github+json'}
+    }).then(function(r){ return r.ok?r.json():null; })
+      .then(function(j){
+        if(!j||!j.content) return null;
+        try{ return { data:JSON.parse(atob(j.content.replace(/\s/g,''))), sha:j.sha }; }catch(e){ return null; }
+      }).catch(function(){ return null; });
+  }
+  function ghPut(path,obj,sha,msg){
+    var body={ message:msg, content:btoa(unescape(encodeURIComponent(JSON.stringify(obj,null,2)))) };
+    if(sha) body.sha=sha;
+    return fetch('https://api.github.com/repos/'+REPO+'/contents/'+path,{
+      method:'PUT',
+      headers:{'Authorization':'Bearer '+S.token,'Accept':'application/vnd.github+json','Content-Type':'application/json'},
+      body:JSON.stringify(body)
+    }).then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); });
+  }
+  function localFallback(path){
+    return fetch('../'+path).then(function(r){ return r.ok?r.json():null; }).catch(function(){ return null; });
+  }
+
+  function loadAll(){
+    return fetch('courses.json').then(function(r){ return r.ok?r.json():null; })
+      .then(function(j){ S.catalog=(j&&j.courses)||[]; })
+      .catch(function(){ S.catalog=[]; })
+      .then(function(){ return ghGet(P_ROSTER); })
+      .then(function(g){ if(g){S.roster=g.data;S.shaRoster=g.sha;} else { return localFallback(P_ROSTER).then(function(d){ if(d)S.roster=d; }); } })
+      .then(function(){ return ghGet(P_CLASSES); })
+      .then(function(g){ if(g){S.classes=g.data;S.shaClasses=g.sha;} else { return localFallback(P_CLASSES).then(function(d){ if(d)S.classes=d; }); } })
+      .then(function(){ if(!S.roster.learners) S.roster.learners=[]; if(!S.classes.classes) S.classes.classes=[]; });
+  }
+
+  // ── 角色 ──
+  function roleOf(id){
+    var l=(S.roster.learners||[]).filter(function(x){ return x.id===id; })[0];
+    return l?l.role:null;
+  }
+  function isManager(){ var r=roleOf(S.me.id); return r==='admin'||r==='trainer'; }
+
+  // ── 工具 ──
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function courseTitle(id){ var c=S.catalog.filter(function(x){return x.id===id;})[0]; return c?c.title:id; }
+  function className(id){ var c=(S.classes.classes||[]).filter(function(x){return x.id===id;})[0]; return c?c.name:id; }
+  function assignedCourses(learner){
+    var out={};
+    (learner.classes||[]).forEach(function(cid){
+      var c=(S.classes.classes||[]).filter(function(x){return x.id===cid;})[0];
+      (c&&c.courses||[]).forEach(function(k){ out[k]=1; });
+    });
+    (learner.courses||[]).forEach(function(k){ out[k]=1; });
+    return Object.keys(out);
+  }
+  function toast(msg,kind){
+    var el=document.getElementById('warnSlot');
+    el.innerHTML='<div class="warn-bar">'+esc(msg)+'</div>';
+    if(kind!=='warn') setTimeout(function(){ el.innerHTML=''; },4000);
+  }
+
+  // ── 渲染 ──
+  function renderStats(){
+    var L=S.roster.learners||[], C=S.classes.classes||[];
+    var n=0; L.forEach(function(l){ n+=assignedCourses(l).length; });
+    document.getElementById('statLearners').textContent=L.length;
+    document.getElementById('statClasses').textContent=C.length;
+    document.getElementById('statCourses').textContent=S.catalog.length;
+    document.getElementById('statAssign').textContent=n;
+  }
+
+  function renderLearners(){
+    var L=S.roster.learners||[];
+    if(!L.length){ document.getElementById('tblLearners').innerHTML='<div class="empty">暂无学员账号，点击右上角「新增学员」创建。</div>'; return; }
+    var h='<table class="tbl"><thead><tr><th>姓名</th><th>登录标识</th><th>角色</th><th>所属班级</th><th>指派课程</th><th>状态</th><th>操作</th></tr></thead><tbody>';
+    L.forEach(function(l,i){
+      var cs=assignedCourses(l);
+      h+='<tr>'+
+        '<td><div class="ct">'+esc(l.name)+'</div>'+(l.email?'<div class="cd">'+esc(l.email)+'</div>':'')+'</td>'+
+        '<td><code>'+esc(l.id)+'</code></td>'+
+        '<td><span class="pill p-'+(l.role||'student')+'">'+({admin:'管理员',trainer:'培训师',student:'学员'}[l.role]||'学员')+'</span></td>'+
+        '<td>'+((l.classes||[]).map(className).join('、')||'<span class="cd">未分班</span>')+'</td>'+
+        '<td>'+(cs.length?cs.length+' 门':'—')+'</td>'+
+        '<td><span class="pill '+(l.active===false?'p-off':'p-student')+'">'+(l.active===false?'已停用':'启用')+'</span></td>'+
+        '<td><button class="btn sm ghost" data-edit-l="'+i+'">编辑</button> '+
+        '<button class="btn sm danger" data-del-l="'+i+'">'+(l.active===false?'启用':'停用')+'</button></td></tr>';
+    });
+    h+='</tbody></table>';
+    document.getElementById('tblLearners').innerHTML=h;
+  }
+
+  function renderClasses(){
+    var C=S.classes.classes||[];
+    if(!C.length){ document.getElementById('tblClasses').innerHTML='<div class="empty">暂无班级，点击右上角「新增班级」创建。</div>'; return; }
+    var h='<table class="tbl"><thead><tr><th>班级</th><th>周期</th><th>培训师</th><th>学员</th><th>已指派课程</th><th>操作</th></tr></thead><tbody>';
+    C.forEach(function(c,i){
+      h+='<tr>'+
+        '<td><div class="ct">'+esc(c.name)+'</div><div class="cd">'+esc(c.id)+'</div></td>'+
+        '<td>'+esc(c.period||'—')+'</td>'+
+        '<td>'+esc(c.trainer||'—')+'</td>'+
+        '<td>'+((c.students||[]).length)+' 人</td>'+
+        '<td>'+((c.courses||[]).map(courseTitle).join('、')||'<span class="cd">未指派</span>')+'</td>'+
+        '<td><button class="btn sm ghost" data-edit-c="'+i+'">编辑</button> '+
+        '<button class="btn sm danger" data-del-c="'+i+'">删除</button></td></tr>';
+    });
+    h+='</tbody></table>';
+    document.getElementById('tblClasses').innerHTML=h;
+  }
+
+  function renderAssign(){
+    var cs=document.getElementById('selAssignClass');
+    cs.innerHTML=(S.classes.classes||[]).map(function(c){
+      return '<option value="'+esc(c.id)+'">'+esc(c.name)+'</option>'; }).join('')||'<option value="">（暂无班级）</option>';
+    var ls=document.getElementById('selAssignLearner');
+    ls.innerHTML=(S.roster.learners||[]).map(function(l){
+      return '<option value="'+esc(l.id)+'">'+esc(l.name)+'（'+esc(l.id)+'）</option>'; }).join('')||'<option value="">（暂无学员）</option>';
+    fillClassCourses(); fillLearnerCourses();
+  }
+  function checkBoxHtml(name,all,sel){
+    return all.map(function(c){
+      var on=(sel||[]).indexOf(c.id)>=0;
+      return '<label><input type="checkbox" name="'+name+'" value="'+esc(c.id)+'"'+(on?' checked':'')+'>'+esc(c.title)+'</label>';
+    }).join('')||'<div class="cd">（课程目录为空）</div>';
+  }
+  function fillClassCourses(){
+    var id=document.getElementById('selAssignClass').value;
+    var c=(S.classes.classes||[]).filter(function(x){return x.id===id;})[0];
+    document.getElementById('classCourseBox').innerHTML=checkBoxHtml('cc',S.catalog,c&&c.courses);
+  }
+  function fillLearnerCourses(){
+    var id=document.getElementById('selAssignLearner').value;
+    var l=(S.roster.learners||[]).filter(function(x){return x.id===id;})[0];
+    document.getElementById('learnerCourseBox').innerHTML=checkBoxHtml('lc',S.catalog,l&&l.courses);
+  }
+
+  function renderAll(){ renderStats(); renderLearners(); renderClasses(); renderAssign(); }
+
+  // ── 模态框 ──
+  function openModal(title,html,onSave){
+    document.getElementById('modalTitle').textContent=title;
+    document.getElementById('modalForm').innerHTML=html;
+    document.getElementById('modal').hidden=false;
+    document.getElementById('modalSave').onclick=function(){
+      var v=onSave(); if(v===false) return;
+      document.getElementById('modal').hidden=true;
+    };
+  }
+  document.getElementById('modalCancel').onclick=function(){ document.getElementById('modal').hidden=true; };
+
+  function classCheckHtml(name,sel){
+    var C=S.classes.classes||[];
+    return C.length?C.map(function(c){
+      var on=(sel||[]).indexOf(c.id)>=0;
+      return '<label><input type="checkbox" name="'+name+'" value="'+esc(c.id)+'"'+(on?' checked':'')+'>'+esc(c.name)+'</label>';
+    }).join(''):'<div class="cd">（暂无班级，请先创建班级）</div>';
+  }
+  function picked(name){
+    return Array.prototype.slice.call(document.querySelectorAll('#modalForm input[name="'+name+'"]:checked'))
+      .map(function(i){ return i.value; });
+  }
+
+  function editLearner(idx){
+    var l = idx==null ? {id:'',name:'',role:'student',email:'',org:'',classes:[],courses:[],active:true}
+                      : S.roster.learners[idx];
+    var html=
+      '<div class="fld"><label>登录标识（GitHub login，必填）</label>'+
+        '<input id="f_id" value="'+esc(l.id)+'"'+(idx==null?'':' readonly')+' placeholder="例如 EstaTea">'+
+        '<div class="hint">与登录账号一致，学习进度按此标识落库；创建后不可修改。</div></div>'+
+      '<div class="fld"><label>姓名</label><input id="f_name" value="'+esc(l.name)+'" placeholder="学员姓名"></div>'+
+      '<div class="fld"><label>角色</label><select id="f_role">'+
+        ['student','trainer','admin'].map(function(r){
+          return '<option value="'+r+'"'+(l.role===r?' selected':'')+'>'+
+            ({student:'学员',trainer:'培训师',admin:'管理员'}[r])+'</option>'; }).join('')+'</select></div>'+
+      '<div class="fld"><label>邮箱</label><input id="f_email" value="'+esc(l.email||'')+'"></div>'+
+      '<div class="fld"><label>所属单位</label><input id="f_org" value="'+esc(l.org||'')+'"></div>'+
+      '<div class="fld"><label>所属班级</label><div class="box">'+classCheckHtml('f_classes',l.classes)+'</div></div>'+
+      '<div class="fld"><label>个别指派课程</label><div class="box">'+checkBoxHtml('f_courses',S.catalog,l.courses)+'</div></div>'+
+      '<div class="fld"><label>状态</label><select id="f_active">'+
+        '<option value="1"'+(l.active!==false?' selected':'')+'>启用</option>'+
+        '<option value="0"'+(l.active===false?' selected':'')+'>停用</option></select></div>';
+    openModal(idx==null?'新增学员':'编辑学员',html,function(){
+      var id=document.getElementById('f_id').value.trim();
+      var name=document.getElementById('f_name').value.trim();
+      if(!id){ alert('登录标识必填'); return false; }
+      if(!name){ alert('姓名必填'); return false; }
+      if(idx==null && (S.roster.learners||[]).some(function(x){return x.id===id;})){ alert('该登录标识已存在'); return false; }
+      var obj={ id:id, name:name, role:document.getElementById('f_role').value,
+        email:document.getElementById('f_email').value.trim(), org:document.getElementById('f_org').value.trim(),
+        classes:picked('f_classes'), courses:picked('f_courses'),
+        active:document.getElementById('f_active').value==='1',
+        created_at: (idx==null? new Date().toISOString().slice(0,10) : l.created_at) };
+      if(idx==null) S.roster.learners.push(obj); else S.roster.learners[idx]=obj;
+      saveRoster('training: roster - '+(idx==null?'add ':'update ')+id);
+    });
+  }
+
+  function editClass(idx){
+    var c = idx==null ? {id:'',name:'',period:'',trainer:'',students:[],courses:[]}
+                      : S.classes.classes[idx];
+    var learnerHtml=(S.roster.learners||[]).length?(S.roster.learners||[]).map(function(l){
+      var on=(c.students||[]).indexOf(l.id)>=0;
+      return '<label><input type="checkbox" name="f_students" value="'+esc(l.id)+'"'+(on?' checked':'')+'>'+esc(l.name)+'（'+esc(l.id)+'）</label>';
+    }).join(''):'<div class="cd">（暂无学员，请先创建学员）</div>';
+    var html=
+      '<div class="fld"><label>班级 ID（英文，必填）</label><input id="f_cid" value="'+esc(c.id)+'"'+(idx==null?'':' readonly')+' placeholder="例如 cls-2026-autumn"></div>'+
+      '<div class="fld"><label>班级名称</label><input id="f_cname" value="'+esc(c.name)+'"></div>'+
+      '<div class="fld"><label>培训周期</label><input id="f_period" value="'+esc(c.period||'')+'" placeholder="2026-09 ~ 2026-12"></div>'+
+      '<div class="fld"><label>培训师</label><input id="f_trainer" value="'+esc(c.trainer||'')+'"></div>'+
+      '<div class="fld"><label>班级学员</label><div class="box">'+learnerHtml+'</div></div>'+
+      '<div class="fld"><label>指派课程</label><div class="box">'+checkBoxHtml('f_ccourses',S.catalog,c.courses)+'</div></div>';
+    openModal(idx==null?'新增班级':'编辑班级',html,function(){
+      var id=document.getElementById('f_cid').value.trim();
+      var name=document.getElementById('f_cname').value.trim();
+      if(!id){ alert('班级 ID 必填'); return false; }
+      if(!name){ alert('班级名称必填'); return false; }
+      if(idx==null && (S.classes.classes||[]).some(function(x){return x.id===id;})){ alert('该班级 ID 已存在'); return false; }
+      var obj={ id:id, name:name, period:document.getElementById('f_period').value.trim(),
+        trainer:document.getElementById('f_trainer').value.trim(),
+        students:picked('f_students'), courses:picked('f_ccourses'),
+        created_at:(idx==null? new Date().toISOString().slice(0,10) : c.created_at) };
+      if(idx==null) S.classes.classes.push(obj); else S.classes.classes[idx]=obj;
+      saveClasses('training: classes - '+(idx==null?'add ':'update ')+id);
+    });
+  }
+
+  function saveRoster(msg){
+    if(!S.token){ toast('未检测到令牌，改动仅保存在内存，未写入 GitHub。','warn'); renderAll(); return; }
+    S.roster.updated_at=new Date().toISOString().slice(0,10);
+    ghPut(P_ROSTER,S.roster,S.shaRoster,msg).then(function(j){
+      S.shaRoster=(j.content&&j.content.sha)||S.shaRoster;
+      toast('学员账号已保存到 GitHub。'); renderAll();
+    }).catch(function(e){ toast('保存失败：'+e.message,'warn'); });
+  }
+  function saveClasses(msg){
+    if(!S.token){ toast('未检测到令牌，改动仅保存在内存，未写入 GitHub。','warn'); renderAll(); return; }
+    S.classes.updated_at=new Date().toISOString().slice(0,10);
+    ghPut(P_CLASSES,S.classes,S.shaClasses,msg).then(function(j){
+      S.shaClasses=(j.content&&j.content.sha)||S.shaClasses;
+      toast('班级已保存到 GitHub。'); renderAll();
+    }).catch(function(e){ toast('保存失败：'+e.message,'warn'); });
+  }
+
+  // ── 事件 ──
+  document.getElementById('btnAddLearner').onclick=function(){ editLearner(null); };
+  document.getElementById('btnAddClass').onclick=function(){ editClass(null); };
+
+  document.getElementById('tblLearners').addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b) return;
+    if(b.dataset.editL!=null) editLearner(parseInt(b.dataset.editL,10));
+    else if(b.dataset.delL!=null){
+      var i=parseInt(b.dataset.delL,10), l=S.roster.learners[i];
+      l.active=!(l.active!==false);
+      saveRoster('training: roster - '+(l.active?'enable ':'disable ')+l.id);
+    }
+  });
+  document.getElementById('tblClasses').addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b) return;
+    if(b.dataset.editC!=null) editClass(parseInt(b.dataset.editC,10));
+    else if(b.dataset.delC!=null){
+      var i=parseInt(b.dataset.delC,10), c=S.classes.classes[i];
+      if(!confirm('确认删除班级「'+c.name+'」？该班级的学员分班关系会一并解除。')) return;
+      (S.roster.learners||[]).forEach(function(l){
+        l.classes=(l.classes||[]).filter(function(x){ return x!==c.id; }); });
+      S.classes.classes.splice(i,1);
+      saveRoster('training: roster - unlink class '+c.id);
+      saveClasses('training: classes - delete '+c.id);
+    }
+  });
+
+  document.getElementById('selAssignClass').onchange=fillClassCourses;
+  document.getElementById('selAssignLearner').onchange=fillLearnerCourses;
+  document.getElementById('saveClassCourses').onclick=function(){
+    var id=document.getElementById('selAssignClass').value;
+    var c=(S.classes.classes||[]).filter(function(x){return x.id===id;})[0]; if(!c) return;
+    c.courses=picked('cc'); saveClasses('training: assign courses to class '+id);
+  };
+  document.getElementById('saveLearnerCourses').onclick=function(){
+    var id=document.getElementById('selAssignLearner').value;
+    var l=(S.roster.learners||[]).filter(function(x){return x.id===id;})[0]; if(!l) return;
+    l.courses=picked('lc'); saveRoster('training: assign courses to learner '+id);
+  };
+
+  document.querySelectorAll('.tab').forEach(function(t){
+    t.onclick=function(){
+      document.querySelectorAll('.tab').forEach(function(x){ x.classList.remove('active'); });
+      t.classList.add('active');
+      ['learners','classes','assign'].forEach(function(k){
+        document.getElementById('pane-'+k).hidden = (k!==t.dataset.tab);
+      });
+    };
+  });
+
+  // ── 初始化 ──
+  function init(){
+    S.token=token(); S.me={id:meId(),name:meName(),role:''};
+    document.getElementById('meName').textContent=S.me.name;
+    document.getElementById('meAv').textContent=(S.me.name||'管').slice(0,1);
+
+    loadAll().then(function(){
+      S.me.role=roleOf(S.me.id)||'';
+      var rp=document.getElementById('meRole');
+      if(!S.me.role){
+        rp.textContent='未登记';
+        toast('当前账号（'+S.me.id+'）尚未登记在学员名册中。若你是首位管理员，请在「学员账号」中新增自己并设为管理员。','warn');
+      }else{
+        rp.textContent=({admin:'管理员',trainer:'培训师',student:'学员'}[S.me.role]||S.me.role);
+      }
+      if(!S.token) toast('未检测到登录令牌：可浏览，但所有改动无法写入 GitHub。请在佛照工作台登录后访问本页。','warn');
+      renderAll();
+    });
+  }
+  if(document.readyState!=='loading') init(); else document.addEventListener('DOMContentLoaded', init);
+})();
+</script>
+</body>
+</html>
