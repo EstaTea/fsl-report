@@ -70,6 +70,7 @@ function tryStart(){
   started=true;
   startTour(course.steps);
 }
+function resetStart(){ started=false; confirmed=false; retryCount=0; }
 // 舞台 load 后留一点余量：通用舞台为异步渲染，优先监听其 stage-ready 信号
 stage.addEventListener('load',function(){ setTimeout(tryStart,400); });
 
@@ -81,11 +82,26 @@ function loadCourse(cb){
     .catch(function(){ cb(null); });
 }
 
+/* 下发引导指令：舞台未确认收到前持续重试。
+   背景：iframe 加载存在 about:blank → 真实文档的切换，指令可能发给空文档而丢失；
+   仅靠「已发送」标记会导致慢网络下课程随机没有引导。以舞台回传 stage-step/stage-done 为准。 */
+var confirmed=false, retryTimer=null, retryCount=0;
 function startTour(steps){
   if(!steps||!steps.length) return;
   scormInit();
-  stage.contentWindow.postMessage({type:'stage-run-tour',steps:steps},'*');
+  try{ stage.contentWindow.postMessage({type:'stage-run-tour',steps:steps},'*'); }catch(e){}
   document.getElementById('progress').textContent='1 / '+steps.length;
+  if(retryTimer) clearTimeout(retryTimer);
+  if(!confirmed && retryCount<12){
+    retryTimer=setTimeout(function(){
+      retryCount++;
+      if(!confirmed && course&&course.steps) startTour(course.steps);
+    },700);
+  }
+}
+function stopRetry(){
+  confirmed=true;
+  if(retryTimer){ clearTimeout(retryTimer); retryTimer=null; }
 }
 
 window.addEventListener('message',function(e){
@@ -94,8 +110,10 @@ window.addEventListener('message',function(e){
     // 通用舞台异步渲染完成后才下发引导，避免元素尚未渲染导致空跑
     tryStart();
   } else if(d.type==='stage-step'){
+    stopRetry();
     document.getElementById('progress').textContent=(d.index+1)+' / '+d.total;
   } else if(d.type==='stage-done'){
+    stopRetry();
     document.getElementById('progress').textContent='完成';
     scormSet('cmi.core.lesson_status','completed');
     scormSet('cmi.core.score.raw','100');
@@ -106,7 +124,7 @@ window.addEventListener('message',function(e){
 });
 
 document.getElementById('restart').onclick=function(){
-  if(course&&course.steps){ started=true; startTour(course.steps); }
+  if(course&&course.steps){ resetStart(); startTour(course.steps); }
 };
 
 loadCourse(function(j){
