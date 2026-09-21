@@ -64,6 +64,14 @@ var params=new URLSearchParams(window.location.search);
 var courseId=params.get('course')||'po-create';
 var stage=document.getElementById('stage');
 var course=null;
+var started=false;
+function tryStart(){
+  if(started||!course||!course.steps) return;
+  started=true;
+  startTour(course.steps);
+}
+// 舞台 load 后留一点余量：通用舞台为异步渲染，优先监听其 stage-ready 信号
+stage.addEventListener('load',function(){ setTimeout(tryStart,400); });
 
 function loadCourse(cb){
   // 优先相对路径 courses/{id}.json（与页面同源）
@@ -82,7 +90,10 @@ function startTour(steps){
 
 window.addEventListener('message',function(e){
   var d=e.data||{};
-  if(d.type==='stage-step'){
+  if(d.type==='stage-ready'){
+    // 通用舞台异步渲染完成后才下发引导，避免元素尚未渲染导致空跑
+    tryStart();
+  } else if(d.type==='stage-step'){
     document.getElementById('progress').textContent=(d.index+1)+' / '+d.total;
   } else if(d.type==='stage-done'){
     document.getElementById('progress').textContent='完成';
@@ -95,7 +106,7 @@ window.addEventListener('message',function(e){
 });
 
 document.getElementById('restart').onclick=function(){
-  if(course&&course.steps) startTour(course.steps);
+  if(course&&course.steps){ started=true; startTour(course.steps); }
 };
 
 loadCourse(function(j){
@@ -105,10 +116,18 @@ loadCourse(function(j){
     return;
   }
   document.getElementById('title').textContent=course.title||('引导式课程 · '+courseId);
-  // 等 iframe 就绪
-  stage.addEventListener('load',function(){ startTour(course.steps); });
-  if(stage.contentWindow && stage.contentWindow.document && stage.contentWindow.document.readyState==='complete'){
-    startTour(course.steps);
+  // 按课程指定的仿真舞台加载（默认回退到采购订单舞台）
+  var target=course.stage||'stage/po-create.html';
+  started=false;
+  if(target!==stage.getAttribute('src')){
+    stage.src=target;   // 触发 load
+  } else {
+    // 舞台已在初始 HTML 中：仅在其确实加载完成后才下发。
+    // 注意：iframe 初始为 about:blank，其 readyState 同样是 complete，必须先排除，
+    // 否则引导指令会发给空文档而丢失（表现为进度显示 1/N 但引导气泡不出现）。
+    var w=stage.contentWindow, d=w && w.document;
+    var blank=!w || !w.location || String(w.location.href).indexOf('about:blank')===0;
+    if(d && !blank && d.readyState==='complete') tryStart();   // 否则等 load 事件触发
   }
 });
 window.addEventListener('beforeunload',function(){ scormFinish(); });

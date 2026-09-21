@@ -1,0 +1,57 @@
+{
+  "schema": "fsl-training-screen/1.0",
+  "id": "yonyou-po",
+  "title": "用友 U8 · 采购订单录入",
+  "erp": "yonyou",
+  "tcode": "采购管理 / 采购订单",
+  "blocks": [
+    {
+      "type": "apps",
+      "items": [
+        { "id": "yy-create", "label": "采购订单" },
+        { "label": "到货单" },
+        { "label": "采购入库单" },
+        { "label": "供应商档案" }
+      ]
+    },
+    {
+      "type": "fields",
+      "title": "单据表头",
+      "items": [
+        { "id": "yy-vendor", "label": "供应商", "ph": "参照供应商档案，必录" },
+        { "id": "yy-dept", "label": "部门", "options": ["采购部", "生产部", "项目部"] },
+        { "id": "yy-biz", "label": "业务员", "ph": "默认当前操作员" }
+      ]
+    },
+    {
+      "type": "fields",
+      "title": "单据表体",
+      "items": [
+        { "id": "yy-inv", "label": "存货编码", "ph": "如 0101001" },
+        { "id": "yy-qty", "label": "数量", "ph": "如 100" },
+        { "id": "yy-price", "label": "含税单价", "ph": "如 113.00" }
+      ]
+    },
+    {
+      "type": "table",
+      "id": "yy-grid",
+      "title": "存货明细",
+      "columns": ["存货编码", "存货名称", "规格型号", "数量", "含税单价", "金额"],
+      "rows": [
+        ["0101001", "LED 面板灯", "600x600", "100", "113.00", "11,300.00"]
+      ]
+    },
+    {
+      "type": "actions",
+      "items": [
+        { "id": "yy-save", "label": "保存" },
+        { "id": "yy-audit", "label": "审核", "primary": true },
+        { "label": "弃审" }
+      ]
+    },
+    {
+      "type": "note",
+      "text": "此为仿真训练界面（非真实系统）。用友 U8 单据需「保存」后再「审核」才生效；未审核单据不进入后续到货与入库流程，也不参与应付往来。"
+    }
+  ]
+}

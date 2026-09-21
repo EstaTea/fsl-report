@@ -3,37 +3,56 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>仿真舞台 · 创建采购订单 | FSL 培训</title>
+<title>仿真舞台 | FSL 培训</title>
 <style>
 :root{--b900:#0B2D47;--b700:#1A4F73;--b500:#2374A3;--b300:#5EA4CE;
       --b050:#EBF5FB;--bg:#F2F7FB;--text:#0F2233;--muted:#5B7A91;--rule:#D6E8F2;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;}
 .stage-head{background:linear-gradient(135deg,var(--b700),var(--b900));color:#fff;padding:12px 18px;
-  display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:700;}
+  display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:700;gap:12px;}
 .stage-head .stamp{font-size:11px;font-weight:500;opacity:.8;}
+.stage-head .tcode{font-size:11px;font-weight:800;background:rgba(255,255,255,.16);
+  border:1px solid rgba(255,255,255,.24);border-radius:20px;padding:2px 10px;}
 .pane{padding:22px;}
+
+/* 事务入口条 */
 .app-bar{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
 .app{flex:1;min-width:120px;background:var(--b050);border:1px solid var(--rule);border-radius:7px;
   padding:12px;font-size:12.5px;font-weight:600;color:var(--b700);text-align:center;cursor:pointer;}
-.app:hover{background:var(--rule);} .app.active{background:var(--b500);color:#fff;border-color:var(--b500);}
-.form-row{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
-.form-row label{width:110px;font-size:12.5px;color:var(--muted);font-weight:600;}
-.form-row input{flex:1;max-width:320px;border:1px solid var(--rule);border-radius:6px;padding:9px 12px;
+.app:hover{background:var(--rule);}
+
+/* 分组与字段 */
+.grp{margin-bottom:18px;}
+.grp-title{font-size:12px;font-weight:800;color:var(--b700);border-left:3px solid var(--b500);
+  padding-left:8px;margin-bottom:12px;}
+.form-row{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+.form-row label{width:120px;flex:none;font-size:12.5px;color:var(--muted);font-weight:600;}
+.form-row input,.form-row select{flex:1;max-width:330px;border:1px solid var(--rule);border-radius:6px;padding:9px 12px;
   font-size:13px;font-family:inherit;background:#fff;color:var(--text);}
-.form-row input:focus{outline:none;border-color:var(--b500);box-shadow:0 0 0 3px var(--b050);}
-.act-bar{display:flex;gap:10px;margin-top:22px;}
+.form-row input:focus,.form-row select:focus{outline:none;border-color:var(--b500);box-shadow:0 0 0 3px var(--b050);}
+
+/* 行项目网格 */
+.grid{border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#fff;}
+.grid table{width:100%;border-collapse:collapse;font-size:12.5px;}
+.grid th{background:var(--b050);color:var(--b700);font-weight:700;text-align:left;padding:9px 12px;border-bottom:1px solid var(--rule);}
+.grid td{padding:9px 12px;border-bottom:1px solid #EEF5FA;color:var(--text);}
+.grid tr:last-child td{border-bottom:0;}
+
+/* 操作按钮 */
+.act-bar{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap;}
 .act{padding:9px 18px;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;border:none;font-family:inherit;}
 .act.primary{background:var(--b500);color:#fff;} .act.primary:hover{background:var(--b700);}
 .act.ghost{background:var(--b050);color:var(--b700);border:1px solid var(--rule);}
-.muted-hint{font-size:11.5px;color:var(--muted);margin-top:14px;}
+.muted-hint{font-size:11.5px;color:var(--muted);margin-top:14px;line-height:1.7;}
+
 /* pick-mode 提示 */
 body.pick-mode{outline:3px dashed var(--b500);outline-offset:-3px;}
 body.pick-mode .pick-tip{display:block;}
 .pick-tip{display:none;position:fixed;top:8px;left:50%;transform:translateX(-50%);z-index:9500;
   background:var(--b500);color:#fff;font-size:12px;padding:6px 14px;border-radius:20px;box-shadow:0 4px 14px rgba(11,45,71,.3);}
-/* 拾取高亮 */
 .od-pick{box-shadow:0 0 0 3px #f59e0b,0 0 0 6px rgba(245,158,11,.4)!important;border-radius:5px;}
+
 /* ===== Overlay 引导层（最小自研实现，等价于 Driver.js 核心）===== */
 #od-mask{position:fixed;inset:0;background:rgba(8,20,32,.62);z-index:9000;display:none;}
 #od-mask.on{display:block;}
@@ -51,33 +70,115 @@ body.pick-mode .pick-tip{display:block;}
 .od-pop button{font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;border-radius:5px;padding:6px 13px;border:none;}
 .od-prev{background:#fff;color:var(--b700);border:1px solid var(--rule)!important;}
 .od-next{background:var(--b500);color:#fff;} .od-next:hover{background:var(--b700);}
-.od-skip{background:transparent;color:var(--muted);}
+.err{padding:30px;text-align:center;color:var(--muted);font-size:13px;}
 </style>
 </head>
 <body>
 <div class="pick-tip">拾取模式：点击任意元素以生成选择器</div>
-<div class="stage-head"><span id="stageTitle">SAP S/4HANA · 创建采购订单</span>
-  <span class="stamp">仿真界面（非真实系统）</span></div>
-<div class="pane" id="pane">
-  <div class="app-bar">
-    <div class="app" id="sap-create">创建采购订单</div>
-    <div class="app">采购申请</div><div class="app">供应商主数据</div><div class="app">库存查询</div>
-  </div>
-  <div class="form-row"><label>供应商</label>
-    <input id="sap-vendor" placeholder="输入供应商编号，如 100012"></div>
-  <div class="form-row"><label>物料</label>
-    <input id="sap-material" placeholder="输入物料编号，如 MAT-LED-001"></div>
-  <div class="form-row"><label>数量</label>
-    <input id="sap-qty" placeholder="录入采购数量"></div>
-  <div class="act-bar">
-    <button class="act primary" id="sap-save">过账</button>
-    <button class="act ghost">取消</button>
-  </div>
-  <div class="muted-hint">此为仿真训练舞台。培训师可在此可视化拾取元素选择器；学员在此按引导逐步操作。</div>
+<div class="stage-head">
+  <span id="stageTitle">仿真舞台</span>
+  <span class="grow" style="flex:1;"></span>
+  <span class="tcode" id="stageTcode" hidden></span>
+  <span class="stamp">仿真界面（非真实系统）</span>
 </div>
+<div class="pane" id="pane"><div class="err">正在装载界面…</div></div>
 
 <script>
 'use strict';
+var params=new URLSearchParams(window.location.search);
+var screenId=params.get('screen')||'';
+
+/* ===== 界面渲染：由 screens/{id}.json 驱动 ===== */
+function el(tag,cls,txt){ var e=document.createElement(tag); if(cls)e.className=cls; if(txt!=null)e.textContent=txt; return e; }
+
+function renderBlock(b){
+  var box=document.createElement('div');
+  if(b.type==='apps'){
+    box.className='app-bar';
+    (b.items||[]).forEach(function(it){
+      var a=el('div','app',it.label); if(it.id) a.id=it.id; box.appendChild(a);
+    });
+  } else if(b.type==='fields'){
+    box.className='grp';
+    if(b.title) box.appendChild(el('div','grp-title',b.title));
+    (b.items||[]).forEach(function(f){
+      var row=el('div','form-row');
+      var lab=el('label',null,f.label); row.appendChild(lab);
+      var inp;
+      if(f.options){
+        inp=document.createElement('select');
+        (f.options||[]).forEach(function(o){
+          var op=document.createElement('option'); op.value=o; op.textContent=o; inp.appendChild(op);
+        });
+        if(f.value) inp.value=f.value;
+      } else {
+        inp=document.createElement('input');
+        if(f.ph) inp.placeholder=f.ph;
+        if(f.value!=null) inp.value=f.value;
+      }
+      if(f.id) inp.id=f.id;
+      row.appendChild(inp); box.appendChild(row);
+    });
+  } else if(b.type==='table'){
+    box.className='grp';
+    if(b.title) box.appendChild(el('div','grp-title',b.title));
+    var wrap=el('div','grid'); if(b.id) wrap.id=b.id;
+    var t=document.createElement('table');
+    var thead=document.createElement('thead'), htr=document.createElement('tr');
+    (b.columns||[]).forEach(function(c){ var th=document.createElement('th'); th.textContent=c; htr.appendChild(th); });
+    thead.appendChild(htr); t.appendChild(thead);
+    var tb=document.createElement('tbody');
+    (b.rows||[]).forEach(function(r){
+      var tr=document.createElement('tr');
+      r.forEach(function(c){ var td=document.createElement('td'); td.textContent=c; tr.appendChild(td); });
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb); wrap.appendChild(t); box.appendChild(wrap);
+  } else if(b.type==='actions'){
+    box.className='act-bar';
+    (b.items||[]).forEach(function(a){
+      var btn=el('button','act'+(a.primary?' primary':' ghost'),a.label);
+      if(a.id) btn.id=a.id; box.appendChild(btn);
+    });
+  } else if(b.type==='note'){
+    box.className='muted-hint'; box.textContent=b.text||'';
+  }
+  return box;
+}
+
+var rendered=false, pendingTour=null;
+function flushTour(){
+  if(!pendingTour) return;
+  var steps=pendingTour; pendingTour=null;
+  runTour(steps,
+    function(i,n){ window.parent.postMessage({type:'stage-step',index:i,total:n},'*'); },
+    function(){ window.parent.postMessage({type:'stage-done'},'*'); });
+}
+function render(spec){
+  document.title='仿真舞台 · '+spec.title+' | FSL 培训';
+  document.getElementById('stageTitle').textContent=spec.title||'仿真舞台';
+  var tc=document.getElementById('stageTcode');
+  if(spec.tcode){ tc.textContent=spec.tcode; tc.hidden=false; } else { tc.hidden=true; }
+  var pane=document.getElementById('pane'); pane.innerHTML='';
+  (spec.blocks||[]).forEach(function(b){ pane.appendChild(renderBlock(b)); });
+  if(spec.hint) pane.appendChild(el('div','muted-hint',spec.hint));
+}
+
+if(!screenId){
+  document.getElementById('pane').innerHTML='<div class="err">缺少参数：screen.html?screen={界面ID}</div>';
+} else {
+  fetch('../screens/'+encodeURIComponent(screenId)+'.json')
+    .then(function(r){ return r.ok?r.json():null; })
+    .then(function(spec){
+      if(!spec){ document.getElementById('pane').innerHTML='<div class="err">界面未找到：'+screenId+'</div>'; return; }
+      render(spec); rendered=true;
+      // 通知父窗口舞台已就绪（编排器据此重发拾取指令 / 播放器据此下发引导）
+      window.parent.postMessage({type:'stage-ready',screen:screenId},'*');
+      flushTour();
+    })
+    .catch(function(){ document.getElementById('pane').innerHTML='<div class="err">界面装载失败：'+screenId+'</div>'; });
+}
+
 /* ===== 选择器生成：优先 #id，否则 tag.class:nth-of-type(n) ===== */
 function cssPath(el){
   if(!(el instanceof Element)) return '';
@@ -96,10 +197,10 @@ function cssPath(el){
   return path.join(' > ');
 }
 
-/* ===== Overlay 引导引擎（与 overlay-poc 共用逻辑）===== */
+/* ===== Overlay 引导引擎 ===== */
 var mask=document.createElement('div'); mask.id='od-mask'; document.body.appendChild(mask);
 function clearHighlight(){ document.querySelectorAll('.od-hl').forEach(function(e){e.classList.remove('od-hl');}); }
-function runTour(steps, onStep, onDone){
+function runTour(steps,onStep,onDone){
   if(!steps||!steps.length){ onDone&&onDone(); return; }
   var i=0; clearHighlight();
   var pop=document.createElement('div'); pop.className='od-pop'; document.body.appendChild(pop);
@@ -119,14 +220,10 @@ function runTour(steps, onStep, onDone){
     var pv=pop.querySelector('.od-prev'); if(pv) pv.onclick=function(){ if(i>0){i--;render();} };
     mask.classList.add('on'); onStep&&onStep(i,steps.length);
   }
-  function next(){ if(i<steps.length-1){i++;render();} }
-  function prev(){ if(i>0){i--;render();} }
   function finish(){ pop.remove(); mask.classList.remove('on'); clearHighlight(); onDone&&onDone(); }
   mask.onclick=finish;
   render();
 }
-
-/* ===== 预览单个步骤高亮（培训师编辑器用）===== */
 function highlightStep(sel){
   clearHighlight(); var t=document.querySelector(sel);
   if(!t){ return false; }
@@ -146,22 +243,19 @@ function setPickMode(on){
 document.addEventListener('click',function(e){
   if(!pickMode) return;
   e.preventDefault(); e.stopPropagation();
-  var t=e.target.closest('[id],input,button,.app,label,.form-row');
+  var t=e.target.closest('[id],input,select,button,.app,label,.form-row,.grid');
   var el=t||e.target;
   document.querySelectorAll('.od-pick').forEach(function(x){x.classList.remove('od-pick');});
   el.classList.add('od-pick');
-  var sel=cssPath(el);
-  window.parent.postMessage({type:'stage-picked',selector:sel},'*');
+  window.parent.postMessage({type:'stage-picked',selector:cssPath(el)},'*');
 },true);
-
-/* 通知父窗口舞台已就绪（播放器据此下发引导，避免指令发给未就绪文档而丢失） */
-window.parent.postMessage({type:'stage-ready',screen:'po-create'},'*');
 
 /* ===== 接收父窗口指令 ===== */
 window.addEventListener('message',function(e){
   var d=e.data||{};
   if(d.type==='stage-pick-mode'){ setPickMode(d.on); }
   else if(d.type==='stage-run-tour'){
+    if(!rendered){ pendingTour=d.steps||[]; return; }   // 界面尚未渲染完，先缓存
     runTour(d.steps||[],
       function(i,n){ window.parent.postMessage({type:'stage-step',index:i,total:n},'*'); },
       function(){ window.parent.postMessage({type:'stage-done'},'*'); });

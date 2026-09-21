@@ -110,6 +110,12 @@ a{color:inherit;text-decoration:none;}
       </div>
     </div>
     <div class="field">
+      <label>仿真舞台（要录制的目标界面）</label>
+      <select id="f-stage">
+        <option value="stage/po-create.html">SAP · 创建采购订单 (ME21N)</option>
+      </select>
+    </div>
+    <div class="field">
       <label>预计时长</label>
       <input id="f-duration" placeholder="约 8 分钟">
     </div>
@@ -138,7 +144,7 @@ a{color:inherit;text-decoration:none;}
   <!-- 右：仿真舞台 -->
   <div class="stage-wrap">
     <div class="stage-bar">
-      <span>仿真舞台 · 创建采购订单</span>
+      <span id="stageLabel">仿真舞台 · 创建采购订单</span>
       <span class="grow"></span>
       <button id="pickToggle">🎯 进入拾取模式</button>
       <button id="previewTour">▶ 预览整段引导</button>
@@ -167,6 +173,40 @@ function sendPickMode(on){
     pickRetryTimer=setTimeout(function(){ if(pendingPickOn===on && !pickAcked) attempt(); },300);
   })();
 }
+
+/* ===== 仿真舞台选择 ===== */
+var SCREENS=[];
+function stageLabelOf(url){
+  for(var i=0;i<SCREENS.length;i++){ if(SCREENS[i].url===url) return SCREENS[i].title; }
+  return '仿真舞台';
+}
+function applyStage(url){
+  url=url||'stage/po-create.html';
+  $('f-stage').value=url;
+  $('stageLabel').textContent='仿真舞台 · '+stageLabelOf(url);
+  if(stage.getAttribute('src')!==url){
+    stopPick();
+    stage.src=url;
+    setStatus('已切换舞台：'+stageLabelOf(url)+'。舞台就绪后可开始拾取。');
+  }
+}
+function loadScreens(cb){
+  fetch('screens/index.json')
+    .then(function(r){ return r.ok?r.json():null; })
+    .then(function(j){
+      SCREENS=(j&&j.screens)||[{id:'po-create',title:'SAP · 创建采购订单 (ME21N)',url:'stage/po-create.html'}];
+      var sel=$('f-stage'); sel.innerHTML='';
+      SCREENS.forEach(function(s){
+        var op=document.createElement('option'); op.value=s.url; op.textContent=s.title; sel.appendChild(op);
+      });
+      cb&&cb();
+    })
+    .catch(function(){
+      SCREENS=[{id:'po-create',title:'SAP · 创建采购订单 (ME21N)',url:'stage/po-create.html'}];
+      cb&&cb();
+    });
+}
+$('f-stage').addEventListener('change',function(){ applyStage(this.value); });
 
 /* 工具 */
 function $(id){ return document.getElementById(id); }
@@ -293,6 +333,7 @@ function loadExisting(id){
       $('f-erp').value=j.erp||'sap';
       $('f-duration').value=j.duration||'';
       $('f-desc').value=j.desc||'';
+      if(j.stage) applyStage(j.stage);
       steps=(j.steps||[]).map(function(s){return {el:s.el||'',title:s.title||'',desc:s.desc||''};});
       renderSteps();
       updateTestLink();
@@ -314,7 +355,7 @@ $('saveBtn').addEventListener('click',function(){
     schema:'fsl-training-course/1.0',
     id:id, title:$('f-title').value.trim()||id,
     type:type, erp:$('f-erp').value,
-    stage:'stage/po-create.html',
+    stage:$('f-stage').value,
     duration:$('f-duration').value.trim(),
     desc:$('f-desc').value.trim(),
     steps:(type==='overlay')?steps.map(function(s){return {el:s.el,title:s.title,desc:s.desc};}):[],
@@ -358,8 +399,12 @@ function downloadJSON(name,obj){
 });
 
 /* 初始化 */
-var pid=new URLSearchParams(window.location.search).get('course');
-if(pid){ loadExisting(pid); } else { renderSteps(); updateTestLink(); }
+var qs=new URLSearchParams(window.location.search);
+var pid=qs.get('course'), pstage=qs.get('stage');
+loadScreens(function(){
+  applyStage(pstage||'stage/po-create.html');
+  if(pid){ loadExisting(pid); } else { renderSteps(); updateTestLink(); }
+});
 </script>
 </body>
 </html>

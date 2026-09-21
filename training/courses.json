@@ -21,6 +21,36 @@
       "steps": 5,
       "duration": "约 6 分钟",
       "desc": "由课程编排器（author.html）生成的引导式课程：在仿真舞台逐步高亮全流程元素，学员完成即上报 SCORM 状态。证明无码编排闭环可用。"
+    },
+    {
+      "id": "sap-va01-overlay",
+      "title": "SAP SD · 创建销售订单（VA01）",
+      "type": "overlay",
+      "erp": "sap",
+      "overlay": "stage/screen.html?screen=sap-va01",
+      "steps": 7,
+      "duration": "约 9 分钟",
+      "desc": "销售订单是 SD 模块的业务起点。在 VA01 仿真界面逐步完成「订单类型 → 售达方 → 物料与数量 → 定价 → 保存」，讲清每个字段的业务含义与常见错误。"
+    },
+    {
+      "id": "sap-miro-overlay",
+      "title": "SAP MM/FI · 发票校验（MIRO）",
+      "type": "overlay",
+      "erp": "sap",
+      "overlay": "stage/screen.html?screen=sap-miro",
+      "steps": 8,
+      "duration": "约 10 分钟",
+      "desc": "MM 与 FI 的交接点：三单匹配（PO/GR/IR）并生成会计凭证。重点讲清「先模拟、后过账」的操作纪律，以及税码与金额差异的常见报错处理。"
+    },
+    {
+      "id": "yonyou-po-overlay",
+      "title": "用友 U8 · 采购订单录入与审核",
+      "type": "overlay",
+      "erp": "yonyou",
+      "overlay": "stage/screen.html?screen=yonyou-po",
+      "steps": 8,
+      "duration": "约 8 分钟",
+      "desc": "用友 U8 采购单据采用「保存 + 审核」两段式：保存只是草稿，审核后才生效并进入后续到货、入库与应付流程。"
     }
   ]
 }

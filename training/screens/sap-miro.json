@@ -1,0 +1,59 @@
+{
+  "schema": "fsl-training-screen/1.0",
+  "id": "sap-miro",
+  "title": "SAP S/4HANA · 发票校验",
+  "erp": "sap",
+  "tcode": "MIRO",
+  "blocks": [
+    {
+      "type": "apps",
+      "items": [
+        { "id": "mi-create", "label": "发票校验" },
+        { "label": "采购订单查询" },
+        { "label": "供应商主数据" },
+        { "label": "会计凭证查询" }
+      ]
+    },
+    {
+      "type": "fields",
+      "title": "发票基本信息",
+      "items": [
+        { "id": "mi-vendor", "label": "供应商", "ph": "输入供应商编号，如 100012" },
+        { "id": "mi-po", "label": "参照采购订单", "ph": "如 4500001234，自动带出未清量" },
+        { "id": "mi-date", "label": "发票日期", "ph": "须落在当前会计期间内" },
+        { "id": "mi-ref", "label": "参照（发票号）", "ph": "录入供应商发票号码，须唯一" }
+      ]
+    },
+    {
+      "type": "fields",
+      "title": "金额与税",
+      "items": [
+        { "id": "mi-amount", "label": "发票金额", "ph": "含税总额，如 11300.00" },
+        { "id": "mi-tax", "label": "税码", "options": ["J1 进项税 13%", "J2 进项税 6%", "J0 零税率"] }
+      ]
+    },
+    {
+      "type": "table",
+      "id": "mi-grid",
+      "title": "模拟凭证预览",
+      "columns": ["科目", "借贷", "金额", "成本中心"],
+      "rows": [
+        ["材料采购", "借", "10,000.00", "—"],
+        ["应交税费—进项税", "借", "1,300.00", "—"],
+        ["应付账款—供应商", "贷", "11,300.00", "—"]
+      ]
+    },
+    {
+      "type": "actions",
+      "items": [
+        { "id": "mi-sim", "label": "模拟" },
+        { "id": "mi-post", "label": "过账", "primary": true },
+        { "label": "取消" }
+      ]
+    },
+    {
+      "type": "note",
+      "text": "此为仿真训练界面（非真实系统）。三栏预览用于核对借贷平衡：先「模拟」确认无误再「过账」，过账后生成会计凭证并更新采购订单历史。"
+    }
+  ]
+}

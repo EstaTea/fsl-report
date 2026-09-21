@@ -97,25 +97,13 @@ a{color:inherit;text-decoration:none;}
     <a class="btn-ghost" href="admin.html" id="btnAdmin" style="text-decoration:none;display:none;">⚙ 管理台</a>
   </div>
 
-  <div class="sec-title"><span class="bar"></span>课程目录</div>
+  <div class="sec-title"><span class="bar"></span>课程目录 <span id="courseCount" style="font-size:12px;font-weight:400;color:var(--muted);"></span></div>
+  <div class="course-grid" id="courseGrid">
+    <div class="cc-desc" style="padding:18px;">正在载入课程目录…</div>
+  </div>
+
+  <div class="sec-title" style="margin-top:30px;"><span class="bar"></span>架构验证</div>
   <div class="course-grid">
-
-    <div class="course-card">
-      <div class="cc-cover">🛒<span class="cc-tag">已上线</span></div>
-      <div class="cc-body">
-        <h4>ERP 模拟操作 · 创建采购订单</h4>
-        <div class="cc-meta">
-          <span>SCORM 1.2</span><span>仿真沙箱</span><span>5 步引导</span><span>约 8 分钟</span>
-        </div>
-        <div class="cc-desc">在仿真界面中逐步完成「创建采购订单」全流程：选择供应商、录入物料与数量、检查必填项、
-        提交过账。操作错误即时报红，进度与成绩自动上报，支持断点续学。</div>
-      </div>
-      <div class="cc-foot">
-        <a class="btn-primary" href="lms.html?course=po-create">开始学习 →</a>
-        <a class="btn-ghost" href="sco/" target="_blank">查看 SCORM 源（sco/）</a>
-      </div>
-    </div>
-
     <div class="course-card">
       <div class="cc-cover">🧭<span class="cc-tag">PoC · 实验</span></div>
       <div class="cc-body">
@@ -131,39 +119,42 @@ a{color:inherit;text-decoration:none;}
         <a class="btn-ghost" href="overlay-poc.html#config" target="_blank">查看架构</a>
       </div>
     </div>
-
-    <div class="course-card">
-      <div class="cc-cover">🎯<span class="cc-tag">编排器产出</span></div>
-      <div class="cc-body">
-        <h4>ERP 引导式操作 · 创建采购订单（Overlay）</h4>
-        <div class="cc-meta">
-          <span>引导式</span><span>SAP</span><span>5 步高亮</span><span>约 6 分钟</span>
-        </div>
-        <div class="cc-desc">由课程编排器（author.html）可视化录制的引导式课程：在仿真舞台逐步高亮全流程元素，
-        学员完成即上报 SCORM 状态。演示「培训师无码编排 → 学员端消费」的完整闭环。</div>
-      </div>
-      <div class="cc-foot">
-        <a class="btn-primary" href="lms.html?course=po-create-overlay">开始学习 →</a>
-        <a class="btn-ghost" href="author.html?course=po-create-overlay">✎ 编辑此课</a>
-      </div>
-    </div>
-
-    <div class="course-card cc-soon">
-      <div class="cc-cover">📦<span class="cc-tag">规划中</span></div>
-      <div class="cc-body">
-        <h4>ERP 模拟操作 · 销售开票</h4>
-        <div class="cc-meta"><span>规划中</span><span>仿真沙箱</span></div>
-        <div class="cc-desc">销售订单 → 交货 → 开票全流程仿真。内容层与「创建采购订单」复用同一仿真引擎，
-        仅替换步骤剧本，可快速扩充多套 ERP 通用课程。</div>
-      </div>
-      <div class="cc-foot">
-        <button class="btn-ghost" disabled style="opacity:.5;cursor:default">敬请期待</button>
-      </div>
-    </div>
-
   </div>
 </div>
 <script>
+// 课程卡片由 courses.json 动态渲染：新增课程只需在目录索引登记，首页自动出现。
+(function(){
+  var ERP_LABEL={sap:'SAP S/4HANA',yonyou:'用友 U8/U9',bokes:'博科 ERP',other:'其他 ERP'};
+  var ICON={sap:'🧭',yonyou:'🧾',bokes:'📦',other:'🗂'};
+  function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  var grid=document.getElementById('courseGrid');
+  fetch('courses.json')
+    .then(function(r){ return r.ok?r.json():null; })
+    .then(function(j){
+      var list=(j&&j.courses)||[];
+      if(!list.length){ grid.innerHTML='<div class="cc-desc" style="padding:18px;">课程目录为空。</div>'; return; }
+      document.getElementById('courseCount').textContent='（共 '+list.length+' 门）';
+      grid.innerHTML=list.map(function(c){
+        var isSim=c.type==='sim-sandbox';
+        var icon=isSim?'🛒':(ICON[c.erp]||'🎯');
+        var tag=isSim?'SCORM 1.2':'编排器产出';
+        var meta=[isSim?'仿真沙箱':'引导式', ERP_LABEL[c.erp]||c.erp, (c.steps||0)+' 步引导', c.duration||'']
+          .filter(Boolean).map(function(x){return '<span>'+esc(x)+'</span>';}).join('');
+        var second=isSim
+          ? '<a class="btn-ghost" href="sco/" target="_blank">查看 SCORM 源</a>'
+          : '<a class="btn-ghost" href="author.html?course='+encodeURIComponent(c.id)+'">✎ 编辑此课</a>';
+        return '<div class="course-card">'+
+          '<div class="cc-cover">'+icon+'<span class="cc-tag">'+esc(tag)+'</span></div>'+
+          '<div class="cc-body"><h4>'+esc(c.title)+'</h4>'+
+          '<div class="cc-meta">'+meta+'</div>'+
+          '<div class="cc-desc">'+esc(c.desc)+'</div></div>'+
+          '<div class="cc-foot"><a class="btn-primary" href="lms.html?course='+encodeURIComponent(c.id)+'">开始学习 →</a>'+second+'</div>'+
+        '</div>';
+      }).join('');
+    })
+    .catch(function(){ grid.innerHTML='<div class="cc-desc" style="padding:18px;">课程目录加载失败。</div>'; });
+})();
+
 // 按学员名册角色控制「管理台」入口：仅管理员/培训师可见，学员只看到自己的进度与报告。
 // 名册读取失败或当前账号未登记时保持可见，以便首位管理员自助登记。
 (function(){

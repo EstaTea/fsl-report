@@ -1,0 +1,57 @@
+{
+  "schema": "fsl-training-screen/1.0",
+  "id": "sap-va01",
+  "title": "SAP S/4HANA · 创建销售订单",
+  "erp": "sap",
+  "tcode": "VA01",
+  "blocks": [
+    {
+      "type": "apps",
+      "items": [
+        { "id": "va-create", "label": "创建销售订单" },
+        { "label": "销售订单查询" },
+        { "label": "客户主数据" },
+        { "label": "可用性检查" }
+      ]
+    },
+    {
+      "type": "fields",
+      "title": "订单抬头",
+      "items": [
+        { "id": "va-ordertype", "label": "订单类型", "options": ["OR 标准订单", "RE 退货订单", "CR 贷项凭单"] },
+        { "id": "va-soldto", "label": "售达方", "ph": "输入客户编号，如 100012" },
+        { "id": "va-shipto", "label": "送达方", "ph": "默认同售达方，可单独指定" }
+      ]
+    },
+    {
+      "type": "fields",
+      "title": "行项目 10",
+      "items": [
+        { "id": "va-material", "label": "物料", "ph": "输入物料编号，如 MAT-LED-001" },
+        { "id": "va-qty", "label": "订单数量", "ph": "如 100" },
+        { "id": "va-netprice", "label": "净价", "ph": "由条件类型 PR00 自动带出" }
+      ]
+    },
+    {
+      "type": "table",
+      "id": "va-grid",
+      "title": "行项目概览",
+      "columns": ["项目", "物料", "描述", "数量", "单位"],
+      "rows": [
+        ["10", "MAT-LED-001", "LED 面板灯 600x600", "100", "EA"]
+      ]
+    },
+    {
+      "type": "actions",
+      "items": [
+        { "id": "va-save", "label": "保存", "primary": true },
+        { "label": "检查可用性" },
+        { "label": "取消" }
+      ]
+    },
+    {
+      "type": "note",
+      "text": "此为仿真训练界面（非真实系统）。保存成功后系统返回销售订单号，可用于后续交货（VL01N）与开票（VF01）。"
+    }
+  ]
+}
