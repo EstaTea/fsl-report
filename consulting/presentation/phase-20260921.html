@@ -2280,5 +2280,204 @@ document.addEventListener('click', function(e){
 <script src="../../assets/runtime.js"></script>
 
 <div class="jump-panel" id="jumpPanel" data-page-node-id="S6hxwM2t500ILlulEiMzJ1"></div>
+<!-- ==================== 实证截图 Lightbox（点击放大查看原尺寸） ==================== -->
+<style>
+/* 缩略图上的可点击提示 */
+.ev-shot{position:relative}
+.ev-shot img{cursor:zoom-in;transition:border-color .16s ease,box-shadow .16s ease}
+.ev-shot:hover img{border-color:rgba(35,116,163,.55);box-shadow:0 0 0 1px rgba(35,116,163,.32)}
+.ev-shot::after{content:'点击放大';position:absolute;right:9px;bottom:9px;font-size:10.5px;
+  letter-spacing:.4px;font-weight:600;color:#fff;background:rgba(11,45,71,.84);
+  padding:3px 8px;border-radius:4px;opacity:0;transition:opacity .16s ease;pointer-events:none}
+
+.ev-shot:hover::after{opacity:1}
+
+/* 遮罩与框架 */
+#evLb{position:fixed;inset:0;z-index:2147483000;display:none;flex-direction:column;
+  background:rgba(11,45,71,.95);opacity:0;transition:opacity .18s ease}
+#evLb.open{display:flex;opacity:1}
+#evLbBar{flex:0 0 auto;display:flex;align-items:center;gap:12px;padding:9px 16px;
+  background:linear-gradient(90deg,#0B2D47,#2374A3);color:#fff}
+#evLbTitle{flex:1;min-width:0;font-size:13.5px;font-weight:700;letter-spacing:.2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#evLbPct{flex:0 0 auto;font-size:12px;font-weight:600;color:#BFE0F2;font-variant-numeric:tabular-nums}
+.evLbBtn{appearance:none;flex:0 0 auto;border:1px solid rgba(255,255,255,.38);
+  background:rgba(255,255,255,.10);color:#fff;font-family:inherit;font-size:12px;
+  padding:5px 12px;border-radius:5px;cursor:pointer;line-height:1.4;
+  transition:background .15s ease,border-color .15s ease}
+.evLbBtn:hover{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.72)}
+.evLbBtn.on{background:#5EA4CE;border-color:#5EA4CE;color:#0B2D47;font-weight:700}
+a.evLbBtn{text-decoration:none;display:inline-block}
+#evLbClose{font-size:16px;padding:2px 11px 4px}
+#evLbStage{flex:1;min-height:0;overflow:auto;display:block;padding:20px}
+#evLbStage.grab{cursor:grab}
+#evLbStage.grabbing{cursor:grabbing}
+/* 包裹层：max-content 让超出视口的大图能真正按原尺寸溢出并出现滚动条
+   （直接给 flex 容器里的 img 设大宽度会被压回容器宽度，图就不是 1:1 了） */
+#evLbWrap{width:max-content;min-width:100%;min-height:100%;
+  display:flex;align-items:center;justify-content:center}
+#evLbImg{flex:none;display:block;background:#fff;
+  border:1px solid rgba(255,255,255,.3);box-shadow:0 12px 48px rgba(0,0,0,.52)}
+#evLbStage.grab #evLbImg,#evLbStage.grabbing #evLbImg{cursor:inherit}
+#evLbHint{flex:0 0 auto;padding:0 18px 11px;text-align:center;font-size:11.5px;color:#9CC4DE}
+</style>
+
+<div id="evLb" role="dialog" aria-modal="true" aria-label="系统截图放大查看">
+  <div id="evLbBar">
+    <span id="evLbTitle"></span>
+    <span id="evLbPct"></span>
+    <button class="evLbBtn on" id="evLbFit" type="button">适应屏幕</button>
+    <button class="evLbBtn" id="evLb100" type="button">原尺寸 100%</button>
+    <a class="evLbBtn" id="evLbRaw" href="#" target="_blank" rel="noopener">新窗口打开原图</a>
+    <button class="evLbBtn" id="evLbClose" type="button" aria-label="关闭">&times;</button>
+  </div>
+  <div id="evLbStage"><div id="evLbWrap"><img id="evLbImg" alt=""></div></div>
+  <div id="evLbHint">点击图片切换缩放级别（小图直接切原尺寸 / 2×）· 滚轮缩放 · 放大后按住拖拽平移 · Esc 关闭</div>
+</div>
+
+<script>
+(function(){
+  var lb=document.getElementById('evLb');
+  if(!lb) return;
+  var img=document.getElementById('evLbImg'), stage=document.getElementById('evLbStage'),
+      wrap=document.getElementById('evLbWrap'),
+      elTitle=document.getElementById('evLbTitle'), elPct=document.getElementById('evLbPct'),
+      bFit=document.getElementById('evLbFit'), b100=document.getElementById('evLb100'),
+      bRaw=document.getElementById('evLbRaw'), bClose=document.getElementById('evLbClose');
+  var NW=0, NH=0, fitScale=1, scale=1, mode='fit', opened=false, lastFocus=null;
+
+  function apply(){
+    img.style.width=(NW*scale)+'px';
+    img.style.height=(NH*scale)+'px';
+    elPct.textContent=Math.round(scale*100)+'%';
+    bFit.classList.toggle('on', mode==='fit');
+    b100.classList.toggle('on', mode==='100');
+    var over=NW*scale>stage.clientWidth-40 || NH*scale>stage.clientHeight-40;
+    stage.classList.toggle('grab', over && !stage.classList.contains('grabbing'));
+  }
+  function computeFit(){
+    var w=Math.max(120, stage.clientWidth-40), h=Math.max(120, stage.clientHeight-40);
+    fitScale=Math.min(w/NW, h/NH, 1);
+  }
+  function setFit(){ mode='fit'; computeFit(); scale=fitScale; stage.scrollTop=0; stage.scrollLeft=0; apply(); }
+  function set100(){ mode='100'; scale=1; stage.scrollTop=0; stage.scrollLeft=0; apply(); }
+  /* 点击图片切换缩放级别。小图（fit 已接近 100%）在 100% 与 2× 之间切换，
+     大图在 适应屏幕 与原尺寸 100% 之间切换——两种情况都不会出现"点了没反应" */
+  function step(){
+    computeFit();
+    if(fitScale>0.995){
+      if(mode==='2x'){ set100(); }
+      else { mode='2x'; scale=2; stage.scrollTop=0; stage.scrollLeft=0; apply(); }
+      return;
+    }
+    if(mode==='fit'){ set100(); } else { setFit(); }
+  }
+  function zoom(f){
+    var nv=Math.min(8, Math.max(fitScale*0.4, scale*f));
+    if(Math.abs(nv-scale)<0.0001) return;
+    mode=null; scale=nv; apply();
+  }
+
+  function open(src, label){
+    var probe=new Image();
+    probe.onload=function(){
+      NW=probe.naturalWidth||1200; NH=probe.naturalHeight||700;
+      img.src=src; img.alt=label||'';
+      elTitle.textContent=label||'系统截图';
+      bRaw.href=src;
+      lb.classList.add('open');
+      opened=true;
+      lastFocus=document.activeElement;
+      setFit();
+      if(bClose) bClose.focus();
+    };
+    probe.onerror=function(){ /* 图片缺失时静默不弹层 */ };
+    probe.src=src;
+  }
+  function close(){
+    if(!opened) return;
+    lb.classList.remove('open');
+    opened=false;
+    img.removeAttribute('src');
+    if(lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  /* 缩略图 → 打开（只绑 .deck 内的真实幻灯片，排除框架在 .deck 外的缩略图克隆层） */
+  function bind(){
+    var shots=document.querySelectorAll('.deck img[src*="assets/proof/"]');
+    for(var i=0;i<shots.length;i++){
+      (function(el){
+        if(el.dataset.evBound) return;
+        el.dataset.evBound='1';
+        el.setAttribute('role','button');
+        el.setAttribute('tabindex','0');
+        el.addEventListener('click', function(e){
+          e.preventDefault(); e.stopPropagation();
+          open(el.getAttribute('src'), (el.getAttribute('alt')||'').trim() || '系统截图');
+        });
+        el.addEventListener('keydown', function(e){
+          if(e.key==='Enter'||e.key===' '){ e.preventDefault(); e.stopPropagation(); el.click(); }
+        });
+      })(shots[i]);
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', bind);
+  else bind();
+
+  /* 控件 */
+  bFit.addEventListener('click', function(e){ e.stopPropagation(); setFit(); });
+  b100.addEventListener('click', function(e){ e.stopPropagation(); set100(); });
+  bClose.addEventListener('click', close);
+  lb.addEventListener('click', function(e){
+    if(e.target===lb||e.target===stage||e.target===wrap) close();
+  });
+  img.addEventListener('click', function(e){
+    e.stopPropagation();
+    step();
+  });
+
+  /* 滚轮缩放 */
+  stage.addEventListener('wheel', function(e){
+    if(!opened) return;
+    e.preventDefault();
+    zoom(e.deltaY<0 ? 1.15 : 1/1.15);
+  }, { passive:false });
+
+  /* 拖拽平移（放大到超出容器时） */
+  var drag=null;
+  stage.addEventListener('mousedown', function(e){
+    if(!opened || e.button!==0) return;
+    if(NW*scale<=stage.clientWidth-38 && NH*scale<=stage.clientHeight-38) return;
+    drag={x:e.clientX, y:e.clientY, l:stage.scrollLeft, t:stage.scrollTop};
+    stage.classList.add('grabbing');
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove', function(e){
+    if(!drag) return;
+    stage.scrollLeft=drag.l-(e.clientX-drag.x);
+    stage.scrollTop =drag.t-(e.clientY-drag.y);
+  });
+  document.addEventListener('mouseup', function(){
+    if(!drag) return;
+    drag=null;
+    stage.classList.remove('grabbing');
+    apply();
+  });
+
+  /* 键盘：打开时拦截 deck 导航键，Esc 关闭 */
+  var NAV=['ArrowRight','ArrowLeft',' ','Spacebar','PageDown','PageUp','Home','End','Enter','Backspace'];
+  document.addEventListener('keydown', function(e){
+    if(!opened) return;
+    if(e.key==='Escape'){ close(); e.preventDefault(); e.stopImmediatePropagation(); return; }
+    if(e.key==='0'){ set100(); e.preventDefault(); e.stopImmediatePropagation(); return; }
+    if(e.key==='9'||e.key==='-'){ setFit(); e.preventDefault(); e.stopImmediatePropagation(); return; }
+    if(e.key==='+'||e.key==='='){ zoom(1.15); e.preventDefault(); e.stopImmediatePropagation(); return; }
+    if(NAV.indexOf(e.key)>=0){ e.preventDefault(); e.stopImmediatePropagation(); }
+  }, true);
+
+  window.addEventListener('resize', function(){ if(opened && mode==='fit') setFit(); });
+})();
+</script>
+
 </body>
 </html>
