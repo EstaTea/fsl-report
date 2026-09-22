@@ -202,6 +202,14 @@ var mask=document.createElement('div'); mask.id='od-mask'; document.body.appendC
 function clearHighlight(){ document.querySelectorAll('.od-hl').forEach(function(e){e.classList.remove('od-hl');}); }
 function runTour(steps,onStep,onDone){
   if(!steps||!steps.length){ onDone&&onDone(); return; }
+  // 一个锚点都命中不了 = 指令发给了错误的文档（或选择器全失效）。
+  // 旧实现会静默跳完所有步骤并回报 stage-done，导致播放器误判「已完成 100 分」而停止重试。
+  // 现在改为回报 stage-miss 且不上报完成，由播放器继续重试 / 提示。
+  steps=steps.filter(function(s){ return s.el && document.querySelector(s.el); });
+  if(!steps.length){
+    try{ window.parent.postMessage({type:'stage-miss',reason:'no-anchor'},'*'); }catch(e){}
+    return;
+  }
   var i=0; clearHighlight();
   var pop=document.createElement('div'); pop.className='od-pop'; document.body.appendChild(pop);
   function render(){

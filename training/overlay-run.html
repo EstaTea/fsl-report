@@ -65,12 +65,28 @@ var courseId=params.get('course')||'po-create';
 var stage=document.getElementById('stage');
 var course=null;
 var started=false;
+var expected=null;   // 本课程指定的舞台 screen id（默认舞台为 po-create）
+/* 舞台当前文档是否就是本课程要的舞台：
+   iframe 换 src 时导航尚未提交，contentWindow 仍是上一个文档（默认舞台 po-create），
+   此时下发引导会被那个旧文档接走——它跑完 0 个命中步骤就回报「完成」，课程静默失败。 */
+function stageIsExpected(){
+  try{
+    var w=stage.contentWindow;
+    if(!w||!w.location) return false;
+    var href=String(w.location.href);
+    if(!href||href.indexOf('about:blank')===0) return false;
+    var m=/screen=([^&]+)/.exec(href);
+    var cur=m?decodeURIComponent(m[1]):'po-create';
+    return !expected || cur===expected;
+  }catch(e){ return false; }
+}
 function tryStart(){
   if(started||!course||!course.steps) return;
+  if(!stageIsExpected()) return;   // 等真正的舞台文档就绪
   started=true;
   startTour(course.steps);
 }
-function resetStart(){ started=false; confirmed=false; retryCount=0; }
+function resetStart(){ started=false; confirmed=false; retryCount=0; sawStep=false; }
 // 舞台 load 后留一点余量：通用舞台为异步渲染，优先监听其 stage-ready 信号
 stage.addEventListener('load',function(){ setTimeout(tryStart,400); });
 
@@ -85,9 +101,10 @@ function loadCourse(cb){
 /* 下发引导指令：舞台未确认收到前持续重试。
    背景：iframe 加载存在 about:blank → 真实文档的切换，指令可能发给空文档而丢失；
    仅靠「已发送」标记会导致慢网络下课程随机没有引导。以舞台回传 stage-step/stage-done 为准。 */
-var confirmed=false, retryTimer=null, retryCount=0;
+var confirmed=false, retryTimer=null, retryCount=0, sawStep=false;
 function startTour(steps){
   if(!steps||!steps.length) return;
+  sawStep=false;
   scormInit();
   try{ stage.contentWindow.postMessage({type:'stage-run-tour',steps:steps},'*'); }catch(e){}
   document.getElementById('progress').textContent='1 / '+steps.length;
@@ -105,14 +122,24 @@ function stopRetry(){
 }
 
 window.addEventListener('message',function(e){
+  // 只认当前舞台文档的消息：换 src 期间旧文档（默认舞台）的应答必须丢弃
+  if(e.source!==stage.contentWindow) return;
   var d=e.data||{};
   if(d.type==='stage-ready'){
     // 通用舞台异步渲染完成后才下发引导，避免元素尚未渲染导致空跑
+    if(expected && d.screen && d.screen!==expected) return;  // 不是本课程的舞台
     tryStart();
+  } else if(d.type==='stage-miss'){
+    // 舞台汇报「一个锚点都没命中」：不放弃，重置后继续重试下发
+    started=false; retryCount=0;
+    return;
   } else if(d.type==='stage-step'){
     stopRetry();
+    sawStep=true;
     document.getElementById('progress').textContent=(d.index+1)+' / '+d.total;
   } else if(d.type==='stage-done'){
+    // 没见过任何 stage-step 就收到 done = 空跑，不能算完成，继续重试
+    if(!sawStep){ started=false; retryCount=0; return; }
     stopRetry();
     document.getElementById('progress').textContent='完成';
     scormSet('cmi.core.lesson_status','completed');
@@ -136,7 +163,9 @@ loadCourse(function(j){
   document.getElementById('title').textContent=course.title||('引导式课程 · '+courseId);
   // 按课程指定的仿真舞台加载（默认回退到采购订单舞台）
   var target=course.stage||'stage/po-create.html';
-  started=false;
+  var m=/screen=([^&]+)/.exec(target);
+  expected=m?decodeURIComponent(m[1]):'po-create';
+  resetStart();
   if(target!==stage.getAttribute('src')){
     stage.src=target;   // 触发 load
   } else {
