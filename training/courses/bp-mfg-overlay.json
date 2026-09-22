@@ -1,0 +1,56 @@
+{
+  "schema": "fsl-training-course/1.0",
+  "id": "bp-mfg-overlay",
+  "title": "SAP Best Practices 54U · 按库存生产（离散制造）",
+  "type": "overlay",
+  "erp": "sap",
+  "scopeItem": "54U",
+  "stage": "stage/screen.html?screen=bp-54u",
+  "duration": "约 10 分钟",
+  "desc": "对应 SAP Best Practices scope item 54U：按库存生产的离散制造流程。重点讲清计划订单与生产订单的区别，以及下达这一步为什么不可跳过。",
+  "steps": [
+    {
+      "el": "#mfg-planorder",
+      "bus": "testId=planned-order",
+      "title": "认识计划订单（内部计划工具）",
+      "desc": "计划订单是 MRP 依据需求（销售订单、预测、安全库存）自动生成的内部计划元素，可以随时被 MRP 覆盖或删除——它只是「打算生产」的凭证，不能用于车间执行。"
+    },
+    {
+      "el": "#mfg-prodversion",
+      "bus": "label=生产版本",
+      "title": "确认生产版本",
+      "desc": "生产版本把 BOM 和工艺路线绑定在一起，决定用哪套配方、哪条产线。同一成品可能有量产版本和返工版本，选错会导致组件清单和工时都跟着错。"
+    },
+    {
+      "el": "#mfg-comp",
+      "bus": "label=组件清单",
+      "title": "检查组件可用性",
+      "desc": "组件能否齐套直接决定订单能否顺利执行。注意「反冲」标识：反冲组件在报工时自动扣料，非反冲组件必须手工领料，漏做会造成组件实际用量与账面不符。"
+    },
+    {
+      "el": "#mfg-convert",
+      "bus": "text=转换为生产订单",
+      "title": "转换为生产订单",
+      "desc": "这是从「计划」走向「执行」的分界线。转换后 ODIN 编码正式生成，ERP 才真正承诺这批生产任务，并锁定组件预留与产能。"
+    },
+    {
+      "el": "#mfg-release",
+      "bus": "text=下达",
+      "title": "下达生产订单",
+      "desc": "未下达的订单车间不能领料、不能报工，这是生产现场最常见的「为什么做不了」。下达动作会激活预留、打印车间单据、按工序释放产能。"
+    },
+    {
+      "el": "#mfg-confirm",
+      "bus": "text=报工确认",
+      "title": "报工确认（工时与自动扣料）",
+      "desc": "报工把实际工时记入订单成本，同时反冲消耗组件库存。报工数据不及时，成本会计拿不到真实人工与材料消耗，订单成本差异就会失真。"
+    },
+    {
+      "el": "#mfg-stloc",
+      "bus": "testId=storage-location",
+      "title": "成品入库与成本结算",
+      "desc": "收货到成品库存地点后库存增加，月末做在产品（WIP）与差异结算。至此「按库存生产」闭环：需求触发计划 → 计划转执行 → 消耗材料与工时 → 成品入库 → 成本结转。"
+    }
+  ],
+  "updated_at": "2026-09-22"
+}

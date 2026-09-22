@@ -1,6 +1,6 @@
 {
   "schema": "fsl-training-catalog/1.0",
-  "updated_at": "2026-09-15",
+  "updated_at": "2026-09-22",
   "courses": [
     {
       "id": "po-create",
@@ -63,6 +63,61 @@
       "steps": 7,
       "duration": "约 6 分钟",
       "desc": "注入式课程：不依赖仿真舞台，直接挂到真实 SAP 页面上跑引导。选择器按业务属性编写，界面升级后有体检机制兜底。"
+    },
+    {
+      "id": "bp-j45-overlay",
+      "title": "SAP Best Practices J45 · 直接物料采购（申请转订单）",
+      "type": "overlay",
+      "erp": "sap",
+      "scopeItem": "J45",
+      "overlay": "stage/screen.html?screen=bp-j45",
+      "steps": 7,
+      "duration": "约 9 分钟",
+      "desc": "对应 SAP Best Practices scope item J45：MRP 生成的采购需求如何变成一张正式采购订单。重点讲清「没有货源就无法转换」这一最常见卡点。"
+    },
+    {
+      "id": "bp-bd9-overlay",
+      "title": "SAP Best Practices BD9 · 按库存销售（订单到开票）",
+      "type": "overlay",
+      "erp": "sap",
+      "scopeItem": "BD9",
+      "overlay": "stage/screen.html?screen=bp-bd9",
+      "steps": 7,
+      "duration": "约 10 分钟",
+      "desc": "对应 SAP Best Practices scope item BD9：从销售订单到交货、开票的完整凭证流。重点讲清每一步触发了哪些库存与财务影响。"
+    },
+    {
+      "id": "bp-j60-overlay",
+      "title": "SAP Best Practices J60 · 应付账款（发票到付款）",
+      "type": "overlay",
+      "erp": "sap",
+      "scopeItem": "J60",
+      "overlay": "stage/screen.html?screen=bp-j60",
+      "steps": 7,
+      "duration": "约 9 分钟",
+      "desc": "对应 SAP Best Practices scope item J60：供应商发票入账、到期分析与付款清账。讲清它与 MIRO（物流侧发票校验）的分工边界。"
+    },
+    {
+      "id": "bp-jb1-overlay",
+      "title": "SAP Best Practices JB1 · 核心人事与时间记录（EC 集成）",
+      "type": "overlay",
+      "erp": "sap",
+      "scopeItem": "JB1",
+      "overlay": "stage/screen.html?screen=bp-jb1",
+      "steps": 7,
+      "duration": "约 8 分钟",
+      "desc": "对应 SAP Best Practices scope item JB1：SuccessFactors Employee Central 与 S/4HANA 的核心人事集成。重点讲清谁是主数据源，以及集成失败该怎么看。"
+    },
+    {
+      "id": "bp-mfg-overlay",
+      "title": "SAP Best Practices 54U · 按库存生产（离散制造）",
+      "type": "overlay",
+      "erp": "sap",
+      "scopeItem": "54U",
+      "overlay": "stage/screen.html?screen=bp-54u",
+      "steps": 7,
+      "duration": "约 10 分钟",
+      "desc": "对应 SAP Best Practices scope item 54U：按库存生产的离散制造流程。重点讲清计划订单与生产订单的区别，以及下达这一步为什么不可跳过。"
     }
   ]
 }

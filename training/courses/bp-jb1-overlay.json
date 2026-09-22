@@ -1,0 +1,56 @@
+{
+  "schema": "fsl-training-course/1.0",
+  "id": "bp-jb1-overlay",
+  "title": "SAP Best Practices JB1 · 核心人事与时间记录（EC 集成）",
+  "type": "overlay",
+  "erp": "sap",
+  "scopeItem": "JB1",
+  "stage": "stage/screen.html?screen=bp-jb1",
+  "duration": "约 8 分钟",
+  "desc": "对应 SAP Best Practices scope item JB1：SuccessFactors Employee Central 与 S/4HANA 的核心人事集成。重点讲清谁是主数据源，以及集成失败该怎么看。",
+  "steps": [
+    {
+      "el": "#jb1-empno",
+      "bus": "testId=person-id-external",
+      "title": "员工编号规则",
+      "desc": "外部人员编号在 Employee Central 生成并同步到 S/4HANA，是整个跨系统链路的唯一键。编号不一致时，集成会当作两个不同的人，导致主数据与工资核算错位。"
+    },
+    {
+      "el": "#jb1-hiredate",
+      "bus": "testId=hire-date",
+      "title": "雇佣日期的业务影响",
+      "desc": "雇佣日期决定入职当年年假的折算比例、试用期起算与社保缴纳起始。日期改动会触发回溯计算，属于必须谨慎修改的核心人事字段。"
+    },
+    {
+      "el": "#jb1-orgunit",
+      "bus": "label=组织单位",
+      "title": "组织分配决定审批路径",
+      "desc": "员工挂在哪个组织单位、担任何岗位，系统会据此推导审批人层级。组织调整（调岗/调动）要确认新组织单位的审批流是否已配置，否则请假和加班单据会卡死在无审批人状态。"
+    },
+    {
+      "el": "#jb1-costcenter",
+      "bus": "testId=cost-center",
+      "title": "成本中心决定人工费用去向",
+      "desc": "人工成本的核算与分摊全部落到成本中心。未维护或填错，员工工资费用会记到默认兜底成本中心，导致部门利润表失真且事后追溯成本高。"
+    },
+    {
+      "el": "#jb1-timetype",
+      "bus": "label=记录类型",
+      "title": "时间记录的类型与审批",
+      "desc": "出勤、法定缺勤、病假、加班各自走不同的核算规则并影响工资结果。尤其是病假与加班，通常需要主管审批并附带证明材料，未经审批的时间记录不会计入工资核算。"
+    },
+    {
+      "el": "#jb1-hours",
+      "bus": "testId=recorded-hours",
+      "title": "小时数与时薪/月薪换算",
+      "desc": "计时员工按记录小时数直接计薪，月薪员工的时间记录主要用于缺勤扣款与加班补偿的校验。录入超长工时通常会被工资核算规则拦截，先确认是否漏填或重复。  "
+    },
+    {
+      "el": "#jb1-queue",
+      "bus": "label=集成凭证队列",
+      "title": "集成失败从哪里看",
+      "desc": "JB1 的核心就是这个队列：员工主数据以 Employee Central 为主数据源单向同步，成本中心等部分对象可反向回写。出现「处理中」长期不转「成功」，或状态为错误时，先查队列里的对象类型与时间戳，再决定重发还是修数据——不要直接手工改 S/4 侧的主数据。"
+    }
+  ],
+  "updated_at": "2026-09-22"
+}

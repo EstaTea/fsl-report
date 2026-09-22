@@ -1,0 +1,56 @@
+{
+  "schema": "fsl-training-course/1.0",
+  "id": "bp-bd9-overlay",
+  "title": "SAP Best Practices BD9 · 按库存销售（订单到开票）",
+  "type": "overlay",
+  "erp": "sap",
+  "scopeItem": "BD9",
+  "stage": "stage/screen.html?screen=bp-bd9",
+  "duration": "约 10 分钟",
+  "desc": "对应 SAP Best Practices scope item BD9：从销售订单到交货、开票的完整凭证流。重点讲清每一步触发了哪些库存与财务影响。",
+  "steps": [
+    {
+      "el": "#bd9-ordertype",
+      "bus": "label=订单类型",
+      "title": "选择订单类型",
+      "desc": "订单类型决定了整个后续流程：OR 走标准发货开票，RE 退货会触发收货与贷项，CR 贷项凭单直接冲收入。类型一旦保存基本不可改，只能整单作废重录。"
+    },
+    {
+      "el": "#bd9-soldto",
+      "bus": "testId=sold-to-party",
+      "title": "录入售达方",
+      "desc": "售达方与客户主数据的「销售区域」视图组合后，自动带出定价过程、装运条件、付款条件与合作伙伴（送达方、开票方）。如果提示「未维护销售视图」，说明该客户还没在这个销售组织下扩展。"
+    },
+    {
+      "el": "#bd9-reqdate",
+      "bus": "testId=requested-delivery-date",
+      "title": "确认请求交货日期",
+      "desc": "这个日期是可用性检查（ATP）的基准。日期倒推要覆盖拣配、包装、运输的提前期；给客户承诺前先做 ATP，否则到了交货环节才发现缺料，只能欠交或改期。"
+    },
+    {
+      "el": "#bd9-check",
+      "bus": "text=可用性检查",
+      "title": "做可用性检查（ATP）",
+      "desc": "系统按可用量 = 库存 + 计划收货 − 已承诺需求 计算，返回确认数量与确认日期。缺料时的处理路径有三条：换替代物料、调整交货日期、触发生产或采购补足。切忌直接忽略确认结果。"
+    },
+    {
+      "el": "#bd9-save",
+      "bus": "text=保存订单",
+      "title": "保存生成销售订单号",
+      "desc": "保存后产生订单凭证。销售订单会占用需求（即需求冲销 available stock），但不产生金额上的会计凭证——因为它还没有实物流转，收入此时不能确认。"
+    },
+    {
+      "el": "#bd9-dlvqty",
+      "bus": "testId=delivery-quantity",
+      "title": "交货：拣配与发货过账",
+      "desc": "交货数量可以少于订单数量，差额转为欠交订单（backorder）。真正做发货过账这一步时，库存数量减少、同时结转销售成本（COGS）——很多学员以为收入在此时确认，其实不是，收入要到开票环节。"
+    },
+    {
+      "el": "#bd9-invoice",
+      "bus": "text=开票",
+      "title": "开票：收入确认",
+      "desc": "通过开票到期清单生成开票凭证后，系统才会确认收入并生成会计分录：借应收账款、贷主营业务收入、贷销项税。至此 SD 流程完结，凭证流里订单 → 交货 → 开票三者互相关联，可逐层追溯。"
+    }
+  ],
+  "updated_at": "2026-09-22"
+}

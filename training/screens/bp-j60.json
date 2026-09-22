@@ -1,0 +1,149 @@
+{
+  "schema": "fsl-training-screen/1.0",
+  "id": "bp-j60",
+  "title": "SAP BP J60 · 应付账款（发票到付款）",
+  "erp": "sap",
+  "tcode": "FB60 / F110 / FBL1N",
+  "scopeItem": "J60",
+  "blocks": [
+    {
+      "type": "apps",
+      "items": [
+        {
+          "id": "j60-app-item",
+          "label": "供应商行项目"
+        },
+        {
+          "label": "输入供应商发票"
+        },
+        {
+          "label": "付款运行"
+        },
+        {
+          "label": "银行对账单"
+        }
+      ]
+    },
+    {
+      "type": "fields",
+      "title": "发票信息",
+      "items": [
+        {
+          "id": "j60-supplier",
+          "label": "供应商",
+          "ph": "100023"
+        },
+        {
+          "id": "j60-docdate",
+          "label": "凭证日期",
+          "ph": "决定该笔费用所属会计期间"
+        },
+        {
+          "id": "j60-ref",
+          "label": "参照 / 发票号",
+          "ph": "INV-2026-08812"
+        },
+        {
+          "id": "j60-amount",
+          "label": "金额",
+          "ph": "14750.00"
+        },
+        {
+          "id": "j60-taxcode",
+          "label": "税码",
+          "options": [
+            "J1 进项税 13%",
+            "J0 零税率",
+            "J2 进项税 6%"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "fields",
+      "title": "付款条件",
+      "items": [
+        {
+          "id": "j60-payterm",
+          "label": "付款条件",
+          "options": [
+            "0001 14天内 2% 折扣",
+            "0002 30天到期",
+            "0004 立即到期"
+          ]
+        },
+        {
+          "id": "j60-baseline",
+          "label": "基准日期",
+          "ph": "现金折扣从该日起算"
+        },
+        {
+          "id": "j60-duedate",
+          "label": "到期日",
+          "ph": "由付款条件 + 基准日期推算"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "id": "j60-open",
+      "title": "未清应付明细",
+      "columns": [
+        "凭证号",
+        "凭证类型",
+        "到期日",
+        "金额",
+        "现金折扣",
+        "状态"
+      ],
+      "rows": [
+        [
+          "5100000123",
+          "KR 供应商发票",
+          "2026-10-08",
+          "14750.00",
+          "295.00",
+          "未清"
+        ],
+        [
+          "5100000118",
+          "KR 供应商发票",
+          "2026-09-28",
+          "8200.00",
+          "0.00",
+          "未清"
+        ],
+        [
+          "—",
+          "ZP 付款",
+          "—",
+          "-5400.00",
+          "—",
+          "已清"
+        ]
+      ]
+    },
+    {
+      "type": "actions",
+      "items": [
+        {
+          "id": "j60-simulate",
+          "label": "模拟凭证",
+          "primary": true
+        },
+        {
+          "id": "j60-post",
+          "label": "过账"
+        },
+        {
+          "id": "j60-paymentrun",
+          "label": "计划付款运行"
+        }
+      ]
+    },
+    {
+      "type": "note",
+      "text": "Best Practices scope item J60（Accounts Payable）。注意与 MIRO 的区别：MIRO 是物流侧的三单匹配（含收货凭证），J60 处理财务侧的应付管理、到期分析与付款清账，也可直接录入非采购类供应商发票。"
+    }
+  ]
+}

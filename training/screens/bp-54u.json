@@ -1,0 +1,135 @@
+{
+  "schema": "fsl-training-screen/1.0",
+  "id": "bp-54u",
+  "title": "SAP BP 54U · 按库存生产（离散制造）",
+  "erp": "sap",
+  "tcode": "MD04 / CO41 / CO02 / CO11N",
+  "scopeItem": "54U",
+  "blocks": [
+    {
+      "type": "apps",
+      "items": [
+        {
+          "id": "mfg-app-stock",
+          "label": "监控库存需求"
+        },
+        {
+          "label": "计划订单转换"
+        },
+        {
+          "label": "生产订单处理"
+        },
+        {
+          "label": "报工确认"
+        }
+      ]
+    },
+    {
+      "type": "fields",
+      "title": "计划订单",
+      "items": [
+        {
+          "id": "mfg-planorder",
+          "label": "计划订单号",
+          "ph": "由 MRP 依据需求自动生成，如 0000123456"
+        },
+        {
+          "id": "mfg-fgmaterial",
+          "label": "成品物料",
+          "ph": "MAT-LED-600"
+        },
+        {
+          "id": "mfg-plqty",
+          "label": "计划数量",
+          "ph": "1000"
+        },
+        {
+          "id": "mfg-startdate",
+          "label": "订单开始日期",
+          "ph": "由工艺路线的提前期倒推"
+        }
+      ]
+    },
+    {
+      "type": "fields",
+      "title": "生产订单抬头",
+      "items": [
+        {
+          "id": "mfg-prodversion",
+          "label": "生产版本",
+          "options": [
+            "0001 主线量产",
+            "0002 返工工艺"
+          ]
+        },
+        {
+          "id": "mfg-plant",
+          "label": "计划工厂",
+          "ph": "1000"
+        },
+        {
+          "id": "mfg-stloc",
+          "label": "库存地点",
+          "ph": "成品入库地点，如 0002"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "id": "mfg-comp",
+      "title": "组件清单（BOM）",
+      "columns": [
+        "组件",
+        "描述",
+        "需求数量",
+        "库存地点",
+        "反冲"
+      ],
+      "rows": [
+        [
+          "MAT-LED-CHIP",
+          "LED 灯珠",
+          "4000",
+          "0001",
+          "是"
+        ],
+        [
+          "MAT-DRV-002",
+          "恒流驱动器",
+          "1000",
+          "0001",
+          "是"
+        ],
+        [
+          "MAT-ALU-FRM",
+          "铝制边框",
+          "1000",
+          "0001",
+          "否"
+        ]
+      ]
+    },
+    {
+      "type": "actions",
+      "items": [
+        {
+          "id": "mfg-convert",
+          "label": "转换为生产订单",
+          "primary": true
+        },
+        {
+          "id": "mfg-release",
+          "label": "下达"
+        },
+        {
+          "id": "mfg-confirm",
+          "label": "报工确认"
+        }
+      ]
+    },
+    {
+      "type": "note",
+      "text": "Best Practices scope item 54U（Produce and Sell Standard Products - Inventory Management）。此为仿真训练界面，覆盖需求 → 计划订单 → 生产订单 → 下达 → 报工 → 成品入库。"
+    }
+  ]
+}

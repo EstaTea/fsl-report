@@ -1,0 +1,133 @@
+{
+  "schema": "fsl-training-screen/1.0",
+  "id": "bp-j45",
+  "title": "SAP BP J45 · 直接物料采购（申请转订单）",
+  "erp": "sap",
+  "tcode": "ME21N / MIGO",
+  "scopeItem": "J45",
+  "blocks": [
+    {
+      "type": "apps",
+      "items": [
+        {
+          "id": "j45-app-pr",
+          "label": "处理采购申请"
+        },
+        {
+          "label": "创建采购订单"
+        },
+        {
+          "label": "收货过账"
+        },
+        {
+          "label": "监控库存报表"
+        }
+      ]
+    },
+    {
+      "type": "fields",
+      "title": "采购申请（PR）",
+      "items": [
+        {
+          "id": "j45-pr-no",
+          "label": "采购申请编号",
+          "ph": "通常由 MRP 运行自动生成，如 10001234"
+        },
+        {
+          "id": "j45-pr-type",
+          "label": "申请类型",
+          "options": [
+            "NB 标准采购申请",
+            "FO 框架协议申请",
+            "UB 库存转储申请"
+          ]
+        },
+        {
+          "id": "j45-material",
+          "label": "物料",
+          "ph": "MAT-LED-001"
+        },
+        {
+          "id": "j45-qty",
+          "label": "申请数量",
+          "ph": "500"
+        },
+        {
+          "id": "j45-date",
+          "label": "需求日期",
+          "ph": "决定 MRP 的补货到货时点"
+        }
+      ]
+    },
+    {
+      "type": "fields",
+      "title": "货源与价格",
+      "items": [
+        {
+          "id": "j45-source",
+          "label": "固定货源 / 供应商",
+          "ph": "100023"
+        },
+        {
+          "id": "j45-inforecord",
+          "label": "采购信息记录",
+          "ph": "决定净价与有效期，缺失时系统取上次采购价"
+        },
+        {
+          "id": "j45-price",
+          "label": "净价",
+          "ph": "29.50"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "id": "j45-grid",
+      "title": "待处理申请清单",
+      "columns": [
+        "申请号",
+        "物料",
+        "需求数量",
+        "需求日期",
+        "货源状态"
+      ],
+      "rows": [
+        [
+          "10001234",
+          "MAT-LED-001",
+          "500",
+          "2026-10-15",
+          "已分配"
+        ],
+        [
+          "10001235",
+          "MAT-DRV-002",
+          "120",
+          "2026-10-22",
+          "未分配"
+        ]
+      ]
+    },
+    {
+      "type": "actions",
+      "items": [
+        {
+          "id": "j45-convert",
+          "label": "转换为采购订单",
+          "primary": true
+        },
+        {
+          "id": "j45-save",
+          "label": "保存"
+        },
+        {
+          "label": "取消"
+        }
+      ]
+    },
+    {
+      "type": "note",
+      "text": "Best Practices scope item J45（Procurement of Direct Materials）。此为仿真训练界面，流程：MRP 生成采购申请 → 分配货源 → 转采购订单 → 收货 → 发票校验。"
+    }
+  ]
+}

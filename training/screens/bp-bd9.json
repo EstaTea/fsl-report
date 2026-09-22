@@ -1,0 +1,131 @@
+{
+  "schema": "fsl-training-screen/1.0",
+  "id": "bp-bd9",
+  "title": "SAP BP BD9 · 按库存销售（订单到开票）",
+  "erp": "sap",
+  "tcode": "VA01 / VL01N / VF01",
+  "scopeItem": "BD9",
+  "blocks": [
+    {
+      "type": "apps",
+      "items": [
+        {
+          "id": "bd9-app-so",
+          "label": "创建销售订单"
+        },
+        {
+          "label": "交货处理"
+        },
+        {
+          "label": "开票到期清单"
+        },
+        {
+          "label": "凭证流查询"
+        }
+      ]
+    },
+    {
+      "type": "fields",
+      "title": "订单抬头",
+      "items": [
+        {
+          "id": "bd9-ordertype",
+          "label": "订单类型",
+          "options": [
+            "OR 标准订单",
+            "RE 退货订单",
+            "CR 贷项凭单"
+          ]
+        },
+        {
+          "id": "bd9-soldto",
+          "label": "售达方",
+          "ph": "100012"
+        },
+        {
+          "id": "bd9-reqdate",
+          "label": "请求交货日期",
+          "ph": "ATP 可用性检查的基准日期"
+        }
+      ]
+    },
+    {
+      "type": "fields",
+      "title": "交货与开票",
+      "items": [
+        {
+          "id": "bd9-shippoint",
+          "label": "装运点",
+          "ph": "决定交货单的拣配路径"
+        },
+        {
+          "id": "bd9-dlvqty",
+          "label": "交货数量",
+          "ph": "可少于订单数量，剩余部分转为欠交"
+        },
+        {
+          "id": "bd9-billbase",
+          "label": "开票基准",
+          "options": [
+            "按交货数量",
+            "按订单数量",
+            "按服务条目"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "id": "bd9-flow",
+      "title": "凭证流",
+      "columns": [
+        "凭证",
+        "类型",
+        "数量",
+        "状态"
+      ],
+      "rows": [
+        [
+          "—",
+          "销售订单",
+          "100",
+          "待创建"
+        ],
+        [
+          "—",
+          "交货单",
+          "—",
+          "未处理"
+        ],
+        [
+          "—",
+          "开票凭证",
+          "—",
+          "未处理"
+        ]
+      ]
+    },
+    {
+      "type": "actions",
+      "items": [
+        {
+          "id": "bd9-check",
+          "label": "可用性检查"
+        },
+        {
+          "id": "bd9-save",
+          "label": "保存订单",
+          "primary": true
+        },
+        {
+          "id": "bd9-invoice",
+          "label": "开票"
+        }
+      ]
+    },
+    {
+      "type": "note",
+      "text": "Best Practices scope item BD9（Sell from Stock）。此为仿真训练界面，覆盖订单 → 交货 → 开票的 SD 完整凭证流。"
+    }
+  ]
+}

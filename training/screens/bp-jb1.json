@@ -1,0 +1,167 @@
+{
+  "schema": "fsl-training-screen/1.0",
+  "id": "bp-jb1",
+  "title": "SAP BP JB1 · 核心人事与时间记录（EC 集成）",
+  "erp": "sap",
+  "tcode": "Employee Central / S/4HANA Cloud",
+  "scopeItem": "JB1",
+  "blocks": [
+    {
+      "type": "apps",
+      "items": [
+        {
+          "id": "jb1-app-emp",
+          "label": "员工主数据"
+        },
+        {
+          "label": "组织分配"
+        },
+        {
+          "label": "时间记录"
+        },
+        {
+          "label": "集成监控"
+        }
+      ]
+    },
+    {
+      "type": "fields",
+      "title": "员工信息",
+      "items": [
+        {
+          "id": "jb1-empno",
+          "label": "员工编号",
+          "ph": "8 位数字，如 10001234"
+        },
+        {
+          "id": "jb1-name",
+          "label": "姓名",
+          "ph": "张敏"
+        },
+        {
+          "id": "jb1-hiredate",
+          "label": "雇佣日期",
+          "ph": "决定年假折算与试用期起算"
+        },
+        {
+          "id": "jb1-company",
+          "label": "公司代码",
+          "ph": "1000"
+        }
+      ]
+    },
+    {
+      "type": "fields",
+      "title": "组织分配",
+      "items": [
+        {
+          "id": "jb1-orgunit",
+          "label": "组织单位",
+          "options": [
+            "50001234 生产部",
+            "50001235 财务部",
+            "50001236 销售部"
+          ]
+        },
+        {
+          "id": "jb1-position",
+          "label": "岗位",
+          "ph": "决定审批流与权限角色"
+        },
+        {
+          "id": "jb1-costcenter",
+          "label": "成本中心",
+          "ph": "人工费用的过账去向，如 CC-PROD-001"
+        },
+        {
+          "id": "jb1-manager",
+          "label": "直属经理",
+          "ph": "请假与加班的审批人"
+        }
+      ]
+    },
+    {
+      "type": "fields",
+      "title": "时间记录",
+      "items": [
+        {
+          "id": "jb1-timetype",
+          "label": "记录类型",
+          "options": [
+            "出勤",
+            "法定缺勤",
+            "病假",
+            "加班"
+          ]
+        },
+        {
+          "id": "jb1-date",
+          "label": "日期",
+          "ph": "2026-09-22"
+        },
+        {
+          "id": "jb1-hours",
+          "label": "小时数",
+          "ph": "8.0"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "id": "jb1-queue",
+      "title": "集成凭证队列（EC → S/4）",
+      "columns": [
+        "员工编号",
+        "对象",
+        "方向",
+        "状态",
+        "时间戳"
+      ],
+      "rows": [
+        [
+          "10001234",
+          "EmployeeMasterData",
+          "EC → S/4",
+          "成功",
+          "2026-09-22 09:12"
+        ],
+        [
+          "10001234",
+          "TimeRecording",
+          "EC → S/4",
+          "处理中",
+          "2026-09-22 09:15"
+        ],
+        [
+          "10001235",
+          "CostCenterAssignment",
+          "S/4 → EC",
+          "成功",
+          "2026-09-22 08:40"
+        ]
+      ]
+    },
+    {
+      "type": "actions",
+      "items": [
+        {
+          "id": "jb1-save",
+          "label": "保存",
+          "primary": true
+        },
+        {
+          "id": "jb1-submit",
+          "label": "提交审批"
+        },
+        {
+          "id": "jb1-sync",
+          "label": "触发集成"
+        }
+      ]
+    },
+    {
+      "type": "note",
+      "text": "Best Practices scope item JB1（Employee Integration - Employee Central Integration）。员工主数据以 SuccessFactors Employee Central 为主数据源单向同步至 S/4HANA，成本中心等组织对象可反向回写。此为仿真训练界面。"
+    }
+  ]
+}
