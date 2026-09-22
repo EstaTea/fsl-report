@@ -51,6 +51,18 @@
       "steps": 8,
       "duration": "约 8 分钟",
       "desc": "用友 U8 采购单据采用「保存 + 审核」两段式：保存只是草稿，审核后才生效并进入后续到货、入库与应付流程。"
+    },
+    {
+      "id": "fiori-po-overlay",
+      "title": "SAP 创建采购订单 ME21N（真实系统引导）",
+      "type": "overlay",
+      "mode": "inject",
+      "erp": "sap",
+      "overlay": "dap/host-fiori.html",
+      "demo": "dap/host-fiori.html",
+      "steps": 7,
+      "duration": "约 6 分钟",
+      "desc": "注入式课程：不依赖仿真舞台，直接挂到真实 SAP 页面上跑引导。选择器按业务属性编写，界面升级后有体检机制兜底。"
     }
   ]
 }

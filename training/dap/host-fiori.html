@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>创建采购订单 · ME21N（演示宿主页面）</title>
+<style>
+  /* 刻意模仿 SAP Fiori 的视觉与 DOM 特征：自动生成的 id + data-* 混合 */
+  body{margin:0;font:14px/1.6 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:#22303d;background:#f2f4f6}
+  .shell{background:#fff;margin:0 auto;max-width:1100px;min-height:100vh}
+  header{background:#0b2d47;color:#fff;padding:12px 20px;display:flex;justify-content:space-between;align-items:center}
+  header h1{font-size:15px;margin:0;font-weight:600}
+  .sub{font-size:12px;opacity:.75}
+  main{padding:20px}
+  fieldset{border:1px solid #dde4ea;border-radius:6px;padding:14px 16px;margin-bottom:16px}
+  legend{font-weight:600;color:#0b2d47;padding:0 6px}
+  .row{display:flex;gap:18px;flex-wrap:wrap}
+  .fld{display:flex;flex-direction:column;gap:5px;min-width:200px;margin-bottom:10px}
+  .fld span{font-size:12px;color:#5a6c7d}
+  input,select{padding:7px 9px;border:1px solid #c9d2da;border-radius:4px;font:inherit}
+  input:focus,select:focus{outline:2px solid #89c4e8;border-color:#14456b}
+  table{width:100%;border-collapse:collapse;margin-top:6px}
+  th,td{border-bottom:1px solid #e3e8ec;padding:8px 10px;text-align:left;font-size:13px}
+  th{background:#f6f9fb;color:#0b2d47;font-weight:600}
+  footer{padding:14px 20px;border-top:1px solid #e3e8ec;display:flex;gap:10px;justify-content:flex-end;background:#fafbfc}
+  button{padding:8px 16px;border-radius:5px;border:1px solid #0b2d47;background:#fff;color:#0b2d47;cursor:pointer;font:inherit}
+  button.primary{background:#0b2d47;color:#fff}
+  .loading{padding:14px 16px;color:#6b8298;font-size:13px}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header>
+    <h1>创建采购订单</h1>
+    <span class="sub">事务代码 ME21N · 演示用宿主页面</span>
+  </header>
+
+  <main>
+    <fieldset>
+      <legend>抬头</legend>
+      <div class="row">
+        <div class="fld">
+          <span>供应商</span>
+          <input data-testid="po-supplier" placeholder="输入供应商编码">
+        </div>
+        <div class="fld">
+          <span>采购组织</span>
+          <input aria-label="采购组织" placeholder="如 1000">
+        </div>
+        <div class="fld">
+          <span>公司代码</span>
+          <input name="bukrs" placeholder="如 1000">
+        </div>
+        <div class="fld">
+          <span>凭证日期</span>
+          <input aria-label="凭证日期" value="2026-09-22">
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>项目明细</legend>
+      <!-- 模拟 SPA：表格延迟 1.2s 才渲染出来 -->
+      <div id="itemArea" class="loading">正在加载项目明细…</div>
+    </fieldset>
+  </main>
+
+  <footer>
+    <button aria-label="检查">检查</button>
+    <button id="__xmlview0--v1_save-inner" class="primary">保存</button>
+    <button aria-label="过账" disabled>过账</button>
+  </footer>
+</div>
+
+<script>
+/* 模拟真实 SPA 的异步渲染：项目表格 1.2 秒后才插入 DOM，
+   用来验证 DAP 的 waitFor 是否真能等到元素。 */
+setTimeout(function () {
+  document.getElementById('itemArea').outerHTML =
+    '<table><thead><tr><th>项目</th><th>物料</th><th>数量</th><th>工厂</th></tr></thead><tbody>' +
+    '<tr><td>10</td><td><input data-testid="po-item-material" value="MAT-10023"></td>' +
+    '<td><input aria-label="数量" value="100"></td>' +
+    '<td><input name="werks" value="2000"></td></tr></tbody></table>';
+}, 1200);
+</script>
+
+<!-- ▼▼▼ 客户只需要在页面里加这两行 ▼▼▼ -->
+<script src="selector.js"></script>
+<script src="inject.js" data-course="../courses/fiori-po-overlay.json"></script>
+<!-- ▲▲▲ 到此为止 ▲▲▲ -->
+</body>
+</html>

@@ -147,6 +147,10 @@ a{color:inherit;text-decoration:none;}
         <button class="btn" id="exp2004" style="width:auto;flex:1;">📦 SCORM 2004</button>
         <button class="btn" id="expCmi5" style="width:auto;flex:1;">📦 cmi5 / xAPI</button>
       </div>
+      <div class="sub" style="font-size:12px;color:var(--muted);margin:14px 0 8px;">
+        注入式：在客户真实 ERP 页面里加一段脚本即可跑引导（不需要改对方系统、不走 iframe）
+      </div>
+      <button class="btn btn-primary" id="expInject" style="width:auto;">🔌 生成注入式接入片段</button>
     </div>
     <div class="note" id="saveNote">
       <b>保存方式：</b>已登录时直接写入 <code>training/courses/{id}.json</code> 并同步 <code>courses.json</code> 索引；
@@ -432,6 +436,40 @@ function exportCourse(kind,label){
 $('exp12').addEventListener('click',function(){ exportCourse('12','SCORM 1.2 包'); });
 $('exp2004').addEventListener('click',function(){ exportCourse('2004','SCORM 2004 包'); });
 $('expCmi5').addEventListener('click',function(){ exportCourse('cmi5','cmi5 / xAPI 包'); });
+
+/* ===== 注入式接入片段 ===== */
+function downloadText(name,text,type){
+  var blob=new Blob([text],{type:type||'text/html;charset=utf-8'});
+  var a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download=name; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function(){ URL.revokeObjectURL(a.href); },4000);
+}
+$('expInject').addEventListener('click',function(){
+  var id=$('f-id').value.trim();
+  if(!id){ toast('请先填写课程 ID',true); return; }
+  var title=$('f-title').value.trim()||id;
+  var HOME='https://estatea.github.io/fsl-report/';
+  var course=buildCourse();
+  /* 注入到真实系统时，步骤的 el 必须是业务属性描述（testId / label / name / text）；
+     纯 CSS 选择器（字符串）在客户环境极易因界面改版失效 —— 导出时就地提示。 */
+  var risky=(course.steps||[]).filter(function(s){
+    var spec=s.el;
+    if(!spec) return true;
+    if(Array.isArray(spec)) spec=spec[0];
+    if(typeof spec==='string') return true;                       // 纯 CSS
+    if(typeof spec==='object') return !!spec.sel && !spec.testId && !spec.label && !spec.name && !spec.text;
+    return false;
+  }).length;
+  var snippet='<!-- FSL 操作引导 · '+title+' -->\n'+
+    '<!-- 粘贴到客户 ERP 页面 </head> 前即可运行；不需要 iframe，不依赖对方改造 -->\n'+
+    '<script src="'+HOME+'training/dap/selector.js"></'+'script>\n'+
+    '<script src="'+HOME+'training/dap/inject.js"\n'+
+    '        data-course="'+HOME+'training/courses/'+encodeURIComponent(id)+'.json"></'+'script>\n'+
+    '<!-- 排障 / 升级后自检：页面加 ?dapHealth=1 打开选择器体检面板 -->\n';
+  downloadText('dap-inject-'+id+'.html', snippet);
+  toast('✅ 已生成注入片段'+(risky?('（有 '+risky+' 步选择器偏弱，建议到真实环境跑体检）'):''));
+  setStatus('注入片段已下载：dap-inject-' + id + '.html');
+});
 
 /* 初始化 */
 var qs=new URLSearchParams(window.location.search);

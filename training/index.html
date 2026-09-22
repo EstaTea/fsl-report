@@ -139,19 +139,27 @@ a{color:inherit;text-decoration:none;}
       document.getElementById('courseCount').textContent='（共 '+list.length+' 门）';
       grid.innerHTML=list.map(function(c){
         var isSim=c.type==='sim-sandbox';
-        var icon=isSim?'🛒':(ICON[c.erp]||'🎯');
-        var tag=isSim?'SCORM 1.2':'编排器产出';
-        var meta=[isSim?'仿真沙箱':'引导式', ERP_LABEL[c.erp]||c.erp, (c.steps||0)+' 步引导', c.duration||'']
+        var isInject=c.mode==='inject';
+        var icon=isSim?'🛒':(isInject?'🔌':(ICON[c.erp]||'🎯'));
+        var tag=isSim?'SCORM 1.2':(isInject?'注入式 · 真实系统':'编排器产出');
+        var meta=[isSim?'仿真沙箱':(isInject?'生产 DOM 适配':'引导式'), ERP_LABEL[c.erp]||c.erp, (c.steps||0)+' 步引导', c.duration||'']
           .filter(Boolean).map(function(x){return '<span>'+esc(x)+'</span>';}).join('');
-        var second=isSim
-          ? '<a class="btn-ghost" href="sco/" target="_blank">查看 SCORM 源</a>'
-          : '<a class="btn-ghost" href="author.html?course='+encodeURIComponent(c.id)+'">✎ 编辑此课</a>';
+        var main,second;
+        if(isInject){
+          main='<a class="btn-primary" href="'+esc(c.demo||'dap/host-fiori.html')+'">真实系统演示 →</a>';
+          second='<a class="btn-ghost" href="dap/host-fiori.html?dapHealth=1">🩺 选择器体检</a>';
+        } else {
+          main='<a class="btn-primary" href="lms.html?course='+encodeURIComponent(c.id)+'">开始学习 →</a>';
+          second=isSim
+            ? '<a class="btn-ghost" href="sco/" target="_blank">查看 SCORM 源</a>'
+            : '<a class="btn-ghost" href="author.html?course='+encodeURIComponent(c.id)+'">✎ 编辑此课</a>';
+        }
         return '<div class="course-card">'+
           '<div class="cc-cover">'+icon+'<span class="cc-tag">'+esc(tag)+'</span></div>'+
           '<div class="cc-body"><h4>'+esc(c.title)+'</h4>'+
           '<div class="cc-meta">'+meta+'</div>'+
           '<div class="cc-desc">'+esc(c.desc)+'</div></div>'+
-          '<div class="cc-foot"><a class="btn-primary" href="lms.html?course='+encodeURIComponent(c.id)+'">开始学习 →</a>'+second+'</div>'+
+          '<div class="cc-foot">'+main+second+'</div>'+
         '</div>';
       }).join('');
     })
