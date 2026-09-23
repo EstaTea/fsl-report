@@ -404,6 +404,42 @@ def dump(path, obj):
         f.write('\n')
 
 
+INTERACTIONS = {
+    ('bp-j45-overlay', '#j45-pr-type'): {'act': 'select', 'val': 'NB 标准采购申请',
+                                              'hint': '标准采购申请是 NB'},
+    ('bp-j45-overlay', '#j45-material'): {'act': 'input', 'val': 'MAT-LED-001'},
+    ('bp-j45-overlay', '#j45-source'): {'act': 'input', 'val': '100023'},
+    ('bp-j45-overlay', '#j45-convert'): {'act': 'click'},
+    ('bp-bd9-overlay', '#bd9-ordertype'): {'act': 'select', 'val': 'OR 标准订单'},
+    ('bp-bd9-overlay', '#bd9-soldto'): {'act': 'input', 'val': '100012'},
+    ('bp-bd9-overlay', '#bd9-check'): {'act': 'click'},
+    ('bp-bd9-overlay', '#bd9-save'): {'act': 'click'},
+    ('bp-bd9-overlay', '#bd9-dlvqty'): {'act': 'input', 'val': '100'},
+    ('bp-bd9-overlay', '#bd9-invoice'): {'act': 'click'},
+    ('bp-mfg-overlay', '#mfg-prodversion'): {'act': 'select', 'val': '0001 主线量产',
+                                              'hint': '量产走 0001 主线工艺'},
+    ('bp-mfg-overlay', '#mfg-convert'): {'act': 'click'},
+    ('bp-mfg-overlay', '#mfg-release'): {'act': 'click'},
+    ('bp-mfg-overlay', '#mfg-confirm'): {'act': 'click'},
+    ('bp-mfg-overlay', '#mfg-stloc'): {'act': 'input', 'val': '0002'},
+    ('bp-j60-overlay', '#j60-supplier'): {'act': 'input', 'val': '100023'},
+    ('bp-j60-overlay', '#j60-taxcode'): {'act': 'select', 'val': 'J1 进项税 13%'},
+    ('bp-j60-overlay', '#j60-simulate'): {'act': 'click'},
+    ('bp-j60-overlay', '#j60-post'): {'act': 'click'},
+    ('bp-j60-overlay', '#j60-paymentrun'): {'act': 'click'},
+    ('bp-jb1-overlay', '#jb1-empno'): {'act': 'input', 'val': '10001234'},
+    ('bp-jb1-overlay', '#jb1-orgunit'): {'act': 'select', 'val': '50001234 生产部'},
+    ('bp-jb1-overlay', '#jb1-costcenter'): {'act': 'input', 'val': 'CC-PROD-001'},
+    ('bp-jb1-overlay', '#jb1-timetype'): {'act': 'select', 'val': '出勤'},
+    ('bp-jb1-overlay', '#jb1-hours'): {'act': 'input', 'val': '8.0',
+                                              'vals': ['8.0', '8', '8,0']},
+}
+for _cid, _obj in COURSES.items():
+    for _st in _obj['steps']:
+        _kw = INTERACTIONS.get((_cid, _st.get('el')))
+        if _kw:
+            _st.update(_kw)
+
 # 1) 写界面与课程文件
 # 先清掉本脚本上一轮产物中已不存在的 bp-* 文件（改前缀 / 改名后不留孤儿）
 for d, keep, ext in ((SCR, set(SCREENS), '.json'), (COU, set(COURSES), '.json')):

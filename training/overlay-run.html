@@ -26,6 +26,7 @@ body{font-family:"Helvetica Neue","Microsoft YaHei",system-ui,sans-serif;backgro
 </style>
 </head>
 <body>
+<script src="../nav-include.js"></script>
 <div class="bar">
   <span id="title">引导式课程</span>
   <span class="pill" id="progress">0 / 0</span>
@@ -106,6 +107,8 @@ function startTour(steps){
   if(!steps||!steps.length) return;
   sawStep=false;
   scormInit();
+  scormSet('cmi.core.lesson_status','incomplete');   // 重玩时清掉上次的完成态与得分
+  scormSet('cmi.core.score.raw','0');
   try{ stage.contentWindow.postMessage({type:'stage-run-tour',steps:steps},'*'); }catch(e){}
   document.getElementById('progress').textContent='1 / '+steps.length;
   if(retryTimer) clearTimeout(retryTimer);
@@ -142,11 +145,17 @@ window.addEventListener('message',function(e){
     if(!sawStep){ started=false; retryCount=0; return; }
     stopRetry();
     document.getElementById('progress').textContent='完成';
+    // 得分：操作步一次做对的比例（无操作步的讲解课记满分）
+    var inter=+d.interactive||0, ft=+d.firstTry||0;
+    var score= inter ? Math.round(100*ft/inter) : 100;
     scormSet('cmi.core.lesson_status','completed');
-    scormSet('cmi.core.score.raw','100');
+    scormSet('cmi.core.score.raw',String(score));
     scormCommit();
-    var t=document.getElementById('toast'); t.classList.add('show');
-    setTimeout(function(){ t.classList.remove('show'); },3200);
+    var t=document.getElementById('toast');
+    t.textContent= inter ? ('🎉 课程完成，得分 '+score+' 分（'+ft+'/'+inter+' 步一次做对）')
+                         : '🎉 课程已完成，成绩已上报';
+    t.classList.add('show');
+    setTimeout(function(){ t.classList.remove('show'); },4200);
   }
 });
 

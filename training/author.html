@@ -37,6 +37,10 @@ a{color:inherit;text-decoration:none;}
 .step .si{position:absolute;top:-9px;left:10px;background:var(--b500);color:#fff;font-size:11px;font-weight:800;border-radius:10px;padding:1px 9px;}
 .step .srow{display:flex;gap:8px;margin-top:8px;}
 .step input.s-sel{flex:1;font-family:ui-monospace,Menlo,monospace;font-size:12px;}
+.step .srow-act select,.step .srow-act input{font-size:12px;padding:6px 8px;border:1px solid var(--rule,#d6e8f2);border-radius:5px;background:#fff;color:inherit;}
+.step .srow-act select{flex:0 0 130px;}
+.step .srow-act input{flex:1;}
+.step .srow-act input:disabled{background:var(--b050,#ebf5fb);color:#8aa3b5;}
 .step .s-title{width:100%;border:1px solid var(--rule);border-radius:6px;padding:7px 10px;font-size:13px;font-family:inherit;}
 .step .s-desc{width:100%;border:1px solid var(--rule);border-radius:6px;padding:7px 10px;font-size:12px;font-family:inherit;margin-top:7px;resize:vertical;min-height:42px;}
 .step .sbtns{display:flex;gap:6px;margin-top:7px;flex-wrap:wrap;}
@@ -260,6 +264,15 @@ function renderSteps(){
       '<input class="s-title" data-i="'+i+'" data-k="title" value="'+esc(s.title)+'" placeholder="步骤标题">'+
       '<textarea class="s-desc" data-i="'+i+'" data-k="desc" placeholder="步骤说明">'+esc(s.desc)+'</textarea>'+
       '<div class="srow"><input class="s-sel" data-i="'+i+'" data-k="el" value="'+esc(s.el)+'" placeholder="CSS 选择器，如 #sap-vendor"></div>'+
+      '<div class="srow srow-act">'+
+        '<select class="s-act" data-i="'+i+'" data-k="act">'+
+          '<option value="">讲解步（下一步）</option>'+
+          '<option value="select"'+(s.act==='select'?' selected':'')+'>下拉选择</option>'+
+          '<option value="input"'+(s.act==='input'?' selected':'')+'>输入值</option>'+
+          '<option value="click"'+(s.act==='click'?' selected':'')+'>点击</option>'+
+        '</select>'+
+        '<input class="s-val" data-i="'+i+'" data-k="val" value="'+esc(s.val==null?'':s.val)+'" placeholder="期望值（做对才能下一步）"'+(s.act?'':' disabled')+'>'+
+      '</div>'+
       '<div class="sbtns">'+
         '<button class="sbtn pick" data-act="pick" data-i="'+i+'">🎯 拾取</button>'+
         '<button class="sbtn" data-act="preview" data-i="'+i+'">预览</button>'+
@@ -276,7 +289,20 @@ function esc(v){ return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,
 function bindStepInputs(){
   document.querySelectorAll('#stepList [data-k]').forEach(function(el){
     el.addEventListener('input',function(){
-      steps[+el.dataset.i][el.dataset.k]=el.value;
+      var k=el.dataset.k, v=el.value;
+      if(k==='act'){                       // 切交互类型：清掉不匹配的期望值并刷新行
+        var st=steps[+el.dataset.i];
+        if(v){ st.act=v; } else { delete st.act; }
+        if(st.act==='click'){ delete st.val; }
+        renderSteps();
+        return;
+      }
+      if(k==='val'){
+        var ss=steps[+el.dataset.i];
+        if(v===''){ delete ss.val; } else { ss.val=v; }
+        return;
+      }
+      steps[+el.dataset.i][k]=el.value;
     });
   });
   document.querySelectorAll('#stepList [data-act]').forEach(function(b){
@@ -351,7 +377,11 @@ function loadExisting(id){
       $('f-duration').value=j.duration||'';
       $('f-desc').value=j.desc||'';
       if(j.stage) applyStage(j.stage);
-      steps=(j.steps||[]).map(function(s){return {el:s.el||'',title:s.title||'',desc:s.desc||''};});
+      steps=(j.steps||[]).map(function(s){
+        var o={el:s.el||'',title:s.title||'',desc:s.desc||''};
+        if(s.act){ o.act=s.act; if(s.val!=null)o.val=s.val; if(s.vals)o.vals=s.vals; if(s.hint)o.hint=s.hint; }
+        return o;
+      });
       renderSteps();
       updateTestLink();
     })
@@ -373,7 +403,11 @@ function buildCourse(){
     stage:$('f-stage').value,
     duration:$('f-duration').value.trim(),
     desc:$('f-desc').value.trim(),
-    steps:(type==='overlay')?steps.map(function(s){return {el:s.el,title:s.title,desc:s.desc};}):[],
+    steps:(type==='overlay')?steps.map(function(s){
+      var o={el:s.el,title:s.title,desc:s.desc};
+      if(s.act){ o.act=s.act; if(s.val!=null)o.val=s.val; if(s.vals)o.vals=s.vals; if(s.hint)o.hint=s.hint; }
+      return o;
+    }):[],
     updated_at:new Date().toISOString()
   };
 }
