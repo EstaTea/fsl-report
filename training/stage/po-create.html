@@ -38,7 +38,7 @@ body.pick-mode .pick-tip{display:block;}
 #od-mask{position:fixed;inset:0;background:rgba(8,20,32,.62);z-index:9000;display:none;}
 #od-mask.on{display:block;}
 .od-hl{position:relative;z-index:9001;border-radius:6px;
-  box-shadow:0 0 0 4px var(--b500),0 0 0 9999px rgba(8,20,32,.62);transition:box-shadow .2s;}
+  box-shadow:0 0 0 4px var(--b500),0 0 0 8px rgba(24,95,165,.18);transition:box-shadow .2s;}
 .od-pop{position:fixed;z-index:9002;background:#fff;border-radius:10px;width:320px;max-width:86vw;
   box-shadow:0 10px 40px rgba(8,20,32,.4);overflow:hidden;border:1px solid var(--rule);}
 .od-pop .od-pop-h{background:linear-gradient(135deg,var(--b700),var(--b900));color:#fff;
@@ -52,6 +52,12 @@ body.pick-mode .pick-tip{display:block;}
 .od-prev{background:#fff;color:var(--b700);border:1px solid var(--rule)!important;}
 .od-next{background:var(--b500);color:#fff;} .od-next:hover{background:var(--b700);}
 /* 交互式步骤状态 */
+
+.od-expect{margin:0 15px 12px;padding:8px 12px;background:var(--b050);
+  border:1px dashed var(--b500);border-radius:6px;font-size:12.5px;color:var(--b700);}
+.od-expect-l{font-weight:700;margin-right:6px;}
+.od-expect code{font-family:ui-monospace,Menlo,monospace;font-weight:700;color:var(--b900);
+  background:#fff;border:1px solid var(--rule);border-radius:4px;padding:2px 7px;}
 .od-pop .od-act{font-size:11px;font-weight:700;color:#92400e;background:#fef3c7;
   border:1px solid #fcd34d;border-radius:5px;padding:3px 9px;white-space:nowrap;}
 .od-pop .od-state{font-size:11.5px;font-weight:700;margin-left:8px;}
@@ -210,6 +216,17 @@ function render(){
     var s=steps[i]; var target=document.querySelector(s.el);
     if(!target){ if(i<steps.length-1){i++;render();return;} finish(); return; }
     clearHighlight(); target.classList.add('od-hl'); target.scrollIntoView({block:'center',behavior:'smooth'});
+    var expect='';
+    if(s.act){
+      var lbl = s.act==='select' ? '应选择' : (s.act==='input' ? '应输入' : '应点击');
+      var vals = s.act==='click'
+        ? [ (target.textContent||'').trim() || normVal(s.val) || s.el ]
+        : expectList(s);
+      if(vals.length){
+        expect='<div class="od-expect"><span class="od-expect-l">'+lbl+'</span>'+
+          vals.map(function(v){ return '<code>'+v+'</code>'; }).join(' 或 ')+'</div>';
+      }
+    }
     var footer;
     if(s.act){
       footer='<span class="od-act">✋ 请在高亮控件上完成操作</span>'+
@@ -219,7 +236,7 @@ function render(){
         '<button class="od-next">'+(i===steps.length-1?'完成':'下一步')+'</button>';
     }
     pop.innerHTML='<div class="od-pop-h">'+s.title+'</div>'+
-      '<div class="od-pop-b">'+s.desc+'</div>'+
+      '<div class="od-pop-b">'+s.desc+'</div>'+(expect||'')+
       '<div class="od-pop-f"><span class="step">第 '+(i+1)+' / '+steps.length+' 步</span>'+
       '<div class="nav-btns">'+footer+'</div></div>';
     placePop(target);   // 气泡尺寸确定后再定位，避让目标元素与窗口边缘
@@ -231,12 +248,12 @@ function render(){
       var pv=pop.querySelector('.od-prev');
       if(pv) pv.onclick=function(){ if(i>0){i--;render();} };
     }
-    mask.classList.add('on'); onStep&&onStep(i,steps.length);
+    onStep&&onStep(i,steps.length);   // 不再全屏变黑，只高亮目标区域
   }
   function next(){ if(i<steps.length-1){i++;render();} }
   function prev(){ if(i>0){i--;render();} }
   function finish(){
-    unbind(); pop.remove(); mask.classList.remove('on'); clearHighlight();
+    unbind(); pop.remove(); clearHighlight();
     onDone&&onDone({interactive:interactive, firstTry:firstTry, wrong:wrongTotal});
   }
   render();
