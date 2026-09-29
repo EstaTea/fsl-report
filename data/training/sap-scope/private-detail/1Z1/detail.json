@@ -1,0 +1,476 @@
+{
+ "externalId": "1Z1",
+ "id": "SP_OP_1Z1_1",
+ "name": "数字付款 – 销售 (1Z1)",
+ "solutionProcessId": "c091db50-a8f2-453f-b7d4-483c5fa96934",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "JP",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ES",
+  "ZA",
+  "AE",
+  "AU",
+  "SG",
+  "CN",
+  "IE",
+  "IT",
+  "MY",
+  "RO",
+  "SE",
+  "AT",
+  "NZ",
+  "PH",
+  "HU",
+  "IN",
+  "DK",
+  "FI",
+  "HK",
+  "NO",
+  "ID",
+  "TR",
+  "TW",
+  "SA",
+  "KR",
+  "MX",
+  "SK",
+  "PL",
+  "CZ",
+  "TH"
+ ],
+ "mod": "SD",
+ "tier": "A",
+ "name_en": "Digital Payments – Sales (1Z1)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Digital Payments – Sales (1Z1)</title>\n </head>\n <body id=\"loio6cddc383b4fe4ab1bc0d7168e36b2331\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio6cddc383b4fe4ab1bc0d7168e36b2331__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">SAP digital payments is a payment capability for payment service providers and SAP components, solutions, or applications that process incoming credit card payments.</p>\n      <p class=\"p\">Payment card information available in the business partner master data can be used when creating the sales order or new payment card data (one-time payment card) can be used in the sales order. When you save the sales order, the authorization of the payment card is executed through the payment provider service.</p>\n      <p class=\"p\">The credit card authorization can be cancelled by deleting the authorized amount in the sales order. Then a re-authorization can be done after changing the order quantity.</p>\n      <p class=\"p\">Furthermore, the credit card authorization can be cancelled by rejecting the sales order which has an amount authorized for credit card payment.</p>\n     </section>\n     <section class=\"section\" id=\"loio6cddc383b4fe4ab1bc0d7168e36b2331__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <p class=\"p\">Using credit card data maintained in business partner in sales document:</p>\n      <ul class=\"ul\">\n       <li class=\"li\">Add and register credit card data in business partner</li>\n       <li class=\"li\">Assign customer payment guarantee procedure</li>\n       <li class=\"li\">Check credit card data in sales documents</li>\n       <li class=\"li\">Release sales documents with payment card</li>\n       <li class=\"li\">Proceed with all succeeding steps of related scope items (such as BD9) until billing document is created</li>\n       <li class=\"li\">Check credit card data in billing document</li>\n      </ul>\n      <p class=\"p\">Using one-time credit card data in sales document:</p>\n      <ul class=\"ul\">\n       <li class=\"li\">Check credit card data in sales documents</li>\n       <li class=\"li\">Release sales documents with payment card</li>\n       <li class=\"li\">Check credit card data in billing document</li>\n      </ul>\n      <p class=\"p\">Using electronic payment provider (for example, PayPal) as payment service provider in sales documents:</p>\n      <ul class=\"ul\">\n       <li class=\"li\">Process sales documents with successful authorization</li>\n       <li class=\"li\">Process sales documents with unsuccessful authorization</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio6cddc383b4fe4ab1bc0d7168e36b2331__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Provide cloud customers the option of using electronic payments using an integration with the payment hub for authorization when creating sales documents</li>\n       <li class=\"li\">Use electronic payment securely and simply</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>数字付款 – 销售 (1Z1)</title>\n </head>\n <body id=\"loio6cddc383b4fe4ab1bc0d7168e36b2331\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio6cddc383b4fe4ab1bc0d7168e36b2331__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">SAP 数字付款是面向付款服务提供商和 SAP 组件、解决方案或应用程序的付款功能，用于处理信用卡收款。</p>\n      <p class=\"p\">在创建销售订单时可以使用业务伙伴主数据中提供的付款卡信息，也可以在销售订单中使用新的付款卡数据（一次性付款卡）。保存销售订单时，付款卡的权限通过付款提供商服务执行。</p>\n      <p class=\"p\">可以通过删除销售订单中的授权金额来取消信用卡授权。然后，可以在更改订单数量后完成重新授权。</p>\n      <p class=\"p\">此外，还可通过否决有信用卡付款授权金额的销售订单来取消信用卡授权。</p>\n     </section>\n     <section class=\"section\" id=\"loio6cddc383b4fe4ab1bc0d7168e36b2331__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <p class=\"p\">使用销售凭证中业务伙伴 中维护的信用卡数据：</p>\n      <ul class=\"ul\">\n       <li class=\"li\">在业务伙伴中添加和注册信用卡数据</li>\n       <li class=\"li\">分配客户付款担保过程</li>\n       <li class=\"li\">检查销售凭证中的信用卡数据</li>\n       <li class=\"li\">使用付款卡审批销售凭证</li>\n       <li class=\"li\">继续执行相关范围项目（例如 BD9）的所有后续步骤，直到创建开票凭证</li>\n       <li class=\"li\">检查开票凭证中的信用卡数据</li>\n      </ul>\n      <p class=\"p\">在销售凭证中使用一次性信用卡数据：</p>\n      <ul class=\"ul\">\n       <li class=\"li\">检查销售凭证中的信用卡数据</li>\n       <li class=\"li\">使用付款卡审批销售凭证</li>\n       <li class=\"li\">检查开票凭证中的信用卡数据</li>\n      </ul>\n      <p class=\"p\">使用电子付款提供商（例如 PayPal）作为销售凭证中的付款服务提供商：</p>\n      <ul class=\"ul\">\n       <li class=\"li\">使用成功权限处理销售凭证</li>\n       <li class=\"li\">处理授权失败的销售凭证</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio6cddc383b4fe4ab1bc0d7168e36b2331__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">为云客户提供使用与付款中心的集成使用电子付款的选项，以便在创建销售凭证时获得授权</li>\n       <li class=\"li\">安全、轻松地使用电子付款</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "数字付款 – 销售 (1Z1)",
+ "flows": [
+  {
+   "id": "304b4d59-a78f-484c-967f-b7642256c6c3",
+   "stableId": "SPF_OP_1Z1_1",
+   "name": "Digital Payments - Sales (1Z1)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "1Z1 - SAP Digital Payments - PayPal",
+     "stableId": "ERL-72e7c0c652bf402e90323669a2c25436"
+    },
+    {
+     "name": "1Z1 - SAP Digital Payments - Payment Cards",
+     "stableId": "ERL-004a684b89f64e0fa0b25029e323ca35"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

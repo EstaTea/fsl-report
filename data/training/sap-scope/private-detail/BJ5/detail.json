@@ -1,0 +1,494 @@
+{
+ "externalId": "BJ5",
+ "id": "SP_OP_BJ5_1",
+ "name": "按库存生产 – 离散制造 (BJ5)",
+ "solutionProcessId": "81411ab7-eb1b-4f88-b049-45376d9dbfe9",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "JP",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ES",
+  "ZA",
+  "AE",
+  "AU",
+  "SG",
+  "CN",
+  "IE",
+  "IT",
+  "MY",
+  "RO",
+  "SE",
+  "AT",
+  "NZ",
+  "PH",
+  "HU",
+  "IN",
+  "DK",
+  "FI",
+  "HK",
+  "NO",
+  "ID",
+  "TR",
+  "TW",
+  "SA",
+  "KR",
+  "MX",
+  "SK",
+  "PL",
+  "CZ",
+  "TH",
+  "BR",
+  "RU"
+ ],
+ "mod": "MM",
+ "tier": "A",
+ "name_en": "Make-to-Stock Production – Discrete Manufacturing (BJ5)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Make-to-Stock Production – Discrete Manufacturing (BJ5)</title>\n </head>\n <body id=\"loio06ae6391f18142eeacc236ac8cecfc44\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio06ae6391f18142eeacc236ac8cecfc44__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">This scope item enables production planning in make-to-stock scenarios for a serial number managed finished good.</p>\n      <p class=\"p\">The process starts with the creation of a demand forecast for finished goods represented by Planned Independent Requirements (PIRs). Based on PIRs, Material Requirements Planning (MRP) creates a production plan for finished goods and explodes the entire bill of material structure. As a result, semifinished component production and raw material demand is planned. Production planners can analyze and manually change the planned order-based production plan.</p>\n      <p class=\"p\">Raw material demand leads to purchase requisitions that trigger alternative procurement scenarios referenced in this scope item.</p>\n      <p class=\"p\">The production process itself is entirely covered by using the conversion of planned into production orders, order release, material staging and picking, confirmation of order operations, and goods receipt posting. Order-based target and actual cost is created, ensuring fully integrated material and value streams.</p>\n     </section>\n     <section class=\"section\" id=\"loio06ae6391f18142eeacc236ac8cecfc44__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Process planned independent requirements</li>\n       <li class=\"li\">Execute material requirements planning and evaluation of stock requirement list</li>\n       <li class=\"li\">Execute production order processing: Material staging, order release, order confirmation, material movement postings for goods issue and goods receipt incl. Available-to-Promise checks</li>\n       <li class=\"li\">Run scrap reports optionally after production</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio06ae6391f18142eeacc236ac8cecfc44__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Trigger production execution with a production plan</li>\n       <li class=\"li\">Explode the bill of material automatically when running the material requirements planning</li>\n       <li class=\"li\">Calculate target costs during order creation</li>\n       <li class=\"li\">Improve usability with intuitive confirmation of production operations</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>按库存生产 – 离散制造 (BJ5)</title>\n </head>\n <body id=\"loio06ae6391f18142eeacc236ac8cecfc44\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio06ae6391f18142eeacc236ac8cecfc44__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">此范围项目支持序列号管理成品的按库存生产场景中的生产计划。</p>\n      <p class=\"p\">此流程开始于创建由计划独立需求 (PIR) 表示的成品需求预测。基于 PIR，物料需求计划 (MRP) 为成品创建生产计划并展开整个物料清单结构。因此，将计划半成品组件生产和原材料需求。生产计划员可以分析并手动更改计划基于订单的生产计划。</p>\n      <p class=\"p\">原材料需求会导致触发此范围项目中引用的备选采购场景的采购申请。</p>\n      <p class=\"p\">通过将计划订单转换为生产订单、订单下达、备料、拣配、订单工序确认以及收货过账，可以完全涵盖生产流程本身。创建基于订单的目标成本和实际成本，确保完全集成物料和价值流。</p>\n     </section>\n     <section class=\"section\" id=\"loio06ae6391f18142eeacc236ac8cecfc44__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">处理计划独立需求</li>\n       <li class=\"li\">执行物料需求计划，评估库存需求清单</li>\n       <li class=\"li\">执行生产订单处理：包括备料、订单下达、订单确认、发货和收货的物料移动过账可承诺量检查</li>\n       <li class=\"li\">生产后可选择运行报废报表</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio06ae6391f18142eeacc236ac8cecfc44__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">通过生产计划触发生产执行</li>\n       <li class=\"li\">运行物料需求计划时，自动展开物料清单</li>\n       <li class=\"li\">在订单创建期间计算目标成本</li>\n       <li class=\"li\">通过直观的生产操作确认提高可用性</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "按库存生产 – 离散制造 (BJ5)",
+ "flows": [
+  {
+   "id": "4b3558b7-726b-453c-a826-99a6cc99d972",
+   "stableId": "SPF_OP_BJ5_1",
+   "name": "Make-to-Stock Production - Discrete Manufacturing (BJ5)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "BJ5 - Make-to-Stock Production - Discrete Manufacturing (OP)",
+     "stableId": "GW4AxW627kkojs3H7k{w}W"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

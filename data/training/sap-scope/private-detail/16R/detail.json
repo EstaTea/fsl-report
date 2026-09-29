@@ -1,0 +1,513 @@
+{
+ "externalId": "16R",
+ "id": "SP_OP_16R_2",
+ "name": "银行与 SAP Multi-Bank Connectivity 集成 (16R)",
+ "solutionProcessId": "47eb131d-8f19-4a2d-a7cc-23ea08e56548",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "JP",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ES",
+  "ZA",
+  "AE",
+  "AU",
+  "SG",
+  "CN",
+  "IE",
+  "IT",
+  "MY",
+  "RO",
+  "SE",
+  "AT",
+  "NZ",
+  "PH",
+  "HU",
+  "IN",
+  "DK",
+  "FI",
+  "HK",
+  "NO",
+  "ID",
+  "TR",
+  "TW",
+  "SA",
+  "KR",
+  "MX",
+  "SK",
+  "PL",
+  "CZ",
+  "TH",
+  "PT",
+  "BR",
+  "RU"
+ ],
+ "mod": "FI",
+ "tier": "D",
+ "name_en": "Bank Integration with SAP Multi-Bank Connectivity (16R)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Bank Integration with SAP Multi-Bank Connectivity (16R)</title>\n </head>\n <body id=\"loio51a4cf59a91c4b3d97810be07e0f14d2\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio51a4cf59a91c4b3d97810be07e0f14d2__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">With SAP Multi-Bank Connectivity (MBC), SAP establishes connections with your banks to automatically send payment instructions, receive status notifications, receive bank statements, and receive lockbox messages. Leveraging the monitoring capabilities, you can supervise the status of all payment instructions and see which bank statements are received and which expected bank statements are still missing. The monitoring is only available in combination with Advanced Cash Management (J78).</p>\n     </section>\n     <section class=\"section\" id=\"loio51a4cf59a91c4b3d97810be07e0f14d2__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Connect securely with encryption between <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> and SAP Multi-Bank Connectivity and the connected financial institutions/banks</li>\n       <li class=\"li\">Forward payment instructions to banks in local format</li>\n       <li class=\"li\">Receive status notification for payment instructions</li>\n       <li class=\"li\">Receive bank statements in standard formats such as MT940, CAMT.053 and BAI2Receive lockbox messages BAI2</li>\n      </ul>\n      <p class=\"p\"></p>\n     </section>\n     <section class=\"section\" id=\"loio51a4cf59a91c4b3d97810be07e0f14d2__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Connect to banks via direct bank connections, SWIFT, or EBICS in a secure way (E2E-encryption embedded)</li>\n       <li class=\"li\">Route payment instructions automatically to financial institutions/banks</li>\n       <li class=\"li\">Receive bank statements automatically from financial institutions/banks</li>\n       <li class=\"li\">Update payment status (only available in conjunction with Advanced Cash Management)</li>\n       <li class=\"li\">Receive lockbox messages automatically from financial institutions/banks</li>\n       <li class=\"li\">Get SAP-managed service with no custom integration</li>\n       <li class=\"li\">Does not require middleware</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>银行与 SAP Multi-Bank Connectivity 集成 (16R)</title>\n </head>\n <body id=\"loio51a4cf59a91c4b3d97810be07e0f14d2\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio51a4cf59a91c4b3d97810be07e0f14d2__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">通过 SAP Multi-Bank Connectivity (MBC)，SAP 与您的银行建立连接以自动发送付款指令、接收状态通知、接收银行对账单和接收保险箱消息。利用监控功能，您可以监督所有付款指令的状态，并查看接收哪些银行对账单以及仍缺少哪些预期银行对账单。监控仅与高级现金管理 (J78) 结合使用。</p>\n     </section>\n     <section class=\"section\" id=\"loio51a4cf59a91c4b3d97810be07e0f14d2__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">通过 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 和 SAP Multi-Bank Connectivity 与连接的金融机构/银行之间的加密进行安全连接</li>\n       <li class=\"li\">以本地格式向银行转发付款指令</li>\n       <li class=\"li\">接收付款指令的状态通知</li>\n       <li class=\"li\">接收标准格式的银行对账单，例如 MT940、CAMT.053 和 BAI2Receive 支票箱消息 BAI2</li>\n      </ul>\n      <p class=\"p\"></p>\n     </section>\n     <section class=\"section\" id=\"loio51a4cf59a91c4b3d97810be07e0f14d2__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">通过直接银行连接、SWIFT 或 EBICS 以安全的方式连接到银行（嵌入 E2E 加密）</li>\n       <li class=\"li\">自动将付款指令发送至金融机构/银行</li>\n       <li class=\"li\">自动从金融机构/银行接收银行对账单</li>\n       <li class=\"li\">更新付款状态（仅与高级现金管理一起使用）</li>\n       <li class=\"li\">自动从金融机构/银行接收支票箱消息</li>\n       <li class=\"li\">获取不含自定义集成的 SAP 托管服务</li>\n       <li class=\"li\">不需要中间件</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "银行与 SAP Multi-Bank Connectivity 集成 (16R)",
+ "flows": [
+  {
+   "id": "3a342425-a1d7-412f-bc21-308a417438be",
+   "stableId": "SPF_OP_16R_2",
+   "name": "Bank Integration with SAP Multi-Bank Connectivity (16R)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "16R - 03 - Bank Integration with Multi-Bank Connectivity - Incoming Integration Bank Fees (CAMT.086)",
+     "stableId": "ERL-fd58cf76dd994c23ab8b2fab27825cf7"
+    },
+    {
+     "name": "16R - 02 - Bank Integration with Multi-Bank Connectivity - Incoming Integration Bank Statement (CAMT.053CAMT.054MT940)",
+     "stableId": "ERL-2599a14686f045dcab923d4ef014947e"
+    },
+    {
+     "name": "16R - 01 - Bank Integration with Multi-Bank Connectivity - Outgoing Integration",
+     "stableId": "ERL-1fa4abbfcef649bab3949d00ab045323"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

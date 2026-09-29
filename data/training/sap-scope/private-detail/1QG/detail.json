@@ -1,0 +1,505 @@
+{
+ "externalId": "1QG",
+ "id": "SP_OP_1QG_1",
+ "name": "配方移交至生产 - 物料清单 (1QG)",
+ "solutionProcessId": "6faacbc3-7f3d-403a-abac-db93a7ba5f30",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "JP",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ES",
+  "ZA",
+  "AE",
+  "AU",
+  "SG",
+  "CN",
+  "IE",
+  "IT",
+  "MY",
+  "RO",
+  "SE",
+  "AT",
+  "NZ",
+  "PH",
+  "HU",
+  "IN",
+  "DK",
+  "FI",
+  "HK",
+  "NO",
+  "ID",
+  "TR",
+  "TW",
+  "SA",
+  "KR",
+  "MX",
+  "SK",
+  "PL",
+  "CZ",
+  "TH",
+  "PT",
+  "BR",
+  "RU"
+ ],
+ "mod": "PP",
+ "tier": "A",
+ "name_en": "Recipe Handover to Production – Bill of Material (1QG)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Recipe Handover to Production – Bill of Material (1QG)</title>\n </head>\n <body id=\"loio5d772a218fad49338d7ef3968f652ff5\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio5d772a218fad49338d7ef3968f652ff5__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">You can use this business process to create and update a bill of material using a recipe as data source. A bill of material is created to enable the manufacturing of the product.</p>\n      <p class=\"p\">The creation or update of BOMs typically occurs when the development department completes product definition and the information is finalized and approved for use in production.</p>\n      <p class=\"p\">The BOM is synchronized to the recipe to enable processing of all subsequent recipe changes.</p>\n      <p class=\"p\">You can hand over formula items and their quantities to production to fully support the procurement of the ingredients.</p>\n      <p class=\"p\">The handover of process parameters to production is not covered by this scope item and must be set up by the customer.</p>\n     </section>\n     <section class=\"section\" id=\"loio5d772a218fad49338d7ef3968f652ff5__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Review recipe and decide to handover to production</li>\n       <li class=\"li\">Copy development recipe to site recipe and assign materials</li>\n       <li class=\"li\">Release site recipe</li>\n       <li class=\"li\">Define plant specific target bill of material for the recipe for synchronization</li>\n       <li class=\"li\">Simulate and execute synchronization of the recipe into a bill of material</li>\n       <li class=\"li\">Save manufacturing bill of material</li>\n       <li class=\"li\">Check manufacturing bill of material</li>\n       <li class=\"li\">Create Production Version</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio5d772a218fad49338d7ef3968f652ff5__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Create manufacturing data from development data in a fully integrated way</li>\n       <li class=\"li\">Provide a permanent link between the two states to ensure full linkage between design and manufacturing states</li>\n       <li class=\"li\">Minimize possible inaccuracies in handover process by identifying differences between development and production and providing guided assistance for reconciliation</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>配方移交至生产 - 物料清单 (1QG)</title>\n </head>\n <body id=\"loio5d772a218fad49338d7ef3968f652ff5\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio5d772a218fad49338d7ef3968f652ff5__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">使用此业务流程，您可以使用配方作为数据源来创建和更新物料清单。创建物料清单以启用产品的制造。</p>\n      <p class=\"p\">当开发部门完成产品定义并且信息最终确定并批准用于生产时，通常会创建或更新物料清单。</p>\n      <p class=\"p\">物料清单将同步到配方，以便能够处理所有后续配方更改。</p>\n      <p class=\"p\">您可以将公式项目及其数量移交至生产，以完全支持成分采购。</p>\n      <p class=\"p\">流程参数到生产的移交不在此范围项目范围内，必须由客户设置。</p>\n     </section>\n     <section class=\"section\" id=\"loio5d772a218fad49338d7ef3968f652ff5__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">检查配方并决定移交至生产</li>\n       <li class=\"li\">将开发配方复制到站点配方并分配物料</li>\n       <li class=\"li\">发布站点配方</li>\n       <li class=\"li\">为配方定义工厂特定目标物料清单，以进行同步</li>\n       <li class=\"li\">模拟并执行配方到物料清单的同步。</li>\n       <li class=\"li\">保存制造物料清单</li>\n       <li class=\"li\">检查制造物料清单</li>\n       <li class=\"li\">创建生产版本</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio5d772a218fad49338d7ef3968f652ff5__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">以完全集成的方式根据开发数据创建制造数据。</li>\n       <li class=\"li\">提供两种状态之间的永久链接，以确保设计和制造状态之间的完整链接</li>\n       <li class=\"li\">通过识别开发和生产之间的差异并为对账提供引导式帮助，最大限度地减少移交流程中可能的不准确性</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "配方移交至生产 - 物料清单 (1QG)",
+ "flows": [
+  {
+   "id": "ae77e5c3-12b0-4d6a-b570-aae1e493959c",
+   "stableId": "SPF_OP_1QG_1",
+   "name": "Recipe Handover to Production - Bill of Material (1QG)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "1QG - Recipe Handover to Production - Bill of Material",
+     "stableId": "051Mdc327jQ}vEVCwWfMC0"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

@@ -1,0 +1,494 @@
+{
+ "externalId": "1MI",
+ "id": "SP_OP_1MI_1",
+ "name": "无订单参考的交货处理 (1MI)",
+ "solutionProcessId": "cdf1dec9-94d4-46b5-b781-0ad1206ed98e",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "JP",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ES",
+  "ZA",
+  "AE",
+  "AU",
+  "SG",
+  "CN",
+  "IE",
+  "IT",
+  "MY",
+  "RO",
+  "SE",
+  "AT",
+  "NZ",
+  "PH",
+  "HU",
+  "IN",
+  "DK",
+  "FI",
+  "HK",
+  "NO",
+  "ID",
+  "TR",
+  "TW",
+  "SA",
+  "KR",
+  "MX",
+  "SK",
+  "PL",
+  "CZ",
+  "TH",
+  "PT",
+  "BR"
+ ],
+ "mod": "SD",
+ "tier": "A",
+ "name_en": "Delivery Processing Without Order Reference (1MI)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Delivery Processing Without Order Reference (1MI)</title>\n </head>\n <body id=\"loio4095b1a0d28244d49abb35c5d7e2ad40\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio4095b1a0d28244d49abb35c5d7e2ad40__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">If the relevant master data has been previously maintained (for example, Business Partner for Customer), the process starts when a standard delivery is created. Based on this delivery document, picking slips are generated to stage the product for shipment to the customer.</p>\n      <p class=\"p\">If a delivery includes batch managed materials, a batch number can be entered for each delivery item. If the required quantity is delivered using pieces belonging to different batches, original delivery items can be split to enable proper recording of delivered quantities for each actual batch.</p>\n      <p class=\"p\">The delivery document can be split into two or more deliveries, for example, to accommodate late changes in transportation planning. In addition, freight costs can be added to the delivery documents to ensure that these costs are taken into account for invoicing.</p>\n      <p class=\"p\">After picking is complete, the shipping specialist relieves the inventory by posting a goods issue. This inventory relief is the actual recording of the physical quantity that is being shipped to the customer. The cost of goods sold is then recorded in financial accounting.</p>\n      <p class=\"p\">Once the inventory is relieved, the delivery can be invoiced. If the master data of the customer or ship-to party involved states that a proof-of-delivery is required, the quantity delivered must be confirmed by the customer. Once this confirmation is maintained for each delivery document, invoicing (fully based on the confirmed quantities) can be carried out. The revenue and the cost of goods sold is then also recorded in management accounting.</p>\n     </section>\n     <section class=\"section\" id=\"loio4095b1a0d28244d49abb35c5d7e2ad40__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Create delivery</li>\n       <li class=\"li\">Create attachment for delivery</li>\n       <li class=\"li\">Execute picking</li>\n       <li class=\"li\">Enter batch number</li>\n       <li class=\"li\">Split outbound delivery</li>\n       <li class=\"li\">Add freight costs</li>\n       <li class=\"li\">Posting goods issue</li>\n       <li class=\"li\">Proof of delivery</li>\n       <li class=\"li\">Create billing document</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio4095b1a0d28244d49abb35c5d7e2ad40__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Enable customers to:</li>\n       <li class=\"li\">Pick goods from manufacturer’s warehouse without advance order</li>\n       <li class=\"li\">Directly pick, pack, and send</li>\n       <li class=\"li\">Receive goods for review without order</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>无订单参考的交货处理 (1MI)</title>\n </head>\n <body id=\"loio4095b1a0d28244d49abb35c5d7e2ad40\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio4095b1a0d28244d49abb35c5d7e2ad40__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">如果之前已维护相关主数据（例如，客户的业务伙伴），则流程在创建标准交货时开始。根据此交货单据，生成拣配单以准备要装运给客户的产品。</p>\n      <p class=\"p\">如果交货包括按批次管理的物料，则可以为每个交货项目输入批次编号。如果使用属于不同批次的件数交付所需数量，则可以拆分原始交货项目，以便正确记录每个实际批次的交货数量。</p>\n      <p class=\"p\">例如，交货凭证可以拆分为两个或多个交货，以适应运输计划中的延迟更改。此外，可以将货运成本添加到交货单据，以确保在开发票时考虑这些成本。</p>\n      <p class=\"p\">拣配完成后，装运专员通过过账发货来释放库存。此库存减免 是实际记录装运到客户的实际数量。然后在财务会计中记录销货成本。</p>\n      <p class=\"p\">清理库存后，即可为交货开发票。如果涉及的客户或收货方的主数据表明需要交货证明，则必须由客户确认交货数量。为每个交货单据维护此确认后，即可执行开票（完全基于确认的数量）。然后，收入和销货成本也会记录在管理会计中。</p>\n     </section>\n     <section class=\"section\" id=\"loio4095b1a0d28244d49abb35c5d7e2ad40__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">创建交货</li>\n       <li class=\"li\">创建交货附件</li>\n       <li class=\"li\">执行拣配</li>\n       <li class=\"li\">输入批次编号</li>\n       <li class=\"li\">拆分出库交货</li>\n       <li class=\"li\">添加运费成本</li>\n       <li class=\"li\">过账发货</li>\n       <li class=\"li\">交货证明</li>\n       <li class=\"li\">创建开票凭证</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio4095b1a0d28244d49abb35c5d7e2ad40__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">使客户能够：</li>\n       <li class=\"li\">从制造商仓库中拣配货物，无需提前订购</li>\n       <li class=\"li\">直接拣配、包装和发送</li>\n       <li class=\"li\">接收货物以供审核（无订单）</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "无订单参考的交货处理 (1MI)",
+ "flows": [
+  {
+   "id": "a33da8bb-7825-4dd8-810e-10b40b4c8309",
+   "stableId": "SPF_OP_1MI_1",
+   "name": "Delivery Processing without Order Reference (1MI)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "1MI - Delivery Processing Without Order Reference",
+     "stableId": "ERL-935cbe62326f41b29f1e32dcb765762b"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

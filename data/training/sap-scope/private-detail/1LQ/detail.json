@@ -1,0 +1,98 @@
+{
+ "externalId": "1LQ",
+ "id": "SP_OP_1LQ_1",
+ "name": "输出管理 (1LQ)",
+ "solutionProcessId": "7e202f98-cad8-4f07-a0a3-874be2f45efc",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "JP",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ES",
+  "ZA",
+  "AE",
+  "AU",
+  "SG",
+  "CN",
+  "IE",
+  "IT",
+  "MY",
+  "RO",
+  "SE",
+  "AT",
+  "NZ",
+  "PH",
+  "HU",
+  "IN",
+  "DK",
+  "FI",
+  "HK",
+  "NO",
+  "ID",
+  "TR",
+  "TW",
+  "SA",
+  "KR",
+  "MX",
+  "SK",
+  "PL",
+  "CZ",
+  "TH",
+  "PT",
+  "BR",
+  "RU"
+ ],
+ "mod": "IT",
+ "tier": "C",
+ "name_en": "Output Management (1LQ)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Output Management (1LQ)</title>\n </head>\n <body id=\"loio5050054161cc4fe3be415e35d56e04e7\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio5050054161cc4fe3be415e35d56e04e7__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">This scope item provides best practice information for output management in <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> that can be used to implement business scenarios that include output-related tasks. It focuses on the reuse of the output control service that is available for different business applications (such as billing document or purchase order). The reuse service offers different capabilities for output of business documents to business receivers. The features that are available in the context of the application are specific to that business application.</p>\n      <p class=\"p\">Within output management in <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span>, Adobe Forms (XFA) are the standard technology for rendering application objects (such as purchase orders, contracts, or invoices) into PDF. Output management provides the necessary framework for form template development and maintenance, data assembly, rendering, and output determination for forms.</p>\n     </section>\n     <section class=\"section\" id=\"loio5050054161cc4fe3be415e35d56e04e7__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Document output management requirements</li>\n       <li class=\"li\">Document required communication channels (Print, Email, EDI)</li>\n       <li class=\"li\">Document required document templates (email, forms)</li>\n       <li class=\"li\">Output management setup (printers, email)</li>\n       <li class=\"li\">Customize form templates (add custom fields)</li>\n       <li class=\"li\">Customize master form template (apply corporate branding)</li>\n       <li class=\"li\">Customize email templates</li>\n       <li class=\"li\">Define business rules for output determination</li>\n       <li class=\"li\">Output with attachments</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio5050054161cc4fe3be415e35d56e04e7__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Get ready-to-use output scenarios (predelivered configuration)</li>\n       <li class=\"li\">Integrate into SAP Fiori apps natively</li>\n       <li class=\"li\">Configure sender and recipients for email output flexibly</li>\n       <li class=\"li\">Use templates for email subject and email body (including variables for dynamic content) for email output</li>\n       <li class=\"li\">Print and send attachments via email</li>\n       <li class=\"li\">Define business rules to allow sending multiple messages to multiple recipients using multiple channels at the same time</li>\n       <li class=\"li\">Extend the rules with SAP standard fields and customer fields</li>\n       <li class=\"li\">Perform batch Output with generic sorting for initial output and reprocessing (retry after error and creating duplicates)</li>\n       <li class=\"li\">Reduce total cost of ownership (TCO) by enabling key users (nontechnical users) to add more business fields to configuration settings and Adobe forms</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>输出管理 (1LQ)</title>\n </head>\n <body id=\"loio5050054161cc4fe3be415e35d56e04e7\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio5050054161cc4fe3be415e35d56e04e7__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">此范围项目为 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 中的输出管理提供最佳实践信息，可用于实施包含输出相关任务的业务场景。它侧重于重用可用于不同业务应用程序（例如开票凭证或采购订单）的输出控制服务。重用服务提供向业务接收方输出业务凭证的不同功能。应用程序上下文中可用的功能特定于该业务应用程序。</p>\n      <p class=\"p\">在 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 的输出管理中，Adobe 表单 (XFA) 是将应用程序对象（例如采购订单、合同或发票）呈现为 PDF 的标准技术。输出管理为表单模板开发和维护、数据装配、渲染和表单输出确定提供必要的框架。</p>\n     </section>\n     <section class=\"section\" id=\"loio5050054161cc4fe3be415e35d56e04e7__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">记录输出管理要求</li>\n       <li class=\"li\">记录所需的通信渠道（打印、电子邮件、EDI）</li>\n       <li class=\"li\">记录所需文档模板（电子邮件、表单）</li>\n       <li class=\"li\">输出管理设置（打印机、电子邮件）</li>\n       <li class=\"li\">定制表单模板（添加自定义字段）</li>\n       <li class=\"li\">定制主表单模板（应用企业品牌）</li>\n       <li class=\"li\">定制电子邮件模板</li>\n       <li class=\"li\">定义输出确定的业务规则</li>\n       <li class=\"li\">带附件输出</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio5050054161cc4fe3be415e35d56e04e7__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">获取即用型输出场景（预配置）</li>\n       <li class=\"li\">本地集成到 SAP Fiori 应用</li>\n       <li class=\"li\">灵活配置发件人和收件人以进行电子邮件输出</li>\n       <li class=\"li\">使用电子邮件主题模板和电子邮件正文（包括动态内容变量）进行电子邮件输出</li>\n       <li class=\"li\">通过电子邮件打印和发送附件</li>\n       <li class=\"li\">定义业务规则，以允许同时使用多个渠道向多个收件人发送多条消息</li>\n       <li class=\"li\">使用 SAP 标准字段和客户字段扩展规则</li>\n       <li class=\"li\">使用通用排序执行批次输出以进行初始输出和重新处理（出错后重试并创建重复项）</li>\n       <li class=\"li\">支持关键用户（非技术用户）向配置设置和 Adobe 表单添加更多业务字段，从而降低总体拥有成本 (TCO)</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "输出管理 (1LQ)",
+ "flows": [
+  {
+   "id": "7a7c436e-b9ab-4bf9-927d-6a9c923f6292",
+   "stableId": "SPF_OP_1LQ_1",
+   "name": "Output Management (1LQ)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "1LQ - 01 - Output Management - Custom Field Extensibility",
+     "stableId": "ERL-d6ca5fcdf5984145baa2e07a830fd6d4"
+    },
+    {
+     "name": "1LQ - 03 - Output Management - Email Form Templates",
+     "stableId": "ERL-656cb72bfdcb4cf1bd222e0951638f29"
+    },
+    {
+     "name": "1LQ - 04 - Output Management - Output Parameters Determination",
+     "stableId": "ERL-b554fc1b3c584f67895a85ef4ca8594d"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Set-up instructions",
+   "bomType": "BOM.E56",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

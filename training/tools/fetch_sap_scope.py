@@ -46,31 +46,31 @@ PUBLIC = 'SAP Best Practices for SAP S/4HANA Cloud Public Edition'
 PRIVATE = 'SAP Best Practices for SAP S/4HANA Cloud Private Edition'
 
 TARGETS = [
-    # 主键 = 用户在 SAP 界面筛出来的那一份（2608 / 中国 / Public），实测 621 条
+    # 主数据 = 用户 2026-09-29 拍板确认：Edition 走 Private Edition，2025-FPS1，
+    # 不限国家（全量 445 条，与中国相关的条目用 countries 字段可再筛出 264 条子集）
+    {'file': 'index-private.json', 'scenario': PRIVATE, 'release': '2025-FPS1', 'country': None,
+     'label': 'SAP S/4HANA Cloud Private Edition 2025 FPS1（全球）', 'primary': True},
+    # 对照 = Public Edition 2608 中国（Cloud Public 口径参考，621 条）
     {'file': 'index.json', 'scenario': PUBLIC, 'release': '2608', 'country': '中国',
-     'label': 'SAP S/4HANA Cloud Public Edition 2608（中国）', 'primary': True},
-    # 对照 = Private Edition 最新可用版本（佛照若走 Private/On-Prem，用这份对齐）
-    {'file': 'index-private.json', 'scenario': PRIVATE, 'release': '2025-FPS1', 'country': '中国',
-     'label': 'SAP S/4HANA Cloud Private Edition 2025 FPS1（中国）', 'primary': False},
+     'label': 'SAP S/4HANA Cloud Public Edition 2608（中国）', 'primary': False},
 ]
 
 
-# 瘦身：只保留网页真正要用的字段。
-# spCountries 每条带 59 个国家对象（约 26KB/条），是 index.json 膨胀到 10MB 的元凶，必须丢掉。
-# bd/ba/bc/sc 等能力层级字段在这份数据里 100% 为空，也一并丢掉。
-SLIM_FIELDS = ['solutionProcessStableId', 'externalId', 'name', 'targetRelease',
-               'integration', 'setUpInstructions', 'countryCodeText']
+# 全量保留（2026-09-29 用户拍板「全量下载」）：除纯冗余字段外全部保留 ——
+# spCountries / intersectionCountries：按国家展开的数组（各 4-26KB/条），
+#   与 countryCodeText 完全等价；solutionProcessID 国家行还拖带 GUID 冗余。
+# fuzzy / score：搜索相关性噪声；lanCode：常量。
+DROP_FIELDS = {'spCountries', 'intersectionCountries', 'fuzzy', 'score', 'lanCode'}
 
 
 def slim(items):
     out = []
     for i in items:
-        o = {k: i.get(k) for k in SLIM_FIELDS}
+        o = {k: v for k, v in i.items() if k not in DROP_FIELDS}
         o['id'] = o.pop('solutionProcessStableId')
-        codes = [c.strip() for c in (i.get('countryCodeText') or '').split(',') if c.strip()]
-        o.pop('countryCodeText', None)
+        codes = [c.strip() for c in (o.pop('countryCodeText') or '').split(',') if c.strip()]
         o['countries'] = codes
-        o['cn'] = 'CN' in codes       # 本清单已按中国筛过，保留标志位便于复用
+        o['cn'] = 'CN' in codes       # 中国相关标志位，便于页面再筛 264 条子集
         o['global'] = len(codes) > 5  # 多国通用 vs 少数国家
         out.append(o)
     return out
@@ -193,7 +193,7 @@ def main():
         sel = [i for i in items
                if (i.get('solutionScenarioName') or '') == t['scenario']
                and str(i.get('targetRelease') or '') == t['release']
-               and t['country'] in (i.get('countryText') or '')]
+               and (t['country'] is None or t['country'] in (i.get('countryText') or ''))]
         # 去重（同一流程可能有多行）
         seen, uniq = set(), []
         for i in sel:
@@ -210,11 +210,11 @@ def main():
             'source': 'SAP Signavio Process Navigator (me.sap.com/processnavigator)',
             'source_url': ENTRY_URL,
             'edition': t['label'],
-            'edition_note': ('佛照项目目标 Edition 尚未最终确认，本清单按「参考级」使用：'
-                             '流程编号（externalId）与名称可跨 Edition 对齐，'
-                             '但可用范围与细节以项目实际 Edition 为准。'
+            'edition_note': ('佛照项目目标 Edition 已确认（2026-09-29）：SAP S/4HANA Cloud '
+                             'Private Edition 2025-FPS1，本清单为主数据（全球 445 条）；'
+                             '中国相关条目用 countries 含 CN 再筛。'
                              if t['primary'] else
-                             '对照清单：若佛照最终走 Private Edition / On-Premise，以本份为主数据。'),
+                             '对照清单：Public Edition 2608 中国口径，仅供跨 Edition 参考检索。'),
             'copyright': '流程编号与名称为 SAP SE 事实性信息；本页描述文字为中文改写，'
                          '非 SAP 原文逐字翻译。来源 SAP Signavio Process Navigator，版权归 SAP SE 所有。',
             'fetched_at': time.strftime('%Y-%m-%d %H:%M:%S'),

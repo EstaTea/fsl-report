@@ -1,0 +1,318 @@
+{
+ "externalId": "1FS",
+ "id": "SP_OP_1FS_1",
+ "name": "供应商的基本仓库入库处理 (1FS)",
+ "solutionProcessId": "970c0eb4-618b-42d3-a42b-f02c9b583500",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "JP",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ES",
+  "ZA",
+  "AE",
+  "AU",
+  "SG",
+  "CN",
+  "IE",
+  "IT",
+  "MY",
+  "SE",
+  "NZ",
+  "PH",
+  "HU",
+  "HK",
+  "TW",
+  "RU"
+ ],
+ "mod": "MM",
+ "tier": "A",
+ "name_en": "Basic Warehouse Inbound Processing from Supplier (1FS)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Basic Warehouse Inbound Processing from Supplier (1FS)</title>\n </head>\n <body id=\"loio7ab3a100729148128b9f9b267cda5faa\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio7ab3a100729148128b9f9b267cda5faa__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">In this scope item, differently packed goods received from suppliers are put away to final storage bins in the warehouse. For example, full pallets go to the high rack narrow aisle while cartons or pieces of the product would go to the mezzanine. Large parts are routed to the bulk storage. During putaway, you might use a handover point due to the physical constraints of the high rack narrow aisle, where only a specialized high-level truck can reach all levels. The destination storage type for putaway is partially determined by the product’s Putaway Control Indicator (PACI). If a product is missing the PACI or there is insufficient space in the storage type, it is moved to a clarification zone. You get full RF/mobile device support throughout the process.</p>\n     </section>\n     <section class=\"section\" id=\"loio7ab3a100729148128b9f9b267cda5faa__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Create purchase order</li>\n       <li class=\"li\">Create EWM inbound delivery</li>\n       <li class=\"li\">Process goods receipt</li>\n       <li class=\"li\">Check warehouse orders (optional)</li>\n       <li class=\"li\">Option 1: Putaway of products</li>\n       <li class=\"li\">Option 2: Move products to clarification zone and perform repacking</li>\n       <li class=\"li\">Check inbound delivery (optional)</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio7ab3a100729148128b9f9b267cda5faa__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Manage stock on a storage bin level</li>\n       <li class=\"li\">Provide flexible variations of the basic inbound process using different storage types</li>\n       <li class=\"li\">Enable warehouse processes with RF/mobile device</li>\n       <li class=\"li\">Distribute workload between the different resources (low-level trucks, high-level trucks, human resources, and so on) using the full capabilities of RF queues following the physical layout of the warehouse</li>\n       <li class=\"li\">Support clarification zone for handling units that currently cannot be put away to a destination</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>供应商的基本仓库入库处理 (1FS)</title>\n </head>\n <body id=\"loio7ab3a100729148128b9f9b267cda5faa\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio7ab3a100729148128b9f9b267cda5faa__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">在此范围项目中，从供应商处收到的不同包装货物将入库到仓库中的最终仓位。例如，整托盘转到高架窄巷道，而纸箱或件产品将转到阁楼式存储。大型部件将路由到散装存储。在入库期间，由于高架窄巷道的实际限制，您可以使用移交点，其中只有专业的高级别卡车才能达到所有级别。入库的目标仓储类型部分由产品的入库控制标识 (PACI) 确定。如果产品缺少 PACI 或存储类型空间不足，则将其移动到澄清区域。在整个流程中，您将获得完整的 RF/移动设备支持。</p>\n     </section>\n     <section class=\"section\" id=\"loio7ab3a100729148128b9f9b267cda5faa__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">创建采购订单</li>\n       <li class=\"li\">创建 EWM 入库交货</li>\n       <li class=\"li\">处理收货</li>\n       <li class=\"li\">检查仓库订单（可选）</li>\n       <li class=\"li\">选项 1：产品入库</li>\n       <li class=\"li\">选项 2：将产品移至澄清区并执行重新包装</li>\n       <li class=\"li\">检查入库交货（可选）</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio7ab3a100729148128b9f9b267cda5faa__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">在仓位级别管理库存</li>\n       <li class=\"li\">使用不同的存储类型提供灵活多变的基本入库流程。</li>\n       <li class=\"li\">使用射频/移动设备启用仓库流程</li>\n       <li class=\"li\">按照仓库的物理布局，使用 RF 队列的全部功能在不同资源（低级卡车、高级卡车、人力资源等）之间分配工作量</li>\n       <li class=\"li\">支持当前无法入库到目的地的处理单元的澄清区。</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "供应商的基本仓库入库处理 (1FS)",
+ "flows": [
+  {
+   "id": "9aef8a6f-f104-49d9-a808-fccdae09e68d",
+   "stableId": "SPF_OP_1FS_1",
+   "name": "Basic Warehouse Inbound Processing from Supplier (1FS)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "1FS - Basic Warehouse Inbound Processing from Supplier",
+     "stableId": "051Mdc327kY1qCHwm9}M4m"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

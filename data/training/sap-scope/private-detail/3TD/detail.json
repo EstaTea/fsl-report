@@ -1,0 +1,63 @@
+{
+ "externalId": "3TD",
+ "id": "ERL-f9a57d279375492bba738fe28dfea795",
+ "name": "销售的内部佣金结算 (3TD)",
+ "solutionProcessId": "45b44d7f-3694-4405-8967-5306a0e3cac3",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE"
+ ],
+ "mod": "SD",
+ "tier": "A",
+ "name_en": "Internal Commissions Settlement for Sales (3TD)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Internal Commissions Settlement for Sales (3TD)</title>\n </head>\n <body id=\"loiocd5c84fc4a1c4b74a0ff67c3e826a4c5\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loiocd5c84fc4a1c4b74a0ff67c3e826a4c5__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">The internal commissions settlement capabilities help you offer sales commissions as incentives to employees and ensure timely payments. The internal commission settlement is based on workforce condition contracts. The payout of commissions occurs through SAP SuccessFactors Employee Central and SAP SuccessFactors Employee Central Payroll.</p>\n      <p class=\"p\">In this business scenario for internal commissions settlement, you use condition contracts from Condition Contract Management to enter sales commission agreements for internal sales representatives. In a condition contract, you specify the personnel number of the commission recipient, organizational and process control parameters, business volume selection criteria, sales commission conditions, and the settlement calendar with settlement dates for delta accrual and final settlement. The delta accruals settlement involves a procedure where accruals for commissions aren't posted with transactional documents but are processed later in a specific settlement run. In final settlements of condition contracts, usually aligned with the salary process for employees, you calculate sales commissions based on business volume and commission conditions and create personnel settlement documents.</p>\n      <p class=\"p\">Personnel settlement documents created in the process are typically released automatically to accounting, leading to postings to the corresponding accounts for commissions in Finance. Optionally, you can use the workflow functionality in SAP S/4HANA Cloud Private Edition for releasing personnel settlement documents to accounting.</p>\n      <p class=\"p\">The commission data in personnel settlement documents is transferred to SAP SuccessFactors Employee Central and then to SAP SuccessFactors Employee Central Payroll. The payroll system executes the payroll run. The payout to the employee is processed, and the posting on the liability account in the SAP S/4HANA Cloud Private Edition system is completed.</p>\n     </section>\n     <section class=\"section\" id=\"loiocd5c84fc4a1c4b74a0ff67c3e826a4c5__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <p class=\"p\">Sales Commissions Based on Workforce Condition Contracts:</p>\n      <ul class=\"ul\">\n       <li class=\"li\">Create workforce condition contracts</li>\n       <li class=\"li\">Post accruals (optional)</li>\n       <li class=\"li\">Post incoming payments (optional)</li>\n       <li class=\"li\">Check business volume</li>\n       <li class=\"li\">Perform final settlement with reversal of accruals</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loiocd5c84fc4a1c4b74a0ff67c3e826a4c5__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Benefit from an efficient end-to-end scenario from commissions calculation to payout</li>\n       <li class=\"li\">Administer commission agreements for internal sales representatives with workforce condition contracts and settle sales commissions accurately and automatically with the subsequent settlement features of Condition Contract Management</li>\n       <li class=\"li\">Streamline the payout with SAP SuccessFactors Employee Central and SAP SuccessFactors Employee Central Payroll</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>销售的内部佣金结算 (3TD)</title>\n </head>\n <body id=\"loiocd5c84fc4a1c4b74a0ff67c3e826a4c5\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loiocd5c84fc4a1c4b74a0ff67c3e826a4c5__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">内部佣金结算功能可帮助您向员工提供销售佣金作为激励，并确保及时付款。内部佣金结算基于劳动力条件合同。佣金支付通过 SAP SuccessFactors Employee Central 和 SAP SuccessFactors Employee Central Payroll 进行。</p>\n      <p class=\"p\">在此内部佣金结算业务场景中，使用条件合同管理中的条件合同输入内部销售代表的销售佣金协议。在条件合同中，指定佣金接收方的员工号、组织和流程控制参数、业务量选择条件、销售佣金条件以及含增量应计和最终结算的结算日期的结算日历。增量应计结算涉及一个程序，其中佣金应计不通过交易凭证过账，而是在特定结算运行中稍后处理。在条件合同的最终结算中，通常与员工的工资流程保持一致，根据业务量和佣金条件计算销售佣金并创建人事结算凭证。</p>\n      <p class=\"p\">在流程中创建的人事结算凭证通常自动发布到会计核算，从而过账到财务中佣金的相应科目。或者，您可以使用 SAP S/4HANA Cloud Private Edition 中的工作流功能将人事结算凭证发布到会计核算。</p>\n      <p class=\"p\">人事结算凭证中的佣金数据将传输到 SAP SuccessFactors Employee Central，然后传输到 SAP SuccessFactors Employee Central Payroll。工资核算系统执行工资核算运行。处理对员工的支付，并完成 SAP S/4HANA Cloud Private Edition 系统中负债科目的过账。</p>\n     </section>\n     <section class=\"section\" id=\"loiocd5c84fc4a1c4b74a0ff67c3e826a4c5__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <p class=\"p\">基于劳动力条件合同的销售佣金：</p>\n      <ul class=\"ul\">\n       <li class=\"li\">创建劳动力条件合同</li>\n       <li class=\"li\">过账应计（可选）</li>\n       <li class=\"li\">过账收款（可选）</li>\n       <li class=\"li\">检查业务量</li>\n       <li class=\"li\">执行最终结算与冲销应计</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loiocd5c84fc4a1c4b74a0ff67c3e826a4c5__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">从佣金计算到支付，获得高效的端到端场景</li>\n       <li class=\"li\">使用劳动力条件合同管理内部销售代表的佣金协议，并使用条件合同管理的后续结算功能准确自动结算销售佣金</li>\n       <li class=\"li\">借助 SAP SuccessFactors Employee Central 和 SAP SuccessFactors Employee Central Payroll，简化支出流程</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "销售的内部佣金结算 (3TD)",
+ "flows": [
+  {
+   "id": "815369d3-1c5a-4f57-b7d7-e48910a0e4d0",
+   "stableId": "ERL-ead9ccd937e241c39a208d19bd58fc87",
+   "name": "Internal Commissions Settlement for Sales (3TD)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "3TD - 02 - Internal Commissions Settlement with Approval Workflow",
+     "stableId": "ERL-98674be52c7d4cb6946c5c8e41bae79d"
+    },
+    {
+     "name": "3TD - 01 - Internal Commissions Settlement Based on Workforce Condition Contracts",
+     "stableId": "ERL-99b40da0bec44486af96aef18d0766ad"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Set-up instructions",
+   "bomType": "BOM.E56",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

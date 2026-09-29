@@ -1,0 +1,87 @@
+{
+ "externalId": "3F0",
+ "id": "SP_OP_3F0_1",
+ "name": "基于事件的生产成本过账 (3F0)",
+ "solutionProcessId": "081354d1-50c3-4157-ae5c-305c52960566",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "JP",
+  "RO"
+ ],
+ "mod": "PP",
+ "tier": "A",
+ "name_en": "Event-Based Production Cost Posting (3F0)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Event-Based Production Cost Posting (3F0)</title>\n </head>\n <body id=\"loio103fc6b458f044099aa0fa22b859714b\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio103fc6b458f044099aa0fa22b859714b__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">This scope item updates work-in-process calculation, overhead calculation, and variance calculation by linking the posting to the events. The events can include items such as goods issues, activity confirmation, goods receipts, or orders that are manually set to technically complete in the make-to-stock and make-to-order scenarios. This scope item also covers variance by category when order status is fully delivered or technically complete. The following categories of variance are supported: input quantity variance, input price variance, resource usage variance, lot size variance, and remaining variance.</p>\n     </section>\n     <section class=\"section\" id=\"loio103fc6b458f044099aa0fa22b859714b__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Review event-based overhead costs, work in process, and variances</li>\n       <li class=\"li\">Monitor and postprocess event-based overhead, WIP, and variance posting errors</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio103fc6b458f044099aa0fa22b859714b__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Automate the work-in-process calculation, overhead calculation, and event-based variance calculation</li>\n       <li class=\"li\">Provide event-based insight for work in process</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>基于事件的生产成本过账 (3F0)</title>\n </head>\n <body id=\"loio103fc6b458f044099aa0fa22b859714b\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio103fc6b458f044099aa0fa22b859714b__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">此范围项目通过将过账链接到事件来更新在制品计算、间接费用计算和差异计算。这些事件可以包括按库存生产和按订单生产场景中手动设置为技术上完成的发货、活动确认、收货或订单等项目。此范围项目还涵盖订单状态为已完全交货或技术上完成时的类别差异。支持以下类别的差异：输入数量差异、输入价格差异、资源使用差异、批量差异和剩余差异。</p>\n     </section>\n     <section class=\"section\" id=\"loio103fc6b458f044099aa0fa22b859714b__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">审核基于事件的间接费用成本、在制品和差异</li>\n       <li class=\"li\">监控和后处理基于事件的间接费用、WIP 和差异过账错误</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio103fc6b458f044099aa0fa22b859714b__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">自动化在制品计算、间接费用计算和基于事件的差异计算</li>\n       <li class=\"li\">为在制品提供基于事件的分析</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "基于事件的生产成本过账 (3F0)",
+ "flows": [
+  {
+   "id": "a099adbc-77d2-4a4d-8a49-e25bf16f3f9d",
+   "stableId": "SPF_OP_3F0_1",
+   "name": "Event-Based Production Cost Posting (3F0)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "3F0 - Event-Based Production Cost Posting",
+     "stableId": "ERL-911474907441433a816c65da5974f9d2"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

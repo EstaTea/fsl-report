@@ -1,0 +1,60 @@
+{
+ "externalId": "43D",
+ "id": "SP_OP_43D_2",
+ "name": "与外部税收计算引擎的集成 (43D)",
+ "solutionProcessId": "db354e01-ea5b-4dfe-8b5c-0cf62ae93ab5",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "BR"
+ ],
+ "mod": "FI",
+ "tier": "B",
+ "name_en": "Integration with External Tax Calculation Engines (43D)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Integration with External Tax Calculation Engines (43D)</title>\n </head>\n <body id=\"loio51f106977aad482c9977a89ee2027592\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio51f106977aad482c9977a89ee2027592__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">You can integrate external tax calculation engines into <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> within pricing, using SAP Cloud Integration as middleware. Within the pricing and tax procedure, a specific condition (using a condition value formula) collects data from the transaction and context, builds a payload, sends the payload to the SAP Cloud Integration, and receives a response from it. The taxes calculated and returned in the response payload are mapped back to the pricing structures of the tax conditions.</p>\n     </section>\n     <section class=\"section\" id=\"loio51f106977aad482c9977a89ee2027592__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Procure materials and services</li>\n       <li class=\"li\">Sell materials and service</li>\n       <li class=\"li\">Perform operations trace check</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio51f106977aad482c9977a89ee2027592__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Centralize services</li>\n       <li class=\"li\">Facilitate processes</li>\n       <li class=\"li\">Reduce maintenance</li>\n       <li class=\"li\">Improve compliance</li>\n       <li class=\"li\">Manage calculations</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>与外部税收计算引擎的集成 (43D)</title>\n </head>\n <body id=\"loio51f106977aad482c9977a89ee2027592\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio51f106977aad482c9977a89ee2027592__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">您可以使用 SAP Cloud Integration 作为中间件，在定价过程中将外部税收计算引擎集成到 SAP <span class=\"ph pname\">S/4HANA Cloud Private Edition</span> 中。在定价和税收程序中，特定条件（使用条件值公式）从事务和上下文收集数据，构建有效负载，将有效负载发送到 SAP Cloud Integration 并从中接收响应。在响应有效负载中计算和返回的税款，将映射回税款条件的定价结构。</p>\n     </section>\n     <section class=\"section\" id=\"loio51f106977aad482c9977a89ee2027592__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">采购物料和服务</li>\n       <li class=\"li\">销售物料和服务</li>\n       <li class=\"li\">执行操作跟踪检查</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio51f106977aad482c9977a89ee2027592__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">集中服务</li>\n       <li class=\"li\">促进流程</li>\n       <li class=\"li\">减少维护</li>\n       <li class=\"li\">提高合规性</li>\n       <li class=\"li\">管理计算</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "与外部税收计算引擎的集成 (43D)",
+ "flows": [
+  {
+   "id": "091e19a9-1211-43bb-9a3f-18911f163b9e",
+   "stableId": "SPF_OP_43D_2",
+   "name": "Integration with External Tax Calculation Engines (43D)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "43D - Tax Service Integration - Procurement of Material for Brazil (Material)",
+     "stableId": "ERL-358582be107b4c6fa0cf1a0cc2c1d363"
+    },
+    {
+     "name": "43D - Tax Service Integration - Procurement of Service for Brazil (Service)",
+     "stableId": "ERL-bde9961ca3114d37964114742a33dc55"
+    },
+    {
+     "name": "43D - Tax Service Integration - Sales of Service for Brazil (Service)",
+     "stableId": "ERL-509942e4a52a425591dd24762bc60f57"
+    },
+    {
+     "name": "43D - Tax Service Integration - Sales of Material for Brazil (Material)",
+     "stableId": "ERL-4d071eac33554baf9808b898acf03ed0"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Set-up instructions",
+   "bomType": "BOM.E56",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

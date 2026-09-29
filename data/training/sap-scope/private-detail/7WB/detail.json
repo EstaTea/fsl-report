@@ -1,0 +1,54 @@
+{
+ "externalId": "7WB",
+ "id": "ERL-81513c3c90414d52bff9462acccee8e6",
+ "name": "订阅订单管理 – 主数据和基本功能 (7WB)",
+ "solutionProcessId": "aabe6049-5670-421e-999c-71291a7fee13",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE"
+ ],
+ "mod": "MD",
+ "tier": "A",
+ "name_en": "Subscription Order Management – Master Data and Basic Functions (7WB)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2026\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Subscription Order Management – Master Data and Basic Functions (7WB)</title>\n </head>\n <body id=\"loioe66a1227d5f84c2d8b7a9c12f8687e04\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loioe66a1227d5f84c2d8b7a9c12f8687e04__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">This scope item allows you to create a subscription order with subscription products including Multilevel AVC BOM. Once the order is submitted, it creates subscription contract which is then distributed to create FICA Provider contract and CI billing plan. Billing plan generates the Billable Items, as configured. In Convergent Invoicing, you can trigger billing and invoicing of the billable items. You can also execute change processes on the subscription contract and replicate the changes to update the FI-CA provider contract.</p>\n     </section>\n     <section class=\"section\" id=\"loioe66a1227d5f84c2d8b7a9c12f8687e04__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Create a subscription order with subscription products</li>\n       <li class=\"li\">Submit subscription order to create a subscription contract</li>\n       <li class=\"li\">Request billable items from SAP Convergent Invoicing billing plan and process billable items to create billing document in SAP Convergent Invoicing</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loioe66a1227d5f84c2d8b7a9c12f8687e04__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n     </section>\n     <section class=\"section\">\n      <ul class=\"ul\">\n       <li class=\"li\">Enable end-to-end management of subscription lifecycles</li>\n       <li class=\"li\">Support product bundling and flexible pricing models</li>\n       <li class=\"li\">Ensure the package contains all necessary subscription components by setting rules and managing dependencies</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2026\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>订阅订单管理 – 主数据和基本功能 (7WB)</title>\n </head>\n <body id=\"loioe66a1227d5f84c2d8b7a9c12f8687e04\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loioe66a1227d5f84c2d8b7a9c12f8687e04__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">此范围项目允许您使用订阅产品（包括多级 AVC 物料清单）创建订阅订单。提交订单后，会创建订阅合同，然后将其分配以创建 FICA 供方合同和 CI 开票计划。开票计划根据配置生成可开票项目。在 Convergent Invoicing 中，您可以触发可开票项目的开票和开发票。您还可以对订阅合同执行更改流程并复制更改以更新 FI-CA 提供商合同。</p>\n     </section>\n     <section class=\"section\" id=\"loioe66a1227d5f84c2d8b7a9c12f8687e04__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">创建含订阅产品的订阅订单</li>\n       <li class=\"li\">提交订阅订单以创建订阅合同</li>\n       <li class=\"li\">从 SAP Convergent Invoicing 开票计划请求可开票项目并处理可开票项目以在 SAP Convergent Invoicing 中创建开票凭证</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loioe66a1227d5f84c2d8b7a9c12f8687e04__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n     </section>\n     <section class=\"section\">\n      <ul class=\"ul\">\n       <li class=\"li\">实现订阅生命周期的端到端管理</li>\n       <li class=\"li\">支持产品捆绑和灵活的定价模式</li>\n       <li class=\"li\">通过设置规则和管理相关性，确保包包含所有必要的订阅组件</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "订阅订单管理 – 主数据和基本功能 (7WB)",
+ "flows": [
+  {
+   "id": "7cfc7a1c-3afd-4112-8ea7-f7330e8578b1",
+   "stableId": "ERL-ae4f4d74446f455e9e2c84b0f4f78141",
+   "name": "Subscription Order Management - Master Data and Basic Functions (7WB)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "7WB - Subscription Order Management - Master Data and Basic Functions",
+     "stableId": "ERL-a48cbbf259204f0db9a452d1d60f1f83"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

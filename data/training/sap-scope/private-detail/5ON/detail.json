@@ -1,0 +1,59 @@
+{
+ "externalId": "5ON",
+ "id": "SP_OP_5ON_1",
+ "name": "数字车辆 (5ON)",
+ "solutionProcessId": "bd06fda0-cb89-4995-95d4-01d438753ad3",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE"
+ ],
+ "mod": "",
+ "tier": "D",
+ "name_en": "Digital Vehicle (5ON)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Digital Vehicle (5ON)</title>\n </head>\n <body id=\"loio38bcfc07f3ff42aa895be9d24225bbcf\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio38bcfc07f3ff42aa895be9d24225bbcf__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">The process starts when a vehicle administrator calls the Digital Vehicle API with the Create Vehicle function.</p>\n      <p class=\"p\">The Vehicle Administrator calls the Digital Vehicle API to create a purchase order for an existing vehicle. They then use the API to create a quotation for an existing vehicle. The Vehicle Administrator next uses the API to create a sales order with reference to quotation. Finally, they use the API to create a sales order for the vehicle.</p>\n     </section>\n     <section class=\"section\" id=\"loio38bcfc07f3ff42aa895be9d24225bbcf__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Create vehicle</li>\n       <li class=\"li\">Create purchase order for vehicle</li>\n       <li class=\"li\">Create quotation for vehicle</li>\n       <li class=\"li\">Create sales order with reference to quotation</li>\n       <li class=\"li\">Create sales order for vehicle</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio38bcfc07f3ff42aa895be9d24225bbcf__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Support creation of objects related to Vehicle business process for Vehicle Administrator</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>数字车辆 (5ON)</title>\n </head>\n <body id=\"loio38bcfc07f3ff42aa895be9d24225bbcf\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio38bcfc07f3ff42aa895be9d24225bbcf__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">当车辆管理员使用创建车辆功能调用数字车辆 API 时，该流程开始。</p>\n      <p class=\"p\">车辆管理员调用数字车辆 API 以创建现有车辆的采购订单。然后，他们使用 API 为现有车辆创建报价。车辆管理员接下来使用 API 参考报价创建销售订单。最后，他们使用 API 为车辆创建销售订单。</p>\n     </section>\n     <section class=\"section\" id=\"loio38bcfc07f3ff42aa895be9d24225bbcf__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">创建车辆</li>\n       <li class=\"li\">创建车辆采购订单</li>\n       <li class=\"li\">创建车辆报价</li>\n       <li class=\"li\">参考报价创建销售订单</li>\n       <li class=\"li\">创建车辆的销售订单</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio38bcfc07f3ff42aa895be9d24225bbcf__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">支持为车辆管理员创建与车辆业务流程相关的对象。</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "数字车辆 (5ON)",
+ "flows": [
+  {
+   "id": "0a07aa5a-c0f3-404a-8a21-782e266bfb39",
+   "stableId": "SPF_OP_5ON_1",
+   "name": "Digital Vehicle (5ON)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "5ON - Digital Vehicle",
+     "stableId": "ERL-02c33cf171fa4ca7b806288e42fce9fb"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Set-up instructions",
+   "bomType": "BOM.E56",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

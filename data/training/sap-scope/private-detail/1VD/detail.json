@@ -1,0 +1,307 @@
+{
+ "externalId": "1VD",
+ "id": "SP_OP_1VD_1",
+ "name": "客户的高级仓库出库处理 (1VD)",
+ "solutionProcessId": "f3c03a56-718c-4721-86ac-9c054e9bc77d",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "JP",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ES",
+  "ZA",
+  "AE",
+  "AU",
+  "SG",
+  "CN",
+  "IE",
+  "IT",
+  "MY",
+  "SE",
+  "NZ",
+  "PH",
+  "HU",
+  "HK",
+  "TW"
+ ],
+ "mod": "SD",
+ "tier": "A",
+ "name_en": "Advanced Warehouse Outbound Processing to Customer (1VD)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Advanced Warehouse Outbound Processing to Customer (1VD)</title>\n </head>\n <body id=\"loio3b3f38216b064be9ae153e5d35617de3\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio3b3f38216b064be9ae153e5d35617de3__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">In this scope item, you optimize the process of picking products and sending them to external customers by leveraging extended functionality of Warehouse Management in <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span>. It extends the basic warehouse inbound process with wave management and transportation unit handling.</p>\n      <p class=\"p\">The process usually starts with the creation of a sales order and an outbound delivery, which is later used to trigger the outbound processing in the warehouse. Based on defined criteria, the system automatically combines items from the outbound warehouse requests in waves. The Warehouse Clerk (EWM) releases the picking waves by using the warehouse monitor. The system determines the location for picking the stock and allocates the stock to the warehouse task. At the same time, the system automatically makes sure that all goods for a customer are routed to the same place at the packing work center, where shipping handling unit labels and content lists are printed. The shipping cockpit is used to create transportation units (TU), to check them in and to assign the TUs to a door. After goods are loaded the system posts goods issue for all stock that was loaded on the TUs. At the end of the process, follow-up actions (such as the creation of the billing document) are executed.</p>\n     </section>\n     <section class=\"section\" id=\"loio3b3f38216b064be9ae153e5d35617de3__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Create sales order</li>\n       <li class=\"li\">Create delivery</li>\n       <li class=\"li\">Release the picking wave</li>\n       <li class=\"li\">Check warehouse orders (optional)</li>\n       <li class=\"li\">Pick warehouse orders</li>\n       <li class=\"li\">Create shipping handling units and repacking</li>\n       <li class=\"li\">Close shipping handling units</li>\n       <li class=\"li\">Stage shipping handling units</li>\n       <li class=\"li\">Display loading overview (optional)</li>\n       <li class=\"li\">Create transportation unit and assign to door with shipping cockpit</li>\n       <li class=\"li\">Load shipping handling units</li>\n       <li class=\"li\">Finish loading with shipping cockpit</li>\n       <li class=\"li\">Check outbound delivery (optional)</li>\n       <li class=\"li\">Create billing document (optional)</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio3b3f38216b064be9ae153e5d35617de3__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Manage stock on a storage bin level</li>\n       <li class=\"li\">Provide flexible variations of the outbound process for sending goods to customers</li>\n       <li class=\"li\">Show the detailed use of handover points, packing, staging, loading, and the RF/mobile environment including the corresponding RF queues that follow the physical layout of the warehouse</li>\n       <li class=\"li\">Leverage Wave Management to optimize your warehouse outbound process</li>\n       <li class=\"li\">Use the shipping cockpit to plan and monitor shipping activities</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>客户的高级仓库出库处理 (1VD)</title>\n </head>\n <body id=\"loio3b3f38216b064be9ae153e5d35617de3\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio3b3f38216b064be9ae153e5d35617de3__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">在此范围项目中，您可以利用 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 中仓库管理的扩展功能优化拣配产品并将其发送给外部客户的流程。它通过波次管理和运输单元处理扩展基本仓库入库流程。</p>\n      <p class=\"p\">此流程通常从创建销售订单和出库交货开始，稍后用于触发仓库中的出库处理。根据定义的条件，系统会自动按波次合并出库仓库请求中的项目。仓库职员 (EWM) 使用仓库监控器下达拣配波次。系统确定拣配库存的位置，并将库存分配到仓库任务。同时，系统会自动确保客户的所有货物都传送到包装工作中心的同一位置，在其中打印装运处理单元标签和内容清单。装运主控室用于创建运输单元 (TU)、检入运输单元以及将运输单元分配到库门。装货后，系统会过账在运输单元上装货的所有库存的发货。流程结束时，将执行后续操作（例如创建开票凭证）。</p>\n     </section>\n     <section class=\"section\" id=\"loio3b3f38216b064be9ae153e5d35617de3__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">创建销售订单</li>\n       <li class=\"li\">创建交货</li>\n       <li class=\"li\">下达拣配波次</li>\n       <li class=\"li\">检查仓库订单（可选）</li>\n       <li class=\"li\">拣配仓库订单</li>\n       <li class=\"li\">创建装运处理单元并重新包装</li>\n       <li class=\"li\">关闭装运处理单元</li>\n       <li class=\"li\">准备装运处理单元</li>\n       <li class=\"li\">显示装货概览（可选）</li>\n       <li class=\"li\">使用装运主控室创建运输单元并分配到库门。</li>\n       <li class=\"li\">加载装运处理单元</li>\n       <li class=\"li\">使用装运主控室完成装货</li>\n       <li class=\"li\">检查出库交货（可选）</li>\n       <li class=\"li\">创建开票凭证（可选）</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio3b3f38216b064be9ae153e5d35617de3__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">在仓位级别管理库存</li>\n       <li class=\"li\">提供灵活多变的出库流程，用于向客户发送货物</li>\n       <li class=\"li\">显示移交点、包装、备料、装货和射频/移动环境（包括遵循仓库物理布局的相应射频队列）的详细使用情况</li>\n       <li class=\"li\">利用波次管理优化仓库出库流程</li>\n       <li class=\"li\">使用装运主控室来计划和监控装运活动。</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "客户的高级仓库出库处理 (1VD)",
+ "flows": [
+  {
+   "id": "c6b9c283-9fa4-4b95-ad93-323770f927e6",
+   "stableId": "SPF_OP_1VD_1",
+   "name": "Advanced Warehouse Outbound Processing to Customer (1VD)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "1VD - Advanced Warehouse Outbound Processing to Customer",
+     "stableId": "051Mdc327jUMvaT1YKKDbG"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

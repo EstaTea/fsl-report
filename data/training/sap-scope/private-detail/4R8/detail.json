@@ -1,0 +1,54 @@
+{
+ "externalId": "4R8",
+ "id": "SP_OP_4R8_1",
+ "name": "含变式配置的按订单设计生产 (4R8)",
+ "solutionProcessId": "8d35abee-5f92-4580-a7ca-093670a4d596",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE"
+ ],
+ "mod": "PP",
+ "tier": "A",
+ "name_en": "Engineer-to-Order Production with Variant Configuration (4R8)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Engineer-to-Order Production with Variant Configuration (4R8)</title>\n </head>\n <body id=\"loio125eafc50fc149978c7abee1d026992f\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio125eafc50fc149978c7abee1d026992f__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">The scenario enables the Order BOM processing type. You use this processing type if you want to make customer-specific changes to the BOM of a material that you configure in the sales order. The process supports a handover between sales order creation, order BOM preparation, and acceptance of those changes within the sales order.</p>\n     </section>\n     <section class=\"section\" id=\"loio125eafc50fc149978c7abee1d026992f__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <p class=\"p\">Sales order</p>\n      <ul class=\"ul\">\n       <li class=\"li\">Create sales order</li>\n       <li class=\"li\">Configure sales order item line (multilevel)</li>\n       <li class=\"li\">Switch to engineer-to-order process</li>\n       <li class=\"li\">Hand over to engineering</li>\n      </ul>\n      <p class=\"p\">Order BOM handling</p>\n      <ul class=\"ul\">\n       <li class=\"li\">Create order BOMs</li>\n       <li class=\"li\">Configure sales order item line (multilevel)</li>\n       <li class=\"li\">Hand over to sales again</li>\n      </ul>\n      <p class=\"p\">Sales order</p>\n      <ul class=\"ul\">\n       <li class=\"li\">Accept or reject changes of engineering</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio125eafc50fc149978c7abee1d026992f__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Reduce order management cost by efficient, comprehensive support for fulfilling customers' special requirements, when using configurable products</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>含变式配置的按订单设计生产 (4R8)</title>\n </head>\n <body id=\"loio125eafc50fc149978c7abee1d026992f\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio125eafc50fc149978c7abee1d026992f__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">该场景启用订单物料清单处理类型。如果要对销售订单中配置的物料的物料清单进行客户特定更改，则使用此处理类型。该流程支持销售订单创建、订单物料清单准备和销售订单内这些更改的接受之间的移交。</p>\n     </section>\n     <section class=\"section\" id=\"loio125eafc50fc149978c7abee1d026992f__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <p class=\"p\">销售订单</p>\n      <ul class=\"ul\">\n       <li class=\"li\">创建销售订单</li>\n       <li class=\"li\">配置销售订单项目行（多级）</li>\n       <li class=\"li\">切换到按订单设计流程</li>\n       <li class=\"li\">移交至工程</li>\n      </ul>\n      <p class=\"p\">订单物料清单处理</p>\n      <ul class=\"ul\">\n       <li class=\"li\">创建订单物料清单</li>\n       <li class=\"li\">配置销售订单项目行（多级）</li>\n       <li class=\"li\">再次移交至销售</li>\n      </ul>\n      <p class=\"p\">销售订单</p>\n      <ul class=\"ul\">\n       <li class=\"li\">接受或拒绝工程变更</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio125eafc50fc149978c7abee1d026992f__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">使用可配置产品时，通过高效且全面的支持来满足客户的特殊需求，降低订单管理成本</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "含变式配置的按订单设计生产 (4R8)",
+ "flows": [
+  {
+   "id": "63943baa-d804-4606-b6c7-51e69a24960d",
+   "stableId": "SPF_OP_4R8_1",
+   "name": "Engineer-to-Order Production with Variant Configuration (4R8)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "4R8 - Engineer-to-Order Production with Variant Configuration",
+     "stableId": "ERL-5916b3dca0954213ad9a24e572f4620c"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

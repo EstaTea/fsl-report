@@ -1,0 +1,66 @@
+{
+ "externalId": "2BI",
+ "id": "SP_OP_2BI_1",
+ "name": "合同会计核算 – 客户发起的付款 (2BI)",
+ "solutionProcessId": "debd407d-584f-470f-9682-99311b860b3b",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE"
+ ],
+ "mod": "SD",
+ "tier": "A",
+ "name_en": "Contract Accounting – Customer Initiated Payments (2BI)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Contract Accounting – Customer Initiated Payments (2BI)</title>\n </head>\n <body id=\"loiobdfb7dca0fc847bd935ae97d362c7a99\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loiobdfb7dca0fc847bd935ae97d362c7a99__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">Paid invoice processing allows you to post invoices that are already paid. You can also manage the payment card settlement process, ending in either a successful transfer to the General Ledger (FI-GL) or returns processing. The payment card process requires an integration of Convergent Contract Accounting (FI-CAC) and Payment Hub (digital payments).</p>\n     </section>\n     <section class=\"section\" id=\"loiobdfb7dca0fc847bd935ae97d362c7a99__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Post incoming payment data from bank statement file</li>\n       <li class=\"li\">Payment lot processing</li>\n       <li class=\"li\">Check lot processing</li>\n      </ul>\n      <p class=\"p\"></p>\n      <p class=\"p\"></p>\n      <p class=\"p\"></p>\n     </section>\n     <section class=\"section\" id=\"loiobdfb7dca0fc847bd935ae97d362c7a99__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Post invoices with automatic clearing due to payment card information in one step</li>\n       <li class=\"li\">Perform automatic charge-back processing</li>\n       <li class=\"li\">Reconcile payment card transactions with payment advice provided by the Payment Hub</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>合同会计核算 – 客户发起的付款 (2BI)</title>\n </head>\n <body id=\"loiobdfb7dca0fc847bd935ae97d362c7a99\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loiobdfb7dca0fc847bd935ae97d362c7a99__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">已付发票处理允许您过账已付款的发票。您还可以管理付款卡结算流程，以成功传输到总账 (FI-GL) 或退回处理结束。付款卡流程需要集成集中合同会计 (FI-CAC) 和付款中心（数字付款）。</p>\n     </section>\n     <section class=\"section\" id=\"loiobdfb7dca0fc847bd935ae97d362c7a99__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">从银行对账单文件中过账收款数据</li>\n       <li class=\"li\">付款批处理</li>\n       <li class=\"li\">支票簿处理</li>\n      </ul>\n      <p class=\"p\"></p>\n      <p class=\"p\"></p>\n      <p class=\"p\"></p>\n     </section>\n     <section class=\"section\" id=\"loiobdfb7dca0fc847bd935ae97d362c7a99__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">通过一步式付款卡信息，使用自动清算过账发票</li>\n       <li class=\"li\">执行自动退款处理</li>\n       <li class=\"li\">将付款卡交易与付款中心提供的付款通知进行对账。</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "合同会计核算 – 客户发起的付款 (2BI)",
+ "flows": [
+  {
+   "id": "9a737cc7-a8c4-49ad-a6fa-1badff58eac2",
+   "stableId": "SPF_OP_2BI_1",
+   "name": "Contract Accounting - Customer Initiated Payments (2BI)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "2BI - Payment Lot Processing",
+     "stableId": "ERL-64f820a2ddce48a98184c3859dddb253"
+    },
+    {
+     "name": "2BI - Payment Credit Card",
+     "stableId": "ERL-301763728f4f4a2b81c7205d82c67b4e"
+    },
+    {
+     "name": "2BI - Payment Service Provider",
+     "stableId": "ERL-90cd768aa468489da33a8d484b08c0c2"
+    },
+    {
+     "name": "2BI - Others",
+     "stableId": "ERL-c88a91edad0e4c538f5f7587b2c0e53a"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

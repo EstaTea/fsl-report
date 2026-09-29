@@ -1,0 +1,70 @@
+{
+ "externalId": "49D",
+ "id": "SP_OP_49D_1",
+ "name": "信用证管理 (49D)",
+ "solutionProcessId": "9054ac65-c1c7-48af-9d42-2bfd8f42e425",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE"
+ ],
+ "mod": "SD",
+ "tier": "B",
+ "name_en": "Letter of Credit Management (49D)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Letter of Credit Management (49D)</title>\n </head>\n <body id=\"loio6b1ba809e3954972b38643e706841ee1\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio6b1ba809e3954972b38643e706841ee1__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">This scope item supports common functionalities of letters of credit, including deal capture, rollover, acceptance and presentation, payment and collections. In addition, it also provides the functions for cash collateral and fee calculation.</p>\n      <p class=\"p\">Both normal and standby letters of credit are covered, and they are defined as different product types.</p>\n      <p class=\"p\">Presently, we only support letters of credit without integration to Sales functionality.</p>\n     </section>\n     <section class=\"section\" id=\"loio6b1ba809e3954972b38643e706841ee1__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Create financial transactions</li>\n       <li class=\"li\">Set settlement status</li>\n       <li class=\"li\">Execute payments for fees and cash collateral for letter of credit issuance</li>\n       <li class=\"li\">Roll over transactions</li>\n       <li class=\"li\">Perform acceptance</li>\n       <li class=\"li\">Perform period-end closing</li>\n       <li class=\"li\">Perform payment for letter of credit</li>\n       <li class=\"li\">Monitor and report on positions and financial transactions</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio6b1ba809e3954972b38643e706841ee1__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Review the status for letter of credit instruments easily</li>\n       <li class=\"li\">Support the management of letters of credit, including creation of transactions, payments of cash collateral and bank fees, rollover and termination of letter of credit</li>\n       <li class=\"li\">Make better operational and strategic decisions using the comprehensive reporting and analysis tools</li>\n       <li class=\"li\">Improve internal operational compliance</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>信用证管理 (49D)</title>\n </head>\n <body id=\"loio6b1ba809e3954972b38643e706841ee1\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio6b1ba809e3954972b38643e706841ee1__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">此范围项目支持信用证的通用功能，包括交易捕获、展期、验收和展示、付款和收款。此外，它还提供现金抵押品和费用计算功能。</p>\n      <p class=\"p\">常规和备用信用证均包含在内，并定义为不同的产品类型。</p>\n      <p class=\"p\">目前，我们仅支持未集成到销售功能的信用证。</p>\n     </section>\n     <section class=\"section\" id=\"loio6b1ba809e3954972b38643e706841ee1__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">创建金融交易</li>\n       <li class=\"li\">设置结算状态</li>\n       <li class=\"li\">执行信用证签发的费用和现金抵押的付款。</li>\n       <li class=\"li\">展期交易</li>\n       <li class=\"li\">执行验收</li>\n       <li class=\"li\">执行期末关账</li>\n       <li class=\"li\">执行信用证付款</li>\n       <li class=\"li\">监控并报告头寸和金融交易</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio6b1ba809e3954972b38643e706841ee1__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">轻松检查信用证工具的状态</li>\n       <li class=\"li\">支持信用证管理，包括创建交易、支付现金抵押品和银行费用、展期和终止信用证</li>\n       <li class=\"li\">使用全面的报表和分析工具，制定更明智的运营和战略决策</li>\n       <li class=\"li\">提高内部运营合规性</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "信用证管理 (49D)",
+ "flows": [
+  {
+   "id": "73568022-b874-476e-a263-888e0ca6b5d8",
+   "stableId": "SPF_OP_49D_1",
+   "name": "Letter of Credit Management (49D)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "49D - 02 - Receive Normal Letter of Credit",
+     "stableId": "ERL-f8519a905fb34822b6e4642bf693ac3b"
+    },
+    {
+     "name": "49D - 01 - Issue Normal Letter of Credit",
+     "stableId": "ERL-ee8b2f912d174d2cb4c762700dedf2a4"
+    },
+    {
+     "name": "49D - 03 - Issue Standby Letter of Credit",
+     "stableId": "ERL-d945a5ca56b4471fa4e2be6b4aa067f0"
+    },
+    {
+     "name": "49D - 05 - Reports",
+     "stableId": "ERL-251743b6fd0d4c89b7420d54647f761c"
+    },
+    {
+     "name": "49D - 04 - Receive Standby Letter of Credit",
+     "stableId": "ERL-5afa95f546c04886aac9d54ecc7c757d"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

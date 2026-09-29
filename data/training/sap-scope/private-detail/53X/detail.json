@@ -1,0 +1,54 @@
+{
+ "externalId": "53X",
+ "id": "SP_OP_53X_1",
+ "name": "含交货确认的准时制生产客户供应 (53X)",
+ "solutionProcessId": "75080c25-992f-40ad-aa74-f4a9f1a8175e",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE"
+ ],
+ "mod": "SD",
+ "tier": "A",
+ "name_en": "Just-In-Time Supply to Customer with Delivery Confirmation (53X)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Just-In-Time Supply to Customer with Delivery Confirmation (53X)</title>\n </head>\n <body id=\"loioe8e3d30ad8ba4651ac164bb7baa3c6b9\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loioe8e3d30ad8ba4651ac164bb7baa3c6b9__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">The process starts with receiving a Just -In- time (JIT) call from customers (see the Just-In-Time Supply to Customer (2EM) scope item). During the processing of such JIT calls, the goods are posted as consignment stock. Consignment goods are stored at the customer location but owned by suppliers.</p>\n      <p class=\"p\">The customers are not obligated to pay for these goods until they remove it from consignment stock. As the goods are consumed, customers send JIT delivery confirmations via SOAP API with information about materials, quantity, and reference JIT calls.</p>\n      <p class=\"p\">The delivery confirmation is matched with the existing JIT calls within the supplier system. The material planner (JIT supply) has an option to release them manually.</p>\n      <p class=\"p\">Once the delivery confirmation is released, subsequent documents (such as customer consignment issue order and outbound delivery related to customer consignment issue order) are created and the goods issue is posted.</p>\n      <p class=\"p\">After the billing is done, the JIT call lifecycle status is updated.</p>\n     </section>\n     <section class=\"section\" id=\"loioe8e3d30ad8ba4651ac164bb7baa3c6b9__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Manage and monitor the JIT delivery confirmation</li>\n       <li class=\"li\">Release the JIT delivery confirmation</li>\n       <li class=\"li\">Create customer consignment issue order and outbound delivery automatically</li>\n       <li class=\"li\">Post goods issue</li>\n       <li class=\"li\">Create billing documents</li>\n      </ul>\n      <p class=\"p\"></p>\n      <p class=\"p\"></p>\n     </section>\n     <section class=\"section\" id=\"loioe8e3d30ad8ba4651ac164bb7baa3c6b9__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Manage inventory of delivered products in customer consignment stock until confirmed by the customer</li>\n       <li class=\"li\">Process billing or self-billing based on JIT delivery confirmations from customers</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>含交货确认的准时制生产客户供应 (53X)</title>\n </head>\n <body id=\"loioe8e3d30ad8ba4651ac164bb7baa3c6b9\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loioe8e3d30ad8ba4651ac164bb7baa3c6b9__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">该流程首先从客户处接收准时制生产 (JIT) 要货（请参阅客户准时制生产供应 (2EM) 范围项目）。在处理此类 JIT 要货期间，货物将作为寄售库存过账。寄售货物存储在客户位置，但归供应商所有。</p>\n      <p class=\"p\">在从寄售库存中移除货物之前，客户没有义务支付这些货物。由于货物已消耗，因此客户通过 SOAP API 发送 JIT 交货确认，其中包含有关物料、数量和参考 JIT 要货的信息。</p>\n      <p class=\"p\">交货确认与供应商系统中的现有 JIT 要货匹配。物料计划员（JIT 供应）可以选择手动审批。</p>\n      <p class=\"p\">下达交货确认后，将创建后续凭证（例如客户寄售发货订单和与客户寄售发货订单相关的出库交货）并过账发货。</p>\n      <p class=\"p\">开票完成后，将更新 JIT 要货生命周期状态。</p>\n     </section>\n     <section class=\"section\" id=\"loioe8e3d30ad8ba4651ac164bb7baa3c6b9__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">管理和监控 JIT 交货确认</li>\n       <li class=\"li\">审批 JIT 交货确认</li>\n       <li class=\"li\">自动创建客户寄售发货订单和出库交货</li>\n       <li class=\"li\">过账发货</li>\n       <li class=\"li\">创建开票凭证</li>\n      </ul>\n      <p class=\"p\"></p>\n      <p class=\"p\"></p>\n     </section>\n     <section class=\"section\" id=\"loioe8e3d30ad8ba4651ac164bb7baa3c6b9__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">管理客户寄售库存中已交付产品的库存，直到客户确认为止</li>\n       <li class=\"li\">根据客户的 JIT 交货确认处理开票或自开票</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "含交货确认的准时制生产客户供应 (53X)",
+ "flows": [
+  {
+   "id": "e9dee3e1-da26-4231-a8bd-9933a380d22c",
+   "stableId": "SPF_OP_53X_1",
+   "name": "Just-In-Time Supply to Customer with Delivery Confirmation (53X)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "53X - Just-In-Time Supply to Customer with Delivery Confirmation",
+     "stableId": "ERL-eba1b44447d34c52977317b1b7fd8b1a"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

@@ -1,0 +1,502 @@
+{
+ "externalId": "1E1",
+ "id": "SP_OP_1E1_1",
+ "name": "离散制造中的质量管理 (1E1)",
+ "solutionProcessId": "ec05c6ce-8c98-4d13-aaaa-77a32eeadd26",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "JP",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ES",
+  "ZA",
+  "AE",
+  "AU",
+  "SG",
+  "CN",
+  "IE",
+  "IT",
+  "MY",
+  "RO",
+  "SE",
+  "AT",
+  "NZ",
+  "PH",
+  "HU",
+  "IN",
+  "DK",
+  "FI",
+  "HK",
+  "NO",
+  "ID",
+  "TR",
+  "TW",
+  "SA",
+  "KR",
+  "MX",
+  "SK",
+  "PL",
+  "CZ",
+  "TH",
+  "BR",
+  "RU"
+ ],
+ "mod": "QM",
+ "tier": "C",
+ "name_en": "Quality Management in Discrete Manufacturing (1E1)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Quality Management in Discrete Manufacturing (1E1)</title>\n </head>\n <body id=\"loioc4872b44fb8249788c088778a764f5c6\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loioc4872b44fb8249788c088778a764f5c6__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">This scope item manages quality inspection in discrete manufacturing processes. Quality inspection activities are relevant during the production process or at goods receipt from production: At goods receipt, the material is posted to quality inspection stock and an inspection lot is created based on an inspection plan. The quality technician records the inspection results and the quality engineer makes a usage decision (acceptance or rejection of the material) and posts the material to unrestricted or blocked stock or to scrap. During the production process, a quality operation within the production order triggers the quality inspection. The quality technician records the inspection results for inspection points. Based on the inspection point valuation, the quality operation is confirmed with the respective yield and scrap amounts and the inspection lot is closed by making a usage decision. In case of rejected characteristics, a defect is automatically recorded.</p>\n     </section>\n     <section class=\"section\" id=\"loioc4872b44fb8249788c088778a764f5c6__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <p class=\"p\">Quality Inspection for Goods Receipt from Production:</p>\n      <ul class=\"ul\">\n       <li class=\"li\">Produce material</li>\n       <li class=\"li\">Display inspection plan</li>\n       <li class=\"li\">Post goods receipt for production order</li>\n       <li class=\"li\">Display material stock before inspection</li>\n       <li class=\"li\">Display inspection lot</li>\n       <li class=\"li\">Record inspection results</li>\n       <li class=\"li\">Make usage decision</li>\n       <li class=\"li\">Review and analyze defects</li>\n       <li class=\"li\">Review material stock after inspection</li>\n      </ul>\n      <p class=\"p\">Quality Inspection Within the Production Process:</p>\n      <ul class=\"ul\">\n       <li class=\"li\">Start production of material using a production order</li>\n       <li class=\"li\">Display routing including quality operation</li>\n       <li class=\"li\">Display inspection lot</li>\n       <li class=\"li\">Analyze and activate control chart</li>\n       <li class=\"li\">Record inspection results</li>\n       <li class=\"li\">Review and analyze defects</li>\n       <li class=\"li\">Confirm the quality operation of the production order</li>\n       <li class=\"li\">Make usage decision</li>\n      </ul>\n      <p class=\"p\">Quality Inspection Within the Production Process – Make-to-Stock Production of a Batch Managed Material:</p>\n      <ul class=\"ul\">\n       <li class=\"li\">Create and release production order</li>\n       <li class=\"li\">Perform goods issue of batch-managed components via pick-list</li>\n       <li class=\"li\">Confirm production operations</li>\n       <li class=\"li\">Execute quality inspection with inspection points</li>\n       <li class=\"li\">Confirm production operations</li>\n       <li class=\"li\">Post goods receipt for order</li>\n       <li class=\"li\">Make usage decision</li>\n       <li class=\"li\">Review batch data</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loioc4872b44fb8249788c088778a764f5c6__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Integrate quality inspection activities in production processes</li>\n       <li class=\"li\">Use inspection plans or inspection points for quality inspections</li>\n       <li class=\"li\">Use the statistical process control tool control chart for valuation of inspection characteristics</li>\n       <li class=\"li\">Detect nonconformities during production to avoid cost-intensive reprocessing or unnecessary waste</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>离散制造中的质量管理 (1E1)</title>\n </head>\n <body id=\"loioc4872b44fb8249788c088778a764f5c6\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loioc4872b44fb8249788c088778a764f5c6__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">此范围项目管理离散制造流程中的质量检验。质量检验活动在生产流程期间或生产收货期间相关：收货时，物料将过账到质量检验库存，并根据检验计划创建检验批次。质量技术员记录检验结果，质量工程师制定使用决策（接受或拒绝物料），并将物料过账到非限制库存、冻结库存或报废。在生产流程中，生产订单中的质量工序会触发质量检验。质量技术员记录检验点的检验结果。根据检验点评估，使用相应的产量和报废数量确认质量工序，并通过制定使用决策关闭检验批次。如果特征被拒绝，则会自动记录缺陷。</p>\n     </section>\n     <section class=\"section\" id=\"loioc4872b44fb8249788c088778a764f5c6__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <p class=\"p\">从生产收货的质量检验：</p>\n      <ul class=\"ul\">\n       <li class=\"li\">生产物料</li>\n       <li class=\"li\">显示检验计划</li>\n       <li class=\"li\">过账生产订单的收货</li>\n       <li class=\"li\">检验前显示物料库存</li>\n       <li class=\"li\">显示检验批</li>\n       <li class=\"li\">记录检验结果</li>\n       <li class=\"li\">制定使用决策</li>\n       <li class=\"li\">查看和分析缺陷</li>\n       <li class=\"li\">检验后检查物料库存</li>\n      </ul>\n      <p class=\"p\">生产流程中的质量检验：</p>\n      <ul class=\"ul\">\n       <li class=\"li\">使用生产订单开始生产物料</li>\n       <li class=\"li\">显示包括质量工序的工艺路线</li>\n       <li class=\"li\">显示检验批</li>\n       <li class=\"li\">分析和激活控制图</li>\n       <li class=\"li\">记录检验结果</li>\n       <li class=\"li\">查看和分析缺陷</li>\n       <li class=\"li\">确认生产订单的质量工序</li>\n       <li class=\"li\">制定使用决策</li>\n      </ul>\n      <p class=\"p\">生产流程中的质量检验 - 批次管理物料的按库存生产：</p>\n      <ul class=\"ul\">\n       <li class=\"li\">创建并下达生产订单</li>\n       <li class=\"li\">通过拣配清单执行批次管理组件的发货</li>\n       <li class=\"li\">确认生产工序</li>\n       <li class=\"li\">使用检验点执行质量检验</li>\n       <li class=\"li\">确认生产工序</li>\n       <li class=\"li\">过账订单的收货</li>\n       <li class=\"li\">制定使用决策</li>\n       <li class=\"li\">检查批次数据</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loioc4872b44fb8249788c088778a764f5c6__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">将质量检验活动集成到生产流程中</li>\n       <li class=\"li\">使用检验计划或检验点进行质量检验</li>\n       <li class=\"li\">使用统计流程控制工具控制图，评估检验特征</li>\n       <li class=\"li\">在生产过程中检测不合格，避免成本高昂的再加工或不必要的浪费</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "离散制造中的质量管理 (1E1)",
+ "flows": [
+  {
+   "id": "e3b4e742-85a9-4bc2-a4f9-89cd1e44c933",
+   "stableId": "SPF_OP_1E1_1",
+   "name": "Quality Management in Discrete Manufacturing (1E1)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "1E1 - Goods Receipt from Production",
+     "stableId": "ERL-500dd7ca0dcc42929763030380016c7e"
+    },
+    {
+     "name": "1E1 - Within Production Process",
+     "stableId": "ERL-f7d99911ccb84e01ab214d72e42b012b"
+    },
+    {
+     "name": "1E1 - Within Production Process - Make-to-Stock Production of a Batch Managed Material",
+     "stableId": "ERL-d37a4a73fc67416b844c7e44310df8d2"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

@@ -1,0 +1,505 @@
+{
+ "externalId": "1JW",
+ "id": "SP_OP_1JW_1",
+ "name": "高级可承诺量处理 (1JW)",
+ "solutionProcessId": "ba917c49-2577-418d-96e2-d11487f0fc7d",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "JP",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ES",
+  "ZA",
+  "AE",
+  "AU",
+  "SG",
+  "CN",
+  "IE",
+  "IT",
+  "MY",
+  "RO",
+  "SE",
+  "AT",
+  "NZ",
+  "PH",
+  "HU",
+  "IN",
+  "DK",
+  "FI",
+  "HK",
+  "NO",
+  "ID",
+  "TR",
+  "TW",
+  "SA",
+  "KR",
+  "MX",
+  "SK",
+  "PL",
+  "CZ",
+  "TH",
+  "PT",
+  "BR",
+  "RU"
+ ],
+ "mod": "SCP",
+ "tier": "C",
+ "name_en": "Advanced Available-to-Promise Processing (1JW)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Advanced Available-to-Promise Processing (1JW)</title>\n </head>\n <body id=\"loio3c874883c48d402396c533b8cfe0eb61\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio3c874883c48d402396c533b8cfe0eb61__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\"></p>\n      <p class=\"p\">Advanced Available-to-Promise (aATP) is a critical contributor when processing logistical relevant business documents in SD, MM, LE, and PP.</p>\n      <p class=\"p\">For example:</p>\n      <ul class=\"ul\">\n       <li class=\"li\">aATP calculates the best possible delivery date and quantity for sales orders or stock transport orders.</li>\n       <li class=\"li\">It validates whether a delivery can proceed with goods issue.</li>\n       <li class=\"li\">It assesses whether a planned order can be converted into a production order and subsequently released.</li>\n      </ul>\n      <p class=\"p\">Any business process relying on accurate material-availability information should leverage aATP to ensure smooth execution. In case of unavoidable material shortages aATP is essential for mitigating disruptions and minimizing their impact.</p>\n     </section>\n     <section class=\"section\" id=\"loio3c874883c48d402396c533b8cfe0eb61__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Backorder Processing: Plan, configure, manage, and monitor mass ATP checks for existing sales or stock-transfer documents. Use advanced selection and prioritization features to align order fulfillment with business priorities.</li>\n       <li class=\"li\">Interactive Backorder Processing: In shortage scenarios, manually or semi-manually prioritize backorders, ignore selected ATP constraints if necessary.</li>\n       <li class=\"li\">Plant Substitution: Configure and manage plant substitutions to fulfill sales orders from alternative locations, either by replacing original line items or adding sub-items.</li>\n       <li class=\"li\">Storage Location Substitution: Configure and manage storage-location determination or substitutions to fulfill sales-orders from one or a variety of alternative storage-locations.</li>\n       <li class=\"li\">Material Substitution: Configure and manage material substitutions to fulfill sales-orders with one or several alternative materials, automatically enhancing the sales order document with corresponding new sub-items.</li>\n       <li class=\"li\">Product Allocation: Plan, configure, manage, and monitor product allocations, and perform availability checks against these allocations.</li>\n       <li class=\"li\">Supply Protection: Plan, configure, manage, and monitor supply protection objects &amp; groups allowing to consider them according to their priority as virtual demands during availability checks.</li>\n       <li class=\"li\">Supply Creation: Automatically initiate supply creation in Production Planning/Detailed Scheduling (PP/DS) when available quantities are insufficient.</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio3c874883c48d402396c533b8cfe0eb61__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Backorder Processing (BOP/iBOP): Automatically, semi-manually or manually recalculate or reset the confirmation of your business documents while considering business priorities and constraints.</li>\n       <li class=\"li\">Alternative-Based Confirmations: Use alternative materials, plants, or storage locations to give the best confirmation possible for your sales order requirements.</li>\n       <li class=\"li\">Product Allocation: Ensure compliance with internal or external constraints by restricting confirmations for certain demands already during order entry or order change.</li>\n       <li class=\"li\">Supply Protection: Guarantee minimum available quantities for critical demands according to their priority.</li>\n       <li class=\"li\">Supply creation-based Confirmation: Improve responsiveness and execution capabilities by automatically generating appropriate supply elements during ATP checks for sales orders.</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>高级可承诺量处理 (1JW)</title>\n </head>\n <body id=\"loio3c874883c48d402396c533b8cfe0eb61\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio3c874883c48d402396c533b8cfe0eb61__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\"></p>\n      <p class=\"p\">在 SD、MM、LE 和 PP 中处理物流相关业务凭证时，高级可承诺量 (aATP) 是关键贡献者。</p>\n      <p class=\"p\">例如：</p>\n      <ul class=\"ul\">\n       <li class=\"li\">aATP 计算销售订单或库存调拨单的最佳可能交货日期和数量。</li>\n       <li class=\"li\">它验证交货是否可以继续发货。</li>\n       <li class=\"li\">它评估计划订单是否可以转换为生产订单并随后下达。</li>\n      </ul>\n      <p class=\"p\">任何依赖准确物料可用性信息的业务流程都应利用 aATP 来确保顺利执行。如果物料短缺不可避免，aATP 对于缓解中断和最小化其影响至关重要。</p>\n     </section>\n     <section class=\"section\" id=\"loio3c874883c48d402396c533b8cfe0eb61__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">延期交货订单处理：计划、配置、管理和监控现有销售或库存转储凭证的批量 ATP 检查。使用高级选择和优先级划分功能使订单履行与业务优先级保持一致。</li>\n       <li class=\"li\">交互式延期交货订单处理：在短缺场景中，手动或半手动划分延期交货订单的优先级，如有必要，忽略所选 ATP 约束。</li>\n       <li class=\"li\">工厂替代：通过替换原始行项目或添加子项目，配置和管理工厂替代，以履行备选位置的销售订单。</li>\n       <li class=\"li\">存储地点替代：配置和管理存储地点确定或替代，以履行一个或多个备选存储地点的销售订单。</li>\n       <li class=\"li\">物料替代：配置和管理物料替代，以使用一个或多个备选物料履行销售订单，使用相应的新子项目自动增强销售订单凭证。</li>\n       <li class=\"li\">产品分配：计划、配置、管理和监控产品分配，并根据这些分配执行可用性检查。</li>\n       <li class=\"li\">供应保护：计划、配置、管理和监控供应保护对象和组，以便在可用性检查期间根据其优先级将其视为虚拟需求。</li>\n       <li class=\"li\">供应创建：当可用数量不足时，自动在生产计划/详细计划 (PP/DS) 中启动供应创建。</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio3c874883c48d402396c533b8cfe0eb61__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">延期交货订单处理 (BOP/iBOP)：在考虑业务优先级和约束的同时，自动、半手动或手动重新计算或重置业务凭证的确认。</li>\n       <li class=\"li\">基于备选项的确认：使用备选物料、工厂或存储地点为销售订单需求提供最佳确认。</li>\n       <li class=\"li\">产品分配：通过限制订单输入或订单更改期间某些需求的确认，确保符合内部或外部约束。</li>\n       <li class=\"li\">供应保护：根据关键需求的优先级保证其最小可用数量。</li>\n       <li class=\"li\">基于供应创建的确认：通过在销售订单的 ATP 检查期间自动生成相应的供应元素，提高响应能力和执行能力。</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "高级可承诺量处理 (1JW)",
+ "flows": [
+  {
+   "id": "18840232-1ade-4745-af9e-6afcb7573751",
+   "stableId": "SPF_OP_1JW_1",
+   "name": "Advanced Available-to-Promise Processing (1JW)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "1JW - Advanced Available-to-Promise Processing",
+     "stableId": "ERL-fd2ad5a392224bbd9ed98e7805eda7f5"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

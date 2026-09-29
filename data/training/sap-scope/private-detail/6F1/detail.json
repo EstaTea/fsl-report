@@ -1,0 +1,63 @@
+{
+ "externalId": "6F1",
+ "id": "SP_OP_6F1_1",
+ "name": "使用高级执行的经常性服务 (6F1)",
+ "solutionProcessId": "74021759-ecc9-4f5c-8ce3-8bfb412ac4d9",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE"
+ ],
+ "mod": "",
+ "tier": "D",
+ "name_en": "Recurring Services with Advanced Execution (6F1)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Recurring Services with Advanced Execution (6F1)</title>\n </head>\n <body id=\"loiocc9d71e50e0b4273ac1576630fd07d8e\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loiocc9d71e50e0b4273ac1576630fd07d8e__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">Recurring Services with Advanced Execution covers the creation of maintenance service plans, as well as scheduling and generation of service orders together with the corresponding execution orders. Maintenance plans can be defined to release the maintenance service order and execution order automatically when you create the order with all data set to generate error free call objects. Service order items are created with reference to the service contract item assigned in the maintenance plan item. A valid and released service contract item is a prerequisite for this scope item. See the <strong class=\"ph b\">Service Contract Management (426)</strong> scope item for further details.</p> The <strong class=\"ph b\">Service with Advanced Execution (6AU)</strong> scope item provides details on the follow-on processes for the generated maintenance service orders such as planning, execution, time and material confirmation, billing, and order completion.\n     </section>\n     <section class=\"section\" id=\"loiocc9d71e50e0b4273ac1576630fd07d8e__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Create and release service contract.</li>\n       <li class=\"li\">Create maintenance plan with reference to service contract item.</li>\n       <li class=\"li\">Inherit the planning plant and work center from the reference (technical) object of the maintenance item.</li>\n       <li class=\"li\">Schedule the maintenance plan to generate service orders together with corresponding execution orders.</li>\n       <li class=\"li\">Copy the service product from the service contract item to the service order as service order item.</li>\n       <li class=\"li\">Copy the operations and components from the task list assigned to the maintenance item to the execution order.</li>\n       <li class=\"li\">Complete the service order item to complete the maintenance plan item automatically.</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loiocc9d71e50e0b4273ac1576630fd07d8e__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Provide capabilities for regular maintenance planning and scheduling for advanced execution process.</li>\n       <li class=\"li\">Use service contract item as the reference document to generate service order item.</li>\n       <li class=\"li\">Use task list to copy the predefined operations and component to the execution orders.</li>\n       <li class=\"li\">Cover single cycle time / counter-based, strategy time / performance based and multiple counter plans.</li>\n       <li class=\"li\">Support individual scheduling and mass scheduling via background jobs.</li>\n       <li class=\"li\">Update the call completion status and date automatically upon completion of the service order item.</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>使用高级执行的经常性服务 (6F1)</title>\n </head>\n <body id=\"loiocc9d71e50e0b4273ac1576630fd07d8e\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loiocc9d71e50e0b4273ac1576630fd07d8e__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">使用高级执行的经常性服务包括创建维护服务计划，以及计划和生成服务订单以及相应的执行订单。可以定义维护计划，以便在创建所有数据集为生成无错误调用对象的订单时，自动下达维护服务订单和执行订单。参考维护计划项目中分配的服务合同项目，创建服务订单项目。有效且已发布的服务合同项目是此范围项目的前提条件。有关更多详细信息，请参阅<strong class=\"ph b\">服务合同管理 (426)</strong> 范围项目。</p> <strong class=\"ph b\">使用高级执行的服务 (6AU)</strong> 范围项目提供有关生成的维护服务订单的后续流程的详细信息，例如计划、执行、时间和物料确认、开票和订单完成。\n</section>\n     <section class=\"section\" id=\"loiocc9d71e50e0b4273ac1576630fd07d8e__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">创建并发布服务合同。</li>\n       <li class=\"li\">参考服务合同项目创建维护计划。</li>\n       <li class=\"li\">从维护项目的参考（技术）对象继承计划工厂和工作中心。</li>\n       <li class=\"li\">计划维护计划以生成服务订单以及相应的执行订单。</li>\n       <li class=\"li\">将服务合同项目中的服务产品作为服务订单项目复制到服务订单。</li>\n       <li class=\"li\">将工序和组件从分配给维护项目的任务清单复制到执行订单。</li>\n       <li class=\"li\">完成服务订单项目以自动完成维护计划项目。</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loiocc9d71e50e0b4273ac1576630fd07d8e__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">提供高级执行流程的定期维护计划和安排功能。</li>\n       <li class=\"li\">使用服务合同项目作为参考凭证以生成服务订单项目。</li>\n       <li class=\"li\">使用任务清单将预定义工序和组件复制到执行订单。</li>\n       <li class=\"li\">涵盖单个周期时间/基于计数器、基于策略时间/性能以及多个计数器计划。</li>\n       <li class=\"li\">通过后台作业支持单个计划和批量计划。</li>\n       <li class=\"li\">服务订单项目完成后，自动更新调用完成状态和日期。</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "使用高级执行的经常性服务 (6F1)",
+ "flows": [
+  {
+   "id": "2751f680-ed80-41b8-85bb-c3b14db0cee4",
+   "stableId": "SPF_OP_6F1_1",
+   "name": "Recurring Services with Advanced Execution (6F1)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "00 - Service Management Overview",
+     "stableId": "ERL-e238c48c2d5d49c484bfa05f84d1c309"
+    },
+    {
+     "name": "6F1 - 01 - Recurring Services with Advanced Execution",
+     "stableId": "ERL-3768344e620b4fff8ff7ddaae48dbe1c"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Set-up instructions",
+   "bomType": "BOM.E56",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

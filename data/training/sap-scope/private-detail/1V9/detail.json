@@ -1,0 +1,318 @@
+{
+ "externalId": "1V9",
+ "id": "SP_OP_1V9_1",
+ "name": "含质量管理的供应商的基本仓库入库处理 (1V9)",
+ "solutionProcessId": "5a16e3d2-eb81-47d7-aeac-143f5c721dec",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "JP",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ES",
+  "ZA",
+  "AE",
+  "AU",
+  "SG",
+  "CN",
+  "IE",
+  "IT",
+  "MY",
+  "SE",
+  "NZ",
+  "PH",
+  "HU",
+  "HK",
+  "TW",
+  "RU"
+ ],
+ "mod": "MM",
+ "tier": "A",
+ "name_en": "Basic Warehouse Inbound Processing from Supplier with Quality Management (1V9)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Basic Warehouse Inbound Processing from Supplier with Quality Management (1V9)</title>\n </head>\n <body id=\"loioa34f9273a1174ff7a531ee1cb2c0d4bb\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loioa34f9273a1174ff7a531ee1cb2c0d4bb__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">This scope item allows you to inspect the products received from external suppliers in a basic warehouse inbound process. The basic warehouse management functionality is seamlessly integrated with quality management in <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span>. The process starts with the creation of a purchase order and an EWM inbound delivery. Upon arrival of the purchased goods, they are unloaded, packed, and the goods receipt is posted. By posting goods receipt, the system runs active inspection rules. The system creates an inspection lot for the inbound delivery items if they are inspection relevant.</p>\n      <p class=\"p\">Upon creation of the inspection lot, the system updates the EWM inbound delivery by adding the inspection lot number to the document flow and the stock is posted to stock type quality inspection stock.</p>\n      <p class=\"p\">The warehouse worker triggers the creation of warehouse tasks to move the goods to the Quality Inspection Center for a physical inspection. The inspection lot is now available in the worklist of the quality technician. The technician inspects the delivered goods and records the inspection results. Based on these inspection results, the quality engineer makes a usage decision. The engineer can enter partial decisions for a partial quantity of this stock.</p>\n      <p class=\"p\">As a result of the quality inspection, you determine if the goods fulfill the quality standards for storage in the warehouse. If they do not fulfill the standards, they are moved to the blocked stock area for further clarification. After the decision, handling units with either goods to be stored or goods to be moved to the blocked stock area are created in the system. The creation of warehouse tasks to move the handling units to the corresponding area in the warehouse is triggered automatically. The process ends with the confirmation of the warehouse tasks.</p>\n     </section>\n     <section class=\"section\" id=\"loioa34f9273a1174ff7a531ee1cb2c0d4bb__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Create purchase order</li>\n       <li class=\"li\">Create EWM inbound delivery</li>\n       <li class=\"li\">Process goods receipt</li>\n       <li class=\"li\">Check warehouse orders (optional)</li>\n       <li class=\"li\">Move handling units to quality inspection center</li>\n       <li class=\"li\">Record inspection results</li>\n       <li class=\"li\">Make usage decision</li>\n       <li class=\"li\">Option 1: Put away of handling units to final storage bin</li>\n       <li class=\"li\">Option 2: Move handling units to blocked stock area</li>\n       <li class=\"li\">Check inbound delivery (optional)</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loioa34f9273a1174ff7a531ee1cb2c0d4bb__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Manage stock on a storage bin level</li>\n       <li class=\"li\">Inspect the products received from external suppliers in a basic warehouse inbound process</li>\n       <li class=\"li\">Integrate seamlessly between quality management and basic warehouse management in <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span></li>\n       <li class=\"li\">Make use partial quantity decisions</li>\n       <li class=\"li\">Enable warehouse processes with RF/mobile</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>含质量管理的供应商的基本仓库入库处理 (1V9)</title>\n </head>\n <body id=\"loioa34f9273a1174ff7a531ee1cb2c0d4bb\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loioa34f9273a1174ff7a531ee1cb2c0d4bb__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">此范围项目允许您在基本仓库入库流程中，检验从外部供应商处接收的产品。基本仓库管理功能与 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 中的质量管理无缝集成。该流程从创建采购订单和 EWM 入库交货开始。采购货物到达后，进行卸货、包装并过账收货。通过过账收货，系统运行活动检验规则。如果入库交货项目与检验相关，系统会为入库交货项目创建检验批次。</p>\n      <p class=\"p\">创建检验批次后，系统会通过将检验批次编号添加到凭证流来更新 EWM 入库交货，并将库存过账到库存类型质量检验库存。</p>\n      <p class=\"p\">仓库工人触发仓库任务创建，以将货物移动到质量检验中心进行实际检验。现在，检验批次在质量技术员的工作清单中可用。技术人员检验交付的货物并记录检验结果。质量工程师根据这些检验结果制定使用决策。工程师可以为此库存的部分数量输入部分决策。</p>\n      <p class=\"p\">作为质量检验的结果，您可以确定货物是否满足仓库中存储的质量标准。如果它们不满足标准，则会将其移动到冻结库存区域以进行进一步澄清。决策后，将在系统中创建含要存储的货物或要移动到冻结库存区域的货物的处理单元。将自动触发创建仓库任务，以将处理单元移动到仓库中的相应区域。该流程以仓库任务确认结束。</p>\n     </section>\n     <section class=\"section\" id=\"loioa34f9273a1174ff7a531ee1cb2c0d4bb__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">创建采购订单</li>\n       <li class=\"li\">创建 EWM 入库交货</li>\n       <li class=\"li\">处理收货</li>\n       <li class=\"li\">检查仓库订单（可选）</li>\n       <li class=\"li\">将处理单元移动到质量检验中心</li>\n       <li class=\"li\">记录检验结果</li>\n       <li class=\"li\">制定使用决策</li>\n       <li class=\"li\">选项 1：将处理单元入库到最终仓位</li>\n       <li class=\"li\">选项 2：将处理单元移动到冻结库存范围</li>\n       <li class=\"li\">检查入库交货（可选）</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loioa34f9273a1174ff7a531ee1cb2c0d4bb__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">在仓位级别管理库存</li>\n       <li class=\"li\">在基本仓库入库流程中，检验从外部供应商处接收的产品</li>\n       <li class=\"li\">无缝集成 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 中的质量管理和基本仓库管理</li>\n       <li class=\"li\">制定使用部分数量决策</li>\n       <li class=\"li\">通过 RF/移动设备启用仓库流程</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "含质量管理的供应商的基本仓库入库处理 (1V9)",
+ "flows": [
+  {
+   "id": "d2d206ba-e4a8-444b-ae94-80e5114c6a45",
+   "stableId": "SPF_OP_1V9_1",
+   "name": "Basic Warehouse Inbound Processing from Supplier with Quality Management (1V9)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "1V9 - Basic Warehouse Inbound Processing from Supplier with Quality Management",
+     "stableId": "051Mdc327kULwkgK9n6PyG"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

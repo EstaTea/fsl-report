@@ -1,0 +1,377 @@
+{
+ "externalId": "19M",
+ "id": "SP_OP_19M_1",
+ "name": "直接借记 (19M)",
+ "solutionProcessId": "817e12ac-2577-45e7-aa24-770720338ef1",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ES",
+  "ZA",
+  "AU",
+  "SG",
+  "IE",
+  "IT",
+  "MY",
+  "RO",
+  "SE",
+  "AT",
+  "NZ",
+  "PH",
+  "HU",
+  "DK",
+  "ID",
+  "SK",
+  "TH",
+  "PT"
+ ],
+ "mod": "FI",
+ "tier": "B",
+ "name_en": "Direct Debit (19M)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Direct Debit (19M)</title>\n </head>\n <body id=\"loiobd22be6b30d34fc4899f16a2ed7901f7\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loiobd22be6b30d34fc4899f16a2ed7901f7__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">In this scope item, you can use the direct debit payment method in the Single Euro Payments Area (SEPA) to collect payments from your customers in Euro and certain non-SEPA countries / regions to collect payments from your customers in your local currency.</p>\n      <p class=\"p\">For countries in SEPA, a debtor grants mandates to a creditor as part of a direct debit procedure. Using <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span>, you create and maintain the SEPA mandates from the customers, which are the legal basis for the direct debit payment in SEPA.</p>\n      <p class=\"p\">The system checks that a valid SEPA mandate exists during the payment run. For SEPA countries, the system saves the ID of the SEPA mandate in the payment data and creates a SEPA-specific payment medium.</p>\n      <p class=\"p\">You can print out SEPA mandates on paper and repeat the printing.</p>\n     </section>\n     <section class=\"section\" id=\"loiobd22be6b30d34fc4899f16a2ed7901f7__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Maintain customer master data</li>\n       <li class=\"li\">Create and print direct debit mandate for SEPA countries</li>\n       <li class=\"li\">Run payment program</li>\n       <li class=\"li\">Create payment instructions file</li>\n       <li class=\"li\">Send payment instruction file to bank</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loiobd22be6b30d34fc4899f16a2ed7901f7__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Reduce workload in accounts receivables</li>\n       <li class=\"li\">Ensure payment on time</li>\n       <li class=\"li\">Reduce customer credit risk</li>\n       <li class=\"li\">Improve cash flow forecasting</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>直接借记 (19M)</title>\n </head>\n <body id=\"loiobd22be6b30d34fc4899f16a2ed7901f7\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loiobd22be6b30d34fc4899f16a2ed7901f7__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">在此范围项目中，您可以使用单一欧元支付区 (SEPA) 的直接借记付款方式以欧元向客户收款，使用特定的非 SEPA 国家/地区以本地货币向客户收款。</p>\n      <p class=\"p\">对于 SEPA 中的国家，作为直接借记程序的一部分，债务人向债权人授权托管。使用 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span>，您可以创建和维护来自客户的 SEPA 授权，这是 SEPA 中直接借记付款的法律基础。</p>\n      <p class=\"p\">系统检查付款运行期间是否存在有效的 SEPA 授权。对于 SEPA 国家/地区，系统会将 SEPA 授权标识保存在付款数据中，并创建 SEPA 特定的付款媒介。</p>\n      <p class=\"p\">您可以在纸上打印 SEPA 授权并重复打印。</p>\n     </section>\n     <section class=\"section\" id=\"loiobd22be6b30d34fc4899f16a2ed7901f7__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">维护客户主数据</li>\n       <li class=\"li\">创建和打印 SEPA 国家的直接借记授权</li>\n       <li class=\"li\">运行付款程序</li>\n       <li class=\"li\">创建付款指令文件</li>\n       <li class=\"li\">将付款指令文件发送到银行</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loiobd22be6b30d34fc4899f16a2ed7901f7__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">减少应收账款中的工作量</li>\n       <li class=\"li\">确保按时付款</li>\n       <li class=\"li\">降低客户信用风险</li>\n       <li class=\"li\">改善现金流预测</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "直接借记 (19M)",
+ "flows": [
+  {
+   "id": "c86b6de2-eebb-49ba-a181-6dd8e7d05a34",
+   "stableId": "SPF_OP_19M_1",
+   "name": "Direct Debit (19M)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "19M - 06 - Direct Debit - Invoice Management Reporting",
+     "stableId": "ERL-ba1a270af28a4d96b0d8959c56e1cd44"
+    },
+    {
+     "name": "19M - 04 - Direct Debit - Payment Run",
+     "stableId": "ERL-e21f441bade34339a5bccb000c432065"
+    },
+    {
+     "name": "19M - 02 - Direct Debit - Preparation of Payment",
+     "stableId": "ERL-04fba1ec57904711b2e5fb9587b7c38c"
+    },
+    {
+     "name": "19M - 01 - Direct Debit - Main",
+     "stableId": "ERL-79456b6f122d4f4bb82e4bdd3cd663e6"
+    },
+    {
+     "name": "19M - 05 - SEPA Direct Debit - Payment Run",
+     "stableId": "ERL-792c7e571c184e68bc23956992883026"
+    },
+    {
+     "name": "19M - 08 - Denmark PBS Payments",
+     "stableId": "GW4AxW627kosXNZIrmV1YW"
+    },
+    {
+     "name": "19M - 01 - SEPA Direct Debit - Main",
+     "stableId": "ERL-9f152577b56544f2b12384ddbe4a30ef"
+    },
+    {
+     "name": "19M - 02 - SEPA Direct Debit - Preparation of Payment",
+     "stableId": "ERL-8fae58af3969453080c1013f85f9023b"
+    },
+    {
+     "name": "19M - 03 - Direct Debit - Customer Invoice Payment Preparation",
+     "stableId": "ERL-b11a1c2bd5604a9c82909d4a7f488bfb"
+    },
+    {
+     "name": "19M - 04 - SEPA Direct Debit - Pre-Notification Creation",
+     "stableId": "ERL-2171d05667ed403586aed0e9404e90df"
+    },
+    {
+     "name": "19M - 05 - Direct Debit - Payment Review",
+     "stableId": "ERL-fa664959e0ad4f7093d641575dff5d08"
+    },
+    {
+     "name": "19M - 07 - SEPA Direct Debit - Invoice Management Reporting",
+     "stableId": "ERL-a3319a7544fd41709b91105b925e16aa"
+    },
+    {
+     "name": "19M - 06 - SEPA Direct Debit - Payment Review",
+     "stableId": "ERL-202d3cc160c74d73877aa74f97b6733d"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

@@ -1,0 +1,49 @@
+{
+ "externalId": "6NL",
+ "id": "ERL-123c87238e46497ea3eaf57304c148c1",
+ "name": "使用 SAP Risk and Assurance Management 的安全风险检测 (6NL)",
+ "solutionProcessId": "1d1db31f-2db3-408d-9107-437c86ad531d",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE"
+ ],
+ "mod": "",
+ "tier": "D",
+ "name_en": "Security Risk Detection with SAP Risk and Assurance Management (6NL)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Security Risk Detection with SAP Risk and Assurance Management (6NL)</title>\n </head>\n <body id=\"loio1b7cc4d13a234686a328e68efc1b0cc5\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio1b7cc4d13a234686a328e68efc1b0cc5__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">SAP Risk and Assurance Management can be integrated with an <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> system. With SAP Risk and Assurance Management security controls, SAP establishes effective means to analyze and detect (cyber) security anomalies in your connected <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> system.</p>\n      <p class=\"p\">Technical checks deployed with SAP S/4HANA include checks to:</p>\n      <ul class=\"ul\" id=\"loio1b7cc4d13a234686a328e68efc1b0cc5__ul_t2z_4rk_hyb\">\n       <li class=\"li\"><p class=\"p\">Detect if User ID SAPSTAR does not meet the rules</p></li>\n       <li class=\"li\"><p class=\"p\">Detect if User ID DDIC does not meet the rules</p></li>\n       <li class=\"li\"><p class=\"p\">Detect if User ID SAPCPIC does not meet the rules</p></li>\n       <li class=\"li\"><p class=\"p\">Detect if User ID TSMADM does not meet the rules</p></li>\n       <li class=\"li\"><p class=\"p\">Detect if there is long-term validity for temporary users</p></li>\n       <li class=\"li\"><p class=\"p\">Detect if there are any roles that should not be but assigned for longer than X days</p></li>\n       <li class=\"li\"><p class=\"p\">Detect if any active Dialog user has SAP_ALL or SAP_NEW profile assigned</p></li>\n       <li class=\"li\"><p class=\"p\">Detect if there are any Dormant IDs to be locked</p></li>\n       <li class=\"li\"><p class=\"p\">Detect if there are any Unused IDs to be locked</p></li>\n       <li class=\"li\"><p class=\"p\">Detect if there are any Expired accounts to be locked</p></li>\n       <li class=\"li\"><p class=\"p\">Detect if there are any Expired accounts to be deleted</p></li>\n       <li class=\"li\"><p class=\"p\">Detect if there are any Expired Users with Valid Roles</p></li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio1b7cc4d13a234686a328e68efc1b0cc5__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\" id=\"loio1b7cc4d13a234686a328e68efc1b0cc5__ul_sb2_fgx_gxb\">\n       <li class=\"li\">Create a connection from SAP Risk and Assurance Management to the <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> system as outlined in the SAP Risk and Assurance Management administration guide in the \"Connectivity for Automated Procedures\" section</li>\n       <li class=\"li\">Maintain the parameters of the automated procedure as outlined in the SAP Risk and Assurance Management user help for automated procedures and the respective information from the business content section</li>\n       <li class=\"li\">Activate the procedure and maintain further custom parameters as necessary before executing the procedure via control and work package setup in SAP Risk and Assurance Management</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio1b7cc4d13a234686a328e68efc1b0cc5__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\" id=\"loio1b7cc4d13a234686a328e68efc1b0cc5__ul_c52_3gx_gxb\">\n       <li class=\"li\"><p class=\"p\">Proactively safeguard the <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> system against (cyber) security weaknesses and attacks from a central entry point</p></li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>使用 SAP Risk and Assurance Management 的安全风险检测 (6NL)</title>\n </head>\n <body id=\"loio1b7cc4d13a234686a328e68efc1b0cc5\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio1b7cc4d13a234686a328e68efc1b0cc5__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">SAP Risk and Assurance Management 可与 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 系统集成。通过 SAP Risk and Assurance Management 安全控制，SAP 建立了有效的方法来分析和检测连接的 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 系统中的（网络）安全异常。</p>\n      <p class=\"p\">使用 SAP S/4HANA 部署的技术检查包括以下检查：</p>\n      <ul class=\"ul\" id=\"loio1b7cc4d13a234686a328e68efc1b0cc5__ul_t2z_4rk_hyb\">\n       <li class=\"li\"><p class=\"p\">检测用户标识 SAPSTAR 是否不符合规则</p></li>\n       <li class=\"li\"><p class=\"p\">检测用户标识 DDIC 是否不符合规则</p></li>\n       <li class=\"li\"><p class=\"p\">检测用户标识 SAPCPIC 是否不符合规则</p></li>\n       <li class=\"li\"><p class=\"p\">检测用户标识 TSMADM 是否不符合规则</p></li>\n       <li class=\"li\"><p class=\"p\">检测临时用户是否存在长期有效期</p></li>\n       <li class=\"li\"><p class=\"p\">检测是否有任何不应分配但分配时间超过 X 天的角色</p></li>\n       <li class=\"li\"><p class=\"p\">检测是否有任何活动对话用户已分配 SAP_ALL 或 SAP_NEW 参数文件</p></li>\n       <li class=\"li\"><p class=\"p\">检测是否存在任何要锁定的休眠标识</p></li>\n       <li class=\"li\"><p class=\"p\">检测是否有任何未使用的标识要锁定。</p></li>\n       <li class=\"li\"><p class=\"p\">检测是否有任何过期帐户要锁定。</p></li>\n       <li class=\"li\"><p class=\"p\">检测是否存在任何要删除的过期帐户。</p></li>\n       <li class=\"li\"><p class=\"p\">检测是否存在任何具有有效角色的过期用户。</p></li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio1b7cc4d13a234686a328e68efc1b0cc5__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\" id=\"loio1b7cc4d13a234686a328e68efc1b0cc5__ul_sb2_fgx_gxb\">\n       <li class=\"li\">创建从 SAP Risk and Assurance Management 到 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 系统的连接，如 SAP Risk and Assurance Management 管理指南的“自动化程序的连接”部分所述</li>\n       <li class=\"li\">维护自动化过程的参数，如 SAP Risk and Assurance Management 用户帮助中所述，以获取自动化过程和业务内容部分中的相应信息</li>\n       <li class=\"li\">通过 SAP Risk and Assurance Management 中的控制和工作包设置执行过程之前，请激活过程并根据需要维护更多自定义参数</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio1b7cc4d13a234686a328e68efc1b0cc5__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\" id=\"loio1b7cc4d13a234686a328e68efc1b0cc5__ul_c52_3gx_gxb\">\n       <li class=\"li\"><p class=\"p\">从中央入口点主动保护 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 系统免受（网络）安全漏洞和攻击</p></li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "使用 SAP Risk and Assurance Management 的安全风险检测 (6NL)",
+ "flows": [
+  {
+   "id": "cdb574b1-ef2c-40bf-a349-7b9bc950f227",
+   "stableId": "ERL-a460eb4706894887a9557503e243fec0",
+   "name": "Security Risk Detection with SAP Risk and Assurance Management (6NL)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "6NL - Security Risk Detection with SAP Risk and Assurance Management",
+     "stableId": "ERL-9acb55577acd49eabe34ae190a54dfeb"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Set-up instructions",
+   "bomType": "BOM.E56",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

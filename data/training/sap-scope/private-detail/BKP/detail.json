@@ -1,0 +1,491 @@
+{
+ "externalId": "BKP",
+ "id": "SP_OP_BKP_1",
+ "name": "客户退货 (BKP)",
+ "solutionProcessId": "eedc3af4-163d-4fd8-9af8-aca2969e9a1d",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "JP",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ES",
+  "ZA",
+  "AE",
+  "AU",
+  "SG",
+  "CN",
+  "IE",
+  "IT",
+  "MY",
+  "RO",
+  "SE",
+  "AT",
+  "NZ",
+  "PH",
+  "HU",
+  "IN",
+  "DK",
+  "FI",
+  "HK",
+  "NO",
+  "ID",
+  "TR",
+  "TW",
+  "SA",
+  "KR",
+  "MX",
+  "SK",
+  "PL",
+  "CZ",
+  "TH",
+  "PT"
+ ],
+ "mod": "SD",
+ "tier": "B",
+ "name_en": "Customer Returns (BKP)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Customer Returns (BKP)</title>\n </head>\n <body id=\"loio5e37a46b54c34ecd93ae82cfe3d0e943\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio5e37a46b54c34ecd93ae82cfe3d0e943__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <div class=\"p\">\n       This scope item covers three customer return scenarios:\n       <ol class=\"ol\">\n        <li class=\"li\"><span class=\"ph emphasis\">Return to seller</span>: A returns order is created (optionally with reference to the original billing document or sales document). Once saved, a returns delivery is automatically generated. After goods receipt, the inspection takes place at the warehouse. The user can influence when the refunding documents are created: either directly, when releasing the returns order, or after the inspection. Finally, the user can decide on the compensation type for the customer: either shipping a replacement or paying a credit memo.</li>\n        <li class=\"li\"><span class=\"ph emphasis\">Return to seller with inspection at customer site</span>: The seller decides to perform the inspection at the customer site before initiating a physical return.</li>\n        <li class=\"li\"><span class=\"ph emphasis\">Return to supplier via seller</span>: After inspection at seller, the products should be shipped back to supplier. The supplier decides on the refund towards the seller, while the seller decides on the compensation towards the customer.</li>\n       </ol>\n      </div>\n      <p class=\"p\">The progress of the return process can be monitored using returns overview.</p>\n     </section>\n     <section class=\"section\" id=\"loio5e37a46b54c34ecd93ae82cfe3d0e943__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <p class=\"p\"><span class=\"ph emphasis\">Return to seller</span>:</p>\n      <ul class=\"ul\">\n       <li class=\"li\">Create returns order</li>\n       <li class=\"li\">Perform product inspection</li>\n       <li class=\"li\">Process logistical follow-up activities, as for instance transfer to free available stock or scrap</li>\n       <li class=\"li\">Determine compensation</li>\n       <li class=\"li\">Create credit memo or replace product free of charge</li>\n       <li class=\"li\">Display returns overview and track customer returns processes</li>\n      </ul>\n      <p class=\"p\"><span class=\"ph emphasis\">Return to seller with inspection at customer site</span>:</p>\n      <ul class=\"ul\">\n       <li class=\"li\">Create returns order</li>\n       <li class=\"li\">Change returns order after inspection at customer site</li>\n       <li class=\"li\">Reject return, specify compensation, or initiate physical return</li>\n       <li class=\"li\">Create credit memo or replace product free of charge</li>\n      </ul>\n      <p class=\"p\"><span class=\"ph emphasis\">Return to supplier via seller</span>:</p>\n      <ul class=\"ul\">\n       <li class=\"li\">Create returns order</li>\n       <li class=\"li\">Perform product inspection</li>\n       <li class=\"li\">Generate returns purchase order: Request return to supplier</li>\n       <li class=\"li\">Ship to supplier</li>\n       <li class=\"li\">Issue refund via credit memo or product replacement (shipped free of charge) from supplier to seller</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio5e37a46b54c34ecd93ae82cfe3d0e943__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Generate follow-up documents automatically</li>\n       <li class=\"li\">Perform refund in one step</li>\n       <li class=\"li\">Include goods inspection</li>\n       <li class=\"li\">Reduce transportation costs and save time while performing inspection at customer site</li>\n       <li class=\"li\">Return goods to supplier via seller</li>\n       <li class=\"li\">Provide end-to-end support and monitoring of the return process</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>客户退货 (BKP)</title>\n </head>\n <body id=\"loio5e37a46b54c34ecd93ae82cfe3d0e943\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio5e37a46b54c34ecd93ae82cfe3d0e943__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <div class=\"p\">\n       此范围项目涵盖三个客户退货场景：\n<ol class=\"ol\">\n        <li class=\"li\"><span class=\"ph emphasis\">退货给卖方</span>：创建退货订单（可以选择参考原始开票凭证或销售凭证）。保存后，将自动生成退货交货。收货后，在仓库进行检验。用户可以影响创建退款凭证的时间：直接在下达退货订单时，或在检验后。最后，用户可以决定客户的补偿类型：装运替换或支付贷项凭证。</li>\n        <li class=\"li\"><span class=\"ph emphasis\">退货给销售商并在客户现场进行检验</span>：卖方决定在发起实际退货之前在客户现场执行检验。</li>\n        <li class=\"li\"><span class=\"ph emphasis\">通过卖方退货至供应商</span>：在卖方检验后，产品应运回供应商。供应商决定向卖方退款，而卖方决定对客户进行补偿。</li>\n       </ol>\n      </div>\n      <p class=\"p\">可以使用退货概览监控退货流程的进度。</p>\n     </section>\n     <section class=\"section\" id=\"loio5e37a46b54c34ecd93ae82cfe3d0e943__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <p class=\"p\"><span class=\"ph emphasis\">退货给销售商</span>：</p>\n      <ul class=\"ul\">\n       <li class=\"li\">创建退货订单</li>\n       <li class=\"li\">执行产品检验</li>\n       <li class=\"li\">处理物流后续活动，例如传输到自由可用库存或报废</li>\n       <li class=\"li\">确定补偿</li>\n       <li class=\"li\">创建贷项凭证或免费替换产品</li>\n       <li class=\"li\">显示退货概览并跟踪客户退货流程</li>\n      </ul>\n      <p class=\"p\"><span class=\"ph emphasis\">退货给销售商并在客户地点检验</span>：</p>\n      <ul class=\"ul\">\n       <li class=\"li\">创建退货订单</li>\n       <li class=\"li\">在客户现场检验后更改退货订单</li>\n       <li class=\"li\">拒绝退货、指定补偿或发起实际退货</li>\n       <li class=\"li\">创建贷项凭证或免费替换产品</li>\n      </ul>\n      <p class=\"p\"><span class=\"ph emphasis\">通过卖方退货至供应商</span>：</p>\n      <ul class=\"ul\">\n       <li class=\"li\">创建退货订单</li>\n       <li class=\"li\">执行产品检验</li>\n       <li class=\"li\">生成退货采购订单：请求退货至供应商</li>\n       <li class=\"li\">装运至供应商</li>\n       <li class=\"li\">通过贷项凭证或产品替换（免费装运）向供应商发出退款</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio5e37a46b54c34ecd93ae82cfe3d0e943__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">自动生成后续凭证</li>\n       <li class=\"li\">一步执行退款</li>\n       <li class=\"li\">包括货物检验</li>\n       <li class=\"li\">在客户现场执行检验时，降低运输成本并节省时间</li>\n       <li class=\"li\">通过卖方将货物退回给供应商</li>\n       <li class=\"li\">提供退货流程的端到端支持和监控</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "客户退货 (BKP)",
+ "flows": [
+  {
+   "id": "add870da-ccc0-440f-992d-a07e0f1d7fb3",
+   "stableId": "SPF_OP_BKP_1",
+   "name": "Customer Returns (BKP)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "BKP - 03 - Customer Returns Management",
+     "stableId": "ERL-1f08af36af8f4dcda9dd14100440dc7a"
+    },
+    {
+     "name": "BKP - 01 - Customer Returns Management",
+     "stableId": "ERL-d7018f3c17ce43ff9eb9c0173dbf0418"
+    },
+    {
+     "name": "BKP - 02 - Customer Returns Management",
+     "stableId": "ERL-fc12cce1a80542c2a299e06a97d6b452"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

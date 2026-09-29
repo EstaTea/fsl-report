@@ -1,0 +1,318 @@
+{
+ "externalId": "1VB",
+ "id": "SP_OP_1VB_1",
+ "name": "生产集成 – 仓库中的组件消耗和收货 (1VB)",
+ "solutionProcessId": "427782db-06d2-4b22-bcce-e8fbce4a55e7",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "JP",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ES",
+  "ZA",
+  "AE",
+  "AU",
+  "SG",
+  "CN",
+  "IE",
+  "IT",
+  "MY",
+  "SE",
+  "NZ",
+  "PH",
+  "HU",
+  "HK",
+  "TW",
+  "RU"
+ ],
+ "mod": "MM",
+ "tier": "A",
+ "name_en": "Production Integration – Component Consumption and Receipt in Warehouse (1VB)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Production Integration – Component Consumption and Receipt in Warehouse (1VB)</title>\n </head>\n <body id=\"loio23a0178baa6a480ba5c322717b1dae9d\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio23a0178baa6a480ba5c322717b1dae9d__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">In this scope item, you can tightly integrate warehouse execution with manufacturing operations using the Advanced Production Integration functionality of basic warehouse management in <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span>. The warehouse execution for Production Orders is based on the Production Material Request (PMR) document. The PMR contains the information of component materials and quantities, which are needed for production.</p>\n      <p class=\"p\">This scenario supports warehouse execution for production orders in discrete manufacturing. You can enable synchronization of the material flows between warehouse and production and can improve inventory visibility and control as material movements are posted in real time in the warehouse. You stage components from the warehouse to the production supply area as they’re required for manufacturing operations and consume them from the production supply area. You receive finished goods and put them away as they arrive on a conveyor line from production into the warehouse. The finished goods are put away in the warehouse into the Bulk Storage. You get fully RF/mobile enabled process steps.</p>\n     </section>\n     <section class=\"section\" id=\"loio23a0178baa6a480ba5c322717b1dae9d__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Get anonymous forecast and MRP</li>\n       <li class=\"li\">Convert production orders, and ATP-check</li>\n       <li class=\"li\">Release production orders</li>\n       <li class=\"li\">Check production material requests (optional)</li>\n       <li class=\"li\">Plan staging</li>\n       <li class=\"li\">Check staging warehouse orders (optional)</li>\n       <li class=\"li\">Perform staging to the production supply area</li>\n       <li class=\"li\">Perform crate part replenishment</li>\n       <li class=\"li\">Consume material during production and post consumption</li>\n       <li class=\"li\">Confirm production operations</li>\n       <li class=\"li\">Check status of the production material requests (optional)</li>\n       <li class=\"li\">Clear the production supply area</li>\n       <li class=\"li\">Move products from the production supply area back to the warehouse</li>\n       <li class=\"li\">Perform the goods receipt from production</li>\n       <li class=\"li\">Put away of finished goods to the final bins</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio23a0178baa6a480ba5c322717b1dae9d__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Integrate the material flows between warehouse and production</li>\n       <li class=\"li\">Optimize the space usage of PSA via staging planning and PSA clearing</li>\n       <li class=\"li\">Enable warehouse processes with RF/mobile</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>生产集成 – 仓库中的组件消耗和收货 (1VB)</title>\n </head>\n <body id=\"loio23a0178baa6a480ba5c322717b1dae9d\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio23a0178baa6a480ba5c322717b1dae9d__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">在此范围项目中，您可以使用 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 中基本仓库管理的高级生产集成功能将仓库执行与制造工序紧密集成。生产订单的仓库执行基于生产物料请求 (PMR) 凭证。PMR 包含生产所需的组件物料和数量的信息。</p>\n      <p class=\"p\">此场景支持离散制造中生产订单的仓库执行。您可以启用仓库和生产之间物料流的同步，并可在物料移动在仓库中实时过账时提高库存可见性和控制。当制造工序需要组件并从生产供应区消耗组件时，可将其从仓库备料到生产供应区。当成品到达从生产到仓库的输送线时，您收到成品并将其入库。成品在仓库中入库到散装存储区。您将获得完全启用射频/移动设备的流程步骤。</p>\n     </section>\n     <section class=\"section\" id=\"loio23a0178baa6a480ba5c322717b1dae9d__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">获取匿名预测和 MRP</li>\n       <li class=\"li\">转换生产订单和 ATP 检查</li>\n       <li class=\"li\">下达生产订单</li>\n       <li class=\"li\">检查生产物料请求（可选）</li>\n       <li class=\"li\">计划备料</li>\n       <li class=\"li\">检查备料仓库订单（可选）</li>\n       <li class=\"li\">执行生产供应区的备料</li>\n       <li class=\"li\">执行条板箱件补货</li>\n       <li class=\"li\">在生产和过账消耗期间消耗物料</li>\n       <li class=\"li\">确认生产工序</li>\n       <li class=\"li\">检查生产物料请求的状态（可选）</li>\n       <li class=\"li\">清除生产供应区</li>\n       <li class=\"li\">将产品从生产供应区移回仓库。</li>\n       <li class=\"li\">执行来自生产的收货</li>\n       <li class=\"li\">将成品入库到最终仓位</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio23a0178baa6a480ba5c322717b1dae9d__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">集成仓库和生产之间的物料流</li>\n       <li class=\"li\">通过备货计划和 PSA 清算优化 PSA 的空间使用</li>\n       <li class=\"li\">通过 RF/移动设备启用仓库流程</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "生产集成 – 仓库中的组件消耗和收货 (1VB)",
+ "flows": [
+  {
+   "id": "759094de-aa4a-4d4d-b336-2cc9df5f4267",
+   "stableId": "SPF_OP_1VB_1",
+   "name": "Production Integration - Component Consumption and Receipt in Warehouse (1VB)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "1VB - Production Integration - Component Consumption and Receipt in Warehouse",
+     "stableId": "051Mdc327kUMoYGlf9f0tW"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

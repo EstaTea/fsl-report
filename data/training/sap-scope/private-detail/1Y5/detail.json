@@ -1,0 +1,96 @@
+{
+ "externalId": "1Y5",
+ "id": "SP_OP_1Y5_1",
+ "name": "通过制造执行系统的生产工序 (1Y5)",
+ "solutionProcessId": "92c45334-df6f-4714-9785-644a6c3e92ae",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "JP",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ES",
+  "ZA",
+  "AE",
+  "AU",
+  "SG",
+  "CN",
+  "IE",
+  "IT",
+  "MY",
+  "RO",
+  "SE",
+  "AT",
+  "NZ",
+  "PH",
+  "HU",
+  "IN",
+  "DK",
+  "FI",
+  "HK",
+  "NO",
+  "ID",
+  "TR",
+  "TW",
+  "SA",
+  "KR",
+  "MX",
+  "SK",
+  "PL",
+  "CZ",
+  "TH",
+  "BR"
+ ],
+ "mod": "PP",
+ "tier": "A",
+ "name_en": "Production Operations with Manufacturing Execution System (1Y5)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Production Operations with Manufacturing Execution System (1Y5)</title>\n </head>\n <body id=\"loio57a6cff011fb484a91f235878a6027e0\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio57a6cff011fb484a91f235878a6027e0__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">This scope item covers the setup of the integration from <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> to Manufacturing Execution Systems (MES).</p>\n      <p class=\"p\">An MES integrates business and manufacturing processes that help to run efficient, high quality production on the shop floor.</p>\n      <p class=\"p\">You can use this scope item as an example of how to integrate a local customer shop floor system directly into <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span>, giving manufacturing staff a clear overview of production operations and improving analytical capability for the management team. <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> is the system of record for all master data. An MES or a shop floor system is the system of record for all work in progress (WIP) data.</p>\n      <p class=\"p\">This communication scenario provides end points (inbound and outbound), which are needed to integrate an on-premise third-party MES solution (Manufacturing Execution System) to production operation through ALE IDocs, BAPI, and OData calls.</p>\n     </section>\n     <section class=\"section\" id=\"loio57a6cff011fb484a91f235878a6027e0__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Create, schedule, and release production order in the <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> system</li>\n       <li class=\"li\">Create and release production order in a Manufacturing Execution System (MES) or shop floor system</li>\n       <li class=\"li\">Update production order in an MES and send information back to the <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> system</li>\n       <li class=\"li\">Confirm production order in the SAP S/4HANA system</li>\n      </ul>\n      <p class=\"p\"></p>\n     </section>\n     <section class=\"section\" id=\"loio57a6cff011fb484a91f235878a6027e0__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Simplifies the integration of <span class=\"ph pname\">SAP S/4HANA Cloud Public Edition</span> of Manufacturing Execution Systems to Production Operation</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>通过制造执行系统的生产工序 (1Y5)</title>\n </head>\n <body id=\"loio57a6cff011fb484a91f235878a6027e0\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio57a6cff011fb484a91f235878a6027e0__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">此范围项目涵盖设置从 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 到制造执行系统 (MES) 的集成。</p>\n      <p class=\"p\">MES 集成了业务和制造流程，有助于在车间运行高效、高质量的生产。</p>\n      <p class=\"p\">您可以使用此范围项目作为示例，介绍如何将本地客户车间系统直接集成到 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span>，使制造员工能够清晰地了解生产操作并提高管理团队的分析能力。<span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 是所有主数据的记录系统。MES 或车间系统是所有在制品 (WIP) 数据的记录系统。</p>\n      <p class=\"p\">此通信场景提供端点（入站和出站），这些端点是通过 ALE IDoc、BAPI 和 OData 调用将企业预置第三方 MES 解决方案（制造执行系统）集成到生产操作所必需的。</p>\n     </section>\n     <section class=\"section\" id=\"loio57a6cff011fb484a91f235878a6027e0__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">在 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 系统中创建、计划和下达生产订单</li>\n       <li class=\"li\">在制造执行系统 (MES) 或车间系统中创建并下达生产订单</li>\n       <li class=\"li\">在 MES 中更新生产订单并将信息发送回 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 系统</li>\n       <li class=\"li\">在 SAP S/4HANA 系统中确认生产订单</li>\n      </ul>\n      <p class=\"p\"></p>\n     </section>\n     <section class=\"section\" id=\"loio57a6cff011fb484a91f235878a6027e0__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">简化制造执行系统的 <span class=\"ph pname\">SAP S/4HANA Cloud Public Edition</span> 到生产操作的集成</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "通过制造执行系统的生产工序 (1Y5)",
+ "flows": [
+  {
+   "id": "4862ca70-1e5a-4391-b1e1-e1486d156f96",
+   "stableId": "SPF_OP_1Y5_1",
+   "name": "Production Operations with Manufacturing Execution System (1Y5)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "1Y5 - 03 - Integration of Manufacturing Execution System to Production Operation",
+     "stableId": "ERL-3db4f6909e23445298ce4bb4adf7b2eb"
+    },
+    {
+     "name": "1Y5 - 02 - Integration of Manufacturing Execution System to Production Operation",
+     "stableId": "ERL-91f4f8cf5caf48c897d974ea253027fd"
+    },
+    {
+     "name": "1Y5 - 01 - Integration of Manufacturing Execution System to Production Operation",
+     "stableId": "ERL-9d00c3fc9a86484a8dba4522472ee357"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Set-up instructions",
+   "bomType": "BOM.E56",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

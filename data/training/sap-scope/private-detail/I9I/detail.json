@@ -1,0 +1,514 @@
+{
+ "externalId": "I9I",
+ "id": "SP_OP_I9I_1",
+ "name": "销售合同管理 (I9I)",
+ "solutionProcessId": "ea6bd118-baca-4302-97e6-141da7e92565",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "JP",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ES",
+  "ZA",
+  "AE",
+  "AU",
+  "SG",
+  "CN",
+  "IE",
+  "IT",
+  "MY",
+  "RO",
+  "SE",
+  "AT",
+  "NZ",
+  "PH",
+  "HU",
+  "IN",
+  "DK",
+  "FI",
+  "HK",
+  "NO",
+  "ID",
+  "TR",
+  "TW",
+  "SA",
+  "KR",
+  "MX",
+  "SK",
+  "PL",
+  "CZ",
+  "TH",
+  "PT",
+  "BR",
+  "RU"
+ ],
+ "mod": "SD",
+ "tier": "A",
+ "name_en": "Sales Contract Management (I9I)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Sales Contract Management (I9I)</title>\n </head>\n <body id=\"loiobb4f1fd71155418395dc73130bd65f07\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loiobb4f1fd71155418395dc73130bd65f07__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">This scope item addresses the following scenarios:</p>\n      <p class=\"p\">Sales quantity or sales value contract: The quantity contract contains basic quantity and price information. A value contract is a legal agreement with a customer that contains the materials and services that the customer receives within a specified time period, and for a value up to a specified target value. In this scope item, the internal sales representative creates a sales quantity or value contract. Following this, a call-off order is created against the contract.</p>\n      <p class=\"p\">Quantity-contract-based down payments: For the sales quantity contract, down payments can be requested via a billing plan. Upon call-off order creation, a delivery block is assigned to the call-off order schedule lines. Once the down payments are received, the delivery block is removed automatically. In the delivery-related final invoice of the call-off order, the received down payments for the quantity contract is deducted.</p>\n     </section>\n     <section class=\"section\" id=\"loiobb4f1fd71155418395dc73130bd65f07__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <p class=\"p\"><span class=\"ph emphasis\">Sales quantity or sales value contract</span></p>\n      <ul class=\"ul\">\n       <li class=\"li\">Post goods receipt</li>\n       <li class=\"li\">Create quantity or value contract</li>\n       <li class=\"li\">Create call-off sales order with reference to contract</li>\n       <li class=\"li\">List sales contracts</li>\n      </ul>\n      <p class=\"p\"><span class=\"ph emphasis\">Sales quantity contract-based down payments</span></p>\n      <ul class=\"ul\">\n       <li class=\"li\">Create sales quantity contract with billing plan to request down payments</li>\n       <li class=\"li\">Create down payment request</li>\n       <li class=\"li\">Create call-off order with delivery block</li>\n       <li class=\"li\">Post down payment</li>\n       <li class=\"li\">Remove the call-off order delivery block automatically once contract down payment is received</li>\n       <li class=\"li\">Deliver the call-off order</li>\n       <li class=\"li\">Provide delivery-related invoice of the call-off order, with deduction of contract-based down payments</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loiobb4f1fd71155418395dc73130bd65f07__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Provide secure planning with the use of quantity and value contracts: the customer can only call off the quantity or value for a certain price that is defined in the quantity or value contract</li>\n       <li class=\"li\">Provide a detailed monitoring of contract call-offs</li>\n       <li class=\"li\">Request down payments from a quantity contract</li>\n       <li class=\"li\">Create call-off orders with a derived delivery block on schedule lines</li>\n       <li class=\"li\">Reduce manual steps through automatic delivery block removal in the call-off order upon down payment receipt</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>销售合同管理 (I9I)</title>\n </head>\n <body id=\"loiobb4f1fd71155418395dc73130bd65f07\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loiobb4f1fd71155418395dc73130bd65f07__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">此范围项目处理以下场景：</p>\n      <p class=\"p\">销售数量或销售价值合同：数量合同包含基本数量和价格信息。价值合同是与客户签订的法律协议，其中包含客户在指定时间期间内收到的物料和服务，以及达到指定目标价值的价值。在此范围项目中，内部销售代表创建销售数量或价值合同。然后，根据合同创建按需下单订单。</p>\n      <p class=\"p\">基于数量合同的预付款：对于销售数量合同，可以通过开票计划请求预付款。创建按需下单订单时，会向按需下单订单计划行分配交货冻结。收到预付款后，将自动移除交货冻结。在按需下单订单的交货相关最终发票中，扣除已收到的数量合同预付款。</p>\n     </section>\n     <section class=\"section\" id=\"loiobb4f1fd71155418395dc73130bd65f07__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <p class=\"p\"><span class=\"ph emphasis\">销售数量或销售价值合同</span></p>\n      <ul class=\"ul\">\n       <li class=\"li\">过账收货</li>\n       <li class=\"li\">创建数量或价值合同</li>\n       <li class=\"li\">参考合同创建按需下单销售订单</li>\n       <li class=\"li\">列出销售合同</li>\n      </ul>\n      <p class=\"p\"><span class=\"ph emphasis\">基于销售数量合同的预付款</span></p>\n      <ul class=\"ul\">\n       <li class=\"li\">创建含开票计划的销售数量合同，以请求预付款</li>\n       <li class=\"li\">创建预付款请求</li>\n       <li class=\"li\">创建含交货冻结的按需下单订单</li>\n       <li class=\"li\">过账预付款</li>\n       <li class=\"li\">收到合同预付款后，自动移除取消订单交货冻结</li>\n       <li class=\"li\">交付按需下单订单</li>\n       <li class=\"li\">提供按需下单订单的交货相关发票，并扣除基于合同的预付款</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loiobb4f1fd71155418395dc73130bd65f07__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">提供使用数量和价值合同的安全计划：客户只能针对数量或价值合同中定义的特定价格取消数量或价值</li>\n       <li class=\"li\">提供合同下达的详细监控</li>\n       <li class=\"li\">从数量合同中请求预付款</li>\n       <li class=\"li\">在计划行上创建具有派生交货冻结的按需下单订单。</li>\n       <li class=\"li\">收到预付款后，通过在按需下单订单中自动移除交货冻结来减少手动步骤</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "销售合同管理 (I9I)",
+ "flows": [
+  {
+   "id": "0eb7b42b-8c7b-40eb-be01-8e67ef875bc7",
+   "stableId": "SPF_OP_I9I_1",
+   "name": "Sales Contract Management (I9I)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "I9I - Sales Contract Management",
+     "stableId": "ERL-316680684c8b4938ac56ec7c9fc3db14"
+    },
+    {
+     "name": "I9I - Down payments in sales quantity contracts",
+     "stableId": "ERL-3bc2dcabb17c4e32b6699a6e555cf60d"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Set-up instructions",
+   "bomType": "BOM.E56",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

@@ -1,0 +1,509 @@
+{
+ "externalId": "2QI",
+ "id": "SP_OP_2QI_1",
+ "name": "需求驱动的补货计划和执行 (2QI)",
+ "solutionProcessId": "1c5b1ffc-2f4d-4b3c-9eed-7ffa9912c84c",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "JP",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ES",
+  "ZA",
+  "AE",
+  "AU",
+  "SG",
+  "CN",
+  "IE",
+  "IT",
+  "MY",
+  "RO",
+  "SE",
+  "AT",
+  "NZ",
+  "PH",
+  "HU",
+  "IN",
+  "DK",
+  "FI",
+  "HK",
+  "NO",
+  "ID",
+  "TR",
+  "TW",
+  "SA",
+  "KR",
+  "MX",
+  "SK",
+  "PL",
+  "CZ",
+  "TH",
+  "PT",
+  "BR",
+  "RU"
+ ],
+ "mod": "PP",
+ "tier": "B",
+ "name_en": "Demand-Driven Replenishment Planning and Execution (2QI)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Demand-Driven Replenishment Planning and Execution (2QI)</title>\n </head>\n <body id=\"loio2966f6b37bd54f979fb6bf2f702d59b2\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio2966f6b37bd54f979fb6bf2f702d59b2__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">Demand-driven replenishment (DD) helps you efficiently plan and manage supply chains based on customer demand, rather than through traditional MRP procedures. It forms the basis for a reliable material flow by defining buffers at strategically important points and adjusting these buffers regularly.</p>\n      <p class=\"p\">Dedicated apps provide views for replenishment planning and execution. With replenishment planning, an overview of the buffer information sorted by planning priority is shown. With this, you can trigger replenishment on time to avoid stock shortages and delays in the completion of production or sales orders due to insufficient stock. With replenishment execution, you can view the current stock situation for each product and check that sufficient on-hand stock is available for production. You can expedite replenishment directly, and by using readily available contact details, such as contacting the supplier of a purchase order or the production supervisor of the component production order.</p>\n     </section>\n     <section class=\"section\" id=\"loio2966f6b37bd54f979fb6bf2f702d59b2__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <p class=\"p\">Replenishment Planning:</p>\n      <ul class=\"ul\">\n       <li class=\"li\">Review replenishment planning status of buffered components</li>\n       <li class=\"li\">Create demand for buffered component via the finished good (two options) with dependent requirement covering discrete and process industry as well as repetitive manufacturing</li>\n       <li class=\"li\">Create supply for buffered component after change of planning status</li>\n      </ul>\n      <p class=\"p\">Replenishment Execution:</p>\n      <ul class=\"ul\">\n       <li class=\"li\">Review replenishment execution status of buffered components after conversion of supply into production execution</li>\n       <li class=\"li\">Reduce on-hand stock to stimulate replenishment need (optional)</li>\n       <li class=\"li\">Expedite supply and run production execution to bring replenishment execution status to green</li>\n      </ul>\n      <p class=\"p\">Review Projected On-Hand Alerts:</p>\n      <ul class=\"ul\">\n       <li class=\"li\"><p class=\"p\">Review different on-hand alerts, such as safety stock alert, threshold alert, and stock-out alert, indicating potential upcoming on-hand stock issue</p></li>\n      </ul>\n      <p class=\"p\">Review Historical Buffer Performance</p>\n     </section>\n     <section class=\"section\" id=\"loio2966f6b37bd54f979fb6bf2f702d59b2__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Avoid the bull-whip effect in production by providing decoupling points with strategic stock positions</li>\n       <li class=\"li\">Ensure highest service levels at lowest possible inventory along all BOM levels</li>\n       <li class=\"li\">Relieve users of manual supply creation for demand-driven materials</li>\n       <li class=\"li\">Support user in identifying issues with current stock levels and in prioritizing the issues as a starting point for taking the right action</li>\n       <li class=\"li\">Cover dependent requirements configurations for discrete and process industry as well as repetitive manufacturing</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>需求驱动的补货计划和执行 (2QI)</title>\n </head>\n <body id=\"loio2966f6b37bd54f979fb6bf2f702d59b2\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio2966f6b37bd54f979fb6bf2f702d59b2__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">需求驱动补货 (DD) 可帮助您根据客户需求（而不是通过传统的 MRP 程序）有效地计划和管理供应链。它通过在战略上重要的点定义缓冲区并定期调整这些缓冲区，为可靠的物料流奠定了基础。</p>\n      <p class=\"p\">专用应用提供补货计划和执行视图。通过补货计划，显示按计划优先级排序的缓冲信息概览。这样，您可以按时触发补货，以避免库存短缺以及由于库存不足而导致生产或销售订单完成延迟。通过补货执行，您可以查看每个产品的当前库存情况，并检查是否有足够的现有库存可用于生产。您可以使用现成的联系人详细信息（例如联系采购订单的供应商或组件生产订单的生产主管）直接加快补货。</p>\n     </section>\n     <section class=\"section\" id=\"loio2966f6b37bd54f979fb6bf2f702d59b2__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <p class=\"p\">补货计划：</p>\n      <ul class=\"ul\">\n       <li class=\"li\">检查缓冲组件的补货计划状态</li>\n       <li class=\"li\">通过成品（两个选项）创建缓冲组件的需求，相关需求涵盖离散和流程行业以及重复制造</li>\n       <li class=\"li\">更改计划状态后，为缓冲组件创建供应</li>\n      </ul>\n      <p class=\"p\">补货执行：</p>\n      <ul class=\"ul\">\n       <li class=\"li\">在将供应转换为生产执行后，检查缓冲组件的补货执行状态</li>\n       <li class=\"li\">减少现有库存以刺激补货需求（可选）</li>\n       <li class=\"li\">加快供应并运行生产执行，使补货执行状态变为绿色</li>\n      </ul>\n      <p class=\"p\">查看预计现有库存警报：</p>\n      <ul class=\"ul\">\n       <li class=\"li\"><p class=\"p\">查看不同的现有警报，例如安全库存警报、阈值警报和缺货警报，指示即将出现的潜在现有库存问题</p></li>\n      </ul>\n      <p class=\"p\">检查历史缓冲区性能</p>\n     </section>\n     <section class=\"section\" id=\"loio2966f6b37bd54f979fb6bf2f702d59b2__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">通过为解耦点提供战略库存水平，避免生产中的牛鞭效应</li>\n       <li class=\"li\">在所有 BOM 级别的最低库存中确保最高服务级别</li>\n       <li class=\"li\">减少需求驱动物料的手动供应创建用户</li>\n       <li class=\"li\">支持用户识别当前库存水平的问题，并确定问题的优先级，作为采取正确操作的起点</li>\n       <li class=\"li\">涵盖离散和流程行业以及重复制造的相关需求配置。</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "需求驱动的补货计划和执行 (2QI)",
+ "flows": [
+  {
+   "id": "0fc60c4d-f2e5-4d1c-9c78-de54a9b00335",
+   "stableId": "SPF_OP_2QI_1",
+   "name": "Demand-Driven Replenishment Planning and Execution (2QI)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "2QI - 01 - Demand-Driven Replenishment Planning",
+     "stableId": "ERL-05b0317a15794b15af33912c05cd5f0a"
+    },
+    {
+     "name": "2QI - 02 - Demand-Driven Replenishment Execution",
+     "stableId": "ERL-19d965b921d04485bdf7d425829a8c4e"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

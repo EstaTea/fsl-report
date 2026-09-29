@@ -1,0 +1,67 @@
+{
+ "externalId": "7YY",
+ "id": "ERL-7917fbfa75ea49c4a1950d3596c8d33b",
+ "name": "多阶段公司间销售 (7YY)",
+ "solutionProcessId": "ffc83037-dad1-4f12-97ec-f0e77f591d17",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE"
+ ],
+ "mod": "SD",
+ "tier": "A",
+ "name_en": "Multistage Intercompany Sales (7YY)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Multistage Intercompany Sales (7YY)</title>\n </head>\n <body id=\"loio6cfb78d0b50b499fb1ab45f4e2250fd3\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio6cfb78d0b50b499fb1ab45f4e2250fd3__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">The Multistage Intercompany Sales process enables two or more affiliated companies running in the same system participate in a single intercompany process. The selling company sells a product from a stock that is owned by an affiliated company of the same group.</p>\n      <p class=\"p\">The selling company buys the goods directly from the affiliated company that delivers the goods, from an additional affiliated company, or from the last affiliate company of a chain of affiliated companies that act as intermediate companies.</p>\n      <p class=\"p\">The goods are then delivered by the delivering company that has the goods in stock. A drop shipment occurs, in which the goods are directly delivered from the stocked plant to the customer of the selling company</p>\n      <div class=\"p\">\n       With the Multistage Intercompany Sales process, the system creates the following additional business documents: \n       <ul class=\"ul\">\n        <li class=\"li\">Purchase orders in the selling and intermediate companies</li>\n        <li class=\"li\">Sales orders in the intermediate and delivering companies</li>\n       </ul>\n      </div>\n      <p class=\"p\">For the transfer of control of goods between the affiliated companies and to the customer, this process uses valuated stock.</p>\n     </section>\n     <section class=\"section\" id=\"loio6cfb78d0b50b499fb1ab45f4e2250fd3__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\"><p class=\"p\"><span class=\"ph emphasis\">Prerequisite</span>: Financial Chain for multistage intercompany sales has been setup and released for the sold material, the delivering plant, and the transit plant in the selling company.</p></li>\n       <li class=\"li\"><p class=\"p\">Create a sales order in the selling company.</p></li>\n       <li class=\"li\"><p class=\"p\">Triggering an intercompany purchase order in the selling company, an intercompany sales and intercompany purchase orders in the intermediate company, and an intercompany sales order in the delivering company.</p></li>\n       <li class=\"li\"><p class=\"p\">Create an outbound delivery in the delivering company with reference to the sales order in the selling company.</p></li>\n       <li class=\"li\"><p class=\"p\">Post a goods issue in the outbound delivery.</p></li>\n       <li class=\"li\"><p class=\"p\">Trigger goods issues from valuated stock and goods receipts into valuated stock along all involved affiliates.</p></li>\n       <li class=\"li\"><p class=\"p\">Create customer invoices in the selling company.</p></li>\n       <li class=\"li\"><p class=\"p\">Create intercompany customer invoices in the delivering and intermediate companies.</p></li>\n       <li class=\"li\"><p class=\"p\">Create intercompany supplier invoices in the intermediate and selling company.</p></li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio6cfb78d0b50b499fb1ab45f4e2250fd3__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <div class=\"p\">\n       Gain a smooth, comprehensive process that is highly automated and embedded into the following areas:\n       <ul class=\"ul\">\n        <li class=\"li\">Product compliance</li>\n        <li class=\"li\">Transport management (including freight costs)</li>\n        <li class=\"li\">Revenue recognition</li>\n        <li class=\"li\">Profitability reporting</li>\n        <li class=\"li\">Product costing</li>\n        <li class=\"li\">Group reporting and consolidation</li>\n       </ul>\n      </div>\n      <p class=\"p\">Consistently apply changes in customer-facing sales orders throughout the end-to-end document flow</p>\n      <p class=\"p\">Enable valuated stock in the involved affiliates with smooth change of control between affiliates and the customer</p>\n      <p class=\"p\">Gain a comprehensive process monitor for issue detection and posting services</p>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>多阶段公司间销售 (7YY)</title>\n </head>\n <body id=\"loio6cfb78d0b50b499fb1ab45f4e2250fd3\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio6cfb78d0b50b499fb1ab45f4e2250fd3__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">“多级公司间销售”流程使在同一系统中运行的两个或多个关联公司能够参与单个公司间流程。卖方公司销售库存中的产品，该库存由同一集团的关联公司所有。</p>\n      <p class=\"p\">销售公司直接从交付货物的联营公司、其他联营公司或充当中间公司的联营公司链的最后一个关联公司购买货物。</p>\n      <p class=\"p\">然后，库存中有货物的交货公司交付货物。发生供应商直接发货，其中货物直接从库存工厂交付给销售公司的客户</p>\n      <div class=\"p\">\n       在多阶段公司间销售流程中，系统会创建以下附加业务凭证： \n<ul class=\"ul\">\n        <li class=\"li\">销售和中间公司中的采购订单</li>\n        <li class=\"li\">中间公司和交货公司的销售订单</li>\n       </ul>\n      </div>\n      <p class=\"p\">对于联营公司和客户之间的货物控制权转移，此流程使用已评估库存。</p>\n     </section>\n     <section class=\"section\" id=\"loio6cfb78d0b50b499fb1ab45f4e2250fd3__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\"><p class=\"p\"><span class=\"ph emphasis\">前提条件</span>：已为销售公司的已售物料、交货工厂和中转工厂设置并发布用于多级公司间销售的财务链。</p></li>\n       <li class=\"li\"><p class=\"p\">在销售公司创建销售订单。</p></li>\n       <li class=\"li\"><p class=\"p\">触发销售公司的公司间采购订单、中间公司的公司间销售和公司间采购订单，以及交货公司的公司间销售订单。</p></li>\n       <li class=\"li\"><p class=\"p\">参考销售公司中的销售订单，在交货公司中创建出库交货。</p></li>\n       <li class=\"li\"><p class=\"p\">在外向交货中过账发货。</p></li>\n       <li class=\"li\"><p class=\"p\">触发从已评估库存和收货到所有相关关联公司的已评估库存的发货。</p></li>\n       <li class=\"li\"><p class=\"p\">在销售公司中创建客户发票。</p></li>\n       <li class=\"li\"><p class=\"p\">在交货公司和中间公司中创建公司间客户发票。</p></li>\n       <li class=\"li\"><p class=\"p\">在中间和销售公司中创建公司间供应商发票。</p></li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio6cfb78d0b50b499fb1ab45f4e2250fd3__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <div class=\"p\">\n       获得顺畅、全面的流程，该流程高度自动化并嵌入到以下领域：\n<ul class=\"ul\">\n        <li class=\"li\">产品合规性</li>\n        <li class=\"li\">运输管理（包括货运成本）</li>\n        <li class=\"li\">收入确认</li>\n        <li class=\"li\">获利能力报表</li>\n        <li class=\"li\">产品成本核算</li>\n        <li class=\"li\">集团报表和合并</li>\n       </ul>\n      </div>\n      <p class=\"p\">在整个端到端单据流中，始终在面向客户的销售订单中应用变更</p>\n      <p class=\"p\">启用相关联营公司的已评估库存，并顺利更改联营公司和客户之间的控制</p>\n      <p class=\"p\">获得全面的流程监控器，了解问题检测和过账服务</p>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "多阶段公司间销售 (7YY)",
+ "flows": [
+  {
+   "id": "2ab1a757-99bc-4acb-b548-9359f0089546",
+   "stableId": "ERL-414835cdc40a47cb83312aedee69572d",
+   "name": "Multistage Intercompany Sales (7YY)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "Multistage Intercompany Sales - No Intermediate Company (7YY)",
+     "stableId": "ERL-05c46d17f89f44cbbca51fd9e4df9b00"
+    },
+    {
+     "name": "Multistage Intercompany Sales - 2 Intermediate Companies (7YY)",
+     "stableId": "ERL-31ab3198e1b9477e956211b58e5c5b2c"
+    },
+    {
+     "name": "Multistage Intercompany Sales - 1 Intermediate Company (7YY)",
+     "stableId": "ERL-055720f9e8aa418bafd9f994ce2695b7"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Set-up instructions",
+   "bomType": "BOM.E56",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

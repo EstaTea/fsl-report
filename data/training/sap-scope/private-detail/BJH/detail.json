@@ -1,0 +1,494 @@
+{
+ "externalId": "BJH",
+ "id": "SP_OP_BJH_1",
+ "name": "按库存生产 - 重复制造 (BJH)",
+ "solutionProcessId": "917d977e-b58f-49eb-8b33-19b22319c384",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "JP",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ES",
+  "ZA",
+  "AE",
+  "AU",
+  "SG",
+  "CN",
+  "IE",
+  "IT",
+  "MY",
+  "RO",
+  "SE",
+  "AT",
+  "NZ",
+  "PH",
+  "HU",
+  "IN",
+  "DK",
+  "FI",
+  "HK",
+  "NO",
+  "ID",
+  "TR",
+  "TW",
+  "SA",
+  "KR",
+  "MX",
+  "SK",
+  "PL",
+  "CZ",
+  "TH",
+  "BR",
+  "RU"
+ ],
+ "mod": "MM",
+ "tier": "A",
+ "name_en": "Make-to-Stock Production – Repetitive Manufacturing (BJH)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Make-to-Stock Production – Repetitive Manufacturing (BJH)</title>\n </head>\n <body id=\"loiob0407f969387448fb427db732db36e8f\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loiob0407f969387448fb427db732db36e8f__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">Repetitive Manufacturing is commonly used when a production process meets the following criteria:</p>\n      <p class=\"p\">The same or similar products are produced over a lengthy period. The products produced are not manufactured in individually defined lots. Instead, a total quantity is produced over a certain period at a certain rate. The items produced always follow the same sequence through the machines and work centers in production. Routings tend to be simple and do not vary greatly.</p>\n      <p class=\"p\">This scenario starts with Planned Independent requirements (PIR). These are used to perform demand management functions. Material Requirements Planning (MRP) generates planned orders for the material to be produced. By using the planning table, planning the production of materials and capacity on the production lines can be completed. The confirmation of Repetitive Manufacturing triggers multiple activities, such as finished product goods receipt, backflush of component materials, posting of costs to cost collector, and creation of material and journal entries.</p>\n      <p class=\"p\">In Repetitive Manufacturing, the master plan is represented by the planning table. The planning table is a tool for operative planning and is used to plan the production quantities.</p>\n      <p class=\"p\">In a repetitive manufacturing environment, planning and control is usually carried out in a period and quantity basis. The layout of the planning table has been designed to support this requirement and is also based on periods to provide a very clear, easy-to-interpret overview of materials and production lines.</p>\n      <p class=\"p\">The planning table is the Production Planner's / MRP Controller's most important tool for planning the production quantities. At a glance the planner can check production quantities, monitor the available capacity of the production lines and check up on the availability situation of the products produced on each line.</p>\n      <p class=\"p\">You can directly enter and change production quantities in the planning table. You can assign 'non-assigned' production quantities to the production lines or you can reassign production quantities to alternative production lines.</p>\n      <p class=\"p\">You can use the planning table for planning with planned orders and production orders. The only prerequisite is that you must create a valid production version in the material master record.</p>\n      <p class=\"p\"></p>\n     </section>\n     <section class=\"section\" id=\"loiob0407f969387448fb427db732db36e8f__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Creation of planned independent requirements</li>\n       <li class=\"li\">Planning of material requirements at plant level</li>\n       <li class=\"li\">Adjustment of planning in planning table</li>\n       <li class=\"li\">Checking range of stock coverage</li>\n       <li class=\"li\">Material staging</li>\n       <li class=\"li\">Confirmation of assembly activities and repetitive manufacturing backflush</li>\n       <li class=\"li\">Post processing of error records</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loiob0407f969387448fb427db732db36e8f__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Make-to-stock production based on run schedules without reference to sales orders</li>\n       <li class=\"li\">Simplified handling of the production process with full cost control</li>\n       <li class=\"li\">Confirmation of assembly activities without using production or process orders</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>按库存生产 - 重复制造 (BJH)</title>\n </head>\n <body id=\"loiob0407f969387448fb427db732db36e8f\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loiob0407f969387448fb427db732db36e8f__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">通常在生产流程满足以下条件时使用重复制造：</p>\n      <p class=\"p\">长期生产相同或类似的产品。生产的产品不在单独定义的批次中制造。而是以特定比率在特定期间内生产总数量。在生产中，生产的项目始终遵循相同的机器和工作中心顺序。工艺路线趋于简单且变化不大。</p>\n      <p class=\"p\">此场景以计划独立需求 (PIR) 开始。这些用于执行需求管理功能。物料需求计划 (MRP) 为待生产的物料生成计划订单。通过使用计划表，可以完成生产线上物料生产和产能的计划。重复制造的确认会触发多项活动，例如成品收货、组件物料的反冲、成本到成本收集器的过账以及物料和日记账分录的创建。</p>\n      <p class=\"p\">在重复制造中，主计划由计划表表示。计划表是用于运营计划的工具，用于计划生产数量。</p>\n      <p class=\"p\">在重复制造环境中，计划和控制通常基于期间和数量执行。计划表的布局旨在支持此需求，还基于期间，以提供非常清晰、易于理解的物料和生产线概览。</p>\n      <p class=\"p\">计划表是生产计划员/MRP 控制员计划生产数量的最重要工具。计划员可以一目了然地检查生产数量、监控生产线的可用产能以及检查每条生产线上生产的产品的可用性情况。</p>\n      <p class=\"p\">您可以直接在计划表中输入和更改生产数量。您可以将“未分配”生产数量分配到生产线，也可以将生产数量重新分配到备选生产线。</p>\n      <p class=\"p\">您可以使用计划表对计划订单和生产订单进行计划。唯一的前提条件是您必须在物料主记录中创建有效的生产版本。</p>\n      <p class=\"p\"></p>\n     </section>\n     <section class=\"section\" id=\"loiob0407f969387448fb427db732db36e8f__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">创建计划独立需求</li>\n       <li class=\"li\">在工厂级别计划物料需求</li>\n       <li class=\"li\">调整计划表中的计划</li>\n       <li class=\"li\">检查库存覆盖范围</li>\n       <li class=\"li\">备料</li>\n       <li class=\"li\">确认装配活动和重复制造反冲</li>\n       <li class=\"li\">错误记录的后处理</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loiob0407f969387448fb427db732db36e8f__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">基于运行计划的按库存生产，不参考销售订单</li>\n       <li class=\"li\">通过全面的成本控制，简化生产流程的处理</li>\n       <li class=\"li\">确认装配活动，不使用生产或流程订单</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "按库存生产 - 重复制造 (BJH)",
+ "flows": [
+  {
+   "id": "1bcc848d-1e1f-4407-8ebc-dd4a70516310",
+   "stableId": "SPF_OP_BJH_1",
+   "name": "Make-to-Stock Production - Repetitive Manufacturing (BJH)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "BJH - Make-to-Stock Production - Repetitive Manufacturing",
+     "stableId": "ERL-5b41facfc2844512a0a21e2cbed894f3"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

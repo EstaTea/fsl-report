@@ -1,0 +1,414 @@
+{
+ "externalId": "55I",
+ "id": "SP_OP_55I_1",
+ "name": "销售的特许费结算 (55I)",
+ "solutionProcessId": "8b8e5329-981c-4829-afc6-509dd934eed2",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "JP",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ZA",
+  "AE",
+  "AU",
+  "SG",
+  "CN",
+  "IE",
+  "MY",
+  "RO",
+  "SE",
+  "AT",
+  "NZ",
+  "PH",
+  "DK",
+  "FI",
+  "HK",
+  "NO",
+  "ID",
+  "TW",
+  "SA",
+  "SK",
+  "PL",
+  "CZ",
+  "PT",
+  "RU"
+ ],
+ "mod": "SD",
+ "tier": "A",
+ "name_en": "Royalties Settlement for Sales (55I)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Royalties Settlement for Sales (55I)</title>\n </head>\n <body id=\"loio38375da659214a66a22ccc5bd592215e\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio38375da659214a66a22ccc5bd592215e__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">In this process, condition contracts are used to enter royalty agreements with licensers. In a condition contract, you specify the recipient of the royalties, the organizational and process control parameter, the business volume selection criteria, the royalty conditions, and the settlement calendar with the settlement dates for delta accrual, partial settlement, and final settlement. The delta accruals settlement reflects a procedure where accruals for royalties aren’t posted together with transactional documents but are posted later in a specific settlement run. When carrying out the partial and final settlements of a condition contract, you perform the calculation of royalties based on business volume and royalty conditions. You create the settlement documents that reflect invoices from the licenser for granting license rights in sales deals. In this scope item, the business volume is determined from sales and distribution (SD) billing documents.</p>\n     </section>\n     <section class=\"section\" id=\"loio38375da659214a66a22ccc5bd592215e__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Post billing documents</li>\n       <li class=\"li\">Enter condition contracts for royalty agreements</li>\n       <li class=\"li\">Check business volume (optional)</li>\n       <li class=\"li\">Post accruals (optional)</li>\n       <li class=\"li\">Perform partial settlement with reversal of accruals (optional)</li>\n       <li class=\"li\">Perform final settlement with reversal of accruals</li>\n       <li class=\"li\">Perform final settlement with adjustments (optional)</li>\n       <li class=\"li\">Determine royalties unlikelihood (optional)</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio38375da659214a66a22ccc5bd592215e__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Create and administer royalty agreements for licensers centrally</li>\n       <li class=\"li\">Settle royalties agreements accurately and automatically</li>\n       <li class=\"li\">Provide enhanced transparency and flexibility along the whole royalty agreements lifecycle</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>销售的特许费结算 (55I)</title>\n </head>\n <body id=\"loio38375da659214a66a22ccc5bd592215e\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio38375da659214a66a22ccc5bd592215e__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">在此流程中，条件合同用于输入具有许可方的特许权协议。在条件合同中，指定版税接收方、组织和流程控制参数、业务量选择条件、版税条件，以及含增量应计、部分结算和最终结算的结算日期的结算日历。增量应计结算反映了一种程序，其中版税应计不会与交易凭证一起过账，而是在特定结算运行中稍后过账。执行条件合同的部分和最终结算时，根据业务量和版税条件执行版税计算。创建反映来自许可证的发票的结算凭证，以授予销售交易中的许可证权利。在此范围项目中，根据销售和分销 (SD) 开票凭证确定业务量。</p>\n     </section>\n     <section class=\"section\" id=\"loio38375da659214a66a22ccc5bd592215e__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">过账开票凭证</li>\n       <li class=\"li\">输入版税协议的条件合同</li>\n       <li class=\"li\">检查业务量（可选）</li>\n       <li class=\"li\">过账应计（可选）</li>\n       <li class=\"li\">执行部分结算与冲销应计（可选）</li>\n       <li class=\"li\">执行最终结算与冲销应计</li>\n       <li class=\"li\">执行最终结算与调整（可选）</li>\n       <li class=\"li\">确定版税不可能性（可选）</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio38375da659214a66a22ccc5bd592215e__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">集中创建和管理许可方的特许权协议</li>\n       <li class=\"li\">准确自动地结算特许权协议</li>\n       <li class=\"li\">提高整个特许权协议生命周期的透明度和灵活性。</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "销售的特许费结算 (55I)",
+ "flows": [
+  {
+   "id": "d8680469-0732-4c2e-9e9f-7bf360bb9db7",
+   "stableId": "SPF_OP_55I_1",
+   "name": "Royalties Settlement for Sales (55I)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "55I - 01 - Royalties Settlement for Sales",
+     "stableId": "ERL-a53b227fb824439ab33214e2dc504920"
+    },
+    {
+     "name": "55I - 02 - Royalties Settlement for Sales (Two-Step Settlement)",
+     "stableId": "ERL-0fbec4a28c204c4e8625f72022360777"
+    },
+    {
+     "name": "55I - 03 - Royalties Settlement for Sales (Approval Workflow)",
+     "stableId": "ERL-f4677cd2fa3e4707a34f1c7050f9ee61"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

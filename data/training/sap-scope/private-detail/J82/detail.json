@@ -1,0 +1,503 @@
+{
+ "externalId": "J82",
+ "id": "SP_OP_J82_1",
+ "name": "使用 SAP Ariba Commerce Automation 的自动化采购到付款 (J82)",
+ "solutionProcessId": "8ba97756-c582-4faa-9923-8a27c34a2acb",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "JP",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ES",
+  "ZA",
+  "AE",
+  "AU",
+  "SG",
+  "CN",
+  "IE",
+  "IT",
+  "MY",
+  "RO",
+  "SE",
+  "AT",
+  "NZ",
+  "PH",
+  "HU",
+  "IN",
+  "DK",
+  "FI",
+  "HK",
+  "NO",
+  "ID",
+  "TR",
+  "TW",
+  "SA",
+  "KR",
+  "MX",
+  "SK",
+  "PL",
+  "CZ",
+  "TH",
+  "BR",
+  "RU"
+ ],
+ "mod": "MM",
+ "tier": "C",
+ "name_en": "Automated Purchase-to-Pay with SAP Ariba Commerce Automation (J82)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Automated Purchase-to-Pay with SAP Ariba Commerce Automation (J82)</title>\n </head>\n <body id=\"loio2983ac25e5e549688e0ee2b65b9b9234\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio2983ac25e5e549688e0ee2b65b9b9234__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">Automation of purchase order to invoice processing in SAP Business Network for Procurement with SAP Business Network Commerce Automation integration enables you to seamlessly connect from <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> to your suppliers in SAP Business Network for Procurement. You can send electronic purchase orders to your suppliers using SAP Business Network for Procurement and receive electronic order confirmations, advance shipping notices, and invoices from your suppliers in SAP Business Network for Procurement in <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span>. You can use Ariba Network integration in the procurement of direct or indirect materials and in the procurement of project-based services processes.</p>\n      <p class=\"p\">Digitized collaboration with your suppliers in SAP Business Network for Procurement supports you in speeding up procurement processes and in reducing the number of manual process steps, reducing the cost of transactions with your suppliers.</p>\n      <p class=\"p\">The Automation of Source-to-Pay with Ariba Network (42K) scope item is the successor to J82, leveraging SOAP APIs and the cloud integration gateway to integrate with SAP Business Network for Procurement. Customers who did not activate J82 previously need to activate 42K instead. Customers who already activated J82 can continue to use it until further notification.</p>\n      <p class=\"p\">New functionalities will be added only to the 42K scope item. Currently, 42K does not fully cover all functionalities of J82; the existing gaps will be closed gradually in future releases of <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span>. J82 is earmarked for deprecation after that.</p>\n     </section>\n     <section class=\"section\" id=\"loio2983ac25e5e549688e0ee2b65b9b9234__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Approved purchase orders are sent electronically to the suppliers you interact with via SAP Business Network for Procurement</li>\n       <li class=\"li\">Automatically receive digital order confirmations from your suppliers</li>\n       <li class=\"li\">Electronically process digital advance shipping notices sent by your suppliers in SAP Business Network for Procurement into inbound deliveries in <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span></li>\n       <li class=\"li\">Automatically send goods receipt notices to suppliers in SAP Business Network for Procurement</li>\n       <li class=\"li\">Electronically receive invoices from suppliers in SAP Business Network for Procurement</li>\n       <li class=\"li\">Digitally update suppliers in SAP Business Network for Procurement on invoice status updates</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio2983ac25e5e549688e0ee2b65b9b9234__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Reduce transaction costs</li>\n       <li class=\"li\">Speed up procurement processes</li>\n       <li class=\"li\">Improve compliance</li>\n       <li class=\"li\">Reduce manual process steps and achieve 98% touchless invoice processing</li>\n       <li class=\"li\">Increase productivity of procurement and accounts payable staff</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>使用 SAP Ariba Commerce Automation 的自动化采购到付款 (J82)</title>\n </head>\n <body id=\"loio2983ac25e5e549688e0ee2b65b9b9234\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio2983ac25e5e549688e0ee2b65b9b9234__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">通过 SAP Business Network Commerce Automation 集成在 SAP Business Network for Procurement 中自动化采购订单到发票处理，您可以从 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 无缝连接到 SAP Business Network for Procurement 中的供应商。您可以使用 SAP Business Network for Procurement 向供应商发送电子采购订单，并在 SAP <span class=\"ph pname\">S/4HANA Cloud Private Edition</span> 的 SAP Business Network for Procurement 中接收供应商的电子订单确认、提前发货通知和发票。您可以在直接或间接物料的采购以及基于项目的服务采购流程中使用 Ariba Network 集成。</p>\n      <p class=\"p\">与 SAP Business Network for Procurement 中的供应商进行数字化协作支持您加速采购流程并减少手动流程步骤，从而降低与供应商进行交易的成本。</p>\n      <p class=\"p\">使用 Ariba Network 自动化源到支付 (42K) 范围项目是 J82 的后继，利用 SOAP API 和 Cloud Integration Gateway 与 SAP Business Network for Procurement 集成。以前未激活 J82 的客户需要激活 42K。已激活 J82 的客户可以继续使用它，直到收到进一步通知。</p>\n      <p class=\"p\">新功能将仅添加到 42K 范围项目。目前，42K 未完全涵盖 J82 的所有功能；现有差距将在 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 的未来版本中逐步弥补。在此之后，J82 将标记为弃用。</p>\n     </section>\n     <section class=\"section\" id=\"loio2983ac25e5e549688e0ee2b65b9b9234__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">通过 SAP Business Network for Procurement 以电子方式将批准的采购订单发送给您与之交互的供应商</li>\n       <li class=\"li\">自动接收来自供应商的数字订单确认</li>\n       <li class=\"li\">在 SAP Business Network for Procurement 中以电子方式将供应商发送的数字提前装运通知处理为 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 中的入库交货</li>\n       <li class=\"li\">在 SAP Business Network for Procurement 中自动向供应商发送收货通知</li>\n       <li class=\"li\">在 SAP Business Network for Procurement 中以电子方式接收来自供应商的发票</li>\n       <li class=\"li\">根据发票状态更新在 SAP Business Network for Procurement 中以数字方式更新供应商</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio2983ac25e5e549688e0ee2b65b9b9234__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">降低交易成本</li>\n       <li class=\"li\">加快采购流程</li>\n       <li class=\"li\">提高合规性</li>\n       <li class=\"li\">减少手动流程步骤，实现 98% 的自动化发票处理</li>\n       <li class=\"li\">提高采购和应付账款人员的工作效率</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "使用 SAP Ariba Commerce Automation 的自动化采购到付款 (J82)",
+ "flows": [
+  {
+   "id": "d1a052b9-2127-4b31-a9ed-f764ae59aeab",
+   "stableId": "SPF_OP_J82_1",
+   "name": "Automated Purchase-to-Pay with SAP Ariba Commerce Automation (J82)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "J82 - Automated Purchase-to-Pay with SAP Ariba Commerce Automation",
+     "stableId": "ERL-150a2ec7a8004c11b1fdee4d22c850ad"
+    },
+    {
+     "name": "J82 - Ariba Purchase Order to Invoice Automation Integration for Procurement",
+     "stableId": "ERL-0caac1a3d21447a9b4eda3a08a24cdf8"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Set-up instructions",
+   "bomType": "BOM.E56",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

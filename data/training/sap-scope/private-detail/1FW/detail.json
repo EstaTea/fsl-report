@@ -1,0 +1,318 @@
+{
+ "externalId": "1FW",
+ "id": "SP_OP_1FW_1",
+ "name": "仓库中的库存盘点 (1FW)",
+ "solutionProcessId": "8d4d2be2-617f-4966-b8a3-ae44e098b6b0",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "JP",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ES",
+  "ZA",
+  "AE",
+  "AU",
+  "SG",
+  "CN",
+  "IE",
+  "IT",
+  "MY",
+  "SE",
+  "NZ",
+  "PH",
+  "HU",
+  "HK",
+  "TW",
+  "RU"
+ ],
+ "mod": "MM",
+ "tier": "B",
+ "name_en": "Physical Inventory in Warehouse (1FW)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Physical Inventory in Warehouse (1FW)</title>\n </head>\n <body id=\"loiofdeeef92d13c4864b27de53d4eb27f50\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loiofdeeef92d13c4864b27de53d4eb27f50__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">In this scope item, you create physical inventory (PI) documents for a chosen number of storage bins or products on a regular basis to distribute the workload for physical inventory over the year. You perform the counting using a radio-frequency (RF) device or paper.</p>\n      <p class=\"p\">By posting the PI documents, you adjust the book inventory in the storage bins to align it with the physical inventory counts. To adjust the stock accounts, the system automatically posts all differences up to a certain value with a background job. At different points in the process, tolerance checks control the count results and final postings that adjust the stock situation. Along with this process, you monitor the progress of your physical inventory within the warehouse monitor.</p>\n     </section>\n     <section class=\"section\" id=\"loiofdeeef92d13c4864b27de53d4eb27f50__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Create physical inventory documents</li>\n       <li class=\"li\">Alternative 1: Paper-based counting</li>\n       <li class=\"li\">Print physical inventory documents</li>\n       <li class=\"li\">Enter count results from printout into system</li>\n       <li class=\"li\">Alternative 2: RF-based counting</li>\n       <li class=\"li\">Enter count results into system (RF-device)</li>\n       <li class=\"li\">Monitor recount physical inventory documents (optional)</li>\n       <li class=\"li\">Post physical inventory documents</li>\n       <li class=\"li\">Post physical inventory differences</li>\n       <li class=\"li\">Review and post differences with difference analyzer</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loiofdeeef92d13c4864b27de53d4eb27f50__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Manage stock on a storage bin level</li>\n       <li class=\"li\">Establish an inventory counting process with a periodic physical counting approach</li>\n       <li class=\"li\">Support efficient examination of the stock situation in your warehouse</li>\n       <li class=\"li\">Enable RF-based or paper-based counting</li>\n       <li class=\"li\">Reduce inventory losses in the warehouse</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>仓库中的库存盘点 (1FW)</title>\n </head>\n <body id=\"loiofdeeef92d13c4864b27de53d4eb27f50\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loiofdeeef92d13c4864b27de53d4eb27f50__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">在此范围项目中，定期为所选数量的仓位或产品创建库存盘点 (PI) 凭证，以分配全年库存盘点的工作量。使用射频 (RF) 设备或纸张执行盘点。</p>\n      <p class=\"p\">通过过账库存盘点凭证，可以调整仓位中的账面库存，使其与实际库存盘点保持一致。要调整库存科目，系统会通过后台作业自动过账达到特定值的所有差异。在流程的不同阶段，容差检查控制调整库存情况的盘点结果和最终过账。在此流程中，您可以在仓库监控器中监控库存盘点的进度。</p>\n     </section>\n     <section class=\"section\" id=\"loiofdeeef92d13c4864b27de53d4eb27f50__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">创建库存盘点凭证</li>\n       <li class=\"li\">备选方案 1：纸质盘点</li>\n       <li class=\"li\">打印库存盘点凭证</li>\n       <li class=\"li\">将打印输出中的盘点结果输入到系统中</li>\n       <li class=\"li\">备选 2：基于射频的盘点</li>\n       <li class=\"li\">将盘点结果输入到系统中（射频设备）</li>\n       <li class=\"li\">监控重新盘点库存盘点凭证（可选）</li>\n       <li class=\"li\">过账库存盘点凭证</li>\n       <li class=\"li\">过账库存盘点差异</li>\n       <li class=\"li\">使用差异分析器检查并过账差异</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loiofdeeef92d13c4864b27de53d4eb27f50__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">在仓位级别管理库存</li>\n       <li class=\"li\">采用定期库存盘点方法，建立库存盘点流程</li>\n       <li class=\"li\">支持高效检查仓库中的库存情况。</li>\n       <li class=\"li\">启用基于 RF 的盘点或纸质盘点</li>\n       <li class=\"li\">减少仓库中的库存损失</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "仓库中的库存盘点 (1FW)",
+ "flows": [
+  {
+   "id": "8c952dda-e45d-4894-aaa1-b0ab569af2e5",
+   "stableId": "SPF_OP_1FW_1",
+   "name": "Physical Inventory in Warehouse (1FW)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "1FW - Physical Inventory in Warehouse",
+     "stableId": "051Mdc327kY1qFF9aKgMNG"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

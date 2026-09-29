@@ -1,0 +1,498 @@
+{
+ "externalId": "3G8",
+ "id": "SP_OP_3G8_1",
+ "name": "价值链中的危险品 (3G8)",
+ "solutionProcessId": "a007d15b-a9c7-4bb3-a183-5301e69d6185",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "JP",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ES",
+  "ZA",
+  "AE",
+  "AU",
+  "SG",
+  "CN",
+  "IE",
+  "IT",
+  "MY",
+  "RO",
+  "SE",
+  "AT",
+  "NZ",
+  "PH",
+  "HU",
+  "IN",
+  "DK",
+  "FI",
+  "HK",
+  "NO",
+  "ID",
+  "TR",
+  "TW",
+  "SA",
+  "KR",
+  "MX",
+  "SK",
+  "PL",
+  "CZ",
+  "TH",
+  "PT",
+  "RU"
+ ],
+ "mod": "",
+ "tier": "D",
+ "name_en": "Dangerous Goods in the Value Chain (3G8)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Dangerous Goods in the Value Chain (3G8)</title>\n </head>\n <body id=\"loio7bc4377b801843c5a4bcf76e8d9e6f97\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio7bc4377b801843c5a4bcf76e8d9e6f97__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">This scope item supports a dangerous goods transport permissibility check that is carried out in business documents within the value chain and the printing of the dangerous goods description on certain documents as follows:</p>\n      <ul class=\"ul\" id=\"loio7bc4377b801843c5a4bcf76e8d9e6f97__ul_eyp_lrf_xwb\">\n       <li class=\"li\"><p class=\"p\">In sales documents and outbound delivery documents, a transport permissibility check is carried out for all compliance-relevant products. For each compliance-relevant product that is added to a business document, the system checks if the product is classified as a dangerous good. If so, the system checks if the transport of the product is allowed. If the product is not classified or if transport is not allowed, this check can result in a block. If a dangerous goods assessment is not yet completed, a corresponding request to the product steward specialist or the dangerous goods specialists is created.</p></li>\n       <li class=\"li\"><p class=\"p\">Dangerous goods descriptions are printed on sales order confirmations, delivery notes, and picking lists.</p></li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio7bc4377b801843c5a4bcf76e8d9e6f97__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\" id=\"loio7bc4377b801843c5a4bcf76e8d9e6f97__ul_txg_nr2_xwb\">\n       <li class=\"li\">Create a sales order</li>\n       <li class=\"li\">Carry out the dangerous goods check in the sales order</li>\n       <li class=\"li\">Trigger a dangerous goods assessment if it is missing</li>\n       <li class=\"li\">Print the dangerous goods description on a sales order confirmation</li>\n       <li class=\"li\">Trigger outbound delivery creation</li>\n       <li class=\"li\">Carry out the dangerous goods check in the outbound delivery</li>\n       <li class=\"li\">Perform picking/packing</li>\n       <li class=\"li\">Print the dangerous goods description on the picking list and the delivery note</li>\n       <li class=\"li\">Post the goods issue</li>\n       <li class=\"li\">Carry out the dangerous goods check at goods issue in the outbound delivery</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio7bc4377b801843c5a4bcf76e8d9e6f97__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\" id=\"loio7bc4377b801843c5a4bcf76e8d9e6f97__ul_um4_kr2_xwb\">\n       <li class=\"li\">Mitigate compliance risks with up-to-date information integrated into the value chain</li>\n       <li class=\"li\">Integrate dangerous goods checks in the selling, delivery, transportation, and purchasing processes</li>\n       <li class=\"li\">Inform the product steward specialist and the dangerous goods specialists about new countries/regions where products are intended to be transported</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>价值链中的危险品 (3G8)</title>\n </head>\n <body id=\"loio7bc4377b801843c5a4bcf76e8d9e6f97\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio7bc4377b801843c5a4bcf76e8d9e6f97__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">此范围项目支持在价值链内的业务凭证中执行的危险品运输许可检查，并在特定凭证上打印危险品描述，如下所示：</p>\n      <ul class=\"ul\" id=\"loio7bc4377b801843c5a4bcf76e8d9e6f97__ul_eyp_lrf_xwb\">\n       <li class=\"li\"><p class=\"p\">在销售凭证和出库交货凭证中，对所有合规性相关产品执行运输许可检查。对于添加到业务凭证的每个合规性相关产品，系统会检查产品是否分类为危险品。如果是，系统会检查是否允许运输产品。如果产品未分类或不允许运输，则此检查可能导致冻结。如果危险品评估尚未完成，则会创建向产品管理专家或危险品专家提出的相应请求。</p></li>\n       <li class=\"li\"><p class=\"p\">危险品描述打印在销售订单确认、交货单和拣配清单中。</p></li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio7bc4377b801843c5a4bcf76e8d9e6f97__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\" id=\"loio7bc4377b801843c5a4bcf76e8d9e6f97__ul_txg_nr2_xwb\">\n       <li class=\"li\">创建销售订单</li>\n       <li class=\"li\">在销售订单中执行危险品检查。</li>\n       <li class=\"li\">如果缺少危险品评估，则触发评估</li>\n       <li class=\"li\">在销售订单确认上打印危险品描述。</li>\n       <li class=\"li\">触发出库交货创建</li>\n       <li class=\"li\">在出库交货中执行危险品检查。</li>\n       <li class=\"li\">执行拣配/包装</li>\n       <li class=\"li\">打印拣配清单上的危险品描述，然后打印交货单</li>\n       <li class=\"li\">过账发货</li>\n       <li class=\"li\">在出库交货发货时执行危险品检查。</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio7bc4377b801843c5a4bcf76e8d9e6f97__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\" id=\"loio7bc4377b801843c5a4bcf76e8d9e6f97__ul_um4_kr2_xwb\">\n       <li class=\"li\">通过将最新信息集成到价值链中，降低合规性风险</li>\n       <li class=\"li\">在销售、交货、运输和采购流程中集成危险品检查</li>\n       <li class=\"li\">通知产品管理专家和危险品专家有关计划运输产品的新国家/地区</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "价值链中的危险品 (3G8)",
+ "flows": [
+  {
+   "id": "9a0106c9-7a66-4146-b2aa-8b6db7a02f7d",
+   "stableId": "SPF_OP_3G8_1",
+   "name": "Dangerous Goods in the Value Chain (3G8)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "3G8 - Create Sales Order with a Dangerous Good with Transport Permission Allowed",
+     "stableId": "ERL-17036b44b42147efb6b4e78a2200510a"
+    },
+    {
+     "name": "3G8 - Create Sales Order with a Dangerous Good with Transport Permission Restricted",
+     "stableId": "ERL-ca7813a4d41649358039f4c352963ebe"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

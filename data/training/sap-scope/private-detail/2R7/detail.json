@@ -1,0 +1,440 @@
+{
+ "externalId": "2R7",
+ "id": "SP_OP_2R7_2",
+ "name": "采购返利处理 (2R7)",
+ "solutionProcessId": "51ae1316-180a-4756-bbd2-d4d5eed2ab23",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "JP",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ES",
+  "ZA",
+  "AE",
+  "AU",
+  "SG",
+  "CN",
+  "IE",
+  "IT",
+  "MY",
+  "RO",
+  "SE",
+  "AT",
+  "NZ",
+  "PH",
+  "HU",
+  "DK",
+  "FI",
+  "HK",
+  "NO",
+  "ID",
+  "TW",
+  "SA",
+  "SK",
+  "PL",
+  "CZ",
+  "PT"
+ ],
+ "mod": "MM",
+ "tier": "A",
+ "name_en": "Purchasing Rebate Processing (2R7)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Purchasing Rebate Processing (2R7)</title>\n </head>\n <body id=\"loiocc12da40f5484b459c9642d75884830d\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loiocc12da40f5484b459c9642d75884830d__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">This scope item covers the subsequent settlement of rebate conditions agreed on with suppliers. You use condition contracts to enter the rebate conditions, together with the process control parameters, business volume selection criteria, and settlement dates for partial and final settlement.</p>\n      <p class=\"p\">To claim rebate payments from suppliers, you create settlement documents. Supplier invoices or material documents of goods receipt postings are used to determine business volume.</p>\n      <p class=\"p\">If rebates lower costs, you perform a goods-related settlement as an account payable to create a credit memo with the supplier as the payer. If a rebate agreement reflects a service rendered for the supplier, you perform settlement as an account receivable to create an invoice for the supplier.</p>\n      <p class=\"p\">Settlement documents are usually immediately released to accounting. You can also create a two-step condition contract to collect and post settlement documents of different condition contracts in one journal entry to accounting.</p>\n     </section>\n     <section class=\"section\" id=\"loiocc12da40f5484b459c9642d75884830d__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Create condition contract for a supplier as business partner</li>\n       <li class=\"li\">Release the condition contract (optional)</li>\n       <li class=\"li\">Run the procurement process parallel to the condition contract lifecycle</li>\n       <li class=\"li\">Check business volume (optional)</li>\n       <li class=\"li\">Post accruals (optional)</li>\n       <li class=\"li\">Run partial settlement with reversal of accruals (optional)</li>\n       <li class=\"li\">Run final settlement with reversal of accruals</li>\n       <li class=\"li\">Release the settlement of the condition contract (optional)</li>\n       <li class=\"li\">Release the settlement document of the condition contract to accounting (optional)</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loiocc12da40f5484b459c9642d75884830d__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Manage purchasing rebate agreements centrally</li>\n       <li class=\"li\">Create different types of purchasing rebate agreements according to your business needs</li>\n       <li class=\"li\">Settle purchasing rebate agreements automatically</li>\n       <li class=\"li\">Provide enhanced transparency and flexibility along the whole condition contract lifecycle</li>\n       <li class=\"li\">Process purchasing rebate consistently with the procurement process</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>采购返利处理 (2R7)</title>\n </head>\n <body id=\"loiocc12da40f5484b459c9642d75884830d\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loiocc12da40f5484b459c9642d75884830d__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">此范围项目涵盖与供应商商定的返利条件的后续结算。使用条件合同输入返利条件，以及流程控制参数、业务量选择条件以及部分和最终结算的结算日期。</p>\n      <p class=\"p\">要向供应商申请返利付款，请创建结算凭证。收货过账的供应商发票或物料凭证用于确定业务量。</p>\n      <p class=\"p\">如果返利成本较低，则执行货物相关结算作为应付账款，以创建供应商作为付款方的贷项凭证。如果返利协议反映了为供应商提供的服务，则作为应收账款执行结算以创建供应商发票。</p>\n      <p class=\"p\">结算凭证通常立即发布到会计核算。您还可以创建两步式条件合同，在一个日记账分录中收集不同条件合同的结算凭证并将其过账到会计核算。</p>\n     </section>\n     <section class=\"section\" id=\"loiocc12da40f5484b459c9642d75884830d__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">为供应商创建条件合同作为业务伙伴</li>\n       <li class=\"li\">审批条件合同（可选）</li>\n       <li class=\"li\">与条件合同生命周期并行运行采购流程。</li>\n       <li class=\"li\">检查业务量（可选）</li>\n       <li class=\"li\">过账应计（可选）</li>\n       <li class=\"li\">运行部分结算与冲销应计（可选）</li>\n       <li class=\"li\">运行最终结算与冲销应计</li>\n       <li class=\"li\">审批条件合同的结算（可选）</li>\n       <li class=\"li\">将条件合同的结算凭证审批到会计核算（可选）</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loiocc12da40f5484b459c9642d75884830d__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">集中管理采购返利协议</li>\n       <li class=\"li\">根据您的业务需求，创建不同类型的采购返利协议</li>\n       <li class=\"li\">自动结算采购返利协议</li>\n       <li class=\"li\">提高整个条件合同生命周期的透明度和灵活性。</li>\n       <li class=\"li\">与采购流程一致地处理采购返利</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "采购返利处理 (2R7)",
+ "flows": [
+  {
+   "id": "ed5b7220-da5d-47e4-878d-f2480f01b3d6",
+   "stableId": "SPF_OP_2R7_2",
+   "name": "Purchasing Rebate Processing (2R7)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "2R7 - 03 - Purchasing Rebate Processing (Approval Workflow)",
+     "stableId": "ERL-c82ec980a3024acb9af75e8e5fb2779b"
+    },
+    {
+     "name": "2R7 - 04 - Purchasing Rebate Processing (Fixed Amount)",
+     "stableId": "ERL-86bcf88e02894b82a51a0e1488b98ab2"
+    },
+    {
+     "name": "2R7 - 01 - Purchasing Rebate Processing",
+     "stableId": "ERL-7746ad3003c64cffb254def7bd2b53a4"
+    },
+    {
+     "name": "2R7 - 02 - Purchasing Rebate Processing (Two-Step Settlement)",
+     "stableId": "ERL-55f60549b8fd4186b93b5255a3605b0f"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

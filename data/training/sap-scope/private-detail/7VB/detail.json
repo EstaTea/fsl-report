@@ -1,0 +1,54 @@
+{
+ "externalId": "7VB",
+ "id": "ERL-4456e4bba9df4989908cc7880fd3794e",
+ "name": "计算经济订单数量和安全库存 (7VB)",
+ "solutionProcessId": "042ebbc5-0d7f-4196-a882-4c38f8c537da",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE"
+ ],
+ "mod": "MM",
+ "tier": "A",
+ "name_en": "Calculation of Economic Order Quantity and Safety Stock (7VB)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <meta name=\"Solution Variant\" content=\"ERL-4456e4bba9df4989908cc7880fd3794e_null\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Calculation of Economic Order Quantity and Safety Stock (7VB)</title>\n </head>\n <body id=\"loioe54706bcf74d4a83be459d2745511de1\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loioe54706bcf74d4a83be459d2745511de1__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">Most service parts are typically in immediate demand, which means they must be readily available in stock. Since forecasts are essentially estimates of future demand, it is crucial to address any discrepancies between actual demand and unexpected supply issues by maintaining safety stock. The Extended Service Parts Planning (eSPP) solution is designed to assist in planning and procuring the necessary service parts. A key aspect of this solution involves the steps taken to plan the required inventory, particularly when calculating appropriate safety stock levels.</p>\n      <p class=\"p\">Currently, eSPP offers two different methods to calculate EOQ and safety stocks:</p>\n      <ul class=\"ul\">\n       <li class=\"li\"><strong class=\"ph b\">Classic EOQ/Safety Stock</strong>: The native method carries out essential calculations within eSPP.</li>\n       <li class=\"li\"><strong class=\"ph b\">Multistage Safety Stock</strong>: The more sophisticated way using the Supply Chain Algorithms Library (SCAL).</li>\n      </ul>\n      <p class=\"p\">Both methods have their own use cases and advantages. However, for the purpose of this best practice, a detailed procedure is provided for calculating the Economic Order Quantity (EOQ) and Safety Stock using the Multistage Safety Stock calculation service.</p>\n      <p class=\"p\">The Multistage Safety Stock calculation is designed to help you balance customer service and inventory investment levels. This service calculates optimal safety stock values for each product across the entire distribution network, as specified by the Bill of Distribution (BOD). In addition to safety stock, it also computes the Reorder Point, Economic Order Quantity (EOQ), and the EOQ Period. Furthermore, the service provides key explanatory figures that offer insights into the reasons behind safety stock levels throughout the BOD.</p>\n      <p class=\"p\">As an inventory planner, you establish business rules based on factors such as product group, location, etc. These rules include target service levels and minimum and maximum limits for safety stock, EOQ, and other parameters. Using this input data, you generate an inventory plan by running a planning service that calculates optimal EOQ and safety stock for every product across the distribution network. With the planning view and worklist, you can review the optimization results and approve the inventory plan for the required location product.</p>\n     </section>\n     <section class=\"section\" id=\"loioe54706bcf74d4a83be459d2745511de1__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Establish business rules for calculating EOQ and Safety Stocl</li>\n       <li class=\"li\">Choose the appropriate inventory planning mode - Classic vs. Multistage</li>\n       <li class=\"li\">Execute Multistage Safety Stock planning</li>\n       <li class=\"li\">Approve Safety Stock quantities</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loioe54706bcf74d4a83be459d2745511de1__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n     </section>\n     <section class=\"section\">\n      <ul class=\"ul\">\n       <li class=\"li\">Efficiently allocate safety stock with multistage inventory optimization</li>\n       <li class=\"li\">Reduce stockholding and purchasing costs and improve service levels</li>\n       <li class=\"li\">Get insight into drivers of safety stocks across a bill of distribution (BoD) with multistage inventory optimization</li>\n       <li class=\"li\">Improve planner productivity, standardize planning processes</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loioe54706bcf74d4a83be459d2745511de1__non_standard\">\n      <p class=\"p\"><span class=\"ph emphasis\">Exclude from Default Activation</span></p>\n      <p class=\"p\">This scope item is excluded from the default activation.</p>\n     </section>\n     <section class=\"section\" id=\"loioe54706bcf74d4a83be459d2745511de1__non_standard_reason\">\n      <p class=\"p\"><span class=\"ph emphasis\">Reason for Excluding from Default Activation</span></p>\n      <p class=\"p\">Additional License is required for <span class=\"ph emphasis\">Extended Service Parts Planning</span>.</p>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <meta name=\"Solution Variant\" content=\"ERL-4456e4bba9df4989908cc7880fd3794e_null\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>计算经济订单数量和安全库存 (7VB)</title>\n </head>\n <body id=\"loioe54706bcf74d4a83be459d2745511de1\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loioe54706bcf74d4a83be459d2745511de1__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">大多数服务部件通常是即时需求，这意味着它们必须在库存中随时可用。由于预测本质上是对未来需求的估算，因此通过维护安全库存来解决实际需求和意外供应问题之间的任何差异至关重要。扩展服务备件计划 (eSPP) 解决方案旨在帮助计划和采购必要的服务备件。此解决方案的一个关键方面涉及为计划所需库存而采取的步骤，尤其是在计算相应的安全库存级别时。</p>\n      <p class=\"p\">目前，eSPP 提供两种不同的方法来计算 EOQ 和安全库存：</p>\n      <ul class=\"ul\">\n       <li class=\"li\"><strong class=\"ph b\">传统 EOQ/安全库存</strong>：本机方法在 eSPP 中执行基本计算。</li>\n       <li class=\"li\"><strong class=\"ph b\">多阶段安全库存</strong>：使用供应链算法库 (SCAL) 的更复杂方法。</li>\n      </ul>\n      <p class=\"p\">这两种方法都有自己的用例和优势。但是，出于此最佳实践的目的，提供了使用多阶段安全库存计算服务计算经济订单数量 (EOQ) 和安全库存的详细程序。</p>\n      <p class=\"p\">多阶段安全库存计算旨在帮助您平衡客户服务和库存投资级别。此服务计算整个分销网络中每个产品的最佳安全库存值，由分销清单 (BOD) 指定。除安全库存外，还会计算重订货点、经济订单数量 (EOQ) 和 EOQ 期间。此外，该服务还提供关键解释指标，用于深入了解整个 BOD 中安全库存级别背后的原因。</p>\n      <p class=\"p\">作为库存计划员，您可以根据产品组、位置等因素建立业务规则。这些规则包括目标服务级别以及安全库存、EOQ 和其他参数的最小和最大限制。使用此输入数据，您可以通过运行计划服务来生成库存计划，该服务为分销网络中的每个产品计算最佳 EOQ 和安全库存。通过计划视图和工作清单，您可以审核优化结果并批准所需位置产品的库存计划。</p>\n     </section>\n     <section class=\"section\" id=\"loioe54706bcf74d4a83be459d2745511de1__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">建立计算 EOQ 和安全库存的业务规则</li>\n       <li class=\"li\">选择相应的库存计划模式 - 经典与多阶段</li>\n       <li class=\"li\">执行多阶段安全库存计划</li>\n       <li class=\"li\">批准安全库存数量</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loioe54706bcf74d4a83be459d2745511de1__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n     </section>\n     <section class=\"section\">\n      <ul class=\"ul\">\n       <li class=\"li\">通过多阶段库存优化高效分配安全库存</li>\n       <li class=\"li\">降低库存持有成本和采购成本，提高服务水平</li>\n       <li class=\"li\">通过多阶段库存优化，深入了解分销清单 (BoD) 中的安全库存驱动因素</li>\n       <li class=\"li\">提高计划员工作效率，标准化计划流程</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loioe54706bcf74d4a83be459d2745511de1__non_standard\">\n      <p class=\"p\"><span class=\"ph emphasis\">从默认激活中排除</span></p>\n      <p class=\"p\">此范围项目从缺省激活中排除。</p>\n     </section>\n     <section class=\"section\" id=\"loioe54706bcf74d4a83be459d2745511de1__non_standard_reason\">\n      <p class=\"p\"><span class=\"ph emphasis\">从缺省激活中排除的原因</span></p>\n      <p class=\"p\"><span class=\"ph emphasis\">扩展服务备件计划</span>需要附加许可。</p>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "计算经济订单数量和安全库存 (7VB)",
+ "flows": [
+  {
+   "id": "45f1edb9-8c75-44af-b38a-fc4026a47b04",
+   "stableId": "ERL-f5bbc32ace6141879cfba4008e64a98b",
+   "name": "Calculation of Economic Order Quantity and Safety Stock (7VB)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "7VB - Calculation of Economic Order Quantity and Safety Stock",
+     "stableId": "ERL-7a75652f3f2e4149af1ce388880f641c"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

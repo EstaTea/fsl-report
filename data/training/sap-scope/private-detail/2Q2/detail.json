@@ -1,0 +1,80 @@
+{
+ "externalId": "2Q2",
+ "id": "SP_OP_2Q2_1",
+ "name": "将数据从暂存区迁移至 SAP S/4HANA (2Q2)",
+ "solutionProcessId": "232974a4-7710-4d07-ade1-a4add6c5ba9f",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "JP",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ES",
+  "ZA",
+  "AE",
+  "AU",
+  "SG",
+  "CN",
+  "IE",
+  "IT",
+  "MY",
+  "RO",
+  "SE",
+  "AT",
+  "NZ",
+  "PH",
+  "HU",
+  "IN",
+  "DK",
+  "FI",
+  "HK",
+  "NO",
+  "ID",
+  "TR",
+  "TW",
+  "SA",
+  "KR",
+  "MX",
+  "SK",
+  "PL",
+  "CZ",
+  "TH",
+  "PT",
+  "BR",
+  "RU"
+ ],
+ "mod": "IT",
+ "tier": "C",
+ "name_en": "Data Migration to SAP S/4HANA from Staging (2Q2)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Data Migration to SAP S/4HANA from Staging (2Q2)</title>\n </head>\n <body id=\"loiobb6fe1179cbb4047846d00fd03aeaa06\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loiobb6fe1179cbb4047846d00fd03aeaa06__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">SAP S/4HANA customers can use the included <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> migration cockpit to migrate data.</p>\n      <p class=\"p\">If the customer chooses to use the Migrate Data Using Staging Tables approach, the <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> migration cockpit creates staging tables for the migration objects that are relevant for your project and migrates data from these staging tables to the target <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> system.</p>\n      <p class=\"p\">If you use the Local SAP S/4HANA Database Schema option, the <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> migration cockpit generates the staging tables in the local ABAP schema of the <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> system. We recommend using this option if you want to populate the staging tables using the template files provided by SAP.</p>\n      <p class=\"p\">If you use the Remote SAP HANA Database Schema option, you specify the relevant connection to a remote SAP HANA system. The <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> migration cockpit generates the staging tables there.</p>\n     </section>\n     <section class=\"section\" id=\"loiobb6fe1179cbb4047846d00fd03aeaa06__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Create a project</li>\n       <li class=\"li\">Select the migration objects that are relevant for your migration project</li>\n       <li class=\"li\">Fill the staging tables with data using SAP or third-party ETL tools or by using the template files provided by SAP</li>\n       <li class=\"li\">Process any open mapping tasks to ensure correct source data mapping</li>\n       <li class=\"li\">Simulate the migration of data</li>\n       <li class=\"li\">Rework data and repeat mapping tasks (if required)</li>\n       <li class=\"li\">Repeat the simulation process (if required)</li>\n       <li class=\"li\">Migrate the data to <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span></li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loiobb6fe1179cbb4047846d00fd03aeaa06__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Deliver migration projects on time and within budget</li>\n       <li class=\"li\">Provide trusted data to users</li>\n       <li class=\"li\">Increase data load performance by changing to table read rather than file upload</li>\n       <li class=\"li\">Ensure quality master data for your core business processes</li>\n       <li class=\"li\">Validate the data against specific customer business rules</li>\n       <li class=\"li\">Load data into your <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> system</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>将数据从暂存区迁移至 SAP S/4HANA (2Q2)</title>\n </head>\n <body id=\"loiobb6fe1179cbb4047846d00fd03aeaa06\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loiobb6fe1179cbb4047846d00fd03aeaa06__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">SAP S/4HANA 客户可以使用包含的 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 迁移主控室迁移数据。</p>\n      <p class=\"p\">如果客户选择使用使用暂存表迁移数据方法，<span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 迁移主控室将为与项目相关的迁移对象创建暂存表，并将数据从这些暂存表迁移到目标 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 系统。</p>\n      <p class=\"p\">如果使用本地 SAP S/4HANA 数据库模式选项，<span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 迁移主控室将在 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 系统的本地 ABAP 模式中生成暂存表。如果要使用 SAP 提供的模板文件填充暂存表，建议使用此选项。</p>\n      <p class=\"p\">如果使用远程 SAP HANA 数据库模式选项，则指定到远程 SAP HANA 系统的相关连接。<span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 迁移主控室在此处生成暂存表。</p>\n     </section>\n     <section class=\"section\" id=\"loiobb6fe1179cbb4047846d00fd03aeaa06__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">创建项目</li>\n       <li class=\"li\">选择与迁移项目相关的迁移对象。</li>\n       <li class=\"li\">使用 SAP 或第三方 ETL 工具或使用 SAP 提供的模板文件在暂存表中填充数据</li>\n       <li class=\"li\">处理所有未完成映射任务，以确保源数据映射正确</li>\n       <li class=\"li\">模拟数据迁移</li>\n       <li class=\"li\">返工数据并重复映射任务（如果需要）</li>\n       <li class=\"li\">重复模拟流程（如果需要）</li>\n       <li class=\"li\">将数据迁移到 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span></li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loiobb6fe1179cbb4047846d00fd03aeaa06__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">在预算内按时交付迁移项目</li>\n       <li class=\"li\">为用户提供可靠数据</li>\n       <li class=\"li\">通过更改为表读取而不是文件上载，提高数据加载性能</li>\n       <li class=\"li\">确保核心业务流程的质量主数据</li>\n       <li class=\"li\">根据特定客户业务规则验证数据</li>\n       <li class=\"li\">将数据加载到 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 系统</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "将数据从暂存区迁移至 SAP S/4HANA (2Q2)",
+ "flows": [
+  {
+   "id": "5af07219-ba98-4c25-9cf0-c39ef732c4fe",
+   "stableId": "SPF_OP_2Q2_1",
+   "name": "Data Migration to SAP S/4HANA from Staging (2Q2)",
+   "description": "",
+   "diagrams": []
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

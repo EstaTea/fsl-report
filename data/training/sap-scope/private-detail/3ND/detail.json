@@ -1,0 +1,467 @@
+{
+ "externalId": "3ND",
+ "id": "SP_OP_3ND_1",
+ "name": "产品结构管理 (3ND)",
+ "solutionProcessId": "582ba7d7-8d33-453c-98a9-bbf50eaad12d",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "JP",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ES",
+  "ZA",
+  "AE",
+  "AU",
+  "SG",
+  "CN",
+  "IE",
+  "IT",
+  "MY",
+  "RO",
+  "SE",
+  "AT",
+  "NZ",
+  "PH",
+  "HU",
+  "IN",
+  "DK",
+  "FI",
+  "HK",
+  "NO",
+  "ID",
+  "TR",
+  "TW",
+  "SA",
+  "KR",
+  "MX",
+  "PL",
+  "TH",
+  "PT",
+  "RU"
+ ],
+ "mod": "",
+ "tier": "D",
+ "name_en": "Product Structure Management (3ND)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Product Structure Management (3ND)</title>\n </head>\n <body id=\"loio627eaf21945d4203bd95c467d9dfca5d\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio627eaf21945d4203bd95c467d9dfca5d__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">This scope item supports the setup of products or product families with many variants and components. It provides a highly flexible product structure that can manage configurable products or product families as well as non-configurable products as assemblies in one product structure. The product structure can be built up manually or derived from functional structures. You can structure a product as a set of hierarchically and multi-disciplined (for example, mechanical and software) ordered objects in <span class=\"ph pname\">SAP S/4HANA Cloud Public Edition</span>. Additionally, the definition and maintenance of product structures is optimized for <span class=\"ph pname\">SAP S/4HANA Cloud Public Edition</span>. Product structures manage product variant structures in early development phases without the need to employ material master data. Simulation functions enable analysis of the product structures for various purposes.</p>\n     </section>\n     <section class=\"section\" id=\"loio627eaf21945d4203bd95c467d9dfca5d__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Create product master of type \"Configurable Material\" – MDS</li>\n       <li class=\"li\">Setup high level product configuration</li>\n       <li class=\"li\">Create product structure from template</li>\n       <li class=\"li\">Define product family</li>\n       <li class=\"li\">Manage date effectivities</li>\n       <li class=\"li\">Create item variants</li>\n       <li class=\"li\">Manage variant effectivities (optional)</li>\n       <li class=\"li\">Manage software effectivities</li>\n       <li class=\"li\">Manage software variant</li>\n       <li class=\"li\">Add software and document info record with version</li>\n       <li class=\"li\">Manage simulation</li>\n       <li class=\"li\">Select filter/simulation</li>\n       <li class=\"li\">Simulate product structure</li>\n       <li class=\"li\">Add components to item variant (optional)</li>\n       <li class=\"li\">Filter and review product structure</li>\n       <li class=\"li\">2G5 – Check software compatibility</li>\n       <li class=\"li\">Release for handover</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio627eaf21945d4203bd95c467d9dfca5d__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Structure a product as a set of hierarchically ordered objects</li>\n       <li class=\"li\">Optimize the definition and maintenance of product structures</li>\n       <li class=\"li\">Get state-of-the-art variant configuration and variant management capabilities</li>\n       <li class=\"li\">Provide comprehensive product simulation capabilities</li>\n       <li class=\"li\">Use continuous modeling right from an early design phase until start of production</li>\n       <li class=\"li\">Enable multi-level product structure maintenance</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>产品结构管理 (3ND)</title>\n </head>\n <body id=\"loio627eaf21945d4203bd95c467d9dfca5d\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio627eaf21945d4203bd95c467d9dfca5d__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">此范围项目支持具有许多变式和组件的产品或产品系列的设置。它提供了高度灵活的产品结构，可以在一个产品结构中管理可配置产品或产品系列以及作为装配的非可配置产品。产品结构可以手动构建，也可以从功能结构派生。您可以在 <span class=\"ph pname\">SAP S/4HANA Cloud Public Edition</span> 中将产品结构化为一组按层次结构划分的多学科（例如，机械和软件）订购对象。此外，产品结构的定义和维护针对 <span class=\"ph pname\">SAP S/4HANA Cloud Public Edition</span> 进行了优化。产品结构在早期开发阶段管理产品变式结构，而无需使用物料主数据。模拟功能支持出于各种目的分析产品结构。</p>\n     </section>\n     <section class=\"section\" id=\"loio627eaf21945d4203bd95c467d9dfca5d__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">创建“可配置物料”类型的产品主数据 - MDS</li>\n       <li class=\"li\">设置高级产品配置</li>\n       <li class=\"li\">从模板创建产品结构</li>\n       <li class=\"li\">定义产品族</li>\n       <li class=\"li\">管理日期有效性</li>\n       <li class=\"li\">创建项目变式</li>\n       <li class=\"li\">管理变式有效性（可选）</li>\n       <li class=\"li\">管理软件有效性</li>\n       <li class=\"li\">管理软件变式</li>\n       <li class=\"li\">添加含版本的软件和文档信息记录</li>\n       <li class=\"li\">管理模拟</li>\n       <li class=\"li\">选择过滤器/模拟</li>\n       <li class=\"li\">模拟产品结构</li>\n       <li class=\"li\">将组件添加到项目变式（可选）</li>\n       <li class=\"li\">过滤和检查产品结构</li>\n       <li class=\"li\">2G5 – 检查软件兼容性</li>\n       <li class=\"li\">移交审批</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio627eaf21945d4203bd95c467d9dfca5d__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">将产品结构化为一组按层次结构排序的对象。</li>\n       <li class=\"li\">优化产品结构的定义和维护</li>\n       <li class=\"li\">获取最先进的变式配置和变式管理功能</li>\n       <li class=\"li\">提供全面的产品模拟功能</li>\n       <li class=\"li\">从早期设计阶段到生产开始，立即使用持续建模</li>\n       <li class=\"li\">启用多级产品结构维护</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "产品结构管理 (3ND)",
+ "flows": [
+  {
+   "id": "d98a83b8-7161-4643-86e7-ba10bf950afe",
+   "stableId": "SPF_OP_3ND_1",
+   "name": "Product Structure Management (3ND)",
+   "description": "",
+   "diagrams": []
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

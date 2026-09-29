@@ -1,0 +1,111 @@
+{
+ "externalId": "1J5",
+ "id": "SP_OP_1J5_1",
+ "name": "发票、税收和补充过账 (1J5)",
+ "solutionProcessId": "55a24095-3e8a-4479-9f95-9bf96a60e76b",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "BR"
+ ],
+ "mod": "FI",
+ "tier": "B",
+ "name_en": "Invoice, Taxes and Complementary Postings (1J5)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Invoice, Taxes and Complementary Postings (1J5)</title>\n </head>\n <body id=\"loioeca64ba3613546eb94b62492cd3ff82f\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loioeca64ba3613546eb94b62492cd3ff82f__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">The system automatically generates a nota fiscal invoice in Logistics Invoice Verification for a service you procured. The nota fiscal serves as the basis for statutory reporting. You can use the Nota Fiscal Writer to create, change, or display a nota fiscal. You can also process manual payments online (Accounts Receivable) as a manual alternative for FSN replacement.</p>\n     </section>\n     <section class=\"section\" id=\"loioeca64ba3613546eb94b62492cd3ff82f__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Manage Nota Fiscal (NF)</li>\n       <li class=\"li\">Generate RPS number (Provisory Service Receipt)</li>\n       <li class=\"li\">Fill service Nota Fiscal number given by local authorities</li>\n       <li class=\"li\">Complete service Nota Fiscal with NBS code</li>\n       <li class=\"li\">Create outgoing service Nota Fiscal (manual)</li>\n       <li class=\"li\">Cancel manual service NF Writer</li>\n       <li class=\"li\">Use Incoming NF Writer (for goods or services)</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loioeca64ba3613546eb94b62492cd3ff82f__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Create Nota Fiscal or electronic fiscal documents manually</li>\n       <li class=\"li\">Display or change a Nota Fiscal (manually or automatically generated)</li>\n       <li class=\"li\">Print or reprint a Nota Fiscal</li>\n       <li class=\"li\">Cancel a Nota Fiscal that was created in the NF Writer</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>发票、税收和补充过账 (1J5)</title>\n </head>\n <body id=\"loioeca64ba3613546eb94b62492cd3ff82f\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loioeca64ba3613546eb94b62492cd3ff82f__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">系统在物流发票校验中为采购的服务自动生成发票。发票用作法定报表的基础。您可以使用发票编写器创建、更改或显示发票。您还可以在线处理手动付款（应收账款）作为 FSN 替换的手动备选项。</p>\n     </section>\n     <section class=\"section\" id=\"loioeca64ba3613546eb94b62492cd3ff82f__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">管理发票 (NF)</li>\n       <li class=\"li\">生成 RPS 编号（临时服务收据）</li>\n       <li class=\"li\">填充地方当局提供的服务发票编号</li>\n       <li class=\"li\">使用 NBS 代码完成服务发票</li>\n       <li class=\"li\">创建付款服务发票（手动）</li>\n       <li class=\"li\">取消手动服务发票编写器</li>\n       <li class=\"li\">使用采购发票编写器（针对货物或服务）</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loioeca64ba3613546eb94b62492cd3ff82f__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">手动创建发票或电子会计凭证</li>\n       <li class=\"li\">显示或更改发票（手动或自动生成）</li>\n       <li class=\"li\">打印或重新打印发票</li>\n       <li class=\"li\">取消在 NF 编写器中创建的发票</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "发票、税收和补充过账 (1J5)",
+ "flows": [
+  {
+   "id": "a7d79c0a-f478-49df-a907-d1483a08555b",
+   "stableId": "SPF_OP_1J5_1",
+   "name": "Invoice, Taxes and Complementary Postings (1J5)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "1J5 - 04 - Fill in Service Nota Fiscal Number Given by Local Authorities",
+     "stableId": "ERL-86d3a3f22aea45df807efbd6982337b9"
+    },
+    {
+     "name": "1J5 - 18 - Manually Input Bank Statement",
+     "stableId": "ERL-0047d2c3b315493197c1cf3d3e02801e"
+    },
+    {
+     "name": "1J5 - 12 - Create Incoming NF Writer",
+     "stableId": "ERL-f045c601a21a405ea22421e1479e314c"
+    },
+    {
+     "name": "1J5 - 11 - Cancel Outgoing NF Writer",
+     "stableId": "ERL-94bed7e36d434cd08c791919f2d69810"
+    },
+    {
+     "name": "1J5 - 17 - Post Incoming Payments",
+     "stableId": "ERL-9b8f65022d5146ec95284caf6cb368cf"
+    },
+    {
+     "name": "1J5 - 13 - Change Incoming NF Writer",
+     "stableId": "ERL-443b29132b5e48be956a65c6af38eeab"
+    },
+    {
+     "name": "1J5 - 15 - Cancel Incoming NF Writer",
+     "stableId": "ERL-76cf8e21ebd544e581544e5f504ac904"
+    },
+    {
+     "name": "1J5 - 14 - Display Incoming NF Writer",
+     "stableId": "ERL-9c481afa5e304585a42de62fda2b9e5c"
+    },
+    {
+     "name": "1J5 - 01 - Create Outgoing Service Nota Fiscal (Manual)",
+     "stableId": "ERL-9e0e0d078bb845eab16764352ed84c02"
+    },
+    {
+     "name": "1J5 - 03 - Generate RPS Number (Provisory Service Receipt)",
+     "stableId": "ERL-d2a4fd431a2543b9ac94d3e5048ea949"
+    },
+    {
+     "name": "1J5 - 02 - Complete Service Nota Fiscal",
+     "stableId": "ERL-c89ed152c7b14533adcf2ad343153ed7"
+    },
+    {
+     "name": "1J5 - 10 - Display Outgoing NF Writer",
+     "stableId": "ERL-b1c996d449d04ed3ac3cd5b099ae6976"
+    },
+    {
+     "name": "1J5 - 16 - Post Outgoing Payment",
+     "stableId": "ERL-a9727eb37fe740c68778152c66c741fb"
+    },
+    {
+     "name": "1J5 - 06 - Download Service Nota Fiscal Data",
+     "stableId": "ERL-b8426fb362ec4fd9854456ee90a1f218"
+    },
+    {
+     "name": "1J5 - 09 - Change Outgoing NF Writer",
+     "stableId": "ERL-9f91ede463874769bc9a81ff528c2cdc"
+    },
+    {
+     "name": "1J5 - 07 - Upload Service Nota Fiscal Data",
+     "stableId": "ERL-1d3c06f982ca4c78b279d08fb8fa9119"
+    },
+    {
+     "name": "1J5 - 05 - Cancel Manual Service NF Writer",
+     "stableId": "ERL-01031503d78f424592c10adf3179ed11"
+    },
+    {
+     "name": "1J5 - 08 - Create Outgoing NF Writer",
+     "stableId": "ERL-7ef482f1098146e3b0760f7232921141"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

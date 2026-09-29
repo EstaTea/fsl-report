@@ -1,0 +1,58 @@
+{
+ "externalId": "4R6",
+ "id": "SP_OP_4R6_1",
+ "name": "使用第三方的销售处理（含变式配置）(4R6)",
+ "solutionProcessId": "f65f369f-fddd-4bb8-ae19-88fbede72e65",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE"
+ ],
+ "mod": "SD",
+ "tier": "A",
+ "name_en": "Sales Processing using Third-Party with Variant Configuration (4R6)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Sales Processing using Third-Party with Variant Configuration (4R6)</title>\n </head>\n <body id=\"loiof7a135fb694041fa9e4d0a2b65f5bab1\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loiof7a135fb694041fa9e4d0a2b65f5bab1__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">With this process, the standard sales order automatically creates a purchase requisition for the materials to be delivered by third-party vendors.</p>\n      <p class=\"p\">The purchase requisition is transferred into a purchase order and sent to the vendor.</p>\n      <p class=\"p\">Once vendors have sent a shipping notification, a statistical goods receipt can be posted. Once this has taken place, customer invoices can be created and issued based on the goods receipt quantities.</p>\n      <p class=\"p\">After the shipping notification, the invoice receipt is posted based on the invoice sent from vendor.</p>\n      <p class=\"p\">You can also run the process without shipping notifications. In that case, you can create the customer billing document based on the invoice from the vendor.</p>\n     </section>\n     <section class=\"section\" id=\"loiof7a135fb694041fa9e4d0a2b65f5bab1__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Create third-party sales order with configurable material</li>\n       <li class=\"li\">Convert purchase requisitions to purchase order</li>\n       <li class=\"li\">Post statistical goods receipt</li>\n       <li class=\"li\">Create billing document</li>\n       <li class=\"li\">Enter vendor invoice</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loiof7a135fb694041fa9e4d0a2b65f5bab1__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Reduce stock and cost, thus increasing efficiency</li>\n       <li class=\"li\">Transfer customer requirements directly to external suppliers</li>\n       <li class=\"li\">Send invoice from trader to customer, based on quantities from supplier invoices</li>\n       <li class=\"li\">Fulfill customer requirements despite material shortage</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>使用第三方的销售处理（含变式配置）(4R6)</title>\n </head>\n <body id=\"loiof7a135fb694041fa9e4d0a2b65f5bab1\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loiof7a135fb694041fa9e4d0a2b65f5bab1__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">通过此流程，标准销售订单将自动为第三方供应商要交付的物料创建采购申请。</p>\n      <p class=\"p\">采购申请将传输到采购订单中并发送给供应商。</p>\n      <p class=\"p\">供应商发送装运通知后，即可过账统计收货。一旦发生这种情况，就可以根据收货数量创建和开具客户发票。</p>\n      <p class=\"p\">在装运通知之后，将根据从供应商发送的发票过账发票收据。</p>\n      <p class=\"p\">也可以在没有装运通知的情况下运行流程。在这种情况下，您可以根据供应商的发票创建客户开票凭证。</p>\n     </section>\n     <section class=\"section\" id=\"loiof7a135fb694041fa9e4d0a2b65f5bab1__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">创建含可配置物料的第三方销售订单</li>\n       <li class=\"li\">将采购申请转换为采购订单</li>\n       <li class=\"li\">过账统计收货</li>\n       <li class=\"li\">创建开票凭证</li>\n       <li class=\"li\">输入供应商发票</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loiof7a135fb694041fa9e4d0a2b65f5bab1__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">减少库存和成本，从而提高效率</li>\n       <li class=\"li\">将客户需求直接传输给外部供应商</li>\n       <li class=\"li\">根据供应商发票中的数量，将发票从交易员发送至客户</li>\n       <li class=\"li\">在物料短缺的情况下仍可满足客户需求</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "使用第三方的销售处理（含变式配置）(4R6)",
+ "flows": [
+  {
+   "id": "06f22077-c481-42ce-b62c-c41eeba56c30",
+   "stableId": "SPF_OP_4R6_1",
+   "name": "Sales Processing using Third-Party with Variant Configuration (4R6)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "4R6 - Sales Processing using Third-Party with Variant Configuration (without Shipping Notification)",
+     "stableId": "ERL-f7b14d6e5b974d7ebe2267520e382e33"
+    },
+    {
+     "name": "4R6 - Sales Processing using Third-Party with Variant Configuration (with Shipping Notification)",
+     "stableId": "ERL-39a8e593c0734427b64437183a5e9174"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

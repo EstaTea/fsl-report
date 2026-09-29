@@ -1,0 +1,67 @@
+{
+ "externalId": "7YZ",
+ "id": "ERL-594da30746c94542aaed34e9dbdc8966",
+ "name": "多阶段公司间库存转储 (7YZ)",
+ "solutionProcessId": "2d3ded5a-b6f8-4327-b9cc-c8c9506ae940",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE"
+ ],
+ "mod": "MM",
+ "tier": "B",
+ "name_en": "Multistage Intercompany Stock Transfer (7YZ)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Multistage Intercompany Stock Transfer (7YZ)</title>\n </head>\n <body id=\"loiob33722b4b057434a9368af524cbc8cfe\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loiob33722b4b057434a9368af524cbc8cfe__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">Multistage Intercompany Stock Transfer is a common business process for many companies. In this process, you can create a Stock Transfer Order, which will initiate the complete set of follow on activities needed based on the Stock Transfer Order; this Stock Transfer order is triggered between a receiving plant belonging to one company code and a delivering plant belonging to a different company code in the same group of companies. This is accompanied by a Financial Chain master data entity relating to the receiving plant and delivering plant as well as the according material to be transferred.</p>\n      <p class=\"p\">Using this Financial Chain the intermediate companies will be identified via the assigned transfer plants, whereby the Orchestration engine (Value Chain Monitor) will setup and trigger the according Purchase Orders and Sales Orders.</p>\n     </section>\n     <section class=\"section\" id=\"loiob33722b4b057434a9368af524cbc8cfe__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <div class=\"p\">\n       <ul class=\"ul\">\n        <li class=\"li\">Prerequisite: Financial Chain for multistage intercompany stock transfer has been setup and released based on the material in question, the receiving and delivering plant.</li>\n        <li class=\"li\">Create a Stock Transfer Order, triggering Purchase Orders and Sales Orders as needed to be created automatically.</li>\n        <li class=\"li\">Create an Outbound Delivery in the Delivering Company, related to the Stock Transport Order.</li>\n        <li class=\"li\">Trigger Goods issue from the Outbound Delivery, triggering Inbound Delivery, Goods Issues and Goods Receipts along all involved companies out of / in to according evaluated Stock in Transit</li>\n        <li class=\"li\">Create Outgoing Invoices for all Sales Orders involved</li>\n        <li class=\"li\">Create Goods Receipt based on the Inbound Delivery in the Receiving Company</li>\n       </ul>\n      </div>\n     </section>\n     <section class=\"section\" id=\"loiob33722b4b057434a9368af524cbc8cfe__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <p class=\"p\">Ultimately automate the process to cater for Stock Transfer Orders, regardless of how many intermediate companies are involved, booking fully automated the steps of Sales Orders, Purchase Orders, Goods Receipt, Goods Issues, Inbound Deliveries along the chain.</p>\n      <p class=\"p\">Supporting in always having a complete picture of the overall process as well as any errors or warnings raised during processing of single steps.</p>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>多阶段公司间库存转储 (7YZ)</title>\n </head>\n <body id=\"loiob33722b4b057434a9368af524cbc8cfe\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loiob33722b4b057434a9368af524cbc8cfe__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">多级公司间库存转储是许多公司的常见业务流程。在此流程中，您可以创建库存转储单，这将基于库存转储单启动所需的完整后续活动；此库存转储单在属于同一公司代码的收货工厂和属于同一公司组中不同公司代码的交货工厂之间触发。这伴随着与收货工厂和交货工厂相关的财务链主数据实体，以及要转储的相应物料。</p>\n      <p class=\"p\">使用此财务链，中间公司将通过分配的转储工厂进行标识，其中协作引擎（价值链监控器）将设置和触发相应的采购订单和销售订单。</p>\n     </section>\n     <section class=\"section\" id=\"loiob33722b4b057434a9368af524cbc8cfe__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <div class=\"p\">\n       <ul class=\"ul\">\n        <li class=\"li\">前提条件：多级公司间库存转储的财务链已根据相关物料、收货和交货工厂进行设置和发布。</li>\n        <li class=\"li\">创建库存转移订单，根据需要自动创建采购订单和销售订单。</li>\n        <li class=\"li\">在交货公司中创建与库存调拨单相关的出库交货。</li>\n        <li class=\"li\">从交货触发发货，根据评估的在途库存触发所有相关公司的收货、发货和收货</li>\n        <li class=\"li\">为涉及的所有销售订单创建发出的发票</li>\n        <li class=\"li\">根据收货公司的入库交货创建收货。</li>\n       </ul>\n      </div>\n     </section>\n     <section class=\"section\" id=\"loiob33722b4b057434a9368af524cbc8cfe__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <p class=\"p\">最终实现流程自动化，以满足库存转储订单（无论涉及多少中间公司），沿链预订销售订单、采购订单、收货、发货、入库交货的步骤完全自动化。</p>\n      <p class=\"p\">支持始终全面了解整个流程，以及在处理单个步骤期间引发的任何错误或警告。</p>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "多阶段公司间库存转储 (7YZ)",
+ "flows": [
+  {
+   "id": "fe9a1bf3-31bd-437a-bb71-d6958424e4db",
+   "stableId": "ERL-129853d46db24eb1af4efb3e7d19470e",
+   "name": "Multistage Intercompany Stock Transfer (7YZ)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "7YZ - Multistage Intercompany Stock Transfer - 1 Intermediate Company",
+     "stableId": "ERL-1b7d0aafca9a4e52b08fe095d593623e"
+    },
+    {
+     "name": "7YZ - Multistage  Intercompany Stock Transfer - 2 Intermediate Companies",
+     "stableId": "ERL-3f55f854f8e34cc9a205738d397057e5"
+    },
+    {
+     "name": "7YZ - Multistage Intercompany Stock Transfer - No Intermediate Company ",
+     "stableId": "ERL-9ffa11db18e74014b6075e11877062f2"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Set-up instructions",
+   "bomType": "BOM.E56",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

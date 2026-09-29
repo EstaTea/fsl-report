@@ -1,0 +1,219 @@
+{
+ "externalId": "BKX",
+ "id": "SP_OP_BKX_1",
+ "name": "销售订单处理 - SEPA 直接借记处理 (BKX)",
+ "solutionProcessId": "91d7fe90-fb6a-41e3-9154-f92a6b9c351e",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "BE",
+  "CH",
+  "LU",
+  "ES",
+  "IE",
+  "IT",
+  "RO",
+  "AT",
+  "HU",
+  "DK",
+  "FI",
+  "SK",
+  "PT"
+ ],
+ "mod": "SD",
+ "tier": "A",
+ "name_en": "Sales Order Processing – SEPA Direct Debit Handling (BKX)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Sales Order Processing – SEPA Direct Debit Handling (BKX)</title>\n </head>\n <body id=\"loioa05545919d8545da91ffd5ce44714430\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loioa05545919d8545da91ffd5ce44714430__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">This business process encompasses the check of the SEPA mandate during sales order processing including exception handling if the SEPA mandate does not exist.</p>\n      <p class=\"p\">During the SEPA implementation phase, the internal sales representative regularly checks sales orders with missing SEPA mandates and coordinates the exception handling. If the SEPA mandate is received before delivery creation, the relevant SEPA mandate is maintained. Alternatively, payment terms that are not SEPA-relevant can be agreed upon with the customer for this particular order. In this case, the internal sales representative changes the sales order accordingly. After performance of exception handling, delivery documents can be created. The billing document is then created. On the invoice form, the SEPA prenotification is displayed to inform the customer about the debit memo. The incoming customer payment is handled within accounts receivables.</p>\n     </section>\n     <section class=\"section\" id=\"loioa05545919d8545da91ffd5ce44714430__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Create and check sales orders if SEPA mandate exists</li>\n       <li class=\"li\">Handle exceptions for missing SEPA mandate</li>\n       <li class=\"li\">Create delivery</li>\n       <li class=\"li\">Execute picking</li>\n       <li class=\"li\">Post goods issue</li>\n       <li class=\"li\">Create billing document including SEPA prenotification</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loioa05545919d8545da91ffd5ce44714430__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Enforce definition of SEPA mandate for SEPA-relevant customer sales orders when using SEPA payment terms</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>销售订单处理 - SEPA 直接借记处理 (BKX)</title>\n </head>\n <body id=\"loioa05545919d8545da91ffd5ce44714430\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loioa05545919d8545da91ffd5ce44714430__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">此业务流程涵盖销售订单处理期间的 SEPA 授权检查，包括 SEPA 授权不存在时的异常处理。</p>\n      <p class=\"p\">在 SEPA 实施阶段，内部销售代表定期检查缺少 SEPA 授权的销售订单并协调异常处理。如果在创建交货之前收到 SEPA 授权，则维护相关 SEPA 授权。或者，可以与客户就这一特定订单商定与 SEPA 无关的付款条件。在这种情况下，内部销售代表会相应地更改销售订单。执行异常处理后，可以创建交货凭证。然后创建开票凭证。在发票表单中，显示 SEPA 预通知以通知客户有关借项凭证的信息。客户收款在应收账款中处理。</p>\n     </section>\n     <section class=\"section\" id=\"loioa05545919d8545da91ffd5ce44714430__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">创建并检查销售订单是否存在 SEPA 授权</li>\n       <li class=\"li\">处理缺少 SEPA 授权的异常</li>\n       <li class=\"li\">创建交货</li>\n       <li class=\"li\">执行拣配</li>\n       <li class=\"li\">过账发货</li>\n       <li class=\"li\">创建开票凭证，包括 SEPA 预通知</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loioa05545919d8545da91ffd5ce44714430__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">使用 SEPA 付款条件时，强制定义 SEPA 相关客户销售订单的 SEPA 授权</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "销售订单处理 - SEPA 直接借记处理 (BKX)",
+ "flows": [
+  {
+   "id": "54940c3c-ccf6-4616-ad75-5f03698ef5ad",
+   "stableId": "SPF_OP_BKX_1",
+   "name": "Sales Order Processing - SEPA Direct Debit Handling (BKX)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "BKX - Sales Order Processing - SEPA Direct Debit Handling",
+     "stableId": "ERL-99b7feeea1ff4537a77a21b03114228e"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

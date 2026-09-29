@@ -1,0 +1,316 @@
+{
+ "externalId": "4H2",
+ "id": "SP_OP_4H2_1",
+ "name": "自开票 (4H2)",
+ "solutionProcessId": "50acb4a7-16e6-4c11-8cc8-ef6e2088a5d9",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "JP",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ES",
+  "ZA",
+  "AE",
+  "IE",
+  "RO",
+  "AT",
+  "HU",
+  "IN",
+  "FI",
+  "HK",
+  "SA",
+  "KR",
+  "SK",
+  "CZ",
+  "TH"
+ ],
+ "mod": "SD",
+ "tier": "A",
+ "name_en": "Self-Billing (4H2)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Self-Billing (4H2)</title>\n </head>\n <body id=\"loio582936f65bfa4d569200c0410a253043\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio582936f65bfa4d569200c0410a253043__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">In many sell-from-stock processes (for example, described in the Sell from Stock (BD9) and Sales Scheduling Agreements (3NR) scope items), the financial settlement is done using a self-billing process with the customer. Instead of sending the invoice to the customer, the supplier receives self-billing information from the customer. This self-billing information contains the reference document number, the received quantity, and the value to be credited to the supplier (as well as other information).</p>\n      <p class=\"p\">This scope item relates to the self-billing processes on the sales side of the supplier. In the processes, the supplier validates the self-billing message received from the customer and simulates results. If there are differences, credit and debit memos are created respectively to settle the account.</p>\n      <p class=\"p\">If the differences exceed the defined tolerances, credit and debit memos are created to show the open amounts. The existing invoices and accounting documents are updated with the transferred self-billing reference number. This ensures that the financial settlement can be automated once the payment advice from the customer is received.</p>\n      <p class=\"p\">In Self Billing with Invoice creation, an initial invoice doesn't exist. Instead, it’s simulated and created.</p>\n      <p class=\"p\">To enable this scope item's processes, activate this scope item and integrate your <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> system with SAP Self-Billing Cockpit. SAP Self-Billing Cockpit is licensed in the SAP Store. You can find it by searching for SAP Self-Billing Cockpit in the SAP Store. You can also find more details about this product by searching for SAP Self-Billing Cockpit on SAP Help Portal.</p>\n     </section>\n     <section class=\"section\" id=\"loio582936f65bfa4d569200c0410a253043__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <p class=\"p\">Self-Billing with Automatic Posting</p>\n      <ul class=\"ul\">\n       <li class=\"li\">Receive self-billing transmission from customers</li>\n       <li class=\"li\">Simulate incoming transmission to detect, any differences and correct internal reference documents</li>\n       <li class=\"li\">Update existing documents</li>\n       <li class=\"li\">Create billing documents (credit/debit memos) and related journal entries in finance</li>\n      </ul>\n      <p class=\"p\">Self-Billing with Invoice Creation</p>\n      <ul class=\"ul\">\n       <li class=\"li\">Receive self-billing transmission from customers</li>\n       <li class=\"li\">Validate and retrieval data performed on self-billing transmission</li>\n       <li class=\"li\">Simulate billing document creation in <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> based on transmission</li>\n       <li class=\"li\">Compare the simulation results with the transmission to detect any differences</li>\n       <li class=\"li\">Modify value-added tax (VAT) code in case of tax amount differences (optional)</li>\n       <li class=\"li\">Create billing documents (invoice, credit/debit memos) and related journal entries in finance</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio582936f65bfa4d569200c0410a253043__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Receive self-billing information from customers</li>\n       <li class=\"li\">Simulate incoming information to detect any differences and correct internal reference documents</li>\n       <li class=\"li\">Update existing documents</li>\n       <li class=\"li\">Create billing documents (Invoice and credit debit memos) and related journal entries in finance</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>自开票 (4H2)</title>\n </head>\n <body id=\"loio582936f65bfa4d569200c0410a253043\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio582936f65bfa4d569200c0410a253043__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">在许多按库存销售流程中（例如，在从库存销售 (BD9) 和销售计划协议 (3NR) 范围项目中描述），财务结算是使用与客户之间的自开票流程完成的。供应商不会将发票发送给客户，而是从客户处接收自开票信息。此自开票信息包含参考凭证编号、已接收数量和要贷记到供应商的值（以及其他信息）。</p>\n      <p class=\"p\">此范围项目与供应商销售方的自开票流程相关。在这些流程中，供应商验证从客户处收到的自开票消息并模拟结果。如果存在差异，则分别创建贷项凭证和借项凭证以结算科目。</p>\n      <p class=\"p\">如果差异超过定义的容差，则会创建贷项和借项凭证以显示未清金额。使用传输的自开票参考编号更新现有发票和会计凭证。这可确保收到来自客户的付款通知后，可以自动进行财务结算。</p>\n      <p class=\"p\">在含发票创建的自开票中，不存在初始发票。而是模拟和创建。</p>\n      <p class=\"p\">要启用此范围项目的流程，请激活此范围项目并将 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 系统与 SAP Self-Billing Cockpit 集成。SAP Self-Billing Cockpit 在 SAP Store 中获得许可。您可以通过在 SAP Store 中搜索 SAP Self-Billing Cockpit 进行查找。您还可以通过在 SAP Help Portal 上搜索 SAP Self-Billing Cockpit 来查找有关此产品的更多详细信息。</p>\n     </section>\n     <section class=\"section\" id=\"loio582936f65bfa4d569200c0410a253043__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <p class=\"p\">含自动过账的自开票</p>\n      <ul class=\"ul\">\n       <li class=\"li\">接收客户的自开票传输</li>\n       <li class=\"li\">模拟传入传输以检测任何差异并更正内部参考凭证。</li>\n       <li class=\"li\">更新现有凭证</li>\n       <li class=\"li\">在财务中创建开票凭证（贷项/借项凭证）和相关日记账分录</li>\n      </ul>\n      <p class=\"p\">通过发票创建自开票</p>\n      <ul class=\"ul\">\n       <li class=\"li\">接收客户的自开票传输</li>\n       <li class=\"li\">验证和检索对自开票传输执行的数据</li>\n       <li class=\"li\">基于传输模拟 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 中的开票凭证创建</li>\n       <li class=\"li\">将模拟结果与传输进行比较，以检测任何差异</li>\n       <li class=\"li\">在税额差异的情况下修改增值税 (VAT) 代码（可选）</li>\n       <li class=\"li\">在财务中创建开票凭证（发票、贷项/借项凭证）和相关日记账分录</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio582936f65bfa4d569200c0410a253043__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">从客户处接收自开票信息</li>\n       <li class=\"li\">模拟传入信息，以检测任何差异并更正内部参考凭证</li>\n       <li class=\"li\">更新现有凭证</li>\n       <li class=\"li\">在财务中创建开票凭证（发票和贷项借项凭证）和相关日记账分录</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "自开票 (4H2)",
+ "flows": [
+  {
+   "id": "4e83d96f-e576-46d4-9ff5-ce53155ab60c",
+   "stableId": "SPF_OP_4H2_1",
+   "name": "Self-Billing (4H2)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "4H2 - Self-Billing",
+     "stableId": "GW4AxW627kosXmWOSqt5mG"
+    },
+    {
+     "name": "4H2 - Self-Billing",
+     "stableId": "ERL-73c8f5e4e1de4ca2a626caf62bf93e38"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Set-up instructions",
+   "bomType": "BOM.E56",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

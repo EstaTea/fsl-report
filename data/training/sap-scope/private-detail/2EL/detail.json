@@ -1,0 +1,63 @@
+{
+ "externalId": "2EL",
+ "id": "SP_OP_2EL_1",
+ "name": "销售与外部采购商的集成 (2EL)",
+ "solutionProcessId": "806efe25-f78f-4ae9-8f37-c1d5a20b5247",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE"
+ ],
+ "mod": "MM",
+ "tier": "A",
+ "name_en": "Integration of Sales with External Buyers (2EL)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Integration of Sales with External Buyers (2EL)</title>\n </head>\n <body id=\"loio91edf87ad58c4b9dadc69022df31e514\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio91edf87ad58c4b9dadc69022df31e514__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">For selling organizations whose buyers use traditional data exchange protocols such as electronic data interchange (EDI), or in two-tier scenarios, where subsidiaries are on <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span>, this scope item provides a set of robust application programming interfaces (APIs) to simplify and automate exchanging sales documents and their follow-on messages.</p>\n      <p class=\"p\">The following documents and functions are supported:</p>\n      <p class=\"p\">Sales Process:</p>\n      <ul class=\"ul\">\n       <li class=\"li\">Create, change, or cancel sales order (inbound message)</li>\n       <li class=\"li\">Send purchase order confirmation (outbound message)</li>\n       <li class=\"li\">Send Advance Shipping Notification (ASN, outbound delivery message)</li>\n       <li class=\"li\">Send supplier invoice (outbound message)</li>\n      </ul>\n      <p class=\"p\">Return Process:</p>\n      <ul class=\"ul\">\n       <li class=\"li\">Create return order (inbound message)</li>\n       <li class=\"li\">Return order confirmation (outbound message)</li>\n       <li class=\"li\">Send Credit Memo (outbound message)</li>\n      </ul>\n      <p class=\"p\">The Simple Object Access Protocol (SOAP) messaging protocol is supported.</p>\n      <p class=\"p\">You can enable B2B integration with the corresponding Integration of <span class=\"ph pname\">SAP S/4HANA Cloud Public Edition</span> Procurement with Suppliers (2EJ) scope item.</p>\n     </section>\n     <section class=\"section\" id=\"loio91edf87ad58c4b9dadc69022df31e514__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Create, update, or cancel sales order from purchase order</li>\n       <li class=\"li\">Display sales order (optional)</li>\n       <li class=\"li\">Release or cancel sales order manually if customer-expected price check fails</li>\n       <li class=\"li\">Send order (cancellation) confirmation</li>\n       <li class=\"li\">Create delivery</li>\n       <li class=\"li\">Execute picking</li>\n       <li class=\"li\">Post goods issue</li>\n       <li class=\"li\">Send advance shipping notice</li>\n       <li class=\"li\">Create billing document</li>\n       <li class=\"li\">Send invoice</li>\n       <li class=\"li\">Perform customer return process</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio91edf87ad58c4b9dadc69022df31e514__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Experience greater automation in exchanging sales documents with buyers</li>\n       <li class=\"li\">Reduce time and manual efforts in corresponding with buyers</li>\n       <li class=\"li\">Increase productivity, performance, and work satisfaction of sales professionals and accounts receivable accountants</li>\n       <li class=\"li\">Save costs for paper, postage, mailing, records management</li>\n       <li class=\"li\">Enable higher degrees of scalability with process efficiency gains</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>销售与外部采购商的集成 (2EL)</title>\n </head>\n <body id=\"loio91edf87ad58c4b9dadc69022df31e514\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio91edf87ad58c4b9dadc69022df31e514__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">对于采购商使用电子数据互换 (EDI) 等传统数据交换协议的销售组织，或者在子公司位于 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 的两层场景中，此范围项目提供了一组强大的应用程序编程接口 (API)，以简化和自动化交换销售凭证及其后续消息。</p>\n      <p class=\"p\">支持以下凭证和功能：</p>\n      <p class=\"p\">销售流程：</p>\n      <ul class=\"ul\">\n       <li class=\"li\">创建、更改或取消销售订单（入库消息）</li>\n       <li class=\"li\">发送采购订单确认（出库消息）</li>\n       <li class=\"li\">发送提前装运通知（ASN，出库交货消息）</li>\n       <li class=\"li\">发送供应商发票（出库消息）</li>\n      </ul>\n      <p class=\"p\">退货流程：</p>\n      <ul class=\"ul\">\n       <li class=\"li\">创建退货订单（入库消息）</li>\n       <li class=\"li\">退货订单确认（出库消息）</li>\n       <li class=\"li\">发送贷项凭证（出库消息）</li>\n      </ul>\n      <p class=\"p\">支持简单对象访问协议 (SOAP) 消息传递协议。</p>\n      <p class=\"p\">您可以通过相应的 <span class=\"ph pname\">SAP S/4HANA Cloud Public Edition</span> 采购与供应商的集成 (2EJ) 范围项目启用 B2B 集成。</p>\n     </section>\n     <section class=\"section\" id=\"loio91edf87ad58c4b9dadc69022df31e514__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">根据采购订单创建、更新或取消销售订单</li>\n       <li class=\"li\">显示销售订单（可选）</li>\n       <li class=\"li\">如果客户预期价格检查失败，则手动下达或取消销售订单</li>\n       <li class=\"li\">发送订单（取消）确认</li>\n       <li class=\"li\">创建交货</li>\n       <li class=\"li\">执行拣配</li>\n       <li class=\"li\">过账发货</li>\n       <li class=\"li\">发送提前装运通知</li>\n       <li class=\"li\">创建开票凭证</li>\n       <li class=\"li\">发送发票</li>\n       <li class=\"li\">执行客户退货流程</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio91edf87ad58c4b9dadc69022df31e514__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">在与采购商交换销售凭证时体验更大的自动化</li>\n       <li class=\"li\">减少与采购商相对应的时间和手动工作量</li>\n       <li class=\"li\">提高销售专家和应收账款会计人员的生产力、绩效和工作满意度</li>\n       <li class=\"li\">节省纸张、邮费、邮寄、记录管理成本</li>\n       <li class=\"li\">提高流程效率，提高可扩展性</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "销售与外部采购商的集成 (2EL)",
+ "flows": [
+  {
+   "id": "057a4d4a-aa9c-4d46-a6c4-b922a413744e",
+   "stableId": "SPF_OP_2EL_1",
+   "name": "Integration of Sales with External Buyers (2EL)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "2EL - 02 - Integration of Sales with External Buyers - Return Process",
+     "stableId": "ERL-ec58f49375794311ba272a2a5446854e"
+    },
+    {
+     "name": "2EL - 01 - Integration of Sales with External Buyers - Sales Process",
+     "stableId": "ERL-e35a403277ff4b218d51e68c783f3f97"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Set-up instructions",
+   "bomType": "BOM.E56",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

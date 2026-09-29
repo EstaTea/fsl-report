@@ -1,0 +1,477 @@
+{
+ "externalId": "2EM",
+ "id": "SP_OP_2EM_1",
+ "name": "准时制生产客户供应 (2EM)",
+ "solutionProcessId": "46754ec2-643b-4cf9-95a5-cedbd1c32e48",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "JP",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ES",
+  "ZA",
+  "AE",
+  "AU",
+  "SG",
+  "CN",
+  "IE",
+  "IT",
+  "MY",
+  "RO",
+  "SE",
+  "AT",
+  "NZ",
+  "PH",
+  "HU",
+  "IN",
+  "DK",
+  "FI",
+  "HK",
+  "NO",
+  "ID",
+  "TR",
+  "TW",
+  "SA",
+  "KR",
+  "MX",
+  "SK",
+  "PL",
+  "CZ",
+  "TH"
+ ],
+ "mod": "SD",
+ "tier": "A",
+ "name_en": "Just-In-Time Supply to Customer (2EM)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Just-In-Time Supply to Customer (2EM)</title>\n </head>\n <body id=\"loio11bfb53e22e44ce5a9ec852b4f414ffb\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio11bfb53e22e44ce5a9ec852b4f414ffb__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">The process starts with receiving Just-In-Time (JIT) calls from customers.</p>\n      <p class=\"p\">JIT calls are sent via an EDI integration and contain the component details with the requirements date and time. The material planner (JIT supply) monitors and manages the JIT calls. The production planner releases production-relevant component group materials or package units for production for summarized and sequenced JIT calls respectively.</p>\n      <p class=\"p\">The production operator then confirms the production of the components. The production supervisor reprocesses failed stocks.</p>\n      <p class=\"p\">The shipping specialist (JIT supply) creates deliveries that reflect the status accordingly. Advanced shipping notifications are sent via EDI to the OEM. The shipping specialist and material planner can create handling units as well.</p>\n      <p class=\"p\">After picking and posting of goods issue, the JIT call status is updated. Optionally, for summarized JIT calls, picking and post goods issue can be done in Extended Warehouse Management.</p>\n      <p class=\"p\">After the billing is created, the JIT call is updated to completed status.</p>\n     </section>\n     <section class=\"section\" id=\"loio11bfb53e22e44ce5a9ec852b4f414ffb__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Create, manage, and monitor Just-In-Time (JIT) calls</li>\n       <li class=\"li\">Release JIT calls to production</li>\n       <li class=\"li\">Confirm JIT calls from production</li>\n       <li class=\"li\">Reprocess failed stock posting</li>\n       <li class=\"li\">Release for packing</li>\n       <li class=\"li\">Confirm packing</li>\n       <li class=\"li\">Create delivery from JIT calls (sequenced or summarized)</li>\n       <li class=\"li\">Update JIT call based on subsequent outbound delivery split</li>\n       <li class=\"li\">Reorder process of JIT calls (before and after delivery)</li>\n       <li class=\"li\">Integrate with handling unit management</li>\n       <li class=\"li\">Integrate with extended warehouse management for summarized JIT calls</li>\n       <li class=\"li\">Execute picking</li>\n       <li class=\"li\">Post goods issue</li>\n       <li class=\"li\">Send advance shipping notice</li>\n       <li class=\"li\">Create billing document</li>\n       <li class=\"li\">Send invoice</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio11bfb53e22e44ce5a9ec852b4f414ffb__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Support the business process for Just-In-Time supply to customers</li>\n       <li class=\"li\">Enable the visibility of fulfillment progress and alerts based on processing errors</li>\n       <li class=\"li\">Support the business process for in-house repetitive manufacturing production</li>\n       <li class=\"li\">Help process the supply efficiently</li>\n       <li class=\"li\">Provide flexibility through configuration and extensibility</li>\n       <li class=\"li\">Support integration with handling unit management and EWM for summarized JIT calls</li>\n       <li class=\"li\">Support updates from external systems, such as manufacturing execution systems</li>\n       <li class=\"li\">Enable analytical capabilities to manage demand, stock, and materials</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>准时制生产客户供应 (2EM)</title>\n </head>\n <body id=\"loio11bfb53e22e44ce5a9ec852b4f414ffb\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loio11bfb53e22e44ce5a9ec852b4f414ffb__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">该流程从从客户处接收准时制生产 (JIT) 要货开始。</p>\n      <p class=\"p\">JIT 要货通过 EDI 集成发送，包含需求日期和时间等组件详细信息。物料计划员（JIT 供应）监控并管理 JIT 要货。生产计划员分别为汇总和顺序 JIT 要货发布生产相关组件组物料或包装单元用于生产。</p>\n      <p class=\"p\">然后，生产操作员确认组件的生产。生产主管重新处理失败的库存。</p>\n      <p class=\"p\">装运专家（JIT 供应）创建反映相应状态的交货。通过 EDI 将提前装运通知发送至 OEM。装运专员和物料计划员也可以创建处理单元。</p>\n      <p class=\"p\">拣配和过账发货后，JIT 要货状态将更新。或者，对于汇总 JIT 要货，可以在高级仓库管理中进行拣配和过账发货。</p>\n      <p class=\"p\">创建开票后，JIT 要货将更新为已完成状态。</p>\n     </section>\n     <section class=\"section\" id=\"loio11bfb53e22e44ce5a9ec852b4f414ffb__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">创建、管理和监控准时制生产 (JIT) 要货</li>\n       <li class=\"li\">将 JIT 要货下达至生产</li>\n       <li class=\"li\">确认生产中的 JIT 要货</li>\n       <li class=\"li\">重新处理失败的库存过账</li>\n       <li class=\"li\">包装审批</li>\n       <li class=\"li\">确认包装</li>\n       <li class=\"li\">根据 JIT 要货创建交货（顺序或汇总）</li>\n       <li class=\"li\">基于后续出库交货拆分更新 JIT 要货</li>\n       <li class=\"li\">JIT 要货的重订货流程（交货前后）</li>\n       <li class=\"li\">与处理单元管理集成</li>\n       <li class=\"li\">与扩展仓库管理集成以进行汇总 JIT 要货</li>\n       <li class=\"li\">执行拣配</li>\n       <li class=\"li\">过账发货</li>\n       <li class=\"li\">发送提前装运通知</li>\n       <li class=\"li\">创建开票凭证</li>\n       <li class=\"li\">发送发票</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loio11bfb53e22e44ce5a9ec852b4f414ffb__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">支持向客户准时制生产供应的业务流程</li>\n       <li class=\"li\">根据处理错误，启用履行进度和警报的可见性</li>\n       <li class=\"li\">支持内部重复制造生产的业务流程</li>\n       <li class=\"li\">帮助高效处理供应</li>\n       <li class=\"li\">通过配置和可扩展性提供灵活性</li>\n       <li class=\"li\">支持与处理单元管理和 EWM 集成以进行汇总 JIT 要货</li>\n       <li class=\"li\">支持来自外部系统（如制造执行系统）的更新</li>\n       <li class=\"li\">启用分析功能以管理需求、库存和物料</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "准时制生产客户供应 (2EM)",
+ "flows": [
+  {
+   "id": "e0eca039-0070-430e-9a5b-bef61fb9c1ef",
+   "stableId": "SPF_OP_2EM_1",
+   "name": "Just-In-Time Supply to Customer (2EM)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "2EM - Just-In-Time Supply to Customer",
+     "stableId": "ERL-88e060dd10684c009307f591815092c6"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Set-up instructions",
+   "bomType": "BOM.E56",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

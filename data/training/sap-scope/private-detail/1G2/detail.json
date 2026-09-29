@@ -1,0 +1,318 @@
+{
+ "externalId": "1G2",
+ "id": "SP_OP_1G2_1",
+ "name": "客户的基本仓库出库处理 (1G2)",
+ "solutionProcessId": "84e17cfc-20e0-492a-90a9-4e6e0fe0ba63",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE",
+  "FR",
+  "GB",
+  "NL",
+  "JP",
+  "BE",
+  "CH",
+  "CA",
+  "LU",
+  "ES",
+  "ZA",
+  "AE",
+  "AU",
+  "SG",
+  "CN",
+  "IE",
+  "IT",
+  "MY",
+  "SE",
+  "NZ",
+  "PH",
+  "HU",
+  "HK",
+  "TW",
+  "RU"
+ ],
+ "mod": "SD",
+ "tier": "A",
+ "name_en": "Basic Warehouse Outbound Processing to Customer (1G2)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>Basic Warehouse Outbound Processing to Customer (1G2)</title>\n </head>\n <body id=\"loiob533721e60e848398facde36140d97c4\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loiob533721e60e848398facde36140d97c4__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">In this scope item, you ship ordered goods to external customers. This process usually starts with the creation of a sales order and an outbound delivery, which is later used to trigger the outbound processing in the warehouse. During the creation of warehouse tasks, the system determines the location for picking the stock and allocates the stock to the warehouse task. At the same time, the system automatically makes sure that all goods for a customer are routed to the same place at the packing work center, where shipping handling unit labels and content lists are printed. After goods are loaded, the goods issue is posted. At the end of the process, follow-up actions (such as the creation of the billing document) are executed.</p>\n     </section>\n     <section class=\"section\" id=\"loiob533721e60e848398facde36140d97c4__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Create sales order</li>\n       <li class=\"li\">Create delivery</li>\n       <li class=\"li\">Create warehouse tasks manually</li>\n       <li class=\"li\">Check warehouse orders (optional)</li>\n       <li class=\"li\">Pick warehouse orders</li>\n       <li class=\"li\">Create shipping handling units and repacking</li>\n       <li class=\"li\">Close shipping handling units</li>\n       <li class=\"li\">Stage shipping handling units</li>\n       <li class=\"li\">Display loading overview (optional)</li>\n       <li class=\"li\">Load shipping handling units</li>\n       <li class=\"li\">Post goods issue for outbound delivery order</li>\n       <li class=\"li\">Check outbound delivery (optional)</li>\n       <li class=\"li\">Create billing document (optional)</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loiob533721e60e848398facde36140d97c4__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">Manage stock on a storage bin level</li>\n       <li class=\"li\">Provides flexible variations of the outbound process for sending goods to customers</li>\n       <li class=\"li\">Shows the detailed use of handover points, packing, staging, loading, and the RF/mobile environment including the corresponding RF queues that follow the physical layout of the warehouse</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>客户的基本仓库出库处理 (1G2)</title>\n </head>\n <body id=\"loiob533721e60e848398facde36140d97c4\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loiob533721e60e848398facde36140d97c4__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">在此范围项目中，将订购的货物运送给外部客户。此流程通常从创建销售订单和出库交货开始，稍后用于触发仓库中的出库处理。在创建仓库任务期间，系统会确定拣配库存的位置，并将库存分配到仓库任务。同时，系统会自动确保客户的所有货物都传送到包装工作中心的同一位置，在其中打印装运处理单元标签和内容清单。装货后，过账发货。流程结束时，将执行后续操作（例如创建开票凭证）。</p>\n     </section>\n     <section class=\"section\" id=\"loiob533721e60e848398facde36140d97c4__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">创建销售订单</li>\n       <li class=\"li\">创建交货</li>\n       <li class=\"li\">手动创建仓库任务</li>\n       <li class=\"li\">检查仓库订单（可选）</li>\n       <li class=\"li\">拣配仓库订单</li>\n       <li class=\"li\">创建装运处理单元并重新包装</li>\n       <li class=\"li\">关闭装运处理单元</li>\n       <li class=\"li\">准备装运处理单元</li>\n       <li class=\"li\">显示装货概览（可选）</li>\n       <li class=\"li\">加载装运处理单元</li>\n       <li class=\"li\">过账出库交货订单的发货</li>\n       <li class=\"li\">检查出库交货（可选）</li>\n       <li class=\"li\">创建开票凭证（可选）</li>\n      </ul>\n     </section>\n     <section class=\"section\" id=\"loiob533721e60e848398facde36140d97c4__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\">\n       <li class=\"li\">在仓位级别管理库存</li>\n       <li class=\"li\">提供灵活多变的出库流程，用于向客户发送货物</li>\n       <li class=\"li\">显示移交点、包装、备料、装货和射频/移动环境的详细使用，包括遵循仓库物理布局的相应射频队列</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "客户的基本仓库出库处理 (1G2)",
+ "flows": [
+  {
+   "id": "fdac523a-39fa-4222-8815-138008ea6f3b",
+   "stableId": "SPF_OP_1G2_1",
+   "name": "Basic Warehouse Outbound Processing to Customer (1G2)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "1G2 - Basic Warehouse Outbound Processing to Customer",
+     "stableId": "051Mdc327kY1qJi7aXSMlm"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}

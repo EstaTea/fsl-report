@@ -1,0 +1,57 @@
+{
+ "externalId": "7MD",
+ "id": "ERL-b743fd5725e74e45b72c3c61c6c878c7",
+ "name": "通过 SAP Commerce Cloud 的 B2B 订单履行 (7MD)",
+ "solutionProcessId": "02d85e4a-3e8e-4532-8449-33c1fce03852",
+ "targetRelease": "2025-FPS1",
+ "countries": [
+  "US",
+  "DE"
+ ],
+ "mod": "",
+ "tier": "D",
+ "name_en": "B2B Order Fulfillment with SAP Commerce Cloud (7MD)",
+ "description_en_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>B2B Order Fulfillment with SAP Commerce Cloud (7MD)</title>\n </head>\n <body id=\"loioa6fd692ee05b46d1a52efaf7fe512758\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loioa6fd692ee05b46d1a52efaf7fe512758__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">Overview</h2>\n      <p class=\"p\">Business customers expect the same high-level buying experience as private customers. At the same time, your organization wants to have the product data available in all channels in a consistent way without double maintenance.</p>\n      <p class=\"p\">The order created and stored in SAP Commerce Cloud is transferred to <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> for order fulfillment. The order status for the sales document is replicated from <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> to <span class=\"ph pname\">SAP Commerce Cloud</span>.</p>\n      <p class=\"p\">In addition, relevant master data, such as products (including classification, prices, and discount), stock level, business partners, and connected contact persons are replicated from <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> to <span class=\"ph pname\">SAP Commerce Cloud</span>.</p>\n     </section>\n     <section class=\"section\" id=\"loioa6fd692ee05b46d1a52efaf7fe512758__key_process_flow\">\n      <h2 class=\"title sectiontitle\">Key Process Flow</h2>\n      <div class=\"p\">\n       <ul class=\"ul\" id=\"loioa6fd692ee05b46d1a52efaf7fe512758__ul_sys_cd3_ybc\">\n        <li class=\"li\">Create or change business partner and contact in <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> and replicate to <span class=\"ph pname\">SAP Commerce Cloud</span></li>\n        <li class=\"li\">Maintain product master data in <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> and replicate to <span class=\"ph pname\">SAP Commerce Cloud</span></li>\n        <li class=\"li\">Maintain prices and discounts in <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> and replicate to <span class=\"ph pname\">SAP Commerce Cloud</span></li>\n        <li class=\"li\">Maintain product classification model in <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> and replicate to <span class=\"ph pname\">SAP Commerce Cloud</span></li>\n        <li class=\"li\">Replicate stock level from <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> to <span class=\"ph pname\">SAP Commerce Cloud</span></li>\n        <li class=\"li\">Place an order in the Web shop and send it to<span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> for order fulfillment</li>\n        <li class=\"li\">Replicate sales order status to <span class=\"ph pname\">SAP Commerce Cloud</span>, including advanced shipping notification once order has been shipped</li>\n        <li class=\"li\">Optional: Order Simulate – prices, discounts, stock level and credit can be checked on the fly during check out</li>\n        <li class=\"li\">Place service order in the web shop and send it to <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> for order fulfillment</li>\n        <li class=\"li\">Customer can cancel undelivered service order in Web shop, if service is not wanted anymore</li>\n        <li class=\"li\">Complete the service order and release for billing in <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span></li>\n        <li class=\"li\">Generate invoice for orders and check corresponding invoice in the Web shop</li>\n       </ul>\n      </div>\n     </section>\n     <section class=\"section\" id=\"loioa6fd692ee05b46d1a52efaf7fe512758__business_benefits\">\n      <h2 class=\"title sectiontitle\">Business Benefits</h2>\n      <ul class=\"ul\" id=\"loioa6fd692ee05b46d1a52efaf7fe512758__ul_yfq_xd3_ybc\">\n       <li class=\"li\">Focus your project on customer satisfaction by providing a first-class buying experience</li>\n       <li class=\"li\">Reduce cost and inconsistency with automated data replication and avoid double maintenance</li>\n       <li class=\"li\">Get reliable customer-specific business data as part of your B2B customers' buying experience</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "description_zh_html": "<!DOCTYPE html SYSTEM \"about:legacy-compat\">\n<html lang=\"en-us\">\n <head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta charset=\"UTF-8\">\n  <meta name=\"copyright\" content=\"(C) Copyright 2025\">\n  <meta name=\"generator\" content=\"DITA-OT\">\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"commonltr.css\">\n  <title>通过 SAP Commerce Cloud 的 B2B 订单履行 (7MD)</title>\n </head>\n <body id=\"loioa6fd692ee05b46d1a52efaf7fe512758\">\n  <main role=\"main\">\n   <article role=\"article\" aria-labelledby=\"ariaid-title1\">\n    <div class=\"body conbody\">\n     <section class=\"section\" id=\"loioa6fd692ee05b46d1a52efaf7fe512758__sol_var_overview\">\n      <h2 class=\"title sectiontitle\">概览</h2>\n      <p class=\"p\">业务客户希望获得与个人客户相同的高级购买体验。同时，您的组织希望以一致的方式在所有渠道中提供产品数据，而无需双重维护。</p>\n      <p class=\"p\">创建并存储在 SAP Commerce Cloud 中的订单将传输到 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 以进行订单履行。销售凭证的订单状态从 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 复制到 <span class=\"ph pname\">SAP Commerce Cloud</span>。</p>\n      <p class=\"p\">此外，相关主数据（例如产品（包括分类、价格和折扣）、库存水平、业务伙伴和相关联系人将从 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 复制到 <span class=\"ph pname\">SAP Commerce Cloud</span>。</p>\n     </section>\n     <section class=\"section\" id=\"loioa6fd692ee05b46d1a52efaf7fe512758__key_process_flow\">\n      <h2 class=\"title sectiontitle\">关键流程流</h2>\n      <div class=\"p\">\n       <ul class=\"ul\" id=\"loioa6fd692ee05b46d1a52efaf7fe512758__ul_sys_cd3_ybc\">\n        <li class=\"li\">在 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 中创建或更改业务伙伴和联系人并复制到 <span class=\"ph pname\">SAP Commerce Cloud</span></li>\n        <li class=\"li\">在 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 中维护产品主数据并复制到 <span class=\"ph pname\">SAP Commerce Cloud</span></li>\n        <li class=\"li\">在 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 中维护价格和折扣并复制到 <span class=\"ph pname\">SAP Commerce Cloud</span></li>\n        <li class=\"li\">在 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 中维护产品分类模型并复制到 <span class=\"ph pname\">SAP Commerce Cloud</span></li>\n        <li class=\"li\">将库存水平从 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 复制到 <span class=\"ph pname\">SAP Commerce Cloud</span></li>\n        <li class=\"li\">在网上商店下订单并将其发送至 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 以履行订单</li>\n        <li class=\"li\">将销售订单状态复制到 <span class=\"ph pname\">SAP Commerce Cloud</span>，包括订单装运后的提前装运通知</li>\n        <li class=\"li\">可选：订单模拟 - 可在检出期间即时检查价格、折扣、库存水平和贷项</li>\n        <li class=\"li\">在网上商店下服务订单并将其发送到 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 进行订单履行</li>\n        <li class=\"li\">如果不再需要服务，客户可以在网上商店中取消未交付的服务订单</li>\n        <li class=\"li\">在 <span class=\"ph pname\">SAP S/4HANA Cloud Private Edition</span> 中完成服务订单并审批以供开票</li>\n        <li class=\"li\">生成订单发票，并检查网上商店中的相应发票</li>\n       </ul>\n      </div>\n     </section>\n     <section class=\"section\" id=\"loioa6fd692ee05b46d1a52efaf7fe512758__business_benefits\">\n      <h2 class=\"title sectiontitle\">业务优势</h2>\n      <ul class=\"ul\" id=\"loioa6fd692ee05b46d1a52efaf7fe512758__ul_yfq_xd3_ybc\">\n       <li class=\"li\">通过提供一流的购买体验，将您的项目专注于客户满意度</li>\n       <li class=\"li\">通过自动数据复制降低成本和不一致，避免重复维护</li>\n       <li class=\"li\">作为 B2B 客户购买体验的一部分，获取可靠的客户特定业务数据</li>\n      </ul>\n     </section>\n    </div>\n   </article>\n  </main>\n </body>\n</html>",
+ "name_zh": "通过 SAP Commerce Cloud 的 B2B 订单履行 (7MD)",
+ "flows": [
+  {
+   "id": "6c1ffc9f-6de0-47c2-ab09-3befb5cebdab",
+   "stableId": "ERL-901f193f46524836b35c0664a555b2c8",
+   "name": "B2B Order Fulfillment with SAP Commerce Cloud (7MD)",
+   "description": "",
+   "diagrams": [
+    {
+     "name": "7MD - 01 - Integration with SAP Commerce Cloud - B2B Asynchronous Order Management - Business Partner Data OP",
+     "stableId": "ERL-72b633d9aec74f4d9ba6ea83c6f024be"
+    },
+    {
+     "name": "7MD - 02 - Integration with SAP Commerce Cloud - B2B Asynchronous Order Management - Product Master Data OP",
+     "stableId": "ERL-8d8442ddb37744cf9e4a59f9289b2622"
+    },
+    {
+     "name": "7MD - 03 - Integration with SAP Commerce Cloud - B2B Asynchronous Order Management - Sales Order Processing OP",
+     "stableId": "ERL-3a3fa1adcd624f1a89121c1a3ed1ce33"
+    }
+   ]
+  }
+ ],
+ "capabilities": [],
+ "bom": [
+  {
+   "name": "Set-up instructions",
+   "bomType": "BOM.E56",
+   "url": ""
+  },
+  {
+   "name": "Test script",
+   "bomType": "BOM.115",
+   "url": ""
+  },
+  {
+   "name": "Test script (SAP Cloud ALM)",
+   "bomType": "BOM.169",
+   "url": ""
+  }
+ ]
+}
