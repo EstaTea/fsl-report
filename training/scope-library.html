@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>SAP 官方流程库 · 佛照培训站</title>
+<style>
+:root{
+  --b900:#042c53; --b800:#0c447c; --b700:#0b2d47; --b500:#185fa5; --b400:#378add;
+  --b200:#85b7eb; --b100:#b5d4f4; --b050:#e6f1fb;
+  --rule:#d8e3ee; --ink:#123; --mut:#5a7089;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  color:var(--ink);background:#f5f8fb;font-size:14px;line-height:1.6}
+.wrap{max-width:1240px;margin:0 auto;padding:20px 18px 60px}
+h1{font-size:20px;font-weight:600;margin:0 0 4px;color:var(--b700)}
+.sub{color:var(--mut);font-size:13px;margin-bottom:14px}
+.callout{border:1px solid var(--b200);background:var(--b050);border-left:4px solid var(--b500);
+  border-radius:8px;padding:12px 14px;margin:0 0 16px;font-size:13px;color:var(--b800)}
+.callout b{color:var(--b700)}
+.callout.warn{border-color:#f0d9a8;background:#fdf6e6;border-left-color:#c8930f;color:#6b4e00}
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.stat{background:#fff;border:1px solid var(--rule);border-radius:8px;padding:8px 14px;min-width:88px}
+.stat .n{font-size:19px;font-weight:600;color:var(--b700);line-height:1.2}
+.stat .l{font-size:12px;color:var(--mut)}
+.filters{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:12px 14px;
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.filters input[type=search]{flex:1;min-width:220px;padding:7px 11px;border:1px solid var(--rule);
+  border-radius:6px;font-size:13px}
+.filters select{padding:7px 9px;border:1px solid var(--rule);border-radius:6px;font-size:13px;background:#fff}
+.filters label{font-size:12.5px;color:var(--b700);display:flex;align-items:center;gap:5px;cursor:pointer}
+.filters label input{margin:0}
+.hint{font-size:12px;color:var(--mut);margin-left:auto}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--rule);
+  border-radius:10px;overflow:hidden;font-size:13px}
+th{background:var(--b050);color:var(--b700);text-align:left;padding:9px 10px;font-weight:600;
+  border-bottom:1px solid var(--rule);white-space:nowrap;position:sticky;top:0}
+td{padding:8px 10px;border-bottom:1px solid #eef3f8;vertical-align:top}
+tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#f9fcff}
+.code{font-family:ui-monospace,Menlo,monospace;font-weight:600;color:var(--b800);white-space:nowrap}
+.tier{display:inline-block;width:20px;height:20px;line-height:20px;text-align:center;border-radius:4px;
+  font-size:12px;font-weight:600;color:#fff}
+.tA{background:var(--b700)} .tB{background:var(--b500)} .tC{background:var(--b200);color:var(--b900)}
+.tD{background:#c9d6e2;color:#4a627a}
+.tag{display:inline-block;font-size:11.5px;padding:1px 7px;border-radius:10px;background:var(--b050);
+  color:var(--b700);border:1px solid var(--b100);margin-right:4px;white-space:nowrap}
+.tag.warn{background:#fdf6e6;border-color:#f0d9a8;color:#7a5a08}
+.tag.ok{background:#e8f5ee;border-color:#bfe3cd;color:#1a6b3f}
+a.cl{color:var(--b500);text-decoration:none;font-size:12.5px}
+a.cl:hover{text-decoration:underline}
+.empty{padding:40px;text-align:center;color:var(--mut)}
+.foot{margin-top:18px;font-size:12px;color:var(--mut);line-height:1.7}
+.foot a{color:var(--b500)}
+</style>
+</head>
+<body>
+<script src="../nav-include.js"></script>
+<div class="wrap">
+  <h1>SAP 官方流程库</h1>
+  <div class="sub" id="sub">加载中…</div>
+
+  <div class="callout warn" id="editionNote"></div>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="filters">
+    <input type="search" id="q" placeholder="搜索编号或名称，如 J45 / 采购 / 生产">
+    <select id="fMod"><option value="">全部模块</option></select>
+    <select id="fTier"><option value="">全部优先级</option>
+      <option value="A">A 第 1 层候选</option><option value="B">B 次优先</option>
+      <option value="C">C 备查</option><option value="D">D 暂不纳入</option></select>
+    <select id="fStage"><option value="">全部阶段</option>
+      <option>基础</option><option>计划</option><option>执行</option><option>核算</option><option>分析</option></select>
+    <label><input type="checkbox" id="fCourse"> 只看已有课程</label>
+    <label><input type="checkbox" id="fClean"> 排除第三方/境外准则</label>
+    <span class="hint" id="cnt"></span>
+  </div>
+
+  <table>
+    <thead><tr>
+      <th style="width:58px">编号</th><th>流程名称</th>
+      <th style="width:78px">模块</th><th style="width:58px">阶段</th>
+      <th style="width:58px">优先级</th><th style="width:210px">标记 / 课程</th>
+    </tr></thead>
+    <tbody id="tb"><tr><td colspan="6" class="empty">加载中…</td></tr></tbody>
+  </table>
+
+  <div class="foot">
+    <div>数据来源：SAP Signavio Process Navigator（me.sap.com/processnavigator），版权归 SAP SE 所有。
+      本页仅收录流程编号与名称等事实性信息，并附官方链接；流程描述如后续补充，均为中文改写而非原文照搬。</div>
+    <div id="scoreNote"></div>
+  </div>
+</div>
+
+<script>
+var DATA = null, ROWS = [];
+var PN = 'https://me.sap.com/processnavigator/globalSearch?isFrom=BusinessProcess&sid-kname=';
+
+function esc(s){ return String(s||'').replace(/[&<>"]/g, function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+function load(file){
+  return fetch('../data/training/sap-scope/' + file).then(function(r){ return r.json(); });
+}
+
+function render(){
+  var q   = document.getElementById('q').value.trim().toLowerCase();
+  var mod = document.getElementById('fMod').value;
+  var tier= document.getElementById('fTier').value;
+  var stg = document.getElementById('fStage').value;
+  var onlyC = document.getElementById('fCourse').checked;
+  var clean = document.getElementById('fClean').checked;
+
+  var rows = ROWS.filter(function(x){
+    if(mod && x.mod !== mod) return false;
+    if(tier && x.tier !== tier) return false;
+    if(stg && x.stage !== stg) return false;
+    if(onlyC && !x.course) return false;
+    if(clean && (x.flags||[]).some(function(f){
+        return f.indexOf('第三方') >= 0 || f.indexOf('境外') >= 0 || f.indexOf('非目标行业') >= 0; })) return false;
+    if(q && (x.externalId||'').toLowerCase().indexOf(q) < 0
+         && (x.name||'').toLowerCase().indexOf(q) < 0) return false;
+    return true;
+  });
+
+  var tb = document.getElementById('tb');
+  document.getElementById('cnt').textContent = rows.length + ' / ' + ROWS.length + ' 条';
+  if(!rows.length){ tb.innerHTML = '<tr><td colspan="6" class="empty">没有匹配的流程</td></tr>'; return; }
+
+  tb.innerHTML = rows.map(function(x){
+    var tags = (x.flags||[]).map(function(f){
+      return '<span class="tag' + (f.indexOf('依赖')>=0||f.indexOf('境外')>=0||f.indexOf('非目标')>=0 ? ' warn' : '') + '">'
+             + esc(f) + '</span>'; }).join('');
+    var cls = x.course
+      ? '<a class="cl" href="overlay-run.html?course=' + esc(x.course) + '">▶ 打开本站课程</a>'
+      : '<a class="cl" href="' + PN + encodeURIComponent(x.externalId) + '" target="_blank" rel="noopener">官方链接 ↗</a>';
+    if(x.course) tags += '<span class="tag ok">已有课程</span>';
+    return '<tr>'
+      + '<td class="code">' + esc(x.externalId) + '</td>'
+      + '<td>' + esc(x.name) + '</td>'
+      + '<td>' + (x.mod ? esc(x.mod) : '<span style="color:#93a5b8">—</span>') + '</td>'
+      + '<td>' + esc(x.stage) + '</td>'
+      + '<td><span class="tier t' + x.tier + '">' + x.tier + '</span></td>'
+      + '<td>' + tags + cls + '</td>'
+      + '</tr>';
+  }).join('');
+}
+
+load('index.json').then(function(d){
+  DATA = d;
+  ROWS = d.items.map(function(x){
+    return {externalId:x.externalId, name:x.name, mod:x.mod, mods:x.mods, stage:x.stage,
+            tier:x.tier, pri:x.pri, flags:x.flags||[],
+            course:(d.course_map||{})[x.externalId] || ''};
+  });
+
+  document.getElementById('sub').textContent =
+    d.edition + ' · 共 ' + d.count + ' 条 · 抓取于 ' + d.fetched_at;
+
+  document.getElementById('editionNote').innerHTML =
+    '<b>Edition 口径提示（参考级）</b><br>' + esc(d.edition_note);
+
+  var c = d.scoring.counts || {};
+  var order = [['A','A 第 1 层候选'],['B','B 次优先'],['C','C 备查'],['D','D 暂不纳入']];
+  document.getElementById('stats').innerHTML =
+    '<div class="stat"><div class="n">' + d.count + '</div><div class="l">流程总数</div></div>' +
+    order.map(function(o){
+      return '<div class="stat"><div class="n">' + (c[o[0]]||0) + '</div><div class="l">' + o[1] + '</div></div>';
+    }).join('') +
+    '<div class="stat"><div class="n">' + Object.keys(d.course_map||{}).length + '</div><div class="l">已配课程</div></div>';
+
+  var mods = {};
+  ROWS.forEach(function(x){ if(x.mod) mods[x.mod] = (mods[x.mod]||0)+1; });
+  var sel = document.getElementById('fMod');
+  Object.keys(mods).sort(function(a,b){ return mods[b]-mods[a]; }).forEach(function(m){
+    var o = document.createElement('option'); o.value = m;
+    o.textContent = m + '（' + mods[m] + '）'; sel.appendChild(o);
+  });
+
+  document.getElementById('scoreNote').textContent =
+    '优先级口径：' + (d.scoring && d.scoring.formula) + '。' +
+    (d.scoring && d.scoring.rel_note || '') + '。为启发式打分，会误判，请按模块与阶段人工复核。';
+
+  ['q','fMod','fTier','fStage','fCourse','fClean'].forEach(function(id){
+    var el = document.getElementById(id);
+    el.addEventListener(el.type === 'search' ? 'input' : 'change', render);
+  });
+  render();
+}).catch(function(e){
+  document.getElementById('tb').innerHTML =
+    '<tr><td colspan="6" class="empty">数据加载失败：' + esc(e.message) + '</td></tr>';
+});
+</script>
+</body>
+</html>

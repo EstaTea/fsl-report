@@ -124,7 +124,25 @@
         </div>
       </div>
     </div>
-    <a href="/fsl-report/training/">🎓 培训</a>
+    <div class="nav-dropdown">
+      <a href="/fsl-report/training/" style="padding:0 14px;color:rgba(255,255,255,.75);font-size:12.5px;height:54px;display:flex;align-items:center;white-space:nowrap;font-weight:600;">🎓 培训 <span class="nav-arrow">▾</span></a>
+      <div class="nav-dropdown-panel" style="right:0;left:auto;">
+        <div class="nav-dd-row">
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">学习</div>
+            <a href="/fsl-report/training/">培训首页</a>
+            <a href="/fsl-report/training/lms.html">🎓 学员学习中心</a>
+            <a href="/fsl-report/training/scope-library.html">📚 SAP 官方流程库（621 条）</a>
+          </div>
+          <div class="nav-dd-col nav-dd-panel">
+            <div class="nav-dd-group-title">管理</div>
+            <a href="/fsl-report/training/author.html">🛠 课程编排器</a>
+            <a href="/fsl-report/training/admin.html">⚙ 管理后台</a>
+            <a href="/fsl-report/training/report.html">📈 学习报告</a>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="nav-dropdown">
       <a href="/fsl-report/togaf/" style="padding:0 14px;color:rgba(255,255,255,.75);font-size:12.5px;height:54px;display:flex;align-items:center;white-space:nowrap;font-weight:600;">TOGAF &amp; EA <span class="nav-arrow">▾</span></a>
       <div class="nav-dropdown-panel" style="right:0;left:auto;">
